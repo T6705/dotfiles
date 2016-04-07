@@ -23,10 +23,10 @@ echo "== Download vim/nvim config =="
 echo "=============================="
 
 ### vim
-curl https://raw.githubusercontent.com/tomtong1128/dotfile/master/.vimrc > ~/.vimrc
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.vimrc > ~/.vimrc
 
 ### nvim
-curl https://raw.githubusercontent.com/tomtong1128/dotfile/master/.config/nvim/init.vim > ~/.config/nvim/init.vim
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim > ~/.config/nvim/init.vim
 
 echo "===================="
 echo "== Update Plugins =="
@@ -57,4 +57,4 @@ echo "=========================="
 echo "== Download tmux config =="
 echo "=========================="
 
-curl https://raw.githubusercontent.com/tomtong1128/dotfile/master/.tmux.conf > ~/.tmux.conf
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
