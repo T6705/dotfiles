@@ -1,28 +1,44 @@
-## vim
+################
+## vim / nvim ##
+################
 
-echo "=========================================="
-echo "== Download vim plugins and color theme =="
-echo "=========================================="
+echo "==============================================="
+echo "== Download vim/nvim plugins and color theme =="
+echo "==============================================="
 
+### vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 curl -fLo ~/.vim/colors/molokai.vim --create-dirs \
     https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 
-echo "========================="
-echo "== Download vim config =="
-echo "========================="
+### nvim
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.config/nvim/colors/molokai.vim --create-dirs \
+	https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 
+echo "=============================="
+echo "== Download vim/nvim config =="
+echo "=============================="
+
+### vim
 curl https://raw.githubusercontent.com/tomtong1128/dotfile/master/.vimrc > ~/.vimrc
+
+### nvim
+curl https://github.com/tomtong1128/dotfile/blob/master/.config/nvim/init.vim > ~/.config/nvim/init.vim
 
 echo "===================="
 echo "== Update Plugins =="
 echo "===================="
 
 vim +PlugUpdate 
+nvim +PlugUpdate 
 reset
 
-## tmux
+##########
+## tmux ##
+##########
 
 echo "==================================="
 echo "== Install requirements packages =="
