@@ -1,13 +1,16 @@
 echo "=========================================="
 echo "== Download vim plugins and color theme =="
 echo "=========================================="
+
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 curl -fLo ~/.vim/colors/molokai.vim --create-dirs \
     https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+
 echo "==============================="
 echo "== Output config to ~/.vimrc =="
 echo "==============================="
+
 cat << EOF > ~/.vimrc
 colorscheme molokai
 let mapleader=','
@@ -279,4 +282,5 @@ EOF
 echo "===================="
 echo "== Update Plugins =="
 echo "===================="
+
 vim +PlugUpdate 
