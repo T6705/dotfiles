@@ -7,9 +7,9 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 curl -fLo ~/.vim/colors/molokai.vim --create-dirs \
     https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 
-echo "==============================="
+echo "================================="
 echo "== Download config to ~/.vimrc =="
-echo "==============================="
+echo "================================="
 
 curl https://raw.githubusercontent.com/tomtong1128/dotfile/master/.vimrc > ~/.vimrc
 
