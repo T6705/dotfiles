@@ -18,3 +18,4 @@ echo "== Update Plugins =="
 echo "===================="
 
 vim +PlugUpdate 
+reset
