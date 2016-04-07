@@ -26,7 +26,7 @@ echo "=============================="
 curl https://raw.githubusercontent.com/tomtong1128/dotfile/master/.vimrc > ~/.vimrc
 
 ### nvim
-curl https://github.com/tomtong1128/dotfile/blob/master/.config/nvim/init.vim > ~/.config/nvim/init.vim
+curl https://raw.githubusercontent.com/tomtong1128/dotfile/master/.config/nvim/init.vim > ~/.config/nvim/init.vim
 
 echo "===================="
 echo "== Update Plugins =="
