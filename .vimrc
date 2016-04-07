@@ -1,21 +1,43 @@
-set t_Co=256
-set cursorline
-set guioptions=egmrti
-set gfn=Monospace\ 10
-set background=dark
-syntax on
-set ruler
-set number
 colorscheme molokai
+let mapleader=','
+set background=dark
+set backspace=indent,eol,start
+set binary
+set bomb
+set cursorline
+set encoding=utf-8
+set expandtab
+set fileencoding=utf-8
+set fileencodings=utf-8
+set fileformats=unix,dos,mac
 set gcr=a:blinkon0
-set scrolloff=3
+set gfn=Monospace\ 10
+set guioptions=egmrti
+set hidden
+set hlsearch
+set ignorecase
+set incsearch
 set laststatus=2
 set modeline
 set modelines=10
+set nobackup
+set noswapfile
+set number
+set ruler
+set scrolloff=3
+set shell=/bin/zsh
+set shiftwidth=4
+set showcmd
+set smartcase
+set softtabstop=0
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+set t_Co=256
+set tabstop=4
 set title
 set titleold="Terminal"
 set titlestring=%F
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+set ttyfast
+syntax on
 
 " syntastic {{{
 augroup syntastic 
@@ -27,6 +49,8 @@ augroup syntastic
   let g:syntastic_style_error_symbol = '✗'
   let g:syntastic_style_warning_symbol = '⚠'
   let g:syntastic_auto_loc_list=1
+  let g:syntastic_check_on_open=1
+  let g:syntastic_check_on_wq=0
   let g:syntastic_aggregate_errors = 1
 augroup END
 " }}}
@@ -56,9 +80,10 @@ augroup airline_config
   autocmd!
   let g:airline_powerline_fonts = 1
   "let g:airline_theme="luna"
-  let g:airline_theme="papercolor"
-  let g:airline#extensions#tabline#left_sep = ' '
-  let g:airline#extensions#tabline#left_alt_sep = '|'
+  "let g:airline_theme="papercolor"
+  let g:airline_theme="wombat"
+  "let g:airline#extensions#tabline#left_sep = ' '
+  "let g:airline#extensions#tabline#left_alt_sep = '|'
   let g:airline#extensions#syntastic#enabled = 1
   let g:airline#extensions#tabline#buffer_nr_format = '%s '
   let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -131,28 +156,6 @@ Plug 'xolox/vim-notes'
 call plug#end()
 " }}}
 
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8
-set backspace=indent,eol,start
-set tabstop=4
-set softtabstop=0
-set shiftwidth=4
-set expandtab
-let mapleader=','
-set hidden
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set bomb
-set binary
-set ttyfast
-set nobackup
-set noswapfile
-set fileformats=unix,dos,mac
-set showcmd
-set shell=/bin/sh
 " session management
 let g:session_directory = "~/.vim/session"
 let g:session_autoload = "no"
