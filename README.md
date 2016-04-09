@@ -1,5 +1,22 @@
 # dotfile
 
+## Linux requirement
+
+- zsh
+- [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+- vim
+- [Neovim](https://github.com/neovim/neovim)
+- tmux
+- xclip
+- xsel
+- npm
+
+if you are using Ubuntu/Debian, install `zsh` `tmux` `xclip` `xsel` `npm` with:
+
+```terminal
+[sudo] apt-get install zsh tmux xclip xsel npm -y
+```
+
 ## Installation
 
 Run the following command in terminal:
