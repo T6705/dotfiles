@@ -133,6 +133,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'suan/vim-instant-markdown'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fireplace'
