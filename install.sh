@@ -1,10 +1,36 @@
+#########
+## zsh ##
+#########
+
+echo "========================="
+echo "== Download zsh config =="
+echo "========================="
+
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
+
+##########
+## tmux ##
+##########
+
+echo "==================================="
+echo "== Download  Tmux Plugin Manager =="
+echo "==================================="
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+echo "=========================="
+echo "== Download tmux config =="
+echo "=========================="
+
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
+
 ################
 ## vim / nvim ##
 ################
 
-echo "==============================================="
-echo "== Download vim/nvim plugins and color theme =="
-echo "==============================================="
+echo "========================================"
+echo "== Download vim-plugs and color theme =="
+echo "========================================"
 
 ### vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -32,29 +58,9 @@ echo "===================="
 echo "== Update Plugins =="
 echo "===================="
 
+sudo npm -g install instant-markdown-d
+
 vim +PlugUpdate 
 nvim +PlugUpdate 
 reset
 
-##########
-## tmux ##
-##########
-
-echo "==================================="
-echo "== Install requirements packages =="
-echo "==================================="
-
-sudo apt-get install xclip
-sudo apt-get install xsel
-
-echo "=========================="
-echo "== Install tmux plugins =="
-echo "=========================="
-
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-echo "=========================="
-echo "== Download tmux config =="
-echo "=========================="
-
-curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
