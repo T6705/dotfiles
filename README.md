@@ -4,6 +4,7 @@
 
 - zsh
 - [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
+- [powerline-shell](https://github.com/milkbikis/powerline-shell)
 - vim
 - [Neovim](https://github.com/neovim/neovim)
 - tmux
