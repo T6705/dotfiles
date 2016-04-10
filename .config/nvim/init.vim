@@ -96,6 +96,7 @@ augroup END
 " Load plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 
+"Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'JulesWang/css.vim'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -107,21 +108,23 @@ Plug 'chrisbra/Colorizer'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'elzr/vim-json'
+Plug 'flazz/vim-colorschemes'
 Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-clojure-static'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/calendar.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
 Plug 'junegunn/goyo.vim'
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-emoji'
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'kchmck/vim-coffee-script'
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'lervag/vimtex'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
+Plug 'morhetz/gruvbox'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -225,6 +228,13 @@ vnoremap K :m '<-2<CR>gv=gv
 set foldmethod=indent
 set foldlevel=99
 noremap <SPACE> za<CR>
+
+""RainbowParentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+au Syntax * RainbowParenthesesLoadChevrons
 
 "" Scrolling
 noremap <C-j> <C-e>
