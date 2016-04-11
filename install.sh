@@ -12,9 +12,9 @@ curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
 ## tmux ##
 ##########
 
-echo "==================================="
-echo "== Download  Tmux Plugin Manager =="
-echo "==================================="
+echo "=================================="
+echo "== Download Tmux Plugin Manager =="
+echo "=================================="
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
