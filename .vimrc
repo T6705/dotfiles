@@ -105,6 +105,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'ap/vim-css-color'
 Plug 'chrisbra/Colorizer'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'elzr/vim-json'
@@ -137,6 +138,7 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'suan/vim-instant-markdown'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fireplace'
@@ -237,8 +239,8 @@ au Syntax * RainbowParenthesesLoadBraces
 au Syntax * RainbowParenthesesLoadChevrons
 
 "" Scrolling
-noremap <C-j> <C-e>
-noremap <C-k> <C-y>
+"" noremap <C-j> <C-e>
+"" noremap <C-k> <C-y>
 
 "" hexedit
 noremap <F7> :%!xxd<CR>
