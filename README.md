@@ -28,12 +28,20 @@ sh -c "`curl -fsSL https://raw.githubusercontent.com/T6705/dotfile/master/instal
 
 ## Vim Command Shortcuts
 
-### Scroll
+### Copy and paste 
 
 Commands | Shortcuts
 --- | ---
-`Ctrl + e` | `Ctrl + j`
-`Ctrl + y` | `Ctrl + k`
+`"+y` | `YY`
+`"+x` | `XX`
+`"+gP` | `,p`
+
+### Scrolling
+
+Commands | Shortcuts
+--- | ---
+`2<Ctrl + e>` | `Ctrl + j`
+`2<Ctrl + y>` | `Ctrl + k`
 
 ### Window split
 
@@ -42,7 +50,7 @@ Commands | Shortcuts
 `:split` | `,h`
 `:vsplit` | `,v`
 
-### buffers
+### Buffers
 
 Commands | Shortcuts
 --- | ---
@@ -56,18 +64,6 @@ Commands | Shortcuts
 `:tabnew` | `Shift + t`
 `gt` | `Tab`
 `gT` | `Shift + Tab`
-
-### File explore
-
-Commands | Shortcuts
---- | ---
-`:Explore` | `,E`
-
-### folding
-
-Commands | Shortcuts
---- | ---
-`za` | `SPACE`
 
 ### [fugitive.vim](https://github.com/tpope/vim-fugitive)
 
@@ -86,6 +82,9 @@ Commands | Shortcuts
 
 Commands | Shortcuts
 --- | ---
+`:set hlsearch! hlsearch?` | `,sc`
+`:Explore` | `,E`
+`za` | `SPACE`
 `:NERDTreeFind` | `F2`
 `:NERDTreeToggle` | `F3`
 `:ColorToggle` | `F4`
