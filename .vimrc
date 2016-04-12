@@ -1,43 +1,65 @@
-colorscheme molokai
 let mapleader=','
-set background=dark
-set backspace=indent,eol,start
+
+"" Encoding
 set binary
 set bomb
-set cursorline
 set encoding=utf-8
-set expandtab
 set fileencoding=utf-8
 set fileencodings=utf-8
-set fileformats=unix,dos,mac
-set gcr=a:blinkon0
-set gfn=Monospace\ 10
-set guioptions=egmrti
-set hidden
-set hlsearch
-set ignorecase
-set incsearch
-set laststatus=2
-set modeline
-set modelines=10
-set nobackup
-set noswapfile
+
+"" Fix backspace indent
+set backspace=indent,eol,start
+
+"" Tabs
+set expandtab
+set shiftwidth=4
+set softtabstop=0
+set tabstop=4
+
+"" Theme
+colorscheme molokai
+set background=dark
+set cursorline
 set number
 set ruler
-set scrolloff=3
-set shell=/bin/zsh
-set shiftwidth=4
-set showcmd
-set smartcase
-set softtabstop=0
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 set t_Co=256
-set tabstop=4
+syntax on
+
+"" Enable hidden buffers
+set hidden
+
+"" Searching
+set hlsearch
+set smartcase
+set ignorecase
+set incsearch
+
+"" Directories for swp files
+set nobackup
+set noswapfile
+
+"" Disable the vlinking cursor
+set gcr=a:blinkon0
+set scrolloff=3
+
+"" Status bar
+set laststatus=2
+
+"" Use modeline overrides
+set modeline
+set modelines=10
+
+set autoread
+set fileformats=unix,dos,mac
+set gfn=Monospace\ 10
+set guioptions=egmrti
+set shell=/bin/zsh
+set showcmd
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 set title
 set titleold="Terminal"
 set titlestring=%F
 set ttyfast
-syntax on
 
 " syntastic {{{
 augroup syntastic 
@@ -105,7 +127,6 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'ap/vim-css-color'
 Plug 'chrisbra/Colorizer'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'elzr/vim-json'
@@ -141,6 +162,7 @@ Plug 'suan/vim-instant-markdown'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tomasr/molokai'
+Plug 'toyamarinyon/vim-swift'
 Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
@@ -173,6 +195,13 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
+noremap YY "+y<CR>
+noremap <leader>p "+gP<CR>
+noremap XX "+x<CR>
+
 "" No arrow keys
 no <down> <Nop>
 no <left> <Nop>
@@ -183,6 +212,16 @@ ino <down> <Nop>
 ino <left> <Nop>
 ino <right> <Nop>
 ino <up> <Nop>
+
+" moving up and down work as you would expect
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+nnoremap <silent> 0 g0
+nnoremap <silent> ^ g^
+nnoremap <silent> $ g$
+
+" clear highlighted search
+noremap <Leader>sc :set hlsearch! hlsearch?<cr>
 
 "" Split
 noremap <Leader>h :<C-u>split<CR>
@@ -239,8 +278,8 @@ au Syntax * RainbowParenthesesLoadBraces
 au Syntax * RainbowParenthesesLoadChevrons
 
 "" Scrolling
-"" noremap <C-j> <C-e>
-"" noremap <C-k> <C-y>
+noremap <C-j> 2<C-e>
+noremap <C-k> 2<C-y>
 
 "" hexedit
 noremap <F7> :%!xxd<CR>
