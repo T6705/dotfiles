@@ -88,9 +88,10 @@ augroup syntastic
   let g:syntastic_style_error_symbol = '✗'
   let g:syntastic_style_warning_symbol = '⚠'
   let g:syntastic_auto_loc_list=1
-  let g:syntastic_check_on_open=1
+  let g:syntastic_check_on_open=0
   let g:syntastic_check_on_wq=0
   let g:syntastic_aggregate_errors = 1
+  noremap <leader>s :SyntasticReset<CR>
 augroup END
 " }}}
 
@@ -141,14 +142,14 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
+Plug 'Yggdroot/indentLine'
 Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } 
 Plug 'chrisbra/Colorizer'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'elzr/vim-json'
 Plug 'elzr/vim-json', { 'for': 'json' } 
 Plug 'fatih/vim-go', { 'for': 'go' } "
-Plug 'elzr/vim-json'
-Plug 'vim-scripts/matchit.zip' 
 Plug 'flazz/vim-colorschemes'
 Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-clojure-static'
@@ -197,6 +198,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
 Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
+Plug 'vim-scripts/matchit.zip' 
 Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
 Plug 'wlangstroth/vim-racket'
 Plug 'xolox/vim-misc'
@@ -205,6 +207,7 @@ call plug#end()
 " }}}
 
 let g:deoplete#enable_at_startup = 0
+let g:indentLine_char = '▸'
 
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
