@@ -16,23 +16,46 @@ set shiftwidth=4
 set softtabstop=0
 set tabstop=4
 
-"" Theme
+"" Tab control
+" set noexpandtab " insert tabs rather than spaces for <Tab>
+" set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+" set tabstop=4 " the visible width of tabs
+" set softtabstop=4 " edit as if the tabs are 4 characters wide
+" set shiftwidth=4 " number of spaces to use for indent and unindent
+" set shiftround " round indent to a multiple of 'shiftwidth'
+" set completeopt+=longest
+"" toggle invisible characters
+set invlist
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
+set showbreak=↪
+nmap <leader>l :set list!<cr>
+
+"" UI
 colorscheme molokai
 set background=dark
 set cursorline
+set hidden
 set number
 set ruler
+set scrolloff=3 
+set showcmd
+set so=7
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 set t_Co=256
+set title
+set titleold="Terminal"
+set titlestring=%F
+set ttyfast
+set wildmenu
 syntax on
-
-"" Enable hidden buffers
-set hidden
 
 "" Searching
 set hlsearch
 set smartcase
 set ignorecase
 set incsearch
+set magic
 
 "" Directories for swp files
 set nobackup
@@ -54,12 +77,6 @@ set fileformats=unix,dos,mac
 set gfn=Monospace\ 10
 set guioptions=egmrti
 set shell=/bin/zsh
-set showcmd
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-set title
-set titleold="Terminal"
-set titlestring=%F
-set ttyfast
 
 " syntastic {{{
 augroup syntastic 
@@ -118,25 +135,29 @@ augroup END
 " Load plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 
-"Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'JulesWang/css.vim'
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
-Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } 
 Plug 'chrisbra/Colorizer'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'elzr/vim-json', { 'for': 'json' } 
+Plug 'fatih/vim-go', { 'for': 'go' } "
 Plug 'elzr/vim-json'
+Plug 'vim-scripts/matchit.zip' 
 Plug 'flazz/vim-colorschemes'
 Plug 'guns/vim-clojure-highlight'
 Plug 'guns/vim-clojure-static'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/calendar.vim'
+Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' }
 Plug 'joker1007/vim-ruby-heredoc-syntax'
-Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } 
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-emoji'
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
@@ -148,10 +169,10 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'morhetz/gruvbox'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'mxw/vim-jsx'
+Plug 'mxw/vim-jsx', { 'for': 'jsx' } 
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'noprompt/vim-yardoc'
-Plug 'pangloss/vim-javascript', { 'branch': 'develop' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'rhysd/vim-crystal'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
@@ -163,12 +184,11 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tomasr/molokai'
 Plug 'toyamarinyon/vim-swift'
-Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-haml'
 Plug 'tpope/vim-leiningen'
-Plug 'tpope/vim-markdown',     { 'for': 'markdown' }
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -183,6 +203,8 @@ Plug 'xolox/vim-misc'
 Plug 'xolox/vim-notes'
 call plug#end()
 " }}}
+
+let g:deoplete#enable_at_startup = 0
 
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
