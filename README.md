@@ -2,20 +2,29 @@
 
 ## Linux requirement
 
-- zsh
+### git repo
+
+- [neovim](https://github.com/neovim/neovim)
 - [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 - [powerline-shell](https://github.com/milkbikis/powerline-shell)
-- vim
-- [Neovim](https://github.com/neovim/neovim)
+
+### package
+
+- npm
 - tmux
+- vim
+- vim-athena
+- vim-gnome
+- vim-gtk
+- vim-nox
 - xclip
 - xsel
-- npm
+- zsh
 
-if you are using Ubuntu/Debian, install `zsh` `tmux` `xclip` `xsel` `npm` with:
+if you are using Ubuntu/Debian, install `zsh` `tmux` `xclip` `xsel` `npm` `vim-athena` `vim-gnome` `vim-gtk` `vim-nox` with:
 
 ```terminal
-[sudo] apt-get install zsh tmux xclip xsel npm -y
+[sudo] apt-get install zsh tmux xclip xsel npm vim-athena vim-gnome vim-gtk vim-nox -y
 ```
 
 ## Installation
