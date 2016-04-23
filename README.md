@@ -21,10 +21,10 @@
 - xsel
 - zsh
 
-if you are using Ubuntu/Debian, install `zsh` `tmux` `xclip` `xsel` `npm` `vim-athena` `vim-gnome` `vim-gtk` `vim-nox` with:
+if you are using Ubuntu/Debian, install the packages with:
 
 ```terminal
-[sudo] apt-get install zsh tmux xclip xsel npm vim-athena vim-gnome vim-gtk vim-nox -y
+[sudo] apt-get install zsh tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox -y
 ```
 
 ## Installation
