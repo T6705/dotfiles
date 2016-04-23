@@ -24,6 +24,7 @@ set tabstop=4
 " set shiftwidth=4 " number of spaces to use for indent and unindent
 " set shiftround " round indent to a multiple of 'shiftwidth'
 " set completeopt+=longest
+
 "" toggle invisible characters
 set invlist
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
@@ -80,143 +81,144 @@ set shell=/bin/zsh
 
 " syntastic {{{
 augroup syntastic 
-  autocmd!
+    autocmd!
 
-  let g:syntastic_always_populate_loc_list=1
-  let g:syntastic_error_symbol='✗'
-  let g:syntastic_warning_symbol='⚠'
-  let g:syntastic_style_error_symbol = '✗'
-  let g:syntastic_style_warning_symbol = '⚠'
-  let g:syntastic_auto_loc_list=1
-  let g:syntastic_check_on_open=0
-  let g:syntastic_check_on_wq=0
-  let g:syntastic_aggregate_errors = 1
-  noremap <leader>s :SyntasticReset<CR>
+    let g:syntastic_always_populate_loc_list=1
+    let g:syntastic_error_symbol='✗'
+    let g:syntastic_warning_symbol='⚠'
+    let g:syntastic_style_error_symbol = '✗'
+    let g:syntastic_style_warning_symbol = '⚠'
+    let g:syntastic_auto_loc_list=1
+    let g:syntastic_check_on_open=0
+    let g:syntastic_check_on_wq=0
+    let g:syntastic_aggregate_errors = 1
+    noremap <leader>s :SyntasticReset<CR>
 augroup END
 " }}}
 
 " NERDTree {{{
 augroup nerdtree
-  autocmd!
+    autocmd!
 
-  let NERDSpaceDelims=1
-  let NERDCompactSexyComs=1
-  let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
-  let g:NERDTreeChDirMode=2
-  let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-  let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-  let g:NERDTreeShowBookmarks=1
-  let g:nerdtree_tabs_focus_on_files=1
-  let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-  let g:NERDTreeWinSize = 50
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-  nnoremap <silent> <F2> :NERDTreeFind<CR>
-  noremap <F3> :NERDTreeToggle<CR>
+    let NERDSpaceDelims=1
+    let NERDCompactSexyComs=1
+    let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
+    let g:NERDTreeChDirMode=2
+    let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+    let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+    let g:NERDTreeShowBookmarks=1
+    let g:nerdtree_tabs_focus_on_files=1
+    let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+    let g:NERDTreeWinSize = 50
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+    nnoremap <silent> <F2> :NERDTreeFind<CR>
+    noremap <F3> :NERDTreeToggle<CR>
 augroup END
 " }}}
 
 " Airline.vim {{{
 augroup airline_config
-  autocmd!
+    autocmd!
 
-  let g:airline_powerline_fonts = 1
-  "let g:airline_theme="luna"
-  "let g:airline_theme="papercolor"
-  let g:airline_theme="wombat"
-  "let g:airline#extensions#tabline#left_sep = ' '
-  "let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline#extensions#syntastic#enabled = 1
-  let g:airline#extensions#tabline#buffer_nr_format = '%s '
-  let g:airline#extensions#tabline#buffer_nr_show = 1
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#fnamecollapse = 0
-  let g:airline#extensions#tabline#fnamemod = ':t'
+    let g:airline_powerline_fonts = 1
+    "let g:airline_theme="luna"
+    "let g:airline_theme="papercolor"
+    let g:airline_theme="wombat"
+    "let g:airline#extensions#tabline#left_sep = ' '
+    "let g:airline#extensions#tabline#left_alt_sep = '|'
+    let g:airline#extensions#syntastic#enabled = 1
+    let g:airline#extensions#tabline#buffer_nr_format = '%s '
+    let g:airline#extensions#tabline#buffer_nr_show = 1
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#fnamecollapse = 0
+    let g:airline#extensions#tabline#fnamemod = ':t'
 augroup END
 " }}}
 
 "" Shougo {{{
 "augroup Shougo_config
-"  autocmd!
+"    autocmd!
 "
-"  "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-"  " Disable AutoComplPop.
-"  let g:acp_enableAtStartup = 0
-"  " Use neocomplete.
-"  let g:neocomplete#enable_at_startup = 1
-"  " Use smartcase.
-"  let g:neocomplete#enable_smart_case = 1
-"  " Set minimum syntax keyword length.
-"  let g:neocomplete#sources#syntax#min_keyword_length = 3
-"  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"    "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+"    " Disable AutoComplPop.
+"    let g:acp_enableAtStartup = 0
+"    " Use neocomplete.
+"    let g:neocomplete#enable_at_startup = 1
+"    " Use smartcase.
+"    let g:neocomplete#enable_smart_case = 1
+"    " Set minimum syntax keyword length.
+"    let g:neocomplete#sources#syntax#min_keyword_length = 3
+"    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 "
-"  " Define dictionary.
-"  let g:neocomplete#sources#dictionary#dictionaries = {
-"      \ 'default' : '',
-"      \ 'vimshell' : $HOME.'/.vimshell_hist',
-"      \ 'scheme' : $HOME.'/.gosh_completions'
-"          \ }
+"    " Define dictionary.
+"    let g:neocomplete#sources#dictionary#dictionaries = {
+"        \ 'default' : '',
+"        \ 'vimshell' : $HOME.'/.vimshell_hist',
+"        \ 'scheme' : $HOME.'/.gosh_completions'
+"            \ }
 "
-"  " Define keyword.
-"  if !exists('g:neocomplete#keyword_patterns')
-"      let g:neocomplete#keyword_patterns = {}
-"  endif
-"  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+"    " Define keyword.
+"    if !exists('g:neocomplete#keyword_patterns')
+"        let g:neocomplete#keyword_patterns = {}
+"    endif
+"    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 "
-"  " Plugin key-mappings.
-"  inoremap <expr><C-g>     neocomplete#undo_completion()
-"  inoremap <expr><C-l>     neocomplete#complete_common_string()
+"    " Plugin key-mappings.
+"    inoremap <expr><C-g>     neocomplete#undo_completion()
+"    inoremap <expr><C-l>     neocomplete#complete_common_string()
 "
-"  " Recommended key-mappings.
-"  " <CR>: close popup and save indent.
-"  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"  function! s:my_cr_function()
-"    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-"    " For no inserting <CR> key.
-"    "return pumvisible() ? "\<C-y>" : "\<CR>"
-"  endfunction
-"  " <TAB>: completion.
-"  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"  " <C-h>, <BS>: close popup and delete backword char.
-"  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-"  " Close popup by <Space>.
-"  "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+"    " Recommended key-mappings.
+"    " <CR>: close popup and save indent.
+"    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"    function! s:my_cr_function()
+"      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+"      " For no inserting <CR> key.
+"      "return pumvisible() ? "\<C-y>" : "\<CR>"
+"    endfunction
+"    " <TAB>: completion.
+"    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"    " <C-h>, <BS>: close popup and delete backword char.
+"    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"    " Close popup by <Space>.
+"    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 "
-"  " AutoComplPop like behavior.
-"  "let g:neocomplete#enable_auto_select = 1
+"    " AutoComplPop like behavior.
+"    "let g:neocomplete#enable_auto_select = 1
 "
-"  " Shell like behavior(not recommended).
-"  "set completeopt+=longest
-"  "let g:neocomplete#enable_auto_select = 1
-"  "let g:neocomplete#disable_auto_complete = 1
-"  "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+"    " Shell like behavior(not recommended).
+"    "set completeopt+=longest
+"    "let g:neocomplete#enable_auto_select = 1
+"    "let g:neocomplete#disable_auto_complete = 1
+"    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 "
-"  " Enable omni completion.
-"  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"    " Enable omni completion.
+"    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "
-"  " Enable heavy omni completion.
-"  if !exists('g:neocomplete#sources#omni#input_patterns')
-"    let g:neocomplete#sources#omni#input_patterns = {}
-"  endif
-"  "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"  "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"  "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"    " Enable heavy omni completion.
+"    if !exists('g:neocomplete#sources#omni#input_patterns')
+"      let g:neocomplete#sources#omni#input_patterns = {}
+"    endif
+"    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 "
-"  " For perlomni.vim setting.
-"  " https://github.com/c9s/perlomni.vim
-"  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"    " For perlomni.vim setting.
+"    " https://github.com/c9s/perlomni.vim
+"    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 "augroup END
 "" }}}
 
 let g:indentLine_char = '▸'
+
 let g:deoplete#enable_at_startup = 1
 
 function! DoRemote(arg)
-  UpdateRemotePlugins
+    UpdateRemotePlugins
 endfunction
 
 " Load plugins {{{
@@ -306,7 +308,7 @@ cnoreabbrev Q q
 cnoreabbrev Qall qall
 
 if has('unnamedplus')
-  set clipboard=unnamed,unnamedplus
+    set clipboard=unnamed,unnamedplus
 endif
 noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
