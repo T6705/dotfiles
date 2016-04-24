@@ -2,13 +2,13 @@
 
 ## Linux requirement
 
-### git repo
+### github repositories
 
 - [neovim](https://github.com/neovim/neovim)
 - [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 - [powerline-shell](https://github.com/milkbikis/powerline-shell)
 
-### package
+### packages
 
 - npm
 - tmux
@@ -96,7 +96,6 @@ Commands | Shortcuts
 `za` | `SPACE`
 `:NERDTreeFind` | `F2`
 `:NERDTreeToggle` | `F3`
-`:ColorToggle` | `F4`
 `:UndotreeToggle` | `F5`
 `:TagbarToggle` | `F6`
 `:%!xxd` | `F7`
