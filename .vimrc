@@ -225,7 +225,7 @@ let g:indentLine_char = '▸'
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'JulesWang/css.vim'
+Plug 'JulesWang/css.vim',  { 'for': 'css' }
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 "Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/neocomplete.vim'
@@ -236,7 +236,6 @@ Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] }
 Plug 'chrisbra/Colorizer'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'elzr/vim-json'
 Plug 'elzr/vim-json', { 'for': 'json' } 
 Plug 'fatih/vim-go', { 'for': 'go' } "
 Plug 'flazz/vim-colorschemes'
@@ -256,7 +255,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'lervag/vimtex'
 Plug 'majutsushi/tagbar'
-Plug 'mbbill/undotree'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'}
 Plug 'morhetz/gruvbox'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'mxw/vim-jsx', { 'for': 'jsx' } 
@@ -284,7 +283,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-ruby/vim-ruby'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby'}
 Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
 Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
 Plug 'vim-scripts/matchit.zip' 
