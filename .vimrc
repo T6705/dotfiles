@@ -3,17 +3,18 @@ let mapleader=','
 "" Encoding
 set binary
 set bomb
-set encoding=utf-8
+set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
 set fileencoding=utf-8
 set fileencodings=utf-8
 
 "" Fix backspace indent
-set backspace=indent,eol,start
+set backspace=indent,eol,start " make backspace behave in a sane manner
 
 "" Tabs
-set expandtab
-set shiftwidth=4
+set expandtab " Use spaces instead of tabs
 set softtabstop=0
+" 1 tab == 4 spaces
+set shiftwidth=4
 set tabstop=4
 
 "" Tab control
@@ -36,27 +37,36 @@ nmap <leader>l :set list!<cr>
 colorscheme molokai
 set background=dark
 set cursorline
-set hidden
+set hidden " current buffer can be put into background
+set lazyredraw " Don't redraw while executing macros (good performance config)
 set number
-set ruler
+set ruler "Always show current position
 set scrolloff=3 
-set showcmd
-set so=7
+set showcmd " show incomplete commands
+set so=7 " Set 7 lines to the cursor - when moving vertically using j/k
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-set t_Co=256
+set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 set title
 set titleold="Terminal"
 set titlestring=%F
-set ttyfast
-set wildmenu
-syntax on
+set ttyfast " faster redrawing
+set wildmenu " Turn on the WiLd menu
+set wildmode=list:longest " complete files like a shell
+syntax on " switch syntax highlighting on
 
 "" Searching
 set hlsearch
-set smartcase
-set ignorecase
-set incsearch
-set magic
+set ignorecase " Ignore case when searching
+set incsearch " Makes search act like search in modern browsers
+set magic " For regular expressions turn magic on
+set showmatch " Show matching brackets when text indicator is over them
+set smartcase " When searching try to be smart about cases 
+
+" error bells
+set noerrorbells
+set t_vb=
+set tm=500
+set visualbell
 
 "" Directories for swp files
 set nobackup
@@ -73,10 +83,12 @@ set laststatus=2
 set modeline
 set modelines=10
 
-set autoread
+set autoread " detect when a file is changed
 set fileformats=unix,dos,mac
 set gfn=Monospace\ 10
 set guioptions=egmrti
+set history=1000 " change history to 1000
+set nocompatible " not compatible with vi
 set shell=/bin/zsh
 
 "Colorizer {{{
