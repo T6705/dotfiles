@@ -246,75 +246,73 @@ let g:indentLine_char = '▸'
 " Load plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 
+"Plug 'JulesWang/css.vim',  { 'for': 'css' }
 "Plug 'LaTeX-Box-Team/LaTeX-Box'
 "Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
 "Plug 'SirVer/ultisnips'
+"Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } 
+"Plug 'elzr/vim-json', { 'for': 'json' } 
+"Plug 'fatih/vim-go', { 'for': 'go' } "
+"Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
+"Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 "Plug 'itchyny/calendar.vim'
+"Plug 'joker1007/vim-ruby-heredoc-syntax', { 'for': 'ruby' }
 "Plug 'junegunn/vim-easy-align'
 "Plug 'junegunn/vim-emoji'
 "Plug 'kchmck/vim-coffee-script'
 "Plug 'lervag/vimtex'
-"Plug 'majutsushi/tagbar'
 "Plug 'mustache/vim-mustache-handlebars'
+"Plug 'mxw/vim-jsx', { 'for': 'jsx' } 
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'noprompt/vim-yardoc'
+"Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 "Plug 'rhysd/vim-crystal'
 "Plug 'rking/ag.vim'
+"Plug 'slim-template/vim-slim', { 'for': 'slim' }
 "Plug 'thoughtbot/vim-rspec'
+"Plug 'toyamarinyon/vim-swift'
+"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 "Plug 'tpope/vim-haml'
 "Plug 'tpope/vim-leiningen'
 "Plug 'tpope/vim-rails'
 "Plug 'tpope/vim-repeat'
+"Plug 'vim-ruby/vim-ruby', { 'for': 'ruby'}
+"Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
+"Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
+"Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
 "Plug 'wlangstroth/vim-racket'
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-notes'
-Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'JulesWang/css.vim',  { 'for': 'css' }
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Yggdroot/indentLine'
-Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } 
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'elzr/vim-json', { 'for': 'json' } 
-Plug 'fatih/vim-go', { 'for': 'go' } "
 Plug 'flazz/vim-colorschemes'
-Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'honza/vim-snippets'
 Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' }
-Plug 'joker1007/vim-ruby-heredoc-syntax', { 'for': 'ruby'}
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } 
 Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'kshenoy/vim-signature'
+Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'}
 Plug 'morhetz/gruvbox'
-Plug 'mxw/vim-jsx', { 'for': 'jsx' } 
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'suan/vim-instant-markdown'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasr/molokai'
-Plug 'toyamarinyon/vim-swift'
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby'}
-Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
-Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
-Plug 'vim-scripts/matchit.zip' 
-Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
 call plug#end()
 " }}}
 
