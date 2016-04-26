@@ -252,6 +252,7 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
 "Plug 'SirVer/ultisnips'
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 "Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } 
 "Plug 'elzr/vim-json', { 'for': 'json' } 
 "Plug 'fatih/vim-go', { 'for': 'go' } "
