@@ -337,15 +337,21 @@ noremap <leader>p "+gP<CR>
 noremap XX "+x<CR>
 
 "" No arrow keys
-no <down> <Nop>
-no <left> <Nop>
-no <right> <Nop>
-no <up> <Nop>
+"no <down> <Nop>
+"no <left> <Nop>
+"no <right> <Nop>
+"no <up> <Nop>
 
 ino <down> <Nop>
 ino <left> <Nop>
 ino <right> <Nop>
 ino <up> <Nop>
+
+" Map arrow keys to window resize commands.
+nnoremap <Right> 5<C-W>>
+nnoremap <Left> 5<C-W><
+nnoremap <Up> 5<C-W>+
+nnoremap <Down> 5<C-W>-
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
