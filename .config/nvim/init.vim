@@ -94,17 +94,14 @@ set shell=/bin/zsh
 "Colorizer {{{
 augroup Colorizer
     autocmd!
-
     let g:colorizer_syntax = 1
     let g:colorizer_auto_map = 1
-
 augroup END
 " }}}
 
 " syntastic {{{
 augroup syntastic 
     autocmd!
-
     let g:syntastic_always_populate_loc_list=1
     let g:syntastic_error_symbol='✗'
     let g:syntastic_warning_symbol='⚠'
@@ -121,7 +118,6 @@ augroup END
 " NERDTree {{{
 augroup nerdtree
     autocmd!
-
     let NERDSpaceDelims=1
     let NERDCompactSexyComs=1
     let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
@@ -141,7 +137,6 @@ augroup END
 " Airline.vim {{{
 augroup airline_config
     autocmd!
-
     let g:airline_powerline_fonts = 1
     "let g:airline_theme="luna"
     "let g:airline_theme="papercolor"
