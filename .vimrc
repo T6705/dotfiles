@@ -99,6 +99,15 @@ augroup Colorizer
 augroup END
 " }}}
 
+"table-mode {{{
+augroup tablemode
+    autocmd!
+    let g:table_mode_corner="|"
+    "let g:table_mode_corner_corner="+"
+    "let g:table_mode_header_fillchar="="
+augroup END
+" }}}
+
 "RainbowParentheses{{{
 augroup RainbowParentheses
     autocmd!
@@ -309,6 +318,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
 Plug 'honza/vim-snippets'
@@ -438,12 +448,16 @@ set foldmethod=indent
 set foldlevel=99
 noremap <SPACE> za<CR>
 
-""RainbowParentheses
+"" RainbowParentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 "au Syntax * RainbowParenthesesLoadChevrons
+
+"" vim-table-mode
+noremap <Leader>tm :TableModeToggle<CR>
+
 
 "" Scrolling
 noremap <C-j> 2<C-e>
