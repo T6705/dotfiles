@@ -297,7 +297,6 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'noprompt/vim-yardoc'
 "Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 "Plug 'rhysd/vim-crystal'
-"Plug 'rking/ag.vim'
 "Plug 'slim-template/vim-slim', { 'for': 'slim' }
 "Plug 'thoughtbot/vim-rspec'
 "Plug 'toyamarinyon/vim-swift'
@@ -331,6 +330,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'}
 Plug 'morhetz/gruvbox'
+Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
