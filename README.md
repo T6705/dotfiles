@@ -100,3 +100,4 @@ Commands | Shortcuts
 `:TagbarToggle` | `F6`
 `:%!xxd` | `F7`
 `:%!xxd -r` | `F8`
+`:w <CR> :!gcc % -o %< && ./%<` | `F9`
