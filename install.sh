@@ -56,6 +56,13 @@ echo "=============================="
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.vimrc > ~/.vimrc
 
 ### nvim
+if [ -d ~/.config/nvim ];then
+    echo "~/.config/nvim already exists"
+else
+    echo "create ~/.config/nvim"
+    cd
+    mkdir ~/.config/nvim
+fi
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim > ~/.config/nvim/init.vim
 
 echo "===================="
@@ -71,3 +78,22 @@ nvim /tmp/visincr.vba +"so %" +qall
 nvim +PlugUpdate 
 reset
 
+echo "==========================="
+echo "== Download emacs config =="
+echo "==========================="
+
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.spacemacs > ~/.spacemacs
+
+echo "========================"
+echo "== Download i3 config =="
+echo "========================"
+
+if [ -d ~/.config/i3 ];then
+    echo "~/.config/i3 already exists"
+else
+    echo "create ~/.config/i3"
+    cd
+    mkdir ~/.config/i3
+fi
+
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config > ~/.config/i3/config
