@@ -144,13 +144,13 @@ function common {
     #cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
     #~/.dropbox-dist/dropboxd
 
-    nautiluslist=`apt-cache search ^nautilus | awk '{print $1}'`
+    # nodelist=`apt-cache search ^node | awk '{print $1}'`
+    #javalist=`apt-cache search java | grep "java " | awk '{print $1}'`
+    #latexlist=`apt-cache search ^texlive | awk '{print $1}'`
     jdklist=`apt-cache search java | grep jdk | grep -v "9" | awk '{print $1}'`
     jrelist=`apt-cache search java | grep jre | grep -v "9" | awk '{print $1}'`
-    latexlist=`apt-cache search ^texlive | awk '{print $1}'`
+    nautiluslist=`apt-cache search ^nautilus | awk '{print $1}'`
     virtualboxlist=`apt-cache search virtualbox | grep ^virtualbox | awk '{print $1}'`
-    #javalist=`apt-cache search java | grep "java " | awk '{print $1}'`
-    # nodelist=`apt-cache search ^node | awk '{print $1}'`
 
     sudo apt-get install -fix-broken -fix-missing $jdklist $jrelist $latexlilst $virtualboxlist $nautiluslist
 
@@ -170,9 +170,9 @@ function common {
     for i in $jrelist ; do sudo apt-get install $i -y ; done
     sudo apt-get autoremove -y
 
-    sudo apt-get install $latexlist -y
-    for i in $latexlist ; do sudo apt-get install $i -y ; done
-    sudo apt-get autoremove -y
+    #sudo apt-get install $latexlist -y
+    #for i in $latexlist ; do sudo apt-get install $i -y ; done
+    #sudo apt-get autoremove -y
 
     sudo apt-get install $virtualboxlist -y
     for i in $virtualboxlist ; do sudo apt-get install $i -y ; done
