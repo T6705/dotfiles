@@ -503,7 +503,17 @@ function dotfile {
         mkdir ~/.config/i3
     fi
 
+    if [ -d ~/.config/i3/i3blocks ];then
+        echo "~/.config/i3 already exists"
+    else
+        echo "create ~/.config/i3/i3blocks"
+        cd
+        mkdir ~/.config/i3/i3blocks
+    fi
+
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config > ~/.config/i3/config
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/i3blocks.conf > ~/.config/i3/i3blocks/i3blocks.conf
+
 }
 
 while true ; do
