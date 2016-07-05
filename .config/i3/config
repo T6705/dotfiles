@@ -244,7 +244,8 @@ bar {
             #urgent_workspace    $COLOR_PINK      $COLOR_PINK      $COLOR_WHITE
         }
         position top
-        status_command i3status
+        #status_command i3status
+        status_command i3status -c ~/.config/i3/i3status.conf
         #status_command i3blocks -c ~/.config/i3/i3blocks/config
 }
 
