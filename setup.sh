@@ -32,6 +32,7 @@ function common {
     crunch
     curl
     dcfldd
+    dmsetup
     docky
     emacs
     etherape
@@ -46,6 +47,7 @@ function common {
     gconf-editor
     gimp
     git
+    gnome
     gnome-tweak-tool
     gparted
     hddtemp
@@ -116,6 +118,8 @@ function common {
     wifite
     wine
     wireshark
+    xclip
+    xsel
     zenmap
     zsh
     "
@@ -201,22 +205,22 @@ function dwm {
 
 function ubuntu {
     common
-    sudo add-apt-repository ppa:noobslab/themes
-    sudo add-apt-repository ppa:tualatrix/ppa
+    #sudo add-apt-repository ppa:noobslab/themes
+    #sudo add-apt-repository ppa:tualatrix/ppa
     sudo add-apt-repository ppa:numix/ppa
-    sudo add-apt-repository ppa:gwibber-daily/ppa
-    sudo add-apt-repository ppa:nrbrtx/sysvinit-backlight
+    #sudo add-apt-repository ppa:gwibber-daily/ppa
+    #sudo add-apt-repository ppa:nrbrtx/sysvinit-backlight
     sudo apt-get update
-    sudo apt-get install ubuntu-tweak -y
+    #sudo apt-get install ubuntu-tweak -y
     sudo apt-get install numix-gtk-theme numix-icon-theme-circle -y
     sudo apt-get install numix-wallpaper-notd -y
     sudo apt-get install unity-tweak-tool -y
     sudo apt-get install gnome-tweak-tool -y
-    sudo apt-get install sysvinit-backlight -y
-    sudo apt-get install candra-unity-themes -y
-    sudo apt-get install zorinos-themes -y
-    sudo apt-get install vertex-theme -y
-    sudo apt-get install libra-theme -y
+    #sudo apt-get install sysvinit-backlight -y
+    #sudo apt-get install candra-unity-themes -y
+    #sudo apt-get install zorinos-themes -y
+    #sudo apt-get install vertex-theme -y
+    #sudo apt-get install libra-theme -y
     sudo apt-get autoremove -y
     sudo apt-get clean
 }
@@ -519,6 +523,10 @@ function dotfile {
 while true ; do
     echo "normal/dwm/ubuntu-desktop/kali :"
     read ans
+    i3
+    neovim
+    zsh
+    dotfile
     if [ $ans == "normal" ]; then
         common
         break
@@ -538,10 +546,6 @@ while true ; do
         echo "==================================================="
         echo ""
     fi
-    i3
-    neovim
-    zsh
-    dotfile
 done
 
 echo "You may need to install the followings by yourself:"
