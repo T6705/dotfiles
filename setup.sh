@@ -523,21 +523,29 @@ function dotfile {
 while true ; do
     echo "normal/dwm/ubuntu-desktop/kali :"
     read ans
-    i3
-    neovim
-    zsh
-    dotfile
     if [ $ans == "normal" ]; then
         common
         break
     elif [ $ans == "dwm" ]; then
         dwm
+        i3
+        neovim
+        zsh
+        dotfile
         break
     elif [ $ans == "ubuntu-desktop" ]; then
         ubuntu
+        i3
+        neovim
+        zsh
+        dotfile
         break
     elif [ $ans == "kali" ]; then
         kali
+        i3
+        neovim
+        zsh
+        dotfile
         break
     else
         echo ""
