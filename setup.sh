@@ -51,6 +51,7 @@ function common {
     gnome-tweak-tool
     gparted
     hddtemp
+    hime
     hping3
     htop
     hydra
