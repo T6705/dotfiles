@@ -116,6 +116,7 @@ function common {
     visualboyadvance-gtk
     vlc
     whois
+    wicd-gtk
     wifite
     wine
     wireshark

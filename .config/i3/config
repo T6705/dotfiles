@@ -302,6 +302,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/dwm-wallpaper/Desktop-pictures-pokemon-wallpapers-pokemon-wallpaper-image-28.jpg
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
+exec --no-startup-id wicd -gtk -t
 #exec --no-startup-id yabar
 exec_always compton -f
 #exec --no-startup-id pulseaudio --start
