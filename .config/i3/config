@@ -156,6 +156,8 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
 
 assign [class ="Firefox"] $workspace0
+assign [class ="Steam"] $workspace9
+assign [class ="Spotify"] $workspace8
 # assign [class ="Thunar"] $workspace6
 # assign [class ="Vlc"] $workspace4
 # assign [class ="Eclipse"] $workspace2
