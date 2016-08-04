@@ -228,7 +228,10 @@ client.background       $UNFOCUS
 # finds out, if available)
 bar {
         colors{
-            background #777777
+            #background #000000
+            #background #777777
+            #background #696969
+            background #3e3e3e
             statusline #ffffff
             separator #666666
 
