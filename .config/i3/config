@@ -116,9 +116,9 @@ set $workspace3 "III"
 set $workspace4 "IV"
 set $workspace5 "V"
 set $workspace6 "VI"
-set $workspace7 " VII"
-set $workspace8 " VIII"
-set $workspace9 " IX"
+set $workspace7 "VII"
+set $workspace8 "VIII"
+set $workspace9 "IX"
 
 #for_window [class="URxvt" instance="3a"] floating toggle
 #exec --no-startup-id i3-msg 'workspace ; exec urxvt -name 3a -g 80x23+480+380'
@@ -228,7 +228,7 @@ client.background       $UNFOCUS
 # finds out, if available)
 bar {
         colors{
-            background #000000
+            background #777777
             statusline #ffffff
             separator #666666
 
@@ -306,6 +306,6 @@ exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/dwm-wallpaper/Desktop
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id wicd -gtk -t
 #exec --no-startup-id yabar
-exec_always compton -f
+exec_always compton -Cf --config ~/.config/i3/compton.conf
 #exec --no-startup-id pulseaudio --start
 #exec --no-startup-id dropbox
