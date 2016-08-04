@@ -115,3 +115,4 @@ fi
 
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config > ~/.config/i3/config
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/i3blocks.conf > ~/.config/i3/i3blocks/i3blocks.conf
+crul https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf > ~/.config/i3/compton.conf
