@@ -6,7 +6,6 @@ echo "========================="
 echo "== Download zsh config =="
 echo "========================="
 
-sudo rm -rf ~/.zshrc
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
 
 ##########
@@ -24,7 +23,6 @@ echo "=========================="
 echo "== Download tmux config =="
 echo "=========================="
 
-sudo rm -rf ~/.tmux.conf
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
 
 ################
@@ -35,7 +33,6 @@ echo "========================================"
 echo "== Download vim-plugs and color theme =="
 echo "========================================"
 
-sudo rm -rf ~/.vim
 ### vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -44,7 +41,6 @@ curl -fLo ~/.vim/colors/molokai.vim --create-dirs \
 curl -fLo ~/.vim/plugin/dragvisuals.vim --create-dirs \
     https://raw.githubusercontent.com/T6705/dotfile/master/.vim/plugin/dragvisuals.vim
 
-sudo rm -rf ~/.config/nvim
 ### nvim
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -58,11 +54,9 @@ echo "== Download vim/nvim config =="
 echo "=============================="
 
 ### vim
-sudo rm -rf ~/.vimrc
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.vimrc > ~/.vimrc
 
 ### nvim
-sudo rm -rf ~/.config/nvim/init.vim
 if [ -d ~/.config/nvim ];then
     echo "~/.config/nvim already exists"
 else
@@ -89,14 +83,12 @@ echo "==========================="
 echo "== Download emacs config =="
 echo "==========================="
 
-sudo rm -rf ~/.spacemacs
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.spacemacs > ~/.spacemacs
 
 echo "========================"
 echo "== Download i3 config =="
 echo "========================"
 
-sudo rm -rf ~/.config/i3
 if [ -d ~/.config/i3 ];then
     echo "~/.config/i3 already exists"
 else
