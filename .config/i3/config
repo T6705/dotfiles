@@ -305,7 +305,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Start up
 
-exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/dwm-wallpaper/Desktop-pictures-pokemon-wallpapers-pokemon-wallpaper-image-28.jpg
+exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/Desktop-pictures-pokemon-wallpapers-pokemon-wallpaper-image-28.jpg
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id wicd -gtk -t
 #exec --no-startup-id yabar
