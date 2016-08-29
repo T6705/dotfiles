@@ -33,6 +33,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec gnome-terminal
 
+# start gnome-control-center
+bindsym $mod+g exec export XDG_CURRENT_DESKTOP=GNOME&&gnome-control-center
+
 focus_follows_mouse no
 exec --no-startup-id ibus-daemon -drx
 exec --no-startup-id feh --bg-scale ~/Pictures/41.jpg
@@ -158,6 +161,7 @@ bindsym $mod+Shift+0 move container to workspace $workspace0
 assign [class ="Firefox"] $workspace0
 assign [class ="Steam"] $workspace9
 assign [class ="Spotify"] $workspace8
+assign [class ="spotify"] $workspace8
 # assign [class ="Thunar"] $workspace6
 # assign [class ="Vlc"] $workspace4
 # assign [class ="Eclipse"] $workspace2
@@ -305,7 +309,9 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Start up
 
-exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/Desktop-pictures-pokemon-wallpapers-pokemon-wallpaper-image-28.jpg
+#exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/Desktop-pictures-pokemon-wallpapers-pokemon-wallpaper-image-28.jpg
+exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/0dWI3hG.jpg
+#exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/gfoHjw6.jpg
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id wicd -gtk -t
 #exec --no-startup-id yabar
