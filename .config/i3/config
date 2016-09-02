@@ -162,8 +162,9 @@ assign [class ="Firefox"] $workspace0
 assign [class ="Steam"] $workspace9
 assign [class ="Spotify"] $workspace8
 assign [class ="spotify"] $workspace8
+assign [class ="Skype"] $workspace7
 # assign [class ="Thunar"] $workspace6
-# assign [class ="Vlc"] $workspace4
+assign [class ="Vlc"] $workspace6
 # assign [class ="Eclipse"] $workspace2
 # assign [class ="google-chrome" instance="crx_bgkodfmeijboinjdegggmkbkjfiagaan"] $workspace3
 for_window [class="^.*"] border pixel 5
