@@ -2,6 +2,8 @@
 ## zsh ##
 #########
 
+sudo apt-get install zsh tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox -y
+
 echo "========================="
 echo "== Download zsh config =="
 echo "========================="
@@ -108,3 +110,35 @@ fi
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config > ~/.config/i3/config
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/i3blocks.conf > ~/.config/i3/i3blocks/i3blocks.conf
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf > ~/.config/i3/compton.conf
+
+if [ -d ~/git ];then
+    echo "~/git already exists"
+else
+    echo "create ~/git"
+    cd
+    mkdir ~/git
+fi
+
+cd ~/git
+git clone https://github.com/meskarune/i3lock-fancy/
+git clone https://github.com/geommer/yabar
+git clone https://www.github.com/Airblader/i3 i3-gaps
+
+cd ~/git/i3lock-fancy
+sudo cp ~/git/i3lock-fancy/lock /usr/local/bin/
+sudo cp ~/git/i3lock-fancy/lock.png /usr/local/bin/
+sudo cp ~/git/i3lock-fancy/lockdark.png /usr/local/bin/
+
+cd ~/git/i3-gaps
+git checkout gaps && git pull
+make
+sudo make install
+
+cd ~/git/yabar
+make 
+sudo make install
+
+cd
+
+#gsettings set org.gnome.desktop.background show-desktop-icons false
+
