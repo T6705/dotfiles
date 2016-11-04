@@ -471,3 +471,5 @@ noremap <F4> :ColorToggle<CR>
 noremap <F5> :UndotreeToggle<CR>
 noremap <F6> :TagbarToggle<CR>
 noremap <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
+
+tnoremap <Esc> <C-\><C-n>
