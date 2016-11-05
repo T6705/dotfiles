@@ -27,15 +27,14 @@ values."
      auto-completion
      colors
      emacs-lisp
-     eyebrowse
+     games
      git
-     game
      java
      latex
      markdown
      org
-     spotify
      spell-checking
+     spotify
      syntax-checking
      themes-megapack
      tmux
