@@ -446,7 +446,8 @@ vmap  <expr>  D        DVB_Duplicate()
 "" Enable folding
 set foldmethod=indent
 set foldlevel=99
-noremap <SPACE> za<CR>
+nnoremap <SPACE> za<CR>
+vnoremap <SPACE> za<CR>
 
 "" RainbowParentheses
 au VimEnter * RainbowParenthesesToggle
