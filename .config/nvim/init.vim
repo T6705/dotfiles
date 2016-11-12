@@ -338,6 +338,7 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'wlangstroth/vim-racket'
 "Plug 'xolox/vim-misc'
 "Plug 'xolox/vim-notes'
+Plug 'Chiel92/vim-autoformat', { 'on': 'AutoFormat' }
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
