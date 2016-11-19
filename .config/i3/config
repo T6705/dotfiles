@@ -321,5 +321,6 @@ exec --no-startup-id dropbox start
 exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/0dWI3hG.jpg
 exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id wicd -gtk -t
+exec --no-startup-id xset r rate 200 40
 exec --no-startup-id ~/.config/i3/polybar/launch.sh
 exec_always compton -Cf --config ~/.config/i3/compton.conf
