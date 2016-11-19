@@ -100,16 +100,30 @@ else
 fi
 
 if [ -d ~/.config/i3/i3blocks ];then
-    echo "~/.config/i3 already exists"
+    echo "~/.config/i3/i3blocks already exists"
 else
     echo "create ~/.config/i3/i3blocks"
     cd
     mkdir ~/.config/i3/i3blocks
 fi
 
+if [ -d ~/.config/i3/polybar ];then
+    echo "~/.config/i3/polybar already exists"
+else
+    echo "create ~/.config/i3/polybar"
+    cd
+    mkdir ~/.config/i3/polybar
+fi
+
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config > ~/.config/i3/config
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/i3blocks.conf > ~/.config/i3/i3blocks/i3blocks.conf
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf > ~/.config/i3/compton.conf
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/config > ~/.config/i3/polybar/config
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/launch.sh > ~/.config/i3/polybar/launch.sh
+
+echo "========="
+echo "== git =="
+echo "========="
 
 if [ -d ~/git ];then
     echo "~/git already exists"
