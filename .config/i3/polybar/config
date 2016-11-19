@@ -153,11 +153,15 @@
     padding-left = 2
     format-charging = <ramp-capacity> <label-charging>
     format-discharging = <ramp-capacity> <label-discharging>
+    format-full = <ramp-capacity> <label-full>
 
     format-foreground = ${colors.color4}
     format-charging-foreground = ${colors.color4}
     format-discharging-foreground = ${colors.color4}
+    format-full-foreground = ${colors.color4}
+
     label-charging =  %percentage%
+    label-full =  %percentage%
 
     ramp-capacity-0 = 
     ramp-capacity-1 = 
