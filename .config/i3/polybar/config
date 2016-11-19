@@ -45,7 +45,8 @@
     tray-position = right
     tray-maxsize  = 28
 
-    modules-right  = lan wlan filesystem date
+    ;modules-right  = lan wlan filesystem date
+    modules-right  = filesystem date
     ;modules-center = i3
     modules-left   = shutdown reboot lock i3
 
@@ -64,16 +65,6 @@
     format =   <date>
     format-foreground = ${colors.color2}
 ;;;}
-
-;[module/xtitle]
-;type   = custom/script
-;exec   = xtitle -s
-;tail   = true
-;maxlen = 60
-;
-;format = <output>
-;format-padding    = 4
-;format-foreground = ${colors.color1}
 
 [module/i3];;;{
     type   = internal/i3
@@ -188,9 +179,9 @@
     padding-left = 2
     padding-right = 2
 
-    ;modules-right  =
+    modules-right  = lan
     modules-center = volume memory cpu cpu_temp battery
-    #modules-left   = mpd
+    modules-left   = wlan
 
     enable-ipc = true
 ;;;}
@@ -258,15 +249,15 @@
 [module/memory];;;{
     type = internal/memory
     interval = 1
-    
+
     padding-left = 2
     padding-right = 2
-    
+
     format = <label> <bar-used>
     format-foreground = ${colors.color2}
-    
+
     label =  %gb_used%
-    
+
     bar-used-format = %empty%%fill%
     bar-used-width = 8
     bar-used-foreground-0 = ${colors.color2}
@@ -353,7 +344,7 @@
     content-padding = 1
     content-foreground = ${colors.color3}
 
-    click-left = systemd-reboot
+    click-left = reboot
 
     maxlen = 1
 ;;;}
