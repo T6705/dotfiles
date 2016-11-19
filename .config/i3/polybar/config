@@ -1,0 +1,409 @@
+[colors];;;{
+    ;background = #282828
+    background = #3c3836
+
+    ;color1  = #955540
+    color1 = #e74c3c
+    color1l = #40955540
+
+    ;color2  = #477893
+    color2  = #2980b9
+    color2l = #40477893
+
+    ;color3  = #BC832C
+    color3  = #f39c12
+    color3l = #40BC832C
+
+    color4 = #689d6a
+    color4l = #8ec07c
+;;;}
+
+[bars];;;{
+    bar_fill = ●
+    bar_empty = ○
+;;;}
+
+[bar/top_bar];;;{
+    monitor = LVDS1 
+    ;monitor = HDMI1
+
+    width  = 100%
+    height = 20
+
+    background = ${colors.background}
+    foreground = ${colors.color1}
+
+    padding-left  = 1
+    padding-right = 1
+
+    top = true
+
+    font-0 = Hack:style=Regular:size=8:dpi=138;0
+    font-1 = FontAwesome:size=8:dpi=138;0
+
+    tray-background = ${colors.background}
+    tray-position = right
+    tray-maxsize  = 28
+
+    modules-right  = lan wlan date
+    ;modules-center = i3
+    modules-left   = shutdown reboot lock
+
+    enable-ipc = true
+;;;}
+
+[module/date];;;{
+    type = internal/date
+
+    interval = 1.0
+
+    date     = %%{F#90477893}%d-%M-%Y%%{F#FF} %%{F#477893}%H:%M:%S%%{F#FF}
+    ;date     = %%{F#FBA922}%A%%{F#FF}, %d %B %Y  %H:%M:%S
+
+    format =   <date>
+    format-foreground = ${colors.color4}
+;;;}
+
+;[module/xtitle]
+;type   = custom/script
+;exec   = xtitle -s
+;tail   = true
+;maxlen = 60
+;
+;format = <output>
+;format-padding    = 4
+;format-foreground = ${colors.color1}
+
+[module/i3];;;{
+    type   = internal/i3
+
+    ;;;; Only show workspaces defined on the same output as the bar
+    ;;;;
+    ;;;; Useful if you want to show monitor specific workspaces
+    ;;;; in different bars
+    ;;;;
+    ;;;; Default: false
+    ;;;pin-workspaces = true
+
+    ;;;; This will split the workspace name on ':'
+    ;;;; Default: false
+    ;;;strip-wsnumbers = false
+
+    ;;;; Limit the amount of chars to output for each workspace name
+    ;;;; Default: 0
+    ;;;wsname-maxlen = 0
+
+    ;;;; Sort the workspaces by index instead of the default
+    ;;;; sorting that groups the workspaces by output
+    ;;;; Default: false
+    ;;;index-sort = true
+
+    ;;;; Create click handler used to focus workspace
+    ;;;; Default: true
+    ;;;enable-click = true
+
+    ;;;; Create scroll handlers used to cycle workspaces
+    ;;;; Default: true
+    ;;;enable-scroll = true
+
+    ;;;; ws-icon-[0-9]+ = label;icon
+    ;;;ws-icon-0 = 1;♚
+    ;;;ws-icon-1 = 2;♛
+    ;;;ws-icon-2 = 3;♜
+    ;;;ws-icon-3 = 4;♝
+    ;;;ws-icon-4 = 5;♞
+    ;;;ws-icon-default = ♟
+
+    ;;;; Available tags:
+    ;;;;   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
+    ;;;;format = <label-state>
+
+    ; Available tokens:
+    ;   %name%
+    ;   %icon%
+    ;   %index%
+    ;   %output%
+    ; Default: %icon%  %name%
+    ;label-focused = %index%
+    label-focused-foreground = #ffffff
+    ;label-focused-background = #3f3f3f
+    ;label-focused-background = #665c54
+    label-focused-background = #008fff
+    label-focused-underline = #fba922
+    label-focused-padding = 4
+
+    ;;;; Available tokens:
+    ;;;;   %name%
+    ;;;;   %icon%
+    ;;;;   %index%
+    ;;;; Default: %icon%  %name%
+    ;label-unfocused = %index%
+    label-unfocused-padding = 4
+
+    ;;;; Available tokens:
+    ;;;;   %name%
+    ;;;;   %icon%
+    ;;;;   %index%
+    ;;;; Default: %icon%  %name%
+    label-visible = %index%
+    label-visible-underline = #555555
+    label-visible-padding = 4
+
+    ;;;; Available tokens:
+    ;;;;   %name%
+    ;;;;   %icon%
+    ;;;;   %index%
+    ;;;; Default: %icon%  %name%
+    label-urgent = %index%
+    label-urgent-foreground = #000000
+    label-urgent-background = #bd2c40
+    label-urgent-padding = 4
+
+    ;format = <label-state>
+    enable-click = true
+    enable-scroll = true
+    index-sort = true
+    pin-workspaces = true
+    strip-wsnumbers = false
+
+    ;label-focused            = %icon%
+    ;label-focused-foreground = ${colors.color2}
+    ;label-focused-padding    = 2
+
+    ;label-unfocused            = %icon%
+    ;label-unfocused-foreground = ${colors.color2l}
+    ;label-unfocused-padding    = 1
+
+    ;label-urgent            = %icon%
+    ;label-urgent-foreground = ${colors.color3}
+    ;label-urgent-padding    = 1
+
+    ;ws-icon-0 = 1; term
+    ;ws-icon-1 = 2; www
+    ;ws-icon-2 = 3; code
+    ;ws-icon-3 = 4; andr
+    ;ws-icon-4 = 5; tgrm
+    ;ws-icon-default = 
+;;;}
+
+
+[module/battery];;;{
+    type = internal/battery
+
+    battery = BAT1
+    adapter = ADP1
+
+    padding-left = 2
+    format-charging = <ramp-capacity> <label-charging>
+    format-discharging = <ramp-capacity> <label-discharging>
+
+    format-foreground = ${colors.color4}
+    label-charging =  %percentage%
+
+    ramp-capacity-0 = 
+    ramp-capacity-1 = 
+    ramp-capacity-2 = 
+    ramp-capacity-3 = 
+    ramp-capacity-4 = 
+;;;}
+
+[bar/bottom_bar];;;{
+    monitor = LVDS1
+    #monitor = HDMI1
+
+    width  = 100%
+    height = 25
+
+    bottom = true
+
+    font-0 = ${bar/top_bar.font-0}
+    font-1 = ${bar/top_bar.font-1}
+
+    background = ${colors.background}
+    foreground = ${colors.color1}
+
+    padding-left = 2
+    padding-right = 2
+
+    ;modules-right  =
+    modules-center = volume memory cpu_temp cpu battery
+    #modules-left   = mpd
+
+    enable-ipc = true
+;;;}
+
+[module/lan];;;{
+    type = internal/network
+    interface = enp3s0
+
+    padding-left = 2
+    padding-right = 2
+
+    label-disconnected = %ifname% not connected
+
+    label-connected-foreground = ${colors.color3}
+    label-disconnected-foreground = ${colors.color3l}
+;;;}
+
+[module/wlan];;;{
+    type = internal/network
+    interface = wlp2s0
+
+    padding-left = 2
+    padding-right = 2
+
+    label-disconnected = %ifname% not connected
+
+    label-connected-foreground = ${colors.color3}
+    label-disconnected-foreground = ${colors.color3l}
+;;;}
+
+[module/cpu_temp];;;{
+    type = internal/temperature
+    interval = 1
+
+    thermal-zone = 0
+
+    padding-left = 4
+
+    format      = <ramp> <label>
+    ;format-warn = <ramp> <label>
+
+    label-warn-foreground = ${colors.color1}
+
+    ramp-0 = 
+    ramp-1 = 
+    ramp-2 = 
+;;;}
+
+[module/cpu];;;{
+    type = internal/cpu
+
+    label = 
+    format = <label> <bar-load>
+
+    bar-load-format = %empty%%fill%
+    bar-load-width = 8
+
+    bar-load-fill = ${bars.bar_fill}
+    bar-load-fill-foreground = ${colors.color1}
+
+    bar-load-empty = ${bars.bar_empty}
+    bar-load-empty-foreground = ${colors.color1l}
+;;;}
+
+[module/memory];;;{
+    type = internal/memory
+    interval = 1
+    
+    padding-left = 2
+    padding-right = 2
+    
+    format = <label> <bar-used>
+    format-foreground = ${colors.color2}
+    
+    label =  %gb_used%
+    
+    bar-used-format = %empty%%fill%
+    bar-used-width = 8
+    bar-used-foreground-0 = ${colors.color2}
+    bar-used-foreground-1 = ${colors.color2}
+    bar-used-foreground-2 = ${colors.color3}
+    bar-used-foreground-3 = ${colors.color1}
+    bar-used-fill = ${bars.bar_fill}
+    bar-used-empty = ${bars.bar_empty}
+    bar-used-empty-foreground = ${colors.color2l}
+;;;}
+
+[module/volume];;;{
+    type = internal/volume
+
+    padding-left = 2
+    padding-right = 2
+
+    master-mixer = Master
+    mapping = true
+
+    format-muted  = <label-muted> <bar-volume>
+    format-volume = <label-volume> <bar-volume>
+    format-foreground = ${colors.color3}
+
+    label-volume =  %percentage%
+    label-muted =  muted
+    label-volume-foreground = ${colors.color3}
+    label-muted-foreground = ${colors.color3}
+
+    bar-volume-width = 8
+    bar-volume-format = %fill%%empty%
+    bar-volume-fill = ${bars.bar_fill}
+    bar-volume-empty = ${bars.bar_empty}
+    bar-volume-fill-foreground = ${colors.color3}
+    bar-volume-empty-foreground = ${colors.color3l}
+;;;}
+
+[module/mpd];;;{
+    type = internal/mpd
+    interval = 1
+
+    padding-right = 2
+
+    host = 127.0.0.1
+    port = 6600
+
+    format-online-foreground = ${colors.color3}
+    format-online = <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
+
+    label-song = %artist% - %title%
+
+    icon-play   = 
+    icon-pause  = 
+    icon-stop   = 
+    icon-prev   = 
+    icon-next   = 
+    icon-seekb  = 
+    icon-seekf  = 
+    icon-random = 
+    icon-repeat = 
+
+    bar-progress-width = 15
+    bar-progress-indicator = ◉
+    bar-progress-fill = ━
+    bar-progress-empty = ─
+;;;}
+
+[module/shutdown];;;{
+    type = custom/text
+
+    content = 
+    content-padding = 1
+    content-foreground = ${colors.color1}
+
+    click-left = shutdown -h now
+
+    maxlen = 1
+;;;}
+
+[module/reboot];;;{
+    type = custom/text
+
+    content = 
+    content-padding = 1
+    content-foreground = ${colors.color3}
+
+    click-left = systemd-reboot
+
+    maxlen = 1
+;;;}
+
+[module/lock];;;{
+    type = custom/text
+
+    content = 
+    content-padding = 1
+    content-foreground = ${colors.color2}
+
+    #click-left = i3lock -c 212121
+    click-left = lock
+    maxlen = 1
+;;;}
+
