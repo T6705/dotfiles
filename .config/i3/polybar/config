@@ -189,7 +189,7 @@
     padding-right = 2
 
     ;modules-right  =
-    modules-center = volume memory cpu_temp cpu battery
+    modules-center = volume memory cpu cpu_temp battery
     #modules-left   = mpd
 
     enable-ipc = true
@@ -242,7 +242,7 @@
 [module/cpu];;;{
     type = internal/cpu
 
-    label = 
+    label =  %percentage%
     format = <label> <bar-load>
 
     bar-load-format = %empty%%fill%
