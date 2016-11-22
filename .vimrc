@@ -212,6 +212,13 @@ augroup YouCompleteMe
 augroup END
 "}}}
 
+" instant_markdown
+augroup instant_markdown
+    autocmd!
+    let g:instant_markdown_autostart = 0
+augroup END
+"}}}
+"
 " Shougo {{{
 augroup Shougo_config
     autocmd!
@@ -329,6 +336,7 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 "Plug 'tpope/vim-haml'
 "Plug 'tpope/vim-leiningen'
+"Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "Plug 'tpope/vim-rails'
 "Plug 'tpope/vim-repeat'
 "Plug 'vim-ruby/vim-ruby', { 'for': 'ruby'}
@@ -348,6 +356,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
+Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' }
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
@@ -358,6 +367,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'}
 Plug 'morhetz/gruvbox'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -366,7 +376,6 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
