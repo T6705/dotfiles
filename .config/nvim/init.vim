@@ -468,6 +468,8 @@ noremap <leader>q :bd!<CR>
 noremap <leader>x :bn<CR>
 noremap <leader>w :enew<CR>
 
+noremap <leader>bl :CtrlPBuffer<CR>
+
 "" Switching windows
 "" noremap <C-j> <C-w>j
 "" noremap <C-k> <C-w>k
