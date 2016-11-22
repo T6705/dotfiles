@@ -464,9 +464,9 @@ nnoremap <leader>E :Explore<CR>
 
 "" Buffer nav
 noremap <leader>z :bp<CR>
-noremap <leader>q :bp<CR>
+noremap <leader>q :bd!<CR>
 noremap <leader>x :bn<CR>
-noremap <leader>w :bn<CR>
+noremap <leader>w :enew<CR>
 
 "" Switching windows
 "" noremap <C-j> <C-w>j
