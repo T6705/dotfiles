@@ -91,7 +91,7 @@ set history=1000 " change history to 1000
 set nocompatible " not compatible with vi
 set shell=/bin/zsh
 
-"Colorizer {{{
+" Colorizer {{{
 augroup Colorizer
     autocmd!
     let g:colorizer_syntax = 1
@@ -99,7 +99,7 @@ augroup Colorizer
 augroup END
 " }}}
 
-"table-mode {{{
+" table-mode {{{
 augroup tablemode
     autocmd!
     let g:table_mode_corner="|"
@@ -108,7 +108,19 @@ augroup tablemode
 augroup END
 " }}}
 
-"RainbowParentheses{{{
+" Tabular{{{
+augroup tabular
+    autocmd!
+    if exists(":Tabularize")
+      nnoremap <Leader>a= :Tabularize /=<CR>
+      vnoremap <Leader>a= :Tabularize /=<CR>
+      nnoremap <Leader>a: :Tabularize /:\zs<CR>
+      vnoremap <Leader>a: :Tabularize /:\zs<CR>
+    endif
+augroup END
+" }}}
+
+" RainbowParentheses{{{
 augroup RainbowParentheses
     autocmd!
     let g:rbpt_colorpairs = [
@@ -496,6 +508,11 @@ au Syntax * RainbowParenthesesLoadBraces
 "" vim-table-mode
 noremap <Leader>tm :TableModeToggle<CR>
 
+"" Tabular
+nnoremap <Leader>a= :Tabularize /=<CR>
+vnoremap <Leader>a= :Tabularize /=<CR>
+nnoremap <Leader>a: :Tabularize /:\zs<CR>
+vnoremap <Leader>a: :Tabularize /:\zs<CR>
 
 "" Scrolling
 noremap <C-j> 2<C-e>
