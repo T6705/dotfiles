@@ -26,6 +26,7 @@ echo "== Download tmux config =="
 echo "=========================="
 
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
+curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf.local > ~/.tmux.conf.local
 
 ################
 ## vim / nvim ##
