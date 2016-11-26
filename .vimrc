@@ -155,7 +155,7 @@ augroup syntastic
     let g:syntastic_check_on_open=0
     let g:syntastic_check_on_wq=0
     let g:syntastic_aggregate_errors = 1
-    noremap <leader>s :SyntasticReset<CR>
+    noremap <silent> <leader>s :SyntasticReset<CR>
 augroup END
 " }}}
 
@@ -174,7 +174,7 @@ augroup nerdtree
     let g:NERDTreeWinSize = 50
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
     nnoremap <silent> <F2> :NERDTreeFind<CR>
-    noremap <F3> :NERDTreeToggle<CR>
+    noremap <silent> <F3> :NERDTreeToggle<CR>
 augroup END
 " }}}
 
@@ -410,7 +410,7 @@ if has('unnamedplus')
     set clipboard=unnamed,unnamedplus
 endif
 noremap YY "+y<CR>
-noremap <leader>p "+gP<CR>
+noremap <silent> <leader>p "+gP<CR>
 noremap XX "+x<CR>
 
 "" No arrow keys
@@ -438,21 +438,21 @@ nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
 
 " clear highlighted search
-noremap <Leader>sc :set hlsearch! hlsearch?<cr>
+noremap <silent> <Leader>sc :set hlsearch! hlsearch?<cr>
 
 "" Split
-noremap <Leader>h :<C-u>split<CR>
-noremap <Leader>v :<C-u>vsplit<CR>
+noremap <silent> <Leader>h :<C-u>split<CR>
+noremap <silent> <Leader>v :<C-u>vsplit<CR>
 
 "" Git
-noremap <Leader>gw :Gwrite<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gps :Gpush<CR>
-noremap <Leader>gpu :Gpull<CR>
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
+noremap <silent> <Leader>gw :Gwrite<CR>
+noremap <silent> <Leader>gc :Gcommit<CR>
+noremap <silent> <Leader>gps :Gpush<CR>
+noremap <silent> <Leader>gpu :Gpull<CR>
+noremap <silent> <Leader>gs :Gstatus<CR>
+noremap <silent> <Leader>gb :Gblame<CR>
+noremap <silent> <Leader>gd :Gvdiff<CR>
+noremap <silent> <Leader>gr :Gremove<CR>
 
 "" Tabs
 nnoremap <Tab> gt
@@ -463,12 +463,12 @@ nnoremap <silent> <S-t> :tabnew<CR>
 nnoremap <leader>E :Explore<CR>
 
 "" Buffer nav
-noremap <leader>z :bp<CR>
-noremap <leader>q :bd!<CR>
-noremap <leader>x :bn<CR>
-noremap <leader>w :enew<CR>
+noremap <silent> <leader>z :bp<CR>
+noremap <silent> <leader>q :bd!<CR>
+noremap <silent> <leader>x :bn<CR>
+noremap <silent> <leader>w :enew<CR>
 
-noremap <leader>bl :CtrlPBuffer<CR>
+noremap <silent> <leader>bl :CtrlPBuffer<CR>
 
 "" Switching windows
 "" noremap <C-j> <C-w>j
@@ -508,23 +508,23 @@ au Syntax * RainbowParenthesesLoadBraces
 "au Syntax * RainbowParenthesesLoadChevrons
 
 "" vim-table-mode
-noremap <Leader>tm :TableModeToggle<CR>
+noremap <silent> <Leader>tm :TableModeToggle<CR>
 
 "" Tabular
-nnoremap <Leader>a= :Tabularize /=<CR>
-vnoremap <Leader>a= :Tabularize /=<CR>
-nnoremap <Leader>a: :Tabularize /:\zs<CR>
-vnoremap <Leader>a: :Tabularize /:\zs<CR>
+nnoremap <silent> <Leader>a= :Tabularize /=<CR>
+vnoremap <silent> <Leader>a= :Tabularize /=<CR>
+nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
 
 "" Scrolling
 noremap <C-j> 2<C-e>
 noremap <C-k> 2<C-y>
 
 "" hexedit
-noremap <F7> :%!xxd<CR>
-noremap <F8> :%!xxd -r<CR>
+noremap <silent> <F7> :%!xxd<CR>
+noremap <silent> <F8> :%!xxd -r<CR>
 
-noremap <F4> :ColorToggle<CR>
-noremap <F5> :UndotreeToggle<CR>
-noremap <F6> :TagbarToggle<CR>
-noremap <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
+noremap <silent> <F4> :ColorToggle<CR>
+noremap <silent> <F5> :UndotreeToggle<CR>
+noremap <silent> <F6> :TagbarToggle<CR>
+noremap <silent> <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
