@@ -353,6 +353,7 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'tpope/vim-leiningen'
 "Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 "Plug 'tpope/vim-rails'
+"Plug 'tpope/vim-repeat'
 "Plug 'vim-ruby/vim-ruby', { 'for': 'ruby'}
 "Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
 "Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
@@ -390,7 +391,6 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
