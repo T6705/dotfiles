@@ -433,6 +433,11 @@ noremap XX "+x<CR>
 "no <right> <Nop>
 "no <up> <Nop>
 
+" jk | Escaping!
+inoremap jk <Esc>
+xnoremap jk <Esc>
+cnoremap jk <C-c>
+
 ino <down> <Nop>
 ino <left> <Nop>
 ino <right> <Nop>
@@ -486,6 +491,7 @@ noremap <silent> <leader>w :enew<CR>
 noremap <silent> <leader>bl :Buffers<CR>
 
 nmap <silent> <leader>e :FZF<cr>
+nmap <silent> <leader>ag :Ag<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
