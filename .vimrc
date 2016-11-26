@@ -162,16 +162,28 @@ augroup END
 " NERDTree {{{
 augroup nerdtree
     autocmd!
-    let NERDSpaceDelims=1
     let NERDCompactSexyComs=1
+    let NERDSpaceDelims=1
+    let NERDTreeShowHidden=1
     let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
     let g:NERDTreeChDirMode=2
     let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-    let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-    let g:NERDTreeShowBookmarks=1
-    let g:nerdtree_tabs_focus_on_files=1
     let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+    let g:NERDTreeShowBookmarks=1
+    let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
     let g:NERDTreeWinSize = 50
+    let g:nerdtree_tabs_focus_on_files=1
+    let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
     nnoremap <silent> <F2> :NERDTreeFind<CR>
     noremap <silent> <F3> :NERDTreeToggle<CR>
@@ -382,7 +394,7 @@ Plug 'morhetz/gruvbox'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/syntastic'
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 Plug 'terryma/vim-multiple-cursors'
