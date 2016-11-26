@@ -490,8 +490,8 @@ noremap <silent> <leader>w :enew<CR>
 "noremap <silent> <leader>bl :CtrlPBuffer<CR>
 noremap <silent> <leader>bl :Buffers<CR>
 
-nmap <silent> <leader>e :FZF<cr>
-nmap <silent> <leader>ag :Ag<cr>
+nnoremap <silent> <leader>e  : FZF<cr>
+nnoremap <silent> <leader>ag : Ag<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
