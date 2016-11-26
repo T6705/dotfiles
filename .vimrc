@@ -338,6 +338,7 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'Shougo/neosnippet'
 "Plug 'Shougo/neosnippet-snippets'
 "Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } 
+"Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlPBuffer' }
 "Plug 'elzr/vim-json', { 'for': 'json' } 
 "Plug 'fatih/vim-go', { 'for': 'go' } "
 "Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
@@ -354,6 +355,7 @@ call plug#begin('~/.config/nvim/plugged')
 "Plug 'noprompt/vim-yardoc'
 "Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 "Plug 'rhysd/vim-crystal'
+"Plug 'rking/ag.vim'
 "Plug 'slim-template/vim-slim', { 'for': 'slim' }
 "Plug 'thoughtbot/vim-rspec'
 "Plug 'toyamarinyon/vim-swift'
@@ -376,7 +378,6 @@ Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
-"Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlPBuffer' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
@@ -394,7 +395,6 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'}
 Plug 'morhetz/gruvbox'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
-Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/syntastic'
