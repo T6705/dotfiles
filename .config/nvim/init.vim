@@ -379,7 +379,7 @@ Plug 'SirVer/ultisnips'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
-Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlPBuffer' }
+"Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlPBuffer' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
@@ -485,7 +485,8 @@ noremap <silent> <leader>q :bd!<CR>
 noremap <silent> <leader>x :bn<CR>
 noremap <silent> <leader>w :enew<CR>
 
-noremap <silent> <leader>bl :CtrlPBuffer<CR>
+"noremap <silent> <leader>bl :CtrlPBuffer<CR>
+noremap <silent> <leader>bl :Buffers<CR>
 
 nmap <silent> <leader>e :FZF<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
