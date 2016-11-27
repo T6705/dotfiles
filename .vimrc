@@ -465,10 +465,10 @@ noremap XX "+x<CR>
 "no <right> <Nop>
 "no <up> <Nop>
 
-" jk | Escaping!
-inoremap jk <Esc>
-xnoremap jk <Esc>
-cnoremap jk <C-c>
+"" jk | Escaping!
+"inoremap jk <Esc>
+"xnoremap jk <Esc>
+"cnoremap jk <C-c>
 
 ino <down> <Nop>
 ino <left> <Nop>
