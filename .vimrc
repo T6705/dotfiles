@@ -134,8 +134,10 @@ augroup tabular
     if exists(":Tabularize")
       nnoremap <Leader>a= :Tabularize /=<CR>
       vnoremap <Leader>a= :Tabularize /=<CR>
-      nnoremap <Leader>a: :Tabularize /:\zs<CR>
-      vnoremap <Leader>a: :Tabularize /:\zs<CR>
+      nnoremap <Leader>a: :Tabularize /:<CR>
+      vnoremap <Leader>a: :Tabularize /:<CR>
+      "nnoremap <Leader>a: :Tabularize /:\zs<CR>
+      "vnoremap <Leader>a: :Tabularize /:\zs<CR>
     endif
 augroup END
 " }}}
@@ -581,8 +583,10 @@ noremap <silent> <Leader>tm :TableModeToggle<CR>
 "" Tabular
 nnoremap <silent> <Leader>a= :Tabularize /=<CR>
 vnoremap <silent> <Leader>a= :Tabularize /=<CR>
-nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+nnoremap <silent> <Leader>a: :Tabularize /:<CR>
+vnoremap <silent> <Leader>a: :Tabularize /:<CR>
+"nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+"vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
 
 "" Scrolling
 noremap <C-j> 2<C-e>
