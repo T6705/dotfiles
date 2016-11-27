@@ -1,16 +1,22 @@
+" vim:foldmethod=marker:foldlevel=0
+
+" =====================
+" === Basic Setting {{{
+" =====================
 let mapleader=','
 
-"" Encoding
+"" Encoding {{{
 set binary
 set bomb
 set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
 set fileencoding=utf-8
 set fileencodings=utf-8
+"" }}}
 
 "" Fix backspace indent
 set backspace=indent,eol,start " make backspace behave in a sane manner
 
-"" Tabs
+"" Tabs {{{
 set expandtab " Use spaces instead of tabs
 set softtabstop=0
 " 1 tab == 4 spaces
@@ -25,15 +31,17 @@ set tabstop=4
 " set shiftwidth=4 " number of spaces to use for indent and unindent
 " set shiftround " round indent to a multiple of 'shiftwidth'
 " set completeopt+=longest
+"" }}}
 
-"" toggle invisible characters
+"" toggle invisible characters {{{
 set invlist
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 set showbreak=↪
 nmap <leader>l :set list!<cr>
+"" }}}
 
-"" UI
+"" UI {{{
 colorscheme molokai
 set background=dark
 set cursorline
@@ -53,28 +61,33 @@ set ttyfast " faster redrawing
 set wildmenu " Turn on the WiLd menu
 set wildmode=list:longest " complete files like a shell
 syntax on " switch syntax highlighting on
+"" }}}
 
-"" Searching
+"" Searching {{{
 set hlsearch
 set ignorecase " Ignore case when searching
 set incsearch " Makes search act like search in modern browsers
 set magic " For regular expressions turn magic on
 set showmatch " Show matching brackets when text indicator is over them
 set smartcase " When searching try to be smart about cases 
+"" }}}
 
-" error bells
+"" error bells {{{
 set noerrorbells
 set t_vb=
 set tm=500
 set visualbell
+"" }}}
 
-"" Directories for swp files
+"" Directories for swp files {{{
 set nobackup
 set noswapfile
+"" }}}
 
-"" Disable the vlinking cursor
+"" Disable the vlinking cursor {{{
 set gcr=a:blinkon0
 set scrolloff=3
+"" }}}
 
 "" Status bar
 set laststatus=2
@@ -90,6 +103,13 @@ set guioptions=egmrti
 set history=1000 " change history to 1000
 set nocompatible " not compatible with vi
 set shell=/bin/zsh
+" =====================
+" }}}
+" =====================
+
+" =====================
+" === Plugin Config {{{
+" =====================
 
 " Colorizer {{{
 augroup Colorizer
@@ -208,7 +228,7 @@ augroup airline_config
 augroup END
 " }}}
 
-" Ultsnips
+" Ultsnips {{{
 augroup Ultsnips
     autocmd!
     let g:UltiSnipsExpandTrigger="<tab>"
@@ -217,7 +237,7 @@ augroup Ultsnips
 augroup END
 "}}}
 
-" YouCompleteMe
+" YouCompleteMe {{{
 augroup YouCompleteMe
     autocmd!
     let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
@@ -236,7 +256,7 @@ augroup YouCompleteMe
 augroup END
 "}}}
 
-" instant_markdown
+" instant_markdown {{{
 augroup instant_markdown
     autocmd!
     let g:instant_markdown_autostart = 0
@@ -329,7 +349,13 @@ let g:indentLine_char = '▸'
 "    UpdateRemotePlugins
 "endfunction
 
-" Load plugins {{{
+" =====================
+""" }}}
+" =====================
+
+"=====================
+" === Load plugins {{{
+"=====================
 call plug#begin('~/.config/nvim/plugged')
 
 "Plug 'JulesWang/css.vim',  { 'for': 'css' }
@@ -406,9 +432,13 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
+"=====================
 " }}}
+"=====================
 
-
+" ================
+" === Mappings {{{
+" ================
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -527,10 +557,16 @@ vmap  <expr>  <UP>     DVB_Drag('up')
 vmap  <expr>  D        DVB_Duplicate()
 
 "" Enable folding
+"set foldmethod=marker
 set foldmethod=indent
 set foldlevel=99
+set nofoldenable            " don't fold by default<Paste>
 nnoremap <SPACE> za<CR>
 vnoremap <SPACE> za<CR>
+"augroup vimrc
+"    au BufReadPre * setlocal foldmethod=indent
+"    au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=marker| endif
+"augroup END
 
 "" RainbowParentheses
 au VimEnter * RainbowParenthesesToggle
@@ -560,3 +596,7 @@ noremap <silent> <F4> :ColorToggle<CR>
 noremap <silent> <F5> :UndotreeToggle<CR>
 noremap <silent> <F6> :TagbarToggle<CR>
 noremap <silent> <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
+
+" ================
+" }}}
+" ================
