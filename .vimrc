@@ -3,6 +3,9 @@
 " =====================
 " === Basic Setting {{{
 " =====================
+let g:python_host_prog = '/usr/bin/python2.7'
+let g:python3_host_prog = '/usr/bin/python3.5'
+
 let mapleader=','
 
 "" Encoding {{{
@@ -520,7 +523,7 @@ noremap <silent> <leader>x :bn<CR>
 noremap <silent> <leader>w :enew<CR>
 
 "noremap <silent> <leader>bl :CtrlPBuffer<CR>
-noremap <silent> <leader>bl :Buffers<CR>
+nnoremap <silent> <leader>bl :Buffers<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 nnoremap <silent> <leader>e  :FZF<cr>
@@ -528,6 +531,9 @@ nnoremap <silent> <leader>ag :Ag<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
+
+" Marks
+nnoremap <silent> <Leader>` :Marks<CR>
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -602,6 +608,39 @@ noremap <silent> <F5> :UndotreeToggle<CR>
 noremap <silent> <F6> :TagbarToggle<CR>
 noremap <silent> <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
 
+" ----------------------------------------------------------------------------
+" nvim
+" ----------------------------------------------------------------------------
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+    "tnoremap <a-a> <esc>a
+    "tnoremap <a-b> <esc>b
+    "tnoremap <a-d> <esc>d
+    "tnoremap <a-f> <esc>f
+endif
+
 " ================
 " }}}
 " ================
+
+" =================
+" === Functions {{{
+" =================
+
+" ----------------------------------------------------------------------------
+" :Shuffle | Shuffle selected lines
+" ----------------------------------------------------------------------------
+function! s:shuffle() range
+ruby << RB
+  first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
+  (first..last).map { |l| $curbuf[l] }.shuffle.each_with_index do |line, i|
+    $curbuf[first + i] = line
+  end
+RB
+endfunction
+command! -range Shuffle <line1>,<line2>call s:shuffle()
+
+
+" =================
+" }}}
+" =================
