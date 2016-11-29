@@ -63,6 +63,7 @@ set titlestring=%F
 set ttyfast " faster redrawing
 set wildmenu " Turn on the WiLd menu
 set wildmode=list:longest " complete files like a shell
+"set wildmode=full
 syntax on " switch syntax highlighting on
 "" }}}
 
@@ -233,6 +234,10 @@ augroup airline_config
 augroup END
 " }}}
 
+""" indentline {{{
+let g:indentLine_char = '▸'
+""" }}}
+
 " Ultsnips {{{
 augroup Ultsnips
     autocmd!
@@ -268,87 +273,9 @@ augroup instant_markdown
 augroup END
 "}}}
 
-"" Shougo {{{
-"augroup Shougo_config
-"    autocmd!
-"
-"    "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-"    " Disable AutoComplPop.
-"    let g:acp_enableAtStartup = 0
-"    " Use neocomplete.
-"    let g:neocomplete#enable_at_startup = 1
-"    " Use smartcase.
-"    let g:neocomplete#enable_smart_case = 1
-"    " Set minimum syntax keyword length.
-"    let g:neocomplete#sources#syntax#min_keyword_length = 3
-"    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-"
-"    " Define dictionary.
-"    let g:neocomplete#sources#dictionary#dictionaries = {
-"        \ 'default' : '',
-"        \ 'vimshell' : $HOME.'/.vimshell_hist',
-"        \ 'scheme' : $HOME.'/.gosh_completions'
-"            \ }
-"
-"    " Define keyword.
-"    if !exists('g:neocomplete#keyword_patterns')
-"        let g:neocomplete#keyword_patterns = {}
-"    endif
-"    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-"
-"    " Plugin key-mappings.
-"    inoremap <expr><C-g>     neocomplete#undo_completion()
-"    inoremap <expr><C-l>     neocomplete#complete_common_string()
-"
-"    " Recommended key-mappings.
-"    " <CR>: close popup and save indent.
-"    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"    function! s:my_cr_function()
-"      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-"      " For no inserting <CR> key.
-"      "return pumvisible() ? "\<C-y>" : "\<CR>"
-"    endfunction
-"    " <TAB>: completion.
-"    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"    " <C-h>, <BS>: close popup and delete backword char.
-"    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-"    " Close popup by <Space>.
-"    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-"
-"    " AutoComplPop like behavior.
-"    "let g:neocomplete#enable_auto_select = 1
-"
-"    " Shell like behavior(not recommended).
-"    "set completeopt+=longest
-"    "let g:neocomplete#enable_auto_select = 1
-"    "let g:neocomplete#disable_auto_complete = 1
-"    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-"
-"    " Enable omni completion.
-"    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-"
-"    " Enable heavy omni completion.
-"    if !exists('g:neocomplete#sources#omni#input_patterns')
-"      let g:neocomplete#sources#omni#input_patterns = {}
-"    endif
-"    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-"
-"    " For perlomni.vim setting.
-"    " https://github.com/c9s/perlomni.vim
-"    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-"augroup END
-"" }}}
-
-let g:indentLine_char = '▸'
-
+"" deoplete {{{
 let g:deoplete#enable_at_startup = 1
+"" }}}
 
 function! DoRemote(arg)
     UpdateRemotePlugins
@@ -363,46 +290,6 @@ endfunction
 "=====================
 call plug#begin('~/.config/nvim/plugged')
 
-"Plug 'JulesWang/css.vim',  { 'for': 'css' }
-"Plug 'LaTeX-Box-Team/LaTeX-Box'
-"Plug 'Shougo/neocomplete.vim'
-"Plug 'Shougo/neosnippet'
-"Plug 'Shougo/neosnippet-snippets'
-"Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } 
-"Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlPBuffer' }
-"Plug 'elzr/vim-json', { 'for': 'json' } 
-"Plug 'fatih/vim-go', { 'for': 'go' } "
-"Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
-"Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-"Plug 'itchyny/calendar.vim'
-"Plug 'joker1007/vim-ruby-heredoc-syntax', { 'for': 'ruby' }
-"Plug 'junegunn/vim-easy-align'
-"Plug 'junegunn/vim-emoji'
-"Plug 'kchmck/vim-coffee-script'
-"Plug 'lervag/vimtex'
-"Plug 'mustache/vim-mustache-handlebars'
-"Plug 'mxw/vim-jsx', { 'for': 'jsx' } 
-"Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'noprompt/vim-yardoc'
-"Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-"Plug 'rhysd/vim-crystal'
-"Plug 'rking/ag.vim'
-"Plug 'slim-template/vim-slim', { 'for': 'slim' }
-"Plug 'thoughtbot/vim-rspec'
-"Plug 'toyamarinyon/vim-swift'
-"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-"Plug 'tpope/vim-haml'
-"Plug 'tpope/vim-leiningen'
-"Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-"Plug 'tpope/vim-rails'
-"Plug 'tpope/vim-repeat'
-"Plug 'vim-ruby/vim-ruby', { 'for': 'ruby'}
-"Plug 'vim-scripts/fish.vim',   { 'for': 'fish' }
-"Plug 'vim-scripts/jade.vim',   { 'for': 'jade' }
-"Plug 'wavded/vim-stylus',      { 'for': 'stylus' }
-"Plug 'wlangstroth/vim-racket'
-"Plug 'xolox/vim-misc'
-"Plug 'xolox/vim-notes'
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
@@ -419,7 +306,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } 
-Plug 'junegunn/vim-github-dashboard', { 'on': ['GHDashboard', 'GHActivity'] }
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
