@@ -499,14 +499,14 @@ noremap <silent> <Leader>h :<C-u>split<CR>
 noremap <silent> <Leader>v :<C-u>vsplit<CR>
 
 "" Git
-noremap <silent> <Leader>gw :Gwrite<CR>
-noremap <silent> <Leader>gc :Gcommit<CR>
+noremap <silent> <Leader>gb  :Gblame<CR>
+noremap <silent> <Leader>gc  :Gcommit<CR>
+noremap <silent> <Leader>gd  :Gvdiff<CR>
 noremap <silent> <Leader>gps :Gpush<CR>
 noremap <silent> <Leader>gpu :Gpull<CR>
-noremap <silent> <Leader>gs :Gstatus<CR>
-noremap <silent> <Leader>gb :Gblame<CR>
-noremap <silent> <Leader>gd :Gvdiff<CR>
-noremap <silent> <Leader>gr :Gremove<CR>
+noremap <silent> <Leader>gr  :Gremove<CR>
+noremap <silent> <Leader>gs  :Gstatus<CR>
+noremap <silent> <Leader>gw  :Gwrite<CR>
 
 "" Tabs
 nnoremap <Tab> gt
@@ -522,11 +522,19 @@ noremap <silent> <leader>q :bd!<CR>
 noremap <silent> <leader>x :bn<CR>
 noremap <silent> <leader>w :enew<CR>
 
-"noremap <silent> <leader>bl :CtrlPBuffer<CR>
-nnoremap <silent> <leader>bl :Buffers<CR>
+"noremap <silent> <leader>b :CtrlPBuffer<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-nnoremap <silent> <leader>e  :FZF<cr>
+
+if isdirectory(".git")
+    " if in a git project, use :GFiles
+    nnoremap <silent> <leader>e  :GFiles<cr>
+else
+    " otherwise, use :FZF
+    nnoremap <silent> <leader>e :FZF<cr>
+endif
+
 nnoremap <silent> <leader>ag :Ag<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
