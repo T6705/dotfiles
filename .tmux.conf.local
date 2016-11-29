@@ -153,22 +153,29 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left='#[bg=colour72] #[bg=colour237] #[bg=colour236] #[bg=colour235]#[fg=colour185] #h #[bg=colour236] '
-#tmux_conf_theme_status_left='#[fg=colour254,bg=colour234,bold] [#[fg=colour123,bg=colour234,bold]#h#[fg=colour255,bg=colour234,bold]] #[fg=colour255,bg=colour234,bold][#[fg=colour39,bg=colour234,bold]#S#[fg=colour255,bg=colour234,bold]]#[fg=colour255,bg=colour234,bold] [#[fg=colour213,bg=colour234,bold]#(ifconfig enp3s0 | grep "inet " | tr -s " " | cut -d" " -f3 | cut -d":" -f2)#[fg=colour255,bg=colour234,bold]] [#[fg=colour213,bg=colour234,bold]#(ifconfig wlp2s0 | grep "inet " | tr -s " " | cut -d" " -f3 | cut -d":" -f2)#[fg=colour255,bg=colour234,bold]] '
+#tmux_conf_theme_status_left='#[bg=colour72] #[bg=colour237] #[bg=colour236] #[bg=colour235]#[fg=colour185] #h #[bg=colour236] '
+tmux_conf_theme_status_left=' #{hostname} , #S , #(ifconfig enp3s0 | grep "inet " | tr -s " " | cut -d" " -f3 | cut -d":" -f2) #(ifconfig wlp2s0 | grep "inet " | tr -s " " | cut -d" " -f3 | cut -d":" -f2) ,'
 
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} ,#[bg=colour239] #[bg=colour235]#[fg=colour185] #(date "+%d/%m/%y %H:%M:%S") #[bg=colour236] #[bg=colour237] #[bg=colour72] '
-#tmux_conf_theme_status_right='#{prefix}#{pairing}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , #[fg=colour255,bg=colour234,bold][#[fg=colour51,bg=colour234]%d/%m/%y#[fg=colour255,bg=colour234,bold]] [#[fg=colour190,bg=colour234]%H:%M:%S#[fg=colour255,bg=colour234,bold]] '
+#tmux_conf_theme_status_right='#{prefix}#{pairing}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} ,#[bg=colour239] #[bg=colour235]#[fg=colour185] #(date "+%d/%m/%y %H:%M:%S") #[bg=colour236] #[bg=colour237] #[bg=colour72] '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %d/%m/%y , %H:%M:%S '
 #tmux_conf_theme_status_right'#[fg=colour255,bg=colour234,bold] [#[fg=colour46,bg=colour234,bold]#(upower -i /org/freedesktop/UPower/devices/battery_BAT1 | grep percentage | tr -s " " | cut -d" " -f3)#[fg=colour255,bg=colour234,bold]]#[fg=colour51,bg=colour234,bold] #[fg=colour255,bg=colour234,bold][#[fg=colour51,bg=colour234,bold]%d/%m/%y#[fg=colour255,bg=colour234,bold]]#[fg=colour51,bg=colour234,bold] #[fg=colour255,bg=colour234,bold][#[fg=colour190,bg=colour234,bold]%H:%M:%S#[fg=colour255,bg=colour234,bold]] '
 
 # status left style
 tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
 tmux_conf_theme_status_left_bg='#ffff00,#ff00af,#00afff'  # yellow, pink, white blue
 tmux_conf_theme_status_left_attr='bold,none,none'
+tmux_conf_theme_status_left_fg='colour72'
+tmux_conf_theme_status_left_bg='colour234'
+tmux_conf_theme_status_left_attr='bold'
+
 
 # status right style
 tmux_conf_theme_status_right_fg='#8a8a8a,#e4e4e4,#000000' # light gray, white, black
 tmux_conf_theme_status_right_bg='colour234,#d70000,#e4e4e4' # dark gray, red, white
 tmux_conf_theme_status_right_attr='none,none,bold'
+tmux_conf_theme_status_right_fg='colour71'
+tmux_conf_theme_status_right_bg='colour234'
+tmux_conf_theme_status_right_attr='bold'
 
 # pairing indicator
 tmux_conf_theme_pairing='👓'          # U+1F453
