@@ -536,16 +536,6 @@ vmap > >gv
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-"" dragvisuals.vim
-runtime plugin/dragvisuals.vim
-" Remove any introduced trailing whitespace after moving...
-let g:DVB_TrimWS = 1
-vmap  <expr>  <LEFT>   DVB_Drag('left')
-vmap  <expr>  <RIGHT>  DVB_Drag('right')
-vmap  <expr>  <DOWN>   DVB_Drag('down')
-vmap  <expr>  <UP>     DVB_Drag('up')
-vmap  <expr>  D        DVB_Duplicate()
-
 "" Enable folding
 "set foldmethod=marker
 set foldmethod=indent
