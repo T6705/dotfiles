@@ -363,7 +363,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
@@ -379,12 +379,13 @@ Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'}
+"Plug 'mbbill/undotree', { 'on': 'UndotreeToggle'}
 Plug 'morhetz/gruvbox'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/syntastic'
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasr/molokai'
@@ -574,8 +575,7 @@ noremap <C-k> 2<C-y>
 noremap <silent> <F7> :%!xxd<CR>
 noremap <silent> <F8> :%!xxd -r<CR>
 
-noremap <silent> <F4> :ColorToggle<CR>
-noremap <silent> <F5> :UndotreeToggle<CR>
+noremap <silent> <F4> :GundoToggle<CR>
 noremap <silent> <F6> :TagbarToggle<CR>
 noremap <silent> <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
 
