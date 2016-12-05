@@ -290,10 +290,11 @@ endfunction
 "=====================
 call plug#begin('~/.config/nvim/plugged')
 
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+"Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
@@ -309,7 +310,7 @@ Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
-"Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
 Plug 'scrooloose/nerdcommenter'
