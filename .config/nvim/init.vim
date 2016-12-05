@@ -244,6 +244,10 @@ augroup Ultsnips
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
     let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+    " If you want :UltiSnipsEdit to split your window.
+    let g:UltiSnipsEditSplit="vertical"
+
 augroup END
 "}}}
 
@@ -274,12 +278,22 @@ augroup END
 "}}}
 
 "" deoplete {{{
-let g:deoplete#enable_at_startup = 1
+augroup Shougo_config
+    autocmd!
+    let g:deoplete#enable_at_startup = 1
+
+    let g:deoplete#sources#jedi#enable_cache = 1
+    let g:deoplete#sources#jedi#show_docstring = 0
+
+augroup END
 "" }}}
 
 function! DoRemote(arg)
     UpdateRemotePlugins
 endfunction
+
+autocmd! BufWritePost * Neomake
+
 
 " =====================
 """ }}}
@@ -292,13 +306,16 @@ call plug#begin('~/.config/nvim/plugged')
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 "Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+"Plug 'scrooloose/syntastic'
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/indentLine'
+Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
+Plug 'ervandew/supertab'
 Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
@@ -310,12 +327,11 @@ Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'morhetz/gruvbox'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 Plug 'terryma/vim-multiple-cursors'
@@ -324,6 +340,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 call plug#end()
 "=====================
 " }}}

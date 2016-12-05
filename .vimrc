@@ -244,6 +244,10 @@ augroup Ultsnips
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<tab>"
     let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+    " If you want :UltiSnipsEdit to split your window.
+    let g:UltiSnipsEditSplit="vertical"
+
 augroup END
 "}}}
 
@@ -272,7 +276,7 @@ augroup instant_markdown
     let g:instant_markdown_autostart = 0
 augroup END
 "}}}
-"
+
 " Shougo {{{
 augroup Shougo_config
     autocmd!
@@ -369,6 +373,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
+Plug 'ervandew/supertab'
 Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
@@ -380,7 +385,7 @@ Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'morhetz/gruvbox'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
 Plug 'scrooloose/nerdcommenter'
