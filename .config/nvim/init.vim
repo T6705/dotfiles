@@ -292,7 +292,18 @@ function! DoRemote(arg)
     UpdateRemotePlugins
 endfunction
 
-autocmd! BufWritePost * Neomake
+"" {{{
+    " $ sudo pip2/pip3 install flake8 -U
+    " $ sudo pip2/pip3 install vulture -U
+    let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
+    " let g:neomake_python_enabled_makers = ['flake8', 'pep8']
+    " E501 is line length of 80 characters
+    let g:neomake_python_flake8_maker = { 'args': ['--ignore=E115,E266,E501,E302'], }
+    let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E115,E266,E302'], }
+
+    " run neomake on the current file on every write:
+    autocmd! BufWritePost * Neomake
+"" }}}
 
 
 " =====================
