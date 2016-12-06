@@ -305,13 +305,16 @@ endfunction
 " neomake {{{
 
     " Python2/3 {{{
-    " $ sudo pip2/pip3 install -U flake8 pep8 vulture
-    let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
-    " let g:neomake_python_enabled_makers = ['flake8', 'pep8']
-    " E501 is line length of 80 characters
-    let g:neomake_python_flake8_maker = { 'args': ['--ignore=E115,E266,E501,E302'], }
-    let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E115,E266,E302'], }
-    " }}}}
+        " $ sudo pip2/pip3 install -U flake8 pep8 vulture
+        let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
+        " E501 is line length of 80 characters
+        let g:neomake_python_flake8_maker = { 'args': ['--ignore=E115,E266,E501,E302'], }
+        let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E115,E266,E302'], }
+    " }}}
+
+    " php {{{
+        let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
+    " }}}
 
     " run neomake on the current file on every write:
     autocmd! BufWritePost * Neomake
