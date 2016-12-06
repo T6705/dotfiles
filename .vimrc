@@ -1,32 +1,30 @@
 " vim:foldmethod=marker:foldlevel=0
 
-" =====================
-" === Basic Setting {{{
-" =====================
+""" === Basic Setting === {{{
 let g:python_host_prog = '/usr/bin/python2.7'
 let g:python3_host_prog = '/usr/bin/python3.5'
 
 let mapleader=','
 
-"" Encoding {{{
+" Encoding {{{
 set binary
 set bomb
 set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
 set fileencoding=utf-8
 set fileencodings=utf-8
-"" }}}
+" }}}
 
-"" Fix backspace indent
+" Fix backspace indent
 set backspace=indent,eol,start " make backspace behave in a sane manner
 
-"" Tabs {{{
+" Tabs {{{
 set expandtab " Use spaces instead of tabs
 set softtabstop=0
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
 
-"" Tab control
+" Tab control
 " set noexpandtab " insert tabs rather than spaces for <Tab>
 " set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
 " set tabstop=4 " the visible width of tabs
@@ -34,17 +32,17 @@ set tabstop=4
 " set shiftwidth=4 " number of spaces to use for indent and unindent
 " set shiftround " round indent to a multiple of 'shiftwidth'
 " set completeopt+=longest
-"" }}}
+" }}}
 
-"" toggle invisible characters {{{
+" toggle invisible characters {{{
 set invlist
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 set showbreak=↪
 nmap <leader>l :set list!<cr>
-"" }}}
+" }}}
 
-"" UI {{{
+" UI {{{
 colorscheme molokai
 set background=dark
 set cursorline
@@ -65,38 +63,38 @@ set wildmenu " Turn on the WiLd menu
 set wildmode=list:longest " complete files like a shell
 "set wildmode=full
 syntax on " switch syntax highlighting on
-"" }}}
+" }}}
 
-"" Searching {{{
+" Searching {{{
 set hlsearch
 set ignorecase " Ignore case when searching
 set incsearch " Makes search act like search in modern browsers
 set magic " For regular expressions turn magic on
 set showmatch " Show matching brackets when text indicator is over them
 set smartcase " When searching try to be smart about cases 
-"" }}}
+" }}}
 
-"" error bells {{{
+" error bells {{{
 set noerrorbells
 set t_vb=
 set tm=500
 set visualbell
-"" }}}
+" }}}
 
-"" Directories for swp files {{{
+" Directories for swp files {{{
 set nobackup
 set noswapfile
-"" }}}
+" }}}
 
-"" Disable the vlinking cursor {{{
+" Disable the vlinking cursor {{{
 set gcr=a:blinkon0
 set scrolloff=3
-"" }}}
+" }}}
 
-"" Status bar
+" Status bar
 set laststatus=2
 
-"" Use modeline overrides
+" Use modeline overrides
 set modeline
 set modelines=10
 
@@ -107,13 +105,9 @@ set guioptions=egmrti
 set history=1000 " change history to 1000
 set nocompatible " not compatible with vi
 set shell=/bin/zsh
-" =====================
-" }}}
-" =====================
+""" }}}
 
-" =====================
-" === Plugin Config {{{
-" =====================
+""" === Plugin Config === {{{
 
 " Colorizer {{{
 augroup Colorizer
@@ -234,9 +228,9 @@ augroup airline_config
 augroup END
 " }}}
 
-""" indentline {{{
+" indentline {{{
 let g:indentLine_char = '▸'
-""" }}}
+" }}}
 
 " Ultsnips {{{
 augroup Ultsnips
@@ -355,13 +349,9 @@ augroup Shougo_config
 augroup END
 " }}}
 
-" =====================
 """ }}}
-" =====================
 
-"=====================
-" === Load plugins {{{
-"=====================
+""" === Load plugins === {{{
 call plug#begin('~/.config/nvim/plugged')
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
@@ -387,7 +377,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'morhetz/gruvbox'
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown'}
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/syntastic'
@@ -400,13 +390,9 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
-"=====================
-" }}}
-"=====================
+""" }}}
 
-" ================
-" === Mappings {{{
-" ================
+""" === Mappings === {{{
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -457,11 +443,11 @@ nnoremap <silent> $ g$
 " clear highlighted search
 noremap <silent> <Leader>sc :set hlsearch! hlsearch?<cr>
 
-"" Split
+" Split
 noremap <silent> <Leader>h :<C-u>split<CR>
 noremap <silent> <Leader>v :<C-u>vsplit<CR>
 
-"" Git
+" Git
 noremap <silent> <Leader>gb  :Gblame<CR>
 noremap <silent> <Leader>gc  :Gcommit<CR>
 noremap <silent> <Leader>gd  :Gvdiff<CR>
@@ -471,15 +457,15 @@ noremap <silent> <Leader>gr  :Gremove<CR>
 noremap <silent> <Leader>gs  :Gstatus<CR>
 noremap <silent> <Leader>gw  :Gwrite<CR>
 
-"" Tabs
+" Tabs
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
-"" Explore dir
+" Explore dir
 nnoremap <leader>E :Explore<CR>
 
-"" Buffer nav
+" Buffer nav
 noremap <silent> <leader>z :bp<CR>
 noremap <silent> <leader>q :bd!<CR>
 noremap <silent> <leader>x :bn<CR>
@@ -535,15 +521,15 @@ autocmd VimEnter * command! -bang -nargs=* Ag
 "" noremap <C-l> <C-w>l
 "" noremap <C-h> <C-w>h
 
-"" Vmap for maintain Visual Mode after shifting > and <
+" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
 vmap > >gv
 
-"" Move visual block
+" Move visual block
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-"" Enable folding
+" Enable folding
 "set foldmethod=marker
 set foldmethod=indent
 set foldlevel=99
@@ -555,17 +541,17 @@ vnoremap <SPACE> za<CR>
 "    au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=marker| endif
 "augroup END
 
-"" RainbowParentheses
+" RainbowParentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
 "au Syntax * RainbowParenthesesLoadChevrons
 
-"" vim-table-mode
+" vim-table-mode
 noremap <silent> <Leader>tm :TableModeToggle<CR>
 
-"" Tabular
+" Tabular
 nnoremap <silent> <Leader>a= :Tabularize /=<CR>
 vnoremap <silent> <Leader>a= :Tabularize /=<CR>
 nnoremap <silent> <Leader>a: :Tabularize /:<CR>
@@ -573,11 +559,11 @@ vnoremap <silent> <Leader>a: :Tabularize /:<CR>
 "nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
 "vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
 
-"" Scrolling
+" Scrolling
 noremap <C-j> 2<C-e>
 noremap <C-k> 2<C-y>
 
-"" hexedit
+" hexedit
 noremap <silent> <F7> :%!xxd<CR>
 noremap <silent> <F8> :%!xxd -r<CR>
 
@@ -596,13 +582,9 @@ if has('nvim')
     "tnoremap <a-f> <esc>f
 endif
 
-" ================
-" }}}
-" ================
+""" }}}
 
-" =================
-" === Functions {{{
-" =================
+""" === Functions === {{{
 
 " ----------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
@@ -618,6 +600,4 @@ endfunction
 command! -range Shuffle <line1>,<line2>call s:shuffle()
 
 
-" =================
-" }}}
-" =================
+""" }}}
