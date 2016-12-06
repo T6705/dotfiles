@@ -18,19 +18,17 @@ set fileencodings=utf-8
 set backspace=indent,eol,start " make backspace behave in a sane manner
 
 " Tabs {{{
-set expandtab " Use spaces instead of tabs
+set expandtab     " Use spaces instead of tabs
 set softtabstop=0
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=4  " number of spaces to use for indent and unindent
+set tabstop=4     " the visible width of tabs
 
 " Tab control
-" set noexpandtab " insert tabs rather than spaces for <Tab>
-" set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-" set tabstop=4 " the visible width of tabs
+" set noexpandtab   " insert tabs rather than spaces for <Tab>
+" set smarttab      " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
 " set softtabstop=4 " edit as if the tabs are 4 characters wide
-" set shiftwidth=4 " number of spaces to use for indent and unindent
-" set shiftround " round indent to a multiple of 'shiftwidth'
+" set shiftround    " round indent to a multiple of 'shiftwidth'
 " set completeopt+=longest
 " }}}
 
@@ -46,32 +44,32 @@ nmap <leader>l :set list!<cr>
 colorscheme molokai
 set background=dark
 set cursorline
-set hidden " current buffer can be put into background
-set lazyredraw " Don't redraw while executing macros (good performance config)
+set hidden                " current buffer can be put into background
+set lazyredraw            " Don't redraw while executing macros (good performance config)
 set number
-set ruler "Always show current position
-set scrolloff=3 
-set showcmd " show incomplete commands
-set so=7 " Set 7 lines to the cursor - when moving vertically using j/k
+set ruler                 " Always show current position
+set scrolloff=3
+set showcmd               " show incomplete commands
+set so=7                  " Set 7 lines to the cursor - when moving vertically using j/k
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
+set t_Co=256              " Explicitly tell vim that the terminal supports 256 colors
 set title
 set titleold="Terminal"
 set titlestring=%F
-set ttyfast " faster redrawing
-set wildmenu " Turn on the WiLd menu
+set ttyfast               " faster redrawing
+set wildmenu              " Turn on the WiLd menu
 set wildmode=list:longest " complete files like a shell
 "set wildmode=full
-syntax on " switch syntax highlighting on
+syntax on                 " switch syntax highlighting on
 " }}}
 
 " Searching {{{
 set hlsearch
 set ignorecase " Ignore case when searching
-set incsearch " Makes search act like search in modern browsers
-set magic " For regular expressions turn magic on
-set showmatch " Show matching brackets when text indicator is over them
-set smartcase " When searching try to be smart about cases 
+set incsearch  " Makes search act like search in modern browsers
+set magic      " For regular expressions turn magic on
+set showmatch  " Show matching brackets when text indicator is over them
+set smartcase  " When searching try to be smart about cases
 " }}}
 
 " error bells {{{
@@ -98,12 +96,12 @@ set laststatus=2
 set modeline
 set modelines=10
 
-set autoread " detect when a file is changed
+set autoread                 " detect when a file is changed
 set fileformats=unix,dos,mac
 set gfn=Monospace\ 10
 set guioptions=egmrti
-set history=1000 " change history to 1000
-set nocompatible " not compatible with vi
+set history=1000             " change history to 1000
+set nocompatible             " not compatible with vi
 set shell=/bin/zsh
 """ }}}
 
