@@ -363,6 +363,33 @@ augroup Shougo_config
 augroup END
 " }}}
 
+" Pymode{{{
+augroup Pymode
+    autocmd!
+
+    "let g:pymode_options = 1　　                                " Setup default python options
+    "let g:pymode_options_max_line_length = 79                   " Setup max line length
+    let g:pymode = 1                                            " enable Pymode
+    let g:pymode_breakpoint_bind = '<leader>pb'                 " add breakpoint with ,pb
+    let g:pymode_doc = 1                                        " read doc :PymodeDoc arg
+    let g:pymode_doc_bind = 'K'                                 " press K to show doc for current word
+    let g:pymode_folding = 1                                    " enable folding
+    let g:pymode_indent = 1                                     " pep8 indent style
+    let g:pymode_python = 'python3'
+    let g:pymode_run = 1
+    let g:pymode_run_bind = '<leader>pr'                        " run python code with ,pr
+    let g:pymode_trim_whitespaces = 1                           " Trim unused white spaces on save
+    let g:pymode_virtualenv = 1                                 " Enable automatic virtualenv detection
+
+    """ linting code with neomake
+    "let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+    let g:pymode_lint_on_fly = 0
+    let g:pymode_lint_on_write = 0
+    let g:pymode_lint_unmodified = 0
+
+augroup END
+" }}}
+
 """ }}}
 
 """ === Load plugins === {{{
@@ -387,6 +414,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } 
 Plug 'kien/rainbow_parentheses.vim'
+Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
