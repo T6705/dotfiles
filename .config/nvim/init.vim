@@ -302,6 +302,17 @@ endfunction
 
 " neomake {{{
 
+    let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
+    let g:neomake_warning_sign = {
+        \   'text': '⚠',
+        \   'texthl': 'NeomakeWarningSign',
+        \ }
+    let g:neomake_message_sign = {
+         \   'text': '➤',
+         \   'texthl': 'NeomakeMessageSign',
+         \ }
+    let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+
     " Python2/3 {{{
         " $ sudo pip2/pip3 install -U flake8 pep8 vulture
         "let g:neomake_python_enabled_makers = ['pylint', 'flake8', 'pep8', 'vulture']
