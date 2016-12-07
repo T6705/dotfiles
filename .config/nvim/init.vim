@@ -263,10 +263,10 @@ augroup END
 augroup YouCompleteMe
     autocmd!
     let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-    let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
-    let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-    let g:ycm_complete_in_comments = 1 " Completion in comments
-    let g:ycm_complete_in_strings = 1 " Completion in string
+    let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
+    let g:ycm_seed_identifiers_with_syntax = 1        " Completion for programming language's keyword
+    let g:ycm_complete_in_comments = 1                " Completion in comments
+    let g:ycm_complete_in_strings = 1                 " Completion in string
 
     let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
     let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
@@ -340,7 +340,7 @@ augroup Pymode
     let g:pymode_breakpoint_bind = '<leader>pb'                 " add breakpoint with ,pb
     let g:pymode_doc = 1                                        " read doc :PymodeDoc arg
     let g:pymode_doc_bind = 'K'                                 " press K to show doc for current word
-    let g:pymode_folding = 1                                    " enable folding
+    let g:pymode_folding = 0                                    " disable folding
     let g:pymode_indent = 1                                     " pep8 indent style
     let g:pymode_python = 'python3'
     let g:pymode_run = 1
@@ -473,8 +473,11 @@ nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
+" remove extra whitespace
+nmap <leader><space> :%s/\s\+$<CR>:%s/, */, /g<CR>:%s/, $/,/g<CR>
+
 " Explore dir
-nnoremap <leader>E :Explore<CR>
+nnoremap <silent> <leader>E :Explore<CR>
 
 " Buffer nav
 noremap <silent> <leader>z :bp<CR>
