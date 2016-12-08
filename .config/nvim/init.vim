@@ -145,28 +145,40 @@ augroup END
 " RainbowParentheses{{{
 augroup RainbowParentheses
     autocmd!
-    let g:rbpt_colorpairs = [
-        \ ['brown',       'RoyalBlue3'],
-        \ ['Darkblue',    'SeaGreen3'],
-        \ ['darkgray',    'DarkOrchid3'],
-        \ ['darkgreen',   'firebrick3'],
-        \ ['darkcyan',    'RoyalBlue3'],
-        \ ['darkred',     'SeaGreen3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['brown',       'firebrick3'],
-        \ ['gray',        'RoyalBlue3'],
-        \ ['darkmagenta', 'DarkOrchid3'],
-        \ ['Darkblue',    'firebrick3'],
-        \ ['darkgreen',   'RoyalBlue3'],
-        \ ['darkcyan',    'SeaGreen3'],
-        \ ['darkred',     'DarkOrchid3'],
-        \ ['red',         'firebrick3'],
-        \ ]
+
+    " junegunn/rainbow_parentheses.vim
+    autocmd FileType * RainbowParentheses
+    let g:rainbow#max_level = 32
+    let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{','}']]
+
+    "kien/rainbow_parentheses.vim
+    "let g:rbpt_colorpairs = [
+    "    \ ['brown',       'RoyalBlue3'],
+    "    \ ['Darkblue',    'SeaGreen3'],
+    "    \ ['darkgray',    'DarkOrchid3'],
+    "    \ ['darkgreen',   'firebrick3'],
+    "    \ ['darkcyan',    'RoyalBlue3'],
+    "    \ ['darkred',     'SeaGreen3'],
+    "    \ ['darkmagenta', 'DarkOrchid3'],
+    "    \ ['brown',       'firebrick3'],
+    "    \ ['gray',        'RoyalBlue3'],
+    "    \ ['darkmagenta', 'DarkOrchid3'],
+    "    \ ['Darkblue',    'firebrick3'],
+    "    \ ['darkgreen',   'RoyalBlue3'],
+    "    \ ['darkcyan',    'SeaGreen3'],
+    "    \ ['darkred',     'DarkOrchid3'],
+    "    \ ['red',         'firebrick3'],
+    "    \ ]
+    "au VimEnter * RainbowParenthesesToggle
+    "au Syntax * RainbowParenthesesLoadRound
+    "au Syntax * RainbowParenthesesLoadSquare
+    "au Syntax * RainbowParenthesesLoadBraces
+    "au Syntax * RainbowParenthesesLoadChevrons
 augroup END
 " }}}
 
 " syntastic {{{
-augroup syntastic 
+augroup syntastic
     autocmd!
     let g:syntastic_aggregate_errors = 1
     let g:syntastic_always_populate_loc_list=1
@@ -362,12 +374,65 @@ augroup Pymode
 augroup END
 " }}}
 
+" vim-slash {{{
+augroup slash
+    autocmd!
+
+    function! s:blink(times, delay)
+      let s:blink = { 'ticks': 2 * a:times, 'delay': a:delay }
+
+      function! s:blink.tick(_)
+        let self.ticks -= 1
+        let active = self == s:blink && self.ticks > 0
+
+        if !self.clear() && active && &hlsearch
+          let [line, col] = [line('.'), col('.')]
+          let w:blink_id = matchadd('IncSearch',
+                \ printf('\%%%dl\%%>%dc\%%<%dc', line, max([0, col-2]), col+2))
+        endif
+        if active
+          call timer_start(self.delay, self.tick)
+        endif
+      endfunction
+
+      function! s:blink.clear()
+        if exists('w:blink_id')
+          call matchdelete(w:blink_id)
+          unlet w:blink_id
+          return 1
+        endif
+      endfunction
+
+      call s:blink.clear()
+      call s:blink.tick(0)
+      return ''
+    endfunction
+
+    if has('timers')
+      "if has_key(g:plugs, 'vim-slash')
+      "  noremap <expr> <plug>(slash-after) <sid>blink(2, 50)
+      "else
+      "  noremap <expr> n 'n'.<sid>blink(2, 50)
+      "  noremap <expr> N 'N'.<sid>blink(2, 50)
+      "  cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
+      "endif
+      "noremap <expr> <plug>(slash-after) <sid>blink(2, 50)
+      noremap <expr> n 'n'.<sid>blink(2, 50)
+      noremap <expr> N 'N'.<sid>blink(2, 50)
+      cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
+    endif
+
+augroup END
+" }}}
+
 """ }}}
 
 """ === Load plugins === {{{
-call plug#begin('~/.config/nvim/plugged')
+"call plug#begin('~/.config/nvim/plugged')
+silent! if plug#begin('~/.config/nvim/plugged')
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+"Plug 'kien/rainbow_parentheses.vim'
 "Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 "Plug 'scrooloose/syntastic'
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
@@ -386,8 +451,9 @@ Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } 
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/vim-slash'
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
@@ -406,6 +472,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 call plug#end()
+endif
 """ }}}
 
 """ === Mappings === {{{
@@ -486,7 +553,9 @@ nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
 " add space after comma and remove extra whitespace
-nmap <leader><space> :%s/, */, /g<CR>:%s/\s\+$<CR>
+"nmap <leader><space> :%s/, */, /g<CR>:%s/\s\+$<CR>
+nmap <leader><space> :%s/\s\+$<CR>
+nmap <leader><space><space> :%s/, */, /g<CR>
 
 " Explore dir
 nnoremap <silent> <leader>E :Explore<CR>
@@ -568,13 +637,6 @@ vnoremap <SPACE> za<CR>
 "    au BufReadPre * setlocal foldmethod=indent
 "    au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=marker| endif
 "augroup END
-
-" RainbowParentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-"au Syntax * RainbowParenthesesLoadChevrons
 
 " vim-table-mode
 noremap <silent> <Leader>tm :TableModeToggle<CR>
