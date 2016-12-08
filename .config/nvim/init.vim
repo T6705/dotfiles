@@ -499,6 +499,8 @@ noremap <silent> <leader>w :enew<CR>
 
 "noremap <silent> <leader>b :CtrlPBuffer<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
+"nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
+nnoremap <leader>bs :Lines<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 

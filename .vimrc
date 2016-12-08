@@ -387,7 +387,7 @@ augroup Pymode
     let g:pymode_virtualenv = 1                 " Enable automatic virtualenv detection
 
     """ linting code with neomake
-    "let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+    let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
     let g:pymode_lint_on_fly = 0
     let g:pymode_lint_on_write = 0
     let g:pymode_lint_unmodified = 0
@@ -530,6 +530,8 @@ noremap <silent> <leader>w :enew<CR>
 
 "noremap <silent> <leader>b :CtrlPBuffer<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
+"nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
+nnoremap <leader>bs :Lines<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
