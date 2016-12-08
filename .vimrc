@@ -504,8 +504,7 @@ nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
-" remove extra whitespace
-"nmap <leader><space> :%s/\s\+$<CR>:%s/, */, /g<CR>:%s/, $/,/g<CR>
+" add space after comma and remove extra whitespace
 nmap <leader><space> :%s/, */, /g<CR>:%s/\s\+$<CR>
 
 " Explore dir
