@@ -469,6 +469,13 @@ noremap XX "+x<CR>
 "xnoremap jk <Esc>
 "cnoremap jk <C-c>
 
+"" Escaping
+cnoremap <C-q> <Esc>
+inoremap <C-q> <Esc>
+nnoremap <C-q> <Esc>
+vnoremap <C-q> <Esc>
+xnoremap <C-q> <Esc>
+
 ino <down> <Nop>
 ino <left> <Nop>
 ino <right> <Nop>
