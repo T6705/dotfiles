@@ -1,6 +1,10 @@
 " vim:foldmethod=marker:foldlevel=0
 
 """ === Basic Setting === {{{
+
+autocmd! bufwritepost .vimrc source %
+autocmd! bufwritepost init.vim source %
+
 let g:python_host_prog = '/usr/bin/python2.7'
 let g:python3_host_prog = '/usr/bin/python3.5'
 
@@ -376,6 +380,7 @@ augroup Pymode
     let g:pymode_folding = 0                    " disable folding
     let g:pymode_indent = 1                     " pep8 indent style
     let g:pymode_python = 'python3'
+    let g:pymode_rope = 0                       " Disable rope
     let g:pymode_run = 1
     let g:pymode_run_bind = '<leader>pr'        " run python code with ,pr
     let g:pymode_trim_whitespaces = 1           " Trim unused white spaces on save
