@@ -336,17 +336,17 @@ augroup Pymode
 
     "let g:pymode_options = 1　　                                " Setup default python options
     "let g:pymode_options_max_line_length = 79                   " Setup max line length
-    let g:pymode = 1                                            " enable Pymode
-    let g:pymode_breakpoint_bind = '<leader>pb'                 " add breakpoint with ,pb
-    let g:pymode_doc = 1                                        " read doc :PymodeDoc arg
-    let g:pymode_doc_bind = 'K'                                 " press K to show doc for current word
-    let g:pymode_folding = 0                                    " disable folding
-    let g:pymode_indent = 1                                     " pep8 indent style
+    let g:pymode = 1                            " enable Pymode
+    let g:pymode_breakpoint_bind = '<leader>pb' " add breakpoint with ,pb
+    let g:pymode_doc = 1                        " read doc :PymodeDoc arg
+    let g:pymode_doc_bind = 'K'                 " press K to show doc for current word
+    let g:pymode_folding = 0                    " disable folding
+    let g:pymode_indent = 1                     " pep8 indent style
     let g:pymode_python = 'python3'
     let g:pymode_run = 1
-    let g:pymode_run_bind = '<leader>pr'                        " run python code with ,pr
-    let g:pymode_trim_whitespaces = 1                           " Trim unused white spaces on save
-    let g:pymode_virtualenv = 1                                 " Enable automatic virtualenv detection
+    let g:pymode_run_bind = '<leader>pr'        " run python code with ,pr
+    let g:pymode_trim_whitespaces = 1           " Trim unused white spaces on save
+    let g:pymode_virtualenv = 1                 " Enable automatic virtualenv detection
 
     """ linting code with neomake
     "let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
@@ -474,7 +474,8 @@ nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
 " remove extra whitespace
-nmap <leader><space> :%s/\s\+$<CR>:%s/, */, /g<CR>:%s/, $/,/g<CR>
+"nmap <leader><space> :%s/\s\+$<CR>:%s/, */, /g<CR>:%s/, $/,/g<CR>
+nmap <leader><space> :%s/, */, /g<CR>:%s/\s\+$<CR>
 
 " Explore dir
 nnoremap <silent> <leader>E :Explore<CR>

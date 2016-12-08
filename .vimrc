@@ -505,7 +505,8 @@ nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
 " remove extra whitespace
-nmap <leader><space> :%s/\s\+$<CR>:%s/, */, /g<CR>:%s/, $/,/g<CR>
+"nmap <leader><space> :%s/\s\+$<CR>:%s/, */, /g<CR>:%s/, $/,/g<CR>
+nmap <leader><space> :%s/, */, /g<CR>:%s/\s\+$<CR>
 
 " Explore dir
 nnoremap <silent> <leader>E :Explore<CR>
