@@ -7,18 +7,17 @@ let g:python3_host_prog = '/usr/bin/python3.5'
 
 let mapleader=','
 
-" Encoding {{{
+" Encoding
 set binary
 set bomb
 set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
 set fileencoding=utf-8
 set fileencodings=utf-8
-" }}}
 
 " Fix backspace indent
 set backspace=indent,eol,start " make backspace behave in a sane manner
 
-" Tabs {{{
+" Tabs
 set expandtab     " Use spaces instead of tabs
 set softtabstop=0
 " 1 tab == 4 spaces
@@ -31,17 +30,15 @@ set tabstop=4     " the visible width of tabs
 " set softtabstop=4 " edit as if the tabs are 4 characters wide
 " set shiftround    " round indent to a multiple of 'shiftwidth'
 " set completeopt+=longest
-" }}}
 
-" toggle invisible characters {{{
+" toggle invisible characters
 set invlist
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 set showbreak=↪
 nmap <leader>l :set list!<cr>
-" }}}
 
-" UI {{{
+" UI
 colorscheme molokai
 set background=dark
 set cursorline
@@ -62,33 +59,28 @@ set wildmenu              " Turn on the WiLd menu
 set wildmode=list:longest " complete files like a shell
 "set wildmode=full
 syntax on                 " switch syntax highlighting on
-" }}}
 
-" Searching {{{
+" Searching
 set hlsearch
 set ignorecase " Ignore case when searching
 set incsearch  " Makes search act like search in modern browsers
 set magic      " For regular expressions turn magic on
 set showmatch  " Show matching brackets when text indicator is over them
 set smartcase  " When searching try to be smart about cases
-" }}}
 
-" error bells {{{
+" error bells
 set noerrorbells
 set t_vb=
 set tm=500
 set visualbell
-" }}}
 
-" Directories for swp files {{{
+" Directories for swp files
 set nobackup
 set noswapfile
-" }}}
 
-" Disable the vlinking cursor {{{
+" Disable the vlinking cursor
 set gcr=a:blinkon0
 set scrolloff=3
-" }}}
 
 " Status bar
 set laststatus=2
@@ -104,85 +96,62 @@ set guioptions=egmrti
 set history=1000             " change history to 1000
 set nocompatible             " not compatible with vi
 set shell=/bin/zsh
+
 """ }}}
 
 """ === augroup === {{{
-augroup configgroup
 
+augroup configgroup
     autocmd!
     autocmd FileType * RainbowParentheses
-    autocmd! BufWritePost * Neomake
+    autocmd! BufWritePost * Neomake            " run neomake on the current file on every write:
     autocmd! bufwritepost .vimrc source %
     autocmd! bufwritepost init.vim source %
-
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-
 augroup END
 
 """ }}}
 
 """ === Plugin Config === {{{
 
-" Colorizer {{{
+" Colorizer
 let g:colorizer_syntax = 1
 let g:colorizer_auto_map = 1
-" }}}
 
-" table-mode {{{
+
+
+" table-mode
 let g:table_mode_corner="|"
 "let g:table_mode_corner_corner="+"
 "let g:table_mode_header_fillchar="="
-" }}}
 
-" RainbowParentheses{{{
+
+
+" RainbowParentheses
 " junegunn/rainbow_parentheses.vim
 "autocmd FileType * RainbowParentheses
 let g:rainbow#max_level = 32
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{','}']]
 
-"kien/rainbow_parentheses.vim
-"let g:rbpt_colorpairs = [
-"    \ ['brown',       'RoyalBlue3'],
-"    \ ['Darkblue',    'SeaGreen3'],
-"    \ ['darkgray',    'DarkOrchid3'],
-"    \ ['darkgreen',   'firebrick3'],
-"    \ ['darkcyan',    'RoyalBlue3'],
-"    \ ['darkred',     'SeaGreen3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['brown',       'firebrick3'],
-"    \ ['gray',        'RoyalBlue3'],
-"    \ ['darkmagenta', 'DarkOrchid3'],
-"    \ ['Darkblue',    'firebrick3'],
-"    \ ['darkgreen',   'RoyalBlue3'],
-"    \ ['darkcyan',    'SeaGreen3'],
-"    \ ['darkred',     'DarkOrchid3'],
-"    \ ['red',         'firebrick3'],
-"    \ ]
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBraces
-"au Syntax * RainbowParenthesesLoadChevrons
-" }}}
 
-" syntastic {{{
+
+" syntastic
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 "let g:syntastic_loc_list_height = 5
-
+" syntastic checkers
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-
+" syntastic symbol
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 let g:syntastic_style_error_symbol = '✗'
@@ -191,16 +160,15 @@ let g:syntastic_style_warning_symbol = '⚠'
 "let g:syntastic_style_error_symbol = '⁉️'
 "let g:syntastic_warning_symbol = '⚠️'
 "let g:syntastic_style_warning_symbol = '💩'
-
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
-
 noremap <silent> <leader>s :SyntasticReset<CR>
-" }}}
 
-" NERDTree {{{
+
+
+" NERDTree
 let NERDCompactSexyComs=1
 let NERDSpaceDelims=1
 let NERDTreeShowHidden=1
@@ -226,66 +194,67 @@ let g:NERDTreeIndicatorMapCustom = {
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <silent> <F3> :NERDTreeToggle<CR>
-" }}}
 
-" Airline.vim {{{
-let g:airline_powerline_fonts = 1
+" Airline.vim
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline#extensions#tabline#left_sep = ' '
 "let g:airline_theme="luna"
 "let g:airline_theme="papercolor"
-let g:airline_theme="wombat"
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
-" }}}
+let g:airline_powerline_fonts = 1
+let g:airline_theme="wombat"
 
-" indentline {{{
+
+
+" indentline
 let g:indentLine_char = '▸'
-" }}}
 
-" Ultsnips {{{
+
+
+" Ultsnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-"}}}
 
-" YouCompleteMe {{{
+
+
+" YouCompleteMe
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1        " Completion for programming language's keyword
 let g:ycm_complete_in_comments = 1                " Completion in comments
 let g:ycm_complete_in_strings = 1                 " Completion in string
-
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-
 let g:ycm_python_binary_path = '/usr/bin/python3'
-
 " Goto definition with F3
 noremap <leader>d :YcmCompleter GoTo<CR>
-"}}}
 
-" instant_markdown {{{
+
+
+" instant_markdown
 let g:instant_markdown_autostart = 0
-"}}}
 
-" Codi.vim {{{
+
+
+" Codi.vim
 let g:codi#interpreters = {
                    \ 'python': {
                        \ 'bin': 'python3',
                        \ 'prompt': '^\(>>>\|\.\.\.\) ',
                        \ },
                        \ }
-" }}}
 
-" Shougo {{{
+
+
+" Shougo
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -350,9 +319,10 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-" }}}
 
-" Pymode{{{
+
+
+" Pymode
 "let g:pymode_options = 1　　                                " Setup default python options
 "let g:pymode_options_max_line_length = 79                   " Setup max line length
 let g:pymode = 1                            " enable Pymode
@@ -367,15 +337,15 @@ let g:pymode_run = 1
 let g:pymode_run_bind = '<leader>pr'        " run python code with ,pr
 let g:pymode_trim_whitespaces = 1           " Trim unused white spaces on save
 let g:pymode_virtualenv = 1                 " Enable automatic virtualenv detection
-
 """ linting code with neomake
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 let g:pymode_lint_on_fly = 0
 let g:pymode_lint_on_write = 0
 let g:pymode_lint_unmodified = 0
-" }}}
 
-" vim-slash {{{
+
+
+" vim-slash
 function! s:blink(times, delay)
   let s:blink = { 'ticks': 2 * a:times, 'delay': a:delay }
 
@@ -419,12 +389,11 @@ if has('timers')
   noremap <expr> N 'N'.<sid>blink(2, 50)
   cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
 endif
-" }}}
 
 """ }}}
 
 """ === Load plugins === {{{
-"call plug#begin('~/.config/nvim/plugged')
+
 silent! if plug#begin('~/.config/nvim/plugged')
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
@@ -468,6 +437,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 endif
+
 """ }}}
 
 """ === Mappings === {{{
@@ -685,6 +655,5 @@ ruby << RB
 RB
 endfunction
 command! -range Shuffle <line1>,<line2>call s:shuffle()
-
 
 """ }}}
