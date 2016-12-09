@@ -615,12 +615,14 @@ endif
 noremap <C-j> 2<C-e>
 noremap <C-k> 2<C-y>
 
+noremap <silent> <F4> :GundoToggle<CR>
+noremap <silent> <F5> :Codi!!<CR>
+noremap <silent> <F6> :TagbarToggle<CR>
+
 " hexedit
 noremap <silent> <F7> :%!xxd<CR>
 noremap <silent> <F8> :%!xxd -r<CR>
 
-noremap <silent> <F4> :GundoToggle<CR>
-noremap <silent> <F6> :TagbarToggle<CR>
 noremap <silent> <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
 
 " ----------------------------------------------------------------------------
