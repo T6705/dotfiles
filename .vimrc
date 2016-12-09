@@ -2,9 +2,6 @@
 
 """ === Basic Setting === {{{
 
-autocmd! bufwritepost .vimrc source %
-autocmd! bufwritepost init.vim source %
-
 let g:python_host_prog = '/usr/bin/python2.7'
 let g:python3_host_prog = '/usr/bin/python3.5'
 
@@ -109,254 +106,14 @@ set nocompatible             " not compatible with vi
 set shell=/bin/zsh
 """ }}}
 
-""" === Plugin Config === {{{
+""" === augroup === {{{
+augroup configgroup
 
-" Colorizer {{{
-augroup Colorizer
     autocmd!
-    let g:colorizer_syntax = 1
-    let g:colorizer_auto_map = 1
-augroup END
-" }}}
-
-" table-mode {{{
-augroup tablemode
-    autocmd!
-    let g:table_mode_corner="|"
-    "let g:table_mode_corner_corner="+"
-    "let g:table_mode_header_fillchar="="
-augroup END
-" }}}
-
-" Tabular{{{
-augroup tabular
-    autocmd!
-    if exists(":Tabularize")
-      nnoremap <Leader>a= :Tabularize /=<CR>
-      vnoremap <Leader>a= :Tabularize /=<CR>
-      nnoremap <Leader>a: :Tabularize /:<CR>
-      vnoremap <Leader>a: :Tabularize /:<CR>
-      "nnoremap <Leader>a: :Tabularize /:\zs<CR>
-      "vnoremap <Leader>a: :Tabularize /:\zs<CR>
-    endif
-augroup END
-" }}}
-
-" RainbowParentheses{{{
-augroup RainbowParentheses
-    autocmd!
-
-    " junegunn/rainbow_parentheses.vim
     autocmd FileType * RainbowParentheses
-    let g:rainbow#max_level = 32
-    let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{','}']]
-
-    "kien/rainbow_parentheses.vim
-    "let g:rbpt_colorpairs = [
-    "    \ ['brown',       'RoyalBlue3'],
-    "    \ ['Darkblue',    'SeaGreen3'],
-    "    \ ['darkgray',    'DarkOrchid3'],
-    "    \ ['darkgreen',   'firebrick3'],
-    "    \ ['darkcyan',    'RoyalBlue3'],
-    "    \ ['darkred',     'SeaGreen3'],
-    "    \ ['darkmagenta', 'DarkOrchid3'],
-    "    \ ['brown',       'firebrick3'],
-    "    \ ['gray',        'RoyalBlue3'],
-    "    \ ['darkmagenta', 'DarkOrchid3'],
-    "    \ ['Darkblue',    'firebrick3'],
-    "    \ ['darkgreen',   'RoyalBlue3'],
-    "    \ ['darkcyan',    'SeaGreen3'],
-    "    \ ['darkred',     'DarkOrchid3'],
-    "    \ ['red',         'firebrick3'],
-    "    \ ]
-    "au VimEnter * RainbowParenthesesToggle
-    "au Syntax * RainbowParenthesesLoadRound
-    "au Syntax * RainbowParenthesesLoadSquare
-    "au Syntax * RainbowParenthesesLoadBraces
-    "au Syntax * RainbowParenthesesLoadChevrons
-augroup END
-" }}}
-
-" syntastic {{{
-augroup syntastic
-    autocmd!
-    let g:syntastic_aggregate_errors = 1
-    let g:syntastic_always_populate_loc_list=1
-    let g:syntastic_auto_loc_list = 0
-    let g:syntastic_check_on_open = 0
-    let g:syntastic_check_on_wq = 0
-    "let g:syntastic_loc_list_height = 5
-
-    let g:syntastic_python_checkers = ['pylint']
-    let g:syntastic_javascript_checkers = ['eslint']
-    let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-
-    let g:syntastic_error_symbol='✗'
-    let g:syntastic_warning_symbol='⚠'
-    let g:syntastic_style_error_symbol = '✗'
-    let g:syntastic_style_warning_symbol = '⚠'
-    "let g:syntastic_error_symbol = '❌'
-    "let g:syntastic_style_error_symbol = '⁉️'
-    "let g:syntastic_warning_symbol = '⚠️'
-    "let g:syntastic_style_warning_symbol = '💩'
-
-    highlight link SyntasticErrorSign SignColumn
-    highlight link SyntasticWarningSign SignColumn
-    highlight link SyntasticStyleErrorSign SignColumn
-    highlight link SyntasticStyleWarningSign SignColumn
-
-    noremap <silent> <leader>s :SyntasticReset<CR>
-augroup END
-" }}}
-
-" NERDTree {{{
-augroup nerdtree
-    autocmd!
-    let NERDCompactSexyComs=1
-    let NERDSpaceDelims=1
-    let NERDTreeShowHidden=1
-    let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
-    let g:NERDTreeChDirMode=2
-    let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-    let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-    let g:NERDTreeShowBookmarks=1
-    let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-    let g:NERDTreeWinSize = 50
-    let g:nerdtree_tabs_focus_on_files=1
-    let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
-    set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-    nnoremap <silent> <F2> :NERDTreeFind<CR>
-    noremap <silent> <F3> :NERDTreeToggle<CR>
-augroup END
-" }}}
-
-" Airline.vim {{{
-augroup airline_config
-    autocmd!
-    let g:airline_powerline_fonts = 1
-    "let g:airline_theme="luna"
-    "let g:airline_theme="papercolor"
-    let g:airline_theme="wombat"
-    "let g:airline#extensions#tabline#left_sep = ' '
-    "let g:airline#extensions#tabline#left_alt_sep = '|'
-    let g:airline#extensions#syntastic#enabled = 1
-    let g:airline#extensions#tabline#buffer_nr_format = '%s '
-    let g:airline#extensions#tabline#buffer_nr_show = 1
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#fnamecollapse = 0
-    let g:airline#extensions#tabline#fnamemod = ':t'
-augroup END
-" }}}
-
-" indentline {{{
-let g:indentLine_char = '▸'
-" }}}
-
-" Ultsnips {{{
-augroup Ultsnips
-    autocmd!
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-    " If you want :UltiSnipsEdit to split your window.
-    let g:UltiSnipsEditSplit="vertical"
-
-augroup END
-"}}}
-
-" YouCompleteMe {{{
-augroup YouCompleteMe
-    autocmd!
-    let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-    let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
-    let g:ycm_seed_identifiers_with_syntax = 1        " Completion for programming language's keyword
-    let g:ycm_complete_in_comments = 1                " Completion in comments
-    let g:ycm_complete_in_strings = 1                 " Completion in string
-
-    let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-    let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-
-    let g:ycm_python_binary_path = '/usr/bin/python3'
-
-    " Goto definition with F3
-    noremap <leader>d :YcmCompleter GoTo<CR>
-augroup END
-"}}}
-
-" instant_markdown {{{
-augroup instant_markdown
-    autocmd!
-    let g:instant_markdown_autostart = 0
-augroup END
-"}}}
-
-" Shougo {{{
-augroup Shougo_config
-    autocmd!
-
-    "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
-
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? "\<C-y>" : "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
-
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+    autocmd! BufWritePost * Neomake
+    autocmd! bufwritepost .vimrc source %
+    autocmd! bufwritepost init.vim source %
 
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -365,97 +122,303 @@ augroup Shougo_config
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 augroup END
+
+""" }}}
+
+""" === Plugin Config === {{{
+
+" Colorizer {{{
+let g:colorizer_syntax = 1
+let g:colorizer_auto_map = 1
+" }}}
+
+" table-mode {{{
+let g:table_mode_corner="|"
+"let g:table_mode_corner_corner="+"
+"let g:table_mode_header_fillchar="="
+" }}}
+
+" RainbowParentheses{{{
+" junegunn/rainbow_parentheses.vim
+"autocmd FileType * RainbowParentheses
+let g:rainbow#max_level = 32
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{','}']]
+
+"kien/rainbow_parentheses.vim
+"let g:rbpt_colorpairs = [
+"    \ ['brown',       'RoyalBlue3'],
+"    \ ['Darkblue',    'SeaGreen3'],
+"    \ ['darkgray',    'DarkOrchid3'],
+"    \ ['darkgreen',   'firebrick3'],
+"    \ ['darkcyan',    'RoyalBlue3'],
+"    \ ['darkred',     'SeaGreen3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['brown',       'firebrick3'],
+"    \ ['gray',        'RoyalBlue3'],
+"    \ ['darkmagenta', 'DarkOrchid3'],
+"    \ ['Darkblue',    'firebrick3'],
+"    \ ['darkgreen',   'RoyalBlue3'],
+"    \ ['darkcyan',    'SeaGreen3'],
+"    \ ['darkred',     'DarkOrchid3'],
+"    \ ['red',         'firebrick3'],
+"    \ ]
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
+"au Syntax * RainbowParenthesesLoadChevrons
+" }}}
+
+" syntastic {{{
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+"let g:syntastic_loc_list_height = 5
+
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+"let g:syntastic_error_symbol = '❌'
+"let g:syntastic_style_error_symbol = '⁉️'
+"let g:syntastic_warning_symbol = '⚠️'
+"let g:syntastic_style_warning_symbol = '💩'
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
+
+noremap <silent> <leader>s :SyntasticReset<CR>
+" }}}
+
+" NERDTree {{{
+let NERDCompactSexyComs=1
+let NERDSpaceDelims=1
+let NERDTreeShowHidden=1
+let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeShowBookmarks=1
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeWinSize = 50
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeIndicatorMapCustom = {
+\ "Modified"  : "✹",
+\ "Staged"    : "✚",
+\ "Untracked" : "✭",
+\ "Renamed"   : "➜",
+\ "Unmerged"  : "═",
+\ "Deleted"   : "✖",
+\ "Dirty"     : "✗",
+\ "Clean"     : "✔︎",
+\ "Unknown"   : "?"
+\ }
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+noremap <silent> <F3> :NERDTreeToggle<CR>
+" }}}
+
+" Airline.vim {{{
+let g:airline_powerline_fonts = 1
+"let g:airline_theme="luna"
+"let g:airline_theme="papercolor"
+let g:airline_theme="wombat"
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_format = '%s '
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamecollapse = 0
+let g:airline#extensions#tabline#fnamemod = ':t'
+" }}}
+
+" indentline {{{
+let g:indentLine_char = '▸'
+" }}}
+
+" Ultsnips {{{
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+"}}}
+
+" YouCompleteMe {{{
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
+let g:ycm_seed_identifiers_with_syntax = 1        " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1                " Completion in comments
+let g:ycm_complete_in_strings = 1                 " Completion in string
+
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+
+let g:ycm_python_binary_path = '/usr/bin/python3'
+
+" Goto definition with F3
+noremap <leader>d :YcmCompleter GoTo<CR>
+"}}}
+
+" instant_markdown {{{
+let g:instant_markdown_autostart = 0
+"}}}
+
+" Codi.vim {{{
+let g:codi#interpreters = {
+                   \ 'python': {
+                       \ 'bin': 'python3',
+                       \ 'prompt': '^\(>>>\|\.\.\.\) ',
+                       \ },
+                       \ }
+" }}}
+
+" Shougo {{{
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
 
 " Pymode{{{
-augroup Pymode
-    autocmd!
+"let g:pymode_options = 1　　                                " Setup default python options
+"let g:pymode_options_max_line_length = 79                   " Setup max line length
+let g:pymode = 1                            " enable Pymode
+let g:pymode_breakpoint_bind = '<leader>pb' " add breakpoint with ,pb
+let g:pymode_doc = 1                        " read doc :PymodeDoc arg
+let g:pymode_doc_bind = 'K'                 " press K to show doc for current word
+let g:pymode_folding = 0                    " disable folding
+let g:pymode_indent = 1                     " pep8 indent style
+let g:pymode_python = 'python3'
+let g:pymode_rope = 0                       " Disable rope
+let g:pymode_run = 1
+let g:pymode_run_bind = '<leader>pr'        " run python code with ,pr
+let g:pymode_trim_whitespaces = 1           " Trim unused white spaces on save
+let g:pymode_virtualenv = 1                 " Enable automatic virtualenv detection
 
-    "let g:pymode_options = 1　　                                " Setup default python options
-    "let g:pymode_options_max_line_length = 79                   " Setup max line length
-    let g:pymode = 1                            " enable Pymode
-    let g:pymode_breakpoint_bind = '<leader>pb' " add breakpoint with ,pb
-    let g:pymode_doc = 1                        " read doc :PymodeDoc arg
-    let g:pymode_doc_bind = 'K'                 " press K to show doc for current word
-    let g:pymode_folding = 0                    " disable folding
-    let g:pymode_indent = 1                     " pep8 indent style
-    let g:pymode_python = 'python3'
-    let g:pymode_rope = 0                       " Disable rope
-    let g:pymode_run = 1
-    let g:pymode_run_bind = '<leader>pr'        " run python code with ,pr
-    let g:pymode_trim_whitespaces = 1           " Trim unused white spaces on save
-    let g:pymode_virtualenv = 1                 " Enable automatic virtualenv detection
-
-    """ linting code with neomake
-    let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
-    let g:pymode_lint_on_fly = 0
-    let g:pymode_lint_on_write = 0
-    let g:pymode_lint_unmodified = 0
-
-augroup END
+""" linting code with neomake
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+let g:pymode_lint_on_fly = 0
+let g:pymode_lint_on_write = 0
+let g:pymode_lint_unmodified = 0
 " }}}
 
 " vim-slash {{{
-augroup slash
-    autocmd!
+function! s:blink(times, delay)
+  let s:blink = { 'ticks': 2 * a:times, 'delay': a:delay }
 
-    function! s:blink(times, delay)
-      let s:blink = { 'ticks': 2 * a:times, 'delay': a:delay }
+  function! s:blink.tick(_)
+    let self.ticks -= 1
+    let active = self == s:blink && self.ticks > 0
 
-      function! s:blink.tick(_)
-        let self.ticks -= 1
-        let active = self == s:blink && self.ticks > 0
-
-        if !self.clear() && active && &hlsearch
-          let [line, col] = [line('.'), col('.')]
-          let w:blink_id = matchadd('IncSearch',
-                \ printf('\%%%dl\%%>%dc\%%<%dc', line, max([0, col-2]), col+2))
-        endif
-        if active
-          call timer_start(self.delay, self.tick)
-        endif
-      endfunction
-
-      function! s:blink.clear()
-        if exists('w:blink_id')
-          call matchdelete(w:blink_id)
-          unlet w:blink_id
-          return 1
-        endif
-      endfunction
-
-      call s:blink.clear()
-      call s:blink.tick(0)
-      return ''
-    endfunction
-
-    if has('timers')
-      "if has_key(g:plugs, 'vim-slash')
-      "  noremap <expr> <plug>(slash-after) <sid>blink(2, 50)
-      "else
-      "  noremap <expr> n 'n'.<sid>blink(2, 50)
-      "  noremap <expr> N 'N'.<sid>blink(2, 50)
-      "  cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
-      "endif
-      "noremap <expr> <plug>(slash-after) <sid>blink(2, 50)
-      noremap <expr> n 'n'.<sid>blink(2, 50)
-      noremap <expr> N 'N'.<sid>blink(2, 50)
-      cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
+    if !self.clear() && active && &hlsearch
+      let [line, col] = [line('.'), col('.')]
+      let w:blink_id = matchadd('IncSearch',
+            \ printf('\%%%dl\%%>%dc\%%<%dc', line, max([0, col-2]), col+2))
     endif
+    if active
+      call timer_start(self.delay, self.tick)
+    endif
+  endfunction
 
-augroup END
+  function! s:blink.clear()
+    if exists('w:blink_id')
+      call matchdelete(w:blink_id)
+      unlet w:blink_id
+      return 1
+    endif
+  endfunction
+
+  call s:blink.clear()
+  call s:blink.tick(0)
+  return ''
+endfunction
+
+if has('timers')
+  "if has_key(g:plugs, 'vim-slash')
+  "  noremap <expr> <plug>(slash-after) <sid>blink(2, 50)
+  "else
+  "  noremap <expr> n 'n'.<sid>blink(2, 50)
+  "  noremap <expr> N 'N'.<sid>blink(2, 50)
+  "  cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
+  "endif
+  "noremap <expr> <plug>(slash-after) <sid>blink(2, 50)
+  noremap <expr> n 'n'.<sid>blink(2, 50)
+  noremap <expr> N 'N'.<sid>blink(2, 50)
+  cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
+endif
 " }}}
 
 """ }}}
@@ -489,6 +452,7 @@ Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
+Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
 Plug 'morhetz/gruvbox'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'scrooloose/nerdcommenter'
@@ -664,21 +628,20 @@ set foldlevel=99
 set nofoldenable            " don't fold by default<Paste>
 nnoremap <SPACE> za<CR>
 vnoremap <SPACE> za<CR>
-"augroup vimrc
-"    au BufReadPre * setlocal foldmethod=indent
-"    au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=marker| endif
-"augroup END
 
 " vim-table-mode
 noremap <silent> <Leader>tm :TableModeToggle<CR>
 
 " Tabular
-nnoremap <silent> <Leader>a= :Tabularize /=<CR>
-vnoremap <silent> <Leader>a= :Tabularize /=<CR>
-nnoremap <silent> <Leader>a: :Tabularize /:<CR>
-vnoremap <silent> <Leader>a: :Tabularize /:<CR>
-"nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-"vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+if exists(":Tabularize")
+  nnoremap <Leader>a= :Tabularize /=<CR>
+  vnoremap <Leader>a= :Tabularize /=<CR>
+  nnoremap <Leader>a: :Tabularize /:<CR>
+  vnoremap <Leader>a: :Tabularize /:<CR>
+  "nnoremap <Leader>a: :Tabularize /:\zs<CR>
+  "vnoremap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
 
 " Scrolling
 noremap <C-j> 2<C-e>
@@ -710,6 +673,7 @@ endif
 " ----------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
 " ----------------------------------------------------------------------------
+
 function! s:shuffle() range
 ruby << RB
   first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
