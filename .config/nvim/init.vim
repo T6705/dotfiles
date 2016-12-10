@@ -236,7 +236,11 @@ noremap <leader>d :YcmCompleter GoTo<CR>
 
 
 " instant_markdown
-let g:instant_markdown_autostart = 0
+let g:instant_markdown_allow_external_content = 1 " allow content like images, stylesheets...
+let g:instant_markdown_allow_unsafe_content = 0   " block scripts
+let g:instant_markdown_autostart = 0              " start markdown preview with :InstantMarkdownPreview
+let g:instant_markdown_open_to_the_world = 0      " listens on localhost
+let g:instant_markdown_slow = 0                   " realtime preview
 
 
 
@@ -392,7 +396,7 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
+Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
@@ -577,7 +581,6 @@ if exists(":Tabularize")
   "vnoremap <Leader>a: :Tabularize /:\zs<CR>
 endif
 
-
 " Scrolling
 noremap <C-j> 2<C-e>
 noremap <C-k> 2<C-y>
@@ -592,9 +595,14 @@ noremap <silent> <F8> :%!xxd -r<CR>
 
 noremap <silent> <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
 
-" ----------------------------------------------------------------------------
+" Markdown headings
+nnoremap <leader>1 m`yypVr=``
+nnoremap <leader>2 m`yypVr-``
+nnoremap <leader>3 m`^i### <esc>``4l
+nnoremap <leader>4 m`^i#### <esc>``5l
+nnoremap <leader>5 m`^i##### <esc>``6l
+
 " nvim
-" ----------------------------------------------------------------------------
 if has('nvim')
     tnoremap <Esc> <C-\><C-n>
     "tnoremap <a-a> <esc>a
@@ -607,9 +615,7 @@ endif
 
 """ === Functions === {{{
 
-" ----------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
-" ----------------------------------------------------------------------------
 
 function! s:shuffle() range
 ruby << RB

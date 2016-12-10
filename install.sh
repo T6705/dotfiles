@@ -117,39 +117,3 @@ curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf > ~/.config/i3/compton.conf
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/config > ~/.config/i3/polybar/config
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/launch.sh > ~/.config/i3/polybar/launch.sh
-
-echo "========="
-echo "== git =="
-echo "========="
-
-if [ -d ~/git ];then
-    echo "~/git already exists"
-else
-    echo "create ~/git"
-    cd
-    mkdir ~/git
-fi
-
-cd ~/git
-git clone https://github.com/meskarune/i3lock-fancy/
-git clone https://github.com/geommer/yabar
-git clone https://www.github.com/Airblader/i3 i3-gaps
-
-cd ~/git/i3lock-fancy
-sudo cp ~/git/i3lock-fancy/lock /usr/local/bin/
-sudo cp ~/git/i3lock-fancy/lock.png /usr/local/bin/
-sudo cp ~/git/i3lock-fancy/lockdark.png /usr/local/bin/
-
-cd ~/git/i3-gaps
-git checkout gaps && git pull
-make
-sudo make install
-
-cd ~/git/yabar
-make 
-sudo make install
-
-cd
-
-#gsettings set org.gnome.desktop.background show-desktop-icons false
-
