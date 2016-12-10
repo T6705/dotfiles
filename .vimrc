@@ -396,6 +396,13 @@ if has('timers')
   cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
 endif
 
+
+
+" peekaboo
+let g:peekaboo_compact = 0                        " Compact display; do not display the names of the register groups
+let g:peekaboo_delay = 0                          " Delay opening of peekaboo window (in ms. default: 0)
+let g:peekaboo_window = 'vertical botright 30new' " Default peekaboo window
+
 """ }}}
 
 """ === Load plugins === {{{
@@ -422,6 +429,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'kshenoy/vim-signature'
@@ -638,6 +646,9 @@ nnoremap <leader>2 m`yypVr-``
 nnoremap <leader>3 m`^i### <esc>``4l
 nnoremap <leader>4 m`^i#### <esc>``5l
 nnoremap <leader>5 m`^i##### <esc>``6l
+
+" qq to record, Q to replay (recursive map due to peekaboo)
+nmap Q @q
 
 " nvim
 if has('nvim')
