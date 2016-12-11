@@ -49,7 +49,7 @@ export UPDATE_ZSH_DAYS=1
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux themes thefuck)
+plugins=(git tmux tmuxinator themes thefuck)
 
 # User configuration
 
@@ -98,3 +98,5 @@ function install_powerline_precmd() {
 if [ "$TERM" != "linux" ]; then
     install_powerline_precmd
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
