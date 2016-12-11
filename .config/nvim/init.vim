@@ -63,6 +63,7 @@ syntax on                 " switch syntax highlighting on
 " Searching
 set hlsearch
 set ignorecase " Ignore case when searching
+set inccommand=split
 set incsearch  " Makes search act like search in modern browsers
 set magic      " For regular expressions turn magic on
 set showmatch  " Show matching brackets when text indicator is over them
