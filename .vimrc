@@ -5,7 +5,7 @@
 let g:python_host_prog = '/usr/bin/python2.7'
 let g:python3_host_prog = '/usr/bin/python3.5'
 
-let mapleader=','
+let mapleader=' '
 
 " Encoding
 set binary
@@ -332,9 +332,9 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 "let g:pymode_options = 1　　                                " Setup default python options
 "let g:pymode_options_max_line_length = 79                   " Setup max line length
 let g:pymode = 1                            " enable Pymode
-let g:pymode_breakpoint_bind = '<leader>pb' " add breakpoint with ,pb
+let g:pymode_breakpoint_bind = '<leader>pb' " add breakpoint with ' pb'
 let g:pymode_doc = 1                        " read doc :PymodeDoc arg
-let g:pymode_doc_bind = '<leader>pd'        " press ,pd to show doc for current word
+let g:pymode_doc_bind = '<leader>pd'        " press ' pd' to show doc for current word
 let g:pymode_folding = 0                    " disable folding
 let g:pymode_indent = 1                     " pep8 indent style
 let g:pymode_python = 'python3'
@@ -610,8 +610,8 @@ vnoremap K :m '<-2<CR>gv=gv
 set foldmethod=indent
 set foldlevel=99
 set nofoldenable            " don't fold by default<Paste>
-nnoremap <SPACE> za<CR>
-vnoremap <SPACE> za<CR>
+nnoremap , za<CR>
+vnoremap , za<CR>
 
 " vim-table-mode
 noremap <silent> <Leader>tm :TableModeToggle<CR>
