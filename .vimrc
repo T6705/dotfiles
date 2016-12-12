@@ -512,6 +512,12 @@ nnoremap <silent> $ g$
 " clear highlighted search
 noremap <silent> <leader>sc :set hlsearch! hlsearch?<cr>
 
+" window navigation
+noremap <silent> <leader>wh <C-W>h
+noremap <silent> <leader>wj <C-W>j
+noremap <silent> <leader>wk <C-W>k
+noremap <silent> <leader>wl <C-W>l
+
 " Split
 noremap <silent> <leader>h :<C-u>split<CR>
 noremap <silent> <leader>v :<C-u>vsplit<CR>
