@@ -291,14 +291,14 @@ let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
 
 
 " Pymode
-"let g:pymode_options = 1　　                                " Setup default python options
-"let g:pymode_options_max_line_length = 79                   " Setup max line length
+" let g:pymode_options_max_line_length = 79 " Setup max line length
 let g:pymode = 1                            " enable Pymode
 let g:pymode_breakpoint_bind = '<leader>pb' " add breakpoint with ' pb'
 let g:pymode_doc = 1                        " read doc :PymodeDoc arg
 let g:pymode_doc_bind = '<leader>pd'        " press ' pd' to show doc for current word
 let g:pymode_folding = 0                    " disable folding
 let g:pymode_indent = 1                     " pep8 indent style
+let g:pymode_options = 0                    " disable default python options
 let g:pymode_python = 'python3'
 let g:pymode_rope = 0                       " Disable rope
 let g:pymode_run = 1
