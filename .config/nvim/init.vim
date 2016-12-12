@@ -474,21 +474,21 @@ nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
 
 " clear highlighted search
-noremap <silent> <Leader>sc :set hlsearch! hlsearch?<cr>
+noremap <silent> <leader>sc :set hlsearch! hlsearch?<cr>
 
 " Split
-noremap <silent> <Leader>h :<C-u>split<CR>
-noremap <silent> <Leader>v :<C-u>vsplit<CR>
+noremap <silent> <leader>h :<C-u>split<CR>
+noremap <silent> <leader>v :<C-u>vsplit<CR>
 
 " Git
-noremap <silent> <Leader>gb  :Gblame<CR>
-noremap <silent> <Leader>gc  :Gcommit<CR>
-noremap <silent> <Leader>gd  :Gvdiff<CR>
-noremap <silent> <Leader>gps :Gpush<CR>
-noremap <silent> <Leader>gpu :Gpull<CR>
-noremap <silent> <Leader>gr  :Gremove<CR>
-noremap <silent> <Leader>gs  :Gstatus<CR>
-noremap <silent> <Leader>gw  :Gwrite<CR>
+noremap <silent> <leader>gb  :Gblame<CR>
+noremap <silent> <leader>gc  :Gcommit<CR>
+noremap <silent> <leader>gd  :Gvdiff<CR>
+noremap <silent> <leader>gps :Gpush<CR>
+noremap <silent> <leader>gpu :Gpull<CR>
+noremap <silent> <leader>gr  :Gremove<CR>
+noremap <silent> <leader>gs  :Gstatus<CR>
+noremap <silent> <leader>gw  :Gwrite<CR>
 
 " Tabs
 nnoremap <Tab> gt
@@ -530,7 +530,7 @@ xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
 " Marks
-nnoremap <silent> <Leader>` :Marks<CR>
+nnoremap <silent> <leader>` :Marks<CR>
 
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -574,20 +574,20 @@ vnoremap K :m '<-2<CR>gv=gv
 set foldmethod=indent
 set foldlevel=99
 set nofoldenable            " don't fold by default<Paste>
-nnoremap , za<CR>
-vnoremap , za<CR>
+nnoremap <leader><leader> za<CR>
+vnoremap <leader><leader> za<CR>
 
 " vim-table-mode
-noremap <silent> <Leader>tm :TableModeToggle<CR>
+noremap <silent> <leader>tm :TableModeToggle<CR>
 
 " Tabular
 if exists(":Tabularize")
-  nnoremap <Leader>a= :Tabularize /=<CR>
-  vnoremap <Leader>a= :Tabularize /=<CR>
-  nnoremap <Leader>a: :Tabularize /:<CR>
-  vnoremap <Leader>a: :Tabularize /:<CR>
-  "nnoremap <Leader>a: :Tabularize /:\zs<CR>
-  "vnoremap <Leader>a: :Tabularize /:\zs<CR>
+  nnoremap <leader>a= :Tabularize /=<CR>
+  vnoremap <leader>a= :Tabularize /=<CR>
+  nnoremap <leader>a: :Tabularize /:<CR>
+  vnoremap <leader>a: :Tabularize /:<CR>
+  "nnoremap <leader>a: :Tabularize /:\zs<CR>
+  "vnoremap <leader>a: :Tabularize /:\zs<CR>
 endif
 
 " Scrolling
