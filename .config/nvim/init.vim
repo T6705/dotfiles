@@ -497,8 +497,8 @@ nnoremap <silent> <S-t> :tabnew<CR>
 
 " add space after comma and remove extra whitespace
 "nmap <leader><space> :%s/, */, /g<CR>:%s/\s\+$<CR>
-nmap <leader><space> :%s/\s\+$<CR>
-nmap <leader><space><space> :%s/, */, /g<CR>
+nmap <leader>, :%s/\s\+$<CR>
+nmap <leader>,, :%s/, */, /g<CR>
 
 " Explore dir
 nnoremap <silent> <leader>E :Explore<CR>
@@ -574,8 +574,8 @@ vnoremap K :m '<-2<CR>gv=gv
 set foldmethod=indent
 set foldlevel=99
 set nofoldenable            " don't fold by default<Paste>
-nnoremap <leader><leader> za<CR>
-vnoremap <leader><leader> za<CR>
+nnoremap <leader>f za<CR>
+vnoremap <leader>f za<CR>
 
 " vim-table-mode
 noremap <silent> <leader>tm :TableModeToggle<CR>
