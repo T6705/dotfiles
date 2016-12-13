@@ -104,14 +104,16 @@ set shell=/bin/zsh
 augroup configgroup
     autocmd!
     autocmd FileType * RainbowParentheses
+    autocmd! BufWritePost * Neomake            " run neomake on the current file on every write:
     autocmd! bufwritepost .vimrc source %
     autocmd! bufwritepost init.vim source %
-    " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    "" Enable omni completion.
+    "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    "autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    "autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    "autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
 
 """ }}}
@@ -139,31 +141,31 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{','}']]
 
 
 
-" syntastic
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-"let g:syntastic_loc_list_height = 5
-" syntastic checkers
-let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-" syntastic symbol
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-"let g:syntastic_error_symbol = '❌'
-"let g:syntastic_style_error_symbol = '⁉️'
-"let g:syntastic_warning_symbol = '⚠️'
-"let g:syntastic_style_warning_symbol = '💩'
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
-noremap <silent> <leader>s :SyntasticReset<CR>
+"" syntastic
+"let g:syntastic_aggregate_errors = 1
+"let g:syntastic_always_populate_loc_list=1
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
+""let g:syntastic_loc_list_height = 5
+"" syntastic checkers
+"let g:syntastic_python_checkers = ['pylint']
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+"" syntastic symbol
+"let g:syntastic_error_symbol='✗'
+"let g:syntastic_warning_symbol='⚠'
+"let g:syntastic_style_error_symbol = '✗'
+"let g:syntastic_style_warning_symbol = '⚠'
+""let g:syntastic_error_symbol = '❌'
+""let g:syntastic_style_error_symbol = '⁉️'
+""let g:syntastic_warning_symbol = '⚠️'
+""let g:syntastic_style_warning_symbol = '💩'
+"highlight link SyntasticErrorSign SignColumn
+"highlight link SyntasticWarningSign SignColumn
+"highlight link SyntasticStyleErrorSign SignColumn
+"highlight link SyntasticStyleWarningSign SignColumn
+"noremap <silent> <leader>s :SyntasticReset<CR>
 
 
 
@@ -327,6 +329,30 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 
 
+" neomake
+let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
+let g:neomake_warning_sign = {
+    \   'text': '⚠',
+    \   'texthl': 'NeomakeWarningSign',
+    \ }
+let g:neomake_message_sign = {
+     \   'text': '➤',
+     \   'texthl': 'NeomakeMessageSign',
+     \ }
+let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+
+" Python2/3
+"let g:neomake_python_enabled_makers = ['pylint', 'flake8', 'pep8', 'vulture']
+let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
+" E501 is line length of 80 characters
+let g:neomake_python_flake8_maker = { 'args': ['--ignore=E115,E266,E501,E302'], }
+let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E115,E266,E302'], }
+
+" php
+let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
+
+
+
 " Pymode
 " let g:pymode_options_max_line_length = 79 " Setup max line length
 let g:pymode = 1                            " enable Pymode
@@ -411,10 +437,12 @@ silent! if plug#begin('~/.config/nvim/plugged')
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 "Plug 'kien/rainbow_parentheses.vim'
 "Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+"Plug 'scrooloose/syntastic'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/indentLine'
+Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
@@ -428,6 +456,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/vim-easy-align',       { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'
 Plug 'klen/python-mode', { 'for': 'python' }
@@ -439,7 +468,6 @@ Plug 'morhetz/gruvbox'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'scrooloose/syntastic'
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
 Plug 'terryma/vim-multiple-cursors'
