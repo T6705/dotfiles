@@ -449,11 +449,11 @@ noremap XX "+x<CR>
 "cnoremap jk <C-c>
 
 "" Escaping
-cnoremap <C-q> <Esc>
-inoremap <C-q> <Esc>
-nnoremap <C-q> <Esc>
-vnoremap <C-q> <Esc>
-xnoremap <C-q> <Esc>
+cnoremap <C-F> <Esc>
+inoremap <C-F> <Esc>
+nnoremap <C-F> <Esc>
+vnoremap <C-F> <Esc>
+xnoremap <C-F> <Esc>
 
 ino <down> <Nop>
 ino <left> <Nop>
