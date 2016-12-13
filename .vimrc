@@ -104,7 +104,6 @@ set shell=/bin/zsh
 augroup configgroup
     autocmd!
     autocmd FileType * RainbowParentheses
-    autocmd! BufWritePost * Neomake            " run neomake on the current file on every write:
     autocmd! bufwritepost .vimrc source %
     autocmd! bufwritepost init.vim source %
     " Enable omni completion.
