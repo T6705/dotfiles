@@ -313,6 +313,48 @@ let g:pymode_lint_unmodified = 0
 
 
 
+" vim-easy-align
+let g:easy_align_delimiters = {
+\ '>': { 'pattern': '>>\|=>\|>' },
+\ '\': { 'pattern': '\\' },
+\ '/': { 'pattern': '//\+\|/\*\|\*/', 'delimiter_align': 'l', 'ignore_groups': ['!Comment'] },
+\ ']': {
+\     'pattern':       '\]\zs',
+\     'left_margin':   0,
+\     'right_margin':  1,
+\     'stick_to_left': 0
+\   },
+\ ')': {
+\     'pattern':       ')\zs',
+\     'left_margin':   0,
+\     'right_margin':  1,
+\     'stick_to_left': 0
+\   },
+\ 'f': {
+\     'pattern': ' \(\S\+(\)\@=',
+\     'left_margin': 0,
+\     'right_margin': 0
+\   },
+\ 'd': {
+\     'pattern': ' \ze\S\+\s*[;=]',
+\     'left_margin': 0,
+\     'right_margin': 0
+\   }
+\ }
+
+" Start interactive EasyAlign in visual mode
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign with a Vim movement
+nmap ga <Plug>(EasyAlign)
+nmap gaa ga_
+
+" xmap <Leader><Enter>   <Plug>(LiveEasyAlign)
+" nmap <Leader><Leader>a <Plug>(LiveEasyAlign)
+
+" inoremap <silent> => =><Esc>mzvip:EasyAlign/=>/<CR>`z$a<Space>
+
+
 " vim-slash
 function! s:blink(times, delay)
   let s:blink = { 'ticks': 2 * a:times, 'delay': a:delay }
