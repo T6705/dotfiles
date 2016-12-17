@@ -97,6 +97,9 @@ set history=1000             " change history to 1000
 set nocompatible             " not compatible with vi
 set shell=/bin/zsh
 
+" ctags
+set tags=./tags;/
+
 """ }}}
 
 """ === augroup === {{{
@@ -254,6 +257,11 @@ let g:instant_markdown_slow = 0                   " realtime preview
 
 
 
+" tagbar
+let g:tagbar_sort = 0
+
+
+
 " Codi.vim
 let g:codi#interpreters = {
                    \ 'python': {
@@ -347,8 +355,6 @@ let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 " Python2/3
 "let g:neomake_python_enabled_makers = ['pylint', 'flake8', 'pep8', 'vulture']
 let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
-" E501 is line length of 80 characters
-let g:neomake_python_flake8_maker = { 'args': ['--ignore=E115,E266,E501,E302'], }
 let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E115,E266,E302'], }
 
 " php
@@ -646,6 +652,9 @@ omap <leader><tab> <plug>(fzf-maps-o)
 " Marks
 nnoremap <silent> <leader>` :Marks<CR>
 
+" Tags
+nnoremap <silent> <leader>t :Tags<CR>
+
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
@@ -710,7 +719,8 @@ noremap <C-k> 2<C-y>
 
 noremap <silent> <F4> :GundoToggle<CR>
 noremap <silent> <F5> :Codi!!<CR>
-noremap <silent> <F6> :TagbarToggle<CR>
+inoremap <silent> <F6> <esc>:TagbarToggle<cr>
+nnoremap <silent> <F6> :TagbarToggle<cr>
 
 " hexedit
 noremap <silent> <F7> :%!xxd<CR>
