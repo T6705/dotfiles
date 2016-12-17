@@ -726,7 +726,7 @@ nnoremap <silent> <F6> :TagbarToggle<cr>
 noremap <silent> <F7> :%!xxd<CR>
 noremap <silent> <F8> :%!xxd -r<CR>
 
-noremap <silent> <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
+noremap <silent> <F9> :w<CR> :!gcc % -o %< && ./%<<CR>
 
 " Markdown headings
 nnoremap <leader>1 m`yypVr=``
@@ -735,7 +735,7 @@ nnoremap <leader>3 m`^i### <esc>``4l
 nnoremap <leader>4 m`^i#### <esc>``5l
 nnoremap <leader>5 m`^i##### <esc>``6l
 
-nnoremap <leader>pdf :w <CR> :!pandoc % --latex-engine=xelatex -o %<.pdf <CR>
+nnoremap <leader>pdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
 
 " qq to record, Q to replay (recursive map due to peekaboo)
 nmap Q @q
