@@ -594,10 +594,10 @@ nnoremap <silent> <leader>` :Marks<CR>
 nnoremap <silent> <leader>t :Tags<CR>
 
 " Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+imap <c-x>w <plug>(fzf-complete-word)
+imap <c-x>p <plug>(fzf-complete-path)
+imap <c-x>a <plug>(fzf-complete-file-ag)
+imap <c-x>l <plug>(fzf-complete-line)
 
 " File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
 let g:fzf_files_options =
