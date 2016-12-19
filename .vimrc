@@ -216,7 +216,6 @@ let g:netrw_winsize=30
 
 
 " Airline.vim
-"let g:airline#extensions#syntastic#enabled = 1
 "let g:airline_theme="luna"
 "let g:airline_theme="papercolor"
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
@@ -226,6 +225,7 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tagbar#enabled = 1
 let g:airline_left_sep=''
 let g:airline_powerline_fonts = 1
 let g:airline_powerline_fonts=1
@@ -369,7 +369,8 @@ let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 " Python2/3
 "let g:neomake_python_enabled_makers = ['pylint', 'flake8', 'pep8', 'vulture']
 let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
-let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E115,E266,E302'], }
+let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E221'], }
+let g:neomake_python_flake8_maker = { 'args': ['--ignore E221'], }
 
 " php
 let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
