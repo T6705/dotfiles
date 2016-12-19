@@ -108,9 +108,10 @@ set tags=./tags;/
 augroup configgroup
     autocmd!
     autocmd FileType * RainbowParentheses
-    autocmd! BufWritePost * Neomake            " run neomake on the current file on every write:
-    autocmd! bufwritepost .vimrc source %
-    autocmd! bufwritepost init.vim source %
+    autocmd! BufWritePre * %s/\s\+$//e         " Automatically removing all trailing whitespace
+    autocmd! BufWritePost * Neomake            " run neomake on the current file on every write
+    autocmd! Bufwritepost .vimrc source %
+    autocmd! Bufwritepost init.vim source %
 
     "" Enable omni completion.
     "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -498,6 +499,10 @@ let g:peekaboo_window = 'vertical botright 30new' " Default peekaboo window
 
 silent! if plug#begin('~/.config/nvim/plugged')
 
+" ColorScheme
+Plug 'morhetz/gruvbox'
+Plug 'tomasr/molokai'
+
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 "Plug 'kien/rainbow_parentheses.vim'
 "Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
@@ -528,14 +533,12 @@ Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
-Plug 'morhetz/gruvbox'
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
@@ -628,10 +631,9 @@ nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
-" add space after comma and remove extra whitespace
-"nmap <leader><space> :%s/, */, /g<CR>:%s/\s\+$<CR>
-nmap <leader>, :%s/\s\+$<CR>
-nmap <leader>,, :%s/, */, /g<CR>
+" add space after comma
+nmap <leader>, :%s/, */, /g<CR>
+vmap <leader>, :'<,'>s/, */, /g<CR>
 
 " Explore dir
 nnoremap <silent> <leader>E :Explore<CR>
@@ -709,7 +711,7 @@ vnoremap K :m '<-2<CR>gv=gv
 "set foldmethod=marker
 set foldmethod=indent
 set foldlevel=99
-set nofoldenable            " don't fold by default<Paste>
+set nofoldenable            " don't fold by default
 nnoremap <leader>f za<CR>
 vnoremap <leader>f za<CR>
 
