@@ -225,7 +225,7 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
 let g:airline_left_sep=''
 let g:airline_powerline_fonts = 1
 let g:airline_powerline_fonts=1
@@ -531,7 +531,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'kshenoy/vim-signature'
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -751,7 +751,7 @@ nnoremap <leader>3 m`^i### <esc>``4l
 nnoremap <leader>4 m`^i#### <esc>``5l
 nnoremap <leader>5 m`^i##### <esc>``6l
 
-nnoremap <leader>pdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
+nnoremap <leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
 
 " qq to record, Q to replay (recursive map due to peekaboo)
 nmap Q @q
