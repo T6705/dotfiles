@@ -349,8 +349,8 @@ let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 " Python2/3
 "let g:neomake_python_enabled_makers = ['pylint', 'flake8', 'pep8', 'vulture']
 let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
-let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E221'], }
-let g:neomake_python_flake8_maker = { 'args': ['--ignore E221'], }
+let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E221,E266'], }
+let g:neomake_python_flake8_maker = { 'args': ['--ignore E221 E266'], }
 
 " php
 let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
