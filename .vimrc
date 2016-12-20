@@ -492,7 +492,6 @@ Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
 
 " latex
-Plug 'donRaphaco/neotex', { 'do': function('DoRemote'), 'for': 'tex' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 
 " markdown
