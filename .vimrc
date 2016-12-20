@@ -146,31 +146,18 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{','}']]
 
 
 
-"" syntastic
-"let g:syntastic_aggregate_errors = 1
-"let g:syntastic_always_populate_loc_list=1
-"let g:syntastic_auto_loc_list = 0
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
-""let g:syntastic_loc_list_height = 5
-"" syntastic checkers
-"let g:syntastic_python_checkers = ['pylint']
-"let g:syntastic_javascript_checkers = ['eslint']
-"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-"" syntastic symbol
-"let g:syntastic_error_symbol='✗'
-"let g:syntastic_warning_symbol='⚠'
-"let g:syntastic_style_error_symbol = '✗'
-"let g:syntastic_style_warning_symbol = '⚠'
-""let g:syntastic_error_symbol = '❌'
-""let g:syntastic_style_error_symbol = '⁉️'
-""let g:syntastic_warning_symbol = '⚠️'
-""let g:syntastic_style_warning_symbol = '💩'
-"highlight link SyntasticErrorSign SignColumn
-"highlight link SyntasticWarningSign SignColumn
-"highlight link SyntasticStyleErrorSign SignColumn
-"highlight link SyntasticStyleWarningSign SignColumn
-"noremap <silent> <leader>s :SyntasticReset<CR>
+" vimtex
+"let g:vimtex_latexmk_options = '-pdf'
+"let g:vimtex_latexmk_options = '-pdfps'
+"let g:vimtex_view_general_options = '--unique @pdf\#src:@line@tex'
+"let g:vimtex_view_general_options = '--unique @pdf\#src:@tex:@line:@col'
+"let g:vimtex_view_general_options_latexmk = '--unique'
+"let g:vimtex_view_general_viewer = 'okular'
+"let g:vimtex_view_general_viewer = 'qpdfview'
+let g:vimtex_latexmk_background = 1
+let g:vimtex_latexmk_continuous = 1
+let g:vimtex_latexmk_options = '-pdfdvi'
+let g:vimtex_view_general_viewer = 'zathura'
 
 
 
@@ -504,6 +491,14 @@ silent! if plug#begin('~/.config/nvim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
 
+" latex
+Plug 'donRaphaco/neotex', { 'do': function('DoRemote'), 'for': 'tex' }
+Plug 'lervag/vimtex', { 'for': 'tex' }
+
+" markdown
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
+
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 "Plug 'kien/rainbow_parentheses.vim'
 "Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
@@ -518,9 +513,8 @@ Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
 Plug 'flazz/vim-colorschemes'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'honza/vim-snippets'
-Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
@@ -534,11 +528,9 @@ Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -573,11 +565,6 @@ noremap XX "+x<CR>
 "no <left> <Nop>
 "no <right> <Nop>
 "no <up> <Nop>
-
-"" jk | Escaping!
-"inoremap jk <Esc>
-"xnoremap jk <Esc>
-"cnoremap jk <C-c>
 
 "" Escaping
 cnoremap <C-F> <Esc>
@@ -751,7 +738,9 @@ nnoremap <leader>3 m`^i### <esc>``4l
 nnoremap <leader>4 m`^i#### <esc>``5l
 nnoremap <leader>5 m`^i##### <esc>``6l
 
+"nnoremap <leader>pdf :w<CR> :NeoTex<CR>
 nnoremap <leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
+nnoremap <leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
 " qq to record, Q to replay (recursive map due to peekaboo)
 nmap Q @q
