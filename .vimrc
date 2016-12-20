@@ -112,13 +112,6 @@ augroup configgroup
     autocmd! BufWritePost * Neomake            " run neomake on the current file on every write
     autocmd! Bufwritepost .vimrc source %
     autocmd! Bufwritepost init.vim source %
-
-    "" Enable omni completion.
-    "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    "autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    "autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    "autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup END
 
 """ }}}
@@ -235,17 +228,17 @@ let g:UltiSnipsEditSplit="vertical"
 
 
 
-" YouCompleteMe
-let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
-let g:ycm_seed_identifiers_with_syntax = 1        " Completion for programming language's keyword
-let g:ycm_complete_in_comments = 1                " Completion in comments
-let g:ycm_complete_in_strings = 1                 " Completion in string
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-let g:ycm_python_binary_path = '/usr/bin/python3'
-" Goto definition with ,d
-noremap <leader>d :YcmCompleter GoTo<CR>
+"" YouCompleteMe
+"let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+"let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
+"let g:ycm_seed_identifiers_with_syntax = 1        " Completion for programming language's keyword
+"let g:ycm_complete_in_comments = 1                " Completion in comments
+"let g:ycm_complete_in_strings = 1                 " Completion in string
+"let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+"let g:ycm_python_binary_path = '/usr/bin/python3'
+"" Goto definition with ,d
+"noremap <leader>d :YcmCompleter GoTo<CR>
 
 
 
@@ -499,9 +492,6 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
-"Plug 'kien/rainbow_parentheses.vim'
-"Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-"Plug 'scrooloose/syntastic'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
