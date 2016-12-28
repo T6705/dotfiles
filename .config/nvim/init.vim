@@ -229,6 +229,13 @@ let g:UltiSnipsEditSplit="vertical"
 
 
 
+" comfortable-motion
+let g:comfortable_motion_no_default_key_mappings = 1
+let g:comfortable_motion_friction = 80.0
+let g:comfortable_motion_air_drag = 2.0
+
+
+
 "" YouCompleteMe
 "let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 "let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
@@ -470,6 +477,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'yuttie/comfortable-motion.vim'
 call plug#end()
 endif
 
@@ -651,8 +659,13 @@ if exists(":Tabularize")
 endif
 
 " Scrolling
-noremap <C-j> 2<C-e>
-noremap <C-k> 2<C-y>
+nnoremap <silent> <C-d> :call comfortable_motion#flick(400)<CR>
+nnoremap <silent> <C-u> :call comfortable_motion#flick(-400)<CR>
+"
+"noremap <C-j> 2<C-e>
+nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
+"noremap <C-k> 2<C-y>
+nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
 
 noremap <silent> <F4> :GundoToggle<CR>
 noremap <silent> <F5> :Codi!!<CR>
