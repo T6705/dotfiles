@@ -214,7 +214,7 @@ bindsym $mod+r mode " "
 #client.focused                 $COLOR_BLUE      $COLOR_BLUE       $COLOR_BLACK    $COLOR_BLACK
 #client.unfocused               $COLOR_BLACK     $COLOR_BLACK      $COLOR_BLUE     $COLOR_BLUE
 #client.focused_inactive        $COLOR_BLACK     $COLOR_BLACK      $COLOR_BLUE     $COLOR_BLUE
-#client.urgent                  $COLOR_PINK      $COLOR_PINK       $COLOR_BLACK    $COLOR_BLACK 
+#client.urgent                  $COLOR_PINK      $COLOR_PINK       $COLOR_BLACK    $COLOR_BLACK
 
 #set $FOCUS #989898
 #set $FOCUS #add8e6
@@ -288,7 +288,7 @@ set $base0I #267682
 # Gaps
 smart_borders on
 gaps inner 20
-gaps outer 20 
+gaps outer 20
 
 hide_edge_borders both
 
