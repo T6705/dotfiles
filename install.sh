@@ -56,14 +56,20 @@ echo "=============================="
 curl https://raw.githubusercontent.com/T6705/dotfile/master/.vimrc > ~/.vimrc
 
 ### nvim
-if [ -d ~/.config/nvim ];then
-    echo "~/.config/nvim already exists"
-else
-    echo "create ~/.config/nvim"
-    cd
-    mkdir ~/.config/nvim
-fi
-curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim > ~/.config/nvim/init.vim
+curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/augroups.vim
+curl -fLo ~/.config/nvim/functions.vim --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/functions.vim
+curl -fLo ~/.config/nvim/general.vim --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/general.vim
+curl -fLo ~/.config/nvim/init.vim --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim
+curl -fLo ~/.config/nvim/mappings.vim --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/mappings.vim
+curl -fLo ~/.config/nvim/plugins.vim --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins.vim
+curl -fLo ~/.config/nvim/plugins_config.vim --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins_config.vim
 
 echo "===================="
 echo "== Update Plugins =="
@@ -73,9 +79,9 @@ curl https://raw.githubusercontent.com/T6705/dotfile/master/visincr.vba > /tmp/v
 sudo npm -g install instant-markdown-d
 
 vim /tmp/visincr.vba +"so %" +qall
-vim +PlugUpdate 
+vim +PlugUpdate
 nvim /tmp/visincr.vba +"so %" +qall
-nvim +PlugUpdate 
+nvim +PlugUpdate
 reset
 
 echo "==========================="
@@ -88,32 +94,13 @@ echo "========================"
 echo "== Download i3 config =="
 echo "========================"
 
-if [ -d ~/.config/i3 ];then
-    echo "~/.config/i3 already exists"
-else
-    echo "create ~/.config/i3"
-    cd
-    mkdir ~/.config/i3
-fi
-
-if [ -d ~/.config/i3/i3blocks ];then
-    echo "~/.config/i3/i3blocks already exists"
-else
-    echo "create ~/.config/i3/i3blocks"
-    cd
-    mkdir ~/.config/i3/i3blocks
-fi
-
-if [ -d ~/.config/i3/polybar ];then
-    echo "~/.config/i3/polybar already exists"
-else
-    echo "create ~/.config/i3/polybar"
-    cd
-    mkdir ~/.config/i3/polybar
-fi
-
-curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config > ~/.config/i3/config
-curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/i3blocks.conf > ~/.config/i3/i3blocks/i3blocks.conf
-curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf > ~/.config/i3/compton.conf
-curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/config > ~/.config/i3/polybar/config
-curl https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/launch.sh > ~/.config/i3/polybar/launch.sh
+curl -fLo ~/.config/i3/config --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config
+curl -fLo ~/.config/i3/i3blocks/i3blocks.conf --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/i3blocks.conf
+curl -fLo ~/.config/i3/compton.conf --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf
+curl -fLo ~/.config/i3/polybar/config --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/config
+curl -fLo ~/.config/i3/polybar/launch.sh --create-dirs \
+    https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/launch.sh
