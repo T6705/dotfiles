@@ -68,22 +68,22 @@ noremap <silent> <leader>gs  :Gstatus<CR>
 noremap <silent> <leader>gw  :Gwrite<CR>
 
 " Tabs
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
-nnoremap <silent> <S-t> :tabnew<CR>
+nnoremap ]t gt
+nnoremap [t gT
+nnoremap <silent> <leader>nt :tabnew<CR>
 
 " add space after comma
 nmap <leader>, :%s/, */, /g<CR>
-vmap <leader>, :'<,'>s/, */, /g<CR>
+vmap <leader>, :s/, */, /g<CR>
 
 " Explore dir
 nnoremap <silent> <leader>E :Explore<CR>
 
 " Buffer nav
-noremap <silent> <leader>z :bp<CR>
+noremap <silent> ]b :bn<CR>
+noremap <silent> [b :bp<CR>
 noremap <silent> <leader>q :bd!<CR>
-noremap <silent> <leader>x :bn<CR>
-noremap <silent> <leader>w :enew<CR>
+noremap <silent> <leader>nb :enew<CR>
 
 "noremap <silent> <leader>b :CtrlPBuffer<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
