@@ -50,7 +50,7 @@ Plug 'junegunn/vim-slash'
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
+Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'

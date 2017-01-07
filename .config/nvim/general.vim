@@ -22,6 +22,8 @@ if has('unnamedplus')
     set clipboard=unnamed,unnamedplus
 endif
 
+command! PU PlugUpdate | PlugUpgrade
+
 " Encoding
 set binary
 set bomb
