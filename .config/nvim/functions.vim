@@ -2,8 +2,9 @@
 
 """ === Functions === {{{
 
+" ----------------------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
-
+" ----------------------------------------------------------------------------------------
 function! s:shuffle() range
 ruby << RB
   first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
@@ -13,5 +14,18 @@ ruby << RB
 RB
 endfunction
 command! -range Shuffle <line1>,<line2>call s:shuffle()
+
+" ----------------------------------------------------------------------------------------
+" :ClearRegisters
+" ----------------------------------------------------------------------------------------
+function! ClearRegisters()
+    let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
+    let i=0
+    while (i<strlen(regs))
+        exec 'let @'.regs[i].'=""'
+        let i=i+1
+    endwhile
+endfunction
+command! ClearRegisters call ClearRegisters()
 
 """ }}}
