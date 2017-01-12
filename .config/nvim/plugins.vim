@@ -33,6 +33,7 @@ Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/indentLine'
 Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
