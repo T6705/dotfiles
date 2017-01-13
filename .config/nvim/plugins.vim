@@ -8,19 +8,46 @@ endfunction
 
 silent! if plug#begin('~/.config/nvim/plugged')
 
+" ----------------------------------------------------------------------------------------
 " ColorScheme
+" ----------------------------------------------------------------------------------------
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
 
+
+
+" ----------------------------------------------------------------------------------------
 " latex
+" ----------------------------------------------------------------------------------------
 if has('nvim')
     Plug 'donRaphaco/neotex', { 'do': function('DoRemote'), 'for': 'tex' }
 endif
 Plug 'lervag/vimtex', { 'for': 'tex' }
 
+
+
+" ----------------------------------------------------------------------------------------
 " markdown
+" ----------------------------------------------------------------------------------------
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
+
+
+
+" ----------------------------------------------------------------------------------------
+" python
+" ----------------------------------------------------------------------------------------
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'klen/python-mode', { 'for': 'python' }
+
+
+
+" ----------------------------------------------------------------------------------------
+" html
+" ----------------------------------------------------------------------------------------
+Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
+
+
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 if has('nvim')
@@ -33,7 +60,6 @@ Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/indentLine'
 Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
@@ -48,10 +74,8 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'
-Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
