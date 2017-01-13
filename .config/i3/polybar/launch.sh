@@ -7,5 +7,6 @@ killall polybar
 #while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Launch bars
-polybar top_bar -c ~/.config/i3/polybar/config &
-polybar bottom_bar -c ~/.config/i3/polybar/config &
+#polybar top_bar -c ~/.config/i3/polybar/config &
+#polybar bottom_bar -c ~/.config/i3/polybar/config &
+polybar example -c ~/.config/i3/polybar/config &
