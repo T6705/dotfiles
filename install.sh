@@ -103,15 +103,17 @@ function install_i3 {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/launch.sh
 }
 
-if [ $1 == "zsh" ]; then
+ans=$1
+
+if [ $ans == "zsh" ]; then
     install_zsh
-elif [ $1 == "tmux" ]; then
+elif [ $ans == "tmux" ]; then
     install_tmux
-elif [ $1 == "vim" ]; then
+elif [ $ans == "vim" ]; then
     install_vim
-elif [ $1 == "spacemacs" ]; then
+elif [ $ans == "spacemacs" ]; then
     install_spacemacs
-elif [ $1 == "i3" ]; then
+elif [ $ans == "i3" ]; then
     install_i3
 else
     sudo apt-get install zsh tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox -y
