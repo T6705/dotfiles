@@ -11,6 +11,7 @@ silent! if plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------------------
 " ColorScheme
 " ----------------------------------------------------------------------------------------
+Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
 
@@ -63,7 +64,6 @@ Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
-Plug 'flazz/vim-colorschemes'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
