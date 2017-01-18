@@ -45,24 +45,25 @@ function install_vim {
     echo "== Download vim/nvim config =="
     echo "=============================="
 
-    ### vim
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.vimrc > ~/.vimrc
-
-    ### nvim
     curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/augroups.vim
     curl -fLo ~/.config/nvim/functions.vim --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/functions.vim
     curl -fLo ~/.config/nvim/general.vim --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/general.vim
-    curl -fLo ~/.config/nvim/init.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim
     curl -fLo ~/.config/nvim/mappings.vim --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/mappings.vim
     curl -fLo ~/.config/nvim/plugins.vim --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins.vim
     curl -fLo ~/.config/nvim/plugins_config.vim --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins_config.vim
+
+    ### vim
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.vimrc > ~/.vimrc
+
+    ### nvim
+    curl -fLo ~/.config/nvim/init.vim --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim
 
     echo "===================="
     echo "== Update Plugins =="
