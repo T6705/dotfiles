@@ -183,7 +183,9 @@ nnoremap <silent> <F6> :TagbarToggle<cr>
 noremap <silent> <F7> :%!xxd<CR>
 noremap <silent> <F8> :%!xxd -r<CR>
 
-noremap <silent> <F9> :w<CR> :!gcc % -o %< && ./%<<CR>
+" compile and run
+noremap <silent> <leader>jcr :w<CR> :!javac % && java %<<CR>
+noremap <silent> <leader>ccr :w<CR> :!gcc % -o %< && ./%<<CR>
 
 " Markdown headings
 nnoremap <leader>1 m`yypVr=``
