@@ -128,4 +128,6 @@ set shell=/bin/zsh
 " ctags
 set tags=./tags;/
 
+set splitbelow
+set splitright
 """ }}}

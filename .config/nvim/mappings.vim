@@ -185,7 +185,7 @@ noremap <silent> <F8> :%!xxd -r<CR>
 
 " compile and run
 noremap <silent> <leader>jcr :w<CR> :!javac % && java %<<CR>
-noremap <silent> <leader>ccr :w<CR> :!gcc % -o %< && ./%<<CR>
+noremap <silent> <leader>ccr :w<CR> :!gcc % -o %< && %:p:r<CR>
 
 " Markdown headings
 nnoremap <leader>1 m`yypVr=``
@@ -203,6 +203,9 @@ nmap Q @q
 
 " nvim
 if has('nvim')
+    command! Term terminal
+    command! VTerm vnew | terminal
+
     tnoremap <Esc> <C-\><C-n>
     "tnoremap <a-a> <esc>a
     "tnoremap <a-b> <esc>b
