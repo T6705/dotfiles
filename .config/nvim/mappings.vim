@@ -203,8 +203,8 @@ nmap Q @q
 
 " nvim
 if has('nvim')
-    command! Term terminal
-    command! VTerm vnew | terminal
+    "command! Term terminal
+    "command! VTerm vnew | terminal
 
     tnoremap <Esc> <C-\><C-n>
     "tnoremap <a-a> <esc>a

@@ -53,6 +53,7 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - eas
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+    Plug 'mklabs/split-term.vim'
 else
     Plug 'Shougo/neocomplete.vim'
 endif
