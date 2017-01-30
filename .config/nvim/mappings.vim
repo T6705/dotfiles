@@ -77,7 +77,8 @@ nmap <leader>, :%s/, */, /g<CR>
 vmap <leader>, :s/, */, /g<CR>
 
 " Explore dir
-nnoremap <silent> <leader>E :Explore<CR>
+"nnoremap <silent> <leader>E :Lexplore<CR>
+nnoremap <silent> <leader>E :NERDTreeToggle<CR>
 
 " Buffer nav
 noremap <silent> ]b :bn<CR>
@@ -174,6 +175,8 @@ nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
 "noremap <C-k> 2<C-y>
 nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
 
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+noremap <silent> <F3> :NERDTreeToggle<CR>
 noremap <silent> <F4> :GundoToggle<CR>
 noremap <silent> <F5> :Codi!!<CR>
 inoremap <silent> <F6> <esc>:TagbarToggle<cr>

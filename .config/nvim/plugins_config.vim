@@ -70,8 +70,6 @@ let g:NERDTreeIndicatorMapCustom = {
 \ "Unknown"   : "?"
 \ }
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-noremap <silent> <F3> :NERDTreeToggle<CR>
 
 
 
