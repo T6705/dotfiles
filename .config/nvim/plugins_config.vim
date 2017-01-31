@@ -47,18 +47,23 @@ let g:vimtex_view_general_viewer = 'zathura'
 " ----------------------------------------------------------------------------------------
 " NERDTree
 " ----------------------------------------------------------------------------------------
-let NERDCompactSexyComs=1
-let NERDSpaceDelims=1
-let NERDTreeShowHidden=1
-let g:NERDCustomDelimiters = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeShowBookmarks=1
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeWinSize = 50
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeIndicatorMapCustom = {
+let NERDCompactSexyComs            = 1
+let NERDSpaceDelims                = 1
+let NERDTreeAutoDeleteBuffer       = 1
+let NERDTreeDirArrows              = 1
+let NERDTreeHijackNetrw            = 1
+let NERDTreeMinimalUI              = 1
+let NERDTreeQuitOnOpen             = 1
+let NERDTreeShowHidden             = 1
+let g:NERDCustomDelimiters         = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
+let g:NERDTreeChDirMode            = 2
+let g:NERDTreeIgnore               = ['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeMapOpenInTabSilent   = '<RightMouse>'
+let g:NERDTreeShowBookmarks        = 1
+let g:NERDTreeSortOrder            = ['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeWinSize              = 50
+let g:nerdtree_tabs_focus_on_files = 1
+let g:NERDTreeIndicatorMapCustom   = {
 \ "Modified"  : "✹",
 \ "Staged"    : "✚",
 \ "Untracked" : "✭",
