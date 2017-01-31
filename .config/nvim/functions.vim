@@ -28,4 +28,15 @@ function! ClearRegisters()
 endfunction
 command! ClearRegisters call ClearRegisters()
 
+" ----------------------------------------------------------------------------------------
+" :WordProcessorMode
+" ----------------------------------------------------------------------------------------
+function! WordProcessorMode()
+    setlocal textwidth=80
+    setlocal smartindent
+    setlocal spell spelllang=en_us
+    setlocal noexpandtab
+endfunction
+command! WordProcessorMode call WordProcessorMode()
+
 """ }}}
