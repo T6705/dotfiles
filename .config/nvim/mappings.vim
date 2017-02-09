@@ -68,8 +68,8 @@ noremap <silent> <leader>gs  :Gstatus<CR>
 noremap <silent> <leader>gw  :Gwrite<CR>
 
 " Asynchronous Lint Engine
-nmap <silent> ]q <Plug>(ale_previous_wrap)
-nmap <silent> [q <Plug>(ale_next_wrap)
+nmap <silent> [q <Plug>(ale_previous_wrap)
+nmap <silent> ]q <Plug>(ale_next_wrap)
 
 " Tabs
 nnoremap ]t gt
@@ -85,8 +85,8 @@ vmap <leader>, :s/, */, /g<CR>
 nnoremap <silent> <leader>E :NERDTreeToggle<CR>
 
 " Buffer nav
-noremap <silent> ]b :bn<CR>
 noremap <silent> [b :bp<CR>
+noremap <silent> ]b :bn<CR>
 noremap <silent> <leader>q :bd!<CR>
 noremap <silent> <leader>nb :enew<CR>
 
