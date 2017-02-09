@@ -61,7 +61,7 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - eas
 " lint
 " ----------------------------------------------------------------------------------------
 Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', { 'for': ['python', 'php', 'c'] }
 
 
 
