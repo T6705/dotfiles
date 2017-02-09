@@ -57,6 +57,14 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - eas
 
 
 
+" ----------------------------------------------------------------------------------------
+" lint
+" ----------------------------------------------------------------------------------------
+Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
+Plug 'w0rp/ale'
+
+
+
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
@@ -67,7 +75,6 @@ endif
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/indentLine'
-Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion'

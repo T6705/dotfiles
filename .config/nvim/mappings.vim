@@ -67,6 +67,10 @@ noremap <silent> <leader>gr  :Gremove<CR>
 noremap <silent> <leader>gs  :Gstatus<CR>
 noremap <silent> <leader>gw  :Gwrite<CR>
 
+" Asynchronous Lint Engine
+nmap <silent> ]q <Plug>(ale_previous_wrap)
+nmap <silent> [q <Plug>(ale_next_wrap)
+
 " Tabs
 nnoremap ]t gt
 nnoremap [t gT

@@ -265,6 +265,22 @@ endif
 
 
 " ----------------------------------------------------------------------------------------
+" Asynchronous Lint Engine
+" ----------------------------------------------------------------------------------------
+let g:ale_linters = {
+\   'php': ['phpcs', 'php', 'phpmd'],
+\   'python': ['flake8', 'pep8', 'vulture'],
+\}
+let g:ale_lint_on_enter        = 1 " run linters on opening a file
+let g:ale_lint_on_save         = 0
+let g:ale_lint_on_text_changed = 1
+let g:ale_sign_column_always   = 1
+let g:ale_sign_error           = '>>'
+let g:ale_sign_warning         = '--'
+
+
+
+" ----------------------------------------------------------------------------------------
 " neomake
 " ----------------------------------------------------------------------------------------
 let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
