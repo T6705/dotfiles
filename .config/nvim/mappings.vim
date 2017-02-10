@@ -67,9 +67,15 @@ noremap <silent> <leader>gr  :Gremove<CR>
 noremap <silent> <leader>gs  :Gstatus<CR>
 noremap <silent> <leader>gw  :Gwrite<CR>
 
-" Asynchronous Lint Engine
-nmap <silent> [q <Plug>(ale_previous_wrap)
-nmap <silent> ]q <Plug>(ale_next_wrap)
+"" Asynchronous Lint Engine
+"nmap <silent> [q <Plug>(ale_previous_wrap)
+"nmap <silent> ]q <Plug>(ale_next_wrap)
+
+" Neomake
+nmap <silent> <leader>lo :lopen<CR>
+nmap <silent> <leader>lc :lclose<CR>
+nmap <silent> [q :lprevious<CR>
+nmap <silent> ]q :lnext<CR>
 
 " Tabs
 nnoremap ]t gt
