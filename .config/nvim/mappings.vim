@@ -38,8 +38,8 @@ nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
 
 " move to beginning/end of line
-nnoremap B ^
-nnoremap E $
+nnoremap H ^
+nnoremap L $
 
 " highlight last inserted text
 nnoremap gV `[v`]
