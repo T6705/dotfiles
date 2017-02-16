@@ -112,6 +112,7 @@ else
 endif
 
 nnoremap <silent> <leader>ag :Ag<cr>
+nnoremap <silent> <leader>AG :Ag!<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
