@@ -127,6 +127,8 @@ let g:airline_theme="wombat"
 " indentline
 " ----------------------------------------------------------------------------------------
 let g:indentLine_char = '▸'
+let g:indentLine_enabled = 1 "enable by default
+let g:indentLine_setColors = 1 "do not overwrite 'conceal' color
 
 
 
