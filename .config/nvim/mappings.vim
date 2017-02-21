@@ -169,6 +169,22 @@ vnoremap <leader>f za<CR>
 " vim-table-mode
 noremap <silent> <leader>tm :TableModeToggle<CR>
 
+" easymotion
+" <Leader>f{char} to move to {char}
+map  <Leader><Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map  <Leader><Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader><Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader><Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
+
 " Tabular
 if exists(":Tabularize")
   nnoremap <leader>a= :Tabularize /=<CR>
@@ -189,9 +205,9 @@ nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
 nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
 
 nnoremap <silent> <F2> :NERDTreeFind<CR>
-noremap <silent> <F3> :NERDTreeToggle<CR>
-noremap <silent> <F4> :GundoToggle<CR>
-noremap <silent> <F5> :Codi!!<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
+nnoremap <silent> <F4> :GundoToggle<CR>
+nnoremap <silent> <F5> :Codi!!<CR>
 inoremap <silent> <F6> <esc>:TagbarToggle<cr>
 nnoremap <silent> <F6> :TagbarToggle<cr>
 
