@@ -108,26 +108,38 @@ let g:netrw_winsize=30
 "let g:airline_theme="luna"
 "let g:airline_theme="papercolor"
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamecollapse = 0
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline_left_sep=''
-let g:airline_powerline_fonts = 1
-let g:airline_powerline_fonts=1
-let g:airline_right_sep=''
-let g:airline_theme="wombat"
+let g:airline#extensions#tabline#buffer_nr_show   = 1
+let g:airline#extensions#tabline#enabled          = 1
+let g:airline#extensions#tabline#fnamecollapse    = 0
+let g:airline#extensions#tabline#fnamemod         = ':t'
+let g:airline#extensions#tabline#left_alt_sep     = '|'
+let g:airline#extensions#tabline#left_sep         = ' '
+let g:airline#extensions#tagbar#enabled           = 0
+let g:airline_left_sep                            = ''
+let g:airline_powerline_fonts                     = 1
+let g:airline_right_sep                           = ''
+let g:airline_theme                               = "wombat"
+
+
+
+" ----------------------------------------------------------------------------------------
+" vim-devicons
+" ----------------------------------------------------------------------------------------
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_nerdtree = 1
 
 
 
 " ----------------------------------------------------------------------------------------
 " indentline
 " ----------------------------------------------------------------------------------------
-let g:indentLine_char = '▸'
-let g:indentLine_enabled = 1 "enable by default
+let g:indentLine_char      = '▸'
+let g:indentLine_enabled   = 1 "enable by default
 let g:indentLine_setColors = 1 "do not overwrite 'conceal' color
 
 

@@ -28,6 +28,7 @@ command! PU PlugUpdate | PlugUpgrade
 set binary
 set bomb
 set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
+set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 set fileencoding=utf-8
 set fileencodings=utf-8
 
