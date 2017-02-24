@@ -127,6 +127,8 @@ let g:airline_theme                               = "wombat"
 " ----------------------------------------------------------------------------------------
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = '?'
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['java'] = 'j'
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:webdevicons_enable = 1
