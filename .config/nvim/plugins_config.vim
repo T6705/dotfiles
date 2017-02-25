@@ -5,7 +5,7 @@
 " ----------------------------------------------------------------------------------------
 " Colorizer
 " ----------------------------------------------------------------------------------------
-let g:colorizer_syntax = 1
+let g:colorizer_syntax   = 1
 let g:colorizer_auto_map = 1
 
 
@@ -13,7 +13,7 @@ let g:colorizer_auto_map = 1
 " ----------------------------------------------------------------------------------------
 " table-mode
 " ----------------------------------------------------------------------------------------
-let g:table_mode_corner="|"
+let g:table_mode_corner = "|"
 "let g:table_mode_corner_corner="+"
 "let g:table_mode_header_fillchar="="
 
@@ -23,7 +23,7 @@ let g:table_mode_corner="|"
 " RainbowParentheses
 " ----------------------------------------------------------------------------------------
 let g:rainbow#max_level = 32
-let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{','}']]
+let g:rainbow#pairs     = [['(', ')'], ['[', ']'], ['{','}']]
 
 
 
@@ -37,9 +37,9 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{','}']]
 "let g:vimtex_view_general_options_latexmk = '--unique'
 "let g:vimtex_view_general_viewer = 'okular'
 "let g:vimtex_view_general_viewer = 'qpdfview'
-let g:vimtex_latexmk_background = 1
-let g:vimtex_latexmk_continuous = 1
-let g:vimtex_latexmk_options = '-pdfdvi'
+let g:vimtex_latexmk_background  = 1
+let g:vimtex_latexmk_continuous  = 1
+let g:vimtex_latexmk_options     = '-pdfdvi'
 let g:vimtex_view_general_viewer = 'zathura'
 
 
@@ -91,14 +91,14 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 " ----------------------------------------------------------------------------------------
 " netrw
 " ----------------------------------------------------------------------------------------
-"let g:netrw_altv=1                            " open splits to the right
-"let g:netrw_browse_split=4                    " open in prior window
-let g:netrw_banner=0                          " disable annoying banner
-let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_liststyle=3                       " tree view
-let g:netrw_preview=1
-let g:netrw_winsize=30
+"let g:netrw_altv         = 1 " open splits to the right
+"let g:netrw_browse_split = 4 " open in prior window
+let g:netrw_banner       = 0 " disable annoying banner
+let g:netrw_list_hide    = '\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide    = netrw_gitignore#Hide()
+let g:netrw_liststyle    = 3 " tree view
+let g:netrw_preview      = 1
+let g:netrw_winsize      = 30
 
 
 
@@ -122,19 +122,19 @@ let g:airline_theme                               = "wombat"
 
 
 
-" ----------------------------------------------------------------------------------------
-" vim-devicons
-" ----------------------------------------------------------------------------------------
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = '?'
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
-let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['java'] = 'j'
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-let g:webdevicons_conceal_nerdtree_brackets = 1
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_airline_statusline = 1
-let g:webdevicons_enable_airline_tabline = 1
-let g:webdevicons_enable_nerdtree = 1
+"" ----------------------------------------------------------------------------------------
+"" vim-devicons
+"" ----------------------------------------------------------------------------------------
+"let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+"let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = '?'
+"let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
+"let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['java'] = 'J'
+"let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+"let g:webdevicons_conceal_nerdtree_brackets = 1
+"let g:webdevicons_enable = 1
+"let g:webdevicons_enable_airline_statusline = 1
+"let g:webdevicons_enable_airline_tabline = 1
+"let g:webdevicons_enable_nerdtree = 1
 
 
 
@@ -187,10 +187,10 @@ let g:comfortable_motion_air_drag = 2.0
 " instant_markdown
 " ----------------------------------------------------------------------------------------
 let g:instant_markdown_allow_external_content = 1 " allow content like images, stylesheets...
-let g:instant_markdown_allow_unsafe_content = 0   " block scripts
-let g:instant_markdown_autostart = 0              " start markdown preview with :InstantMarkdownPreview
-let g:instant_markdown_open_to_the_world = 0      " listens on localhost
-let g:instant_markdown_slow = 0                   " realtime preview
+let g:instant_markdown_allow_unsafe_content   = 0 " block scripts
+let g:instant_markdown_autostart              = 0 " start markdown preview with :InstantMarkdownPreview
+let g:instant_markdown_open_to_the_world      = 0 " listens on localhost
+let g:instant_markdown_slow                   = 0 " realtime preview
 
 
 
@@ -218,21 +218,17 @@ let g:codi#interpreters = {
 " ----------------------------------------------------------------------------------------
 if has('nvim')
     " deoplete
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#sources#jedi#enable_cache = 1
+    let g:deoplete#enable_at_startup           = 1
+    let g:deoplete#sources#jedi#enable_cache   = 1
     let g:deoplete#sources#jedi#show_docstring = 0
 else
     " neocomplete
     "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+    let g:acp_enableAtStartup                           = 0 " Disable AutoComplPop.
+    let g:neocomplete#enable_at_startup                 = 1 " Use neocomplete.
+    let g:neocomplete#enable_smart_case                 = 1 " Use smartcase.
+    let g:neocomplete#sources#syntax#min_keyword_length = 3 " Set minimum syntax keyword length.
+    let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'
 
     " Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
@@ -324,8 +320,8 @@ let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 " Python2/3
 "let g:neomake_python_enabled_makers = ['pylint', 'flake8', 'pep8', 'vulture']
 let g:neomake_python_enabled_makers = ['flake8', 'pep8']
-let g:neomake_python_pep8_maker = { 'args': ['--max-line-length=100', '--ignore=E221,E265,E266'], }
-let g:neomake_python_flake8_maker = { 'args': ['--ignore E221 E265 E266'], }
+let g:neomake_python_pep8_maker     = { 'args': ['--max-line-length=100', '--ignore=E221,E265,E266'], }
+let g:neomake_python_flake8_maker   = { 'args': ['--ignore E221 E265 E266'], }
 
 " php
 let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
@@ -336,23 +332,23 @@ let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
 " Pymode
 " ----------------------------------------------------------------------------------------
 " let g:pymode_options_max_line_length = 79 " Setup max line length
-let g:pymode = 1                            " enable Pymode
-let g:pymode_breakpoint_bind = '<leader>pb' " add breakpoint with ' pb'
-let g:pymode_doc = 1                        " read doc :PymodeDoc arg
-let g:pymode_doc_bind = '<leader>pd'        " press ' pd' to show doc for current word
-let g:pymode_folding = 0                    " disable folding
-let g:pymode_indent = 1                     " pep8 indent style
-let g:pymode_options = 0                    " disable default python options
-let g:pymode_python = 'python3'
-let g:pymode_rope = 0                       " Disable rope
-let g:pymode_run = 1
-let g:pymode_run_bind = '<leader>pr'        " run python code with ,pr
-let g:pymode_trim_whitespaces = 1           " Trim unused white spaces on save
-let g:pymode_virtualenv = 1                 " Enable automatic virtualenv detection
+let g:pymode                  = 1            " enable Pymode
+let g:pymode_breakpoint_bind  = '<leader>pb' " add breakpoint with ' pb'
+let g:pymode_doc              = 1            " read doc :PymodeDoc arg
+let g:pymode_doc_bind         = '<leader>pd' " press ' pd' to show doc for current word
+let g:pymode_folding          = 0            " disable folding
+let g:pymode_indent           = 1            " pep8 indent style
+let g:pymode_options          = 0            " disable default python options
+let g:pymode_python           = 'python3'
+let g:pymode_rope             = 0            " Disable rope
+let g:pymode_run              = 1
+let g:pymode_run_bind         = '<leader>pr' " run python code with ,pr
+let g:pymode_trim_whitespaces = 1            " Trim unused white spaces on save
+let g:pymode_virtualenv       = 1            " Enable automatic virtualenv detection
 """ linting code with neomake
-let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
-let g:pymode_lint_on_fly = 0
-let g:pymode_lint_on_write = 0
+let g:pymode_lint_checkers   = ['pyflakes', 'pep8', 'mccabe']
+let g:pymode_lint_on_fly     = 0
+let g:pymode_lint_on_write   = 0
 let g:pymode_lint_unmodified = 0
 
 
@@ -360,22 +356,22 @@ let g:pymode_lint_unmodified = 0
 " ----------------------------------------------------------------------------------------
 " jedi-vim
 " ----------------------------------------------------------------------------------------
-let g:jedi#auto_initialization = 1
+let g:jedi#auto_initialization    = 1
 let g:jedi#auto_vim_configuration = 1
-let g:jedi#completions_enabled = 1
-let g:jedi#popup_on_dot = 1
-let g:jedi#popup_select_first = 1
-let g:jedi#show_call_signatures = "1"
+let g:jedi#completions_enabled    = 1
+let g:jedi#popup_on_dot           = 1
+let g:jedi#popup_select_first     = 1
+let g:jedi#show_call_signatures   = "1"
 let g:jedi#use_splits_not_buffers = "right"
-let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#use_tabs_not_buffers   = 0
 
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#documentation_command = "K"
+let g:jedi#completions_command      = "<C-Space>"
+let g:jedi#documentation_command    = "K"
 let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_command = "<leader>d"
+let g:jedi#goto_command             = "<leader>d"
 let g:jedi#goto_definitions_command = "<tab>"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#usages_command = "<leader>n"
+let g:jedi#rename_command           = "<leader>r"
+let g:jedi#usages_command           = "<leader>n"
 
 
 
@@ -483,8 +479,8 @@ endif
 " ----------------------------------------------------------------------------------------
 " peekaboo
 " ----------------------------------------------------------------------------------------
-let g:peekaboo_compact = 0                        " Compact display; do not display the names of the register groups
-let g:peekaboo_delay = 0                          " Delay opening of peekaboo window (in ms. default: 0)
-let g:peekaboo_window = 'vertical botright 30new' " Default peekaboo window
+let g:peekaboo_compact = 0                         " Compact display; do not display the names of the register groups
+let g:peekaboo_delay   = 0                         " Delay opening of peekaboo window (in ms. default: 0)
+let g:peekaboo_window  = 'vertical botright 30new' " Default peekaboo window
 
 """ }}}

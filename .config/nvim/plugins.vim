@@ -66,6 +66,8 @@ Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job 
 
 
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+"Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
+"Plug 'ryanoasis/vim-devicons'
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
     Plug 'mklabs/split-term.vim'
@@ -93,9 +95,8 @@ Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
 Plug 'mhinz/vim-signify'
-Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
