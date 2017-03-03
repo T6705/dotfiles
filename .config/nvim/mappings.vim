@@ -46,6 +46,9 @@ vnoremap L $
 " highlight last inserted text
 nnoremap gV `[v`]
 
+" go to place of last change
+nnoremap g; g;zz
+
 " clear highlighted search
 noremap <silent> <leader>sc :set hlsearch! hlsearch?<cr>
 
@@ -230,8 +233,37 @@ nnoremap <leader>5 m`^i##### <esc>``6l
 nnoremap <leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
 nnoremap <leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
+" Make check spelling on or off
+nmap <leader>cson   :set spell<CR>
+nmap <leader>csoff :set nospell<CR>
+
 " qq to record, Q to replay (recursive map due to peekaboo)
 nmap Q @q
+
+" ," Surround a word with "quotes"
+map <leader>" ysiw"
+vmap <leader>" c"<C-R>""<ESC>
+" <leader>' Surround a word with 'single quotes'
+map <leader>' ysiw'
+vmap <leader>' c'<C-R>"'<ESC>
+" <leader>) or ,( Surround a word with (parens)
+" The difference is in whether a space is put in
+map <leader>( ysiw(
+map <leader>) ysiw)
+vmap <leader>( c( <C-R>" )<ESC>
+vmap <leader>) c(<C-R>")<ESC>
+" <leader>[ Surround a word with [brackets]
+map <leader>] ysiw]
+map <leader>[ ysiw[
+vmap <leader>[ c[ <C-R>" ]<ESC>
+vmap <leader>] c[<C-R>"]<ESC>
+" <leader>{ Surround a word with {braces}
+map <leader>} ysiw}
+map <leader>{ ysiw{
+vmap <leader>} c{ <C-R>" }<ESC>
+vmap <leader>{ c{<C-R>"}<ESC>
+
+map <leader>` ysiw`
 
 " nvim
 if has('nvim')

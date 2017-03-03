@@ -74,10 +74,23 @@ set title
 set titleold="Terminal"
 set titlestring=%F
 set ttyfast               " faster redrawing
-set wildmenu              " Turn on the WiLd menu
-set wildmode=list:longest " complete files like a shell
-" set wildmode=full
 syntax on                 " switch syntax highlighting on
+
+"Wildmenu
+set wildmenu                                     " Turn on the WiLd menu
+set wildmode=list:longest                        " complete files like a shell
+" set wildmode=full
+set wildignore+=*.DS_Store                       " OSX SHIT"
+set wildignore+=*.aux,*.out,*.toc                " Latex Indermediate files"
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " Binary Imgs"
+set wildignore+=*.luac                           " Lua byte code"
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " Compiled Object files"
+set wildignore+=*.orig,*.rej                     " Merge resolution files"
+set wildignore+=*.pyc                            " Python Object codes"
+set wildignore+=*.spl                            " Compiled speolling world list"
+set wildignore+=*.sw?                            " Vim swap files"
+set wildignore+=.hg,.git,.svn                    " Version Controls"
+set wildignore+=migrations                       " Django migrations"
 
 " Searching
 set hlsearch
