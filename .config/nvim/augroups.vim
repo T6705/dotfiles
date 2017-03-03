@@ -19,7 +19,7 @@ augroup configgroup
     autocmd FocusLost *: wa            " Set vim to save the file on focus out
     autocmd InsertLeave * silent! set nopaste
     autocmd! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
-    "autocmd! BufWritePost * Neomake    " run neomake on the current file on every write
+    autocmd! BufWritePost * Neomake    " run neomake on the current file on every write
     "autocmd! BufWritePost .vimrc source %
     "autocmd! BufWritePost init.vim source %
 augroup END

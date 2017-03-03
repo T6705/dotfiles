@@ -75,10 +75,10 @@ noremap <silent> <leader>gw  :Gwrite<CR>
 
 nmap <silent> <leader>lo :lopen<CR>
 nmap <silent> <leader>lc :lclose<CR>
-"nmap <silent> [q :lprevious<CR> " Neomake
-"nmap <silent> ]q :lnext<CR>     " Neomake
-nmap <silent> [q <Plug>(ale_previous_wrap) " Asynchronous Lint Engine
-nmap <silent> ]q <Plug>(ale_next_wrap      " Asynchronous Lint Engine
+nmap <silent> [q :lprevious<CR> " Neomake
+nmap <silent> ]q :lnext<CR>     " Neomake
+"nmap <silent> [q <Plug>(ale_previous_wrap) " Asynchronous Lint Engine
+"nmap <silent> ]q <Plug>(ale_next_wrap      " Asynchronous Lint Engine
 
 " Tabs
 nnoremap ]t gt
