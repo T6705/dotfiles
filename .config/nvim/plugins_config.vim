@@ -292,7 +292,7 @@ endif
 " ----------------------------------------------------------------------------------------
 let g:ale_linters = {
 \   'php': ['phpcs', 'php', 'phpmd'],
-\   'python': ['flake8', 'pep8'],
+\   'python': ['flake8', 'pep8', 'vulture'],
 \}
 let g:ale_lint_on_enter        = 1 " run linters on opening a file
 let g:ale_lint_on_save         = 1
@@ -320,7 +320,7 @@ let g:neomake_message_sign = {
 let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 
 " Python2/3
-let g:neomake_python_enabled_makers = ['flake8', 'pep8']
+let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
 let g:neomake_python_flake8_maker   = { 'args': ['--ignore E221 E265 E266'], }
 let g:neomake_python_pep8_maker     = { 'args': ['--max-line-length=100', '--ignore=E221,E265,E266'], }
 
