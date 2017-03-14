@@ -2,15 +2,10 @@
 
 """ === Mappings === {{{
 
+" Copy and Paste
 noremap YY "+y<CR>
 noremap <silent> <leader>p "+gP<CR>
 noremap XX "+x<CR>
-
-"" No arrow keys
-"no <down> <Nop>
-"no <left> <Nop>
-"no <right> <Nop>
-"no <up> <Nop>
 
 "" Escaping
 cnoremap <C-F> <Esc>
@@ -19,6 +14,13 @@ nnoremap <C-F> <Esc>
 vnoremap <C-F> <Esc>
 xnoremap <C-F> <Esc>
 
+"" No arrow keys
+"no <down> <Nop>
+"no <left> <Nop>
+"no <right> <Nop>
+"no <up> <Nop>
+
+" No arrow keys in insert mode
 ino <down> <Nop>
 ino <left> <Nop>
 ino <right> <Nop>
@@ -50,33 +52,39 @@ nnoremap gV `[v`]
 nnoremap g; g;zz
 
 " clear highlighted search
-noremap <silent> <leader>sc :set hlsearch! hlsearch?<cr>
+nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<cr>
+
+nnoremap G Gzz
+nnoremap N Nzz
+nnoremap n nzz
+nnoremap { {zz
+nnoremap } }zz
 
 " window navigation
-noremap <silent> <leader>wh <C-W>h
-noremap <silent> <leader>wj <C-W>j
-noremap <silent> <leader>wk <C-W>k
-noremap <silent> <leader>wl <C-W>l
+nnoremap <silent> <leader>wh <C-W>h
+nnoremap <silent> <leader>wj <C-W>j
+nnoremap <silent> <leader>wk <C-W>k
+nnoremap <silent> <leader>wl <C-W>l
 
 " Split
-noremap <silent> <leader>h :<C-u>split<CR>
-noremap <silent> <leader>v :<C-u>vsplit<CR>
+nnoremap <silent> <leader>h :<C-u>split<CR>
+nnoremap <silent> <leader>v :<C-u>vsplit<CR>
 
 " Git
-noremap <silent> <leader>gb  :Gblame<CR>
-noremap <silent> <leader>gc  :Gcommit<CR>
-noremap <silent> <leader>gd  :Gvdiff<CR>
-noremap <silent> <leader>gps :Gpush<CR>
-noremap <silent> <leader>gpu :Gpull<CR>
-noremap <silent> <leader>gr  :Gremove<CR>
-noremap <silent> <leader>gs  :Gstatus<CR>
-noremap <silent> <leader>gw  :Gwrite<CR>
+nnoremap <silent> <leader>gb  :Gblame<CR>
+nnoremap <silent> <leader>gc  :Gcommit<CR>
+nnoremap <silent> <leader>gd  :Gvdiff<CR>
+nnoremap <silent> <leader>gps :Gpush<CR>
+nnoremap <silent> <leader>gpu :Gpull<CR>
+nnoremap <silent> <leader>gr  :Gremove<CR>
+nnoremap <silent> <leader>gs  :Gstatus<CR>
+nnoremap <silent> <leader>gw  :Gwrite<CR>
 
-
-nmap <silent> <leader>lo :lopen<CR>
-nmap <silent> <leader>lc :lclose<CR>
-nmap <silent> [q :lprevious<CR> " Neomake
-nmap <silent> ]q :lnext<CR>     " Neomake
+" quickfix
+noremap <silent> <leader>lo :lopen<CR>
+noremap <silent> <leader>lc :lclose<CR>
+noremap <silent> [q :lprevious<CR> " Neomake
+noremap <silent> ]q :lnext<CR>     " Neomake
 "nmap <silent> [q <Plug>(ale_previous_wrap) " Asynchronous Lint Engine
 "nmap <silent> ]q <Plug>(ale_next_wrap      " Asynchronous Lint Engine
 
@@ -86,29 +94,28 @@ nnoremap [t gT
 nnoremap <silent> <leader>nt :tabnew<CR>
 
 " add space after comma
-nmap <leader>, :%s/, */, /g<CR>
-vmap <leader>, :s/, */, /g<CR>
+nnoremap <leader>, :%s/, */, /g<CR>
+vnoremap <leader>, :s/, */, /g<CR>
 
 " Explore dir
 "nnoremap <silent> <leader>E :Lexplore<CR>
 nnoremap <silent> <leader>E :NERDTreeToggle<CR>
 
 " Buffer nav
-noremap <silent> [b :bp<CR>
-noremap <silent> ]b :bn<CR>
-noremap <silent> <leader>q :bd!<CR>
-noremap <silent> <leader>nb :enew<CR>
-
-"noremap <silent> <leader>b :CtrlPBuffer<CR>
+nnoremap <silent> [b :bp<CR>
+nnoremap <silent> ]b :bn<CR>
+nnoremap <silent> <leader>q :bd!<CR>
+nnoremap <silent> <leader>nb :enew<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
-"nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 nnoremap <leader>bs :Lines<CR>
+"noremap <silent> <leader>b :CtrlPBuffer<CR>
+"nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 if isdirectory(".git")
     " if in a git project, use :GFiles
-    nnoremap <silent> <leader>e  :GFiles<cr>
+    nnoremap <silent> <leader>e :GFiles<cr>
 else
     " otherwise, use :FZF
     nnoremap <silent> <leader>e :FZF<cr>
@@ -156,8 +163,8 @@ autocmd VimEnter * command! -bang -nargs=* Ag
 "" noremap <C-h> <C-w>h
 
 " Vmap for maintain Visual Mode after shifting > and <
-vmap < <gv
-vmap > >gv
+vnoremap < <gv
+vnoremap > >gv
 
 " Move visual block
 vnoremap J :m '>+1<CR>gv=gv
@@ -168,7 +175,7 @@ nnoremap <leader>f za<CR>
 vnoremap <leader>f za<CR>
 
 " vim-table-mode
-noremap <silent> <leader>tm :TableModeToggle<CR>
+nnoremap <silent> <leader>tm :TableModeToggle<CR>
 
 " easymotion
 " <Leader>f{char} to move to {char}
@@ -199,26 +206,31 @@ endif
 " Scrolling
 nnoremap <silent> <C-d> :call comfortable_motion#flick(400)<CR>
 nnoremap <silent> <C-u> :call comfortable_motion#flick(-400)<CR>
-"
-"noremap <C-j> 2<C-e>
 nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
-"noremap <C-k> 2<C-y>
 nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
+"noremap <C-j> 2<C-e>
+"noremap <C-k> 2<C-y>
 
+inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
+inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
+inoremap <silent> <F4> <esc>:GundoToggle<CR>
+inoremap <silent> <F5> <esc>:Codi!!<CR>
+inoremap <silent> <F6> <esc>:TagbarToggle<cr>
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
 nnoremap <silent> <F4> :GundoToggle<CR>
 nnoremap <silent> <F5> :Codi!!<CR>
-inoremap <silent> <F6> <esc>:TagbarToggle<cr>
 nnoremap <silent> <F6> :TagbarToggle<cr>
 
 " hexedit
+inoremap <silent> <F7> <esc>:%!xxd<CR>
+inoremap <silent> <F8> <esc>:%!xxd -r<CR>
 noremap <silent> <F7> :%!xxd<CR>
 noremap <silent> <F8> :%!xxd -r<CR>
 
 " compile and run
-noremap <silent> <leader>jcr :w<CR> :cd %:p:h<CR> :!javac % && java %<<CR>
 noremap <silent> <leader>ccr :w<CR> :!gcc % -o %< && %:p:r<CR>
+noremap <silent> <leader>jcr :w<CR> :cd %:p:h<CR> :!javac % && java %<<CR>
 
 " Markdown headings
 nnoremap <leader>1 m`yypVr=``
@@ -232,36 +244,36 @@ nnoremap <leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
 nnoremap <leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
 " Make check spelling on or off
-nmap <leader>cson   :set spell<CR>
-nmap <leader>csoff :set nospell<CR>
+nnoremap <leader>cson   :set spell<CR>
+nnoremap <leader>csoff :set nospell<CR>
 
-" qq to record, Q to replay (recursive map due to peekaboo)
-nmap Q @q
+" qq to record, Q to replay (recursive noremap due to peekaboo)
+nnoremap Q @q
 
 " ," Surround a word with "quotes"
-map <leader>" ysiw"
-vmap <leader>" c"<C-R>""<ESC>
+nnoremap <leader>" ysiw"
+vnoremap <leader>" c"<C-R>""<ESC>
 " <leader>' Surround a word with 'single quotes'
-map <leader>' ysiw'
-vmap <leader>' c'<C-R>"'<ESC>
+nnoremap <leader>' ysiw'
+vnoremap <leader>' c'<C-R>"'<ESC>
 " <leader>) or ,( Surround a word with (parens)
 " The difference is in whether a space is put in
-map <leader>( ysiw(
-map <leader>) ysiw)
-vmap <leader>( c( <C-R>" )<ESC>
-vmap <leader>) c(<C-R>")<ESC>
+nnoremap <leader>( ysiw(
+nnoremap <leader>) ysiw)
+vnoremap <leader>( c( <C-R>" )<ESC>
+vnoremap <leader>) c(<C-R>")<ESC>
 " <leader>[ Surround a word with [brackets]
-map <leader>] ysiw]
-map <leader>[ ysiw[
-vmap <leader>[ c[ <C-R>" ]<ESC>
-vmap <leader>] c[<C-R>"]<ESC>
+nnoremap <leader>] ysiw]
+nnoremap <leader>[ ysiw[
+vnoremap <leader>[ c[ <C-R>" ]<ESC>
+vnoremap <leader>] c[<C-R>"]<ESC>
 " <leader>{ Surround a word with {braces}
-map <leader>} ysiw}
-map <leader>{ ysiw{
-vmap <leader>} c{ <C-R>" }<ESC>
-vmap <leader>{ c{<C-R>"}<ESC>
+nnoremap <leader>} ysiw}
+nnoremap <leader>{ ysiw{
+vnoremap <leader>} c{ <C-R>" }<ESC>
+vnoremap <leader>{ c{<C-R>"}<ESC>
 
-map <leader>` ysiw`
+nnoremap <leader>` ysiw`
 
 " nvim
 if has('nvim')
