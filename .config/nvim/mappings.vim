@@ -229,8 +229,8 @@ noremap <silent> <F7> :%!xxd<CR>
 noremap <silent> <F8> :%!xxd -r<CR>
 
 " compile and run
-noremap <silent> <leader>ccr :w<CR> :!gcc % -o %< && %:p:r<CR>
-noremap <silent> <leader>jcr :w<CR> :cd %:p:h<CR> :!javac % && java %<<CR>
+noremap <silent> <leader>ccr :w<CR> :!gcc % -o %< && time %:p:r<CR>
+noremap <silent> <leader>jcr :w<CR> :cd %:p:h<CR> :!javac % && time java %<<CR>
 
 " Markdown headings
 nnoremap <leader>1 m`yypVr=``
