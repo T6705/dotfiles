@@ -59,9 +59,11 @@ let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespa
 " ----------------------------------------------------------------------------------------
 " NERDTree
 " ----------------------------------------------------------------------------------------
+"let g:NERDTreeWinPos = "right"
 let NERDTreeAutoDeleteBuffer       = 1
 let NERDTreeDirArrows              = 1
 let NERDTreeHijackNetrw            = 1
+let NERDTreeIgnore                 = ['\.pyc$', '__pycache__']
 let NERDTreeMinimalUI              = 1
 let NERDTreeQuitOnOpen             = 1
 let NERDTreeShowHidden             = 1
@@ -71,7 +73,7 @@ let g:NERDTreeIgnore               = ['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sql
 let g:NERDTreeMapOpenInTabSilent   = '<RightMouse>'
 let g:NERDTreeShowBookmarks        = 1
 let g:NERDTreeSortOrder            = ['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeWinSize              = 50
+let g:NERDTreeWinSize              = 35
 let g:nerdtree_tabs_focus_on_files = 1
 let g:NERDTreeIndicatorMapCustom   = {
 \ "Modified"  : "✹",

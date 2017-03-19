@@ -3,7 +3,7 @@
 """ === Mappings === {{{
 
 " Copy and Paste
-nnoremap Y y$ " Make `Y` behave like `C` and `D`
+"nnoremap Y y$ " Make `Y` behave like `C` and `D`
 nnoremap YY "+y<CR>
 nnoremap <silent> <leader>p "+gP<CR>
 nnoremap XX "+x<CR>
@@ -60,6 +60,10 @@ nnoremap N Nzz
 nnoremap n nzz
 nnoremap { {zz
 nnoremap } }zz
+
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
 
 " window navigation
 nnoremap <silent> <leader>wh <C-W>h
@@ -251,6 +255,9 @@ nnoremap <leader>csoff :set nospell<CR>
 " qq to record, Q to replay (recursive noremap due to peekaboo)
 nnoremap Q @q
 
+" ----------------------------------------------------------------------------------------
+" Surround
+" ----------------------------------------------------------------------------------------
 " ," Surround a word with "quotes"
 nnoremap <leader>" ysiw"
 vnoremap <leader>" c"<C-R>""<ESC>
@@ -276,7 +283,9 @@ vnoremap <leader>{ c{<C-R>"}<ESC>
 
 nnoremap <leader>` ysiw`
 
+" ----------------------------------------------------------------------------------------
 " nvim
+" ----------------------------------------------------------------------------------------
 if has('nvim')
     "command! Term terminal
     "command! VTerm vnew | terminal

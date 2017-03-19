@@ -7,14 +7,14 @@ let g:python3_host_prog = '/usr/bin/python3.5'
 
 let mapleader=' '
 
-cnoreabbrev W! w!
+"cnoreabbrev W w
+"cnoreabbrev W! w!
+"cnoreabbrev Wa wa
+"cnoreabbrev Wq wq
+cnoreabbrev WQ Wq
+cnoreabbrev wQ wq
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
@@ -24,18 +24,23 @@ endif
 
 command! PU PlugUpdate | PlugUpgrade
 
+" ----------------------------------------------------------------------------------------
 " Encoding
+" ----------------------------------------------------------------------------------------
 set binary
 set bomb
 set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
 "set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 set fileencoding=utf-8
 set fileencodings=utf-8
+set ffs=unix,dos,mac " Use Unix as the standard file type
 
 " Fix backspace indent
 set backspace=indent,eol,start " make backspace behave in a sane manner
 
+" ----------------------------------------------------------------------------------------
 " Tabs
+" ----------------------------------------------------------------------------------------
 set expandtab     " Use spaces instead of tabs
 set softtabstop=0
 " 1 tab == 4 spaces
@@ -56,31 +61,49 @@ highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 set showbreak=↪
 nmap <leader>l :set list!<cr>
 
+" ----------------------------------------------------------------------------------------
 " UI
+" ----------------------------------------------------------------------------------------
 colorscheme molokai
-filetype indent on        " load filetype-specific indent files
+filetype indent on                                                                                " load filetype-specific indent files
 set background=dark
-set cursorline            " highlight current line
-set hidden                " current buffer can be put into background
-set lazyredraw            " Don't redraw while executing macros (good performance config)
-set number                " show line numbers
-set ruler                 " Always show current position
+set cursorline                                                                                    " highlight current line
+set hidden                                                                                        " current buffer can be put into background
+set lazyredraw                                                                                    " Don't redraw while executing macros (good performance config)
+set number                                                                                        " show line numbers
+set ruler                                                                                         " Always show current position
 set scrolloff=3
-set showcmd               " show incomplete commands
-set so=7                  " Set 7 lines to the cursor - when moving vertically using j/k
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
-set t_Co=256              " Explicitly tell vim that the terminal supports 256 colors
+set showcmd                                                                                       " show incomplete commands
+set so=7                                                                                          " Set 7 lines to the cursor - when moving vertically using j/k
+set laststatus=2                                                                                  " Status bar
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ " Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c " Format the status line
+set t_Co=256                                                                                      " Explicitly tell vim that the terminal supports 256 colors
 set title
 set titleold="Terminal"
 set titlestring=%F
-set ttyfast               " faster redrawing
-syntax on                 " switch syntax highlighting on
+set ttyfast                                                                                       " faster redrawing
+syntax on                                                                                         " switch syntax highlighting on
 
+" Set font according to system
+if has("mac") || has("macunix")
+    set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+elseif has("win16") || has("win32")
+    set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+elseif has("gui_gtk2")
+    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+elseif has("linux")
+    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+elseif has("unix")
+    set gfn=Monospace\ 11
+endif
+
+" ----------------------------------------------------------------------------------------
 "Wildmenu
+" ----------------------------------------------------------------------------------------
 set wildmenu                                     " Turn on the WiLd menu
-set wildmode=list:longest                        " complete files like a shell
 " set wildmode=full
-set wildignore+=*.DS_Store                       " OSX SHIT"
+set wildmode=list:longest                        " complete files like a shell
 set wildignore+=*.aux,*.out,*.toc                " Latex Indermediate files"
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " Binary Imgs"
 set wildignore+=*.luac                           " Lua byte code"
@@ -89,10 +112,17 @@ set wildignore+=*.orig,*.rej                     " Merge resolution files"
 set wildignore+=*.pyc                            " Python Object codes"
 set wildignore+=*.spl                            " Compiled speolling world list"
 set wildignore+=*.sw?                            " Vim swap files"
-set wildignore+=.hg,.git,.svn                    " Version Controls"
 set wildignore+=migrations                       " Django migrations"
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=.hg,.git,.svn                    " Version Controls"
+    set wildignore+=*.DS_Store                       " OSX SHIT"
+endif
 
+" ----------------------------------------------------------------------------------------
 " Searching
+" ----------------------------------------------------------------------------------------
 set hlsearch
 set ignorecase " Ignore case when searching
 if has('nvim')
@@ -117,14 +147,13 @@ set visualbell
 
 " Directories for swp files
 set nobackup
+set nowb
 set noswapfile
 
 " Disable the vlinking cursor
 set gcr=a:blinkon0
 set scrolloff=3
 
-" Status bar
-set laststatus=2
 
 " Use modeline overrides
 set modeline
