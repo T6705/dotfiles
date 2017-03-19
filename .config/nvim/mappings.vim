@@ -3,9 +3,10 @@
 """ === Mappings === {{{
 
 " Copy and Paste
-noremap YY "+y<CR>
-noremap <silent> <leader>p "+gP<CR>
-noremap XX "+x<CR>
+nnoremap Y y$ " Make `Y` behave like `C` and `D`
+nnoremap YY "+y<CR>
+nnoremap <silent> <leader>p "+gP<CR>
+nnoremap XX "+x<CR>
 
 "" Escaping
 cnoremap <C-F> <Esc>
@@ -54,7 +55,7 @@ nnoremap g; g;zz
 " clear highlighted search
 nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<cr>
 
-nnoremap G Gzz
+nnoremap G :norm! Gzz<CR>
 nnoremap N Nzz
 nnoremap n nzz
 nnoremap { {zz
