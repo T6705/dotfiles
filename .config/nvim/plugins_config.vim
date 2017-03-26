@@ -215,8 +215,6 @@ let g:ycm_filetype_blacklist = {
       \ 'infolog' : 1,
       \ 'mail' : 1
       \}
-" Goto definition with ,d
-noremap <leader>d :YcmCompleter GoTo<CR>
 
 
 

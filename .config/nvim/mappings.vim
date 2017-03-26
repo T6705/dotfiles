@@ -85,6 +85,9 @@ nnoremap <silent> <leader>gr  :Gremove<CR>
 nnoremap <silent> <leader>gs  :Gstatus<CR>
 nnoremap <silent> <leader>gw  :Gwrite<CR>
 
+" YouCompleteMe
+noremap <leader>d :YcmCompleter GoTo<CR>
+
 " quickfix
 noremap <silent> <leader>lo :lopen<CR>
 noremap <silent> <leader>lc :lclose<CR>
