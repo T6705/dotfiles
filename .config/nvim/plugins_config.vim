@@ -172,6 +172,10 @@ let g:comfortable_motion_air_drag = 2.0
 " ----------------------------------------------------------------------------------------
 " YouCompleteMe
 " ----------------------------------------------------------------------------------------
+if empty(glob('~/.config/nvim/.ycm_extra_conf.py'))
+  silent !curl -fLo ~/.config/nvim/.ycm_extra_conf.py --create-dirs
+    \ https://raw.githubusercontent.com/Valloric/ycmd/master/cpp/ycm/.ycm_extra_conf.py
+endif
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 let g:ycm_complete_in_comments = 1                " Completion in comments
@@ -181,7 +185,7 @@ let g:ycm_echo_current_diagnostic = 1
 let g:ycm_enable_diagnostic_highlighting = 1
 let g:ycm_enable_diagnostic_signs = 1
 let g:ycm_error_symbol = '>>'
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.config/nvim/.ycm_extra_conf.py'
 let g:ycm_key_list_previous_completion = ['<C-N>', '<Up>']
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_min_num_of_chars_for_completion=2
@@ -204,16 +208,16 @@ let g:ycm_semantic_triggers =  {
   \   'erlang' : [':'],
   \ }
 let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'qf' : 1,
-      \ 'notes' : 1,
-      \ 'markdown' : 1,
-      \ 'unite' : 1,
-      \ 'text' : 1,
-      \ 'vimwiki' : 1,
-      \ 'pandoc' : 1,
-      \ 'infolog' : 1,
-      \ 'mail' : 1
+      \ 'infolog':  1,
+      \ 'mail':     1,
+      \ 'markdown': 1,
+      \ 'notes':    1,
+      \ 'pandoc':   1,
+      \ 'qf':       1,
+      \ 'tagbar':   1,
+      \ 'text':     1,
+      \ 'unite':    1,
+      \ 'vimwiki':  1
       \}
 
 
