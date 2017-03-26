@@ -4,6 +4,12 @@ function! DoRemote(arg)
     UpdateRemotePlugins
 endfunction
 
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.py --clang-completer --gocode-completer
+  endif
+endfunction
+
 """ === Load plugins === {{{
 
 silent! if plug#begin('~/.config/nvim/plugged')
@@ -11,6 +17,8 @@ silent! if plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------------------
 " ColorScheme
 " ----------------------------------------------------------------------------------------
+Plug 'AlessandroYorba/Monrovia'
+Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
@@ -36,16 +44,8 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPre
 
 
 " ----------------------------------------------------------------------------------------
-" java
-" ----------------------------------------------------------------------------------------
-Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-
-
-
-" ----------------------------------------------------------------------------------------
 " python
 " ----------------------------------------------------------------------------------------
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'klen/python-mode', { 'for': 'python' }
 
 
@@ -62,10 +62,19 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - eas
 " ----------------------------------------------------------------------------------------
 "Plug 'w0rp/ale'
 Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
+Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
 
 
 
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+" ----------------------------------------------------------------------------------------
+" Auto Completion
+" ----------------------------------------------------------------------------------------
+Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'python', 'java'], 'do': function('BuildYCM') }
+"Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+
+
+
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 "Plug 'ryanoasis/vim-devicons'
 if has('nvim')
@@ -93,7 +102,6 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'
 Plug 'kshenoy/vim-signature'
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
 Plug 'mhinz/vim-signify'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
