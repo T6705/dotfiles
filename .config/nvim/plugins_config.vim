@@ -9,7 +9,6 @@ let g:colorizer_syntax   = 1
 let g:colorizer_auto_map = 1
 
 
-
 " ----------------------------------------------------------------------------------------
 " table-mode
 " ----------------------------------------------------------------------------------------
@@ -18,13 +17,11 @@ let g:table_mode_corner = "|"
 "let g:table_mode_header_fillchar="="
 
 
-
 " ----------------------------------------------------------------------------------------
 " RainbowParentheses
 " ----------------------------------------------------------------------------------------
 let g:rainbow#max_level = 32
 let g:rainbow#pairs     = [['(', ')'], ['[', ']'], ['{','}']]
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -43,7 +40,6 @@ let g:vimtex_latexmk_options     = '-pdfdvi'
 let g:vimtex_view_general_viewer = 'zathura'
 
 
-
 " ----------------------------------------------------------------------------------------
 " Nerd Commenter
 " ----------------------------------------------------------------------------------------
@@ -53,7 +49,6 @@ let g:NERDCompactSexyComs        = 1      " Use compact syntax for prettified mu
 let g:NERDDefaultAlign           = 'left' " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDSpaceDelims            = 1      " Add spaces after comment delimiters by default
 let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespace when uncommenting
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -89,7 +84,6 @@ let g:NERDTreeIndicatorMapCustom   = {
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
 
-
 " ----------------------------------------------------------------------------------------
 " netrw
 " ----------------------------------------------------------------------------------------
@@ -101,7 +95,6 @@ let g:netrw_list_hide    = netrw_gitignore#Hide()
 let g:netrw_liststyle    = 3 " tree view
 let g:netrw_preview      = 1
 let g:netrw_winsize      = 30
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -123,7 +116,6 @@ let g:airline_right_sep                           = ''
 let g:airline_theme                               = "wombat"
 
 
-
 "" ----------------------------------------------------------------------------------------
 "" vim-devicons
 "" ----------------------------------------------------------------------------------------
@@ -139,14 +131,12 @@ let g:airline_theme                               = "wombat"
 "let g:webdevicons_enable_nerdtree = 1
 
 
-
 " ----------------------------------------------------------------------------------------
 " indentline
 " ----------------------------------------------------------------------------------------
 let g:indentLine_char      = '▸'
 let g:indentLine_enabled   = 1 "enable by default
 let g:indentLine_setColors = 1 "do not overwrite 'conceal' color
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -159,14 +149,12 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
 
-
 " ----------------------------------------------------------------------------------------
 " comfortable-motion
 " ----------------------------------------------------------------------------------------
 let g:comfortable_motion_no_default_key_mappings = 1
 let g:comfortable_motion_friction = 80.0
 let g:comfortable_motion_air_drag = 2.0
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -221,7 +209,6 @@ let g:ycm_filetype_blacklist = {
       \}
 
 
-
 " ----------------------------------------------------------------------------------------
 " instant_markdown
 " ----------------------------------------------------------------------------------------
@@ -232,12 +219,10 @@ let g:instant_markdown_open_to_the_world      = 0 " listens on localhost
 let g:instant_markdown_slow                   = 0 " realtime preview
 
 
-
 " ----------------------------------------------------------------------------------------
 " tagbar
 " ----------------------------------------------------------------------------------------
 let g:tagbar_sort = 0
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -249,7 +234,6 @@ let g:codi#interpreters = {
                        \ 'prompt': '^\(>>>\|\.\.\.\) ',
                        \ },
                        \ }
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -325,7 +309,6 @@ else
 endif
 
 
-
 " ----------------------------------------------------------------------------------------
 " Asynchronous Lint Engine
 " ----------------------------------------------------------------------------------------
@@ -341,7 +324,6 @@ let g:ale_sign_error           = '>>'
 let g:ale_sign_warning         = '--'
 let g:ale_python_flake8_args   = '--ignore=E221,E265,E266,E501'
 let g:ale_python_pep8_args     = '--max-line-length=100 --ignore=E221,E265,E266,E501'
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -365,7 +347,6 @@ let g:neomake_python_pep8_maker     = { 'args': ['--max-line-length=100', '--ign
 
 " php
 let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -393,7 +374,6 @@ let g:pymode_lint_on_write   = 0
 let g:pymode_lint_unmodified = 0
 
 
-
 " ----------------------------------------------------------------------------------------
 " jedi-vim
 " ----------------------------------------------------------------------------------------
@@ -415,12 +395,10 @@ let g:jedi#rename_command           = "<leader>r"
 let g:jedi#usages_command           = "<leader>n"
 
 
-
 " ----------------------------------------------------------------------------------------
 " vim-easymotion
 " ----------------------------------------------------------------------------------------
 let g:EasyMotion_smartcase = 1
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -465,7 +443,6 @@ nmap gaa ga_
 " nmap <Leader><Leader>a <Plug>(LiveEasyAlign)
 
 " inoremap <silent> => =><Esc>mzvip:EasyAlign/=>/<CR>`z$a<Space>
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -514,7 +491,6 @@ if has('timers')
   noremap <expr> N 'N'.<sid>blink(2, 50)
   cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
 endif
-
 
 
 " ----------------------------------------------------------------------------------------

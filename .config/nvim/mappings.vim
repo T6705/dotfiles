@@ -69,10 +69,14 @@ nnoremap } }zz
 command W w !sudo tee % > /dev/null
 
 " window navigation
-nnoremap <silent> <leader>wh <C-W>h
-nnoremap <silent> <leader>wj <C-W>j
-nnoremap <silent> <leader>wk <C-W>k
-nnoremap <silent> <leader>wl <C-W>l
+"nnoremap <silent> <leader>wh <C-W>h
+"nnoremap <silent> <leader>wj <C-W>j
+"nnoremap <silent> <leader>wk <C-W>k
+"nnoremap <silent> <leader>wl <C-W>l
+nnoremap <silent> <leader>wh :call functions#WinMove('h')<cr>
+nnoremap <silent> <leader>wj :call functions#WinMove('j')<cr>
+nnoremap <silent> <leader>wk :call functions#WinMove('k')<cr>
+nnoremap <silent> <leader>wl :call functions#WinMove('l')<cr>
 
 " Split
 nnoremap <silent> <leader>h :<C-u>split<CR>

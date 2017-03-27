@@ -24,7 +24,6 @@ Plug 'morhetz/gruvbox'
 Plug 'tomasr/molokai'
 
 
-
 " ----------------------------------------------------------------------------------------
 " latex
 " ----------------------------------------------------------------------------------------
@@ -34,13 +33,11 @@ endif
 Plug 'lervag/vimtex', { 'for': 'tex' }
 
 
-
 " ----------------------------------------------------------------------------------------
 " markdown
 " ----------------------------------------------------------------------------------------
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -49,12 +46,10 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPre
 Plug 'klen/python-mode', { 'for': 'python' }
 
 
-
 " ----------------------------------------------------------------------------------------
 " html
 " ----------------------------------------------------------------------------------------
 Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
-
 
 
 " ----------------------------------------------------------------------------------------
@@ -65,7 +60,6 @@ Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job 
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
 
 
-
 " ----------------------------------------------------------------------------------------
 " Auto Completion
 " ----------------------------------------------------------------------------------------
@@ -74,7 +68,9 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'jav
 "Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 
-
+" ----------------------------------------------------------------------------------------
+" utilities
+" ----------------------------------------------------------------------------------------
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 "Plug 'ryanoasis/vim-devicons'
 if has('nvim')
