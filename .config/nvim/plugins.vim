@@ -112,6 +112,7 @@ Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . c
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'wellle/targets.vim'
 Plug 'yuttie/comfortable-motion.vim'
 call plug#end()
 endif
