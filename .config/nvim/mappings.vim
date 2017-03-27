@@ -55,6 +55,9 @@ nnoremap g; g;zz
 " clear highlighted search
 nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<cr>
 
+" search for word under the cursor
+nnoremap <leader>/ "fyiw :/<c-r>f<cr>
+
 nnoremap G :norm! Gzz<CR>
 nnoremap N Nzz
 nnoremap n nzz
