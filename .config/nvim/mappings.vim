@@ -46,6 +46,9 @@ nnoremap L $
 vnoremap H ^
 vnoremap L $
 
+" Switch to the directory of opened buffer
+nnoremap <silent> <leader>cd :lcd %:p:h<cr>
+
 " highlight last inserted text
 nnoremap gV `[v`]
 
@@ -78,9 +81,9 @@ nnoremap <silent> <leader>wj :call functions#WinMove('j')<cr>
 nnoremap <silent> <leader>wk :call functions#WinMove('k')<cr>
 nnoremap <silent> <leader>wl :call functions#WinMove('l')<cr>
 
-" Split
-nnoremap <silent> <leader>h :<C-u>split<CR>
-nnoremap <silent> <leader>v :<C-u>vsplit<CR>
+"" Split
+"nnoremap <silent> <leader>h :<C-u>split<CR>
+"nnoremap <silent> <leader>v :<C-u>vsplit<CR>
 
 " Git
 nnoremap <silent> <leader>gb  :Gblame<CR>

@@ -21,6 +21,7 @@ Plug 'AlessandroYorba/Monrovia'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
+Plug 'roosta/vim-srcery'
 Plug 'tomasr/molokai'
 
 
@@ -79,6 +80,7 @@ if has('nvim')
 else
     Plug 'Shougo/neocomplete.vim'
 endif
+Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/indentLine'
