@@ -111,14 +111,6 @@ nnoremap ]t gt
 nnoremap [t gT
 nnoremap <silent> <leader>nt :tabnew<CR>
 
-" add space after comma
-nnoremap <leader>, :%s/, */, /g<CR>
-vnoremap <leader>, :s/, */, /g<CR>
-
-" Explore dir
-"nnoremap <silent> <leader>E :Lexplore<CR>
-nnoremap <silent> <leader>E :NERDTreeToggle<CR>
-
 " Buffer nav
 nnoremap <silent> [b :bp<CR>
 nnoremap <silent> ]b :bn<CR>
@@ -128,6 +120,14 @@ nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <leader>bs :Lines<CR>
 "noremap <silent> <leader>b :CtrlPBuffer<CR>
 "nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
+
+" add space after comma
+nnoremap <leader>, :%s/, */, /g<CR>
+vnoremap <leader>, :s/, */, /g<CR>
+
+" Explore dir
+"nnoremap <silent> <leader>E :Lexplore<CR>
+nnoremap <silent> <leader>E :NERDTreeToggle<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
@@ -195,7 +195,9 @@ vnoremap <leader>f za<CR>
 " vim-table-mode
 nnoremap <silent> <leader>tm :TableModeToggle<CR>
 
+" ----------------------------------------------------------------------------------------
 " easymotion
+" ----------------------------------------------------------------------------------------
 " <Leader>f{char} to move to {char}
 map  <Leader><Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
@@ -211,7 +213,9 @@ nmap <Leader><Leader>L <Plug>(easymotion-overwin-line)
 map  <Leader><Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 
+" ----------------------------------------------------------------------------------------
 " Tabular
+" ----------------------------------------------------------------------------------------
 if exists(":Tabularize")
   nnoremap <leader>a= :Tabularize /=<CR>
   vnoremap <leader>a= :Tabularize /=<CR>

@@ -22,6 +22,10 @@ if has('unnamedplus')
     set clipboard=unnamed,unnamedplus
 endif
 
+if has('mouse')
+    set mouse=a
+endif
+
 command! PU PlugUpdate | PlugUpgrade
 
 " ----------------------------------------------------------------------------------------
@@ -41,18 +45,15 @@ set backspace=indent,eol,start " make backspace behave in a sane manner
 " ----------------------------------------------------------------------------------------
 " Tabs
 " ----------------------------------------------------------------------------------------
+"set completeopt+=longest
+"set noexpandtab   " insert tabs rather than spaces for <Tab>
+"set shiftround    " round indent to a multiple of 'shiftwidth'
+"set smarttab      " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+"set softtabstop=4 " edit as if the tabs are 4 characters wide
 set expandtab     " Use spaces instead of tabs
+set shiftwidth=4  " number of spaces to use for indent and unindent (1 tab == 4 spaces)
 set softtabstop=0
-" 1 tab == 4 spaces
-set shiftwidth=4  " number of spaces to use for indent and unindent
 set tabstop=4     " the visible width of tabs
-
-" Tab control
-" set noexpandtab   " insert tabs rather than spaces for <Tab>
-" set smarttab      " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-" set softtabstop=4 " edit as if the tabs are 4 characters wide
-" set shiftround    " round indent to a multiple of 'shiftwidth'
-" set completeopt+=longest
 
 " toggle invisible characters
 set invlist
@@ -77,7 +78,6 @@ set showcmd                                                                     
 set so=7                                                                                          " Set 7 lines to the cursor - when moving vertically using j/k
 set laststatus=2                                                                                  " Status bar
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c " Format the status line
 set t_Co=256                                                                                      " Explicitly tell vim that the terminal supports 256 colors
 set title
 set titleold="Terminal"
@@ -153,7 +153,6 @@ set noswapfile
 " Disable the vlinking cursor
 set gcr=a:blinkon0
 set scrolloff=3
-
 
 " Use modeline overrides
 set modeline

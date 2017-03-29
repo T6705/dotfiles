@@ -9,12 +9,11 @@ augroup configgroup
     "autocmd StdinReadPre * let s:std_in=1
     "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-    autocmd FileType text Goyo
-    autocmd FileType text Limelight
+    "autocmd FileType text Goyo
+    "autocmd FileType text Limelight
+
     autocmd FileType * RainbowParentheses
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
-    autocmd FileType text Goyo
-    autocmd FileType text Limelight
     autocmd FocusGained *: redraw!     " Redraw screen every time when focus gained
     autocmd FocusLost *: wa            " Set vim to save the file on focus out
     autocmd InsertLeave * silent! set nopaste
