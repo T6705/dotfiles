@@ -34,4 +34,8 @@ augroup nerd_loader
                 \| endif
 augroup END
 
+augroup asyncrun
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
+augroup END
+
 """ }}}

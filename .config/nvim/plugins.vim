@@ -104,6 +104,7 @@ Plug 'mhinz/vim-signify'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
+Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command

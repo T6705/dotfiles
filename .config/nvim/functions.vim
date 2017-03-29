@@ -40,6 +40,25 @@ endfunction
 command! WordProcessorMode call WordProcessorMode()
 
 " ----------------------------------------------------------------------------------------
+" compile_and_run
+" ----------------------------------------------------------------------------------------
+function! Compile_and_Run()
+    exec 'w'
+    if &filetype == 'c'
+        exec "AsyncRun! gcc % -o %< && time %:p:r"
+    elseif &filetype == 'cpp'
+        exec "AsyncRun! g++ -std=c++11 % -o %< && time %:p:r"
+    elseif &filetype == 'java'
+        exec "cd %:p:h"
+        exec "AsyncRun! javac % && time java %<"
+    elseif &filetype == 'sh'
+        exec "AsyncRun! time bash %"
+    elseif &filetype == 'python'
+        exec "AsyncRun! time python3 %"
+    endif
+endfunction
+
+" ----------------------------------------------------------------------------------------
 " Window movement shortcuts
 " ----------------------------------------------------------------------------------------
 " move to the window in the direction shown, or create a new window
@@ -97,9 +116,9 @@ function! functions#TrimWhiteSpace()
 endfunction
 
 function! functions#HtmlUnEscape()
-  silent s/&lt;/</eg
-  silent s/&gt;/>/eg
-  silent s/&amp;/\&/eg
+    silent s/&lt;/</eg
+    silent s/&gt;/>/eg
+    silent s/&amp;/\&/eg
 endfunction
 
 " ----------------------------------------------------------------------------------------
@@ -140,22 +159,22 @@ endfunction
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
+    if buflisted(l:currentBufNum)
+        execute("bdelete! ".l:currentBufNum)
+    endif
 endfunction
 
 " Make VIM remember position in file after reopen

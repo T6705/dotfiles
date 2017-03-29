@@ -47,7 +47,7 @@ vnoremap H ^
 vnoremap L $
 
 " Switch to the directory of opened buffer
-nnoremap <silent> <leader>cd :lcd %:p:h<cr>
+nnoremap <silent> <leader>cd :lcd %:p:h<CR>
 
 " highlight last inserted text
 nnoremap gV `[v`]
@@ -56,16 +56,16 @@ nnoremap gV `[v`]
 nnoremap g; g;zz
 
 " clear highlighted search
-nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<cr>
+nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<CR>
 
 " search for word under the cursor
-nnoremap <leader>/ "fyiw :/<c-r>f<cr>
+nnoremap <leader>/ "fyiw :/<c-r>f<CR>
 
-nnoremap G :norm! Gzz<CR>
-nnoremap N Nzz
-nnoremap n nzz
-nnoremap { {zz
-nnoremap } }zz
+nnoremap <silent> G :norm! Gzz<CR>
+nnoremap <silent> N Nzz
+nnoremap <silent> n nzz
+nnoremap <silent> { {zz
+nnoremap <silent> } }zz
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -76,10 +76,10 @@ command W w !sudo tee % > /dev/null
 "nnoremap <silent> <leader>wj <C-W>j
 "nnoremap <silent> <leader>wk <C-W>k
 "nnoremap <silent> <leader>wl <C-W>l
-nnoremap <silent> <leader>wh :call functions#WinMove('h')<cr>
-nnoremap <silent> <leader>wj :call functions#WinMove('j')<cr>
-nnoremap <silent> <leader>wk :call functions#WinMove('k')<cr>
-nnoremap <silent> <leader>wl :call functions#WinMove('l')<cr>
+nnoremap <silent> <leader>wh :call functions#WinMove('h')<CR>
+nnoremap <silent> <leader>wj :call functions#WinMove('j')<CR>
+nnoremap <silent> <leader>wk :call functions#WinMove('k')<CR>
+nnoremap <silent> <leader>wl :call functions#WinMove('l')<CR>
 
 "" Split
 "nnoremap <silent> <leader>h :<C-u>split<CR>
@@ -133,14 +133,14 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 if isdirectory(".git")
     " if in a git project, use :GFiles
-    nnoremap <silent> <leader>e :GFiles<cr>
+    nnoremap <silent> <leader>e :GFiles<CR>
 else
     " otherwise, use :FZF
-    nnoremap <silent> <leader>e :FZF<cr>
+    nnoremap <silent> <leader>e :FZF<CR>
 endif
 
-nnoremap <silent> <leader>ag :Ag<cr>
-nnoremap <silent> <leader>AG :Ag!<cr>
+nnoremap <silent> <leader>ag :Ag<CR>
+nnoremap <silent> <leader>AG :Ag!<CR>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
@@ -233,12 +233,12 @@ inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
 inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
 inoremap <silent> <F4> <esc>:GundoToggle<CR>
 inoremap <silent> <F5> <esc>:Codi!!<CR>
-inoremap <silent> <F6> <esc>:TagbarToggle<cr>
+inoremap <silent> <F6> <esc>:TagbarToggle<CR>
 nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
 nnoremap <silent> <F4> :GundoToggle<CR>
 nnoremap <silent> <F5> :Codi!!<CR>
-nnoremap <silent> <F6> :TagbarToggle<cr>
+nnoremap <silent> <F6> :TagbarToggle<CR>
 
 " hexedit
 inoremap <silent> <F7> <esc>:%!xxd<CR>
@@ -249,6 +249,7 @@ noremap <silent> <F8> :%!xxd -r<CR>
 " compile and run
 noremap <silent> <leader>ccr :w<CR> :!gcc % -o %< && time %:p:r<CR>
 noremap <silent> <leader>jcr :w<CR> :cd %:p:h<CR> :!javac % && time java %<<CR>
+noremap <silent> <leader>cr :call Compile_and_Run()<CR>
 
 " Markdown headings
 nnoremap <leader>1 m`yypVr=``
