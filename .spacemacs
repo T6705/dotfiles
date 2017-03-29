@@ -25,7 +25,10 @@ values."
      ;; ----------------------------------------------------------------
      ;; better-defaults
      auto-completion
+     chinese
+     chrome
      colors
+     djanjo
      emacs-lisp
      games
      git
@@ -33,13 +36,19 @@ values."
      latex
      markdown
      org
+     php
+     ranger
+     search-engine
      spell-checking
      spotify
      syntax-checking
      themes-megapack
+     theming
      tmux
      version-control
+     vim-empty-line
      vim-powerline
+     ycmd
      (c-c++ :variables
             c-c++-enable-clang-support t)
      (python :variables python-test-runner 'pytest)
