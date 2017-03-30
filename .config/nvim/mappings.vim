@@ -28,8 +28,10 @@ ino <right> <Nop>
 ino <up> <Nop>
 
 " Saner command-line history
-cnoremap <c-n>  <down>
-cnoremap <c-p>  <up>
+cnoremap <c-h>  <left>
+cnoremap <c-j>  <down>
+cnoremap <c-k>  <up>
+cnoremap <c-l>  <right>
 
 " Map arrow keys to window resize commands.
 nnoremap <Right> 5<C-W>>
