@@ -12,13 +12,22 @@ augroup configgroup
     "autocmd FileType text Goyo
     "autocmd FileType text Limelight
 
+    "autocmd InsertEnter,WinLeave * set nocursorline
+    "autocmd InsertLeave,WinEnter * set cursorline
+
+    " Restore cursor position when opening file
+    autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
     autocmd FileType * RainbowParentheses
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FocusGained *: redraw!     " Redraw screen every time when focus gained
     autocmd FocusLost *: wa            " Set vim to save the file on focus out
     autocmd InsertLeave * silent! set nopaste
-    autocmd! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
     autocmd! BufWritePost * Neomake    " run neomake on the current file on every write
+    autocmd! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
     "autocmd! BufWritePost .vimrc source %
     "autocmd! BufWritePost init.vim source %
 augroup END

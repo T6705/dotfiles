@@ -27,6 +27,10 @@ ino <left> <Nop>
 ino <right> <Nop>
 ino <up> <Nop>
 
+" Saner command-line history
+cnoremap <c-n>  <down>
+cnoremap <c-p>  <up>
+
 " Map arrow keys to window resize commands.
 nnoremap <Right> 5<C-W>>
 nnoremap <Left> 5<C-W><
@@ -84,6 +88,9 @@ nnoremap <silent> <leader>wl :call functions#WinMove('l')<CR>
 "" Split
 "nnoremap <silent> <leader>h :<C-u>split<CR>
 "nnoremap <silent> <leader>v :<C-u>vsplit<CR>
+
+" Quickly edit your macros
+nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
 
 " Git
 nnoremap <silent> <leader>gb  :Gblame<CR>
