@@ -139,6 +139,9 @@ set foldmethod=indent
 set foldlevel=99
 set nofoldenable  " don't fold by default
 
+" autochange dir
+set autochdir
+
 " error bells
 set noerrorbells
 set t_vb=
