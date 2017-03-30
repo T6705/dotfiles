@@ -78,18 +78,15 @@ nnoremap <silent> } }zz
 command W w !sudo tee % > /dev/null
 
 " window navigation
-"nnoremap <silent> <leader>wh <C-W>h
-"nnoremap <silent> <leader>wj <C-W>j
-"nnoremap <silent> <leader>wk <C-W>k
-"nnoremap <silent> <leader>wl <C-W>l
 nnoremap <silent> <leader>wh :call functions#WinMove('h')<CR>
 nnoremap <silent> <leader>wj :call functions#WinMove('j')<CR>
 nnoremap <silent> <leader>wk :call functions#WinMove('k')<CR>
 nnoremap <silent> <leader>wl :call functions#WinMove('l')<CR>
-
-"" Split
-"nnoremap <silent> <leader>h :<C-u>split<CR>
-"nnoremap <silent> <leader>v :<C-u>vsplit<CR>
+nnoremap <silent> <leader>wx <C-W>x
+nnoremap <silent> <leader>wH <C-W>H
+nnoremap <silent> <leader>wJ <C-W>J
+nnoremap <silent> <leader>wK <C-W>K
+nnoremap <silent> <leader>wL <C-W>L
 
 " Quickly edit your macros
 nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
@@ -182,12 +179,6 @@ autocmd VimEnter * command! -bang -nargs=* Ag
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
-
-"" Switching windows
-"" noremap <C-j> <C-w>j
-"" noremap <C-k> <C-w>k
-"" noremap <C-l> <C-w>l
-"" noremap <C-h> <C-w>h
 
 " Vmap for maintain Visual Mode after shifting > and <
 vnoremap < <gv
