@@ -87,7 +87,11 @@ Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)', '<Plug>(easymotion-overwin-line)', '<Plug>(easymotion-overwin-f2)', '<Plug>(easymotion-overwin-w)', '<Plug>(easymotion-overwin-f)' ]}
+Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
+                                           \'<Plug>(easymotion-overwin-line)',
+                                           \'<Plug>(easymotion-overwin-f2)',
+                                           \'<Plug>(easymotion-overwin-w)',
+                                           \'<Plug>(easymotion-overwin-f)' ]}
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'honza/vim-snippets'
