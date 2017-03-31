@@ -74,6 +74,7 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'jav
 " ----------------------------------------------------------------------------------------
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 "Plug 'ryanoasis/vim-devicons'
+"Plug 'yuttie/comfortable-motion.vim'
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
     Plug 'mklabs/split-term.vim'
@@ -86,7 +87,7 @@ Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/indentLine'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)', '<Plug>(easymotion-overwin-line)', '<Plug>(easymotion-overwin-f2)', '<Plug>(easymotion-overwin-w)', '<Plug>(easymotion-overwin-f)' ]}
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'honza/vim-snippets'
@@ -112,7 +113,6 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/targets.vim'
-Plug 'yuttie/comfortable-motion.vim'
 call plug#end()
 endif
 

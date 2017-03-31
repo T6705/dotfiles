@@ -55,11 +55,6 @@ vnoremap L $
 " Switch to the directory of opened buffer
 nnoremap <silent> <leader>cd :lcd %:p:h<CR>
 
-" highlight last inserted text
-nnoremap gV `[v`]
-
-" go to place of last change
-nnoremap g; g;zz
 
 " clear highlighted search
 nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<CR>
@@ -69,6 +64,13 @@ nnoremap <leader>/ "fyiw :/<c-r>f<CR>
 
 nnoremap <silent> G :norm! Gzz<CR>
 nnoremap <silent> N Nzz
+nnoremap <silent> [[ [[zz
+nnoremap <silent> [] []zz
+nnoremap <silent> ][ ][zz
+nnoremap <silent> ]] ]]zz
+nnoremap <silent> g; g;zz " go to place of last change
+nnoremap <silent> gV `[v`] " highlight last inserted text
+nnoremap <silent> gg :norm! ggzz<CR>
 nnoremap <silent> n nzz
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz
@@ -226,12 +228,12 @@ if exists(":Tabularize")
 endif
 
 " Scrolling
-nnoremap <silent> <C-d> :call comfortable_motion#flick(400)<CR>
-nnoremap <silent> <C-u> :call comfortable_motion#flick(-400)<CR>
-nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
-nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
-"noremap <C-j> 2<C-e>
-"noremap <C-k> 2<C-y>
+"nnoremap <silent> <C-d> :call comfortable_motion#flick(400)<CR>
+"nnoremap <silent> <C-u> :call comfortable_motion#flick(-400)<CR>
+"nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
+"nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
+noremap <C-j> 2<C-e>
+noremap <C-k> 2<C-y>
 
 inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
 inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>

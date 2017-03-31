@@ -70,13 +70,13 @@ filetype indent on                                                              
 set background=dark
 set cursorline                                                                                    " highlight current line
 set hidden                                                                                        " current buffer can be put into background
+set laststatus=2                                                                                  " Status bar
 set lazyredraw                                                                                    " Don't redraw while executing macros (good performance config)
 set number                                                                                        " show line numbers
 set ruler                                                                                         " Always show current position
 set scrolloff=3
 set showcmd                                                                                       " show incomplete commands
 set so=7                                                                                          " Set 7 lines to the cursor - when moving vertically using j/k
-set laststatus=2                                                                                  " Status bar
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ " Format the status line
 set t_Co=256                                                                                      " Explicitly tell vim that the terminal supports 256 colors
 set title
