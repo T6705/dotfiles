@@ -48,6 +48,7 @@ values."
      version-control
      vim-empty-line
      vim-powerline
+     vimscript
      ycmd
      (c-c++ :variables
             c-c++-enable-clang-support t)
