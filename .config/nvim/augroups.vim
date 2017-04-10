@@ -22,6 +22,7 @@ augroup configgroup
     \ endif
 
     autocmd FileType * RainbowParentheses
+    autocmd FileType html,css,php EmmetInstall
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FocusGained *: redraw!     " Redraw screen every time when focus gained
     autocmd FocusLost *: wa            " Set vim to save the file on focus out
