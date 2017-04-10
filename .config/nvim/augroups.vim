@@ -29,8 +29,6 @@ augroup configgroup
     autocmd InsertLeave * silent! set nopaste
     autocmd! BufWritePost * Neomake    " run neomake on the current file on every write
     autocmd! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
-    "autocmd! BufWritePost .vimrc source %
-    "autocmd! BufWritePost init.vim source %
 augroup END
 
 augroup nerd_loader
