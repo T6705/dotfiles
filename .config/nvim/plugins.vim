@@ -26,6 +26,16 @@ Plug 'tomasr/molokai'
 
 
 " ----------------------------------------------------------------------------------------
+" Interface
+" ----------------------------------------------------------------------------------------
+Plug 'Yggdroot/indentLine'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+
+" ----------------------------------------------------------------------------------------
 " latex
 " ----------------------------------------------------------------------------------------
 if has('nvim')
@@ -84,7 +94,7 @@ endif
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
-Plug 'Yggdroot/indentLine'
+Plug 'benmills/vimux'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
@@ -97,8 +107,6 @@ Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
 Plug 'junegunn/vim-peekaboo'
@@ -114,8 +122,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'wellle/targets.vim'
 call plug#end()
 endif
