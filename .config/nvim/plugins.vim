@@ -96,6 +96,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'benmills/vimux'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
             \'<Plug>(easymotion-overwin-line)',
