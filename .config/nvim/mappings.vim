@@ -2,6 +2,15 @@
 
 """ === Mappings === {{{
 
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+
+" :J json prettify
+command J :%!python -mjson.tool
+
+command! PU PlugUpdate | PlugUpgrade
+
 " Copy and Paste
 "nnoremap Y y$ " Make `Y` behave like `C` and `D`
 nnoremap YY "+y<CR>
@@ -55,7 +64,6 @@ vnoremap L $
 " Switch to the directory of opened buffer
 nnoremap <silent> <leader>cd :lcd %:p:h<CR>
 
-
 " clear highlighted search
 nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<CR>
 
@@ -74,10 +82,6 @@ nnoremap <silent> gg :norm! ggzz<CR>
 nnoremap <silent> n nzz
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
 
 " window navigation
 nnoremap <silent> <leader>wh :call functions#WinMove('h')<CR>
@@ -299,30 +303,36 @@ nnoremap <Leader>vz :call VimuxZoomRunner()<CR>
 " ----------------------------------------------------------------------------------------
 " Surround
 " ----------------------------------------------------------------------------------------
-" ," Surround a word with "quotes"
-nnoremap <leader>" ysiw"
+" <leader>` Surround a word with "backticks"
+nmap     <leader>` ysiw`
+vnoremap <leader>` c`<C-R>"`<ESC>
+
+" <leader>" Surround a word with "quotes"
+nmap     <leader>" ysiw"
 vnoremap <leader>" c"<C-R>""<ESC>
+
 " <leader>' Surround a word with 'single quotes'
-nnoremap <leader>' ysiw'
+nmap     <leader>' ysiw'
 vnoremap <leader>' c'<C-R>"'<ESC>
+
 " <leader>) or ,( Surround a word with (parens)
 " The difference is in whether a space is put in
-nnoremap <leader>( ysiw(
-nnoremap <leader>) ysiw)
+nmap     <leader>( ysiw(
+nmap     <leader>) ysiw)
 vnoremap <leader>( c( <C-R>" )<ESC>
 vnoremap <leader>) c(<C-R>")<ESC>
+
 " <leader>[ Surround a word with [brackets]
-nnoremap <leader>] ysiw]
-nnoremap <leader>[ ysiw[
+nmap     <leader>] ysiw]
+nmap     <leader>[ ysiw[
 vnoremap <leader>[ c[ <C-R>" ]<ESC>
 vnoremap <leader>] c[<C-R>"]<ESC>
+
 " <leader>{ Surround a word with {braces}
-nnoremap <leader>} ysiw}
-nnoremap <leader>{ ysiw{
+nmap     <leader>} ysiw}
+nmap     <leader>{ ysiw{
 vnoremap <leader>} c{ <C-R>" }<ESC>
 vnoremap <leader>{ c{<C-R>"}<ESC>
-
-nnoremap <leader>` ysiw`
 
 " ----------------------------------------------------------------------------------------
 " nvim
