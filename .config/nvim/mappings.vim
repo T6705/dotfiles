@@ -315,19 +315,21 @@ vnoremap <leader>" c"<C-R>""<ESC>
 nmap     <leader>' ysiw'
 vnoremap <leader>' c'<C-R>"'<ESC>
 
-" <leader>) or ,( Surround a word with (parens)
-" The difference is in whether a space is put in
+" <leader>( Surround a word with ( brackets )
+" <leader>) Surround a word with (brackets)
 nmap     <leader>( ysiw(
 nmap     <leader>) ysiw)
 vnoremap <leader>( c( <C-R>" )<ESC>
 vnoremap <leader>) c(<C-R>")<ESC>
 
-" <leader>[ Surround a word with [brackets]
+" <leader>[ Surround a word with [ brackets ]
+" <leader>] Surround a word with [brackets]
 nmap     <leader>] ysiw]
 nmap     <leader>[ ysiw[
 vnoremap <leader>[ c[ <C-R>" ]<ESC>
 vnoremap <leader>] c[<C-R>"]<ESC>
 
+" <leader>{ Surround a word with { braces }
 " <leader>{ Surround a word with {braces}
 nmap     <leader>} ysiw}
 nmap     <leader>{ ysiw{
