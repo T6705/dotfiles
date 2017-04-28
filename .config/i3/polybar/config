@@ -97,6 +97,7 @@ label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
 
 [module/filesystem]
+format-padding = 1
 type = internal/fs
 interval = 30
 
@@ -129,6 +130,7 @@ label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 [module/i3]
+format-padding = 1
 type = internal/i3
 format = <label-state>
 ;format = <label-state> <label-mode>
@@ -170,6 +172,7 @@ label-visible-padding      = 4
 ;label-visible-padding = ${self.label-focused-padding}
 
 [module/mpd]
+format-padding = 1
 type = internal/mpd
 
 format-online = <label-song>  <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random>
@@ -199,6 +202,7 @@ ws-icon-4 = 5; tgrm
 ws-icon-default = 
 
 [module/backlight]
+format-padding = 1
 type = internal/xbacklight
 
 format = <label> <bar>
@@ -216,6 +220,7 @@ bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 
 [module/cpu]
+format-padding = 1
 type = internal/cpu
 interval = 1
 format-prefix = " "
@@ -224,6 +229,7 @@ format-underline = #f90000
 label = %percentage%
 
 [module/memory]
+format-padding = 1
 type = internal/memory
 interval = 1
 format-prefix = " "
@@ -232,6 +238,7 @@ format-underline = #4bffdc
 label = %percentage_used%
 
 [module/wlan]
+format-padding = 1
 type = internal/network
 interface = wlp2s0
 interval = 1.0
@@ -252,6 +259,7 @@ ramp-signal-4 = 
 ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
+format-padding = 1
 type = internal/network
 interface = enp3s0
 interval = 1.0
@@ -266,6 +274,7 @@ label-disconnected = %ifname% disconnected
 label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
+format-padding = 1
 type = internal/date
 interval = 1
 
