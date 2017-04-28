@@ -64,24 +64,35 @@ nmap <leader>l :set list!<cr>
 " UI
 " ----------------------------------------------------------------------------------------
 colorscheme molokai
-filetype indent on                                                                                " load filetype-specific indent files
+filetype indent on                                                " load filetype-specific indent files
 set background=dark
-set cursorline                                                                                    " highlight current line
-set hidden                                                                                        " current buffer can be put into background
-set laststatus=2                                                                                  " Status bar
-set lazyredraw                                                                                    " Don't redraw while executing macros (good performance config)
-set number                                                                                        " show line numbers
-set ruler                                                                                         " Always show current position
+set cursorline                                                    " highlight current line
+set hidden                                                        " current buffer can be put into background
+set laststatus=2                                                  " Status bar
+set lazyredraw                                                    " Don't redraw while executing macros (good performance config)
+set number                                                        " show line numbers
+set ruler                                                         " Always show current position
 set scrolloff=3
-set showcmd                                                                                       " show incomplete commands
-set so=7                                                                                          " Set 7 lines to the cursor - when moving vertically using j/k
-set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ " Format the status line
-set t_Co=256                                                                                      " Explicitly tell vim that the terminal supports 256 colors
+set showcmd                                                       " show incomplete commands
+set so=7                                                          " Set 7 lines to the cursor - when moving vertically using j/k
+"set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c) " Format the status line
+set statusline=%t                                                 " tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'},                   " file encoding
+set statusline+=%{&ff}]                                           " file format
+set statusline+=%h                                                " help file flag
+set statusline+=%m                                                " modified flag
+set statusline+=%r                                                " read only flag
+set statusline+=%y                                                " filetype
+set statusline+=%=                                                " left/right separator
+set statusline+=%c,                                               " cursor column
+set statusline+=%l/%L                                             " cursor line/total lines
+set statusline+=\ %P                                              " percent through file
+set t_Co=256                                                      " Explicitly tell vim that the terminal supports 256 colors
 set title
 set titleold="Terminal"
 set titlestring=%F
-set ttyfast                                                                                       " faster redrawing
-syntax on                                                                                         " switch syntax highlighting on
+set ttyfast                                                       " faster redrawing
+syntax on                                                         " switch syntax highlighting on
 
 " Set font according to system
 if has("mac") || has("macunix")
