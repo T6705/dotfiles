@@ -61,15 +61,6 @@ nnoremap L $
 vnoremap H ^
 vnoremap L $
 
-" Switch to the directory of opened buffer
-nnoremap <silent> <leader>cd :lcd %:p:h<CR>
-
-" clear highlighted search
-nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<CR>
-
-" search for word under the cursor
-nnoremap <leader>/ "fyiw :/<c-r>f<CR>
-
 nnoremap <silent> G :norm! Gzz<CR>
 nnoremap <silent> N Nzz
 nnoremap <silent> [[ [[zz
@@ -82,6 +73,57 @@ nnoremap <silent> gg :norm! ggzz<CR>
 nnoremap <silent> n nzz
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz
+
+" Vmap for maintain Visual Mode after shifting > and <
+vnoremap < <gv
+vnoremap > >gv
+
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" Scrolling
+"nnoremap <silent> <C-d> :call comfortable_motion#flick(400)<CR>
+"nnoremap <silent> <C-u> :call comfortable_motion#flick(-400)<CR>
+"nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
+"nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
+noremap <C-j> 2<C-e>
+noremap <C-k> 2<C-y>
+
+inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
+inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
+inoremap <silent> <F4> <esc>:GundoToggle<CR>
+inoremap <silent> <F5> <esc>:Codi!!<CR>
+inoremap <silent> <F6> <esc>:TagbarToggle<CR>
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
+nnoremap <silent> <F4> :GundoToggle<CR>
+nnoremap <silent> <F5> :Codi!!<CR>
+nnoremap <silent> <F6> :TagbarToggle<CR>
+
+" hexedit
+inoremap <silent> <F7> <esc>:%!xxd<CR>
+inoremap <silent> <F8> <esc>:%!xxd -r<CR>
+noremap <silent> <F7> :%!xxd<CR>
+noremap <silent> <F8> :%!xxd -r<CR>
+
+" qq to record, Q to replay (recursive noremap due to peekaboo)
+nnoremap Q @q
+
+" Switch to the directory of opened buffer
+nnoremap <silent> <leader>cd :lcd %:p:h<CR>
+
+" clear highlighted search
+nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<CR>
+
+" Change current word to uppercase
+nnoremap <leader>u gUiw
+
+" Change current word to lowercase
+nnoremap <leader>l guiw
+
+" search for word under the cursor
+nnoremap <leader>/ "fyiw :/<c-r>f<CR>
 
 " window navigation
 nnoremap <silent> <leader>wh :call functions#WinMove('h')<CR>
@@ -186,14 +228,6 @@ autocmd VimEnter * command! -bang -nargs=* Ag
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
 
-" Vmap for maintain Visual Mode after shifting > and <
-vnoremap < <gv
-vnoremap > >gv
-
-" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
 " folding
 nnoremap <leader>f za<CR>
 vnoremap <leader>f za<CR>
@@ -231,31 +265,6 @@ if exists(":Tabularize")
   "vnoremap <leader>a: :Tabularize /:\zs<CR>
 endif
 
-" Scrolling
-"nnoremap <silent> <C-d> :call comfortable_motion#flick(400)<CR>
-"nnoremap <silent> <C-u> :call comfortable_motion#flick(-400)<CR>
-"nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
-"nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
-noremap <C-j> 2<C-e>
-noremap <C-k> 2<C-y>
-
-inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
-inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
-inoremap <silent> <F4> <esc>:GundoToggle<CR>
-inoremap <silent> <F5> <esc>:Codi!!<CR>
-inoremap <silent> <F6> <esc>:TagbarToggle<CR>
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
-nnoremap <silent> <F4> :GundoToggle<CR>
-nnoremap <silent> <F5> :Codi!!<CR>
-nnoremap <silent> <F6> :TagbarToggle<CR>
-
-" hexedit
-inoremap <silent> <F7> <esc>:%!xxd<CR>
-inoremap <silent> <F8> <esc>:%!xxd -r<CR>
-noremap <silent> <F7> :%!xxd<CR>
-noremap <silent> <F8> :%!xxd -r<CR>
-
 " compile and run
 noremap <silent> <leader>ccr :w<CR> :!gcc % -o %< && time %:p:r<CR>
 noremap <silent> <leader>jcr :w<CR> :cd %:p:h<CR> :!javac % && time java %<<CR>
@@ -275,9 +284,6 @@ nnoremap <leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 " Make check spelling on or off
 nnoremap <leader>cson   :set spell<CR>
 nnoremap <leader>csoff :set nospell<CR>
-
-" qq to record, Q to replay (recursive noremap due to peekaboo)
-nnoremap Q @q
 
 " ----------------------------------------------------------------------------------------
 " vimux
