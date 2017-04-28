@@ -32,6 +32,7 @@ values."
      emacs-lisp
      games
      git
+     html
      java
      latex
      markdown
