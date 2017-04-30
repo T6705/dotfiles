@@ -181,6 +181,13 @@ vnoremap <leader>, :s/, */, /g<CR>
 
 " Explore dir
 "nnoremap <silent> <leader>E :Lexplore<CR>
+
+if has('nvim')
+    nnoremap <silent> <leader>rg :Ranger<CR>
+else
+    " RangerExploer(vim only)
+    nnoremap <silent> <leader>rg :call RangerExplorer()<CR>
+endif
 nnoremap <silent> <leader>E :NERDTreeToggle<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'

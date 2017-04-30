@@ -88,6 +88,15 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'jav
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
     Plug 'mklabs/split-term.vim'
+
+    " Ranger integration in neovim
+    Plug 'francoiscabrol/ranger.vim', { 'on': ['Ranger',
+                \'RangerNewTab',
+                \'RangerCurrentDirectory',
+                \'RangerCurrentDirectoryNewTab',
+                \'RangerWorkingDirectory',
+                \'RangerWorkingDirectoryNewTab'] }
+                \| Plug 'rbgrouleff/bclose.vim'
 else
     Plug 'Shougo/neocomplete.vim'
 endif
