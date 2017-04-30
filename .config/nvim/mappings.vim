@@ -183,7 +183,7 @@ vnoremap <leader>, :s/, */, /g<CR>
 "nnoremap <silent> <leader>E :Lexplore<CR>
 
 if has('nvim')
-    nnoremap <silent> <leader>rg :Ranger<CR>
+    "nnoremap <silent> <leader>rg :Ranger<CR>
 else
     " RangerExploer(vim only)
     nnoremap <silent> <leader>rg :call RangerExplorer()<CR>
