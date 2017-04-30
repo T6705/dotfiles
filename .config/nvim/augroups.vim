@@ -17,9 +17,9 @@ augroup configgroup
 
     " Restore cursor position when opening file
     autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+                \ if line("'\"") > 1 && line("'\"") <= line("$") |
+                \   exe "normal! g`\"" |
+                \ endif
 
     autocmd FileType * RainbowParentheses
     autocmd FileType html,css,php EmmetInstall
@@ -30,6 +30,19 @@ augroup configgroup
     autocmd! BufWritePost * Neomake    " run neomake on the current file on every write
     autocmd! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
+
+""google/vim-codefmt
+"augroup autoformat_settings
+"    autocmd FileType bzl AutoFormatBuffer buildifier
+"    autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+"    autocmd FileType dart AutoFormatBuffer dartfmt
+"    autocmd FileType go AutoFormatBuffer gofmt
+"    autocmd FileType gn AutoFormatBuffer gn
+"    autocmd FileType html,css,json AutoFormatBuffer js-beautify
+"    autocmd FileType java AutoFormatBuffer google-java-format
+"    autocmd FileType python AutoFormatBuffer yapf
+"    " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+"augroup END
 
 augroup nerd_loader
     autocmd!

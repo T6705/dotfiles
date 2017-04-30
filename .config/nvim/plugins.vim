@@ -20,6 +20,7 @@ silent! if plug#begin('~/.config/nvim/plugged')
 Plug 'AlessandroYorba/Monrovia'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'flazz/vim-colorschemes'
+Plug 'google/vim-colorscheme-primary'
 Plug 'morhetz/gruvbox'
 Plug 'roosta/vim-srcery'
 Plug 'tomasr/molokai'
@@ -64,8 +65,11 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - eas
 
 
 " ----------------------------------------------------------------------------------------
-" lint
+" lint & autoformat
 " ----------------------------------------------------------------------------------------
+"Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
+"Plug 'google/vim-glaive'
+"Plug 'google/vim-maktaba'
 "Plug 'w0rp/ale'
 Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
