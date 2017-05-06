@@ -18,9 +18,11 @@ cnoreabbrev Qall! qall!
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-if has('unnamedplus')
-    set clipboard=unnamed,unnamedplus
-endif
+"if has('unnamedplus')
+"    " x,y,p using system clipboard(* and +)
+"    set clipboard=unnamed,unnamedplus
+"endif
+"set clipboard=unnamed
 
 if has('mouse')
     set mouse=a
@@ -74,6 +76,7 @@ set hidden                                                        " current buff
 set laststatus=2                                                  " Status bar
 set lazyredraw                                                    " Don't redraw while executing macros (good performance config)
 set number                                                        " show line numbers
+"set relativenumber                                               " show relative line numbers
 set ruler                                                         " Always show current position
 set scrolloff=3
 set showcmd                                                       " show incomplete commands

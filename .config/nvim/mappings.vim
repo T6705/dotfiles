@@ -11,11 +11,32 @@ command J :%!python -mjson.tool
 
 command! PU PlugUpdate | PlugUpgrade
 
+" ----------------------------------------------------------------------------------------
 " Copy and Paste
-"nnoremap Y y$ " Make `Y` behave like `C` and `D`
-nnoremap YY "+y<CR>
-nnoremap <silent> <leader>p "+gP<CR>
-nnoremap XX "+x<CR>
+" ----------------------------------------------------------------------------------------
+" have x (removes single character) not go into the default registry
+nnoremap x "_x
+
+" Make X an operator that removes without placing text in the default registry
+nmap X "_d
+nmap XX "_dd
+vmap X "_d
+vmap x "_d
+
+" when changing text, don't put the replaced text into the default registry
+nnoremap c "_c
+vnoremap c "_c
+
+" Make `Y` behave like `C` and `D`
+nnoremap Y y$
+
+nnoremap <silent> <leader>p "+gP
+nnoremap <silent> <leader>x "+x
+nnoremap <silent> <leader>y "+y
+vnoremap <silent> <leader>x "+x
+vnoremap <silent> <leader>y "+y
+
+nnoremap <Leader>a :%y+<cr> " place whole file on the system clipboard
 
 "" Escaping
 cnoremap <C-F> <Esc>
@@ -241,6 +262,10 @@ vnoremap <leader>f za<CR>
 
 " vim-table-mode
 nnoremap <silent> <leader>tm :TableModeToggle<CR>
+
+" Make the dot command work as expected in visual mode (via
+" https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
+vnoremap . :norm.<CR>
 
 " ----------------------------------------------------------------------------------------
 " easymotion
