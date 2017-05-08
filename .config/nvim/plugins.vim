@@ -88,6 +88,7 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'jav
 " ----------------------------------------------------------------------------------------
 Plug 'kana/vim-textobj-user'     " Create your own textobj
 Plug 'akiyan/vim-textobj-php', { 'for' : 'php' } " aP/iP for a range between the PHP delimiters such as <?php and ?>
+Plug 'deris/vim-textobj-ipmac'   " aA/iA for ipv4, ipv6, MAC Address
 Plug 'kana/vim-textobj-datetime' " ada/ida and others for date and time such as 2013-03-13, 19:51:45, 2013-03-13T19:51:50
 Plug 'kana/vim-textobj-indent'   " ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
 Plug 'mattn/vim-textobj-url'     " au/iu for a URL
