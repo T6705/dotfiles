@@ -17,15 +17,15 @@ command! PU PlugUpdate | PlugUpgrade
 " have x (removes single character) not go into the default registry
 nnoremap x "_x
 
-" Make X an operator that removes without placing text in the default registry
-nmap X "_d
-nmap XX "_dd
-vmap X "_d
-vmap x "_d
+"" Make X an operator that removes without placing text in the default registry
+"nmap X "_d
+"nmap XX "_dd
+"vmap X "_d
+"vmap x "_d
 
-" when changing text, don't put the replaced text into the default registry
-nnoremap c "_c
-vnoremap c "_c
+"" when changing text, don't put the replaced text into the default registry
+"nnoremap c "_c
+"vnoremap c "_c
 
 " Make `Y` behave like `C` and `D`
 nnoremap Y y$
