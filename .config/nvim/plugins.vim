@@ -84,6 +84,14 @@ Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'jav
 
 
 " ----------------------------------------------------------------------------------------
+" textobj
+" ----------------------------------------------------------------------------------------
+Plug 'kana/vim-textobj-datetime' " ada/ida and others for date and time such as 2013-03-13, 19:51:45, 2013-03-13T19:51:50
+Plug 'kana/vim-textobj-user'     " Create your own textobj
+Plug 'mattn/vim-textobj-url'     " au/iu for a URL
+
+
+" ----------------------------------------------------------------------------------------
 " utilities
 " ----------------------------------------------------------------------------------------
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
