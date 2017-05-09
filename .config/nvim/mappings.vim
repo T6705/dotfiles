@@ -14,8 +14,8 @@ command! PU PlugUpdate | PlugUpgrade
 " ----------------------------------------------------------------------------------------
 " Copy and Paste
 " ----------------------------------------------------------------------------------------
-" have x (removes single character) not go into the default registry
-nnoremap x "_x
+"" have x (removes single character) not go into the default registry
+"nnoremap x "_x
 
 "" Make X an operator that removes without placing text in the default registry
 "nmap X "_d
@@ -111,16 +111,16 @@ vnoremap K :m '<-2<CR>gv=gv
 noremap <C-j> 2<C-e>
 noremap <C-k> 2<C-y>
 
-inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
-inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
+"inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
+"inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
+"inoremap <silent> <F6> <esc>:TagbarToggle<CR>
+"nnoremap <silent> <F2> :NERDTreeFind<CR>
+"nnoremap <silent> <F3> :NERDTreeToggle<CR>
+"nnoremap <silent> <F6> :TagbarToggle<CR>
 inoremap <silent> <F4> <esc>:GundoToggle<CR>
 inoremap <silent> <F5> <esc>:Codi!!<CR>
-inoremap <silent> <F6> <esc>:TagbarToggle<CR>
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
 nnoremap <silent> <F4> :GundoToggle<CR>
 nnoremap <silent> <F5> :Codi!!<CR>
-nnoremap <silent> <F6> :TagbarToggle<CR>
 
 " hexedit
 inoremap <silent> <F7> <esc>:%!xxd<CR>
@@ -202,6 +202,8 @@ vnoremap <leader>, :s/, */, /g<CR>
 
 " Explore dir
 "nnoremap <silent> <leader>E :Lexplore<CR>
+nnoremap <silent> <leader>E :NERDTreeToggle<CR>
+nnoremap <silent> <leader>EF :NERDTreeFind<CR>
 
 if has('nvim')
     "nnoremap <silent> <leader>rg :Ranger<CR>
@@ -209,7 +211,6 @@ else
     " RangerExploer(vim only)
     nnoremap <silent> <leader>rg :call RangerExplorer()<CR>
 endif
-nnoremap <silent> <leader>E :NERDTreeToggle<CR>
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
@@ -232,6 +233,9 @@ nnoremap <silent> <leader>` :Marks<CR>
 
 " Tags
 nnoremap <silent> <leader>t :Tags<CR>
+
+" tagbar
+nnoremap <silent> <leader>tb :TagbarToggle<CR>
 
 " Insert mode completion
 imap <c-x>w <plug>(fzf-complete-word)
