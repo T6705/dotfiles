@@ -6,6 +6,13 @@ function install_zsh {
     echo "========================="
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
+
+    echo "=========================="
+    echo "== Download zsh plugins =="
+    echo "=========================="
+
+    git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 }
 
 function install_tmux {
