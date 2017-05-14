@@ -28,12 +28,23 @@ if has('mouse')
     set mouse=a
 endif
 
+if !has('nvim') && &ttimeoutlen == -1
+  set ttimeout
+  set ttimeoutlen=100
+endif
+
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j " Delete comment character when joining commented lines
+endif
+
 " ----------------------------------------------------------------------------------------
 " Encoding
 " ----------------------------------------------------------------------------------------
 set binary
 set bomb
-set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
+if &encoding ==# 'latin1' && has('gui_running')
+    set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
+endif
 "set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 set fileencoding=utf-8
 set fileencodings=utf-8
@@ -72,13 +83,21 @@ set autoindent
 set background=dark
 set cindent
 set cursorline                                                    " highlight current line
+set display+=lastline
 set hidden                                                        " current buffer can be put into background
 set laststatus=2                                                  " Status bar
 set lazyredraw                                                    " Don't redraw while executing macros (good performance config)
 set number                                                        " show line numbers
 "set relativenumber                                               " show relative line numbers
 set ruler                                                         " Always show current position
-set scrolloff=3
+
+if !&scrolloff
+  set scrolloff=3
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+
 set showcmd                                                       " show incomplete commands
 set so=7                                                          " Set 7 lines to the cursor - when moving vertically using j/k
 "set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c) " Format the status line
@@ -98,7 +117,10 @@ set title
 set titleold="Terminal"
 set titlestring=%F
 set ttyfast                                                       " faster redrawing
-syntax on                                                         " switch syntax highlighting on
+if has('syntax') && !exists('g:syntax_on')
+  "syntax enable
+  syntax on                                                         " switch syntax highlighting on
+endif
 
 " Set font according to system
 if has("mac") || has("macunix")
@@ -180,7 +202,9 @@ set autoread                 " detect when a file is changed
 set fileformats=unix,dos,mac
 set gfn=Monospace\ 10
 set guioptions=egmrti
-set history=1000             " change history to 1000
+if &history < 1000
+  set history=1000             " change history to 1000
+endif
 set nocompatible             " not compatible with vi
 set path+=**
 set shell=/bin/zsh
