@@ -84,6 +84,17 @@ function! Compile_and_Run()
 endfunction
 
 " ----------------------------------------------------------------------------------------
+" :ChangeEncoding
+" ----------------------------------------------------------------------------------------
+function! ChangeEncoding()
+    let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
+    if result =~ "Little-endian UTF-16"
+        exec "e ++enc=utf-16le"
+    endif
+endfunction
+command! ChangeEncoding call ChangeEncoding()
+
+" ----------------------------------------------------------------------------------------
 " Window movement shortcuts
 " ----------------------------------------------------------------------------------------
 " move to the window in the direction shown, or create a new window

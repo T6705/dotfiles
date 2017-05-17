@@ -47,7 +47,7 @@ if &encoding ==# 'latin1' && has('gui_running')
 endif
 "set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 set fileencoding=utf-8
-set fileencodings=utf-8
+set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
 set ffs=unix,dos,mac " Use Unix as the standard file type
 
 " Fix backspace indent
