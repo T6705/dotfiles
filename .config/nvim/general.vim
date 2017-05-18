@@ -85,14 +85,14 @@ set cindent
 set cursorline                                                    " highlight current line
 set display+=lastline
 set hidden                                                        " current buffer can be put into background
-set laststatus=2                                                  " Status bar
+set laststatus=2                                                  " Status bar always on
 set lazyredraw                                                    " Don't redraw while executing macros (good performance config)
 set number                                                        " show line numbers
 "set relativenumber                                               " show relative line numbers
 set ruler                                                         " Always show current position
 
 if !&scrolloff
-  set scrolloff=3
+  set scrolloff=3                                                 " 3 lines above/below cursor when scrolling
 endif
 if !&sidescrolloff
   set sidescrolloff=5
@@ -100,18 +100,6 @@ endif
 
 set showcmd                                                       " show incomplete commands
 set so=7                                                          " Set 7 lines to the cursor - when moving vertically using j/k
-"set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c) " Format the status line
-set statusline=%t                                                 " tail of the filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'},                   " file encoding
-set statusline+=%{&ff}]                                           " file format
-set statusline+=%h                                                " help file flag
-set statusline+=%m                                                " modified flag
-set statusline+=%r                                                " read only flag
-set statusline+=%y                                                " filetype
-set statusline+=%=                                                " left/right separator
-set statusline+=%c,                                               " cursor column
-set statusline+=%l/%L                                             " cursor line/total lines
-set statusline+=\ %P                                              " percent through file
 set t_Co=256                                                      " Explicitly tell vim that the terminal supports 256 colors
 set title
 set titleold="Terminal"
@@ -134,6 +122,22 @@ elseif has("linux")
 elseif has("unix")
     set gfn=Monospace\ 11
 endif
+
+" ----------------------------------------------------------------------------------------
+" statusline
+" ----------------------------------------------------------------------------------------
+"set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c) " Format the status line
+set statusline=%t                                                 " tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'},                   " file encoding
+set statusline+=%{&ff}]                                           " file format
+set statusline+=%h                                                " help file flag
+set statusline+=%m                                                " modified flag
+set statusline+=%r                                                " read only flag
+set statusline+=%y                                                " filetype
+set statusline+=%=                                                " left/right separator
+set statusline+=%c,                                               " cursor column
+set statusline+=%l/%L                                             " cursor line/total lines
+set statusline+=\ %P                                              " percent through file
 
 " ----------------------------------------------------------------------------------------
 "Wildmenu
