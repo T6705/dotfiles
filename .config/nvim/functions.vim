@@ -88,7 +88,7 @@ endfunction
 " ----------------------------------------------------------------------------------------
 function! ChangeEncoding()
     let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
-    if result =~ "Little-endian UTF-16"
+    if result =~ "Little-endian UTF-16" && &enc != "utf-16le"
         exec "e ++enc=utf-16le"
     endif
 endfunction

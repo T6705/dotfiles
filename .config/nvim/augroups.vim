@@ -15,7 +15,7 @@ augroup configgroup
     "autocmd InsertEnter,WinLeave * set nocursorline
     "autocmd InsertLeave,WinEnter * set cursorline
 
-    autocmd BufEnter * call ChangeEncoding()
+    autocmd BufRead * call ChangeEncoding()
 
     " Restore cursor position when opening file
     autocmd BufReadPost *
