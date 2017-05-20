@@ -78,7 +78,7 @@ nmap <leader>l :set list!<cr>
 colorscheme molokai
 "filetype on
 filetype indent on                                                " load filetype-specific indent files
-"filetype plugin on
+filetype plugin on
 set autoindent
 set background=dark
 set cindent
