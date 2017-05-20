@@ -191,8 +191,8 @@ nnoremap <silent> [b :bp<CR>
 nnoremap <silent> ]b :bn<CR>
 nnoremap <silent> <leader>q :bd!<CR>
 nnoremap <silent> <leader>nb :enew<CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <leader>bs :Lines<CR>
+nnoremap <silent> <leader>bs :Buffers<CR>
+nnoremap <silent> <leader>bls :Lines<CR>
 "noremap <silent> <leader>b :CtrlPBuffer<CR>
 "nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 
@@ -228,11 +228,14 @@ nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)
 
+" Windows
+nnoremap <silent> <leader>ws :Windows<CR>
+
 " Marks
-nnoremap <silent> <leader>` :Marks<CR>
+nnoremap <silent> <leader>ms :Marks<CR>
 
 " Tags
-nnoremap <silent> <leader>t :Tags<CR>
+nnoremap <silent> <leader>ts :Tags<CR>
 
 " tagbar
 nnoremap <silent> <leader>tb :TagbarToggle<CR>
