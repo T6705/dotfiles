@@ -32,12 +32,14 @@ command! ClearRegisters call ClearRegisters()
 " :RangerExplorer (vim only)
 " ----------------------------------------------------------------------------------------
 function RangerExplorer()
-    exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
-    if filereadable('/tmp/vim_ranger_current_file')
-        exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
-        call system('rm /tmp/vim_ranger_current_file')
+    if executable("ranger")
+        exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
+        if filereadable('/tmp/vim_ranger_current_file')
+            exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
+            call system('rm /tmp/vim_ranger_current_file')
+        endif
+        redraw!
     endif
-    redraw!
 endfun
 
 " ----------------------------------------------------------------------------
@@ -87,11 +89,13 @@ endfunction
 " :ChangeEncoding
 " ----------------------------------------------------------------------------------------
 function! ChangeEncoding()
-    let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
-    if result =~ "Little-endian UTF-16" && &enc != "utf-16le"
-        exec "e ++enc=utf-16le"
-    elseif result =~ "ISO-8859" && &enc != "iso-8859-1"
-        exec "e ++enc=iso-8859-1"
+    if executable("file")
+        let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
+        if result =~ "Little-endian UTF-16" && &enc != "utf-16le"
+            exec "e ++enc=utf-16le"
+        elseif result =~ "ISO-8859" && &enc != "iso-8859-1"
+            exec "e ++enc=iso-8859-1"
+        endif
     endif
 endfunction
 command! ChangeEncoding call ChangeEncoding()

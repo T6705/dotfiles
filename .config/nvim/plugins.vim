@@ -115,12 +115,13 @@ if has('nvim')
 else
     Plug 'Shougo/neocomplete.vim'
 endif
+"Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+"Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'SirVer/ultisnips'
 Plug 'benmills/vimux'
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
-"Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
 Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
             \'<Plug>(easymotion-overwin-line)',
@@ -130,7 +131,6 @@ Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
 Plug 'ervandew/supertab'
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'honza/vim-snippets'
-"Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
