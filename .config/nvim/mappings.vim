@@ -174,12 +174,14 @@ nnoremap <silent> <leader>gw  :Gwrite<CR>
 noremap <leader>d :YcmCompleter GoTo<CR>
 
 " quickfix
-noremap <silent> <leader>lo :lopen<CR>
-noremap <silent> <leader>lc :lclose<CR>
-noremap <silent> [q :lprevious<CR> " Neomake
-noremap <silent> ]q :lnext<CR>     " Neomake
-"nmap <silent> [q <Plug>(ale_previous_wrap) " Asynchronous Lint Engine
-"nmap <silent> ]q <Plug>(ale_next_wrap      " Asynchronous Lint Engine
+nnoremap <silent> <leader>lo :lopen<CR>
+nnoremap <silent> <leader>lc :lclose<CR>
+nnoremap <silent> [l :lprevious<CR> " Neomake
+nnoremap <silent> ]l :lnext<CR>     " Neomake
+nnoremap <silent> ]q :cnext<cr>zz
+nnoremap <silent> [q :cprev<cr>zz
+"nmap <silent> [l <Plug>(ale_previous_wrap) " Asynchronous Lint Engine
+"nmap <silent> ]l <Plug>(ale_next_wrap      " Asynchronous Lint Engine
 
 " Tabs
 nnoremap ]t gt
