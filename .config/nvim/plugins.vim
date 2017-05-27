@@ -118,7 +118,6 @@ Plug 'mattn/vim-textobj-url'     " au/iu for a URL
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
     Plug 'mklabs/split-term.vim'
-
     "" Ranger integration in neovim
     "Plug 'francoiscabrol/ranger.vim', { 'on': ['Ranger',
     "            \'RangerNewTab',
@@ -132,38 +131,39 @@ else
 endif
 "Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 "Plug 'jiangmiao/auto-pairs'
-Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'SirVer/ultisnips'
-Plug 'benmills/vimux'
-Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
+Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }                    " A vim plugin to perform diffs on blocks of code
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }                              " Interactive command execution in Vim.
+Plug 'SirVer/ultisnips'                                                  " The ultimate snippet solution for Vim.
+Plug 'benmills/vimux'                                                    " vim plugin to interact with tmux
+Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                       " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }           " VIM Table Mode for instant table creation.
+Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)', " Vim motions on speed!
             \'<Plug>(easymotion-overwin-line)',
             \'<Plug>(easymotion-overwin-f2)',
             \'<Plug>(easymotion-overwin-w)',
             \'<Plug>(easymotion-overwin-f)'] }
-Plug 'ervandew/supertab'
+Plug 'ervandew/supertab'                                                     " Perform all your vim insert mode completions with Tab
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
-Plug 'honza/vim-snippets'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'honza/vim-snippets'                                                    " vim-snipmate default snippets
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " A Vim alignment plugin
 Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/vim-slash'
-Plug 'kshenoy/vim-signature'
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
-Plug 'mhinz/vim-signify'
-Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }
-Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
-Plug 'tpope/vim-surround'
-Plug 'wellle/targets.vim'
+Plug 'junegunn/vim-slash'                          " Enhancing in-buffer search experience
+Plug 'kshenoy/vim-signature'                       " Plugin to toggle, display and navigate marks
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays tags in a window, ordered by scope
+Plug 'mhinz/vim-signify'                           " Show a diff using Vim its sign column.
+Plug 'scrooloose/nerdcommenter'                    " Vim plugin for intensely orgasmic commenting
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' " tree and git status
+Plug 'sheerun/vim-polyglot'                           " A collection of language packs for Vim.
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }         " Visualize your undo tree.
+Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' } " Run Async Shell Commands in Vim 8.0 / NeoVim and Output to Quickfix Window
+Plug 'terryma/vim-multiple-cursors'                   " True Sublime Text style multiple selections for Vim
+Plug 'tpope/vim-fugitive'                             " fugitive.vim: a Git wrapper so awesome, it should be illegal
+Plug 'tpope/vim-repeat'                               " enables repeating other supported plugins with the . command
+Plug 'tpope/vim-surround'                             " surround.vim: quoting/parenthesizing made simple
+Plug 'wellle/targets.vim'                             " Vim plugin that provides additional text objects
 call plug#end()
 endif
 
