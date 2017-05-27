@@ -137,11 +137,11 @@ Plug 'SirVer/ultisnips'                                                  " The u
 Plug 'benmills/vimux'                                                    " vim plugin to interact with tmux
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                       " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }           " VIM Table Mode for instant table creation.
-Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)', " Vim motions on speed!
+Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
             \'<Plug>(easymotion-overwin-line)',
             \'<Plug>(easymotion-overwin-f2)',
             \'<Plug>(easymotion-overwin-w)',
-            \'<Plug>(easymotion-overwin-f)'] }
+            \'<Plug>(easymotion-overwin-f)'] } " Vim motions on speed!
 Plug 'ervandew/supertab'                                                     " Perform all your vim insert mode completions with Tab
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'honza/vim-snippets'                                                    " vim-snipmate default snippets
