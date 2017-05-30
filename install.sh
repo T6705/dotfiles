@@ -1,6 +1,10 @@
 #!/bin/bash
 
 function install_zsh {
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install -y zsh
+    fi
+
     echo "========================="
     echo "== Download zsh config =="
     echo "========================="
@@ -11,11 +15,20 @@ function install_zsh {
     echo "== Download zsh plugins =="
     echo "=========================="
 
-    git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+
+    .oh-my-zsh/custom
+    git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    #git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+    #git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 }
 
 function install_tmux {
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install -y tmux
+    fi
+
     echo "=================================="
     echo "== Download Tmux Plugin Manager =="
     echo "=================================="
@@ -32,6 +45,10 @@ function install_tmux {
 }
 
 function install_vim {
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install -y vim
+    fi
+
     echo "========================================"
     echo "== Download vim-plugs and color theme =="
     echo "========================================"
@@ -79,14 +96,23 @@ function install_vim {
     curl https://raw.githubusercontent.com/T6705/dotfile/master/visincr.vba > /tmp/visincr.vba
     sudo npm -g install instant-markdown-d
 
-    vim /tmp/visincr.vba +"so %" +qall
-    vim +PlugUpdate
-    nvim /tmp/visincr.vba +"so %" +qall
-    nvim +PlugUpdate
+    if which vim &> /dev/null ; then
+        vim /tmp/visincr.vba +"so %" +qall
+        vim +PlugUpdate
+    fi
+
+    if which nvim &> /dev/null ; then
+        nvim /tmp/visincr.vba +"so %" +qall
+        nvim +PlugUpdate
+    if
     reset
 }
 
 function install_spacemacs {
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install -y emacs
+    fi
+
     echo "==========================="
     echo "== Download emacs config =="
     echo "==========================="
@@ -95,6 +121,10 @@ function install_spacemacs {
 }
 
 function install_i3 {
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install -y i3
+    fi
+
     echo "========================"
     echo "== Download i3 config =="
     echo "========================"
@@ -124,7 +154,9 @@ elif [ $ans == "spacemacs" ]; then
 elif [ $ans == "i3" ]; then
     install_i3
 else
-    sudo apt-get install zsh tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox -y
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install zsh tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox -y
+    fi
     install_zsh
     install_tmux
     install_vim
