@@ -22,6 +22,20 @@ function install_zsh {
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     #git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
     #git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+    echo "======================="
+    echo "== install powerline =="
+    echo "======================="
+
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install fonts-powerline -y
+    fi
+    cd ~
+    git clone https://github.com/milkbikis/powerline-shell
+    cd ~/powerline-shell
+    python ~/powerline-shell/install.py
+    cd ~
+    ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
 }
 
 function install_tmux {
