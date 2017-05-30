@@ -145,6 +145,7 @@ Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
 Plug 'ervandew/supertab'                                                     " Perform all your vim insert mode completions with Tab
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'honza/vim-snippets'                                                    " vim-snipmate default snippets
+Plug 'itchyny/vim-cursorword'                                                " Underlines the word under the cursor
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'

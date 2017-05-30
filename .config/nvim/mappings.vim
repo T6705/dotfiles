@@ -111,6 +111,8 @@ vnoremap K :m '<-2<CR>gv=gv
 noremap <C-j> 2<C-e>
 noremap <C-k> 2<C-y>
 
+nnoremap <silent> <leader>ffo :!firefox %<CR>
+
 "inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
 "inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
 "inoremap <silent> <F6> <esc>:TagbarToggle<CR>
