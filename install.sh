@@ -104,7 +104,7 @@ function install_vim {
     if which nvim &> /dev/null ; then
         nvim /tmp/visincr.vba +"so %" +qall
         nvim +PlugUpdate
-    if
+    fi
     reset
 }
 
