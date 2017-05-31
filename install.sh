@@ -3,6 +3,8 @@
 function install_zsh {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y zsh
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --noconfirm zsh
     fi
 
     echo "========================="
@@ -29,6 +31,9 @@ function install_zsh {
 
     if which apt-get &> /dev/null ; then
         sudo apt-get install fonts-powerline -y
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --noconfirm powerline
+    fi
     fi
     cd ~
     git clone https://github.com/milkbikis/powerline-shell
@@ -41,6 +46,8 @@ function install_zsh {
 function install_tmux {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y tmux
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --noconfirm tmux
     fi
 
     echo "=================================="
@@ -61,6 +68,8 @@ function install_tmux {
 function install_vim {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y vim
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --noconfirm vim neovim
     fi
 
     echo "========================================"
@@ -125,6 +134,8 @@ function install_vim {
 function install_spacemacs {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y emacs
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --noconfirm emacs
     fi
 
     echo "==========================="
@@ -137,6 +148,8 @@ function install_spacemacs {
 function install_i3 {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y i3
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --noconfirm i3-wm
     fi
 
     echo "========================"
