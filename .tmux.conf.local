@@ -154,11 +154,28 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{username}
 #     - #{username_ssh}
 #tmux_conf_theme_status_left='#[bg=colour72] #[bg=colour237] #[bg=colour236] #[bg=colour235]#[fg=colour185] #h #[bg=colour236] '
-tmux_conf_theme_status_left=' #[fg=colour185]#{hostname} , #[fg=colour185]#S , #[fg=colour185]#(ifconfig enp3s0 | grep "inet " | tr -s " " | cut -d" " -f3 | cut -d":" -f2) #(ifconfig wlp2s0 | grep "inet " | tr -s " " | cut -d" " -f3 | cut -d":" -f2) ,'
 
-#tmux_conf_theme_status_right='#{prefix}#{pairing}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} ,#[bg=colour239] #[bg=colour235]#[fg=colour185] #(date "+%d/%m/%Y %H:%M:%S") #[bg=colour236] #[bg=colour237] #[bg=colour72] '
-tmux_conf_theme_status_right='#{prefix}#{pairing}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , #[fg=colour185]%d/%m/%Y , #[fg=colour185]%H:%M:%S '
-#tmux_conf_theme_status_right'#[fg=colour255,bg=colour234,bold] [#[fg=colour46,bg=colour234,bold]#(upower -i /org/freedesktop/UPower/devices/battery_BAT1 | grep percentage | tr -s " " | cut -d" " -f3)#[fg=colour255,bg=colour234,bold]]#[fg=colour51,bg=colour234,bold] #[fg=colour255,bg=colour234,bold][#[fg=colour51,bg=colour234,bold]%d/%m/%Y#[fg=colour255,bg=colour234,bold]]#[fg=colour51,bg=colour234,bold] #[fg=colour255,bg=colour234,bold][#[fg=colour190,bg=colour234,bold]%H:%M:%S#[fg=colour255,bg=colour234,bold]] '
+#if-shell "if which ifconfig &> /dev/null; then true; else false; fi" \
+#        "tmux_conf_theme_status_left=' #[fg=colour185]#{hostname} , \
+##[fg=colour185]#S , \
+##[fg=colour185]#(ifconfig enp3s0 | grep -oE \"addr:([0-9]{1,3}.){1,3}[0-9]*\" | tr -d \"addr:\") \
+##(ifconfig wlp2s0 | grep -oE \"addr:([0-9]{1,3}.){1,3}[0-9]*\" | tr -d \"addr:\") ,'"
+
+if-shell "if which ip &> /dev/null; then true; else false; fi" \
+        "tmux_conf_theme_status_left=' #[fg=colour185]#{hostname} , \
+#[fg=colour185]#S , \
+#[fg=colour185]#(ip addr show enp3s0 | grep -oE \"([0-9]{1,3}\.){1,3}[0-9]{1,3}\/\" | tr -d \"/\") \
+#(ip addr show wlp2s0 | grep -oE \"([0-9]{1,3}\.){1,3}[0-9]{1,3}\/\" | tr -d \"/\") ,'"
+
+tmux_conf_theme_status_right='#{prefix}\
+#{pairing}\
+#{?battery_status, #{battery_status},}\
+#{?battery_bar, \
+#{battery_bar},}\
+#{?battery_percentage, \
+#{battery_percentage},} , \
+#[fg=colour186]%d/%m/%Y , \
+#[fg=colour185]%H:%M:%S '
 
 # status left style
 #tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
