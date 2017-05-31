@@ -138,6 +138,12 @@ function install_spacemacs {
         sudo pacman -S --noconfirm emacs
     fi
 
+    echo "======================="
+    echo "== install spacemacs =="
+    echo "======================="
+
+    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
     echo "==========================="
     echo "== Download emacs config =="
     echo "==========================="
