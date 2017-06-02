@@ -172,6 +172,8 @@ function install_i3 {
 
 if which apt-get &> /dev/null ; then
     sudo apt-get install zsh tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox -y
+elif which pacman &> /dev/null ; then
+    sudo pacman -Sy --noconfirm zsh tmux xclip xsel npm vim
 fi
 
 ans=$1

@@ -94,7 +94,7 @@ Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
 " Auto Completion
 " ----------------------------------------------------------------------------------------
 Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'java'], 'do': function('BuildYCM') }
-"Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
+Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 "Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 
