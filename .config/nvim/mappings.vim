@@ -134,7 +134,7 @@ noremap <silent> <F8> :%!xxd -r<CR>
 nnoremap Q @q
 
 " Switch to the directory of opened buffer
-nnoremap <silent> <leader>cd :lcd %:p:h<CR>
+nnoremap <silent> <leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 " clear highlighted search
 nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<CR>

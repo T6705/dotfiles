@@ -43,7 +43,7 @@ function RangerExplorer()
 endfun
 
 " ----------------------------------------------------------------------------
-" EX | chmod +x
+" :EX | chmod +x
 " ----------------------------------------------------------------------------
 command! EX if !empty(expand('%'))
          \|   write
@@ -99,6 +99,24 @@ function! ChangeEncoding()
     endif
 endfunction
 command! ChangeEncoding call ChangeEncoding()
+
+" ----------------------------------------------------------------------------------------
+" :OpenUrl
+" ----------------------------------------------------------------------------------------
+function! HandleURL()
+    "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+    let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
+
+    echo s:uri
+    if s:uri != ""
+        "silent exec "!elinks '".s:uri."'"
+        silent exec "!firefox '".s:uri."'"
+    else
+        echo "No URI found in line."
+    endif
+endfunction
+command! OpenUrl call HandleURL()
+" }}}
 
 " ----------------------------------------------------------------------------
 " :Root | Change directory to the root of the Git repository
