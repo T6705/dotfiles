@@ -158,7 +158,7 @@ Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays ta
 Plug 'mhinz/vim-signify'                           " Show a diff using Vim its sign column.
 Plug 'scrooloose/nerdcommenter'                    " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' " tree and git status
-Plug 'sheerun/vim-polyglot'                           " A collection of language packs for Vim.
+"Plug 'sheerun/vim-polyglot'                           " A collection of language packs for Vim.
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }         " Visualize your undo tree.
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' } " Run Async Shell Commands in Vim 8.0 / NeoVim and Output to Quickfix Window
 Plug 'terryma/vim-multiple-cursors'                   " True Sublime Text style multiple selections for Vim
