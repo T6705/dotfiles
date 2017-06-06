@@ -145,6 +145,9 @@ nnoremap <leader>u gUiw
 " Change current word to lowercase
 nnoremap <leader>l guiw
 
+" automatically insert a \v before any search string, so search uses normal regexes
+nnoremap / /\v
+vnoremap / /\v
 " search for word under the cursor
 nnoremap <leader>/ "fyiw :/<c-r>f<CR>
 
@@ -158,6 +161,8 @@ nnoremap <silent> <leader>wH <C-W>H
 nnoremap <silent> <leader>wJ <C-W>J
 nnoremap <silent> <leader>wK <C-W>K
 nnoremap <silent> <leader>wL <C-W>L
+" Make splits the same width
+nnoremap <silent> <leader>wz <C-w>=
 
 " Quickly edit your macros
 nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
