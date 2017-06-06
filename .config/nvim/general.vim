@@ -24,6 +24,10 @@ cnoreabbrev Qall qall
 "endif
 "set clipboard=unnamed
 
+if has('nvim')
+    packadd vimball
+endif
+
 if has('mouse')
     set mouse=a
 endif
