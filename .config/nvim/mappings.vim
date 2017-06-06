@@ -136,8 +136,6 @@ nnoremap Q @q
 " Switch to the directory of opened buffer
 nnoremap <silent> <leader>cd :lcd %:p:h<CR>:pwd<CR>
 
-" clear highlighted search
-nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<CR>
 
 " Change current word to uppercase
 nnoremap <leader>u gUiw
@@ -145,9 +143,15 @@ nnoremap <leader>u gUiw
 " Change current word to lowercase
 nnoremap <leader>l guiw
 
+" clear highlighted search
+nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<CR>
+
 " automatically insert a \v before any search string, so search uses normal regexes
 nnoremap / /\v
 vnoremap / /\v
+nnoremap ? ?\v
+vnoremap ? ?\v
+
 " search for word under the cursor
 nnoremap <leader>/ "fyiw :/<c-r>f<CR>
 
