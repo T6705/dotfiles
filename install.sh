@@ -37,6 +37,12 @@ function install_zsh {
     git clone https://github.com/milkbikis/powerline-shell
     python ~/powerline-shell/install.py
     ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
+
+    echo "======================="
+    echo "== install LS_COLORS =="
+    echo "======================="
+    # https://github.com/trapd00r/LS_COLORS
+    wget https://raw.github.com/trapd00r/LS_COLORS/master/LS_COLORS -O $HOME/.dircolors
 }
 
 function install_tmux {

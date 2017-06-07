@@ -100,3 +100,4 @@ if [ "$TERM" != "linux" ]; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval $(dircolors -b $HOME/.dircolors)
