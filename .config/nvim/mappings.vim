@@ -152,6 +152,9 @@ vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
 
+" search for url
+nnoremap /url /\v(http\|https\|ftp):\/\/[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?<CR>
+
 " search for word under the cursor
 nnoremap <leader>/ "fyiw :/<c-r>f<CR>
 
