@@ -181,6 +181,7 @@ if which apt-get &> /dev/null ; then
 elif which pacman &> /dev/null ; then
     sudo pacman -Sy --noconfirm zsh tmux xclip xsel npm vim
 fi
+sudo npm install npm@latest -g
 
 ans=$1
 

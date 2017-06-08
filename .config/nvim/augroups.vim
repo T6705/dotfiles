@@ -17,6 +17,11 @@ augroup configgroup
 
     autocmd BufRead * call ChangeEncoding()
 
+    "automatically turn on spell-checking for Markdown files
+    autocmd BufRead,BufNewFile *.md setlocal spell
+    "automatically turn on spell-checking for text files
+    autocmd BufRead,BufNewFile *.txt setlocal spell
+
     " Restore cursor position when opening file
     autocmd BufReadPost *
                 \ if line("'\"") > 1 && line("'\"") <= line("$") |
