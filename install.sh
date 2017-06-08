@@ -174,6 +174,40 @@ function install_i3 {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/config
     curl -fLo ~/.config/i3/polybar/launch.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/launch.sh
+
+    echo "======================"
+    echo "== Download i3-gaps =="
+    echo "======================"
+
+    mkdir -p ~/git
+    cd ~/git
+    rm -rf i3-gaps
+
+    # clone the repository
+    git clone https://www.github.com/Airblader/i3 i3-gaps
+    cd i3-gaps
+
+    # compile & install
+    autoreconf --force --install
+    rm -rf build/
+    mkdir -p build && cd build/
+
+    # Disabling sanitizers is important for release versions!
+    # The prefix and sysconfdir are, obviously, dependent on the distribution.
+    ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+    make
+    sudo make install
+
+    echo "==========================="
+    echo "== Download i3lock-fancy =="
+    echo "==========================="
+
+    mkdir -p ~/git
+    cd ~/git
+    git clone "https://github.com/meskarune/i3lock-fancy"
+    cd ~/git/i3lock-fancy
+    sudo cp lock /usr/local/bin/
+    sudo cp -r icons /usr/local/bin/
 }
 
 if which apt-get &> /dev/null ; then
