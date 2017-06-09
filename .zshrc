@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -49,7 +49,7 @@ export UPDATE_ZSH_DAYS=1
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git pip python tmux tmuxinator themes thefuck vi-mode zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git heroku history lein pip python tmux themes vi-mode zsh-autosuggestions zsh-syntax-highlighting)
 
 # User configuration
 
@@ -82,6 +82,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# https://github.com/milkbikis/powerline-shell
 function powerline_precmd() {
     PS1="$(~/powerline-shell.py $? --shell zsh 2> /dev/null)"
 }
@@ -100,4 +102,6 @@ if [ "$TERM" != "linux" ]; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# https://github.com/trapd00r/LS_COLORS
 eval $(dircolors -b $HOME/.dircolors)
