@@ -36,6 +36,7 @@ augroup configgroup
     autocmd FocusGained *: redraw!     " Redraw screen every time when focus gained
     autocmd FocusLost *: wa            " Set vim to save the file on focus out
     autocmd InsertLeave * silent! set nopaste
+    autocmd VimResized * wincmd =
     autocmd! BufWritePost * Neomake    " run neomake on the current file on every write
     autocmd! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
