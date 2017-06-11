@@ -13,15 +13,20 @@ function install_zsh {
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
 
-    echo "=========================="
-    echo "== Download zsh plugins =="
-    echo "=========================="
+    echo "====================================="
+    echo "== Download zsh plugins and themes =="
+    echo "====================================="
 
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+
+    mkdir ~/.oh-my-zsh/custom/plugins
     git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     #git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
     #git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+    mkdir ~/.oh-my-zsh/custom/themes
+    curl "https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/spaceship.zsh" > ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
 
     echo "======================="
     echo "== install powerline =="
