@@ -169,7 +169,8 @@ nnoremap <silent> <leader>wJ <C-W>J
 nnoremap <silent> <leader>wK <C-W>K
 nnoremap <silent> <leader>wL <C-W>L
 " Make splits the same width
-nnoremap <silent> <leader>wz <C-w>=
+nnoremap <silent> <leader>we <C-w>=
+nnoremap <silent> <leader>wz :wincmd _ \|wincmd \| \| normal 0 <cr>
 
 " Quickly edit your macros
 nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
