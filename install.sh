@@ -233,7 +233,8 @@ function install_zsh {
 }
 
 if which apt-get &> /dev/null ; then
-    sudo apt-get install zsh ranger tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox -y
+    sudo apt-get install -y zsh ranger tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox
+    sudo apt-get install -y xdg-utils libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm-dev
 elif which pacman &> /dev/null ; then
     sudo pacman -Sy --noconfirm zsh ranger tmux xclip xsel npm vim
 fi
