@@ -222,7 +222,10 @@ function install_zsh {
 
     cd ~
     git clone https://github.com/milkbikis/powerline-shell
-    python ~/powerline-shell/install.py
+    cd ~/powerline-shell
+    cp config.py.dist config.py
+    ./install.py
+    #python ~/powerline-shell/install.py
     ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
 
     echo "======================="
