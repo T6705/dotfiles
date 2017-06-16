@@ -117,6 +117,16 @@ function! HandleURL()
 endfunction
 command! OpenUrl call HandleURL()
 " }}}
+"
+" ----------------------------------------------------------------------------------------
+" :ShowMeUrl
+" ----------------------------------------------------------------------------------------
+function! ShowMeUrl()
+    %!grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,\!''*~-]*)?(\#[a-zA-Z0-9_/.\-+%\#?&=;@$,\!''*~]*)?"
+    silent exec "sort u"
+    silent exec "%s/'$//g"
+endfunction
+command! ShowMeUrl call ShowMeUrl()
 
 " ----------------------------------------------------------------------------
 " :Root | Change directory to the root of the Git repository
