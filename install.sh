@@ -168,7 +168,10 @@ function install_vim {
     echo "===================="
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/visincr.vba > /tmp/visincr.vba
-    sudo npm -g install instant-markdown-d
+
+    if which npm &> /dev/null ; then
+        sudo npm -g install instant-markdown-d
+    fi
 
     if which vim &> /dev/null ; then
         vim /tmp/visincr.vba +"so %" +qall
@@ -179,6 +182,7 @@ function install_vim {
         nvim /tmp/visincr.vba +"so %" +qall
         nvim +PlugUpdate
     fi
+
     reset
 }
 
@@ -201,14 +205,14 @@ function install_zsh {
 
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
-    mkdir ~/.oh-my-zsh/custom/plugins
+    mkdir -p ~/.oh-my-zsh/custom/plugins
     git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     #git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
     #git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 
-    mkdir ~/.oh-my-zsh/custom/themes
-    curl "https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/spaceship.zsh" > ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+    curl -fLo ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme --create-dirs \
+        https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/spaceship.zsh
 
     echo "======================="
     echo "== install powerline =="
@@ -220,8 +224,8 @@ function install_zsh {
         sudo pacman -S --noconfirm powerline
     fi
 
-    cd ~
-    git clone https://github.com/milkbikis/powerline-shell
+    rm -rf ~/powerline-shell
+    git clone https://github.com/milkbikis/powerline-shell ~/powerline-shell
     cd ~/powerline-shell
     cp config.py.dist config.py
     ./install.py
@@ -233,6 +237,17 @@ function install_zsh {
     echo "======================="
     # https://github.com/trapd00r/LS_COLORS
     wget https://raw.github.com/trapd00r/LS_COLORS/master/LS_COLORS -O $HOME/.dircolors
+
+    echo "================="
+    echo "== install fzf =="
+    echo "================="
+    if [ -f ~/.fzf/install ]; then
+        cd ~/.fzf && git pull
+        ~/.fzf/install
+    else
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        ~/.fzf/install
+    fi
 }
 
 if which apt-get &> /dev/null ; then
@@ -242,7 +257,11 @@ if which apt-get &> /dev/null ; then
 elif which pacman &> /dev/null ; then
     sudo pacman -Sy --noconfirm zsh ranger tmux xclip xsel npm vim
 fi
-sudo npm install npm@latest -g
+
+
+if which npm &> /dev/null ; then
+    sudo npm install npm@latest -g
+fi
 
 ans=$1
 
