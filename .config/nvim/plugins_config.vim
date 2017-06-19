@@ -144,10 +144,16 @@ let g:indentLine_setColors = 1 "do not overwrite 'conceal' color
 " Ultsnips
 " ----------------------------------------------------------------------------------------
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+
+" ----------------------------------------------------------------------------------------
+" Ultsnips
+" ----------------------------------------------------------------------------------------
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
 
 " ----------------------------------------------------------------------------------------
@@ -175,7 +181,7 @@ let g:ycm_enable_diagnostic_highlighting = 1
 let g:ycm_enable_diagnostic_signs = 1
 let g:ycm_error_symbol = '>>'
 let g:ycm_global_ycm_extra_conf = '~/.config/nvim/.ycm_extra_conf.py'
-let g:ycm_key_list_previous_completion = ['<C-N>', '<Up>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_min_num_of_chars_for_completion=2
 let g:ycm_python_binary_path = '/usr/bin/python3'
