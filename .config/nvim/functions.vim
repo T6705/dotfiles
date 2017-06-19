@@ -101,6 +101,16 @@ endfunction
 command! ChangeEncoding call ChangeEncoding()
 
 " ----------------------------------------------------------------------------------------
+" :NERDTreeRefresh
+" ----------------------------------------------------------------------------------------
+function! NERDTreeRefresh()
+    if &filetype == "nerdtree"
+        silent exe substitute(mapcheck("R"), "<CR>", "", "")
+    endif
+endfunction
+command! NERDTreeRefresh call NERDTreeRefresh()
+
+" ----------------------------------------------------------------------------------------
 " :OpenUrl
 " ----------------------------------------------------------------------------------------
 function! HandleURL()

@@ -15,12 +15,10 @@ augroup configgroup
     "autocmd InsertEnter,WinLeave * set nocursorline
     "autocmd InsertLeave,WinEnter * set cursorline
 
+    autocmd BufEnter * call NERDTreeRefresh() "
     autocmd BufRead * call ChangeEncoding()
-
-    "automatically turn on spell-checking for Markdown files
-    autocmd BufRead,BufNewFile *.md setlocal spell
-    "automatically turn on spell-checking for text files
-    autocmd BufRead,BufNewFile *.txt setlocal spell
+    autocmd BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
+    autocmd BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
 
     " Restore cursor position when opening file
     autocmd BufReadPost *
