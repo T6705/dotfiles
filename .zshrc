@@ -30,7 +30,7 @@ export UPDATE_ZSH_DAYS=1
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -91,7 +91,9 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# https://github.com/milkbikis/powerline-shell
+##################################################
+## https://github.com/milkbikis/powerline-shell ##
+##################################################
 function powerline_precmd() {
     PS1="$(~/powerline-shell.py $? --shell zsh 2> /dev/null)"
 }
@@ -109,12 +111,33 @@ if [ "$TERM" != "linux" ]; then
     install_powerline_precmd
 fi
 
+#####################################
+## https://github.com/junegunn/fzf ##
+#####################################
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# https://github.com/trapd00r/LS_COLORS
+###########################################
+## https://github.com/trapd00r/LS_COLORS ##
+###########################################
 eval $(dircolors -b $HOME/.dircolors)
 
-# grep url in file
+#############
+## aliases ##
+#############
+alias zshconfig="$EDITOR ~/.zshrc"
+alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+
+# sshlf 1234:127.0.0.1:4321 name@127.0.0.1
+alias sshlf="ssh -gNfL"
+# sshrf 1234:127.0.0.1:4321 name@1.1.1.1
+alias sshrf="ssh -NfR"
+
+###############
+## functions ##
+###############
+# ---------------------------------------------------------------------
+# usage: url_in <filename> | grep url in file
+# ---------------------------------------------------------------------
 function url_in(){
     if [ -n "$1" ]; then
         grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~-]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?" $1
