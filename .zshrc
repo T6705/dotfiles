@@ -99,12 +99,12 @@ function powerline_precmd() {
 }
 
 function install_powerline_precmd() {
-  for s in "${precmd_functions[@]}"; do
-    if [ "$s" = "powerline_precmd" ]; then
-      return
-    fi
-  done
-  precmd_functions+=(powerline_precmd)
+    for s in "${precmd_functions[@]}"; do
+        if [ "$s" = "powerline_precmd" ]; then
+            return
+        fi
+    done
+    precmd_functions+=(powerline_precmd)
 }
 
 if [ "$TERM" != "linux" ]; then
@@ -143,3 +143,9 @@ function url_in(){
         grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~-]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?" $1
     fi
 }
+
+if which neofetch &> /dev/null ; then
+    neofetch
+elif which screenfetch &> /dev/null ; then
+    screenfetch
+fi
