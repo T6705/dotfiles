@@ -55,6 +55,8 @@ plugins=(git heroku history lein pip python tmux themes vi-mode zsh-autosuggesti
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 
 source $ZSH/oh-my-zsh.sh
 
@@ -126,6 +128,9 @@ eval $(dircolors -b $HOME/.dircolors)
 #############
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+
+#Colorizing "cat" https://github.com/jingweno/ccat
+alias cat='ccat'
 
 # fast Vim that doesn't load a vimrc or plugins
 alias vimn='vim -N -u NONE'

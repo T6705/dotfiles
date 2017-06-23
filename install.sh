@@ -248,6 +248,13 @@ function install_zsh {
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
         ~/.fzf/install
     fi
+
+    # https://github.com/jingweno/ccat
+    if which go &> /dev/null ; then
+        export GOPATH=$HOME/go
+        go get -u github.com/jingweno/ccat
+        export PATH=$PATH:$GOPATH/bin
+    fi
 }
 
 if which apt-get &> /dev/null ; then
