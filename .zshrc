@@ -130,7 +130,7 @@ alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
 #Colorizing "cat" https://github.com/jingweno/ccat
-alias cat='ccat'
+alias cat='ccat --bg=dark'
 
 # fast Vim that doesn't load a vimrc or plugins
 alias vimn='vim -N -u NONE'
