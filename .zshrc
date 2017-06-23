@@ -127,6 +127,11 @@ eval $(dircolors -b $HOME/.dircolors)
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
+# fast Vim that doesn't load a vimrc or plugins
+alias vimn='vim -N -u NONE'
+# fast Neovim that doesn't load a vimrc or plugins
+alias nvimn='nvim -N -u NONE'
+
 # sshlf 1234:127.0.0.1:4321 name@127.0.0.1
 alias sshlf="ssh -gNfL"
 # sshrf 1234:127.0.0.1:4321 name@1.1.1.1
