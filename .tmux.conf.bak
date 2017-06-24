@@ -1,30 +1,35 @@
-######################
-### DESIGN CHANGES ###
-######################
-
-# panes
+#############
+### panes ###
+#############
 set -g pane-border-fg black
 set -g pane-active-border-fg brightred
 
-## Status bar design
-# status line
+###################
+### status line ###
+###################
 set -g status-utf8 on
 set -g status-justify left
 set -g status-bg default
 set -g status-fg colour12
-set -g status-interval 1 
+set -g status-interval 1
 
-# messaging
+#################
+### messaging ###
+#################
 set -g message-fg black
 set -g message-bg yellow
 set -g message-command-fg blue
 set -g message-command-bg black
 
-#window mode
+###################
+### window mode ###
+###################
 setw -g mode-bg colour6
 setw -g mode-fg colour0
 
-# window status
+#####################
+### window status ###
+#####################
 setw -g window-status-format " #F#I:#W#F "
 setw -g window-status-current-format " #F#I:#W#F "
 setw -g window-status-format "#[fg=magenta]#[bg=black] #I #[bg=cyan]#[fg=colour8] #W "
@@ -36,9 +41,6 @@ setw -g window-status-bg green
 setw -g window-status-fg black
 setw -g window-status-attr reverse
 
-# Info on left (I don't have a session display for now)
-set -g status-left ''
-
 # don't rename windows automatically
 set-option -g allow-rename off
 
@@ -49,31 +51,33 @@ set-option -g visual-silence off
 set-window-option -g monitor-activity off
 set-option -g bell-action none
 
-# The modes {
+#############
+### modes ###
+#############
 setw -g clock-mode-colour colour135
 setw -g mode-attr bold
 setw -g mode-fg colour196
 setw -g mode-bg colour238
 
-# }
-# The panes {
+#################
+### The panes ###
+#################
 
 set -g pane-border-bg colour235
 set -g pane-border-fg colour238
 set -g pane-active-border-bg colour236
 set -g pane-active-border-fg colour51
 
-# }
-# The statusbar {
+#####################
+### The statusbar ###
+#####################
 
 set -g status-position bottom
 set -g status-bg colour234
 set -g status-fg colour137
 set -g status-attr dim
-#set -g status-left '#[fg=colour255,bg=colour234,bold] [#[fg=colour123,bg=colour234,bold]#h#[fg=colour255,bg=colour234,bold]] #[fg=colour255,bg=colour234,bold][#[fg=colour39,bg=colour234,bold]#S:#I:#P#[fg=colour255,bg=colour234,bold]]#[fg=colour255,bg=colour234,bold] [#[fg=colour213,bg=colour234,bold]#(ifconfig enp3s0 | grep "inet " | tr -s " " | cut -d" " -f3 | cut -d":" -f2)#[fg=colour255,bg=colour234,bold]] [#[fg=colour213,bg=colour234,bold]#(ifconfig wlp2s0 | grep "inet " | tr -s " " | cut -d" " -f3 | cut -d":" -f2)#[fg=colour255,bg=colour234,bold]] '
 set-option -g status-left '#[bg=colour72] #[bg=colour237] #[bg=colour236] #[bg=colour235]#[fg=colour185] #h #[bg=colour236] '
-#set -g status-right '#[fg=colour255,bg=colour234,bold] [#[fg=colour46,bg=colour234,bold]#(upower -i /org/freedesktop/UPower/devices/battery_BAT1 | grep percentage | tr -s " " | cut -d" " -f3)#[fg=colour255,bg=colour234,bold]]#[fg=colour51,bg=colour234,bold] #[fg=colour255,bg=colour234,bold][#[fg=colour51,bg=colour234,bold]%d/%m/%y#[fg=colour255,bg=colour234,bold]]#[fg=colour51,bg=colour234,bold] #[fg=colour255,bg=colour234,bold][#[fg=colour190,bg=colour234,bold]%H:%M:%S#[fg=colour255,bg=colour234,bold]] '
-set-option -g status-right '#[bg=colour236] #[bg=colour235]#[fg=colour185] %d/%m/%Y %d %H:%M:%S #[bg=colour236] #[bg=colour237] #[bg=colour72] '
+set-option -g status-right '#[bg=colour236] #[bg=colour235]#[fg=colour185] #(printf $((`cat /sys/class/thermal/thermal_zone0/temp`/1000)))°c %d/%m/%Y %H:%M:%S #[bg=colour236] #[bg=colour237] #[bg=colour72] '
 set -g status-right-length 50
 set -g status-left-length 50
 
@@ -155,7 +159,7 @@ bind-key k select-pane -U
 bind-key l select-pane -R
 
 # Resizing ---------------------------------------------------------------
-bind-key C-h resize-pane -L 5  
+bind-key C-h resize-pane -L 5
 bind-key C-j resize-pane -D 5
 bind-key C-k resize-pane -U 5
 bind-key C-l resize-pane -R 5

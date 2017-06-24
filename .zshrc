@@ -129,8 +129,22 @@ eval $(dircolors -b $HOME/.dircolors)
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
+if which rkhunter &> /dev/null ; then
+    alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
+fi
+
+if which clamscan &> /dev/null ; then
+    alias checkvirus="clamscan --recursive=yes --infected ~/"
+fi
+
+if which freshclam &> /dev/null ; then
+    alias updateantivirus="sudo freshclam"
+fi
+
 #Colorizing "cat" https://github.com/jingweno/ccat
-alias cat='ccat --bg=dark'
+if which ccat &> /dev/null ; then
+    alias cat='ccat --bg=dark'
+fi
 
 # fast Vim that doesn't load a vimrc or plugins
 alias vimn='vim -N -u NONE'
