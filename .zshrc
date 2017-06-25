@@ -49,7 +49,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git heroku history lein pip python tmux themes vi-mode zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git history pip python tmux themes vi-mode zsh-autosuggestions zsh-syntax-highlighting)
 
 # User configuration
 
@@ -165,6 +165,8 @@ alias sshrf="ssh -NfR"
 function url_in(){
     if [ -n "$1" ]; then
         grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~-]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?" $1
+    else
+        echo "'$1' is not a valid file"
     fi
 }
 # -------------------------------------------------------------------
@@ -190,6 +192,31 @@ function ram() {
         else
             echo "There are no processes with pattern '${fg[blue]}${app}${reset_color}' are running."
         fi
+    fi
+}
+
+# ---------------------------------------------------------------------
+# usage: extract <filename>
+# ---------------------------------------------------------------------
+function extract {
+    echo Extracting $1 ...
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xjvf $1   ;;
+            *.tar.gz)    tar xzvf $1   ;;
+            *.bz2)       bunzip2 $1    ;;
+            *.rar)       unrar x $1    ;;
+            *.gz)        gunzip $1     ;;
+            *.tar)       tar xvf $1    ;;
+            *.tbz2)      tar xjvf $1   ;;
+            *.tgz)       tar xzvf $1   ;;
+            *.zip)       unzip $1      ;;
+            *.Z)         uncompress $1 ;;
+            *.7z)        7z x $1       ;;
+            *)        echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
     fi
 }
 
