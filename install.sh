@@ -67,6 +67,11 @@ function install_dots {
     echo "========================="
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
+
+    TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
+    if [[ "$TEST_CURRENT_SHELL" == "zsh" ]]; then
+        . ~/.zshrc
+    fi
 }
 
 function install_dependencies {
@@ -228,15 +233,26 @@ function install_zsh {
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
     mkdir -p ~/.oh-my-zsh/custom/plugins
-    #git clone https://github.com/djui/alias-tips.git $ZSH_CUSTOM/plugins/alias-tips
-    #git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-    #git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
     git clone https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
     git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
     curl -fLo ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme --create-dirs \
         https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/spaceship.zsh
+
+    echo "============================="
+    echo "== install powerline fonts =="
+    echo "============================="
+
+    # clone
+    git clone https://github.com/powerline/fonts.git
+    # install
+    cd fonts
+    ./install.sh
+    # clean-up a bit
+    cd ..
+    rm -rf fonts
 
     echo "======================="
     echo "== install powerline =="
@@ -283,7 +299,21 @@ function install_zsh {
         export PATH=$PATH:$GOPATH/bin
     fi
 
-    . ~/zshrc
+    # If this user's login shell is not already "zsh", attempt to switch.
+    TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
+    if [[ "$TEST_CURRENT_SHELL" != "zsh" ]]; then
+        # If this platform provides a "chsh" command (not Cygwin), do it, man!
+        if which chsh &> /dev/null ; then
+            echo "Time to change your default shell to zsh!"
+            chsh -s $(grep /zsh$ /etc/shells | tail -1)
+            # Else, suggest the user do so manually.
+        else
+            echo "I can't change your shell automatically because this system does not have chsh."
+            echo "Please manually change your default shell to zsh!"
+        fi
+    elif [[ "$TEST_CURRENT_SHELL" == "zsh" ]]; then
+        . ~/.zshrc
+    fi
 }
 
 function main {

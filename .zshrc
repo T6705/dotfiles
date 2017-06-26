@@ -49,7 +49,8 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(alias-tips catimg git history pip python tmux themes vi-mode web-search zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(alias-tips catimg git history pip python tmux themes vi-mode web-search zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
+autoload -U compinit && compinit
 
 # User configuration
 
