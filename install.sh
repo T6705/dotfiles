@@ -282,6 +282,8 @@ function install_zsh {
         go get -u github.com/jingweno/ccat
         export PATH=$PATH:$GOPATH/bin
     fi
+
+    . ~/zshrc
 }
 
 function main {
