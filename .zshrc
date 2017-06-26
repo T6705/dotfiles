@@ -129,6 +129,14 @@ eval $(dircolors -b $HOME/.dircolors)
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
+if which du &> /dev/null ; then
+    alias du="du -c"
+fi
+
+if which tr &> /dev/null ; then
+    alias rot13='tr a-zA-Z n-za-mN-ZA-M'
+fi
+
 if which rkhunter &> /dev/null ; then
     alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
 fi
@@ -169,6 +177,7 @@ function url_in(){
         echo "'$1' is not a valid file"
     fi
 }
+
 # -------------------------------------------------------------------
 # Show how much RAM application uses.
 # $ ram safari
@@ -218,6 +227,20 @@ function extract {
     else
         echo "'$1' is not a valid file"
     fi
+}
+
+# ---------------------------------------------------------------------
+# usage: colours | print available colors and their numbers
+# ---------------------------------------------------------------------
+function colours() {
+    for i in {0..255}; do
+        printf "\x1b[38;5;${i}m colour${i}"
+        if (( $i % 5 == 0 )); then
+            printf "\n"
+        else
+            printf "\t"
+        fi
+    done
 }
 
 if which neofetch &> /dev/null ; then
