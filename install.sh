@@ -1,12 +1,6 @@
-#!/bin/bash
+#!/bin/zsh
 
-function install_i3 {
-    if which apt-get &> /dev/null ; then
-        sudo apt-get install -y i3
-    elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm i3-wm
-    fi
-
+function install_dots {
     echo "========================"
     echo "== Download i3 config =="
     echo "========================"
@@ -21,6 +15,86 @@ function install_i3 {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/config
     curl -fLo ~/.config/i3/polybar/launch.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/launch.sh
+
+    echo "============================"
+    echo "== Download ranger config =="
+    echo "============================"
+
+    curl -fLo ~/.config/ranger/rc.conf --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rc.conf
+    curl -fLo ~/.config/ranger/rifle.conf --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rifle.conf
+
+    echo "==============================="
+    echo "== Download spacemacs config =="
+    echo "==============================="
+
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.spacemacs > ~/.spacemacs
+
+    echo "=========================="
+    echo "== Download tmux config =="
+    echo "=========================="
+
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf.local > ~/.tmux.conf.local
+
+    echo "=============================="
+    echo "== Download vim/nvim config =="
+    echo "=============================="
+
+    curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/augroups.vim
+    curl -fLo ~/.config/nvim/functions.vim --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/functions.vim
+    curl -fLo ~/.config/nvim/general.vim --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/general.vim
+    curl -fLo ~/.config/nvim/mappings.vim --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/mappings.vim
+    curl -fLo ~/.config/nvim/plugins.vim --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins.vim
+    curl -fLo ~/.config/nvim/plugins_config.vim --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins_config.vim
+
+    ### vim
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.vimrc > ~/.vimrc
+
+    ### nvim
+    curl -fLo ~/.config/nvim/init.vim --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim
+
+    echo "========================="
+    echo "== Download zsh config =="
+    echo "========================="
+
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
+}
+
+function install_dependencies {
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install -y zsh ranger tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox
+        # for building neovim
+        sudo apt-get install libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+        # for building i3-gaps (Ubuntu >= 14.04 LTS, <= 16.04)
+        sudo add-apt-repository ppa:aguignard/ppa
+        sudo apt-get update
+        sudo apt-get install -y xdg-utils libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm-dev
+        # for building i3-gaps (Ubuntu >= 16.10)
+        #sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev
+    elif which pacman &> /dev/null ; then
+        sudo pacman -Sy --noconfirm zsh ranger tmux xclip xsel npm vim neovim
+    fi
+
+    if which npm &> /dev/null ; then
+        sudo npm install npm@latest -g
+    fi
+}
+
+function install_i3 {
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install -y i3
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --noconfirm i3-wm
+    fi
 
     echo "======================"
     echo "== Download i3-gaps =="
@@ -53,8 +127,8 @@ function install_i3 {
     cd ~/git
     git clone "https://github.com/meskarune/i3lock-fancy"
     cd ~/git/i3lock-fancy
-    sudo cp lock /usr/local/bin/
-    sudo cp -r icons /usr/local/bin/
+    sudo cp -v lock /usr/local/bin/
+    sudo cp -r -v icons /usr/local/bin/
 }
 
 function install_ranger {
@@ -63,15 +137,6 @@ function install_ranger {
     elif which pacman &> /dev/null ; then
         sudo pacman -S --noconfirm ranger
     fi
-
-    echo "============================"
-    echo "== Download ranger config =="
-    echo "============================"
-
-    curl -fLo ~/.config/ranger/rc.conf --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rc.conf
-    curl -fLo ~/.config/ranger/rifle.conf --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rifle.conf
 }
 
 function install_spacemacs {
@@ -86,12 +151,6 @@ function install_spacemacs {
     echo "======================="
 
     git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-
-    echo "==========================="
-    echo "== Download emacs config =="
-    echo "==========================="
-
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.spacemacs > ~/.spacemacs
 }
 
 function install_tmux {
@@ -107,13 +166,6 @@ function install_tmux {
 
     sudo rm -rf ~/.tmux
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-    echo "=========================="
-    echo "== Download tmux config =="
-    echo "=========================="
-
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf.local > ~/.tmux.conf.local
 }
 
 function install_vim {
@@ -138,30 +190,6 @@ function install_vim {
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     curl -fLo ~/.config/nvim/colors/molokai.vim --create-dirs \
         https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
-
-    echo "=============================="
-    echo "== Download vim/nvim config =="
-    echo "=============================="
-
-    curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/augroups.vim
-    curl -fLo ~/.config/nvim/functions.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/functions.vim
-    curl -fLo ~/.config/nvim/general.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/general.vim
-    curl -fLo ~/.config/nvim/mappings.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/mappings.vim
-    curl -fLo ~/.config/nvim/plugins.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins.vim
-    curl -fLo ~/.config/nvim/plugins_config.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins_config.vim
-
-    ### vim
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.vimrc > ~/.vimrc
-
-    ### nvim
-    curl -fLo ~/.config/nvim/init.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim
 
     echo "===================="
     echo "== Update Plugins =="
@@ -193,12 +221,6 @@ function install_zsh {
         sudo pacman -S --noconfirm zsh
     fi
 
-    echo "========================="
-    echo "== Download zsh config =="
-    echo "========================="
-
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
-
     echo "====================================="
     echo "== Download zsh plugins and themes =="
     echo "====================================="
@@ -206,11 +228,12 @@ function install_zsh {
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
     mkdir -p ~/.oh-my-zsh/custom/plugins
-    git clone https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
-    git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-    #git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+    #git clone https://github.com/djui/alias-tips.git $ZSH_CUSTOM/plugins/alias-tips
+    #git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
     #git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+    git clone https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
+    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
     curl -fLo ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme --create-dirs \
         https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/spaceship.zsh
@@ -228,7 +251,7 @@ function install_zsh {
     rm -rf ~/powerline-shell
     git clone https://github.com/milkbikis/powerline-shell ~/powerline-shell
     cd ~/powerline-shell
-    cp config.py.dist config.py
+    cp -v config.py.dist config.py
     ./install.py
     #python ~/powerline-shell/install.py
     ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
@@ -250,6 +273,9 @@ function install_zsh {
         ~/.fzf/install
     fi
 
+    echo "=================="
+    echo "== install ccat =="
+    echo "=================="
     # https://github.com/jingweno/ccat
     if which go &> /dev/null ; then
         export GOPATH=$HOME/go
@@ -258,38 +284,23 @@ function install_zsh {
     fi
 }
 
-if which apt-get &> /dev/null ; then
-    sudo apt-get install -y zsh ranger tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox
-    # Dependencies
-    sudo apt-get install -y xdg-utils libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm-dev
-elif which pacman &> /dev/null ; then
-    sudo pacman -Sy --noconfirm zsh ranger tmux xclip xsel npm vim
-fi
+function main {
+    if [[ $1 == "dots" ]]; then
+        install_dots
+    elif [[ $1 == "dependencies" ]]; then
+        install_dependencies
+    elif [[ $1 == "all" ]]; then
+        install_dots
+        install_dependencies
+        install_i3
+        install_ranger
+        install_spacemacs
+        install_tmux
+        install_vim
+        install_zsh
+    else
+        echo "dots/dependencies/all"
+    fi
+}
 
-
-if which npm &> /dev/null ; then
-    sudo npm install npm@latest -g
-fi
-
-ans=$1
-
-if [ $ans == "i3" ]; then
-    install_i3
-elif [ $ans == "ranger" ]; then
-    install_ranger
-elif [ $ans == "spacemacs" ]; then
-    install_spacemacs
-elif [ $ans == "tmux" ]; then
-    install_tmux
-elif [ $ans == "vim" ]; then
-    install_vim
-elif [ $ans == "zsh" ]; then
-    install_zsh
-else
-    install_i3
-    install_ranger
-    install_spacemacs
-    install_tmux
-    install_vim
-    install_zsh
-fi
+main $1
