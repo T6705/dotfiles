@@ -125,9 +125,11 @@ nnoremap <silent> <F4> :GundoToggle<CR>
 nnoremap <silent> <F5> :Codi!!<CR>
 
 " hexedit
-inoremap <silent> <F7> <esc>:%!xxd<CR>
+"inoremap <silent> <F7> <esc>:%!xxd<CR>
+"noremap <silent> <F7> :%!xxd<CR>
+inoremap <silent> <F7> <esc>:Hexmode<CR>
 inoremap <silent> <F8> <esc>:%!xxd -r<CR>
-noremap <silent> <F7> :%!xxd<CR>
+noremap <silent> <F7> :Hexmode<CR>
 noremap <silent> <F8> :%!xxd -r<CR>
 
 " qq to record, Q to replay (recursive noremap due to peekaboo)
