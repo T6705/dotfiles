@@ -58,6 +58,8 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -93,6 +95,11 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+####################################
+## https://github.com/pyenv/pyenv ##
+####################################
+eval "$(pyenv init -)"
 
 ##################################################
 ## https://github.com/milkbikis/powerline-shell ##

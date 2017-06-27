@@ -299,6 +299,15 @@ function install_zsh {
         export PATH=$PATH:$GOPATH/bin
     fi
 
+    echo "==================="
+    echo "== install pyenv =="
+    echo "==================="
+    if [[ -d ~/.pyenv ]]; then
+        cd ~/.pyenv && git pull
+    else
+        git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    fi
+
     # If this user's login shell is not already "zsh", attempt to switch.
     TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
     if [[ "$TEST_CURRENT_SHELL" != "zsh" ]]; then
