@@ -167,6 +167,9 @@ bind-key C-l resize-pane -R 5
 # use vim motion keys while in copy mode
 setw -g mode-keys vi
 
+ # enter copy mode
+bind Enter copy-mode
+
 # Mouse support - set to on if you want to use the mouse
 setw -g mode-mouse off
 set -g mouse-select-pane off

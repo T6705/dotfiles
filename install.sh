@@ -130,6 +130,7 @@ function install_i3 {
 
     mkdir -p ~/git
     cd ~/git
+    rm -rf i3lock-fancy
     git clone "https://github.com/meskarune/i3lock-fancy"
     cd ~/git/i3lock-fancy
     sudo cp -v lock /usr/local/bin/
@@ -154,8 +155,12 @@ function install_spacemacs {
     echo "======================="
     echo "== install spacemacs =="
     echo "======================="
+    if [[ -d ~/.emacs.d ]]; then
+        cd ~/.emacs.d && git pull
+    else
+        git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+    fi
 
-    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 }
 
 function install_tmux {
@@ -230,13 +235,37 @@ function install_zsh {
     echo "== Download zsh plugins and themes =="
     echo "====================================="
 
-    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    if [[ -d ~/.oh-my-zsh ]]; then
+        cd ~/.oh-my-zsh && git pull
+    else
+        git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    fi
 
     mkdir -p ~/.oh-my-zsh/custom/plugins
-    git clone https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
-    git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+    if [[ -d ~/.oh-my-zsh/custom/plugins/alias-tips ]]; then
+        cd ~/.oh-my-zsh/custom/plugins/alias-tips && git pull
+    else
+        git clone https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
+    fi
+
+    if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
+        cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull
+    else
+        git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    fi
+
+    if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-completions ]]; then
+        cd ~/.oh-my-zsh/custom/plugins/zsh-completions && git pull
+    else
+        git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+    fi
+
+    if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]]; then
+        cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
+    else
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    fi
 
     curl -fLo ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme --create-dirs \
         https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/spaceship.zsh

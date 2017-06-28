@@ -155,19 +155,19 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-#tmux_conf_theme_status_left='#[bg=colour72] #[bg=colour237] #[bg=colour236] #[bg=colour235]#[fg=colour185] #h #[bg=colour236] '
+#tmux_conf_theme_status_left='#[bg=colour72] #[bg=colour237] #[bg=colour236] #[bg=colour235]#[fg=colour186] #h #[bg=colour236] '
 
-#if-shell "if which ifconfig &> /dev/null; then true; else false; fi" \
-#        "tmux_conf_theme_status_left=' #[fg=colour185]#{hostname} , \
-##[fg=colour185]#S , \
-##[fg=colour185]#(ifconfig enp3s0 | grep -oE \"addr:([0-9]{1,3}.){1,3}[0-9]*\" | tr -d \"addr:\") \
-##(ifconfig wlp2s0 | grep -oE \"addr:([0-9]{1,3}.){1,3}[0-9]*\" | tr -d \"addr:\") ,'"
+if-shell "if which ifconfig &> /dev/null; then true; else false; fi" \
+        "tmux_conf_theme_status_left=' #[fg=colour186]#{hostname} , \
+#[fg=colour186]#S , \
+#[fg=colour186]#(ifconfig enp3s0 | grep -oE \"addr:([0-9]{1,3}.){1,3}[0-9]*\" | tr -d \"addr:\") \
+#(ifconfig wlp2s0 | grep -oE \"addr:([0-9]{1,3}.){1,3}[0-9]*\" | tr -d \"addr:\") ,'"
 
-if-shell "if which ip &> /dev/null; then true; else false; fi" \
-        "tmux_conf_theme_status_left=' #[fg=colour185]#{hostname} , \
-#[fg=colour185]#S , \
-#[fg=colour185]#(ip addr show enp3s0 | grep -oE \"([0-9]{1,3}\.){1,3}[0-9]{1,3}\/\" | tr -d \"/\") \
-#(ip addr show wlp2s0 | grep -oE \"([0-9]{1,3}\.){1,3}[0-9]{1,3}\/\" | tr -d \"/\") ,'"
+#if-shell "if which ip &> /dev/null; then true; else false; fi" \
+#        "tmux_conf_theme_status_left=' #[fg=colour186]#{hostname} , \
+##[fg=colour186]#S , \
+##[fg=colour186]#(ip addr show enp3s0 | grep -oE \"([0-9]{1,3}\.){1,3}[0-9]{1,3}\/\" | tr -d \"/\") \
+##(ip addr show wlp2s0 | grep -oE \"([0-9]{1,3}\.){1,3}[0-9]{1,3}\/\" | tr -d \"/\") ,'"
 
 tmux_conf_theme_status_right='#{prefix}\
 #{pairing}\
@@ -177,7 +177,18 @@ tmux_conf_theme_status_right='#{prefix}\
 #{?battery_percentage, \
 #{battery_percentage},} , \
 #[fg=colour186]%d/%m/%Y , \
-#[fg=colour185]%H:%M:%S '
+#[fg=colour186]%H:%M:%S '
+
+#tmux_conf_theme_status_right='#{prefix}\
+##{pairing}\
+##{?battery_status, #{battery_status},}\
+##{?battery_bar, \
+##{battery_bar},}\
+##{?battery_percentage, \
+##{battery_percentage},} , \
+##[fg=colour186]#(printf $((`cat /sys/class/thermal/thermal_zone0/temp`/1000)))°c , \
+##[fg=colour186]%d/%m/%Y , \
+##[fg=colour186]%H:%M:%S '
 
 # status left style
 #tmux_conf_theme_status_left_bg='#ffff00,#ff00af,#00afff'  # yellow, pink, white blue
