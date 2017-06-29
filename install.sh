@@ -68,9 +68,9 @@ function install_dots {
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
 
-    curl -fLo ~/.zsh/aliases.zsh \
+    curl -fLo ~/.zsh/aliases.zsh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.zsh/aliases.zsh
-    curl -fLo ~/.zsh/functions.zsh \
+    curl -fLo ~/.zsh/functions.zsh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.zsh/functions.zsh
 
 
