@@ -68,6 +68,12 @@ function install_dots {
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
 
+    curl -fLo ~/.zsh/aliases.zsh \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.zsh/aliases.zsh
+    curl -fLo ~/.zsh/functions.zsh \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.zsh/functions.zsh
+
+
     TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
     if [[ "$TEST_CURRENT_SHELL" == "zsh" ]]; then
         . ~/.zshrc
