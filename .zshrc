@@ -139,9 +139,9 @@ eval $(dircolors -b $HOME/.dircolors)
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
-if which du &> /dev/null ; then
-    alias du="du -c"
-fi
+alias cp="cp -v"
+alias mv="mv -v"
+alias du="du -c"
 
 if which tr &> /dev/null ; then
     alias rot13='tr a-zA-Z n-za-mN-ZA-M'
@@ -277,6 +277,75 @@ function colours() {
             printf "\t"
         fi
     done
+}
+
+# ---------------------------------------------------------------------
+# usage: rsakeypair <keyname> <keysize>
+# ---------------------------------------------------------------------
+function rsakeypair() {
+    if [[ ( -n $1 && -n $2 ) ]]; then
+        pri=$1
+        size=$2
+        pub="$pri.pub"
+        openssl genrsa -out $pri $size
+        openssl rsa -in $pri -out $pub -outform PEM -pubout
+    else
+        echo "usage: rsakeypair <keyname> <keysize>"
+    fi
+}
+
+# ---------------------------------------------------------------------
+# usage: rsaencrypt <pubkey> <infile> <outfile>
+# ---------------------------------------------------------------------
+function rsaencrypt() {
+    if [[ ( -n $1 && -n $2 && -n $3) ]]; then
+        pub=$1
+        infile=$2
+        outfile=$3
+        openssl rsautl -encrypt -inkey $pub -pubin -in $infile -out $outfile
+    else
+        echo "usage: rsaencrypt <pubkey> <infile> <outfile>"
+    fi
+}
+
+# ---------------------------------------------------------------------
+# usage: rsadecrypt <prikey> <infile> <outfile>
+# ---------------------------------------------------------------------
+function rsadecrypt() {
+    if [[ ( -n $1 && -n $2 && -n $3) ]]; then
+        pri=$1
+        infile=$2
+        outfile=$3
+        openssl rsautl -decrypt -inkey $pri -in $infile -out $outfile
+    else
+        echo "usage: rsadecrypt <prikey> <infile> <outfile>"
+    fi
+}
+
+# ---------------------------------------------------------------------
+# usage: aesencrypt <infile> <outfile>
+# ---------------------------------------------------------------------
+function aesencrypt() {
+    if [[ ( -n $1 && -n $2 ) ]]; then
+        infile=$1
+        outfile=$2
+        openssl aes-256-cbc -a -salt -in $infile -out $outfile
+    else
+        echo "usage: aesencrypt <infile> <outfile>"
+    fi
+}
+
+# ---------------------------------------------------------------------
+# usage: aesdecrypt <infile> <outfile>
+# ---------------------------------------------------------------------
+function aesdecrypt() {
+    if [[ ( -n $1 && -n $2 ) ]]; then
+        infile=$1
+        outfile=$2
+        openssl aes-256-cbc -d -a -in $infile -out $outfile
+    else
+        echo "usage: aesdecrypt <infile> <outfile>"
+    fi
 }
 
 if which neofetch &> /dev/null ; then
