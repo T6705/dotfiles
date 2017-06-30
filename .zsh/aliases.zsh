@@ -1,7 +1,7 @@
 #############
 ## aliases ##
 #############
-alias zshconfig="$EDITOR ~/.zshrc"
+alias zshconfig="$EDITOR ~/.zshrc ~/.zsh/*"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
 alias cp="cp -v"

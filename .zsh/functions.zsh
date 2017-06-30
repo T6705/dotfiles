@@ -90,6 +90,33 @@ function extract {
 }
 
 # ---------------------------------------------------------------------
+# Usage: compress <file> (<type>)
+# ---------------------------------------------------------------------
+compress() {
+    if [[ -e $1 ]]; then
+        if [ $2 ]; then
+            case $2 in
+                bz2 | bzip2)    bzip2           $1                 ;;
+                gpg)            gpg -e --default-recipient-self $1 ;;
+                gz | gzip)      gzip $1                            ;;
+                tar)            tar -cvf $1.$2  $1                 ;;
+                tar.Z)          tar -Zcvf $1.$2 $1                 ;;
+                tbz2 | tar.bz2) tar -jcvf $1.$2 $1                 ;;
+                tgz | tar.gz)   tar -zcvf $1.$2 $1                 ;;
+                zip)            zip -r $1.$2    $1                 ;;
+                *)
+                    echo "Error: $2 is not a valid compression type"
+                    ;;
+            esac
+        else
+            compress $1 tar.gz
+        fi
+    else
+        echo "File ('$1') does not exist!"
+    fi
+}
+
+# ---------------------------------------------------------------------
 # usage: colours | print available colors and their numbers
 # ---------------------------------------------------------------------
 function colours {
