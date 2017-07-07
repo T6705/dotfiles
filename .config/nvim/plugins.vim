@@ -147,6 +147,7 @@ Plug 'ervandew/supertab'                                                     " P
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'honza/vim-snippets'                                                    " vim-snipmate default snippets
 Plug 'itchyny/vim-cursorword'                                                " Underlines the word under the cursor
+Plug 'johngrib/vim-game-code-break', { 'on': 'VimGameCodeBreak' }            " Block-breaking game in vim 8.0
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/rainbow_parentheses.vim'

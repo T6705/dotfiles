@@ -7,6 +7,9 @@ let g:python3_host_prog = '/usr/bin/python3'
 
 let mapleader=' '
 
+let php_sql_query = 1
+let php_htmlInStrings = 1
+
 "cnoreabbrev W w
 "cnoreabbrev W! w!
 "cnoreabbrev Wa wa

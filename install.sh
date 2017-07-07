@@ -82,6 +82,11 @@ function install_dots {
 
 function install_dependencies {
     if which apt-get &> /dev/null ; then
+        sudo apt-get update
+        suod apt-get upgrade -y
+        suod apt-get dist-upgrade -y
+        suod apt-get autoremove -y
+        suod apt-get clean
         sudo apt-get install -y zsh ranger tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox
         # for building neovim
         sudo apt-get install libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
@@ -92,6 +97,7 @@ function install_dependencies {
         # for building i3-gaps (Ubuntu >= 16.10)
         #sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev
     elif which pacman &> /dev/null ; then
+        sudo pacman -Syu --noconfirm
         sudo pacman -Sy --noconfirm zsh ranger tmux xclip xsel npm vim neovim
     fi
 
