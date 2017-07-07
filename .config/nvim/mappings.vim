@@ -30,11 +30,11 @@ command! PU PlugUpdate | PlugUpgrade
 " Make `Y` behave like `C` and `D`
 nnoremap Y y$
 
-nnoremap <silent> <leader>p "+gP
-nnoremap <silent> <leader>x "+x
-nnoremap <silent> <leader>y "+y
-vnoremap <silent> <leader>x "+x
-vnoremap <silent> <leader>y "+y
+nnoremap <silent> <Leader>p "+gP
+nnoremap <silent> <Leader>x "+x
+nnoremap <silent> <Leader>y "+y
+vnoremap <silent> <Leader>x "+x
+vnoremap <silent> <Leader>y "+y
 
 nnoremap <Leader>a :%y+<cr> " place whole file on the system clipboard
 
@@ -111,7 +111,7 @@ vnoremap K :m '<-2<CR>gv=gv
 noremap <C-j> 2<C-e>
 noremap <C-k> 2<C-y>
 
-nnoremap <silent> <leader>ffo :!firefox %<CR>
+nnoremap <silent> <Leader>ffo :!firefox %<CR>
 
 "inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
 "inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
@@ -136,17 +136,17 @@ noremap <silent> <F8> :%!xxd -r<CR>
 nnoremap Q @q
 
 " Switch to the directory of opened buffer
-nnoremap <silent> <leader>cd :lcd %:p:h<CR>:pwd<CR>
+nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 
 " Change current word to uppercase
-nnoremap <leader>u gUiw
+nnoremap <Leader>u gUiw
 
 " Change current word to lowercase
-nnoremap <leader>l guiw
+nnoremap <Leader>l guiw
 
 " clear highlighted search
-nnoremap <silent> <leader>sc :set hlsearch! hlsearch?<CR>
+nnoremap <silent> <Leader>sc :set hlsearch! hlsearch?<CR>
 
 " automatically insert a \v before any search string, so search uses normal regexes
 nnoremap / /\v
@@ -164,41 +164,41 @@ nnoremap /ip4 /\v([0-9]{1,3}\.){3}[0-9]{1,3}
 nnoremap /url /\v(http\|https\|ftp):\/\/[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?<CR>
 
 " search for word under the cursor
-nnoremap <leader>/ "fyiw :/<c-r>f<CR>
+nnoremap <Leader>/ "fyiw :/<c-r>f<CR>
 
 " window navigation
-nnoremap <silent> <leader>wh :call functions#WinMove('h')<CR>
-nnoremap <silent> <leader>wj :call functions#WinMove('j')<CR>
-nnoremap <silent> <leader>wk :call functions#WinMove('k')<CR>
-nnoremap <silent> <leader>wl :call functions#WinMove('l')<CR>
-nnoremap <silent> <leader>wx <C-W>x
-nnoremap <silent> <leader>wH <C-W>H
-nnoremap <silent> <leader>wJ <C-W>J
-nnoremap <silent> <leader>wK <C-W>K
-nnoremap <silent> <leader>wL <C-W>L
+nnoremap <silent> <Leader>wh :call functions#WinMove('h')<CR>
+nnoremap <silent> <Leader>wj :call functions#WinMove('j')<CR>
+nnoremap <silent> <Leader>wk :call functions#WinMove('k')<CR>
+nnoremap <silent> <Leader>wl :call functions#WinMove('l')<CR>
+nnoremap <silent> <Leader>wx <C-W>x
+nnoremap <silent> <Leader>wH <C-W>H
+nnoremap <silent> <Leader>wJ <C-W>J
+nnoremap <silent> <Leader>wK <C-W>K
+nnoremap <silent> <Leader>wL <C-W>L
 " Make splits the same width
-nnoremap <silent> <leader>we <C-w>=
-nnoremap <silent> <leader>wz :wincmd _ \|wincmd \| \| normal 0 <cr>
+nnoremap <silent> <Leader>we <C-w>=
+nnoremap <silent> <Leader>wz :wincmd _ \|wincmd \| \| normal 0 <cr>
 
 " Quickly edit your macros
-nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
+nnoremap <Leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
 
 " Git
-nnoremap <silent> <leader>gb  :Gblame<CR>
-nnoremap <silent> <leader>gc  :Gcommit<CR>
-nnoremap <silent> <leader>gd  :Gvdiff<CR>
-nnoremap <silent> <leader>gps :Gpush<CR>
-nnoremap <silent> <leader>gpu :Gpull<CR>
-nnoremap <silent> <leader>gr  :Gremove<CR>
-nnoremap <silent> <leader>gs  :Gstatus<CR>
-nnoremap <silent> <leader>gw  :Gwrite<CR>
+nnoremap <silent> <Leader>gb  :Gblame<CR>
+nnoremap <silent> <Leader>gc  :Gcommit<CR>
+nnoremap <silent> <Leader>gd  :Gvdiff<CR>
+nnoremap <silent> <Leader>gps :Gpush<CR>
+nnoremap <silent> <Leader>gpu :Gpull<CR>
+nnoremap <silent> <Leader>gr  :Gremove<CR>
+nnoremap <silent> <Leader>gs  :Gstatus<CR>
+nnoremap <silent> <Leader>gw  :Gwrite<CR>
 
 " YouCompleteMe
-noremap <leader>d :YcmCompleter GoTo<CR>
+noremap <Leader>d :YcmCompleter GoTo<CR>
 
 " quickfix
-nnoremap <silent> <leader>lo :lopen<CR>
-nnoremap <silent> <leader>lc :lclose<CR>
+nnoremap <silent> <Leader>lo :lopen<CR>
+nnoremap <silent> <Leader>lc :lclose<CR>
 nnoremap <silent> [l :lprevious<CR> " Neomake
 nnoremap <silent> ]l :lnext<CR>     " Neomake
 nnoremap <silent> ]q :cnext<cr>zz
@@ -209,61 +209,61 @@ nnoremap <silent> [q :cprev<cr>zz
 " Tabs
 nnoremap ]t gt
 nnoremap [t gT
-nnoremap <silent> <leader>nt :tabnew<CR>
+nnoremap <silent> <Leader>nt :tabnew<CR>
 
 " Buffer nav
 nnoremap <silent> [b :bp<CR>
 nnoremap <silent> ]b :bn<CR>
-nnoremap <silent> <leader>q :bd!<CR>
-nnoremap <silent> <leader>nb :enew<CR>
-nnoremap <silent> <leader>bs :Buffers<CR>
-nnoremap <silent> <leader>bls :Lines<CR>
-"noremap <silent> <leader>b :CtrlPBuffer<CR>
-"nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
+nnoremap <silent> <Leader>q :bd!<CR>
+nnoremap <silent> <Leader>nb :enew<CR>
+nnoremap <silent> <Leader>bs :Buffers<CR>
+nnoremap <silent> <Leader>bls :Lines<CR>
+"noremap <silent> <Leader>b :CtrlPBuffer<CR>
+"nnoremap <Leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 
 " add space after comma
-nnoremap <leader>, :%s/, */, /g<CR>
-vnoremap <leader>, :s/, */, /g<CR>
+nnoremap <Leader>, :%s/, */, /g<CR>
+vnoremap <Leader>, :s/, */, /g<CR>
 
 " Explore dir
-"nnoremap <silent> <leader>E :Lexplore<CR>
-nnoremap <silent> <leader>E :NERDTreeToggle<CR>
-nnoremap <silent> <leader>EF :NERDTreeFind<CR>
+"nnoremap <silent> <Leader>E :Lexplore<CR>
+nnoremap <silent> <Leader>E :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>EF :NERDTreeFind<CR>
 
 if has('nvim')
-    "nnoremap <silent> <leader>rg :Ranger<CR>
+    "nnoremap <silent> <Leader>rg :Ranger<CR>
 else
     " RangerExploer(vim only)
-    nnoremap <silent> <leader>rg :call RangerExplorer()<CR>
+    nnoremap <silent> <Leader>rg :call RangerExplorer()<CR>
 endif
 
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
 if isdirectory(".git")
     " if in a git project, use :GFiles
-    nnoremap <silent> <leader>e :GFiles<CR>
+    nnoremap <silent> <Leader>e :GFiles<CR>
 else
     " otherwise, use :FZF
-    nnoremap <silent> <leader>e :FZF<CR>
+    nnoremap <silent> <Leader>e :FZF<CR>
 endif
 
-nnoremap <silent> <leader>ag :Ag<CR>
-nnoremap <silent> <leader>AG :Ag!<CR>
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
+nnoremap <silent> <Leader>ag :Ag<CR>
+nnoremap <silent> <Leader>AG :Ag!<CR>
+nmap <Leader><tab> <plug>(fzf-maps-n)
+xmap <Leader><tab> <plug>(fzf-maps-x)
+omap <Leader><tab> <plug>(fzf-maps-o)
 
 " Windows
-nnoremap <silent> <leader>ws :Windows<CR>
+nnoremap <silent> <Leader>ws :Windows<CR>
 
 " Marks
-nnoremap <silent> <leader>ms :Marks<CR>
+nnoremap <silent> <Leader>ms :Marks<CR>
 
 " Tags
-nnoremap <silent> <leader>ts :Tags<CR>
+nnoremap <silent> <Leader>ts :Tags<CR>
 
 " tagbar
-nnoremap <silent> <leader>tb :TagbarToggle<CR>
+nnoremap <silent> <Leader>tb :TagbarToggle<CR>
 
 " Insert mode completion
 imap <c-x>w <plug>(fzf-complete-word)
@@ -289,11 +289,11 @@ autocmd VimEnter * command! -bang -nargs=* Ag
   \                 <bang>0)
 
 " folding
-nnoremap <leader>f za<CR>
-vnoremap <leader>f za<CR>
+nnoremap <Leader>f za<CR>
+vnoremap <Leader>f za<CR>
 
 " vim-table-mode
-nnoremap <silent> <leader>tm :TableModeToggle<CR>
+nnoremap <silent> <Leader>tm :TableModeToggle<CR>
 
 " Make the dot command work as expected in visual mode (via
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
@@ -321,33 +321,33 @@ nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 " Tabular
 " ----------------------------------------------------------------------------------------
 if exists(":Tabularize")
-  nnoremap <leader>a= :Tabularize /=<CR>
-  vnoremap <leader>a= :Tabularize /=<CR>
-  nnoremap <leader>a: :Tabularize /:<CR>
-  vnoremap <leader>a: :Tabularize /:<CR>
-  "nnoremap <leader>a: :Tabularize /:\zs<CR>
-  "vnoremap <leader>a: :Tabularize /:\zs<CR>
+  nnoremap <Leader>a= :Tabularize /=<CR>
+  vnoremap <Leader>a= :Tabularize /=<CR>
+  nnoremap <Leader>a: :Tabularize /:<CR>
+  vnoremap <Leader>a: :Tabularize /:<CR>
+  "nnoremap <Leader>a: :Tabularize /:\zs<CR>
+  "vnoremap <Leader>a: :Tabularize /:\zs<CR>
 endif
 
 " compile and run
-noremap <silent> <leader>ccr :w<CR> :!gcc % -o %< && time %:p:r<CR>
-noremap <silent> <leader>jcr :w<CR> :cd %:p:h<CR> :!javac % && time java %<<CR>
-noremap <silent> <leader>cr :call Compile_and_Run()<CR>
+"noremap <silent> <Leader>ccr :w<CR> :!gcc % -o %< && time %:p:r<CR>
+"noremap <silent> <Leader>jcr :w<CR> :cd %:p:h<CR> :!javac % && time java %<<CR>
+noremap <silent> <Leader>cr :CompileandRun<CR>
 
 " Markdown headings
-nnoremap <leader>1 m`yypVr=``
-nnoremap <leader>2 m`yypVr-``
-nnoremap <leader>3 m`^i### <esc>``4l
-nnoremap <leader>4 m`^i#### <esc>``5l
-nnoremap <leader>5 m`^i##### <esc>``6l
+nnoremap <Leader>1 m`yypVr=``
+nnoremap <Leader>2 m`yypVr-``
+nnoremap <Leader>3 m`^i### <esc>``4l
+nnoremap <Leader>4 m`^i#### <esc>``5l
+nnoremap <Leader>5 m`^i##### <esc>``6l
 
-"nnoremap <leader>pdf :w<CR> :NeoTex<CR>
-nnoremap <leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
-nnoremap <leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
+"nnoremap <Leader>pdf :w<CR> :NeoTex<CR>
+nnoremap <Leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
+nnoremap <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
 " Make check spelling on or off
-nnoremap <leader>cson   :set spell<CR>
-nnoremap <leader>csoff :set nospell<CR>
+nnoremap <Leader>cson   :set spell<CR>
+nnoremap <Leader>csoff :set nospell<CR>
 
 " ----------------------------------------------------------------------------------------
 " vimux
@@ -373,38 +373,38 @@ nnoremap <Leader>vz :call VimuxZoomRunner()<CR>
 " ----------------------------------------------------------------------------------------
 " Surround
 " ----------------------------------------------------------------------------------------
-" <leader>` Surround a word with "backticks"
-nmap     <leader>` ysiw`
-vnoremap <leader>` c`<C-R>"`<ESC>
+" <Leader>` Surround a word with "backticks"
+nmap     <Leader>` ysiw`
+vnoremap <Leader>` c`<C-R>"`<ESC>
 
-" <leader>" Surround a word with "quotes"
-nmap     <leader>" ysiw"
-vnoremap <leader>" c"<C-R>""<ESC>
+" <Leader>" Surround a word with "quotes"
+nmap     <Leader>" ysiw"
+vnoremap <Leader>" c"<C-R>""<ESC>
 
-" <leader>' Surround a word with 'single quotes'
-nmap     <leader>' ysiw'
-vnoremap <leader>' c'<C-R>"'<ESC>
+" <Leader>' Surround a word with 'single quotes'
+nmap     <Leader>' ysiw'
+vnoremap <Leader>' c'<C-R>"'<ESC>
 
-" <leader>( Surround a word with ( brackets )
-" <leader>) Surround a word with (brackets)
-nmap     <leader>( ysiw(
-nmap     <leader>) ysiw)
-vnoremap <leader>( c( <C-R>" )<ESC>
-vnoremap <leader>) c(<C-R>")<ESC>
+" <Leader>( Surround a word with ( brackets )
+" <Leader>) Surround a word with (brackets)
+nmap     <Leader>( ysiw(
+nmap     <Leader>) ysiw)
+vnoremap <Leader>( c( <C-R>" )<ESC>
+vnoremap <Leader>) c(<C-R>")<ESC>
 
-" <leader>[ Surround a word with [ brackets ]
-" <leader>] Surround a word with [brackets]
-nmap     <leader>] ysiw]
-nmap     <leader>[ ysiw[
-vnoremap <leader>[ c[ <C-R>" ]<ESC>
-vnoremap <leader>] c[<C-R>"]<ESC>
+" <Leader>[ Surround a word with [ brackets ]
+" <Leader>] Surround a word with [brackets]
+nmap     <Leader>] ysiw]
+nmap     <Leader>[ ysiw[
+vnoremap <Leader>[ c[ <C-R>" ]<ESC>
+vnoremap <Leader>] c[<C-R>"]<ESC>
 
-" <leader>{ Surround a word with { braces }
-" <leader>{ Surround a word with {braces}
-nmap     <leader>} ysiw}
-nmap     <leader>{ ysiw{
-vnoremap <leader>} c{ <C-R>" }<ESC>
-vnoremap <leader>{ c{<C-R>"}<ESC>
+" <Leader>{ Surround a word with { braces }
+" <Leader>{ Surround a word with {braces}
+nmap     <Leader>} ysiw}
+nmap     <Leader>{ ysiw{
+vnoremap <Leader>} c{ <C-R>" }<ESC>
+vnoremap <Leader>{ c{<C-R>"}<ESC>
 
 " ----------------------------------------------------------------------------------------
 " nvim

@@ -72,18 +72,21 @@ command! WordProcessorMode call WordProcessorMode()
 function! Compile_and_Run()
     exec 'w'
     if &filetype == 'c'
-        exec "AsyncRun! gcc % -o %< && time %:p:r"
+        call VimuxRunCommand('gcc '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
     elseif &filetype == 'cpp'
-        exec "AsyncRun! g++ -std=c++11 % -o %< && time %:p:r"
+        call VimuxRunCommand('g++ -std=c++11 '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
     elseif &filetype == 'java'
-        exec "cd %:p:h"
-        exec "AsyncRun! javac % && time java %<"
+        exec 'cd %:p:h'
+        call VimuxRunCommand('time javac '.expand('%').' && time java '.expand('%<'))
     elseif &filetype == 'sh'
-        exec "AsyncRun! time bash %"
+        call VimuxRunCommand('time bash '.expand('%'))
+    elseif &filetype == 'php'
+        call VimuxRunCommand('time php '.expand('%'))
     elseif &filetype == 'python'
-        exec "AsyncRun! time python3 %"
+        call VimuxRunCommand('time python3 '.expand('%'))
     endif
 endfunction
+command! CompileandRun call Compile_and_Run()
 
 " ----------------------------------------------------------------------------------------
 " :ChangeEncoding

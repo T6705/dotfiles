@@ -133,6 +133,13 @@ let g:airline_theme                               = "wombat"
 
 
 " ----------------------------------------------------------------------------------------
+" vimux
+" ----------------------------------------------------------------------------------------
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "50"
+
+
+" ----------------------------------------------------------------------------------------
 " indentline
 " ----------------------------------------------------------------------------------------
 let g:indentLine_char      = '▸'
@@ -370,16 +377,16 @@ let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
 " ----------------------------------------------------------------------------------------
 " let g:pymode_options_max_line_length = 79 " Setup max line length
 let g:pymode                  = 1            " enable Pymode
-let g:pymode_breakpoint_bind  = '<leader>pb' " add breakpoint with ' pb'
+let g:pymode_breakpoint_bind  = '<Leader>pb' " add breakpoint with ' pb'
 let g:pymode_doc              = 1            " read doc :PymodeDoc arg
-let g:pymode_doc_bind         = '<leader>pd' " press ' pd' to show doc for current word
+let g:pymode_doc_bind         = '<Leader>pd' " press ' pd' to show doc for current word
 let g:pymode_folding          = 0            " disable folding
 let g:pymode_indent           = 1            " pep8 indent style
 let g:pymode_options          = 0            " disable default python options
 let g:pymode_python           = 'python3'
 let g:pymode_rope             = 0            " Disable rope
 let g:pymode_run              = 1
-let g:pymode_run_bind         = '<leader>pr' " run python code with ,pr
+let g:pymode_run_bind         = '<Leader>pr' " run python code with ,pr
 let g:pymode_trim_whitespaces = 1            " Trim unused white spaces on save
 let g:pymode_virtualenv       = 1            " Enable automatic virtualenv detection
 
@@ -404,11 +411,11 @@ let g:jedi#use_tabs_not_buffers   = 0
 
 let g:jedi#completions_command      = "<C-Space>"
 let g:jedi#documentation_command    = "K"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_command             = "<leader>d"
+let g:jedi#goto_assignments_command = "<Leader>g"
+let g:jedi#goto_command             = "<Leader>d"
 let g:jedi#goto_definitions_command = "<tab>"
-let g:jedi#rename_command           = "<leader>r"
-let g:jedi#usages_command           = "<leader>n"
+let g:jedi#rename_command           = "<Leader>r"
+let g:jedi#usages_command           = "<Leader>n"
 
 
 " ----------------------------------------------------------------------------------------
