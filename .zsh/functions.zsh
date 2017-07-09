@@ -229,3 +229,28 @@ function aesdecrypt {
     fi
 }
 
+function qutebrowser-install {
+    mkdir ~/git
+    rm -rf ~/git/qutebrowser
+    git clone https://github.com/qutebrowser/qutebrowser.git ~/git/qutebrowser
+    cd ~/git/qutebrowser
+    tox -e mkvenv-pypi
+}
+
+function qutebrowser-update {
+    if [ -f ~/git/qutebrowser/.venv/bin/python3 ]; then
+        cd ~/git/qutebrowser && git pull
+        tox -r -e mkvenv-pypi
+    else
+        qutebrowser-install
+    fi
+}
+
+function qutebrowser {
+    if [ -f ~/git/qutebrowser/.venv/bin/python3 ]; then
+        ~/git/qutebrowser/.venv/bin/python3 -m qutebrowser "$@"
+    else
+        qutebrowser-install
+        qutebrowser
+    fi
+}
