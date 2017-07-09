@@ -164,8 +164,8 @@ set wildignore+=migrations                       " Django migrations"
 if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
 else
-    set wildignore+=.hg,.git,.svn                    " Version Controls"
-    set wildignore+=*.DS_Store                       " OSX SHIT"
+    set wildignore+=.hg,.git,.svn                " Version Controls"
+    set wildignore+=*.DS_Store                   " OSX SHIT"
 endif
 
 " ----------------------------------------------------------------------------------------
@@ -214,7 +214,7 @@ set fileformats=unix,dos,mac
 set gfn=Monospace\ 10
 set guioptions=egmrti
 if &history < 1000
-    set history=1000             " change history to 1000
+    set history=1000         " change history to 1000
 endif
 set nocompatible             " not compatible with vi
 set path+=**
