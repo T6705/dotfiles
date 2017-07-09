@@ -36,12 +36,12 @@ if has('mouse')
 endif
 
 if !has('nvim') && &ttimeoutlen == -1
-  set ttimeout
-  set ttimeoutlen=100
+    set ttimeout
+    set ttimeoutlen=100
 endif
 
 if v:version > 703 || v:version == 703 && has("patch541")
-  set formatoptions+=j " Delete comment character when joining commented lines
+    set formatoptions+=j " Delete comment character when joining commented lines
 endif
 
 " ----------------------------------------------------------------------------------------
@@ -99,10 +99,10 @@ set number                                                        " show line nu
 set ruler                                                         " Always show current position
 
 if !&scrolloff
-  set scrolloff=3                                                 " 3 lines above/below cursor when scrolling
+    set scrolloff=3                                                 " 3 lines above/below cursor when scrolling
 endif
 if !&sidescrolloff
-  set sidescrolloff=5
+    set sidescrolloff=5
 endif
 
 set showcmd                                                       " show incomplete commands
@@ -113,8 +113,8 @@ set titleold="Terminal"
 set titlestring=%F
 set ttyfast                                                       " faster redrawing
 if has('syntax') && !exists('g:syntax_on')
-  "syntax enable
-  syntax on                                                         " switch syntax highlighting on
+    "syntax enable
+    syntax on                                                         " switch syntax highlighting on
 endif
 
 " Set font according to system
@@ -214,7 +214,7 @@ set fileformats=unix,dos,mac
 set gfn=Monospace\ 10
 set guioptions=egmrti
 if &history < 1000
-  set history=1000             " change history to 1000
+    set history=1000             " change history to 1000
 endif
 set nocompatible             " not compatible with vi
 set path+=**

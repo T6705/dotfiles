@@ -136,7 +136,7 @@ let g:airline_theme                               = "wombat"
 " vimux
 " ----------------------------------------------------------------------------------------
 let g:VimuxOrientation = "h"
-let g:VimuxHeight = "50"
+let g:VimuxHeight      = "50"
 
 
 " ----------------------------------------------------------------------------------------
@@ -150,11 +150,11 @@ let g:indentLine_setColors = 1 "do not overwrite 'conceal' color
 " ----------------------------------------------------------------------------------------
 " Ultsnips
 " ----------------------------------------------------------------------------------------
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<C-p>"
-let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-p>"
+let g:UltiSnipsJumpForwardTrigger  = "<C-n>"
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit = "vertical"
 
 
 " ----------------------------------------------------------------------------------------
@@ -167,8 +167,8 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " comfortable-motion
 " ----------------------------------------------------------------------------------------
 let g:comfortable_motion_no_default_key_mappings = 1
-let g:comfortable_motion_friction = 80.0
-let g:comfortable_motion_air_drag = 2.0
+let g:comfortable_motion_friction                = 80.0
+let g:comfortable_motion_air_drag                = 2.0
 
 
 " ----------------------------------------------------------------------------------------
@@ -178,24 +178,24 @@ if empty(glob('~/.config/nvim/.ycm_extra_conf.py'))
   silent !curl -fLo ~/.config/nvim/.ycm_extra_conf.py --create-dirs
     \ https://raw.githubusercontent.com/Valloric/ycmd/master/cpp/ycm/.ycm_extra_conf.py
 endif
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-let g:ycm_complete_in_comments = 1                " Completion in comments
-let g:ycm_complete_in_strings = 1                 " Completion in string
-let g:ycm_confirm_extra_conf=0
-let g:ycm_echo_current_diagnostic = 1
-let g:ycm_enable_diagnostic_highlighting = 1
-let g:ycm_enable_diagnostic_signs = 1
-let g:ycm_error_symbol = '>>'
-let g:ycm_global_ycm_extra_conf = '~/.config/nvim/.ycm_extra_conf.py'
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_min_num_of_chars_for_completion=2
-let g:ycm_python_binary_path = '/usr/bin/python3'
-let g:ycm_seed_identifiers_with_syntax = 1        " Completion for programming language's keyword
-let g:ycm_show_diagnostics_ui = 1
-let g:ycm_use_ultisnips_completer = 1             " Default 1, just ensure
-let g:ycm_warning_symbol = '>>'
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_collect_identifiers_from_tags_files       = 1 " Let YCM read tags from Ctags file
+let g:ycm_complete_in_comments                      = 1 " Completion in comments
+let g:ycm_complete_in_strings                       = 1 " Completion in string
+let g:ycm_confirm_extra_conf                        = 0
+let g:ycm_echo_current_diagnostic                   = 1
+let g:ycm_enable_diagnostic_highlighting            = 1
+let g:ycm_enable_diagnostic_signs                   = 1
+let g:ycm_error_symbol                              = '>>'
+let g:ycm_global_ycm_extra_conf                     = '~/.config/nvim/.ycm_extra_conf.py'
+let g:ycm_key_list_previous_completion              = ['<C-p>', '<Up>']
+let g:ycm_key_list_select_completion                = ['<C-n>', '<Down>']
+let g:ycm_min_num_of_chars_for_completion           = 2
+let g:ycm_python_binary_path                        = '/usr/bin/python3'
+let g:ycm_seed_identifiers_with_syntax              = 1 " Completion for programming language's keyword
+let g:ycm_show_diagnostics_ui                       = 1
+let g:ycm_use_ultisnips_completer                   = 1 " Default 1, just ensure
+let g:ycm_warning_symbol                            = '>>'
 let g:ycm_semantic_triggers =  {
   \   'c' : ['->', '.'],
   \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
@@ -246,7 +246,7 @@ let g:tagbar_sort = 0
 "let g:user_emmet_mode='inv'  "enable all functions, which is equal to
 "let g:user_emmet_mode='n'    "only enable normal mode functions.
 let g:user_emmet_install_global = 0
-let g:user_emmet_mode='a'    "enable all function in all mode.
+let g:user_emmet_mode           = 'a'    "enable all function in all mode.
 
 " ----------------------------------------------------------------------------------------
 " Codi.vim
