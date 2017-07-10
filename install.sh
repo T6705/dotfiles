@@ -13,6 +13,8 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf
     curl -fLo ~/.config/i3/polybar/config --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/config
+    curl -fLo ~/.config/i3/polybar/external_config --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/external_config
     curl -fLo ~/.config/i3/polybar/launch.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/launch.sh
 

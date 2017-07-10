@@ -16,13 +16,14 @@ color3     = #f39c12
 color3l    = #40BC832C
 color4     = #689d6a
 color4l    = #8ec07c
+accent     = #fba922
 
 [global/wm]
 margin-top    = 5
 margin-bottom = 5
 
-[bar/top]
-monitor  = LVDS1
+[bar/external_top]
+monitor  = HDMI1
 width    = 100%
 height   = 27
 offset-x = 0
@@ -31,18 +32,22 @@ offset-y = 0
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-overline-size = 2
-overline-color = #f00
-underline-size = 2
-underline-color = #00f
+overline-size   = 2
+overline-color  = ${colors.accent}
+underline-size  = 2
+underline-color = ${colors.accent}
 
-border-bottom-size = 2
-border-bottom-color = #333
+border-top          = 3
+border-top-color    = #3d3d3d
+border-bottom       = 0
+border-bottom-color = #333333
 
-padding-left = 0
-padding-right = 1
-module-margin-left = 0
-module-margin-right = 0
+spacing             = 3
+;padding-right = 4
+padding-left        = 3
+padding-right       = 3
+module-margin-left  = 0
+module-margin-right = 6
 
 font-0 = Hack:size=8;0
 font-1 = NotoSans-Regular:size=8;0
@@ -56,8 +61,8 @@ font-8 = unifont:size=6:heavy:fontformat=truetype;-2
 font-9 = siji:pixelsize=10;0
 
 modules-left = bspwm i3
-modules-center =
-modules-right = volume memory cpu wlan eth battery temperature date
+modules-center = xwindow
+modules-right = cpu memory date
 ;modules-right = backlight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 tray-position = right
@@ -66,44 +71,21 @@ tray-padding = 2
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
-wm-restack = i3
+;wm-restack = i3
 
 ;override-redirect = true
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
 
+wm-restack = bspwm
 
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:30:...%
-
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-label-layout = %{F#55}%{F-} %layout%
-label-layout-underline = ${colors.secondary}
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
-
-[module/filesystem]
-format-padding = 1
-type = internal/fs
-interval = 30
-
-mount-0 = /
-mount-1 = /home
-mount-2 = /invalid/mountpoint
-
-label-mounted = %mountpoint%: %percentage_free%
-
-label-unmounted = %mountpoint%: not mounted
-label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/bspwm]
 type = internal/bspwm
@@ -125,10 +107,10 @@ label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 [module/i3]
-;format-padding = 1
+format-padding = 1
 type = internal/i3
-;format = <label-state>
-format = <label-state> <label-mode>
+format = <label-state>
+;format = <label-state> <label-mode>
 enable-click    = true
 enable-scroll   = true
 index-sort      = true
@@ -138,28 +120,29 @@ index-sort      = true
 ;label-mode-foreground = #000
 ;label-mode-background = ${colors.primary}
 
-;label-focused = %index%
-;label-focused-background = ${module/bspwm.label-focused-background}
-;label-focused-padding = ${module/bspwm.label-focused-padding}
-;label-focused-underline = ${module/bspwm.label-focused-underline}
 label-focused-background   = #008fff
 label-focused-foreground   = #ffffff
-label-focused-padding      = 1
+label-focused-padding      = 4
 
+;label-focused = %index%
+;label-focused-background = ${module/bspwm.label-focused-background}
+;label-focused-underline = ${module/bspwm.label-focused-underline}
+;label-focused-padding = ${module/bspwm.label-focused-padding}
+
+label-unfocused-foreground = ${colors.color4}
+label-unfocused-padding    = 4
 ;label-unfocused = %index%
 ;label-unfocused-padding = ${module/bspwm.label-occupied-padding}
-label-unfocused-foreground = ${colors.color4}
-label-unfocused-padding    = 1
 
+label-urgent-background    = #bd2c40
+label-urgent-foreground    = #000000
+label-urgent-padding       = 4
 ;label-urgent = %index%!
 ;label-urgent-background = ${module/bspwm.label-urgent-background}
 ;label-urgent-padding = ${module/bspwm.label-urgent-padding}
-label-urgent-background    = #bd2c40
-label-urgent-foreground    = #000000
-label-urgent-padding       = 1
 
 label-visible-foreground   = #55
-label-visible-padding      = 1
+label-visible-padding      = 4
 ;label-visible = %index%
 ;label-visible-background = ${self.label-focused-background}
 ;label-visible-underline = ${self.label-focused-underline}
@@ -212,24 +195,6 @@ bar-fill-foreground = #9f78e1
 bar-empty = ─
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
-
-[module/cpu]
-format-padding = 1
-type = internal/cpu
-interval = 1
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
-label = %percentage%
-
-[module/memory]
-format-padding = 1
-type = internal/memory
-interval = 1
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
-label = %percentage_used%
 
 [module/wlan]
 format-padding = 1
@@ -385,5 +350,65 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
+
+[module/cpu]
+type = internal/cpu
+interval = 1
+
+format = <label> <ramp-coreload>
+
+label = CPU
+label-font = 3
+label-foreground = #99
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
+[module/memory]
+type = internal/memory
+interval = 1
+format = <label> <bar-used>
+
+label = RAM
+label-font = 3
+label-foreground = #99
+
+bar-used-width = 30
+bar-used-gradient = true
+bar-used-foreground-0 = #449f3d
+bar-used-foreground-1 = #2f8419
+bar-used-foreground-2 = #f5a70a
+bar-used-foreground-3 = #ed5456
+bar-used-indicator = █
+bar-used-indicator-font = 5
+bar-used-indicator-foreground = #fff
+bar-used-fill = █
+bar-used-fill-font = 5
+bar-used-empty = █
+bar-used-empty-font = 5
+bar-used-empty-foreground = #44
+
 
 ; vim:ft=dosini
