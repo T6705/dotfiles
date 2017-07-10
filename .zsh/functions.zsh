@@ -230,17 +230,21 @@ function aesdecrypt {
 }
 
 function qutebrowser-install {
-    mkdir ~/git
-    rm -rf ~/git/qutebrowser
-    git clone https://github.com/qutebrowser/qutebrowser.git ~/git/qutebrowser
-    cd ~/git/qutebrowser
-    tox -e mkvenv-pypi
+    sudo apt-get install -y python3-lxml python-tox python3-pyqt5 python3-pyqt5.qtwebkit python3-pyqt5.qtquick python3-sip python3-jinja2 python3-pygments python3-yaml
+    sudo apt-get install -y python3-pyqt5 python3-pyqt5.qtwebkit python3-pyqt5.qtquick python-tox python3-sip python3-dev
+    sudo apt-get install -y asciidoc source-highlight
+    sudo apt-get install -y gstreamer1.0-plugins-{bad,base,good,ugly}
+    time mkdir ~/git
+    time rm -rf ~/git/qutebrowser
+    time git clone https://github.com/qutebrowser/qutebrowser.git ~/git/qutebrowser
+    time cd ~/git/qutebrowser
+    time tox -e mkvenv-pypi
 }
 
 function qutebrowser-update {
     if [ -f ~/git/qutebrowser/.venv/bin/python3 ]; then
-        cd ~/git/qutebrowser && git pull
-        tox -r -e mkvenv-pypi
+        time cd ~/git/qutebrowser && time git pull
+        time tox -r -e mkvenv-pypi
     else
         qutebrowser-install
     fi
