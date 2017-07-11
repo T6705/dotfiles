@@ -66,14 +66,15 @@ tray-transparent = false
 tray-scale = 1.0
 
 font-0 = Hack:size=8;0
-font-1 = FontAwesome:size=8;0
-font-2 = NotoSans-Regular:size=8;-1
-font-3 = Termsynu:size=7;0
-font-4 = Unifont:size=5;0
-font-5 = fixed:pixelsize=10;0
-font-6 = monospace:size=9;2
-font-7 = siji:pixelsize=10;0
-font-8 = unifont:size=6:heavy:fontformat=truetype;-2
+font-1 = NotoSansCJKSCRegular:size=8;0
+font-2 = FontAwesome:size=8;0
+font-3 = NotoSans-Regular:size=8;-1
+font-4 = Termsynu:size=7;0
+font-5 = Unifont:size=5;0
+font-6 = fixed:pixelsize=10;0
+font-7 = monospace:size=9;2
+font-8 = siji:pixelsize=10;0
+font-9 = unifont:size=6:heavy:fontformat=truetype;-2
 
 [bar/bottom]
 monitor = LVDS1
@@ -115,14 +116,15 @@ tray-transparent = false
 tray-scale = 1.0
 
 font-0 = Hack:size=8;0
-font-1 = FontAwesome:size=8;0
-font-2 = NotoSans-Regular:size=8;-1
-font-3 = Termsynu:size=7;0
-font-4 = Unifont:size=5;0
-font-5 = fixed:pixelsize=10;0
-font-6 = monospace:size=9;2
-font-7 = siji:pixelsize=10;0
-font-8 = unifont:size=6:heavy:fontformat=truetype;-2
+font-1 = NotoSansCJKSCRegular:size=8;0
+font-2 = FontAwesome:size=8;0
+font-3 = NotoSans-Regular:size=8;-1
+font-4 = Termsynu:size=7;0
+font-5 = Unifont:size=5;0
+font-6 = fixed:pixelsize=10;0
+font-7 = monospace:size=9;2
+font-8 = siji:pixelsize=10;0
+font-9 = unifont:size=6:heavy:fontformat=truetype;-2
 
 ;-------------------------------------------------------------------------------
 
@@ -166,14 +168,15 @@ tray-transparent = false
 tray-scale = 1.0
 
 font-0 = Hack:size=8;0
-font-1 = FontAwesome:size=8;0
-font-2 = NotoSans-Regular:size=8;-1
-font-3 = Termsynu:size=7;0
-font-4 = Unifont:size=5;0
-font-5 = fixed:pixelsize=10;0
-font-6 = monospace:size=9;2
-font-7 = siji:pixelsize=10;0
-font-8 = unifont:size=6:heavy:fontformat=truetype;-2
+font-1 = NotoSansCJKSCRegular:size=8;0
+font-2 = FontAwesome:size=8;0
+font-3 = NotoSans-Regular:size=8;-1
+font-4 = Termsynu:size=7;0
+font-5 = Unifont:size=5;0
+font-6 = fixed:pixelsize=10;0
+font-7 = monospace:size=9;2
+font-8 = siji:pixelsize=10;0
+font-9 = unifont:size=6:heavy:fontformat=truetype;-2
 
 [bar/external_bottom]
 monitor = HDMI1
@@ -215,14 +218,15 @@ tray-transparent = false
 tray-scale = 1.0
 
 font-0 = Hack:size=8;0
-font-1 = FontAwesome:size=8;0
-font-2 = NotoSans-Regular:size=8;-1
-font-3 = Termsynu:size=7;0
-font-4 = Unifont:size=5;0
-font-5 = fixed:pixelsize=10;0
-font-6 = monospace:size=9;2
-font-7 = siji:pixelsize=10;0
-font-8 = unifont:size=6:heavy:fontformat=truetype;-2
+font-1 = NotoSansCJKSCRegular:size=8;0
+font-2 = FontAwesome:size=8;0
+font-3 = NotoSans-Regular:size=8;-1
+font-4 = Termsynu:size=7;0
+font-5 = Unifont:size=5;0
+font-6 = fixed:pixelsize=10;0
+font-7 = monospace:size=9;2
+font-8 = siji:pixelsize=10;0
+font-9 = unifont:size=6:heavy:fontformat=truetype;-2
 
 ;-------------------------------------------------------------------------------
 
@@ -231,6 +235,8 @@ type = custom/script
 exec = ~/.config/polybar/spotify_p.sh
 tail = true
 interval = 1
+format = <label>
+label = %{T1}%output%%{T-}
 
 [module/volume]
 type = internal/volume
