@@ -22,9 +22,9 @@ margin-top    = 5
 margin-bottom = 5
 
 [bar/top]
-monitor  = LVDS1
-width    = 100%
-height   = 27
+monitor = LVDS1
+width = 100%
+height = 24
 offset-x = 0
 offset-y = 0
 
@@ -55,7 +55,7 @@ font-7 = fixed:pixelsize=10;0
 font-8 = unifont:size=6:heavy:fontformat=truetype;-2
 font-9 = siji:pixelsize=10;0
 
-modules-left = bspwm i3
+modules-left = i3
 modules-center =
 modules-right = volume memory cpu wlan eth battery temperature date
 ;modules-right = backlight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
@@ -125,93 +125,45 @@ label-empty-foreground = ${colors.foreground-alt}
 label-empty-padding = 2
 
 [module/i3]
-;format-padding = 1
 type = internal/i3
-;format = <label-state>
 format = <label-state> <label-mode>
 enable-click    = true
 enable-scroll   = true
 index-sort      = true
+strip-wsnumbers = true
 ;wrapping-scroll = false
 
-;label-mode-padding = 2
-;label-mode-foreground = #000
-;label-mode-background = ${colors.primary}
-
 ;label-focused = %index%
-;label-focused-background = ${module/bspwm.label-focused-background}
-;label-focused-padding = ${module/bspwm.label-focused-padding}
-;label-focused-underline = ${module/bspwm.label-focused-underline}
+label-focused = %name%
 label-focused-background   = #008fff
 label-focused-foreground   = #ffffff
-label-focused-padding      = 1
+label-focused-padding      = 2
 
 ;label-unfocused = %index%
+label-unfocused = %name%
 ;label-unfocused-padding = ${module/bspwm.label-occupied-padding}
 label-unfocused-foreground = ${colors.color4}
-label-unfocused-padding    = 1
+label-unfocused-padding    = 2
 
 ;label-urgent = %index%!
+label-urgent = %name%
 ;label-urgent-background = ${module/bspwm.label-urgent-background}
 ;label-urgent-padding = ${module/bspwm.label-urgent-padding}
 label-urgent-background    = #bd2c40
 label-urgent-foreground    = #000000
-label-urgent-padding       = 1
+label-urgent-padding       = 2
 
+label-empty = %name%
+label-empty-foreground = #44ffffff
+label-empty-padding = 2
+
+label-visible = %name%
 label-visible-foreground   = #55
-label-visible-padding      = 1
+label-visible-padding      = 2
 ;label-visible = %index%
 ;label-visible-background = ${self.label-focused-background}
 ;label-visible-underline = ${self.label-focused-underline}
 ;label-visible-padding = ${self.label-focused-padding}
-
-[module/mpd]
-format-padding = 1
-type = internal/mpd
-
-format-online = <label-song>  <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random>
-
-label-song-maxlen = 25
-label-song-ellipsis = true
-
-icon-prev = 
-icon-seekb = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-icon-seekf = 
-
-icon-random = 
-icon-repeat = 
-
-toggle-on-foreground = ${colors.primary}
-toggle-off-foreground = #66
-
-ws-icon-0 = 1; term
-ws-icon-1 = 2; www
-ws-icon-2 = 3; code
-ws-icon-3 = 4; andr
-ws-icon-4 = 5; tgrm
-ws-icon-default = 
-
-[module/backlight]
-format-padding = 1
-type = internal/xbacklight
-
-format = <label> <bar>
-label = BL
-
-bar-width = 10
-bar-indicator = │
-bar-indicator-foreground = #ff
-bar-indicator-font = 2
-bar-fill = ─
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = ─
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
 
 [module/cpu]
 format-padding = 1
@@ -220,7 +172,9 @@ interval = 1
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
-label = %percentage%
+label = CPU %percentage%%
+label-font = 4
+label-foreground = #99
 
 [module/memory]
 format-padding = 1
@@ -229,7 +183,9 @@ interval = 1
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
-label = %percentage_used%
+label = RAM %percentage_used%%
+label-font = 4
+label-foreground = #99
 
 [module/wlan]
 format-padding = 1
@@ -268,50 +224,29 @@ label-disconnected = %ifname% disconnected
 label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
-format-padding = 1
-type = internal/date
-interval = 1
-
-date = " %Y-%m-%d"
-date-alt = " %Y-%m-%d"
-
-time = %H:%M:%S
-time-alt = %H:%M:%S
-
+date = %H:%M:%S
+date-alt = %d-%m-%Y
+format-padding = 2
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
-
-label = %date% %time%
+interval = 1.0
+type = internal/date
 
 [module/volume]
 type = internal/volume
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL
-label-volume-foreground = ${root.foreground}
-
-format-muted-prefix = " "
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = sound muted
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = │
-bar-volume-indicator-font = 2
-bar-volume-indicator-foreground = #ff
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+format-volume = <label-volume>
+format-volume-padding = 2
+;format-volume-underline = ${colors.white}
+label-volume = %{F#928374} %{F-}%percentage:3%%
+#label-volume-foreground = ${color.white}
+label-muted =%{F#928374} %{F-}0%
+#label-muted =%{F#928374} %{F-}mute
+format-muted = <label-muted>
+;format-muted-underline = ${colors.white}
+format-muted-padding = 2
+#label-muted-foreground = ${colors.gray}
+format-padding = 2
 
 [module/battery]
 type = internal/battery

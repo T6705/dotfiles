@@ -1,0 +1,469 @@
+; monitor = HDMI1
+; laptop = LVDS1
+
+[colors]
+;orange = #FF6200
+;orange = #d65d0e
+darkgray = ${xrdb:color8}
+orange = ${xrdb:color9}
+white = #ebdbb2
+gray = #585858
+black = #090909
+red = #c795ae
+blue = #95aec7
+yellow = #c7ae95
+green = #aec795
+#background = #1f222d
+#background = #4a000000
+background = #aa000000
+background-alt = #4e4e4e
+foreground = #dfdfdf
+;foreground = ${xrdb:foreground}
+foreground-alt = #4e4e4e
+primary = #1f222d
+secondary = #FF6200
+alert = #fb4934
+
+;-------------------------------------------------------------------------------
+
+[bar/top]
+monitor = LVDS1
+;bottom = true
+wm-restack = i3
+override-redirect = true
+width = 1356
+height = 26
+offset-x = 5
+offset-y = 5
+
+locale = en_HK.UTF-8
+
+enable-ipc = true
+
+padding-left = 0
+padding-right = 2
+
+module-margin-right = 0
+module-margin-left = 0
+
+modules-right = spotify volume
+modules-center = date
+modules-left = i3
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+underline-size = 0
+underline-color = ${colors.white}
+
+tray-detached = false
+tray-position =
+tray-offset-x = 0
+tray-offset-y = 0
+;tray-maxsize = 16
+tray-padding = 0
+tray-transparent = false
+tray-scale = 1.0
+
+font-0 = Hack:size=8;0
+font-1 = FontAwesome:size=8;0
+font-2 = NotoSans-Regular:size=8;-1
+font-3 = Termsynu:size=7;0
+font-4 = Unifont:size=5;0
+font-5 = fixed:pixelsize=10;0
+font-6 = monospace:size=9;2
+font-7 = siji:pixelsize=10;0
+font-8 = unifont:size=6:heavy:fontformat=truetype;-2
+
+[bar/bottom]
+monitor = LVDS1
+bottom = true
+wm-restack = i3
+override-redirect = true
+width = 1356
+height = 26
+offset-x = 5
+offset-y = 5
+
+locale = en_HK.UTF-8
+
+enable-ipc = true
+
+padding-left = 0
+padding-right = 0
+
+module-margin-right = 0
+module-margin-left = 0
+
+modules-left = wlan eth
+modules-center =
+modules-right = cpu memory battery temperature
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+underline-size = 0
+underline-color = ${colors.white}
+
+tray-detached = false
+tray-position =
+tray-offset-x = 0
+tray-offset-y = 0
+;tray-maxsize = 16
+tray-padding = 0
+tray-transparent = false
+tray-scale = 1.0
+
+font-0 = Hack:size=8;0
+font-1 = FontAwesome:size=8;0
+font-2 = NotoSans-Regular:size=8;-1
+font-3 = Termsynu:size=7;0
+font-4 = Unifont:size=5;0
+font-5 = fixed:pixelsize=10;0
+font-6 = monospace:size=9;2
+font-7 = siji:pixelsize=10;0
+font-8 = unifont:size=6:heavy:fontformat=truetype;-2
+
+;-------------------------------------------------------------------------------
+
+[bar/external_top]
+monitor = HDMI1
+;bottom = true
+wm-restack = i3
+override-redirect = true
+width = 1910
+height = 26
+offset-x = 5
+offset-y = 6
+
+locale = en_HK.UTF-8
+
+enable-ipc = true
+
+padding-left = 0
+padding-right = 2
+
+module-margin-right = 0
+module-margin-left = 0
+
+modules-right = spotify volume
+modules-center = date
+modules-left = i3
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+underline-size = 0
+underline-color = ${colors.white}
+
+tray-detached = false
+tray-position =
+tray-offset-x = 0
+tray-offset-y = 0
+;tray-maxsize = 16
+tray-padding = 0
+tray-transparent = false
+tray-scale = 1.0
+
+font-0 = Hack:size=8;0
+font-1 = FontAwesome:size=8;0
+font-2 = NotoSans-Regular:size=8;-1
+font-3 = Termsynu:size=7;0
+font-4 = Unifont:size=5;0
+font-5 = fixed:pixelsize=10;0
+font-6 = monospace:size=9;2
+font-7 = siji:pixelsize=10;0
+font-8 = unifont:size=6:heavy:fontformat=truetype;-2
+
+[bar/external_bottom]
+monitor = HDMI1
+bottom = true
+wm-restack = i3
+override-redirect = true
+width = 1910
+height = 26
+offset-x = 5
+offset-y = 6
+
+locale = en_HK.UTF-8
+
+enable-ipc = true
+
+padding-left = 0
+padding-right = 0
+
+module-margin-right = 0
+module-margin-left = 0
+
+modules-left = wlan eth
+modules-center =
+modules-right = cpu memory battery temperature
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+underline-size = 0
+underline-color = ${colors.white}
+
+tray-detached = false
+tray-position =
+tray-offset-x = 0
+tray-offset-y = 0
+;tray-maxsize = 16
+tray-padding = 0
+tray-transparent = false
+tray-scale = 1.0
+
+font-0 = Hack:size=8;0
+font-1 = FontAwesome:size=8;0
+font-2 = NotoSans-Regular:size=8;-1
+font-3 = Termsynu:size=7;0
+font-4 = Unifont:size=5;0
+font-5 = fixed:pixelsize=10;0
+font-6 = monospace:size=9;2
+font-7 = siji:pixelsize=10;0
+font-8 = unifont:size=6:heavy:fontformat=truetype;-2
+
+;-------------------------------------------------------------------------------
+
+[module/spotify]
+type = custom/script
+exec = ~/.config/polybar/spotify_p.sh
+tail = true
+interval = 1
+
+[module/volume]
+type = internal/volume
+;#label-muted =%{F#928374} %{F-}mute
+;#label-muted-foreground = ${colors.gray}
+;#label-volume-foreground = ${color.white}
+format-muted = <label-muted>
+format-muted-padding = 2
+format-muted-underline = ${colors.white}
+format-margin  = 4
+format-padding = 4
+format-spacing = 4
+format-volume = <label-volume>
+format-volume-padding = 2
+format-volume-underline = ${colors.white}
+label-muted =%{F#928374} %{F-}0%
+label-volume = %{F#928374} %{F-}%percentage:3%%
+
+[module/separator]
+type = custom/text
+content = " | "
+content-foreground = #fffff
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+strip-wsnumbers = true
+wrapping-scroll = false
+
+label-focused = %name%
+;label-focused-background = #88000000
+label-focused-background  = #008fff
+label-focused-foreground  = #ffffff
+label-focused-padding     = 2
+label-focused-underline   = #ddd
+
+label-unfocused = %name%
+label-unfocused-padding = 2
+
+label-occupied = %name%
+label-occupied-padding = 2
+
+label-urgent = %name%
+label-urgent-background = #bd2c40
+label-urgent-foreground = #000000
+label-urgent-padding = 2
+
+label-empty = %name%
+label-empty-foreground = #44ffffff
+label-empty-padding = 2
+
+label-visible = %name%
+label-visible-background = ${colors.background}
+;label-visible-underline = #383a3b
+label-visible-padding = ${self.label-focused-padding}
+
+[module/date]
+type = internal/date
+interval = 1.0
+date = %H:%M:%S
+date-alt = %d-%m-%Y
+format-padding = 2
+
+[module/cpu]
+
+type = internal/cpu
+interval = 1
+format = <label> <ramp-coreload>
+;format-margin = 2
+format-padding = 2
+;format-spacing = 2
+format-underline = #f90000
+label = %{F#6ff}CPU%{F-}  %percentage%%
+;label = %percentage%
+label-font = 3
+label-foreground = #99
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
+[module/memory]
+type = internal/memory
+interval = 1
+format = <label> <bar-used>
+;format-margin = 2
+format-padding = 2
+;format-spacing = 2
+format-underline = #4bffdc
+label = %{F#6ff}RAM%{F-}  %percentage_used%%
+;label = %percentage_used%
+label-font = 3
+label-foreground = #99
+bar-used-width = 30
+bar-used-gradient = true
+bar-used-foreground-0 = #449f3d
+bar-used-foreground-1 = #2f8419
+bar-used-foreground-2 = #f5a70a
+bar-used-foreground-3 = #ed5456
+bar-used-indicator = █
+bar-used-indicator-font = 5
+bar-used-indicator-foreground = #fff
+bar-used-fill = █
+bar-used-fill-font = 5
+bar-used-empty = █
+bar-used-empty-font = 5
+bar-used-empty-foreground = #44
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 1.0
+format-connected = <label-connected>
+format-connected-margin = 2
+format-connected-padding = 2
+format-connected-spacing = 2
+format-disconnected = <label-disconnected>
+format-disconnected-margin = 2
+format-disconnected-padding = 2
+format-disconnected-spacing = 2
+format-packetloss = <label-connected>
+format-packetloss-margin = 2
+format-packetloss-padding = 2
+format-packetloss-spacing = 2
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+label-connected = %{F#6ff}%local_ip%%{F-} %downspeed%
+;label-connected-foreground = #eefafafa
+;label-disconnected = %ifname%
+;label-disconnected-foreground = #66ffffff
+
+[module/eth]
+type = internal/network
+interface = enp3s0
+interval = 1.0
+format-connected = <label-connected>
+;format-connected-margin = 2
+;format-connected-padding = 2
+format-connected-spacing = 2
+format-disconnected = <label-disconnected>
+;format-disconnected-margin = 2
+;format-disconnected-padding = 2
+format-disconnected-spacing = 2
+format-packetloss = <label-connected>
+;format-packetloss-margin = 2
+;format-packetloss-padding = 2
+format-packetloss-spacing = 2
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+label-connected = %{F#6ff}%local_ip%%{F-} %downspeed%
+;label-connected-foreground = #eefafafa
+;label-disconnected = %ifname%
+;label-disconnected-foreground = #66ffffff
+
+[module/battery]
+type = internal/battery
+battery = BAT1
+adapter = ADP1
+full-at = 98
+time-format = %H:%M:%S
+format-charging = <animation-charging> <label-charging>
+;format-charging-margin = 2
+format-charging-padding = 2
+;format-charging-spacing = 2
+format-discharging = <ramp-capacity> <label-discharging>
+;format-discharging-margin = 2
+format-discharging-padding = 2
+;format-discharging-spacing = 2
+format-full = <ramp-capacity> <label-full>
+;format-full-margin = 2
+format-full-padding = 2
+;format-full-spacing = 2
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+format = <label>
+;format-margin = 2
+format-padding = 2
+;format-spacing = 2
+format-warn = <label-warn>
+;format-warn-margin = 2
+format-warn-padding = 2
+;format-warn-spacing = 2
+label = %temperature%
+label-warn = %temperature%
+label-warn-foreground = #f00

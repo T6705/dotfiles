@@ -11,12 +11,21 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/i3blocks.conf
     curl -fLo ~/.config/i3/compton.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf
-    curl -fLo ~/.config/i3/polybar/config --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/config
-    curl -fLo ~/.config/i3/polybar/external_config --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/external_config
-    curl -fLo ~/.config/i3/polybar/launch.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/polybar/launch.sh
+
+    echo "============================="
+    echo "== Download polybar config =="
+    echo "============================="
+
+    curl -fLo ~/.config/polybar/config --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/config
+    curl -fLo ~/.config/polybar/config2 --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/config2
+    curl -fLo ~/.config/polybar/config3 --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/config3
+    curl -fLo ~/.config/polybar/launch.sh --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/launch.sh
+    curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/spotify_p.sh
 
     echo "============================"
     echo "== Download ranger config =="
