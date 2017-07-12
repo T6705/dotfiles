@@ -1,6 +1,47 @@
 ###############
 ## functions ##
 ###############
+
+# ---------------------------------------------------------------------
+# usage: brightness <level> | adjust brightness
+# # ---------------------------------------------------------------------
+function brightness {
+    if [ -n "$1" ]; then
+        xrandr --output LVDS1 --brightness $1
+    else
+        echo "brightness <0-1>"
+    fi
+}
+
+function 2display {
+    # display screen information
+    xrandr
+
+    # LVDS1 as primary monitor, HDMI1 right of LVDS1
+    xrandr --output LVDS1 --auto --primary --output HDMI1 --auto --right-of LVDS1
+
+    # LVDS1 as primary monitor, HDMI1 right of LVDS1
+    #xrandr --output LVDS1 --auto --output HDMI1 --auto --right-of LVDS1
+}
+
+function mirrordisplay {
+    connected_displays=`xrandr | grep " connected" | awk '{print $1}'`
+
+    echo $connected_displays
+
+    vared -p "main display : "  -c main
+    vared -p "second display : " -c second
+
+    [[ $connected_displays =~ "$main" ]] &&
+        [[ $connected_displays =~ "$second" ]] &&
+            [[ "$main" != "$second" ]] &&
+                xrandr --output $main --auto --primary --output $second --auto --same-as $main
+
+    #[[ $connected_displays =~ "$main" ]] && echo "1ok"
+    #[[ $connected_displays =~ "$second" ]] && echo "2ok"
+    #[[ "$main" != "$second" ]] && echo "3ok"
+}
+
 # ---------------------------------------------------------------------
 # usage: ipv4_in <filename> | grep ipv4 in file
 # ---------------------------------------------------------------------
