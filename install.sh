@@ -324,6 +324,16 @@ function install_zsh {
     sudo cp -v *.ttf /usr/share/fonts/opentype/noto
     sudo fc-cache -f -v # optional
 
+    echo "========================"
+    echo "== install Nerd fonts =="
+    echo "========================"
+    mkdir -p ~/git
+    cd ~/git
+    rm -rf nerd-fonts
+    https://github.com/ryanoasis/nerd-fonts
+    cd nerd-fonts
+    ./install.sh
+
     echo "======================="
     echo "== install powerline =="
     echo "======================="
