@@ -306,6 +306,24 @@ function install_zsh {
     cd ..
     rm -rf fonts
 
+    echo "========================"
+    echo "== install Noto fonts =="
+    echo "========================"
+
+    cd /tmp
+    wget "https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip"
+    unzip Noto-hinted.zip
+    mkdir -p ~/.fonts
+    cp -v *.otc ~/.fonts
+    cp -v *.otf ~/.fonts
+    cp -v *.ttf ~/.fonts
+    fc-cache -f -v # optional
+    sudo mkdir -p /usr/share/fonts/opentype/noto
+    sudo cp -v *.otc /usr/share/fonts/opentype/noto
+    sudo cp -v *.otf /usr/share/fonts/opentype/noto
+    sudo cp -v *.ttf /usr/share/fonts/opentype/noto
+    sudo fc-cache -f -v # optional
+
     echo "======================="
     echo "== install powerline =="
     echo "======================="
