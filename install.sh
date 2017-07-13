@@ -297,14 +297,9 @@ function install_zsh {
     echo "== install powerline fonts =="
     echo "============================="
 
-    # clone
-    git clone https://github.com/powerline/fonts.git
-    # install
-    cd fonts
+    git clone https://github.com/powerline/fonts.git /tmp/fonts
+    cd /tmp/fonts
     ./install.sh
-    # clean-up a bit
-    cd ..
-    rm -rf fonts
 
     echo "========================"
     echo "== install Noto fonts =="
@@ -330,7 +325,7 @@ function install_zsh {
     mkdir -p ~/git
     cd ~/git
     rm -rf nerd-fonts
-    https://github.com/ryanoasis/nerd-fonts
+    git clone https://github.com/ryanoasis/nerd-fonts
     cd nerd-fonts
     ./install.sh
 
