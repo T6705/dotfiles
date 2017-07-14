@@ -99,14 +99,26 @@ function install_dependencies {
         suod apt-get autoremove -y
         suod apt-get clean
         sudo apt-get install -y zsh ranger tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox
-        # for building neovim
+
+        ### for neovim
         sudo apt-get install libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
-        # for building i3-gaps (Ubuntu >= 14.04 LTS, <= 16.04)
+
+        ### for i3-gaps (Ubuntu >= 14.04 LTS, <= 16.04)
         sudo add-apt-repository ppa:aguignard/ppa
         sudo apt-get update
         sudo apt-get install -y xdg-utils libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm-dev
-        # for building i3-gaps (Ubuntu >= 16.10)
+
+        ### for i3-gaps (Ubuntu >= 16.10)
         #sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev
+
+        ### for polybar
+        sudo apt-get install cmake cmake-data libcairo2-dev libxcb1-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xkb-dev pkg-config python-xcbgen xcb-proto
+        sudo apt-get install -y libxcb-xrm-dev # Enables support for getting values from the X resource db
+        sudo apt-get install -y i3-wm # Enables the internal i3 module
+        sudo apt-get install -y libasound2-dev # Enables the internal volume module
+        sudo apt-get install -y libmpdclient-dev # Enables the internal mpd module
+        sudo apt-get install -y libiw-dev # Enables the internal network module
+        sudo apt-get install -y libcurl4-openssl-dev # Enables the internal github module
     elif which pacman &> /dev/null ; then
         sudo pacman -Syu --noconfirm
         sudo pacman -Sy --noconfirm zsh ranger tmux xclip xsel npm vim neovim
@@ -124,9 +136,9 @@ function install_i3 {
         sudo pacman -S --noconfirm i3-wm
     fi
 
-    echo "======================"
-    echo "== Download i3-gaps =="
-    echo "======================"
+    echo "====================="
+    echo "== install i3-gaps =="
+    echo "====================="
 
     mkdir -p ~/git
     cd ~/git
@@ -146,6 +158,17 @@ function install_i3 {
     ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
     make
     sudo make install
+
+    echo "====================="
+    echo "== install polybar =="
+    echo "====================="
+
+    mkdir -p ~/git
+    cd ~/git
+    rm -rf polybar
+    git clone --branch 3.0.5 --recursive https://github.com/jaagr/polybar
+    cd polybar
+    ./build.sh
 
     echo "==========================="
     echo "== Download i3lock-fancy =="
