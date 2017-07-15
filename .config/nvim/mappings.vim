@@ -36,7 +36,7 @@ nnoremap <silent> <Leader>y "+y
 vnoremap <silent> <Leader>x "+x
 vnoremap <silent> <Leader>y "+y
 
-nnoremap <Leader>a :%y+<cr> " place whole file on the system clipboard
+nnoremap <Leader>a :%y+<CR> " place whole file on the system clipboard
 
 "" Escaping
 cnoremap <C-F> <Esc>
@@ -178,10 +178,10 @@ nnoremap <silent> <Leader>wK <C-W>K
 nnoremap <silent> <Leader>wL <C-W>L
 " Make splits the same width
 nnoremap <silent> <Leader>we <C-w>=
-nnoremap <silent> <Leader>wz :wincmd _ \|wincmd \| \| normal 0 <cr>
+nnoremap <silent> <Leader>wz :wincmd _ \|wincmd \| \| normal 0 <CR>
 
 " Quickly edit your macros
-nnoremap <Leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
+nnoremap <Leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><c-f><left>
 
 " Git
 nnoremap <silent> <Leader>gb  :Gblame<CR>
@@ -201,8 +201,8 @@ nnoremap <silent> <Leader>lo :lopen<CR>
 nnoremap <silent> <Leader>lc :lclose<CR>
 nnoremap <silent> [l :lprevious<CR> " Neomake
 nnoremap <silent> ]l :lnext<CR>     " Neomake
-nnoremap <silent> ]q :cnext<cr>zz
-nnoremap <silent> [q :cprev<cr>zz
+nnoremap <silent> ]q :cnext<CR>zz
+nnoremap <silent> [q :cprev<CR>zz
 "nmap <silent> [l <Plug>(ale_previous_wrap) " Asynchronous Lint Engine
 "nmap <silent> ]l <Plug>(ale_next_wrap      " Asynchronous Lint Engine
 

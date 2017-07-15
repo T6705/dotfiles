@@ -306,8 +306,13 @@ label-visible-padding = ${self.label-focused-padding}
 [module/date]
 type = internal/date
 interval = 1.0
-date = %H:%M:%S
-date-alt = %d-%m-%Y
+date = %a %d-%m-%Y
+date-alt = %a %d %b %Y
+time = %H:%M:%S
+time-alt = %H:%M:%S
+;label = %{F#83a598}%date%%{F-}%{F#b16286} %time%%{F-}
+label = %{F#689d6a}%date%%{F-}%{F#b16286} %time%%{F-}
+
 format-padding = 2
 
 [module/cpu]
@@ -379,15 +384,15 @@ bar-used-empty-foreground = #44
 type = internal/network
 interface = wlp2s0
 interval = 1.0
-format-connected = <label-connected>
+format-connected =  <label-connected>
 format-connected-margin = 2
 format-connected-padding = 2
 format-connected-spacing = 2
-format-disconnected = <label-disconnected>
+format-disconnected =  <label-disconnected>
 format-disconnected-margin = 2
 format-disconnected-padding = 2
 format-disconnected-spacing = 2
-format-packetloss = <label-connected>
+format-packetloss =  <label-connected>
 format-packetloss-margin = 2
 format-packetloss-padding = 2
 format-packetloss-spacing = 2
@@ -400,7 +405,8 @@ format-packetloss-spacing = 2
 ;   %upspeed%   [wireless+wired]
 ;   %downspeed% [wireless+wired]
 ;   %linkspeed% [wired]
-label-connected = %{F#6ff}%local_ip%%{F-} %downspeed%
+;label-connected = %{F#ff69b4}%ifname% %{F#6ff}%local_ip%%{F-} %downspeed%
+label-connected = %{F#ff69b4}%essid% %{F#6ff}%local_ip%%{F-} %downspeed%
 ;label-connected-foreground = #eefafafa
 ;label-disconnected = %ifname%
 ;label-disconnected-foreground = #66ffffff

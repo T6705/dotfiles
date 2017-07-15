@@ -164,6 +164,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 "Plug 'sheerun/vim-polyglot'                           " A collection of language packs for Vim.
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }         " Visualize your undo tree.
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' } " Run Async Shell Commands in Vim 8.0 / NeoVim and Output to Quickfix Window
+Plug 'skywind3000/quickmenu.vim'                      " A nice customizable popup menu for vim
 Plug 'terryma/vim-multiple-cursors'                   " True Sublime Text style multiple selections for Vim
 Plug 'tpope/vim-fugitive'                             " fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-repeat'                               " enables repeating other supported plugins with the . command

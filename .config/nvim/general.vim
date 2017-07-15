@@ -77,7 +77,7 @@ set invlist
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 set showbreak=↪
-nmap <Leader>l :set list!<cr>
+nmap <Leader>l :set list!<CR>
 
 " ----------------------------------------------------------------------------------------
 " UI

@@ -112,27 +112,24 @@ bindsym $mod+a focus parent
 # focus the child container
 # bindsym $mod+d focus child
 
-set $workspace0 "_"
-set $workspace1 "I"
-set $workspace2 "II"
-set $workspace3 "III"
-set $workspace4 "IV"
-set $workspace5 "V"
-set $workspace6 "VI"
-set $workspace7 "VII"
-set $workspace8 "VIII"
-set $workspace9 "IX"
-
-#for_window [class="URxvt" instance="3a"] floating toggle
-#exec --no-startup-id i3-msg 'workspace ; exec urxvt -name 3a -g 80x23+480+380'
-#for_window [class="URxvt" instance="3b"] floating toggle
-#exec --no-startup-id i3-msg 'workspace ; exec urxvt -name 3b -g 80x23+1305+380 -e ncmpcpp'
-#for_window [class="URxvt" instance="3c"] floating toggle
-#exec --no-startup-id i3-msg 'workspace ; exec urxvt -name 3c -g 80x23+480+840 -e htop'
-#for_window [class="URxvt" instance="3d"] floating toggle
-#exec --no-startup-id i3-msg 'workspace ; exec urxvt -name 3d -g 80x23+1305+840 -e ranger'
-#for_window [class="URxvt" instance="3e"] floating toggle
-#exec --no-startup-id i3-msg 'workspace ; exec urxvt -name 3e -g 30x1+1805+315'
+#    
+#  terminal
+#   skype
+#  steam
+#   spotify
+#  safari
+#  chrome
+#  firefox
+set $workspace0 "0 "
+set $workspace1 "1 "
+set $workspace2 "2 "
+set $workspace3 "3 "
+set $workspace4 "4 "
+set $workspace5 "5 "
+set $workspace6 "6 "
+set $workspace7 "7 "
+set $workspace8 "8 "
+set $workspace9 "9 "
 
 # switch to workspace
 bindsym $mod+1 workspace $workspace1
@@ -159,15 +156,12 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
 
 assign [class ="Firefox"] $workspace0
-assign [class ="Steam"] $workspace9
-assign [class ="Spotify"] $workspace8
-assign [class ="spotify"] $workspace8
+assign [class="Nautilus"] $workspace3
+assign [class ="vlc"] $workspace6
 assign [class ="Skype"] $workspace7
-# assign [class ="Thunar"] $workspace6
-assign [class ="Vlc"] $workspace6
-# assign [class ="Eclipse"] $workspace2
-# assign [class ="google-chrome" instance="crx_bgkodfmeijboinjdegggmkbkjfiagaan"] $workspace3
+assign [class ="Steam"] $workspace9
 for_window [class="^.*"] border pixel 5
+for_window [class="Spotify"] move to workspace $workspace8
 
 
 # reload the configuration file
@@ -300,22 +294,21 @@ bindsym $mod+shift+Return exec lock
 
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +5% && ~/.yabar_scripts/update_wallpaper.sh
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -5% && ~/.yabar_scripts/update_wallpaper.sh
-bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master toggle && ~/.yabar_scripts/update_wallpaper.sh
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +5% && ~/.yabar_scripts/update_wallpaper.sh
+#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -5% && ~/.yabar_scripts/update_wallpaper.sh
+#bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master toggle && ~/.yabar_scripts/update_wallpaper.sh
 
 
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+#bindsym XF86AudioPlay exec playerctl play
+#bindsym XF86AudioPause exec playerctl pause
+#bindsym XF86AudioNext exec playerctl next
+#bindsym XF86AudioPrev exec playerctl previous
 
 # Start up
 
 #exec --no-startup-id pulseaudio --start
 #exec --no-startup-id setxkbmap -option ctrl:swapcaps
-#exec --no-startup-id yabar
 exec --no-startup-id dropbox start
 exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/pokemon2.jpg
 exec --no-startup-id wicd -gtk -t

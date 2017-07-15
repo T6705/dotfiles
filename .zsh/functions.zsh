@@ -15,13 +15,19 @@ function brightness {
 
 function 2display {
     # display screen information
-    xrandr
-
+    #xrandr
     # LVDS1 as primary monitor, HDMI1 right of LVDS1
-    xrandr --output LVDS1 --auto --primary --output HDMI1 --auto --right-of LVDS1
+    #xrandr --output LVDS1 --auto --primary --output HDMI1 --auto --right-of LVDS1
+    connected_displays=`xrandr | grep " connected" | awk '{print $1}'`
+    echo $connected_displays
 
-    # LVDS1 as primary monitor, HDMI1 right of LVDS1
-    #xrandr --output LVDS1 --auto --output HDMI1 --auto --right-of LVDS1
+    vared -p "main display : "  -c main
+    vared -p "second display : " -c second
+
+    [[ $connected_displays =~ "$main" ]] &&
+        [[ $connected_displays =~ "$second" ]] &&
+            [[ "$main" != "$second" ]] &&
+                xrandr --output $main --auto --primary --output $second --auto --right-of $main
 }
 
 function mirrordisplay {

@@ -123,13 +123,27 @@ let g:airline_theme                               = "wombat"
 "let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 "let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = '?'
 "let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
-"let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['java'] = 'J'
 "let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 "let g:webdevicons_conceal_nerdtree_brackets = 1
 "let g:webdevicons_enable = 1
 "let g:webdevicons_enable_airline_statusline = 1
 "let g:webdevicons_enable_airline_tabline = 1
 "let g:webdevicons_enable_nerdtree = 1
+
+
+" ----------------------------------------------------------------------------------------
+" quickmenu
+" ----------------------------------------------------------------------------------------
+call quickmenu#reset() " clear all the items
+let g:quickmenu_options = "HL" " enable cursorline (L) and cmdline help (H)
+noremap <silent><Leader>qm :call quickmenu#toggle(0)<CR>
+" new section: empty action with text starts with "#" represent a new section
+call quickmenu#append("# Misc", '') " new section
+call quickmenu#append("Turn spell %{&spell? 'off':'on'}", "set spell!", "enable/disable spell check (:set spell!)")
+call quickmenu#append("Function List",          "TagbarToggle", "Switch Tagbar on/off")
+call quickmenu#append("Hexmode",                "Hexmode",      "Switch Hexmode on/off")
+call quickmenu#append("Interactive Scratchpad", "Codi!!",       "Switch Scratchpad on/off")
+call quickmenu#append("Undo Tree",              "GundoToggle",  "Switch Undo Tree on/off")
 
 
 " ----------------------------------------------------------------------------------------
@@ -507,12 +521,12 @@ if has('timers')
   "else
   "  noremap <expr> n 'n'.<sid>blink(2, 50)
   "  noremap <expr> N 'N'.<sid>blink(2, 50)
-  "  cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
+  "  cnoremap <expr> <CR> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<CR>"
   "endif
   "noremap <expr> <plug>(slash-after) <sid>blink(2, 50)
   noremap <expr> n 'n'.<sid>blink(2, 50)
   noremap <expr> N 'N'.<sid>blink(2, 50)
-  cnoremap <expr> <cr> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<cr>"
+  cnoremap <expr> <CR> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<CR>"
 endif
 
 
