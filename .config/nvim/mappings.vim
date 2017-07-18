@@ -341,8 +341,8 @@ nnoremap <Leader>3 m`^i### <esc>``4l
 nnoremap <Leader>4 m`^i#### <esc>``5l
 nnoremap <Leader>5 m`^i##### <esc>``6l
 
+"nnoremap <Leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
 "nnoremap <Leader>pdf :w<CR> :NeoTex<CR>
-nnoremap <Leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
 nnoremap <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
 " Make check spelling on or off

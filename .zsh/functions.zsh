@@ -183,96 +183,90 @@ function base64key {
     if [[ ( -n $1 && -n $2 ) ]]; then
         keyname=$1
         size=$2
-        openssl rand -base64 -out $keyname $size
+        time openssl rand -base64 -out $keyname $size
     else
         echo "usage: base64key <keyname> <keysize>"
     fi
 }
 
-# ---------------------------------------------------------------------
-# usage: rsakeypair <keyname> <keysize>
-# ---------------------------------------------------------------------
-function rsakeypair {
-    if [[ ( -n $1 && -n $2 ) ]]; then
-        pri=$1
-        size=$2
-        pub="$pri.pub"
-        openssl genrsa -out $pri $size
-        openssl rsa -in $pri -out $pub -outform PEM -pubout
-    else
-        echo "usage: rsakeypair <keyname> <keysize>"
-    fi
-}
-
-# ---------------------------------------------------------------------
-# usage: rsaencrypt <pubkey> <infile> <outfile>
-# ---------------------------------------------------------------------
-function rsaencrypt {
-    if [[ ( -n $1 && -n $2 && -n $3) ]]; then
-        pub=$1
-        infile=$2
-        outfile=$3
-        openssl rsautl -encrypt -inkey $pub -pubin -in $infile -out $outfile
-    else
-        echo "usage: rsaencrypt <pubkey> <infile> <outfile>"
-    fi
-}
-
-# ---------------------------------------------------------------------
-# usage: rsadecrypt <prikey> <infile> <outfile>
-# ---------------------------------------------------------------------
-function rsadecrypt {
-    if [[ ( -n $1 && -n $2 && -n $3) ]]; then
-        pri=$1
-        infile=$2
-        outfile=$3
-        openssl rsautl -decrypt -inkey $pri -in $infile -out $outfile
-    else
-        echo "usage: rsadecrypt <prikey> <infile> <outfile>"
-    fi
-}
-
-# ---------------------------------------------------------------------
-# usage: aesencrypt <infile> <outfile>
-# ---------------------------------------------------------------------
-function aesencrypt {
-    if [[ ( -n $1 && -n $2 && -n $3 ) ]]; then
-        infile=$1
-        outfile=$2
-        keyfile=$3
-        #openssl aes-256-cbc -a -salt -in $infile -out $outfile -kfile $keyfile
-        openssl enc -aes-256-cbc -a -salt -in $infile -out $outfile -pass file:$keyfile
-    elif [[ ( -n $1 && -n $2 ) ]]; then
-        infile=$1
-        outfile=$2
-        #openssl aes-256-cbc -a -salt -in $infile -out $outfile
-        openssl enc -aes-256-cbc -a -salt -in $infile -out $outfile
+function rsa {
+    if [[ $1 == "keygen" ]]; then
+        if [[ ( -n $2 && -n $3 ) ]]; then
+            pri=$2
+            size=$3
+            pub="$pri.pub"
+            time openssl genrsa -out $pri $size
+            time openssl rsa -in $pri -out $pub -outform PEM -pubout
+        else
+            echo "usage: rsa keygen <keyname> <keysize>"
+        fi
+    elif [[ ( $1 == "encrypt" || $1 == "e" )]]; then
+        if [[ ( -n $2 && -n $3 && -n $4) ]]; then
+            pub=$2
+            infile=$3
+            outfile=$4
+            time openssl rsautl -encrypt -inkey $pub -pubin -in $infile -out $outfile
+        else
+            echo "usage: rsa encrypt <pubkey> <infile> <outfile>"
+        fi
+    elif [[ ( $1 == "decrypt" || $1 == "d" ) ]]; then
+        if [[ ( -n $2 && -n $3 && -n $4) ]]; then
+            pri=$2
+            infile=$3
+            outfile=$4
+            time openssl rsautl -decrypt -inkey $pri -in $infile -out $outfile
+        else
+            echo "usage: rsa decrypt <prikey> <infile> <outfile>"
+        fi
     else
         echo "usage:"
-        echo "aesencrypt <infile> <outfile>"
-        echo "aesencrypt <infile> <outfile> <keyfile>"
+        echo "rsa keygen <keyname> <keysize>"
+        echo "rsa encrypt <pubkey> <infile> <outfile>"
+        echo "rsa decrypt <prikey> <infile> <outfile>"
     fi
 }
 
-# ---------------------------------------------------------------------
-# usage: aesdecrypt <infile> <outfile>
-# ---------------------------------------------------------------------
-function aesdecrypt {
-    if [[ ( -n $1 && -n $2 && -n $3 ) ]]; then
-        infile=$1
-        outfile=$2
-        keyfile=$3
-        #openssl aes-256-cbc -d -a -in $infile -out $outfile -kfile $keyfile
-        openssl enc -aes-256-cbc -d -a -in $infile -out $outfile -pass file:$keyfile
-    elif [[ ( -n $1 && -n $2 ) ]]; then
-        infile=$1
-        outfile=$2
-        #openssl aes-256-cbc -d -a -in $infile -out $outfile
-        openssl enc -aes-256-cbc -d -a -in $infile -out $outfile
+function aes {
+    if [[ ( $1 == "encrypt" || $1 == "e" ) ]]; then
+        if [[ ( -n $2 && -n $3 && -n $4 ) ]]; then
+            infile=$2
+            outfile=$3
+            keyfile=$4
+            #time openssl aes-256-cbc -a -salt -in $infile -out $outfile -kfile $keyfile
+            time openssl enc -aes-256-cbc -a -salt -in $infile -out $outfile -pass file:$keyfile
+        elif [[ ( -n $2 && -n $3 ) ]]; then
+            infile=$2
+            outfile=$3
+            #time openssl aes-256-cbc -a -salt -in $infile -out $outfile
+            time openssl enc -aes-256-cbc -a -salt -in $infile -out $outfile
+        else
+            echo "usage:"
+            echo "aes encrypt <infile> <outfile>"
+            echo "aes encrypt <infile> <outfile> <keyfile>"
+        fi
+    elif [[ $1 == "decrypt" || $1 == "d" ]]; then
+        if [[ ( -n $2 && -n $3 && -n $4 ) ]]; then
+            infile=$2
+            outfile=$3
+            keyfile=$4
+            #time openssl aes-256-cbc -d -a -in $infile -out $outfile -kfile $keyfile
+            time openssl enc -aes-256-cbc -d -a -in $infile -out $outfile -pass file:$keyfile
+        elif [[ ( -n $2 && -n $3 ) ]]; then
+            infile=$2
+            outfile=$3
+            #time openssl aes-256-cbc -d -a -in $infile -out $outfile
+            time openssl enc -aes-256-cbc -d -a -in $infile -out $outfile
+        else
+            echo "usage:"
+            echo "aes decrypt <infile> <outfile>"
+            echo "aes decrypt <infile> <outfile> <keyfile>"
+        fi
     else
         echo "usage:"
-        echo "aesdecrypt <infile> <outfile>"
-        echo "aesdecrypt <infile> <outfile> <keyfile>"
+        echo "aes encrypt <infile> <outfile>"
+        echo "aes encrypt <infile> <outfile> <keyfile>"
+        echo "aes decrypt <infile> <outfile>"
+        echo "aes decrypt <infile> <outfile> <keyfile>"
     fi
 }
 
