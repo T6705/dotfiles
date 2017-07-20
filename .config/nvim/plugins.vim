@@ -32,7 +32,6 @@ silent! if plug#begin('~/.config/nvim/plugged')
 " ----------------------------------------------------------------------------------------
 " ColorScheme
 " ----------------------------------------------------------------------------------------
-Plug 'AlessandroYorba/Monrovia'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'flazz/vim-colorschemes'
 Plug 'google/vim-colorscheme-primary'

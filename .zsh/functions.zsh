@@ -111,6 +111,19 @@ function ram {
 }
 
 # ---------------------------------------------------------------------
+# usage: extract_frame <filename>
+# ---------------------------------------------------------------------
+function extract_frame {
+    echo "Extracting frame from $1 ..."
+    if [ -f $1 ] ; then
+        mkdir -p frame && cd frame
+        time ffmpeg -i $1 frame/frame%09d.bmp
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+# ---------------------------------------------------------------------
 # usage: extract <filename>
 # ---------------------------------------------------------------------
 function extract {
