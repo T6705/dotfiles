@@ -36,6 +36,14 @@ function install_dots {
     curl -fLo ~/.config/ranger/rifle.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rifle.conf
 
+    echo "================================="
+    echo "== Download qutebrowser config =="
+    echo "================================="
+
+    curl -fLo ~/.config/qutebrowser/qutebrowser.conf --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/qutebrowser/qutebrowser.conf
+
+
     echo "==============================="
     echo "== Download spacemacs config =="
     echo "==============================="

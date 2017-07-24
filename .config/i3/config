@@ -120,6 +120,8 @@ bindsym $mod+a focus parent
 #  safari
 #  chrome
 #  firefox
+#   rpi
+#
 set $workspace0 "0 "
 set $workspace1 "1 "
 set $workspace2 "2 "
@@ -157,7 +159,9 @@ bindsym $mod+Shift+0 move container to workspace $workspace0
 
 assign [class="Chromium-browser|Firefox|qutebrowser"] $workspace0
 assign [class="Nautilus"] $workspace3
-assign [class="Totem|mpv|vlc"] $workspace6
+assign [class="VirtualBox"] $workspace4
+assign [class="Burpsuite*|Wireshark"] $workspace5
+assign [class="Totem|mplayer|mpv|vlc"] $workspace6
 assign [class="Skype"] $workspace7
 assign [class="Steam"] $workspace9
 for_window [class="^.*"] border pixel 5
