@@ -140,6 +140,7 @@ noremap <silent><Leader>qm :call quickmenu#toggle(0)<CR>
 " new section: empty action with text starts with "#" represent a new section
 call quickmenu#append("# Misc", '') " new section
 call quickmenu#append("Turn spell %{&spell? 'off':'on'}", "set spell!", "enable/disable spell check (:set spell!)")
+call quickmenu#append("Turn wrap %{&wrap? 'off':'on'}", "set wrap!", "enable/disable wrap (:set wrap!)")
 call quickmenu#append("Function List",          "TagbarToggle", "Switch Tagbar on/off")
 call quickmenu#append("Hexmode",                "Hexmode",      "Switch Hexmode on/off")
 call quickmenu#append("Interactive Scratchpad", "Codi!!",       "Switch Scratchpad on/off")

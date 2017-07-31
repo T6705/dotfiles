@@ -28,7 +28,9 @@ command! PU PlugUpdate | PlugUpgrade
 "vnoremap c "_c
 
 " Make `Y` behave like `C` and `D`
-nnoremap Y y$
+"nnoremap Y y$
+map y <Plug>(operator-flashy)
+nmap Y <Plug>(operator-flashy)$
 
 nnoremap <silent> <Leader>p "+gP
 nnoremap <silent> <Leader>x "+x

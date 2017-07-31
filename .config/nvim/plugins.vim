@@ -144,6 +144,7 @@ Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
             \'<Plug>(easymotion-overwin-f)'] } " Vim motions on speed!
 Plug 'ervandew/supertab'                                                     " Perform all your vim insert mode completions with Tab
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'haya14busa/vim-operator-flashy'                                        " Highlight yanked area
 Plug 'honza/vim-snippets'                                                    " vim-snipmate default snippets
 Plug 'itchyny/vim-cursorword'                                                " Underlines the word under the cursor
 Plug 'johngrib/vim-game-code-break', { 'on': 'VimGameCodeBreak' }            " Block-breaking game in vim 8.0
@@ -153,10 +154,11 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " A Vim alignment plugin
 Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'                          " Enhancing in-buffer search experience
+Plug 'kana/vim-operator-user'                      " Vim plugin: Define your own operator easily
 Plug 'kshenoy/vim-signature'                       " Plugin to toggle, display and navigate marks
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays tags in a window, ordered by scope
 Plug 'mhinz/vim-signify'                           " Show a diff using Vim its sign column.
-Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'                      " Adds file type glyphs/icons to popular Vim plugins
 Plug 'scrooloose/nerdcommenter'                    " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }         " file tree
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } " git status
