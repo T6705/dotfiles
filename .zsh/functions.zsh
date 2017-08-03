@@ -312,3 +312,31 @@ function qutebrowser {
         qutebrowser
     fi
 }
+
+function edb-install {
+    echo "=============================================="
+    echo "== edb - cross platform x86/x86-64 debugger =="
+    echo "=============================================="
+    # install dependencies For Ubuntu >= 15.10
+    sudo apt-get install -y    \
+        cmake                  \
+        build-essential        \
+        libboost-dev           \
+        libqt5xmlpatterns5-dev \
+        qtbase5-dev            \
+        qt5-default            \
+        libqt5svg5-dev         \
+        libgraphviz-dev        \
+        libcapstone-dev
+
+    if [ -d ~/git/edb-debugger ]; then
+        time rm -rf ~/git/edb-debugger && cd ~/git
+    else
+        mkdir -p ~/git && cd ~/git
+    fi
+    time git clone --recursive https://github.com/eteran/edb-debugger.git
+    cd edb-debugger
+    mkdir build && cd build
+    time cmake -DCMAKE_INSTALL_PREFIX=/usr/local/ ..
+    time make && time sudo make install && time edb --version
+}
