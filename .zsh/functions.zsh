@@ -2,6 +2,14 @@
 ## functions ##
 ###############
 
+function weather {
+    if [ -n "$1" ]; then
+        curl wttr.in
+    else
+        curl wttr.in | tac | tac | head -n 7
+    fi
+}
+
 # ---------------------------------------------------------------------
 # usage: brightness <level> | adjust brightness
 # # ---------------------------------------------------------------------

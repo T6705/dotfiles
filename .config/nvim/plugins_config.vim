@@ -175,7 +175,7 @@ let g:UltiSnipsEditSplit = "vertical"
 " ----------------------------------------------------------------------------------------
 " Ultsnips
 " ----------------------------------------------------------------------------------------
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "<C-n>"
 
 
 " ----------------------------------------------------------------------------------------
@@ -392,6 +392,7 @@ let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
 " ----------------------------------------------------------------------------------------
 " let g:pymode_options_max_line_length = 79 " Setup max line length
 let g:pymode                  = 1            " enable Pymode
+let g:pymode_breakpoint       = 1
 let g:pymode_breakpoint_bind  = '<Leader>pb' " add breakpoint with ' pb'
 let g:pymode_doc              = 1            " read doc :PymodeDoc arg
 let g:pymode_doc_bind         = '<Leader>pd' " press ' pd' to show doc for current word
@@ -405,11 +406,40 @@ let g:pymode_run_bind         = '<Leader>pr' " run python code with ,pr
 let g:pymode_trim_whitespaces = 1            " Trim unused white spaces on save
 let g:pymode_virtualenv       = 1            " Enable automatic virtualenv detection
 
+" rope
+let g:pymode_rope                     = 0
+let g:pymode_rope_auto_project        = 0
+let g:pymode_rope_autoimport_generate = 0
+let g:pymode_rope_complete_on_dot     = 0
+let g:pymode_rope_completion          = 0
+let g:pymode_rope_enable_autoimport   = 0
+let g:pymode_rope_guess_project       = 0
+
 """ linting code with neomake
 let g:pymode_lint_checkers   = ['pyflakes', 'pep8', 'mccabe']
 let g:pymode_lint_on_fly     = 0
 let g:pymode_lint_on_write   = 0
 let g:pymode_lint_unmodified = 0
+
+"" syntax highlight
+"let g:pymode_syntax=1
+"let g:pymode_syntax_all=1
+"let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
+"let g:pymode_syntax_builtin_types=g:pymode_syntax_all
+"let g:pymode_syntax_docstrings=g:pymode_syntax_all
+"let g:pymode_syntax_doctests=g:pymode_syntax_all
+"let g:pymode_syntax_highlight_async_await=g:pymode_syntax_all
+"let g:pymode_syntax_highlight_equal_operator=g:pymode_syntax_all
+"let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
+"let g:pymode_syntax_highlight_self=g:pymode_syntax_all
+"let g:pymode_syntax_highlight_stars_operator=g:pymode_syntax_all
+"let g:pymode_syntax_indent_errors=g:pymode_syntax_all
+"let g:pymode_syntax_print_as_function=g:pymode_syntax_all
+"let g:pymode_syntax_slow_sync=1
+"let g:pymode_syntax_space_errors=g:pymode_syntax_all
+"let g:pymode_syntax_string_format=g:pymode_syntax_all
+"let g:pymode_syntax_string_formatting=g:pymode_syntax_all
+"let g:pymode_syntax_string_templates=g:pymode_syntax_all
 
 
 " ----------------------------------------------------------------------------------------

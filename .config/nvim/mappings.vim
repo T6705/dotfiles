@@ -9,6 +9,8 @@ command W w !sudo tee % > /dev/null
 " :J json prettify
 command J :%!python -mjson.tool
 
+command Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
+
 command! PU PlugUpdate | PlugUpgrade
 
 " ----------------------------------------------------------------------------------------
@@ -38,7 +40,8 @@ nnoremap <silent> <Leader>y "+y
 vnoremap <silent> <Leader>x "+x
 vnoremap <silent> <Leader>y "+y
 
-nnoremap <Leader>a :%y+<CR> " place whole file on the system clipboard
+" place whole file on the system clipboard
+nnoremap <silent> <Leader>a :%y+<CR>
 
 "" Escaping
 cnoremap <C-F> <Esc>
@@ -60,16 +63,16 @@ ino <right> <Nop>
 ino <up> <Nop>
 
 " Saner command-line history
-cnoremap <c-h>  <left>
-cnoremap <c-j>  <down>
-cnoremap <c-k>  <up>
-cnoremap <c-l>  <right>
+cnoremap <C-h>  <left>
+cnoremap <C-j>  <down>
+cnoremap <C-k>  <up>
+cnoremap <C-l>  <right>
 
 " Map arrow keys to window resize commands.
-nnoremap <Right> 5<C-W>>
-nnoremap <Left> 5<C-W><
-nnoremap <Up> 5<C-W>+
-nnoremap <Down> 5<C-W>-
+nnoremap <Right> 2<C-W>>
+nnoremap <Left> 2<C-W><
+nnoremap <Up> 2<C-W>+
+nnoremap <Down> 2<C-W>-
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
@@ -157,7 +160,7 @@ nnoremap ? ?\v
 vnoremap ? ?\v
 
 " search for ipv4
-nnoremap /ip4 /\v([0-9]{1,3}\.){3}[0-9]{1,3}
+nnoremap /ip4 /\v([0-9]{1,3}\.){3}[0-9]{1,3}<CR>
 
 " search for ipv6
 "nnoremap /ip6 /\v(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}\|([0-9a-fA-F]{1,4}:){1,7}:\|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}\|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}\|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}\|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}\|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}\|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})\|:((:[0-9a-fA-F]{1,4}){1,7}\|:)\|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}\|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]\|(2[0-4]\|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]\|(2[0-4]\|1{0,1}[0-9]){0,1}[0-9])\|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]\|(2[0-4]\|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]\|(2[0-4]\|1{0,1}[0-9]){0,1}[0-9]))
@@ -166,7 +169,7 @@ nnoremap /ip4 /\v([0-9]{1,3}\.){3}[0-9]{1,3}
 nnoremap /url /\v(http\|https\|ftp):\/\/[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?<CR>
 
 " search for word under the cursor
-nnoremap <Leader>/ "fyiw :/<c-r>f<CR>
+nnoremap <Leader>/ "fyiw :/<C-r>f<CR>
 
 " window navigation
 nnoremap <silent> <Leader>wh :call functions#WinMove('h')<CR>
@@ -183,7 +186,7 @@ nnoremap <silent> <Leader>we <C-w>=
 nnoremap <silent> <Leader>wz :wincmd _ \|wincmd \| \| normal 0 <CR>
 
 " Quickly edit your macros
-nnoremap <Leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><c-f><left>
+nnoremap <Leader>m  :<C-u><C-r><C-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><C-f><left>
 
 " Git
 nnoremap <silent> <Leader>gb  :Gblame<CR>
@@ -196,7 +199,8 @@ nnoremap <silent> <Leader>gs  :Gstatus<CR>
 nnoremap <silent> <Leader>gw  :Gwrite<CR>
 
 " YouCompleteMe
-noremap <Leader>d :YcmCompleter GoTo<CR>
+noremap <leader>g :YcmCompleter GoTo<CR>
+noremap <leader>d :YcmCompleter GoToDefinition<CR>
 
 " quickfix
 nnoremap <silent> <Leader>lo :lopen<CR>
@@ -268,10 +272,10 @@ nnoremap <silent> <Leader>ts :Tags<CR>
 nnoremap <silent> <Leader>tb :TagbarToggle<CR>
 
 " Insert mode completion
-imap <c-x>w <plug>(fzf-complete-word)
-imap <c-x>p <plug>(fzf-complete-path)
-imap <c-x>a <plug>(fzf-complete-file-ag)
-imap <c-x>l <plug>(fzf-complete-line)
+imap <C-x>w <plug>(fzf-complete-word)
+imap <C-x>p <plug>(fzf-complete-path)
+imap <C-x>a <plug>(fzf-complete-file-ag)
+imap <C-x>l <plug>(fzf-complete-line)
 
 " File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
 let g:fzf_files_options =

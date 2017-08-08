@@ -136,6 +136,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }                              " Inter
 Plug 'SirVer/ultisnips'                                                  " The ultimate snippet solution for Vim.
 Plug 'benmills/vimux'                                                    " vim plugin to interact with tmux
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                       " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
+Plug 'chrisbra/vim-diff-enhanced'                                        " Better Diff options for Vim
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }           " VIM Table Mode for instant table creation.
 Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
             \'<Plug>(easymotion-overwin-line)',

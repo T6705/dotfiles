@@ -159,6 +159,7 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
 
 assign [class="Chromium-browser|Firefox|qutebrowser"] $workspace0
+assign [class="Gnome-terminal|Gnome-terminal-server|URxvt"] $workspace1
 assign [class="Nautilus"] $workspace3
 assign [class="VirtualBox"] $workspace4
 assign [class="Burpsuite*|Wireshark"] $workspace5
