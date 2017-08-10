@@ -43,11 +43,11 @@ Plug 'tomasr/molokai'
 " ----------------------------------------------------------------------------------------
 " Interface
 " ----------------------------------------------------------------------------------------
-Plug 'Yggdroot/indentLine'
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'Yggdroot/indentLine'                           " A vim plugin to display the indention levels with thin vertical lines
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }           " Distraction-free writing in Vim
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " All the world's indeed a stage and we are merely players
+Plug 'vim-airline/vim-airline'                       " lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes'                " A collection of themes for vim-airline
 
 
 " ----------------------------------------------------------------------------------------
@@ -84,9 +84,9 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - eas
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
-"Plug 'w0rp/ale'
-Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
-Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }
+"Plug 'w0rp/ale' " Asynchronous Lint Engine
+Plug 'benekastah/neomake'                      " Asynchronous linting and make framework for Neovim/Vim
+Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
 
 
 " ----------------------------------------------------------------------------------------
