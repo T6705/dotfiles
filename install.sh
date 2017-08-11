@@ -1,9 +1,11 @@
 #!/bin/zsh
 
 function install_dots {
+    echo ""
     echo "========================"
     echo "== Download i3 config =="
     echo "========================"
+    echo ""
 
     curl -fLo ~/.config/i3/config --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config
@@ -12,9 +14,11 @@ function install_dots {
     curl -fLo ~/.config/i3/compton.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf
 
+    echo ""
     echo "============================="
     echo "== Download polybar config =="
     echo "============================="
+    echo ""
 
     curl -fLo ~/.config/polybar/config --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/config
@@ -27,39 +31,49 @@ function install_dots {
     curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/spotify_p.sh
 
+    echo ""
     echo "============================"
     echo "== Download ranger config =="
     echo "============================"
+    echo ""
 
     curl -fLo ~/.config/ranger/rc.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rc.conf
     curl -fLo ~/.config/ranger/rifle.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rifle.conf
 
+    echo ""
     echo "================================="
     echo "== Download qutebrowser config =="
     echo "================================="
+    echo ""
 
     curl -fLo ~/.config/qutebrowser/qutebrowser.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/qutebrowser/qutebrowser.conf
 
 
+    echo ""
     echo "==============================="
     echo "== Download spacemacs config =="
     echo "==============================="
+    echo ""
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.spacemacs > ~/.spacemacs
 
+    echo ""
     echo "=========================="
     echo "== Download tmux config =="
     echo "=========================="
+    echo ""
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf.local > ~/.tmux.conf.local
 
+    echo ""
     echo "=============================="
     echo "== Download vim/nvim config =="
     echo "=============================="
+    echo ""
 
     curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/augroups.vim
@@ -81,9 +95,11 @@ function install_dots {
     curl -fLo ~/.config/nvim/init.vim --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim
 
+    echo ""
     echo "========================="
     echo "== Download zsh config =="
     echo "========================="
+    echo ""
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
 
@@ -144,9 +160,11 @@ function install_i3 {
         sudo pacman -S --noconfirm i3-wm
     fi
 
+    echo ""
     echo "====================="
     echo "== install i3-gaps =="
     echo "====================="
+    echo ""
 
     mkdir -p ~/git
     cd ~/git
@@ -167,9 +185,11 @@ function install_i3 {
     make
     sudo make install
 
+    echo ""
     echo "====================="
     echo "== install polybar =="
     echo "====================="
+    echo ""
 
     mkdir -p ~/git
     cd ~/git
@@ -178,9 +198,11 @@ function install_i3 {
     cd polybar
     ./build.sh
 
+    echo ""
     echo "==========================="
     echo "== Download i3lock-fancy =="
     echo "==========================="
+    echo ""
 
     mkdir -p ~/git
     cd ~/git
@@ -206,9 +228,11 @@ function install_spacemacs {
         sudo pacman -S --noconfirm emacs
     fi
 
+    echo ""
     echo "======================="
     echo "== install spacemacs =="
     echo "======================="
+    echo ""
     if [[ -d ~/.emacs.d ]]; then
         cd ~/.emacs.d && git pull
     else
@@ -224,9 +248,11 @@ function install_tmux {
         sudo pacman -S --noconfirm tmux
     fi
 
+    echo ""
     echo "=================================="
     echo "== Download Tmux Plugin Manager =="
     echo "=================================="
+    echo ""
 
     sudo rm -rf ~/.tmux
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -239,9 +265,11 @@ function install_vim {
         sudo pacman -S --noconfirm vim neovim
     fi
 
+    echo ""
     echo "========================================"
     echo "== Download vim-plugs and color theme =="
     echo "========================================"
+    echo ""
 
     ### vim
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -255,9 +283,11 @@ function install_vim {
     curl -fLo ~/.config/nvim/colors/molokai.vim --create-dirs \
         https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 
+    echo ""
     echo "===================="
     echo "== Update Plugins =="
     echo "===================="
+    echo ""
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/visincr.vba > /tmp/visincr.vba
 
@@ -285,56 +315,61 @@ function install_zsh {
         sudo pacman -S --noconfirm zsh
     fi
 
+    echo ""
     echo "====================================="
     echo "== Download zsh plugins and themes =="
     echo "====================================="
+    echo ""
 
     if [[ -d ~/.oh-my-zsh ]]; then
-        cd ~/.oh-my-zsh && git pull
+        time cd ~/.oh-my-zsh && time git pull
     else
-        git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+        time git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
     fi
 
     mkdir -p ~/.oh-my-zsh/custom/plugins
 
     if [[ -d ~/.oh-my-zsh/custom/plugins/alias-tips ]]; then
-        cd ~/.oh-my-zsh/custom/plugins/alias-tips && git pull
+        time cd ~/.oh-my-zsh/custom/plugins/alias-tips && time git pull
     else
-        git clone https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
+        time git clone https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
     fi
 
     if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
-        cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull
+        time cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && time git pull
     else
-        git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        time git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
     fi
 
     if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-completions ]]; then
-        cd ~/.oh-my-zsh/custom/plugins/zsh-completions && git pull
+        time cd ~/.oh-my-zsh/custom/plugins/zsh-completions && time git pull
     else
-        git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+        time git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
     fi
 
     if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]]; then
-        cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
+        time cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && time git pull
     else
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+        time git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     fi
 
     curl -fLo ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme --create-dirs \
         https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/spaceship.zsh
 
+    echo ""
     echo "============================="
     echo "== install powerline fonts =="
     echo "============================="
+    echo ""
 
-    git clone https://github.com/powerline/fonts.git /tmp/fonts
-    cd /tmp/fonts
-    ./install.sh
+    time git clone https://github.com/powerline/fonts.git /tmp/fonts
+    time /tmp/fonts/install.sh
 
+    echo ""
     echo "========================"
     echo "== install Noto fonts =="
     echo "========================"
+    echo ""
 
     cd /tmp
     wget "https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip"
@@ -350,19 +385,25 @@ function install_zsh {
     sudo cp -v *.ttf /usr/share/fonts/opentype/noto
     sudo fc-cache -f -v # optional
 
+    echo ""
     echo "========================"
     echo "== install Nerd fonts =="
     echo "========================"
-    mkdir -p ~/git
-    cd ~/git
-    rm -rf nerd-fonts
-    git clone https://github.com/ryanoasis/nerd-fonts
-    cd nerd-fonts
-    ./install.sh
+    echo ""
+    if [ -d ~/git/nerd-fonts ]; then
+        time cd ~/git/nerd-fonts && time git pull
+        time ./install.sh
+    else
+        time mkdir -p ~/git
+        time git clone https://github.com/ryanoasis/nerd-fonts ~/git/nerd-fonts
+        time ~/git/nerd-fonts/install.sh
+    fi
 
+    echo ""
     echo "======================="
     echo "== install powerline =="
     echo "======================="
+    echo ""
 
     if which apt-get &> /dev/null ; then
         sudo apt-get install fonts-powerline -y
@@ -378,26 +419,32 @@ function install_zsh {
     #python ~/powerline-shell/install.py
     ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
 
+    echo ""
     echo "======================="
     echo "== install LS_COLORS =="
     echo "======================="
+    echo ""
     # https://github.com/trapd00r/LS_COLORS
     wget https://raw.github.com/trapd00r/LS_COLORS/master/LS_COLORS -O $HOME/.dircolors
 
+    echo ""
     echo "================="
     echo "== install fzf =="
     echo "================="
+    echo ""
     if [ -f ~/.fzf/install ]; then
-        cd ~/.fzf && git pull
-        ~/.fzf/install
+        time cd ~/.fzf && time git pull
+        time ~/.fzf/install
     else
-        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-        ~/.fzf/install
+        time git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        time ~/.fzf/install
     fi
 
+    echo ""
     echo "=================="
     echo "== install ccat =="
     echo "=================="
+    echo ""
     # https://github.com/jingweno/ccat
     if which go &> /dev/null ; then
         export GOPATH=$HOME/go
@@ -405,13 +452,15 @@ function install_zsh {
         export PATH=$PATH:$GOPATH/bin
     fi
 
+    echo ""
     echo "==================="
     echo "== install pyenv =="
     echo "==================="
+    echo ""
     if [[ -d ~/.pyenv ]]; then
-        cd ~/.pyenv && git pull
+        time cd ~/.pyenv && time git pull
     else
-        git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+        time git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     fi
 
     # If this user's login shell is not already "zsh", attempt to switch.

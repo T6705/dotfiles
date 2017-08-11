@@ -321,6 +321,22 @@ function qutebrowser {
     fi
 }
 
+function nerd-fonts-install {
+    time mkdir -p ~/git
+    time rm -rf ~/git/nerd-fonts
+    time git clone https://github.com/ryanoasis/nerd-fonts ~/git/nerd-fonts
+    time ~/git/nerd-fonts/install.sh
+}
+
+function nerd-fonts-update {
+    if [ -d ~/git/nerd-fonts ]; then
+        time cd ~/git/nerd-fonts && time git pull
+        time ./install.sh
+    else
+        nerd-fonts-install
+    fi
+}
+
 function edb-install {
     echo "=============================================="
     echo "== edb - cross platform x86/x86-64 debugger =="

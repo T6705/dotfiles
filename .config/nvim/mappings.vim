@@ -67,6 +67,10 @@ cnoremap <C-h>  <left>
 cnoremap <C-j>  <down>
 cnoremap <C-k>  <up>
 cnoremap <C-l>  <right>
+"" CTRL+A moves to start of line in command mode
+"cnoremap <C-a> <home>
+"" CTRL+E moves to end of line in command mode
+"cnoremap <C-e> <end>
 
 " Map arrow keys to window resize commands.
 nnoremap <Right> 2<C-W>>
