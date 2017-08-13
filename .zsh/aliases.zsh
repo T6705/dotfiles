@@ -10,6 +10,11 @@ alias mkdir='mkdir -p'
 alias mv="mv -v"
 alias rm='rm -v'
 
+if which xclip &> /dev/null ; then
+	alias xcopy='xclip -selection clipboard'
+	alias xpaste='xclip -selection clipboard -o'
+fi
+
 if which tr &> /dev/null ; then
     alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 fi

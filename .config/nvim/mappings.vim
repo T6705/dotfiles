@@ -383,6 +383,15 @@ nnoremap <Leader>vz :call VimuxZoomRunner()<CR>
 " ----------------------------------------------------------------------------------------
 " Surround
 " ----------------------------------------------------------------------------------------
+" Maps ss to surround word
+nmap ss ysiw
+
+" Maps sl to surround line
+nmap sl yss
+
+"" Surround Visual selection
+"vmap s S
+
 " <Leader>` Surround a word with "backticks"
 nmap     <Leader>` ysiw`
 vnoremap <Leader>` c`<C-R>"`<ESC>

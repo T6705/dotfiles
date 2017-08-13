@@ -478,6 +478,8 @@ function install_zsh {
     elif [[ "$TEST_CURRENT_SHELL" == "zsh" ]]; then
         . ~/.zshrc
     fi
+
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.Xresources > ~/.Xresources
 }
 
 function main {

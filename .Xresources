@@ -1,0 +1,41 @@
+! Font settings
+!URxvt.font: xft:Inconsolata for Powerline:Medium:pixelsize=14
+URxvt.font: xft:xos4 Terminess Powerline:pixelsize=12
+!URxvt.letterSpace: -1
+
+! Scrollbar
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+
+! Clickable links
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+
+! Colours
+URxvt.depth: 24
+
+*background: #1d2021
+*foreground: #fbf1c7
+
+*color0: #282828
+*color8: #928374
+*color1: #9d0006
+*color9: #cc241d
+*color2: #79740e
+*color10: #98971a
+*color3: #b57614
+*color11: #d79921
+*color4: #076678
+*color12: #458588
+*color5: #8f3f71
+*color13: #b16286
+*color6: #427b58
+*color14: #8ec07c
+*color7: #7c6f64
+*color15: #ebdbb2
+
+!! Rofi settings
+!rofi.color-enabled: true
+!rofi.color-window: #282828, #676d3d, #676d3d
+!rofi.color-normal: #282828, #ebdbb2, #303030, #676d3d, #ebdbb2
