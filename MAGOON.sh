@@ -69,6 +69,6 @@ use_system_font_value="false"
 use_system_font_path=$path"use-system-font"
 eval dconf write $use_system_font_path \"$use_system_font_value\"
 
-font_value="'Knack Nerd Font 11'"
+font_value="'Knack Nerd Font 10'"
 font_path=$path"font"
 eval dconf write $font_path \"$font_value\"
