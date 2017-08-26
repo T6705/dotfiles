@@ -335,6 +335,12 @@ function install_zsh {
         time git clone https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
     fi
 
+    if [[ -d ~/.oh-my-zsh/custom/plugins/k ]]; then
+        time cd ~/.oh-my-zsh/custom/plugins/k && time git pull
+    else
+        time git clone https://github.com/supercrabtree/k ~/.oh-my-zsh/custom/plugins/k
+    fi
+
     if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
         time cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && time git pull
     else

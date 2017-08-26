@@ -31,6 +31,10 @@ if has('nvim')
     packadd vimball
 endif
 
+packadd justify
+packadd shellmenu
+packadd swapmouse
+
 if has('mouse')
     set mouse=a
 endif
