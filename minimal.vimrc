@@ -130,9 +130,9 @@ endif
 set showcmd                                                       " show incomplete commands
 set so=7                                                          " Set 7 lines to the cursor - when moving vertically using j/k
 set t_Co=256                                                      " Explicitly tell vim that the terminal supports 256 colors
-set title
-set titleold="Terminal"
-set titlestring=%F
+"set title
+"set titleold="Terminal"
+"set titlestring=%F
 set ttyfast                                                       " faster redrawing
 if has('syntax') && !exists('g:syntax_on')
     "syntax enable
