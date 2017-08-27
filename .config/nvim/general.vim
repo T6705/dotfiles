@@ -137,24 +137,117 @@ endif
 " ----------------------------------------------------------------------------------------
 " statusline
 " ----------------------------------------------------------------------------------------
-"set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c) " Format the status line
-set statusline=%t                                                 " tail of the filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'},                   " file encoding
-set statusline+=%{&ff}]                                           " file format
-set statusline+=%h                                                " help file flag
-set statusline+=%m                                                " modified flag
-set statusline+=%r                                                " read only flag
-set statusline+=%y                                                " filetype
-set statusline+=%=                                                " left/right separator
-set statusline+=%c,                                               " cursor column
-set statusline+=%l/%L                                             " cursor line/total lines
-set statusline+=\ %P                                              " percent through file
+" tpope's
+"set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
+
+""" === basic statusline === {{{
+"set statusline=
+"set statusline+=%0*\ [%n]                            " buffernr
+"set statusline+=%0*\ %<%F\                           " File+path
+"set statusline+=%1*\ %y\                             " FileType
+"set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
+"set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
+"set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
+"set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
+"set statusline+=%6*\ col:%03c\                       " Colnr
+"set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
+"
+"hi User1 ctermfg=red ctermbg=black
+"hi User2 ctermfg=blue ctermbg=black
+"hi User3 ctermfg=green ctermbg=black
+"hi User4 ctermfg=yellow ctermbg=black
+"hi User5 ctermfg=cyan ctermbg=black
+"hi User6 ctermfg=magenta ctermbg=black
+""" }}}
+
+""" === advance statusline === {{{
+"let g:currentmode={ 'n'  : 'Normal ', 'no' : 'N-Operator Pending ', 'v'  : 'Visual ', 'V'  : 'V-Line ', '' : 'V-Block ', 's'  : 'Select ', 'S'  : 'S-Line ', '^S' : 'S-Block ', 'i'  : 'Insert ', 'R'  : 'Replace ', 'Rv' : 'V-Replace ', 'c'  : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r'  : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!'  : 'Shell ', 't'  : 'Terminal ' }
+"
+"" Automatically change the statusline color depending on mode
+"function! ChangeStatuslineColor()
+"  if (mode() =~# '\v(n|no)')
+"    exe 'hi! StatusLine ctermfg=008'
+"  elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V-Block' || get(g:currentmode, mode(), '') ==# 't')
+"    exe 'hi! StatusLine ctermfg=005'
+"  elseif (mode() ==# 'i')
+"    exe 'hi! StatusLine ctermfg=004'
+"  else
+"    exe 'hi! StatusLine ctermfg=006'
+"  endif
+"  return ''
+"endfunction
+"
+"" Find out current buffer's size and output it.
+"function! FileSize()
+"  let bytes = getfsize(expand('%:p'))
+"  if (bytes >= 1024)
+"    let kbytes = bytes / 1024
+"  endif
+"  if (exists('kbytes') && kbytes >= 1000)
+"    let mbytes = kbytes / 1000
+"  endif
+"
+"  if bytes <= 0
+"    return '0'
+"  endif
+"
+"  if (exists('mbytes'))
+"    return mbytes . 'MB '
+"  elseif (exists('kbytes'))
+"    return kbytes . 'KB '
+"  else
+"    return bytes . 'B '
+"  endif
+"endfunction
+"
+"function! ReadOnly()
+"  if &readonly || !&modifiable
+"    return '\ue0a2'
+"  else
+"    return ''
+"  endif
+"endfunction
+"
+"function! GitInfo()
+"  let git = fugitive#head()
+"  if git != ''
+"    return '\ue0a0 '.fugitive#head()
+"  else
+"    return ''
+"  endfi
+"endfunction
+"
+"set statusline=
+"set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
+"set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
+"set statusline+=%1*\ [%n]                                " buffernr
+"set statusline+=%2*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
+"set statusline+=%#warningmsg#
+"set statusline+=%*
+"set statusline+=%3*\ %=                                  " Space
+"set statusline+=%4*\ %y\                                 " FileType
+"set statusline+=%5*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
+"set statusline+=%6*\ %-3(%{FileSize()}%)                 " File size
+"set statusline+=%7*\ %=\ row:%l/%L\ \                    " Rownumber/total (%)
+"set statusline+=%7*\ col:%03c\                           " Colnr
+"set statusline+=%0*\ \ %m%r%w\ %P\ \                     " Modified? Readonly? Top/bot.
+"
+"hi User1 ctermfg=red ctermbg=black
+"hi User2 ctermfg=blue ctermbg=black
+"hi User3 ctermfg=green ctermbg=black
+"hi User4 ctermfg=yellow ctermbg=black
+"hi User5 ctermfg=cyan ctermbg=black
+"hi User6 ctermfg=magenta ctermbg=black
+"hi User7 ctermfg=white ctermbg=black
+"hi User8 ctermfg=blue ctermbg=black
+"hi User9 ctermfg=green ctermbg=black
+""" }}}
 
 " ----------------------------------------------------------------------------------------
 "Wildmenu
 " ----------------------------------------------------------------------------------------
 set wildmenu                                     " Turn on the WiLd menu
-" set wildmode=full
+"set wildmode=full
 set wildmode=list:longest                        " complete files like a shell
 set wildignore+=*.aux,*.out,*.toc                " Latex Indermediate files"
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " Binary Imgs"

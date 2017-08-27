@@ -6,6 +6,10 @@ augroup configgroup
     autocmd!
     autocmd BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     autocmd BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
+
+    " Restore cursor position when opening file
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
     autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FocusGained *: redraw!     " Redraw screen every time when focus gained
@@ -40,6 +44,14 @@ cnoreabbrev Qall qall
 "    set clipboard=unnamed,unnamedplus
 "endif
 "set clipboard=unnamed
+
+if has('nvim')
+    packadd vimball
+endif
+
+packadd justify
+packadd shellmenu
+packadd swapmouse
 
 if has('mouse')
     set mouse=a
@@ -130,25 +142,117 @@ endif
 " ----------------------------------------------------------------------------------------
 " statusline
 " ----------------------------------------------------------------------------------------
-"set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c) " Format the status line
-set statusline=%t                                                 " tail of the filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'},                   " file encoding
-set statusline+=%{&ff}]                                           " file format
-set statusline+=%h                                                " help file flag
-set statusline+=%m                                                " modified flag
-set statusline+=%r                                                " read only flag
-set statusline+=%y                                                " filetype
-set statusline+=%=                                                " left/right separator
-set statusline+=%c,                                               " cursor column
-set statusline+=%l/%L                                             " cursor line/total lines
-set statusline+=\ %P                                              " percent through file
+" tpope's
+"set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
+
+""" === basic statusline === {{{
+"set statusline=
+"set statusline+=%0*\ [%n]                            " buffernr
+"set statusline+=%0*\ %<%F\                           " File+path
+"set statusline+=%1*\ %y\                             " FileType
+"set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
+"set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
+"set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
+"set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
+"set statusline+=%6*\ col:%03c\                       " Colnr
+"set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
+"
+"hi User1 ctermfg=red ctermbg=black
+"hi User2 ctermfg=blue ctermbg=black
+"hi User3 ctermfg=green ctermbg=black
+"hi User4 ctermfg=yellow ctermbg=black
+"hi User5 ctermfg=cyan ctermbg=black
+"hi User6 ctermfg=magenta ctermbg=black
+""" }}}
+
+""" === advance statusline === {{{
+let g:currentmode={ 'n'  : 'Normal ', 'no' : 'N-Operator Pending ', 'v'  : 'Visual ', 'V'  : 'V-Line ', '' : 'V-Block ', 's'  : 'Select ', 'S'  : 'S-Line ', '^S' : 'S-Block ', 'i'  : 'Insert ', 'R'  : 'Replace ', 'Rv' : 'V-Replace ', 'c'  : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r'  : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!'  : 'Shell ', 't'  : 'Terminal ' }
+
+" Automatically change the statusline color depending on mode
+function! ChangeStatuslineColor()
+  if (mode() =~# '\v(n|no)')
+    exe 'hi! StatusLine ctermfg=008'
+  elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V-Block' || get(g:currentmode, mode(), '') ==# 't')
+    exe 'hi! StatusLine ctermfg=005'
+  elseif (mode() ==# 'i')
+    exe 'hi! StatusLine ctermfg=004'
+  else
+    exe 'hi! StatusLine ctermfg=006'
+  endif
+  return ''
+endfunction
+
+" Find out current buffer's size and output it.
+function! FileSize()
+  let bytes = getfsize(expand('%:p'))
+  if (bytes >= 1024)
+    let kbytes = bytes / 1024
+  endif
+  if (exists('kbytes') && kbytes >= 1000)
+    let mbytes = kbytes / 1000
+  endif
+
+  if bytes <= 0
+    return '0'
+  endif
+
+  if (exists('mbytes'))
+    return mbytes . 'MB '
+  elseif (exists('kbytes'))
+    return kbytes . 'KB '
+  else
+    return bytes . 'B '
+  endif
+endfunction
+
+function! ReadOnly()
+  if &readonly || !&modifiable
+    return '\ue0a2'
+  else
+    return ''
+  endif
+endfunction
+
+function! GitInfo()
+  let git = fugitive#head()
+  if git != ''
+    return '\ue0a0 '.fugitive#head()
+  else
+    return ''
+  endfi
+endfunction
+
+set statusline=
+set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
+set statusline+=%1*\ [%n]                                " buffernr
+set statusline+=%2*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
+set statusline+=%#warningmsg#
+set statusline+=%*
+set statusline+=%3*\ %=                                  " Space
+set statusline+=%4*\ %y\                                 " FileType
+set statusline+=%5*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
+set statusline+=%6*\ %-3(%{FileSize()}%)                 " File size
+set statusline+=%7*\ %=\ row:%l/%L\ \                    " Rownumber/total (%)
+set statusline+=%7*\ col:%03c\                           " Colnr
+set statusline+=%0*\ \ %m%r%w\ %P\ \                     " Modified? Readonly? Top/bot.
+
+hi User1 ctermfg=red ctermbg=black
+hi User2 ctermfg=blue ctermbg=black
+hi User3 ctermfg=green ctermbg=black
+hi User4 ctermfg=yellow ctermbg=black
+hi User5 ctermfg=cyan ctermbg=black
+hi User6 ctermfg=magenta ctermbg=black
+hi User7 ctermfg=white ctermbg=black
+hi User8 ctermfg=blue ctermbg=black
+hi User9 ctermfg=green ctermbg=black
+""" }}}
 
 " ----------------------------------------------------------------------------------------
 "Wildmenu
 " ----------------------------------------------------------------------------------------
 set wildmenu                                     " Turn on the WiLd menu
 "set wildmode=full
-"set wildmode=longest,list,full
 set wildmode=list:longest                        " complete files like a shell
 set wildignore+=*.aux,*.out,*.toc                " Latex Indermediate files"
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " Binary Imgs"
@@ -171,6 +275,9 @@ endif
 " ----------------------------------------------------------------------------------------
 set hlsearch
 set ignorecase " Ignore case when searching
+if has('nvim')
+    set inccommand=split
+endif
 set incsearch  " Makes search act like search in modern browsers
 set magic      " For regular expressions turn magic on
 set showmatch  " Show matching brackets when text indicator is over them
@@ -213,12 +320,180 @@ if &history < 1000
 endif
 set nocompatible             " not compatible with vi
 set path+=**
+"set shell=/bin/zsh
 
 " ctags
 set tags=./tags;/
 
 set splitbelow
 set splitright
+
+""" }}}
+
+""" === Functions === {{{
+
+" ----------------------------------------------------------------------------------------
+" :Shuffle | Shuffle selected lines
+" ----------------------------------------------------------------------------------------
+function! s:shuffle() range
+ruby << RB
+  first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
+  (first..last).map { |l| $curbuf[l] }.shuffle.each_with_index do |line, i|
+    $curbuf[first + i] = line
+  end
+RB
+endfunction
+command! -range Shuffle <line1>,<line2>call s:shuffle()
+
+" ----------------------------------------------------------------------------------------
+" :ClearRegisters
+" ----------------------------------------------------------------------------------------
+function! ClearRegisters()
+    let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
+    let i=0
+    while (i<strlen(regs))
+        exec 'let @'.regs[i].'=""'
+        let i=i+1
+    endwhile
+endfunction
+command! ClearRegisters call ClearRegisters()
+
+" ----------------------------------------------------------------------------------------
+" :RangerExplorer (vim only)
+" ----------------------------------------------------------------------------------------
+function RangerExplorer()
+    if executable("ranger")
+        exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
+        if filereadable('/tmp/vim_ranger_current_file')
+            exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
+            call system('rm /tmp/vim_ranger_current_file')
+        endif
+        redraw!
+    endif
+endfun
+
+" ----------------------------------------------------------------------------
+" :EX | chmod +x
+" ----------------------------------------------------------------------------
+command! EX if !empty(expand('%'))
+         \|   write
+         \|   call system('chmod +x '.expand('%'))
+         \|   silent e
+         \| else
+         \|   echohl WarningMsg
+         \|   echo 'Save the file first'
+         \|   echohl None
+        \| endif
+
+" ----------------------------------------------------------------------------------------
+" :WordProcessorMode
+" ----------------------------------------------------------------------------------------
+function! WordProcessorMode()
+    setlocal textwidth=80
+    setlocal smartindent
+    setlocal spell spelllang=en_us
+    setlocal noexpandtab
+endfunction
+command! WordProcessorMode call WordProcessorMode()
+
+" ----------------------------------------------------------------------------------------
+" :ChangeEncoding
+" ----------------------------------------------------------------------------------------
+function! ChangeEncoding()
+    if executable("file")
+        let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
+        if result =~ "Little-endian UTF-16" && &enc != "utf-16le"
+            exec "e ++enc=utf-16le"
+        elseif result =~ "ISO-8859" && &enc != "iso-8859-1"
+            exec "e ++enc=iso-8859-1"
+        endif
+    endif
+endfunction
+command! ChangeEncoding call ChangeEncoding()
+
+" ----------------------------------------------------------------------------------------
+" :Hexmode
+" ----------------------------------------------------------------------------------------
+function ToggleHex()
+    " hex mode should be considered a read-only operation
+    " save values for modified and read-only for restoration later,
+    " and clear the read-only flag for now
+    let l:modified=&mod
+    let l:oldreadonly=&readonly
+    let &readonly=0
+    let l:oldmodifiable=&modifiable
+    let &modifiable=1
+    if !exists("b:editHex") || !b:editHex
+        " save old options
+        let b:oldft=&ft
+        let b:oldbin=&bin
+        " set new options
+        setlocal binary " make sure it overrides any textwidth, etc.
+        silent :e " this will reload the file without trickeries
+        "(DOS line endings will be shown entirely )
+        let &ft="xxd"
+        " set status
+        let b:editHex=1
+        " switch to hex editor
+        %!xxd
+    else
+        " restore old options
+        let &ft=b:oldft
+        if !b:oldbin
+            setlocal nobinary
+        endif
+        " set status
+        let b:editHex=0
+        " return to normal editing
+        %!xxd -r
+    endif
+    " restore values for modified and read only state
+    let &mod=l:modified
+    let &readonly=l:oldreadonly
+    let &modifiable=l:oldmodifiable
+endfunction
+command! Hexmode call ToggleHex()
+
+" ----------------------------------------------------------------------------------------
+" :OpenUrl
+" ----------------------------------------------------------------------------------------
+function! HandleURL()
+    "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+    let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
+
+    echo s:uri
+    if s:uri != ""
+        "silent exec "!elinks '".s:uri."'"
+        silent exec "!firefox '".s:uri."'"
+    else
+        echo "No URI found in line."
+    endif
+endfunction
+command! OpenUrl call HandleURL()
+
+" ----------------------------------------------------------------------------------------
+" :ShowMeUrl
+" ----------------------------------------------------------------------------------------
+function! ShowMeUrl()
+    %!grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,\!''*~-]*)?(\#[a-zA-Z0-9_/.\-+%\#?&=;@$,\!''*~]*)?"
+    silent exec "sort u"
+    silent exec "%s/'$//g"
+endfunction
+command! ShowMeUrl call ShowMeUrl()
+
+" ----------------------------------------------------------------------------
+" :Root | Change directory to the root of the Git repository
+" ----------------------------------------------------------------------------
+function! s:root()
+    let root = systemlist('git rev-parse --show-toplevel')[0]
+    if v:shell_error
+        echo 'Not in git repo'
+    else
+        execute 'lcd' root
+        echo 'Changed directory to: '.root
+    endif
+endfunction
+command! Root call s:root()
 
 """ }}}
 
@@ -378,6 +653,10 @@ nnoremap /url /\v(http\|https\|ftp):\/\/[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][
 nnoremap <Leader>/ "fyiw :/<C-r>f<CR>
 
 " window navigation
+nnoremap <silent> <Leader>wh <C-W>h
+nnoremap <silent> <Leader>wj <C-W>j
+nnoremap <silent> <Leader>wk <C-W>k
+nnoremap <silent> <Leader>wl <C-W>l
 nnoremap <silent> <Leader>wx <C-W>x
 nnoremap <silent> <Leader>wH <C-W>H
 nnoremap <silent> <Leader>wJ <C-W>J
