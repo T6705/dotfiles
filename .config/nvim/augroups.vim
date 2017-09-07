@@ -39,6 +39,14 @@ augroup configgroup
     autocmd! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
 
+augroup auto_mkdir
+  autocmd!
+  autocmd BufWritePre *
+    \ if !isdirectory(expand('<afile>:p:h')) |
+      \ call mkdir(expand('<afile>:p:h'), 'p') |
+    \ endif
+augroup end
+
 ""google/vim-codefmt
 "augroup autoformat_settings
 "    autocmd FileType bzl AutoFormatBuffer buildifier

@@ -115,6 +115,7 @@ bindsym $mod+a focus parent
 
 #    
 #  terminal
+#   telegram
 #   skype
 #  steam
 #   spotify
@@ -125,7 +126,7 @@ bindsym $mod+a focus parent
 #
 set $workspace0 "0 "
 set $workspace1 "1 "
-set $workspace2 "2 "
+set $workspace2 "2 "
 set $workspace3 "3 "
 set $workspace4 "4 "
 set $workspace5 "5 "
@@ -160,6 +161,7 @@ bindsym $mod+Shift+0 move container to workspace $workspace0
 
 assign [class="Chromium-browser|Firefox|qutebrowser"] $workspace0
 assign [class="Vim|Emacs|Gnome-terminal|Gnome-terminal-server|URxvt"] $workspace1
+assign [class="TelegramDesktop"] $workspace2
 assign [class="Nautilus"] $workspace3
 assign [class="VirtualBox"] $workspace4
 assign [class="Burpsuite*|Wireshark|edb"] $workspace5
