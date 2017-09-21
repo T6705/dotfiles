@@ -44,7 +44,7 @@ if !has('nvim') && &ttimeoutlen == -1
     set ttimeoutlen=100
 endif
 
-if v:version > 703 || v:version == 703 && has("patch541")
+if v:version > 703 || v:version == 703 && has("patch-7.3.541")
     set formatoptions+=j " Delete comment character when joining commented lines
 endif
 
@@ -80,7 +80,12 @@ set tabstop=4     " the visible width of tabs
 set invlist
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
-set showbreak=↪
+if has('patch-7.4.338')
+    "let &showbreak = '↳ '
+    set showbreak=↪
+    set breakindent
+    set breakindentopt=sbr
+endif
 nmap <Leader>l :set list!<CR>
 
 " ----------------------------------------------------------------------------------------
@@ -322,6 +327,15 @@ set tags=./tags;/
 
 set splitbelow
 set splitright
+
+" Use persistent history
+if v:version >= 703
+    if !isdirectory("/tmp/.vim-undo-dir")
+        call mkdir("/tmp/.vim-undo-dir", "", 0700)
+    endif
+    set undodir=/tmp/.vim-undo-dir
+    set undofile
+endif
 
 " ----------------------------------------------------------------------------------------
 " gvim

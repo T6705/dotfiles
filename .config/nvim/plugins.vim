@@ -157,8 +157,10 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'                          " Enhancing in-buffer search experience
 Plug 'kana/vim-operator-user'                      " Vim plugin: Define your own operator easily
 Plug 'kshenoy/vim-signature'                       " Plugin to toggle, display and navigate marks
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays tags in a window, ordered by scope
-Plug 'mhinz/vim-signify'                           " Show a diff using Vim its sign column.
+if v:version >= 703
+    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays tags in a window, ordered by scope
+    Plug 'mhinz/vim-signify'                           " Show a diff using Vim its sign column.
+endif
 Plug 'ryanoasis/vim-devicons'                      " Adds file type glyphs/icons to popular Vim plugins
 Plug 'scrooloose/nerdcommenter'                    " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }         " file tree

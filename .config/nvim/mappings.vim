@@ -124,13 +124,13 @@ nnoremap <silent> <Leader>ffo :!firefox %<CR>
 
 "inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
 "inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
+"inoremap <silent> <F4> <esc>:GundoToggle<CR>
 "inoremap <silent> <F6> <esc>:TagbarToggle<CR>
 "nnoremap <silent> <F2> :NERDTreeFind<CR>
 "nnoremap <silent> <F3> :NERDTreeToggle<CR>
+"nnoremap <silent> <F4> :GundoToggle<CR>
 "nnoremap <silent> <F6> :TagbarToggle<CR>
-inoremap <silent> <F4> <esc>:GundoToggle<CR>
 inoremap <silent> <F5> <esc>:Codi!!<CR>
-nnoremap <silent> <F4> :GundoToggle<CR>
 nnoremap <silent> <F5> :Codi!!<CR>
 
 " hexedit
@@ -240,6 +240,9 @@ vnoremap <Leader>, :s/, */, /g<CR>
 nnoremap <silent> <Leader>E :NERDTreeToggle<CR>
 nnoremap <silent> <Leader>EF :NERDTreeFind<CR>
 
+"Gundo
+nnoremap <silent> <Leader>ut :GundoToggle<CR>
+
 if has('nvim')
     "nnoremap <silent> <Leader>rg :Ranger<CR>
 else
@@ -273,7 +276,9 @@ nnoremap <silent> <Leader>ms :Marks<CR>
 nnoremap <silent> <Leader>ts :Tags<CR>
 
 " tagbar
-nnoremap <silent> <Leader>tb :TagbarToggle<CR>
+if v:version >= 703
+    nnoremap <silent> <Leader>tb :TagbarToggle<CR>
+endif
 
 " Insert mode completion
 imap <C-x>w <plug>(fzf-complete-word)
