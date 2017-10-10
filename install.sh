@@ -118,10 +118,10 @@ function install_dots {
 function install_dependencies {
     if which apt-get &> /dev/null ; then
         sudo apt-get update
-        suod apt-get upgrade -y
-        suod apt-get dist-upgrade -y
-        suod apt-get autoremove -y
-        suod apt-get clean
+        sudo apt-get upgrade -y
+        sudo apt-get dist-upgrade -y
+        sudo apt-get autoremove -y
+        sudo apt-get clean
         sudo apt-get install -y zsh ranger tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox
 
         ### for neovim
@@ -489,13 +489,25 @@ function install_zsh {
 }
 
 function main {
-    if [[ $1 == "dots" ]]; then
-        install_dots
-    elif [[ $1 == "dependencies" ]]; then
+    if [[ $1 == "dependencies" ]]; then
         install_dependencies
+    elif [[ $1 == "dots" ]]; then
+        install_dots
+    elif [[ $1 == "i3" ]]; then
+        install_i3
+    elif [[ $1 == "ranger" ]]; then
+        install_ranger
+    elif [[ $1 == "spacemacs" ]]; then
+        install_spacemacs
+    elif [[ $1 == "tmux" ]]; then
+        install_tmux
+    elif [[ $1 == "vim" ]]; then
+        install_vim
+    elif [[ $1 == "zsh" ]]; then
+        install_zsh
     elif [[ $1 == "all" ]]; then
-        install_dots
         install_dependencies
+        install_dots
         install_i3
         install_ranger
         install_spacemacs
@@ -503,7 +515,16 @@ function main {
         install_vim
         install_zsh
     else
-        echo "dots/dependencies/all"
+        echo "bash install.sh <options>/all"
+        echo "options:"
+        echo "    dependencies"
+        echo "    dots"
+        echo "    i3"
+        echo "    ranger"
+        echo "    spacemacs"
+        echo "    tmux"
+        echo "    vim"
+        echo "    zsh"
     fi
 }
 

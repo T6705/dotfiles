@@ -31,9 +31,11 @@ if has('nvim')
     packadd vimball
 endif
 
-packadd justify
-packadd shellmenu
-packadd swapmouse
+if has('patch-7.4.1480')
+    packadd justify
+    packadd shellmenu
+    packadd swapmouse
+endif
 
 if has('mouse')
     set mouse=a
@@ -46,6 +48,10 @@ endif
 
 if v:version > 703 || v:version == 703 && has("patch-7.3.541")
     set formatoptions+=j " Delete comment character when joining commented lines
+endif
+
+if !has('nvim') && v:version > 704 || (v:version == 704 && has('patch401'))
+    setlocal cryptmethod=blowfish2  " medium strong method
 endif
 
 " ----------------------------------------------------------------------------------------
@@ -331,7 +337,8 @@ set splitright
 " Use persistent history
 if v:version >= 703
     if !isdirectory("/tmp/.vim-undo-dir")
-        call mkdir("/tmp/.vim-undo-dir", "", 0700)
+        call mkdir("/tmp/.vim-undo-dir", "", 0777)
+        "call mkdir("/tmp/.vim-undo-dir", "", 0700)
     endif
     set undodir=/tmp/.vim-undo-dir
     set undofile

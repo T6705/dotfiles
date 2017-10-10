@@ -112,6 +112,7 @@ let g:netrw_winsize     = 30
 " ----------------------------------------------------------------------------------------
 "let g:airline_theme="luna"
 "let g:airline_theme="papercolor"
+"let g:airline_theme="onedark"
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show   = 1
 let g:airline#extensions#tabline#enabled          = 1
