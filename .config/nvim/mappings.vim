@@ -202,9 +202,24 @@ nnoremap <silent> <Leader>gr  :Gremove<CR>
 nnoremap <silent> <Leader>gs  :Gstatus<CR>
 nnoremap <silent> <Leader>gw  :Gwrite<CR>
 
-" YouCompleteMe
-noremap <leader>g :YcmCompleter GoTo<CR>
-noremap <leader>d :YcmCompleter GoToDefinition<CR>
+" neosnippet.vim
+" Plugin key-mappings.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+"" For conceal markers.
+"if has('conceal')
+"  set conceallevel=2 concealcursor=niv
+"endif
+
+"" YouCompleteMe
+"noremap <leader>g :YcmCompleter GoTo<CR>
+"noremap <leader>d :YcmCompleter GoToDefinition<CR>
 
 " quickfix
 nnoremap <silent> <Leader>lo :lopen<CR>
@@ -262,9 +277,9 @@ endif
 
 nnoremap <silent> <Leader>ag :Ag<CR>
 nnoremap <silent> <Leader>AG :Ag!<CR>
-nmap <Leader><tab> <plug>(fzf-maps-n)
-xmap <Leader><tab> <plug>(fzf-maps-x)
-omap <Leader><tab> <plug>(fzf-maps-o)
+nmap <Leader><TAB> <plug>(fzf-maps-n)
+xmap <Leader><TAB> <plug>(fzf-maps-x)
+omap <Leader><TAB> <plug>(fzf-maps-o)
 
 " Windows
 nnoremap <silent> <Leader>ws :Windows<CR>

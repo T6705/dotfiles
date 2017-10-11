@@ -92,10 +92,24 @@ Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for 
 " ----------------------------------------------------------------------------------------
 " Auto Completion
 " ----------------------------------------------------------------------------------------
-Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'java'], 'do': function('BuildYCM') }
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+else
+    Plug 'Shougo/neocomplete.vim'
+endif
+"Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'java'], 'do': function('BuildYCM') }
 Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php'}
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+
+
+" ----------------------------------------------------------------------------------------
+" Snippet
+" ----------------------------------------------------------------------------------------
+Plug 'Shougo/neosnippet'          " snippets support
+Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnippet
+Plug 'SirVer/ultisnips'           " The ultimate snippet solution for Vim.
+Plug 'honza/vim-snippets'         " vim-snipmate default snippets
 
 
 " ----------------------------------------------------------------------------------------
@@ -116,7 +130,6 @@ Plug 'mattn/vim-textobj-url'     " au/iu for a URL
 "Plug 'ryanoasis/vim-devicons'
 "Plug 'yuttie/comfortable-motion.vim'
 if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
     Plug 'mklabs/split-term.vim'
     "" Ranger integration in neovim
     "Plug 'francoiscabrol/ranger.vim', { 'on': ['Ranger',
@@ -126,14 +139,11 @@ if has('nvim')
     "            \'RangerWorkingDirectory',
     "            \'RangerWorkingDirectoryNewTab'] }
     "            \| Plug 'rbgrouleff/bclose.vim'
-else
-    Plug 'Shougo/neocomplete.vim'
 endif
 "Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 "Plug 'jiangmiao/auto-pairs'
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }                    " A vim plugin to perform diffs on blocks of code
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                              " Interactive command execution in Vim.
-Plug 'SirVer/ultisnips'                                                  " The ultimate snippet solution for Vim.
 Plug 'benmills/vimux'                                                    " vim plugin to interact with tmux
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                       " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'chrisbra/vim-diff-enhanced'                                        " Better Diff options for Vim
@@ -146,7 +156,6 @@ Plug 'easymotion/vim-easymotion', { 'on' : ['<Plug>(easymotion-prefix)',
 Plug 'ervandew/supertab'                                                     " Perform all your vim insert mode completions with Tab
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'haya14busa/vim-operator-flashy'                                        " Highlight yanked area
-Plug 'honza/vim-snippets'                                                    " vim-snipmate default snippets
 Plug 'itchyny/vim-cursorword'                                                " Underlines the word under the cursor
 Plug 'johngrib/vim-game-code-break', { 'on': 'VimGameCodeBreak' }            " Block-breaking game in vim 8.0
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder

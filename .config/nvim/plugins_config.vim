@@ -173,9 +173,16 @@ let g:indentLine_setColors = 1 "do not overwrite 'conceal' color
 
 
 " ----------------------------------------------------------------------------------------
+" neosnippet.vim
+" ----------------------------------------------------------------------------------------
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
+
+
+" ----------------------------------------------------------------------------------------
 " Ultsnips
 " ----------------------------------------------------------------------------------------
-let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsExpandTrigger       = "<TAB>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-p>"
 let g:UltiSnipsJumpForwardTrigger  = "<C-n>"
 " If you want :UltiSnipsEdit to split your window.
@@ -183,7 +190,7 @@ let g:UltiSnipsEditSplit = "vertical"
 
 
 " ----------------------------------------------------------------------------------------
-" Ultsnips
+" SuperTab
 " ----------------------------------------------------------------------------------------
 let g:SuperTabDefaultCompletionType = "<C-n>"
 
@@ -468,7 +475,7 @@ let g:jedi#completions_command      = "<C-Space>"
 let g:jedi#documentation_command    = "K"
 let g:jedi#goto_assignments_command = "<Leader>g"
 let g:jedi#goto_command             = "<Leader>d"
-let g:jedi#goto_definitions_command = "<tab>"
+let g:jedi#goto_definitions_command = "<TAB>"
 let g:jedi#rename_command           = "<Leader>r"
 let g:jedi#usages_command           = "<Leader>n"
 

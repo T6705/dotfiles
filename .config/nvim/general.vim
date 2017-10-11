@@ -74,7 +74,7 @@ set backspace=indent,eol,start " make backspace behave in a sane manner
 " Tabs
 " ----------------------------------------------------------------------------------------
 "set completeopt+=longest
-"set noexpandtab   " insert tabs rather than spaces for <Tab>
+"set noexpandtab   " insert tabs rather than spaces for <TAB>
 "set shiftround    " round indent to a multiple of 'shiftwidth'
 set expandtab     " Use spaces instead of tabs
 set shiftwidth=4  " number of spaces to use for indent and unindent (1 tab == 4 spaces)
@@ -326,7 +326,12 @@ if &history < 1000
 endif
 set nocompatible             " not compatible with vi
 set path+=**
-set shell=/bin/zsh
+
+if executable('zsh')
+    set shell=/bin/zsh
+else
+    set shell=/bin/bash
+endif
 
 " ctags
 set tags=./tags;/
