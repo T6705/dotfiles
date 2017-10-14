@@ -364,3 +364,38 @@ function edb-install {
     time cmake -DCMAKE_INSTALL_PREFIX=/usr/local/ ..
     time make && time sudo make install && time edb --version
 }
+
+function alacritty_install {
+    echo "======================================================================"
+    echo "== alacritty -  A cross-platform, GPU-accelerated terminal emulator =="
+    echo "======================================================================"
+
+    # install rustup
+    curl https://sh.rustup.rs -sSf | sh
+
+    source $HOME/.cargo/env
+
+    # Make sure you have the right Rust compiler installed
+    rustup override set stable
+    rustup update stable
+
+    sudo apt-get -y install cmake libfreetype6-dev libfontconfig1-dev xclip
+
+    mkdir -p ~/git
+    cd ~/git
+    rm -rf alacritty
+
+    # clone the repository
+    git clone https://github.com/jwilm/alacritty.git ~/git/alacritty
+    cd ~/git/alacritty
+
+    # building
+    time cargo build --release
+
+    # Desktop Entry
+    sudo cp ~/git/alacritty/target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+    cp ~/git/alacritty/Alacritty.desktop ~/.local/share/applications
+
+    # config
+    cp ~/git/alacritty/alacritty.yml ~/
+}

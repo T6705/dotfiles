@@ -125,7 +125,7 @@ function install_dependencies {
         sudo apt-get install -y zsh ranger tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox
 
         ### for neovim
-        sudo apt-get install libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+        sudo apt-get install -y libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
 
         ### for i3-gaps (Ubuntu >= 14.04 LTS, <= 16.04)
         sudo add-apt-repository ppa:aguignard/ppa
@@ -136,7 +136,7 @@ function install_dependencies {
         #sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev
 
         ### for polybar
-        sudo apt-get install cmake cmake-data libcairo2-dev libxcb1-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xkb-dev pkg-config python-xcbgen xcb-proto
+        sudo apt-get install -y cmake cmake-data libcairo2-dev libxcb1-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xkb-dev pkg-config python-xcbgen xcb-proto
         sudo apt-get install -y libxcb-xrm-dev # Enables support for getting values from the X resource db
         sudo apt-get install -y i3-wm # Enables the internal i3 module
         sudo apt-get install -y libasound2-dev # Enables the internal volume module
@@ -182,8 +182,8 @@ function install_i3 {
     # Disabling sanitizers is important for release versions!
     # The prefix and sysconfdir are, obviously, dependent on the distribution.
     ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
-    make
-    sudo make install
+    time make
+    time sudo make install
 
     echo ""
     echo "====================="
@@ -196,7 +196,7 @@ function install_i3 {
     rm -rf polybar
     git clone --branch 3.0.5 --recursive https://github.com/jaagr/polybar
     cd polybar
-    ./build.sh
+    time ./build.sh
 
     echo ""
     echo "==========================="
@@ -238,7 +238,6 @@ function install_spacemacs {
     else
         git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
     fi
-
 }
 
 function install_tmux {
@@ -371,25 +370,25 @@ function install_zsh {
     time git clone https://github.com/powerline/fonts.git /tmp/fonts
     time /tmp/fonts/install.sh
 
-    echo ""
-    echo "========================"
-    echo "== install Noto fonts =="
-    echo "========================"
-    echo ""
+    #echo ""
+    #echo "========================"
+    #echo "== install Noto fonts =="
+    #echo "========================"
+    #echo ""
 
-    cd /tmp
-    wget "https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip"
-    unzip Noto-hinted.zip
-    mkdir -p ~/.fonts
-    cp -v *.otc ~/.fonts
-    cp -v *.otf ~/.fonts
-    cp -v *.ttf ~/.fonts
-    fc-cache -f -v # optional
-    sudo mkdir -p /usr/share/fonts/opentype/noto
-    sudo cp -v *.otc /usr/share/fonts/opentype/noto
-    sudo cp -v *.otf /usr/share/fonts/opentype/noto
-    sudo cp -v *.ttf /usr/share/fonts/opentype/noto
-    sudo fc-cache -f -v # optional
+    #cd /tmp
+    #wget "https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip"
+    #unzip Noto-hinted.zip
+    #mkdir -p ~/.fonts
+    #cp -v *.otc ~/.fonts
+    #cp -v *.otf ~/.fonts
+    #cp -v *.ttf ~/.fonts
+    #fc-cache -f -v # optional
+    #sudo mkdir -p /usr/share/fonts/opentype/noto
+    #sudo cp -v *.otc /usr/share/fonts/opentype/noto
+    #sudo cp -v *.otf /usr/share/fonts/opentype/noto
+    #sudo cp -v *.ttf /usr/share/fonts/opentype/noto
+    #sudo fc-cache -f -v # optional
 
     echo ""
     echo "========================"
@@ -417,13 +416,18 @@ function install_zsh {
         sudo pacman -S --noconfirm powerline
     fi
 
-    rm -rf ~/powerline-shell
-    git clone https://github.com/milkbikis/powerline-shell ~/powerline-shell
-    cd ~/powerline-shell
-    cp -v config.py.dist config.py
-    ./install.py
-    #python ~/powerline-shell/install.py
-    ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
+    #https://github.com/milkbikis/powerline-shell
+    #https://github.com/banga/powerline-shell
+
+    #rm -rf ~/powerline-shell
+    #git clone https://github.com/milkbikis/powerline-shell ~/powerline-shell
+    #cd ~/powerline-shell
+    #cp -v config.py.dist config.py
+    #./install.py
+    ##python ~/powerline-shell/install.py
+    #ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
+
+    sudo pip install -U powerline-shell
 
     echo ""
     echo "======================="
