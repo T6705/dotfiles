@@ -24,7 +24,7 @@ color14="#8FBCBB"    #rgb(143,188,187)
 color15="#ECEFF4"    #rgb(236,239,244)
 
 #get profileid and display the value of each key
-profileid=`dconf list /org/gnome/terminal/legacy/profiles:/`
+profileid=`dconf list /org/gnome/terminal/legacy/profiles:/ | grep -E '^:'`
 path="/org/gnome/terminal/legacy/profiles:/$profileid"
 echo "profileid = $profileid"
 echo "path      = $path"

@@ -67,16 +67,17 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0 = Hack:size=8;0
-font-1 = NotoSansMonoCJKtc-Regular:size=8;0
-font-2 = FontAwesome:size=8;0
-font-3 = NotoSans-Regular:size=8;-1
-font-4 = Termsynu:size=7;0
-font-5 = Unifont:size=5;0
-font-6 = fixed:pixelsize=10;0
-font-7 = monospace:size=9;2
-font-8 = siji:pixelsize=10;0
-font-9 = unifont:size=6:heavy:fontformat=truetype;-2
+font-0  = Knack:size=8;0
+font-1  = Hack:size=8;0
+font-2  = NotoSansMonoCJKtc-Regular:size=8;0
+font-3  = FontAwesome:size=8;0
+font-4  = NotoSans-Regular:size=8;-1
+font-5  = Termsynu:size=7;0
+font-6  = Unifont:size=5;0
+font-7  = fixed:pixelsize=10;0
+font-8  = monospace:size=9;2
+font-9  = siji:pixelsize=10;0
+font-10 = unifont:size=6:heavy:fontformat=truetype;-2
 
 [bar/bottom]
 monitor = LVDS1
@@ -119,16 +120,17 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0 = Hack:size=8;0
-font-1 = NotoSansMonoCJKtc-Regular:size=8;0
-font-2 = FontAwesome:size=8;0
-font-3 = NotoSans-Regular:size=8;-1
-font-4 = Termsynu:size=7;0
-font-5 = Unifont:size=5;0
-font-6 = fixed:pixelsize=10;0
-font-7 = monospace:size=9;2
-font-8 = siji:pixelsize=10;0
-font-9 = unifont:size=6:heavy:fontformat=truetype;-2
+font-0  = Knack:size=8;0
+font-1  = Hack:size=8;0
+font-2  = NotoSansMonoCJKtc-Regular:size=8;0
+font-3  = FontAwesome:size=8;0
+font-4  = NotoSans-Regular:size=8;-1
+font-5  = Termsynu:size=7;0
+font-6  = Unifont:size=5;0
+font-7  = fixed:pixelsize=10;0
+font-8  = monospace:size=9;2
+font-9  = siji:pixelsize=10;0
+font-10 = unifont:size=6:heavy:fontformat=truetype;-2
 
 ;-------------------------------------------------------------------------------
 
@@ -173,16 +175,17 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0 = Hack:size=8;0
-font-1 = NotoSansMonoCJKtc-Regular:size=8;0
-font-2 = FontAwesome:size=8;0
-font-3 = NotoSans-Regular:size=8;-1
-font-4 = Termsynu:size=7;0
-font-5 = Unifont:size=5;0
-font-6 = fixed:pixelsize=10;0
-font-7 = monospace:size=9;2
-font-8 = siji:pixelsize=10;0
-font-9 = unifont:size=6:heavy:fontformat=truetype;-2
+font-0  = Knack:size=8;0
+font-1  = Hack:size=8;0
+font-2  = NotoSansMonoCJKtc-Regular:size=8;0
+font-3  = FontAwesome:size=8;0
+font-4  = NotoSans-Regular:size=8;-1
+font-5  = Termsynu:size=7;0
+font-6  = Unifont:size=5;0
+font-7  = fixed:pixelsize=10;0
+font-8  = monospace:size=9;2
+font-9  = siji:pixelsize=10;0
+font-10 = unifont:size=6:heavy:fontformat=truetype;-2
 
 [bar/external_bottom]
 monitor = HDMI1
@@ -226,16 +229,17 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0 = Hack:size=8;0
-font-1 = NotoSansMonoCJKtc-Regular:size=8;0
-font-2 = FontAwesome:size=8;0
-font-3 = NotoSans-Regular:size=8;-1
-font-4 = Termsynu:size=7;0
-font-5 = Unifont:size=5;0
-font-6 = fixed:pixelsize=10;0
-font-7 = monospace:size=9;2
-font-8 = siji:pixelsize=10;0
-font-9 = unifont:size=6:heavy:fontformat=truetype;-2
+font-0  = Knack:size=8;0
+font-1  = Hack:size=8;0
+font-2  = NotoSansMonoCJKtc-Regular:size=8;0
+font-3  = FontAwesome:size=8;0
+font-4  = NotoSans-Regular:size=8;-1
+font-5  = Termsynu:size=7;0
+font-6  = Unifont:size=5;0
+font-7  = fixed:pixelsize=10;0
+font-8  = monospace:size=9;2
+font-9  = siji:pixelsize=10;0
+font-10 = unifont:size=6:heavy:fontformat=truetype;-2
 
 ;-------------------------------------------------------------------------------
 

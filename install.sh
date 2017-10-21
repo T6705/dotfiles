@@ -30,6 +30,7 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/launch.sh
     curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/spotify_p.sh
+    chmod +x ~/.config/polybar/spotify_p.sh
 
     echo ""
     echo "============================"
@@ -96,6 +97,14 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim
 
     echo ""
+    echo "=========================="
+    echo "== Download bash config =="
+    echo "=========================="
+    echo ""
+
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.bashrc > ~/.bashrc
+
+    echo ""
     echo "========================="
     echo "== Download zsh config =="
     echo "========================="
@@ -122,33 +131,40 @@ function install_dependencies {
         sudo apt-get dist-upgrade -y
         sudo apt-get autoremove -y
         sudo apt-get clean
-        sudo apt-get install -y zsh ranger tmux xclip xsel npm vim vim-athena vim-gnome vim-gtk vim-nox
+        sudo apt-get install -y npm ranger tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
 
         ### for neovim
-        sudo apt-get install -y libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+        sudo apt-get install -y autoconf automake cmake g++ libtool libtool-bin pkg-config unzip
 
         ### for i3-gaps (Ubuntu >= 14.04 LTS, <= 16.04)
         sudo add-apt-repository ppa:aguignard/ppa
         sudo apt-get update
-        sudo apt-get install -y xdg-utils libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm-dev
+        sudo apt-get install -y autoconf libev-dev libpango1.0-dev libstartup-notification0-dev libxcb-cursor-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xinerama0-dev libxcb-xkb-dev libxcb-xrm-dev libxcb1-dev libxkbcommon-dev libxkbcommon-x11-dev libyajl-dev xdg-utils
 
         ### for i3-gaps (Ubuntu >= 16.10)
         #sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev
 
         ### for polybar
-        sudo apt-get install -y cmake cmake-data libcairo2-dev libxcb1-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xkb-dev pkg-config python-xcbgen xcb-proto
-        sudo apt-get install -y libxcb-xrm-dev # Enables support for getting values from the X resource db
-        sudo apt-get install -y i3-wm # Enables the internal i3 module
-        sudo apt-get install -y libasound2-dev # Enables the internal volume module
-        sudo apt-get install -y libmpdclient-dev # Enables the internal mpd module
-        sudo apt-get install -y libiw-dev # Enables the internal network module
+        sudo apt-get install -y cmake cmake-data libcairo2-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xkb-dev libxcb1-dev pkg-config python-xcbgen xcb-proto
+        sudo apt-get install -y i3-wm                # Enables the internal i3 module
+        sudo apt-get install -y libasound2-dev       # Enables the internal volume module
         sudo apt-get install -y libcurl4-openssl-dev # Enables the internal github module
+        sudo apt-get install -y libiw-dev            # Enables the internal network module
+        sudo apt-get install -y libmpdclient-dev     # Enables the internal mpd module
+        sudo apt-get install -y libxcb-xrm-dev       # Enables support for getting values from the X resource db
     elif which pacman &> /dev/null ; then
-        sudo pacman -Syu --noconfirm
-        sudo pacman -Sy --noconfirm zsh ranger tmux xclip xsel npm vim neovim
+        sudo pacman-mirrors -f 0 && sudo pacman -Syy && sudo pacman-optimize && sync
+        sudo pacman Syyu --noconfirm
+        sudo pacman -S --noconfirm base
+        sudo pacman -S --noconfirm base-devel
+        sudo pacman -S --noconfirm pacaur yaourt
+        sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh
+        sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
+        sudo pacman -S --noconfirm compton screenfetch xdg-utils
+        pacaur -S --noconfirm neofetch
     fi
 
-    if which npm &> /dev/null ; then
+    if which npm &> /dev/null && ! which pacman &> /dev/null ; then
         sudo npm install npm@latest -g
     fi
 }
@@ -156,61 +172,79 @@ function install_dependencies {
 function install_i3 {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y i3
+        echo ""
+        echo "====================="
+        echo "== install i3-gaps =="
+        echo "====================="
+        echo ""
+        mkdir -p ~/git
+        cd ~/git
+        rm -rf i3-gaps
+
+        # clone the repository
+        git clone https://www.github.com/Airblader/i3 i3-gaps
+        cd i3-gaps
+
+        # compile & install
+        autoreconf --force --install
+        rm -rf build/
+        mkdir -p build && cd build/
+
+        # Disabling sanitizers is important for release versions!
+        # The prefix and sysconfdir are, obviously, dependent on the distribution.
+        ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+        time make
+        time sudo make install
+
+        echo ""
+        echo "====================="
+        echo "== install polybar =="
+        echo "====================="
+        echo ""
+
+        mkdir -p ~/git
+        cd ~/git
+        rm -rf polybar
+        git clone --branch 3.0.5 --recursive https://github.com/jaagr/polybar
+        cd polybar
+        time ./build.sh
+
+        echo ""
+        echo "==========================="
+        echo "== Download i3lock-fancy =="
+        echo "==========================="
+        echo ""
+        mkdir -p ~/git
+        cd ~/git
+        rm -rf i3lock-fancy
+        git clone "https://github.com/meskarune/i3lock-fancy"
+        cd ~/git/i3lock-fancy
+        sudo cp -v lock /usr/local/bin/
+        sudo cp -r -v icons /usr/local/bin/
+
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm i3-wm
+        sudo pacman -S --noconfirm feh qutebrowser rofi
+        echo ""
+        echo "====================="
+        echo "== install i3-gaps =="
+        echo "====================="
+        echo ""
+        sudo pacman -S --noconfirm i3-gaps
+
+        echo ""
+        echo "====================="
+        echo "== install polybar =="
+        echo "====================="
+        echo ""
+        sudo pacman -S --noconfirm base-devel
+        pacaur Syyu
+        pacaur -S polybar-git
+        #mkdir -p ~/git
+        #git clone https://aur.archlinux.org/polybar-git.git ~/git/polybar-git
+        #cd ~/git/polybar-git
+        #makepkg -si
+
     fi
-
-    echo ""
-    echo "====================="
-    echo "== install i3-gaps =="
-    echo "====================="
-    echo ""
-
-    mkdir -p ~/git
-    cd ~/git
-    rm -rf i3-gaps
-
-    # clone the repository
-    git clone https://www.github.com/Airblader/i3 i3-gaps
-    cd i3-gaps
-
-    # compile & install
-    autoreconf --force --install
-    rm -rf build/
-    mkdir -p build && cd build/
-
-    # Disabling sanitizers is important for release versions!
-    # The prefix and sysconfdir are, obviously, dependent on the distribution.
-    ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
-    time make
-    time sudo make install
-
-    echo ""
-    echo "====================="
-    echo "== install polybar =="
-    echo "====================="
-    echo ""
-
-    mkdir -p ~/git
-    cd ~/git
-    rm -rf polybar
-    git clone --branch 3.0.5 --recursive https://github.com/jaagr/polybar
-    cd polybar
-    time ./build.sh
-
-    echo ""
-    echo "==========================="
-    echo "== Download i3lock-fancy =="
-    echo "==========================="
-    echo ""
-
-    mkdir -p ~/git
-    cd ~/git
-    rm -rf i3lock-fancy
-    git clone "https://github.com/meskarune/i3lock-fancy"
-    cd ~/git/i3lock-fancy
-    sudo cp -v lock /usr/local/bin/
-    sudo cp -r -v icons /usr/local/bin/
 }
 
 function install_ranger {
@@ -261,7 +295,7 @@ function install_vim {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y vim
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm vim neovim
+        sudo pacman -S --noconfirm vim neovim python-neovim python2-neovim
     fi
 
     echo ""
@@ -412,22 +446,23 @@ function install_zsh {
 
     if which apt-get &> /dev/null ; then
         sudo apt-get install fonts-powerline -y
+
+        #https://github.com/milkbikis/powerline-shell
+        #https://github.com/banga/powerline-shell
+
+        #rm -rf ~/powerline-shell
+        #git clone https://github.com/milkbikis/powerline-shell ~/powerline-shell
+        #cd ~/powerline-shell
+        #cp -v config.py.dist config.py
+        #./install.py
+        ##python ~/powerline-shell/install.py
+        #ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
+
+        sudo pip install -U powerline-shell
     elif which pacman &> /dev/null ; then
         sudo pacman -S --noconfirm powerline
     fi
 
-    #https://github.com/milkbikis/powerline-shell
-    #https://github.com/banga/powerline-shell
-
-    #rm -rf ~/powerline-shell
-    #git clone https://github.com/milkbikis/powerline-shell ~/powerline-shell
-    #cd ~/powerline-shell
-    #cp -v config.py.dist config.py
-    #./install.py
-    ##python ~/powerline-shell/install.py
-    #ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
-
-    sudo pip install -U powerline-shell
 
     echo ""
     echo "======================="

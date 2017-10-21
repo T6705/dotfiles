@@ -43,8 +43,10 @@ values."
      php
      ranger
      search-engine
+     shell-scripts
      spell-checking
      spotify
+     sql
      syntax-checking
      themes-megapack
      theming
