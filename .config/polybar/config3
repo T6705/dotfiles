@@ -67,17 +67,17 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0  = KnackNerdFont:size=8;0
-font-1  = Hack:size=8;0
-font-2  = NotoSansMonoCJKtc-Regular:size=8;0
-font-3  = FontAwesome:size=8;0
-font-4  = NotoSans-Regular:size=8;-1
-font-5  = Termsynu:size=7;0
-font-6  = Unifont:size=5;0
-font-7  = fixed:pixelsize=10;0
-font-8  = monospace:size=9;2
-font-9  = siji:pixelsize=10;0
-font-10 = unifont:size=6:heavy:fontformat=truetype;-2
+font-0  = "KnackNerdFont:size=8;2"
+font-1  = "Hack:size=8;2"
+font-2  = "NotoSansMonoCJKtc-Regular:size=8;2"
+font-3  = "FontAwesome:size=8;2"
+font-4  = "NotoSans-Regular:size=8;-1"
+font-5  = "Termsynu:size=7;0"
+font-6  = "Unifont:size=5;0"
+font-7  = "fixed:pixelsize=10;0"
+font-8  = "monospace:size=9;2"
+font-9  = "siji:pixelsize=10;0"
+font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
 [bar/bottom]
 monitor = LVDS1
@@ -120,17 +120,17 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0  = KnackNerdFont:size=8;0
-font-1  = Hack:size=8;0
-font-2  = NotoSansMonoCJKtc-Regular:size=8;0
-font-3  = FontAwesome:size=8;0
-font-4  = NotoSans-Regular:size=8;-1
-font-5  = Termsynu:size=7;0
-font-6  = Unifont:size=5;0
-font-7  = fixed:pixelsize=10;0
-font-8  = monospace:size=9;2
-font-9  = siji:pixelsize=10;0
-font-10 = unifont:size=6:heavy:fontformat=truetype;-2
+font-0  = "KnackNerdFont:size=8;2"
+font-1  = "Hack:size=8;2"
+font-2  = "NotoSansMonoCJKtc-Regular:size=8;2"
+font-3  = "FontAwesome:size=8;2"
+font-4  = "NotoSans-Regular:size=8;-1"
+font-5  = "Termsynu:size=7;0"
+font-6  = "Unifont:size=5;0"
+font-7  = "fixed:pixelsize=10;0"
+font-8  = "monospace:size=9;2"
+font-9  = "siji:pixelsize=10;0"
+font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
 ;-------------------------------------------------------------------------------
 
@@ -175,17 +175,17 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0  = KnackNerdFont:size=8;0
-font-1  = Hack:size=8;0
-font-2  = NotoSansMonoCJKtc-Regular:size=8;0
-font-3  = FontAwesome:size=8;0
-font-4  = NotoSans-Regular:size=8;-1
-font-5  = Termsynu:size=7;0
-font-6  = Unifont:size=5;0
-font-7  = fixed:pixelsize=10;0
-font-8  = monospace:size=9;2
-font-9  = siji:pixelsize=10;0
-font-10 = unifont:size=6:heavy:fontformat=truetype;-2
+font-0  = "KnackNerdFont:size=8;2"
+font-1  = "Hack:size=8;2"
+font-2  = "NotoSansMonoCJKtc-Regular:size=8;2"
+font-3  = "FontAwesome:size=8;2"
+font-4  = "NotoSans-Regular:size=8;-1"
+font-5  = "Termsynu:size=7;0"
+font-6  = "Unifont:size=5;0"
+font-7  = "fixed:pixelsize=10;0"
+font-8  = "monospace:size=9;2"
+font-9  = "siji:pixelsize=10;0"
+font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
 [bar/external_bottom]
 monitor = HDMI1
@@ -229,17 +229,17 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0  = KnackNerdFont:size=8;0
-font-1  = Hack:size=8;0
-font-2  = NotoSansMonoCJKtc-Regular:size=8;0
-font-3  = FontAwesome:size=8;0
-font-4  = NotoSans-Regular:size=8;-1
-font-5  = Termsynu:size=7;0
-font-6  = Unifont:size=5;0
-font-7  = fixed:pixelsize=10;0
-font-8  = monospace:size=9;2
-font-9  = siji:pixelsize=10;0
-font-10 = unifont:size=6:heavy:fontformat=truetype;-2
+font-0  = "KnackNerdFont:size=8;2"
+font-1  = "Hack:size=8;2"
+font-2  = "NotoSansMonoCJKtc-Regular:size=8;2"
+font-3  = "FontAwesome:size=8;2"
+font-4  = "NotoSans-Regular:size=8;-1"
+font-5  = "Termsynu:size=7;0"
+font-6  = "Unifont:size=5;0"
+font-7  = "fixed:pixelsize=10;0"
+font-8  = "monospace:size=9;2"
+font-9  = "siji:pixelsize=10;0"
+font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
 ;-------------------------------------------------------------------------------
 
@@ -330,31 +330,31 @@ format-padding = 2
 format-underline = #f90000
 label = %{F#6ff}CPU%{F-}  %percentage%%
 ;label = %percentage%
-label-font = 3
+label-font = 0
 label-foreground = #99
 ramp-coreload-0 = ▁
-ramp-coreload-0-font = 2
+ramp-coreload-0-font = 7
 ramp-coreload-0-foreground = #aaff77
 ramp-coreload-1 = ▂
-ramp-coreload-1-font = 2
+ramp-coreload-1-font = 7
 ramp-coreload-1-foreground = #aaff77
 ramp-coreload-2 = ▃
-ramp-coreload-2-font = 2
+ramp-coreload-2-font = 7
 ramp-coreload-2-foreground = #aaff77
 ramp-coreload-3 = ▄
-ramp-coreload-3-font = 2
+ramp-coreload-3-font = 7
 ramp-coreload-3-foreground = #aaff77
 ramp-coreload-4 = ▅
-ramp-coreload-4-font = 2
+ramp-coreload-4-font = 7
 ramp-coreload-4-foreground = #fba922
 ramp-coreload-5 = ▆
-ramp-coreload-5-font = 2
+ramp-coreload-5-font = 7
 ramp-coreload-5-foreground = #fba922
 ramp-coreload-6 = ▇
-ramp-coreload-6-font = 2
+ramp-coreload-6-font = 7
 ramp-coreload-6-foreground = #ff5555
 ramp-coreload-7 = █
-ramp-coreload-7-font = 2
+ramp-coreload-7-font = 7
 ramp-coreload-7-foreground = #ff5555
 
 [module/memory]
@@ -367,7 +367,7 @@ format-padding = 2
 format-underline = #4bffdc
 label = %{F#6ff}RAM%{F-}  %percentage_used%%
 ;label = %percentage_used%
-label-font = 3
+label-font = 0
 label-foreground = #99
 bar-used-width = 30
 bar-used-gradient = true
@@ -376,12 +376,12 @@ bar-used-foreground-1 = #2f8419
 bar-used-foreground-2 = #f5a70a
 bar-used-foreground-3 = #ed5456
 bar-used-indicator = █
-bar-used-indicator-font = 5
+bar-used-indicator-font = 7
 bar-used-indicator-foreground = #fff
 bar-used-fill = █
-bar-used-fill-font = 5
+bar-used-fill-font = 7
 bar-used-empty = █
-bar-used-empty-font = 5
+bar-used-empty-font = 7
 bar-used-empty-foreground = #44
 
 [module/wlan]
@@ -465,17 +465,28 @@ format-full-padding = 2
 label-charging = %percentage%%
 label-discharging = %percentage%%
 label-full = %percentage%%
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+label-font = 0
 animation-charging-0 = 
+animation-charging-0-font = 0
 animation-charging-1 = 
+animation-charging-1-font = 0
 animation-charging-2 = 
+animation-charging-2-font = 0
 animation-charging-3 = 
+animation-charging-3-font = 0
 animation-charging-4 = 
+animation-charging-4-font = 0
 animation-charging-framerate = 750
+ramp-capacity-0 = 
+ramp-capacity-0-font = 0
+ramp-capacity-1 = 
+ramp-capacity-1-font = 0
+ramp-capacity-2 = 
+ramp-capacity-2-font = 0
+ramp-capacity-3 = 
+ramp-capacity-3-font = 0
+ramp-capacity-4 = 
+ramp-capacity-4-font = 0
 
 [module/temperature]
 type = internal/temperature
