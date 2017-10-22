@@ -30,7 +30,7 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/launch.sh
     curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/spotify_p.sh
-    chmod +x ~/.config/polybar/spotify_p.sh
+    chmod +x ~/.config/polybar/launch.sh ~/.config/polybar/spotify_p.sh
 
     echo ""
     echo "============================"
@@ -160,8 +160,8 @@ function install_dependencies {
         sudo pacman -S --noconfirm pacaur yaourt
         sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
-        sudo pacman -S --noconfirm compton screenfetch xdg-utils
-        pacaur -S --noconfirm neofetch
+        sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils
+        pacaur -S --noconfirm neofetch spotify
     fi
 
     if which npm &> /dev/null && ! which pacman &> /dev/null ; then
