@@ -396,6 +396,17 @@ function install_zsh {
         https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/spaceship.zsh
 
     echo ""
+    echo "========================"
+    echo "== install hack fonts =="
+    echo "========================"
+    echo ""
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install -y fonts-hack-otf fonts-hack-ttf fonts-hack-web
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --noconfirm ttf-hack
+    fi
+
+    echo ""
     echo "============================="
     echo "== install powerline fonts =="
     echo "============================="
@@ -460,7 +471,7 @@ function install_zsh {
 
         sudo pip install -U powerline-shell
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm powerline
+        sudo pacman -S --noconfirm fontforge powerline powerline-fonts
     fi
 
 
@@ -506,6 +517,12 @@ function install_zsh {
         time cd ~/.pyenv && time git pull
     else
         time git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    fi
+
+    if [[ -d ~/.pyenv/plugins/pyenv-virtualenv ]]; then
+        time cd ~/.pyenv/plugins/pyenv-virtualenv && time git pull
+    else
+        time git clone https://github.com/pyenv/pyenv-virtualenv.git ~/plugins/pyenv-virtualenv
     fi
 
     # If this user's login shell is not already "zsh", attempt to switch.

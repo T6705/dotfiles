@@ -113,6 +113,7 @@ setopt SHARE_HISTORY          # Share history between all sessions.
 ## https://github.com/pyenv/pyenv ##
 ####################################
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 ##################################################
 ## https://github.com/milkbikis/powerline-shell ##
@@ -144,7 +145,7 @@ fi
 ###########################################
 ## https://github.com/trapd00r/LS_COLORS ##
 ###########################################
-eval $(dircolors -b $HOME/.dircolors)
+[ -f $HOME/.dircolors ] && eval $(dircolors -b $HOME/.dircolors)
 
 source ~/.zsh/aliases.zsh
 source ~/.zsh/functions.zsh
