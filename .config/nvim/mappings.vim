@@ -157,6 +157,9 @@ nnoremap <Leader>l guiw
 " clear highlighted search
 nnoremap <silent> <Leader>sc :set hlsearch! hlsearch?<CR>
 
+" vim-slash Places the current match at the center of the window.
+noremap <plug>(slash-after) zz
+
 " automatically insert a \v before any search string, so search uses normal regexes
 nnoremap / /\v
 vnoremap / /\v

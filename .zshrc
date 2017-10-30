@@ -54,12 +54,13 @@ autoload -U compinit && compinit
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
 export PYENV_ROOT="$HOME/.pyenv"
+export GOPATH=$HOME/go
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH:$GOPATH/bin
 
 source $ZSH/oh-my-zsh.sh
 
