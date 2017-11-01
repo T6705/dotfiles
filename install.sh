@@ -412,8 +412,13 @@ function install_zsh {
     echo "============================="
     echo ""
 
-    time git clone https://github.com/powerline/fonts.git /tmp/fonts
-    time /tmp/fonts/install.sh
+    if [ -d /tmp/fonts ]; then
+        time cd /tmp/fonts && time git pull
+        time ./install.sh
+    else
+        time git clone https://github.com/powerline/fonts.git /tmp/fonts
+        time /tmp/fonts/install.sh
+    fi
 
     #echo ""
     #echo "========================"
@@ -519,10 +524,15 @@ function install_zsh {
         time git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     fi
 
+    echo ""
+    echo "=============================="
+    echo "== install pyenv-virtualenv =="
+    echo "=============================="
+    echo ""
     if [[ -d ~/.pyenv/plugins/pyenv-virtualenv ]]; then
         time cd ~/.pyenv/plugins/pyenv-virtualenv && time git pull
     else
-        time git clone https://github.com/pyenv/pyenv-virtualenv.git ~/plugins/pyenv-virtualenv
+        time git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
     fi
 
     # If this user's login shell is not already "zsh", attempt to switch.
