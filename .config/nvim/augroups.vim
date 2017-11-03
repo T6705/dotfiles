@@ -47,6 +47,12 @@ augroup auto_mkdir
     \ endif
 augroup end
 
+augroup vimrc_active_options
+  au!
+  au WinEnter,BufEnter * setlocal nu
+  au WinLeave,BufLeave * setlocal nonu
+augroup END
+
 ""google/vim-codefmt
 "augroup autoformat_settings
 "    autocmd FileType bzl AutoFormatBuffer buildifier
