@@ -6,6 +6,13 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="spaceship"
+SPACESHIP_DOCKER_SYMBOL=" "
+SPACESHIP_ELIXIR_SYMBOL=" "
+SPACESHIP_EMBER_SYMBOL=" "
+SPACESHIP_GOLANG_SYMBOL=" "
+SPACESHIP_PHP_SYMBOL=" "
+SPACESHIP_PYENV_SYMBOL=" "
+SPACESHIP_RUBY_SYMBOL=" "
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"

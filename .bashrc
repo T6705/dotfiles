@@ -123,16 +123,16 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 eval $(dircolors -b $HOME/.dircolors)
 
-if ! which powerline-shell &> /dev/null ; then
-    curl "https://bootstrap.pypa.io/get-pip.py" > ~/get-pip.py
-    sudo python3 ~/get-pip.py
-    sudo pip install -U powerline-shell
-fi
-
-function _update_ps1() {
-    PS1="$(powerline-shell $?)"
-}
-
-if [ "$TERM" != "linux" ]; then
-    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-fi
+#if ! which powerline-shell &> /dev/null ; then
+#    curl "https://bootstrap.pypa.io/get-pip.py" > ~/get-pip.py
+#    sudo python3 ~/get-pip.py
+#    sudo pip install -U powerline-shell
+#fi
+#
+#function _update_ps1() {
+#    PS1="$(powerline-shell $?)"
+#}
+#
+#if [ "$TERM" != "linux" ]; then
+#    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+#fi

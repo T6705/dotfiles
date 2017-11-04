@@ -161,7 +161,7 @@ function install_dependencies {
         sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils
-        pacaur -S --noconfirm neofetch spotify
+        pacaur -S --noconfirm dropbox dropbox-cli neofetch spotify veracrypt
     fi
 
     if which npm &> /dev/null && ! which pacman &> /dev/null ; then
@@ -236,7 +236,8 @@ function install_i3 {
         echo "== install polybar =="
         echo "====================="
         echo ""
-        sudo pacman -S --noconfirm base-devel
+        sudo pacman -S --noconfirm base-devel libmpdclient wireless_tools
+        sudo pacman -S `pacman -Ssq alsa | grep alsa`
         pacaur Syyu
         pacaur -S polybar-git
         #mkdir -p ~/git

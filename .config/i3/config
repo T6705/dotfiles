@@ -317,7 +317,8 @@ bindsym $mod+shift+Return exec lock
 #exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id dropbox start
 exec --no-startup-id dropbox-cli start
-exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/pokemon2.jpg
+#exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/pokemon2.jpg
+exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/frame.jpg
 exec --no-startup-id wicd -gtk -t
 exec --no-startup-id xset r rate 200 80
 exec --no-startup-id bash ~/.config/polybar/launch.sh
