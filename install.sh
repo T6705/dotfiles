@@ -421,25 +421,29 @@ function install_zsh {
         time /tmp/fonts/install.sh
     fi
 
-    #echo ""
-    #echo "========================"
-    #echo "== install Noto fonts =="
-    #echo "========================"
-    #echo ""
+    echo ""
+    echo "========================"
+    echo "== install Noto fonts =="
+    echo "========================"
+    echo ""
 
-    #cd /tmp
-    #wget "https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip"
-    #unzip Noto-hinted.zip
-    #mkdir -p ~/.fonts
-    #cp -v *.otc ~/.fonts
-    #cp -v *.otf ~/.fonts
-    #cp -v *.ttf ~/.fonts
-    #fc-cache -f -v # optional
-    #sudo mkdir -p /usr/share/fonts/opentype/noto
-    #sudo cp -v *.otc /usr/share/fonts/opentype/noto
-    #sudo cp -v *.otf /usr/share/fonts/opentype/noto
-    #sudo cp -v *.ttf /usr/share/fonts/opentype/noto
-    #sudo fc-cache -f -v # optional
+    if which apt-get &> /dev/null ; then
+        cd /tmp
+        wget "https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip"
+        unzip Noto-hinted.zip
+        mkdir -p ~/.fonts
+        cp -v *.otc ~/.fonts
+        cp -v *.otf ~/.fonts
+        cp -v *.ttf ~/.fonts
+        fc-cache -f -v # optional
+        sudo mkdir -p /usr/share/fonts/opentype/noto
+        sudo cp -v *.otc /usr/share/fonts/opentype/noto
+        sudo cp -v *.otf /usr/share/fonts/opentype/noto
+        sudo cp -v *.ttf /usr/share/fonts/opentype/noto
+        sudo fc-cache -f -v # optional
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S `pacman -Ssq noto | grep font` --noconfirm
+    fi
 
     echo ""
     echo "========================"

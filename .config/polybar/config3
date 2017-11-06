@@ -249,7 +249,7 @@ exec = ~/.config/polybar/spotify_p.sh
 tail = true
 interval = 1
 format = <label>
-label = %{T1}%output%%{T-}
+label = %{T2}%output%%{T-}
 
 [module/volume]
 type = internal/volume
