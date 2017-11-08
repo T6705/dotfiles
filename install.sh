@@ -13,6 +13,10 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/i3blocks.conf
     curl -fLo ~/.config/i3/compton.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf
+    curl -fLo ~/.config/i3/i3lock.sh --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3lock.sh
+    curl -fLo ~/.config/i3/lock.png --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/lock.png
 
     echo ""
     echo "============================="
@@ -28,9 +32,15 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/config3
     curl -fLo ~/.config/polybar/launch.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/launch.sh
+    curl -fLo ~/.config/polybar/next.sh --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/next.sh
+    curl -fLo ~/.config/polybar/playpause.sh --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/playpause.sh
+    curl -fLo ~/.config/polybar/previous.sh --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/previous.sh
     curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/spotify_p.sh
-    chmod +x ~/.config/polybar/launch.sh ~/.config/polybar/spotify_p.sh
+    chmod +x ~/.config/polybar/*.sh
 
     echo ""
     echo "============================"
@@ -229,7 +239,7 @@ function install_i3 {
         echo "== install i3-gaps =="
         echo "====================="
         echo ""
-        sudo pacman -S --noconfirm i3-gaps
+        sudo pacman -S --noconfirm i3-gaps i3lock i3-scrot
 
         echo ""
         echo "====================="
@@ -511,6 +521,9 @@ function install_zsh {
     echo "== install ccat =="
     echo "=================="
     echo ""
+    if which pacman &> /dev/null ; then
+        sudo pacman -S --noconfirm go
+    fi
     # https://github.com/jingweno/ccat
     if which go &> /dev/null ; then
         export GOPATH=$HOME/go
@@ -556,6 +569,7 @@ function install_zsh {
         . ~/.zshrc
     fi
 
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.xinitrc > ~/.xinitrc
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.Xresources > ~/.Xresources
 }
 

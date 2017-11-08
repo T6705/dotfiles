@@ -48,7 +48,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left = 0
 
-modules-right = spotify volume
+modules-right = spotify previous playpause next volume
 modules-center = date
 modules-left = i3
 
@@ -156,7 +156,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left = 0
 
-modules-right = spotify volume
+modules-right = spotify previous playpause next volume
 modules-center = date
 modules-left = i3
 
@@ -245,11 +245,40 @@ font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
 [module/spotify]
 type = custom/script
-exec = ~/.config/polybar/spotify_p.sh
+exec = bash ~/.config/polybar/spotify_p.sh
 tail = true
 interval = 1
 format = <label>
 label = %{T2}%output%%{T-}
+
+[module/playpause]
+type = custom/script
+exec = bash ~/.config/polybar/playpause.sh
+format-padding = 1
+interval = 1
+format = <label>
+format-foreground = ${colors.foreground}
+;format-background = ${colors.foreground-alt}
+click-left = playerctl play-pause
+
+[module/next]
+type = custom/script
+exec = bash ~/.config/polybar/next.sh
+format-padding = 1
+interval = 1
+format = <label>
+format-foreground = ${colors.foreground}
+;format-background = ${colors.foreground-alt}
+click-left = playerctl next
+
+[module/previous]
+type = custom/script
+exec = bash ~/.config/polybar/previous.sh
+format-padding = 1
+format = <label>
+format-foreground = ${colors.foreground}
+;format-background = ${colors.foreground-alt}
+click-left = playerctl previous
 
 [module/volume]
 type = internal/volume

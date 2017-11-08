@@ -294,7 +294,7 @@ hide_edge_borders both
 
 # Other Keybindings
 
-bindsym $mod+shift+Return exec lock
+bindsym $mod+shift+Return exec bash ~/.config/i3/i3lock.sh
 # bindsym $mod+u exec scrot
 # bindsym $mod+z exec xrdb ~/.Xresources
 
