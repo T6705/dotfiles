@@ -5,33 +5,33 @@
 " ----------------------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
 " ----------------------------------------------------------------------------------------
-function! s:shuffle() range
+fu! s:shuffle() range
 ruby << RB
   first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
   (first..last).map { |l| $curbuf[l] }.shuffle.each_with_index do |line, i|
     $curbuf[first + i] = line
   end
 RB
-endfunction
+endfu
 command! -range Shuffle <line1>,<line2>call s:shuffle()
 
 " ----------------------------------------------------------------------------------------
 " :ClearRegisters
 " ----------------------------------------------------------------------------------------
-function! ClearRegisters()
+fu! ClearRegisters()
     let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
     let i=0
     while (i<strlen(regs))
         exec 'let @'.regs[i].'=""'
         let i=i+1
     endwhile
-endfunction
+endfu
 command! ClearRegisters call ClearRegisters()
 
 " ----------------------------------------------------------------------------------------
 " :RangerExplorer (vim only)
 " ----------------------------------------------------------------------------------------
-function RangerExplorer()
+fu RangerExplorer()
     if executable("ranger")
         exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
         if filereadable('/tmp/vim_ranger_current_file')
@@ -40,7 +40,7 @@ function RangerExplorer()
         endif
         redraw!
     endif
-endfun
+endfu
 
 " ----------------------------------------------------------------------------
 " :EX | chmod +x
@@ -58,18 +58,18 @@ command! EX if !empty(expand('%'))
 " ----------------------------------------------------------------------------------------
 " :WordProcessorMode
 " ----------------------------------------------------------------------------------------
-function! WordProcessorMode()
+fu! WordProcessorMode()
     setlocal textwidth=80
     setlocal smartindent
     setlocal spell spelllang=en_us
     setlocal noexpandtab
-endfunction
+endfu
 command! WordProcessorMode call WordProcessorMode()
 
 " ----------------------------------------------------------------------------------------
 " compile_and_run | <Leader>cr
 " ----------------------------------------------------------------------------------------
-function! Compile_and_Run()
+fu! Compile_and_Run()
     exec 'w'
     if &filetype == 'c'
         call VimuxRunCommand('gcc '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
@@ -85,13 +85,13 @@ function! Compile_and_Run()
     elseif &filetype == 'python'
         call VimuxRunCommand('time python3 '.expand('%'))
     endif
-endfunction
+endfu
 command! CompileandRun call Compile_and_Run()
 
 " ----------------------------------------------------------------------------------------
 " :ChangeEncoding
 " ----------------------------------------------------------------------------------------
-function! ChangeEncoding()
+fu! ChangeEncoding()
     if executable("file")
         let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
         if result =~ "Little-endian UTF-16" && &enc != "utf-16le"
@@ -100,13 +100,13 @@ function! ChangeEncoding()
             exec "e ++enc=iso-8859-1"
         endif
     endif
-endfunction
+endfu
 command! ChangeEncoding call ChangeEncoding()
 
 " ----------------------------------------------------------------------------------------
 " :Hexmode
 " ----------------------------------------------------------------------------------------
-function ToggleHex()
+fu ToggleHex()
     " hex mode should be considered a read-only operation
     " save values for modified and read-only for restoration later,
     " and clear the read-only flag for now
@@ -143,50 +143,52 @@ function ToggleHex()
     let &mod=l:modified
     let &readonly=l:oldreadonly
     let &modifiable=l:oldmodifiable
-endfunction
+endfu
 command! Hexmode call ToggleHex()
 
 " ----------------------------------------------------------------------------------------
 " :NERDTreeRefresh
 " ----------------------------------------------------------------------------------------
-function! NERDTreeRefresh()
+fu! NERDTreeRefresh()
     if &filetype == "nerdtree"
         silent exe substitute(mapcheck("R"), "<CR>", "", "")
     endif
-endfunction
+endfu
 command! NERDTreeRefresh call NERDTreeRefresh()
 
 " ----------------------------------------------------------------------------------------
 " :OpenUrl
 " ----------------------------------------------------------------------------------------
-function! HandleURL()
-    "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
-    let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
+fu! HandleURL()
+    if executable("firefox")
+        "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+        let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
 
-    echo s:uri
-    if s:uri != ""
-        "silent exec "!elinks '".s:uri."'"
-        silent exec "!firefox '".s:uri."'"
-    else
-        echo "No URI found in line."
+        echo s:uri
+        if s:uri != ""
+            "silent exec "!elinks '".s:uri."'"
+            silent exec "!firefox '".s:uri."'"
+        else
+            echo "No URI found in line."
+        endif
     endif
-endfunction
+endfu
 command! OpenUrl call HandleURL()
 
 " ----------------------------------------------------------------------------------------
 " :ShowMeUrl
 " ----------------------------------------------------------------------------------------
-function! ShowMeUrl()
+fu! ShowMeUrl()
     %!grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,\!''*~-]*)?(\#[a-zA-Z0-9_/.\-+%\#?&=;@$,\!''*~]*)?"
     silent exec "sort u"
     silent exec "%s/'$//g"
-endfunction
+endfu
 command! ShowMeUrl call ShowMeUrl()
 
 " ----------------------------------------------------------------------------
 " :Root | Change directory to the root of the Git repository
 " ----------------------------------------------------------------------------
-function! s:root()
+fu! s:root()
     let root = systemlist('git rev-parse --show-toplevel')[0]
     if v:shell_error
         echo 'Not in git repo'
@@ -194,14 +196,51 @@ function! s:root()
         execute 'lcd' root
         echo 'Changed directory to: '.root
     endif
-endfunction
+endfu
 command! Root call s:root()
+
+" ----------------------------------------------------------------------------
+" autofold
+" ----------------------------------------------------------------------------
+fu! s:open_folds(action) abort
+    if a:action ==# 'is_active'
+        return exists('s:open_folds')
+    elseif a:action ==# 'enable' && !exists('s:open_folds')
+        let s:open_folds = {
+                    \                    'close'   : &foldclose,
+                    \                    'column'  : &foldcolumn,
+                    \                    'enable'  : &foldenable,
+                    \                    'level'   : &foldlevel,
+                    \                    'method'  : &foldmethod,
+                    \                    'nestmax' : &foldnestmax,
+                    \                    'open'    : &foldopen,
+                    \                  }
+        set foldclose=all
+        set foldcolumn=1
+        set foldenable
+        set foldlevel=0
+        set foldmethod=indent
+        "set foldmethod=syntax
+        set foldnestmax=1
+        set foldopen=all
+        echo '[auto open folds] ON'
+    elseif a:action ==# 'disable' && exists('s:open_folds')
+        for op in keys(s:open_folds)
+            exe 'let &fold'.op.' = s:open_folds.'.op
+        endfor
+        unlet! s:open_folds
+        echo '[auto open folds] OFF'
+    endif
+endfu
+command! AutoFoldsEnable  call <sid>open_folds('enable')
+command! AutoFoldsDisable call <sid>open_folds('disable')
+command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
 
 " ----------------------------------------------------------------------------------------
 " Window movement shortcuts
 " ----------------------------------------------------------------------------------------
 " move to the window in the direction shown, or create a new window
-function! functions#WinMove(key)
+fu! functions#WinMove(key)
     let t:curwin = winnr()
     exec "wincmd ".a:key
     if (t:curwin == winnr())
@@ -212,10 +251,10 @@ function! functions#WinMove(key)
         endif
         exec "wincmd ".a:key
     endif
-endfunction
+endfu
 
 " smart tab completion
-function! functions#Smart_TabComplete()
+fu! functions#Smart_TabComplete()
     let line = getline('.')                    " current line
 
     let substr = strpart(line, -1, col('.')+1) " from the start of the current
@@ -234,30 +273,30 @@ function! functions#Smart_TabComplete()
     else
         return '\<C-X>\<C-O>'                  " plugin matching
     endif
-endfunction
+endfu
 
 " execute a custom command
-function! functions#RunCustomCommand()
+fu! functions#RunCustomCommand()
     up
     if g:silent_custom_command
         execute 'silent !' . s:customcommand
     else
         execute '!' . s:customcommand
     endif
-endfunction
+endfu
 
-function! functions#SetCustomCommand()
+fu! functions#SetCustomCommand()
     let s:customcommand = input('Enter Custom Command$ ')
-endfunction
+endfu
 
-function! functions#TrimWhiteSpace()
+fu! functions#TrimWhiteSpace()
     %s/\s\+$//e
-endfunction
+endfu
 
-function! functions#HtmlUnEscape()
+fu! functions#HtmlUnEscape()
     silent s/&lt;/</eg
     silent s/&gt;/>/eg
     silent s/&amp;/\&/eg
-endfunction
+endfu
 
 """ }}}

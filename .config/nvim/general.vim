@@ -2,8 +2,12 @@
 
 """ === General Setting === {{{
 
-let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/bin/python3'
+if executable('python2')
+    let g:python_host_prog = '/usr/bin/python2'
+endif
+if executable('python3')
+    let g:python3_host_prog = '/usr/bin/python3'
+endif
 
 let mapleader=' '
 

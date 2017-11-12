@@ -3,25 +3,46 @@
 """ === augroup === {{{
 
 augroup configgroup
-    autocmd!
-    autocmd BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
-    autocmd BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
+    au!
+    au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
+    au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
 
     " Restore cursor position when opening file
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-    autocmd FileType java setlocal omnifunc=javacomplete#Complete
-    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    autocmd FocusGained *: redraw!     " Redraw screen every time when focus gained
-    autocmd FocusLost *: wa            " Set vim to save the file on focus out
-    autocmd InsertLeave * silent! set nopaste
-    autocmd VimResized * wincmd =
-    autocmd! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
+    au FileType java setlocal omnifunc=javacomplete#Complete
+    au FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    au FocusGained *: redraw!     " Redraw screen every time when focus gained
+    au FocusLost *: wa            " Set vim to save the file on focus out
+    au InsertLeave * silent! set nopaste
+    au VimResized * wincmd =
+    au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
+augroup END
+
+augroup auto_mkdir
+    au!
+    au BufWritePre *
+                \ if !isdirectory(expand('<afile>:p:h')) |
+                \ call mkdir(expand('<afile>:p:h'), 'p') |
+                \ endif
+augroup end
+
+augroup vimrc_active_options
+    au!
+    au WinEnter,BufEnter * setlocal nu
+    au WinLeave,BufLeave * setlocal nonu
 augroup END
 
 """ }}}
 
 """ === General Setting === {{{
+
+if executable('python2')
+    let g:python_host_prog = '/usr/bin/python2'
+endif
+if executable('python3')
+    let g:python3_host_prog = '/usr/bin/python3'
+endif
 
 let mapleader=' '
 
@@ -49,9 +70,11 @@ if has('nvim')
     packadd vimball
 endif
 
-packadd justify
-packadd shellmenu
-packadd swapmouse
+if has('patch-7.4.1480')
+    packadd justify
+    packadd shellmenu
+    packadd swapmouse
+endif
 
 if has('mouse')
     set mouse=a
@@ -62,8 +85,12 @@ if !has('nvim') && &ttimeoutlen == -1
     set ttimeoutlen=100
 endif
 
-if v:version > 703 || v:version == 703 && has("patch541")
+if v:version > 703 || v:version == 703 && has("patch-7.3.541")
     set formatoptions+=j " Delete comment character when joining commented lines
+endif
+
+if !has('nvim') && v:version > 704 || (v:version == 704 && has('patch401'))
+    setlocal cryptmethod=blowfish2  " medium strong method
 endif
 
 " ----------------------------------------------------------------------------------------
@@ -86,7 +113,7 @@ set backspace=indent,eol,start " make backspace behave in a sane manner
 " Tabs
 " ----------------------------------------------------------------------------------------
 "set completeopt+=longest
-"set noexpandtab   " insert tabs rather than spaces for <Tab>
+"set noexpandtab   " insert tabs rather than spaces for <TAB>
 "set shiftround    " round indent to a multiple of 'shiftwidth'
 set expandtab     " Use spaces instead of tabs
 set shiftwidth=4  " number of spaces to use for indent and unindent (1 tab == 4 spaces)
@@ -98,7 +125,12 @@ set tabstop=4     " the visible width of tabs
 set invlist
 set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
-set showbreak=↪
+if has('patch-7.4.338')
+    "let &showbreak = '↳ '
+    set showbreak=↪
+    set breakindent
+    set breakindentopt=sbr
+endif
 nmap <Leader>l :set list!<CR>
 
 " ----------------------------------------------------------------------------------------
@@ -139,6 +171,19 @@ if has('syntax') && !exists('g:syntax_on')
     syntax on                                                         " switch syntax highlighting on
 endif
 
+" Set font according to system
+if has("mac") || has("macunix")
+    set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+elseif has("win16") || has("win32")
+    set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+elseif has("gui_gtk2")
+    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+elseif has("linux")
+    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+elseif has("unix")
+    set gfn=Monospace\ 11
+endif
+
 " ----------------------------------------------------------------------------------------
 " statusline
 " ----------------------------------------------------------------------------------------
@@ -169,7 +214,7 @@ endif
 let g:currentmode={ 'n'  : 'Normal ', 'no' : 'N-Operator Pending ', 'v'  : 'Visual ', 'V'  : 'V-Line ', '' : 'V-Block ', 's'  : 'Select ', 'S'  : 'S-Line ', '^S' : 'S-Block ', 'i'  : 'Insert ', 'R'  : 'Replace ', 'Rv' : 'V-Replace ', 'c'  : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r'  : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!'  : 'Shell ', 't'  : 'Terminal ' }
 
 " Automatically change the statusline color depending on mode
-function! ChangeStatuslineColor()
+fu! ChangeStatuslineColor()
   if (mode() =~# '\v(n|no)')
     exe 'hi! StatusLine ctermfg=008'
   elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V-Block' || get(g:currentmode, mode(), '') ==# 't')
@@ -180,10 +225,10 @@ function! ChangeStatuslineColor()
     exe 'hi! StatusLine ctermfg=006'
   endif
   return ''
-endfunction
+endfu
 
 " Find out current buffer's size and output it.
-function! FileSize()
+fu! FileSize()
   let bytes = getfsize(expand('%:p'))
   if (bytes >= 1024)
     let kbytes = bytes / 1024
@@ -203,24 +248,24 @@ function! FileSize()
   else
     return bytes . 'B '
   endif
-endfunction
+endfu
 
-function! ReadOnly()
+fu! ReadOnly()
   if &readonly || !&modifiable
     return '\ue0a2'
   else
     return ''
   endif
-endfunction
+endfu
 
-function! GitInfo()
+fu! GitInfo()
   let git = fugitive#head()
   if git != ''
     return '\ue0a0 '.fugitive#head()
   else
     return ''
   endfi
-endfunction
+endfu
 
 set statusline=
 set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
@@ -320,7 +365,12 @@ if &history < 1000
 endif
 set nocompatible             " not compatible with vi
 set path+=**
-"set shell=/bin/zsh
+
+if executable('zsh')
+    set shell=/bin/zsh
+else
+    set shell=/bin/bash
+endif
 
 " ctags
 set tags=./tags;/
@@ -328,40 +378,65 @@ set tags=./tags;/
 set splitbelow
 set splitright
 
+" Use persistent history
+if v:version >= 703
+    if !isdirectory("/tmp/.vim-undo-dir")
+        call mkdir("/tmp/.vim-undo-dir", "", 0777)
+        "call mkdir("/tmp/.vim-undo-dir", "", 0700)
 """ }}}
+    endif
+    set undodir=/tmp/.vim-undo-dir
+    set undofile
+endif
+
+" ----------------------------------------------------------------------------------------
+" gvim
+" ----------------------------------------------------------------------------------------
+" With this, the gui (gvim and macvim) now doesn't have the toolbar, the left
+" and right scrollbars and the menu.
+set guioptions-=T
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+set guioptions-=m
+set guioptions-=M
+""" }}}
+
+" vim:foldmethod=marker:foldlevel=0
 
 """ === Functions === {{{
 
 " ----------------------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
 " ----------------------------------------------------------------------------------------
-function! s:shuffle() range
+fu! s:shuffle() range
 ruby << RB
   first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
   (first..last).map { |l| $curbuf[l] }.shuffle.each_with_index do |line, i|
     $curbuf[first + i] = line
   end
 RB
-endfunction
+endfu
 command! -range Shuffle <line1>,<line2>call s:shuffle()
 
 " ----------------------------------------------------------------------------------------
 " :ClearRegisters
 " ----------------------------------------------------------------------------------------
-function! ClearRegisters()
+fu! ClearRegisters()
     let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
     let i=0
     while (i<strlen(regs))
         exec 'let @'.regs[i].'=""'
         let i=i+1
     endwhile
-endfunction
+endfu
 command! ClearRegisters call ClearRegisters()
 
 " ----------------------------------------------------------------------------------------
 " :RangerExplorer (vim only)
 " ----------------------------------------------------------------------------------------
-function RangerExplorer()
+fu RangerExplorer()
     if executable("ranger")
         exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
         if filereadable('/tmp/vim_ranger_current_file')
@@ -370,7 +445,7 @@ function RangerExplorer()
         endif
         redraw!
     endif
-endfun
+endfu
 
 " ----------------------------------------------------------------------------
 " :EX | chmod +x
@@ -388,18 +463,18 @@ command! EX if !empty(expand('%'))
 " ----------------------------------------------------------------------------------------
 " :WordProcessorMode
 " ----------------------------------------------------------------------------------------
-function! WordProcessorMode()
+fu! WordProcessorMode()
     setlocal textwidth=80
     setlocal smartindent
     setlocal spell spelllang=en_us
     setlocal noexpandtab
-endfunction
+endfu
 command! WordProcessorMode call WordProcessorMode()
 
 " ----------------------------------------------------------------------------------------
 " :ChangeEncoding
 " ----------------------------------------------------------------------------------------
-function! ChangeEncoding()
+fu! ChangeEncoding()
     if executable("file")
         let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
         if result =~ "Little-endian UTF-16" && &enc != "utf-16le"
@@ -408,13 +483,13 @@ function! ChangeEncoding()
             exec "e ++enc=iso-8859-1"
         endif
     endif
-endfunction
+endfu
 command! ChangeEncoding call ChangeEncoding()
 
 " ----------------------------------------------------------------------------------------
 " :Hexmode
 " ----------------------------------------------------------------------------------------
-function ToggleHex()
+fu ToggleHex()
     " hex mode should be considered a read-only operation
     " save values for modified and read-only for restoration later,
     " and clear the read-only flag for now
@@ -451,40 +526,42 @@ function ToggleHex()
     let &mod=l:modified
     let &readonly=l:oldreadonly
     let &modifiable=l:oldmodifiable
-endfunction
+endfu
 command! Hexmode call ToggleHex()
 
 " ----------------------------------------------------------------------------------------
 " :OpenUrl
 " ----------------------------------------------------------------------------------------
-function! HandleURL()
-    "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
-    let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
+fu! HandleURL()
+    if executable('firefox')
+        "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
+        let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
 
-    echo s:uri
-    if s:uri != ""
-        "silent exec "!elinks '".s:uri."'"
-        silent exec "!firefox '".s:uri."'"
-    else
-        echo "No URI found in line."
+        echo s:uri
+        if s:uri != ""
+            "silent exec "!elinks '".s:uri."'"
+            silent exec "!firefox '".s:uri."'"
+        else
+            echo "No URI found in line."
+        endif
     endif
-endfunction
+endfu
 command! OpenUrl call HandleURL()
 
 " ----------------------------------------------------------------------------------------
 " :ShowMeUrl
 " ----------------------------------------------------------------------------------------
-function! ShowMeUrl()
+fu! ShowMeUrl()
     %!grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,\!''*~-]*)?(\#[a-zA-Z0-9_/.\-+%\#?&=;@$,\!''*~]*)?"
     silent exec "sort u"
     silent exec "%s/'$//g"
-endfunction
+endfu
 command! ShowMeUrl call ShowMeUrl()
 
 " ----------------------------------------------------------------------------
 " :Root | Change directory to the root of the Git repository
 " ----------------------------------------------------------------------------
-function! s:root()
+fu! s:root()
     let root = systemlist('git rev-parse --show-toplevel')[0]
     if v:shell_error
         echo 'Not in git repo'
@@ -492,8 +569,45 @@ function! s:root()
         execute 'lcd' root
         echo 'Changed directory to: '.root
     endif
-endfunction
+endfu
 command! Root call s:root()
+
+" ----------------------------------------------------------------------------
+" autofold
+" ----------------------------------------------------------------------------
+fu! s:open_folds(action) abort
+    if a:action ==# 'is_active'
+        return exists('s:open_folds')
+    elseif a:action ==# 'enable' && !exists('s:open_folds')
+        let s:open_folds = {
+                    \                    'close'   : &foldclose,
+                    \                    'column'  : &foldcolumn,
+                    \                    'enable'  : &foldenable,
+                    \                    'level'   : &foldlevel,
+                    \                    'method'  : &foldmethod,
+                    \                    'nestmax' : &foldnestmax,
+                    \                    'open'    : &foldopen,
+                    \                  }
+        set foldclose=all
+        set foldcolumn=1
+        set foldenable
+        set foldlevel=0
+        set foldmethod=indent
+        "set foldmethod=syntax
+        set foldnestmax=1
+        set foldopen=all
+        echo '[auto open folds] ON'
+    elseif a:action ==# 'disable' && exists('s:open_folds')
+        for op in keys(s:open_folds)
+            exe 'let &fold'.op.' = s:open_folds.'.op
+        endfor
+        unlet! s:open_folds
+        echo '[auto open folds] OFF'
+    endif
+endfu
+command! AutoFoldsEnable  call <sid>open_folds('enable')
+command! AutoFoldsDisable call <sid>open_folds('disable')
+command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
 
 """ }}}
 
@@ -715,6 +829,20 @@ nnoremap <Leader>5 m`^i##### <esc>``6l
 " Make check spelling on or off
 nnoremap <Leader>cson   :set spell<CR>
 nnoremap <Leader>csoff :set nospell<CR>
+
+" ----------------------------------------------------------------------------------------
+" nvim
+" ----------------------------------------------------------------------------------------
+if has('nvim')
+    "command! Term terminal
+    "command! VTerm vnew | terminal
+
+    tnoremap <Esc> <C-\><C-n>
+    "tnoremap <a-a> <esc>a
+    "tnoremap <a-b> <esc>b
+    "tnoremap <a-d> <esc>d
+    "tnoremap <a-f> <esc>f
+endif
 
 """ }}}
 

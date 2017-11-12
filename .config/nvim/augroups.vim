@@ -3,81 +3,81 @@
 """ === augroup === {{{
 
 augroup configgroup
-    autocmd!
+    au!
 
     "" Open NERDTree automatically when vim starts up if no files were specified
-    "autocmd StdinReadPre * let s:std_in=1
-    "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    "au StdinReadPre * let s:std_in=1
+    "au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-    "autocmd FileType text Goyo
-    "autocmd FileType text Limelight
+    "au FileType text Goyo
+    "au FileType text Limelight
 
-    "autocmd InsertEnter,WinLeave * set nocursorline
-    "autocmd InsertLeave,WinEnter * set cursorline
+    "au InsertEnter,WinLeave * set nocursorline
+    "au InsertLeave,WinEnter * set cursorline
 
-    autocmd BufEnter * call NERDTreeRefresh() "
-    autocmd BufRead * call ChangeEncoding()
-    autocmd BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
-    autocmd BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
+    au BufEnter * call NERDTreeRefresh() "
+    au BufRead * call ChangeEncoding()
+    au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
+    au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
 
     " Restore cursor position when opening file
-    autocmd BufReadPost *
+    au BufReadPost *
                 \ if line("'\"") > 1 && line("'\"") <= line("$") |
                 \   exe "normal! g`\"" |
                 \ endif
 
-    autocmd FileType * RainbowParentheses
-    autocmd FileType html,css EmmetInstall
-    "autocmd FileType html,css,php EmmetInstall
-    autocmd FileType java setlocal omnifunc=javacomplete#Complete
-    autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    autocmd FocusGained *: redraw!     " Redraw screen every time when focus gained
-    autocmd FocusLost *: wa            " Set vim to save the file on focus out
-    autocmd InsertLeave * silent! set nopaste
-    autocmd VimResized * wincmd =
-    autocmd! BufWritePost * Neomake    " run neomake on the current file on every write
-    autocmd! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
+    au FileType * RainbowParentheses
+    au FileType html,css EmmetInstall
+    "au FileType html,css,php EmmetInstall
+    au FileType java setlocal omnifunc=javacomplete#Complete
+    au FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    au FocusGained *: redraw!     " Redraw screen every time when focus gained
+    au FocusLost *: wa            " Set vim to save the file on focus out
+    au InsertLeave * silent! set nopaste
+    au VimResized * wincmd =
+    au! BufWritePost * Neomake    " run neomake on the current file on every write
+    au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
 
 augroup auto_mkdir
-  autocmd!
-  autocmd BufWritePre *
-    \ if !isdirectory(expand('<afile>:p:h')) |
-      \ call mkdir(expand('<afile>:p:h'), 'p') |
-    \ endif
+    au!
+    au BufWritePre *
+                \ if !isdirectory(expand('<afile>:p:h')) |
+                \ call mkdir(expand('<afile>:p:h'), 'p') |
+                \ endif
 augroup end
 
 augroup vimrc_active_options
-  au!
-  au WinEnter,BufEnter * setlocal nu
-  au WinLeave,BufLeave * setlocal nonu
+    au!
+    au WinEnter,BufEnter * setlocal nu
+    au WinLeave,BufLeave * setlocal nonu
 augroup END
 
 ""google/vim-codefmt
 "augroup autoformat_settings
-"    autocmd FileType bzl AutoFormatBuffer buildifier
-"    autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-"    autocmd FileType dart AutoFormatBuffer dartfmt
-"    autocmd FileType go AutoFormatBuffer gofmt
-"    autocmd FileType gn AutoFormatBuffer gn
-"    autocmd FileType html,css,json AutoFormatBuffer js-beautify
-"    autocmd FileType java AutoFormatBuffer google-java-format
-"    autocmd FileType python AutoFormatBuffer yapf
-"    " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+"    au FileType bzl AutoFormatBuffer buildifier
+"    au FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+"    au FileType dart AutoFormatBuffer dartfmt
+"    au FileType go AutoFormatBuffer gofmt
+"    au FileType gn AutoFormatBuffer gn
+"    au FileType html,css,json AutoFormatBuffer js-beautify
+"    au FileType java AutoFormatBuffer google-java-format
+"    au FileType python AutoFormatBuffer yapf
+"    " Alternative: au FileType python AutoFormatBuffer autopep8
 "augroup END
 
 augroup nerd_loader
-    autocmd!
-    autocmd VimEnter * silent! autocmd! FileExplorer
-    autocmd BufEnter,BufNew *
+    au!
+    au VimEnter * silent! au! FileExplorer
+    au BufEnter,BufNew *
                 \  if isdirectory(expand('<amatch>'))
                 \|   call plug#load('nerdtree')
-                \|   execute 'autocmd! nerd_loader'
+                \|   execute 'au! nerd_loader'
                 \| endif
 augroup END
 
 augroup asyncrun
-    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
+    au User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
 augroup END
 
 """ }}}
