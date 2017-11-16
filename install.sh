@@ -307,6 +307,8 @@ function install_vim {
         sudo apt-get install -y vim
     elif which pacman &> /dev/null ; then
         sudo pacman -S --noconfirm vim neovim python-neovim python2-neovim
+        sudo pacman -S --noconfirm `pacman -Ss pep8`
+        sudo pip install -U vulture
     fi
 
     echo ""

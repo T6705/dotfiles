@@ -62,7 +62,7 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 " ----------------------------------------------------------------------------------------
 " markdown
 " ----------------------------------------------------------------------------------------
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+"Plug 'plasticboy/vim-markdown', { 'for': 'markdown', 'on': [] }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
 
 
@@ -85,7 +85,7 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - eas
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
 "Plug 'w0rp/ale' " Asynchronous Lint Engine
-Plug 'benekastah/neomake'                      " Asynchronous linting and make framework for Neovim/Vim
+Plug 'benekastah/neomake', { 'on' : [] }       " Asynchronous linting and make framework for Neovim/Vim
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
 
 
@@ -100,8 +100,8 @@ endif
 "Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'java'], 'do': function('BuildYCM') }
 "Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 "Plug 'zchee/deoplete-jedi', { 'for': 'python' }
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php'}
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php', 'on': [] }
+Plug 'davidhalter/jedi-vim', { 'for': 'python', 'on': [] }
 
 
 " ----------------------------------------------------------------------------------------
@@ -116,12 +116,12 @@ Plug 'honza/vim-snippets'         " vim-snipmate default snippets
 " ----------------------------------------------------------------------------------------
 " textobj
 " ----------------------------------------------------------------------------------------
-Plug 'kana/vim-textobj-user'     " Create your own textobj
+Plug 'kana/vim-textobj-user'                    " Create your own textobj
 Plug 'akiyan/vim-textobj-php', { 'for': 'php' } " aP/iP for a range between the PHP delimiters such as <?php and ?>
-Plug 'deris/vim-textobj-ipmac'   " aA/iA for ipv4, ipv6, MAC Address
-Plug 'kana/vim-textobj-datetime' " ada/ida and others for date and time such as 2013-03-13, 19:51:45, 2013-03-13T19:51:50
-Plug 'kana/vim-textobj-indent'   " ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
-Plug 'mattn/vim-textobj-url'     " au/iu for a URL
+Plug 'deris/vim-textobj-ipmac'                  " aA/iA for ipv4, ipv6, MAC Address
+Plug 'kana/vim-textobj-datetime'                " ada/ida and others for date and time such as 2013-03-13, 19:51:45, 2013-03-13T19:51:50
+Plug 'kana/vim-textobj-indent'                  " ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
+Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 
 
 " ----------------------------------------------------------------------------------------
@@ -146,6 +146,7 @@ if has('nvim')
 endif
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }             " A vim plugin to perform diffs on blocks of code
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                       " Interactive command execution in Vim.
+Plug 'andymass/matchup.vim'                                       " vim match-up: matchit replacement and more
 Plug 'benmills/vimux'                                             " vim plugin to interact with tmux
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'chrisbra/vim-diff-enhanced'                                 " Better Diff options for Vim
@@ -182,8 +183,8 @@ Plug 'skywind3000/quickmenu.vim'                      " A nice customizable popu
 Plug 'terryma/vim-multiple-cursors'                   " True Sublime Text style multiple selections for Vim
 Plug 'tpope/vim-fugitive'                             " fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-repeat'                               " enables repeating other supported plugins with the . command
-Plug 'tpope/vim-surround'                             " surround.vim: quoting/parenthesizing made simple
-Plug 'wellle/targets.vim'                             " Vim plugin that provides additional text objects
+Plug 'tpope/vim-surround', { 'on': [] }               " surround.vim: quoting/parenthesizing made simple
+Plug 'wellle/targets.vim', { 'on': [] }               " Vim plugin that provides additional text objects
 call plug#end()
 endif
 

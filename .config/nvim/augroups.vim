@@ -39,6 +39,16 @@ augroup configgroup
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
 
+augroup LoadDuringHold_Targets
+    autocmd!
+    "autocmd CursorHold,CursorHoldI * call plug#load('vim-markdown') | autocmd! LoadDuringHold_Targets
+    autocmd CursorHold,CursorHoldI * call plug#load('neomake') | autocmd! LoadDuringHold_Targets
+    autocmd CursorHold,CursorHoldI * call plug#load('targets.vim') | autocmd! LoadDuringHold_Targets
+    autocmd CursorHold,CursorHoldI * call plug#load('vim-surround') | autocmd! LoadDuringHold_Targets
+    autocmd CursorHold,CursorHoldI *.py call plug#load('jedi-vim') | autocmd! LoadDuringHold_Targets
+    autocmd CursorHold,CursorHoldI *.php call plug#load('phpcomplete.vim') | autocmd! LoadDuringHold_Targets
+augroup end
+
 augroup auto_mkdir
     au!
     au BufWritePre *

@@ -14,6 +14,8 @@ let mapleader=' '
 let php_sql_query = 1
 let php_htmlInStrings = 1
 
+set updatetime=500
+
 "cnoreabbrev W w
 "cnoreabbrev W! w!
 "cnoreabbrev Wa wa
