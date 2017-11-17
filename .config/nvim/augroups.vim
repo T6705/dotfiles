@@ -35,19 +35,19 @@ augroup configgroup
     au FocusLost *: wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste
     au VimResized * wincmd =
-    au! BufWritePost * Neomake    " run neomake on the current file on every write
+    "au! BufWritePost * Neomake    " run neomake on the current file on every write
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
 
 augroup LoadDuringHold_Targets
     autocmd!
     "autocmd CursorHold,CursorHoldI * call plug#load('vim-markdown') | autocmd! LoadDuringHold_Targets
-    autocmd CursorHold,CursorHoldI * call plug#load('neomake') | autocmd! LoadDuringHold_Targets
+    "autocmd CursorHold,CursorHoldI * call plug#load('neomake') | autocmd! LoadDuringHold_Targets
     autocmd CursorHold,CursorHoldI * call plug#load('targets.vim') | autocmd! LoadDuringHold_Targets
     autocmd CursorHold,CursorHoldI * call plug#load('vim-surround') | autocmd! LoadDuringHold_Targets
     autocmd CursorHold,CursorHoldI *.py call plug#load('jedi-vim') | autocmd! LoadDuringHold_Targets
     autocmd CursorHold,CursorHoldI *.php call plug#load('phpcomplete.vim') | autocmd! LoadDuringHold_Targets
-augroup end
+augroup END
 
 augroup auto_mkdir
     au!
@@ -55,7 +55,7 @@ augroup auto_mkdir
                 \ if !isdirectory(expand('<afile>:p:h')) |
                 \ call mkdir(expand('<afile>:p:h'), 'p') |
                 \ endif
-augroup end
+augroup END
 
 augroup vimrc_active_options
     au!

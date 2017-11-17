@@ -168,7 +168,7 @@ endif
 "set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
 "set statusline+=%6*\ col:%03c\                       " Colnr
 "set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
-"
+
 "hi User1 ctermfg=red ctermbg=black
 "hi User2 ctermfg=blue ctermbg=black
 "hi User3 ctermfg=green ctermbg=black
@@ -179,7 +179,7 @@ endif
 
 """ === advance statusline === {{{
 "let g:currentmode={ 'n'  : 'Normal ', 'no' : 'N-Operator Pending ', 'v'  : 'Visual ', 'V'  : 'V-Line ', '' : 'V-Block ', 's'  : 'Select ', 'S'  : 'S-Line ', '^S' : 'S-Block ', 'i'  : 'Insert ', 'R'  : 'Replace ', 'Rv' : 'V-Replace ', 'c'  : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r'  : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!'  : 'Shell ', 't'  : 'Terminal ' }
-"
+
 "" Automatically change the statusline color depending on mode
 "function! ChangeStatuslineColor()
 "  if (mode() =~# '\v(n|no)')
@@ -193,7 +193,7 @@ endif
 "  endif
 "  return ''
 "endfunction
-"
+
 "" Find out current buffer's size and output it.
 "function! FileSize()
 "  let bytes = getfsize(expand('%:p'))
@@ -203,11 +203,11 @@ endif
 "  if (exists('kbytes') && kbytes >= 1000)
 "    let mbytes = kbytes / 1000
 "  endif
-"
+
 "  if bytes <= 0
 "    return '0'
 "  endif
-"
+
 "  if (exists('mbytes'))
 "    return mbytes . 'MB '
 "  elseif (exists('kbytes'))
@@ -216,7 +216,7 @@ endif
 "    return bytes . 'B '
 "  endif
 "endfunction
-"
+
 "function! ReadOnly()
 "  if &readonly || !&modifiable
 "    return '\ue0a2'
@@ -224,7 +224,7 @@ endif
 "    return ''
 "  endif
 "endfunction
-"
+
 "function! GitInfo()
 "  let git = fugitive#head()
 "  if git != ''
@@ -233,7 +233,7 @@ endif
 "    return ''
 "  endfi
 "endfunction
-"
+
 "set statusline=
 "set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
 "set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
@@ -248,7 +248,7 @@ endif
 "set statusline+=%7*\ %=\ row:%l/%L\ \                    " Rownumber/total (%)
 "set statusline+=%7*\ col:%03c\                           " Colnr
 "set statusline+=%0*\ \ %m%r%w\ %P\ \                     " Modified? Readonly? Top/bot.
-"
+
 "hi User1 ctermfg=red ctermbg=black
 "hi User2 ctermfg=blue ctermbg=black
 "hi User3 ctermfg=green ctermbg=black
@@ -345,13 +345,13 @@ set tags=./tags;/
 set splitbelow
 set splitright
 
-" Use persistent history
-if v:version >= 703
-    if !isdirectory("/tmp/.vim-undo-dir")
-        call mkdir("/tmp/.vim-undo-dir", "", 0777)
-        "call mkdir("/tmp/.vim-undo-dir", "", 0700)
+" Use persistent history, Keep undo history across sessions by storing it in a file
+if has('persistent_undo')
+    let undo_dir = expand('~/.vim/undo_dir')
+    if !isdirectory(undo_dir)
+        call mkdir(undo_dir, "", 0700)
     endif
-    set undodir=/tmp/.vim-undo-dir
+    set undodir=~/.vim-undo-dir
     set undofile
 endif
 

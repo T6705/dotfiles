@@ -81,12 +81,12 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - eas
 " ----------------------------------------------------------------------------------------
 " lint & autoformat
 " ----------------------------------------------------------------------------------------
+"Plug 'benekastah/neomake', { 'on' : [] }       " Asynchronous linting and make framework for Neovim/Vim
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
-"Plug 'w0rp/ale' " Asynchronous Lint Engine
-Plug 'benekastah/neomake', { 'on' : [] }       " Asynchronous linting and make framework for Neovim/Vim
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
+Plug 'w0rp/ale' " Asynchronous Lint Engine
 
 
 " ----------------------------------------------------------------------------------------

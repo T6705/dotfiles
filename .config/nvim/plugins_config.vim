@@ -371,92 +371,87 @@ let g:ale_linters = {
 \   'php': ['phpcs', 'php', 'phpmd'],
 \   'python': ['flake8', 'pep8', 'vulture'],
 \}
-let g:ale_lint_on_enter        = 1 " run linters on opening a file
-let g:ale_lint_on_save         = 1
-let g:ale_lint_on_text_changed = 1
-let g:ale_sign_column_always   = 0
-let g:ale_sign_error           = '>>'
-let g:ale_sign_warning         = '--'
+let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
 let g:ale_python_flake8_args   = '--ignore=E221,E265,E266,E501'
 let g:ale_python_pep8_args     = '--max-line-length=100 --ignore=E221,E265,E266,E501'
 
 
-" ----------------------------------------------------------------------------------------
-" neomake
-" ----------------------------------------------------------------------------------------
-let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
-let g:neomake_warning_sign = {
-    \   'text': '⚠',
-    \   'texthl': 'NeomakeWarningSign',
-    \ }
-let g:neomake_message_sign = {
-     \   'text': '➤',
-     \   'texthl': 'NeomakeMessageSign',
-     \ }
-let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
+"" ----------------------------------------------------------------------------------------
+"" neomake
+"" ----------------------------------------------------------------------------------------
+"let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
+"let g:neomake_warning_sign = {
+"    \   'text': '⚠',
+"    \   'texthl': 'NeomakeWarningSign',
+"    \ }
+"let g:neomake_message_sign = {
+"     \   'text': '➤',
+"     \   'texthl': 'NeomakeMessageSign',
+"     \ }
+"let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
 
-" Python2/3
-let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
-let g:neomake_python_flake8_maker   = { 'args': ['--ignore E221 E265 E266'], }
-let g:neomake_python_pep8_maker     = { 'args': ['--max-line-length=100', '--ignore=E221,E265,E266'], }
+"" Python2/3
+"let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
+"let g:neomake_python_flake8_maker   = { 'args': ['--ignore E221 E265 E266'], }
+"let g:neomake_python_pep8_maker     = { 'args': ['--max-line-length=100', '--ignore=E221,E265,E266'], }
 
-" php
-let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
+"" php
+"let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
 
 
-" ----------------------------------------------------------------------------------------
-" Pymode
-" ----------------------------------------------------------------------------------------
-" let g:pymode_options_max_line_length = 79 " Setup max line length
-let g:pymode                  = 1            " enable Pymode
-let g:pymode_breakpoint       = 1
-let g:pymode_breakpoint_bind  = '<Leader>pb' " add breakpoint with ' pb'
-let g:pymode_doc              = 1            " read doc :PymodeDoc arg
-let g:pymode_doc_bind         = '<Leader>pd' " press ' pd' to show doc for current word
-let g:pymode_folding          = 0            " disable folding
-let g:pymode_indent           = 1            " pep8 indent style
-let g:pymode_options          = 0            " disable default python options
-let g:pymode_python           = 'python3'
-let g:pymode_rope             = 0            " Disable rope
-let g:pymode_run              = 1
-let g:pymode_run_bind         = '<Leader>pr' " run python code with ,pr
-let g:pymode_trim_whitespaces = 1            " Trim unused white spaces on save
-let g:pymode_virtualenv       = 1            " Enable automatic virtualenv detection
+"" ----------------------------------------------------------------------------------------
+"" Pymode
+"" ----------------------------------------------------------------------------------------
+"" let g:pymode_options_max_line_length = 79 " Setup max line length
+"let g:pymode                  = 1            " enable Pymode
+"let g:pymode_breakpoint       = 1
+"let g:pymode_breakpoint_bind  = '<Leader>pb' " add breakpoint with ' pb'
+"let g:pymode_doc              = 1            " read doc :PymodeDoc arg
+"let g:pymode_doc_bind         = '<Leader>pd' " press ' pd' to show doc for current word
+"let g:pymode_folding          = 0            " disable folding
+"let g:pymode_indent           = 1            " pep8 indent style
+"let g:pymode_options          = 0            " disable default python options
+"let g:pymode_python           = 'python3'
+"let g:pymode_rope             = 0            " Disable rope
+"let g:pymode_run              = 1
+"let g:pymode_run_bind         = '<Leader>pr' " run python code with ,pr
+"let g:pymode_trim_whitespaces = 1            " Trim unused white spaces on save
+"let g:pymode_virtualenv       = 1            " Enable automatic virtualenv detection
 
-" rope
-let g:pymode_rope                     = 0
-let g:pymode_rope_auto_project        = 0
-let g:pymode_rope_autoimport_generate = 0
-let g:pymode_rope_complete_on_dot     = 0
-let g:pymode_rope_completion          = 0
-let g:pymode_rope_enable_autoimport   = 0
-let g:pymode_rope_guess_project       = 0
+"" rope
+"let g:pymode_rope                     = 0
+"let g:pymode_rope_auto_project        = 0
+"let g:pymode_rope_autoimport_generate = 0
+"let g:pymode_rope_complete_on_dot     = 0
+"let g:pymode_rope_completion          = 0
+"let g:pymode_rope_enable_autoimport   = 0
+"let g:pymode_rope_guess_project       = 0
 
-""" linting code with neomake
-let g:pymode_lint_checkers   = ['pyflakes', 'pep8', 'mccabe']
-let g:pymode_lint_on_fly     = 0
-let g:pymode_lint_on_write   = 0
-let g:pymode_lint_unmodified = 0
+"""" linting code with neomake
+"let g:pymode_lint_checkers   = ['pyflakes', 'pep8', 'mccabe']
+"let g:pymode_lint_on_fly     = 0
+"let g:pymode_lint_on_write   = 0
+"let g:pymode_lint_unmodified = 0
 
-"" syntax highlight
-"let g:pymode_syntax=1
-"let g:pymode_syntax_all=1
-"let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
-"let g:pymode_syntax_builtin_types=g:pymode_syntax_all
-"let g:pymode_syntax_docstrings=g:pymode_syntax_all
-"let g:pymode_syntax_doctests=g:pymode_syntax_all
-"let g:pymode_syntax_highlight_async_await=g:pymode_syntax_all
-"let g:pymode_syntax_highlight_equal_operator=g:pymode_syntax_all
-"let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
-"let g:pymode_syntax_highlight_self=g:pymode_syntax_all
-"let g:pymode_syntax_highlight_stars_operator=g:pymode_syntax_all
-"let g:pymode_syntax_indent_errors=g:pymode_syntax_all
-"let g:pymode_syntax_print_as_function=g:pymode_syntax_all
-"let g:pymode_syntax_slow_sync=1
-"let g:pymode_syntax_space_errors=g:pymode_syntax_all
-"let g:pymode_syntax_string_format=g:pymode_syntax_all
-"let g:pymode_syntax_string_formatting=g:pymode_syntax_all
-"let g:pymode_syntax_string_templates=g:pymode_syntax_all
+""" syntax highlight
+""let g:pymode_syntax=1
+""let g:pymode_syntax_all=1
+""let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
+""let g:pymode_syntax_builtin_types=g:pymode_syntax_all
+""let g:pymode_syntax_docstrings=g:pymode_syntax_all
+""let g:pymode_syntax_doctests=g:pymode_syntax_all
+""let g:pymode_syntax_highlight_async_await=g:pymode_syntax_all
+""let g:pymode_syntax_highlight_equal_operator=g:pymode_syntax_all
+""let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
+""let g:pymode_syntax_highlight_self=g:pymode_syntax_all
+""let g:pymode_syntax_highlight_stars_operator=g:pymode_syntax_all
+""let g:pymode_syntax_indent_errors=g:pymode_syntax_all
+""let g:pymode_syntax_print_as_function=g:pymode_syntax_all
+""let g:pymode_syntax_slow_sync=1
+""let g:pymode_syntax_space_errors=g:pymode_syntax_all
+""let g:pymode_syntax_string_format=g:pymode_syntax_all
+""let g:pymode_syntax_string_formatting=g:pymode_syntax_all
+""let g:pymode_syntax_string_templates=g:pymode_syntax_all
 
 
 " ----------------------------------------------------------------------------------------

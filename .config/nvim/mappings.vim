@@ -261,6 +261,8 @@ nnoremap <silent> <Leader>EF :NERDTreeFind<CR>
 "Gundo
 nnoremap <silent> <Leader>ut :GundoToggle<CR>
 
+nnoremap <Leader>bp Oimport pdb; pdb.set_trace()  # BREAKPOINT<C-c>
+
 if has('nvim')
     "nnoremap <silent> <Leader>rg :Ranger<CR>
 else
