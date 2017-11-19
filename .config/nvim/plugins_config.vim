@@ -127,18 +127,22 @@ let g:airline_right_sep                           = ''
 let g:airline_theme                               = "wombat"
 
 
-"" ----------------------------------------------------------------------------------------
-"" vim-devicons
-"" ----------------------------------------------------------------------------------------
-"let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-"let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = '?'
-"let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
-"let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
-"let g:webdevicons_conceal_nerdtree_brackets = 1
-"let g:webdevicons_enable = 1
-"let g:webdevicons_enable_airline_statusline = 1
-"let g:webdevicons_enable_airline_tabline = 1
-"let g:webdevicons_enable_nerdtree = 1
+" ----------------------------------------------------------------------------------------
+" vim-devicons
+" ----------------------------------------------------------------------------------------
+let g:webdevicons_enable = 1 " loading the plugin
+let g:webdevicons_enable_airline_statusline = 1 " adding to vim-airline's statusline
+let g:webdevicons_enable_airline_tabline = 1 " adding to vim-airline's tabline
+let g:webdevicons_enable_nerdtree = 1 " adding the flags to NERDTree
+let g:DevIconsEnableFolderExtensionPatternMatching = 1 " enable file extension pattern matching glyphs on folder/directory
+let g:DevIconsEnableFolderPatternMatching = 1 " enable pattern matching glyphs on folder/directory
+let g:DevIconsEnableFoldersOpenClose = 1 " enable open and close folder/directory glyph flags
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1 " Force extra padding in NERDTree so that the filetype icons line up vertically
+let g:WebDevIconsUnicodeByteOrderMarkerDefaultSymbol = '' " set a byte character marker (BOM) utf-8 symbol when retrieving file encoding
+let g:WebDevIconsUnicodeDecorateFileNodes = 1 " turn on/off file node glyph decorations
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1 " enable folder/directory glyph flag
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1 " use double-width(1) or single-width(0) glyphs
+let g:webdevicons_conceal_nerdtree_brackets = 0 " whether or not to show the nerdtree brackets around flags
 
 
 " ----------------------------------------------------------------------------------------

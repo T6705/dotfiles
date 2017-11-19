@@ -225,14 +225,16 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 "noremap <leader>d :YcmCompleter GoToDefinition<CR>
 
 " quickfix
-nnoremap <silent> <Leader>lo :lopen<CR>
+"nnoremap <silent> [l :lprevious<CR> " Neomake
+"nnoremap <silent> ]l :lnext<CR>     " Neomake
+nmap <silent> [l <Plug>(ale_previous)
+nmap <silent> ]l <Plug>(ale_next)
+"nmap <silent> [l <Plug>(ale_previous_wrap)
+"nmap <silent> ]l <Plug>(ale_next_wrap)
 nnoremap <silent> <Leader>lc :lclose<CR>
-nnoremap <silent> [l :lprevious<CR> " Neomake
-nnoremap <silent> ]l :lnext<CR>     " Neomake
-nnoremap <silent> ]q :cnext<CR>zz
+nnoremap <silent> <Leader>lo :lopen<CR>
 nnoremap <silent> [q :cprev<CR>zz
-"nmap <silent> [l <Plug>(ale_previous_wrap) " Asynchronous Lint Engine
-"nmap <silent> ]l <Plug>(ale_next_wrap      " Asynchronous Lint Engine
+nnoremap <silent> ]q :cnext<CR>zz
 
 " Tabs
 nnoremap ]t gt
