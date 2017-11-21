@@ -27,7 +27,7 @@ augroup configgroup
                 \ endif
 
     au FileType * RainbowParentheses
-    au FileType html,css EmmetInstall
+    "au FileType html,css EmmetInstall
     "au FileType html,css,php EmmetInstall
     au FileType java setlocal omnifunc=javacomplete#Complete
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
