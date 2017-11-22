@@ -40,6 +40,9 @@ nnoremap <silent> <Leader>y "+y
 vnoremap <silent> <Leader>x "+x
 vnoremap <silent> <Leader>y "+y
 
+" select the current line without indentation
+nnoremap vv ^vg_
+
 " place whole file on the system clipboard
 nnoremap <silent> <Leader>a :%y+<CR>
 
@@ -225,15 +228,27 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 "noremap <leader>d :YcmCompleter GoToDefinition<CR>
 
 " quickfix
-"nnoremap <silent> [l :lprevious<CR> " Neomake
-"nnoremap <silent> ]l :lnext<CR>     " Neomake
-nmap <silent> [l <Plug>(ale_previous)
-nmap <silent> ]l <Plug>(ale_next)
+let g:quickfix_height = 50
+"nmap <silent> [l <Plug>(ale_previous)
 "nmap <silent> [l <Plug>(ale_previous_wrap)
+"nmap <silent> ]l <Plug>(ale_next)
 "nmap <silent> ]l <Plug>(ale_next_wrap)
+"nnoremap <silent> [l :lprev<CR> " Neomake
+"nnoremap <silent> ]l :lnext<CR> " Neomake
 nnoremap <silent> <Leader>lc :lclose<CR>
 nnoremap <silent> <Leader>lo :lopen<CR>
+nnoremap <silent> <leader>lw :lwindow<CR>
+nnoremap <silent> [L :lfirst<CR>zz
+nnoremap <silent> [l :lprev<CR>zz
+nnoremap <silent> ]L :llast<CR>zz
+nnoremap <silent> ]l :lnext<CR>zz
+
+"nnoremap <silent> [q :cprev<CR>zz
+"nnoremap <silent> ]q :cnext<CR>zz
+nnoremap <silent> <leader>qw :cwindow<CR>
+nnoremap <silent> [Q :cfirst<CR>zz
 nnoremap <silent> [q :cprev<CR>zz
+nnoremap <silent> ]Q :clast<CR>zz
 nnoremap <silent> ]q :cnext<CR>zz
 
 " Tabs
@@ -487,6 +502,16 @@ nmap     <Leader>} ysiw}
 nmap     <Leader>{ ysiw{
 vnoremap <Leader>} c{ <C-R>" }<ESC>
 vnoremap <Leader>{ c{<C-R>"}<ESC>
+
+" ----------------------------------------------------------------------------------------
+" splitjoin
+" ----------------------------------------------------------------------------------------
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+
+noremap <Leader>j :SplitjoinJoin<cr>
+noremap <Leader>s :SplitjoinSplit<cr>
+
 
 " ----------------------------------------------------------------------------------------
 " nvim

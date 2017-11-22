@@ -52,6 +52,9 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rc.conf
     curl -fLo ~/.config/ranger/rifle.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rifle.conf
+    curl -fLo ~/.config/ranger/scope.sh --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/scope.sh
+    chmod +x ~/.config/ranger/scope.sh
 
     echo ""
     echo "================================="

@@ -144,7 +144,8 @@ if has('nvim')
     "            \'RangerWorkingDirectoryNewTab'] }
     "            \| Plug 'rbgrouleff/bclose.vim'
 endif
-Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }             " A vim plugin to perform diffs on blocks of code
+Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }             " perform diffs on blocks of code
+Plug 'AndrewRadev/splitjoin.vim', { 'on': ['SplitjoinJoin', 'SplitjoinSplit'] } " simplifies the transition between multiline and single-line code
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                       " Interactive command execution in Vim.
 Plug 'andymass/matchup.vim'                                       " vim match-up: matchit replacement and more
 Plug 'benmills/vimux'                                             " vim plugin to interact with tmux
