@@ -135,6 +135,7 @@ Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 "Plug 'yuttie/comfortable-motion.vim'
 if has('nvim')
     Plug 'mklabs/split-term.vim'
+    Plug 'raghur/vim-ghost', {'do': ':GhostInstall', 'on': 'GhostStart' } " Nvim client for GhostText
     "" Ranger integration in neovim
     "Plug 'francoiscabrol/ranger.vim', { 'on': ['Ranger',
     "            \'RangerNewTab',
