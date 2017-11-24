@@ -40,13 +40,20 @@ augroup configgroup
 augroup END
 
 augroup LoadDuringHold_Targets
-    autocmd!
-    "autocmd CursorHold,CursorHoldI * call plug#load('vim-markdown') | autocmd! LoadDuringHold_Targets
-    "autocmd CursorHold,CursorHoldI * call plug#load('neomake') | autocmd! LoadDuringHold_Targets
-    autocmd CursorHold,CursorHoldI * call plug#load('targets.vim') | autocmd! LoadDuringHold_Targets
-    autocmd CursorHold,CursorHoldI * call plug#load('vim-surround') | autocmd! LoadDuringHold_Targets
-    autocmd CursorHold,CursorHoldI *.py call plug#load('jedi-vim') | autocmd! LoadDuringHold_Targets
-    autocmd CursorHold,CursorHoldI *.php call plug#load('phpcomplete.vim') | autocmd! LoadDuringHold_Targets
+    au!
+    "au CursorHold,CursorHoldI * call plug#load('vim-markdown') | au! LoadDuringHold_Targets
+    "au CursorHold,CursorHoldI * call plug#load('neomake') | au! LoadDuringHold_Targets
+    au CursorHold,CursorHoldI * call plug#load('targets.vim') | au! LoadDuringHold_Targets
+    au CursorHold,CursorHoldI * call plug#load('vim-surround') | au! LoadDuringHold_Targets
+    au CursorHold,CursorHoldI *.py call plug#load('jedi-vim') | au! LoadDuringHold_Targets
+    au CursorHold,CursorHoldI *.php call plug#load('phpcomplete.vim') | au! LoadDuringHold_Targets
+augroup END
+
+augroup install_missing_plugins
+    au VimEnter *
+      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+      \|   PlugInstall --sync | q
+      \| endif
 augroup END
 
 augroup auto_mkdir

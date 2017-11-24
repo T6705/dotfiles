@@ -200,6 +200,34 @@ endfu
 command! Root call s:root()
 
 " ----------------------------------------------------------------------------
+" :Scriptnames <name>
+" ----------------------------------------------------------------------------
+function! s:Scratch (command, ...)
+    redir => lines
+    let saveMore = &more
+    set nomore
+    execute a:command
+    redir END
+    let &more = saveMore
+    call feedkeys("\<cr>")
+    new | setlocal buftype=nofile bufhidden=hide noswapfile
+    put=lines
+    if a:0 > 0
+        execute 'vglobal/'.a:1.'/delete'
+    endif
+    if a:command == 'scriptnames'
+        %substitute#^[[:space:]]*[[:digit:]]\+:[[:space:]]*##e
+    endif
+    silent %substitute/\%^\_s*\n\|\_s*\%$
+    let height = line('$') + 3
+    execute 'normal! z'.height."\<cr>"
+    0
+endfunction
+
+command! -nargs=? Scriptnames call <sid>Scratch('scriptnames', <f-args>)
+command! -nargs=+ Scratch call <sid>Scratch(<f-args>)
+
+" ----------------------------------------------------------------------------
 " autofold
 " ----------------------------------------------------------------------------
 fu! s:open_folds(action) abort
@@ -252,6 +280,32 @@ fu! functions#WinMove(key)
         exec "wincmd ".a:key
     endif
 endfu
+
+" ----------------------------------------------------------------------------------------
+" :Goyo
+" ----------------------------------------------------------------------------------------
+function! s:goyo_enter()
+  "silent !tmux set status off
+  "silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set nonu
+  set noshowcmd
+  set noshowmode
+  set scrolloff=999
+  Limelight
+endfunction
+
+function! s:goyo_leave()
+  "silent !tmux set status on
+  "silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set nu
+  set showcmd
+  set showmode
+  set scrolloff=5
+  Limelight!
+endfunction
+
+au! User GoyoEnter nested call <SID>goyo_enter()
+au! User GoyoLeave nested call <SID>goyo_leave()
 
 " smart tab completion
 fu! functions#Smart_TabComplete()
