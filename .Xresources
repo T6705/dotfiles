@@ -1,16 +1,24 @@
-! Font settings
-!URxvt.font: xft:Inconsolata for Powerline:Medium:pixelsize=14
-URxvt.font: xft:xos4 Terminess Powerline:pixelsize=12
-!URxvt.letterSpace: -1
-
-! Scrollbar
-URxvt.scrollBar: false
-URxvt.scrollBar_right: false
-
-! Clickable links
-URxvt.perl-ext-common: default,matcher
-URxvt.url-launcher: /usr/bin/firefox
-URxvt.matcher.button: 1
+!URxvt.cursorUnderline         : true
+!URxvt.geometry                : 60x25
+!URxvt.internalBorder          : 8
+!URxvt.letterSpace             : 1
+!URxvt.lineSpace               : 0
+URXvt.tabbed.reopen-on-close  : no
+URxvt.boldFont                : xft:Hack-Bold:size=9
+URxvt.cursorBlink             : 0
+URxvt.font                    : xft:Hack-Regular:size=9
+URxvt.keysym.Control-Shift-t  : perl:tabbedex:new_tab
+URxvt.keysym.Shifft-Right     : perl:tabbedex:next_tab
+URxvt.keysym.Shift-Left       : perl:tabbedex:prev_tab
+URxvt.matcher.button          : 1
+URxvt.perl-ext-common         : default,tabbedex,matcher
+URxvt.scrollBar               : false
+URxvt.scrollBar_right         : false
+URxvt.tabbed.new-button       : true
+URxvt.tabbed.no-tabbedex-keys : true
+URxvt.thickness               : 5
+URxvt.titleBar                : false
+URxvt.url-launcher            : /usr/bin/firefox
 
 ! Colours
 URxvt.depth: 24
@@ -18,24 +26,36 @@ URxvt.depth: 24
 *background: #1d2021
 *foreground: #fbf1c7
 
-*color0: #282828
-*color8: #928374
-*color1: #9d0006
-*color9: #cc241d
-*color2: #79740e
-*color10: #98971a
-*color3: #b57614
-*color11: #d79921
-*color4: #076678
-*color12: #458588
-*color5: #8f3f71
-*color13: #b16286
-*color6: #427b58
-*color14: #8ec07c
-*color7: #7c6f64
-*color15: #ebdbb2
+*color0  : #282828
+*color8  : #928374
+*color1  : #9d0006
+*color9  : #cc241d
+*color2  : #79740e
+*color10 : #98971a
+*color3  : #b57614
+*color11 : #d79921
+*color4  : #076678
+*color12 : #458588
+*color5  : #8f3f71
+*color13 : #b16286
+*color6  : #427b58
+*color14 : #8ec07c
+*color7  : #7c6f64
+*color15 : #ebdbb2
 
-!! Rofi settings
-!rofi.color-enabled: true
-!rofi.color-window: #282828, #676d3d, #676d3d
-!rofi.color-normal: #282828, #ebdbb2, #303030, #676d3d, #ebdbb2
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+rofi.color-enabled: true
+
+!rofi.color-window:    #222222 , #222222 , #222222 , #222222 , base07
+!rofi.color-normal:    #222222 , #ffffff, #222222 , #222222 ,  base0E
+!rofi.color-active:    #222222 , base0B  , #222222 , #222222 , base07
+!rofi.color-urgent:    #222222 , base03  , #222222 , #222222 , base07
+
+rofi.columns           : 1
+rofi.fake-transparency : true
+rofi.fullscreen        : false
+rofi.hide-scrollbar    : true
+rofi.separator-style   : none
+

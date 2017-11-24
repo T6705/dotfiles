@@ -10,17 +10,41 @@ function weather {
     fi
 }
 
-function sf {
-    if [ "$#" -lt 1 ]; then echo "Supply string to search for!"; return 1; fi
-    printf -v search "%q" "$*"
-    include="yml,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst"
-    exclude=".config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist"
-    rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always" -g "*.{'$include'}" -g "!{'$exclude'}/*"'
-    result=`eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}'`
-    files=`echo $result | awk -F ':' '{print $1}'`
-    lines=`echo $result | awk -F ':' '{print $2}'`
-    [[ -n "$files" ]] && ${EDITOR:-vim} +$lines $files
-}
+if which fzf &> /dev/null ; then
+    if which rg &> /dev/null ; then
+        export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+    elif which ag &> /dev/null ; then
+        export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+    fi
+
+    function sf {
+        if [ "$#" -lt 1 ]; then echo "Supply string to search for!"; return 1; fi
+        printf -v search "%q" "$*"
+        include="yml,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst"
+        exclude=".config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist"
+        rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always" -g "*.{'$include'}" -g "!{'$exclude'}/*"'
+        result=`eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}'`
+        files=`echo $result | awk -F ':' '{print $1}'`
+        lines=`echo $result | awk -F ':' '{print $2}'`
+        [[ -n "$files" ]] && ${EDITOR:-vim} +$lines $files
+    }
+
+    function fzf-ls {
+        previous_file="$1"
+        file_to_edit=`select_file $previous_file`
+
+        if [ -n "$file_to_edit"  ] ; then
+            $EDITOR "$file_to_edit"
+            fzf-ls "$file_to_edit"
+        fi
+
+    }
+
+    function select_file {
+        given_file="$1"
+        fzf --preview="cat {}" --preview-window=right:70%:wrap --query="$given_file"
+    }
+fi
 
 # ---------------------------------------------------------------------
 # usage: brightness <level> | adjust brightness
