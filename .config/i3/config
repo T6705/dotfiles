@@ -216,11 +216,11 @@ bindsym $mod+r mode " "
 #client.focused_inactive        $COLOR_BLACK     $COLOR_BLACK      $COLOR_BLUE     $COLOR_BLUE
 #client.urgent                  $COLOR_PINK      $COLOR_PINK       $COLOR_BLACK    $COLOR_BLACK
 
+#set $FOCUS #008080
 #set $FOCUS #989898
-#set $FOCUS #add8e6
-set $FOCUS #008080
-set $UNFOCUS #3c3b37
 #set $UNFOCUS #989898
+set $FOCUS #add8e6
+set $UNFOCUS #3c3b37
 
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
 client.focused          $FOCUS      $FOCUS      $FOCUS      $FOCUS

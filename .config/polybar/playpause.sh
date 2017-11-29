@@ -7,7 +7,11 @@ fi
 status=`playerctl status`
 
 if [ $status == Playing ]; then
-    echo 
+    #echo 
+    #echo 
+    echo 
 elif [ $status == Paused ]; then
-    echo 
+    #echo 
+    #echo 
+    echo 
 fi

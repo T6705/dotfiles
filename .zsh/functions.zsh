@@ -10,6 +10,9 @@ function weather {
     fi
 }
 
+# ---------------------------------------------------------------------
+# fzf
+# ---------------------------------------------------------------------
 if which fzf &> /dev/null ; then
     if which rg &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
@@ -17,6 +20,9 @@ if which fzf &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
     fi
 
+    # ---------------------------------------------------------------------
+    # usage: sf <keyword>
+    # ---------------------------------------------------------------------
     function sf {
         if [ "$#" -lt 1 ]; then echo "Supply string to search for!"; return 1; fi
         printf -v search "%q" "$*"
@@ -29,6 +35,9 @@ if which fzf &> /dev/null ; then
         [[ -n "$files" ]] && ${EDITOR:-vim} +$lines $files
     }
 
+    # ---------------------------------------------------------------------
+    # usage: fzf-ls | list subdirectories recursively with preview
+    # ---------------------------------------------------------------------
     function fzf-ls {
         previous_file="$1"
         file_to_edit=`select_file $previous_file`
@@ -37,7 +46,6 @@ if which fzf &> /dev/null ; then
             $EDITOR "$file_to_edit"
             fzf-ls "$file_to_edit"
         fi
-
     }
 
     function select_file {
@@ -48,7 +56,7 @@ fi
 
 # ---------------------------------------------------------------------
 # usage: brightness <level> | adjust brightness
-# # ---------------------------------------------------------------------
+# ---------------------------------------------------------------------
 function brightness {
     if [ -n "$1" ]; then
         xrandr --output LVDS1 --brightness $1

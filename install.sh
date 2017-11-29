@@ -170,11 +170,11 @@ function install_dependencies {
         sudo pacman Syyu --noconfirm
         sudo pacman -S --noconfirm base
         sudo pacman -S --noconfirm base-devel
-        sudo pacman -S --noconfirm pacaur yaourt
+        sudo pacman -S --noconfirm pacaur pacli yaourt
         sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils
-        pacaur -S --noconfirm dropbox dropbox-cli neofetch spotify veracrypt
+        pacaur -S --noconfirm dropbox dropbox-cli neofetch secure-delete spotify veracrypt
     fi
 
     if which npm &> /dev/null && ! which pacman &> /dev/null ; then

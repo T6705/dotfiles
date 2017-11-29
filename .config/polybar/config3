@@ -55,7 +55,7 @@ modules-left = i3
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 0
+underline-size = 2
 underline-color = ${colors.white}
 
 tray-detached = false
@@ -229,9 +229,9 @@ tray-padding = 0
 tray-transparent = false
 tray-scale = 1.0
 
-font-0  = "KnackNerdFont:size=8;2"
-font-1  = "Hack:size=8;2"
-font-2  = "NotoSansMonoCJKtc-Regular:size=8;2"
+font-0  = "KnackNerdFont:size=9;2"
+font-1  = "Hack:size=9;2"
+font-2  = "NotoSansMonoCJKtc-Regular:size=9;2"
 font-3  = "FontAwesome:size=8;2"
 font-4  = "NotoSans-Regular:size=8;-1"
 font-5  = "Termsynu:size=7;0"
@@ -293,7 +293,6 @@ format-padding = 4
 format-spacing = 4
 format-volume = <label-volume>
 format-volume-padding = 2
-format-volume-underline = ${colors.white}
 label-muted =%{F#928374} %{F-}0%
 label-volume = %{F#928374} %{F-}%percentage:3%%
 
@@ -309,42 +308,43 @@ index-sort = true
 strip-wsnumbers = true
 wrapping-scroll = false
 
-label-focused = %name%
 ;label-focused-background = #88000000
-label-focused-background  = #008fff
+label-focused             = %name%
+;label-focused-background = #add8e6
+label-focused-background  = #008080
 label-focused-foreground  = #ffffff
 label-focused-padding     = 2
-label-focused-underline   = #ddd
+;label-focused-underline  = #008080
+label-focused-underline   = #add8e6
 
-label-unfocused = %name%
+label-unfocused         = %name%
 label-unfocused-padding = 2
 
-label-occupied = %name%
+label-occupied         = %name%
 label-occupied-padding = 2
 
-label-urgent = %name%
+label-urgent            = %name%
 label-urgent-background = #bd2c40
 label-urgent-foreground = #000000
-label-urgent-padding = 2
+label-urgent-padding    = 2
 
-label-empty = %name%
+label-empty            = %name%
 label-empty-foreground = #44ffffff
-label-empty-padding = 2
+label-empty-padding    = 2
 
-label-visible = %name%
+label-visible            = %name%
 label-visible-background = ${colors.background}
-;label-visible-underline = #383a3b
-label-visible-padding = ${self.label-focused-padding}
+label-visible-padding    = ${self.label-focused-padding}
 
 [module/date]
-type = internal/date
+type     = internal/date
 interval = 1.0
-date = %a %d-%m-%Y
+date     = %a %d-%m-%Y
 date-alt = %a %d %b %Y
-time = %H:%M:%S
+time     = %H:%M:%S
 time-alt = %H:%M:%S
-;label = %{F#83a598}%date%%{F-}%{F#b16286} %time%%{F-}
-label = %{F#689d6a}%date%%{F-}%{F#b16286} %time%%{F-}
+;label   = %{F#83a598}%date%%{F-}%{F#b16286} %time%%{F-}
+label    = %{F#689d6a}%date%%{F-}%{F#b16286} %time%%{F-}
 
 format-padding = 2
 
@@ -417,18 +417,18 @@ bar-used-empty-foreground = #44
 type = internal/network
 interface = wlp2s0
 interval = 1.0
-format-connected =  <label-connected>
-format-connected-margin = 2
-format-connected-padding = 2
-format-connected-spacing = 2
-format-disconnected = <label-disconnected>
-format-disconnected-margin = 2
-format-disconnected-padding = 2
-format-disconnected-spacing = 2
-format-packetloss =  <label-connected>
-format-packetloss-margin = 2
-format-packetloss-padding = 2
-format-packetloss-spacing = 2
+format-connected          =  <label-connected>
+format-connected-margin   = 2
+;format-connected-padding = 4
+;format-connected-spacing = 2
+format-disconnected          = <label-disconnected>
+format-disconnected-margin   = 2
+;format-disconnected-padding = 4
+;format-disconnected-spacing = 2
+format-packetloss          =  <label-connected>
+format-packetloss-margin   = 2
+;format-packetloss-padding = 4
+;format-packetloss-spacing = 2
 
 ; Available tokens:
 ;   %ifname%    [wireless+wired]
@@ -448,18 +448,18 @@ label-connected = %{F#ff69b4}%essid% %{F#6ff}%local_ip%%{F-} %downspeed%
 type = internal/network
 interface = enp3s0
 interval = 1.0
-format-connected = <label-connected>
-;format-connected-margin = 2
-;format-connected-padding = 2
-format-connected-spacing = 2
-format-disconnected = <label-disconnected>
-;format-disconnected-margin = 2
-;format-disconnected-padding = 2
-format-disconnected-spacing = 2
-format-packetloss = <label-connected>
-;format-packetloss-margin = 2
-;format-packetloss-padding = 2
-format-packetloss-spacing = 2
+format-connected          =  <label-connected>
+format-connected-margin   = 2
+;format-connected-padding = 4
+;format-connected-spacing = 2
+format-disconnected          = <label-disconnected>
+format-disconnected-margin   = 2
+;format-disconnected-padding = 4
+;format-disconnected-spacing = 2
+format-packetloss          = <label-connected>
+format-packetloss-margin   = 2
+;format-packetloss-padding = 4
+;format-packetloss-spacing = 2
 ; Available tokens:
 ;   %ifname%    [wireless+wired]
 ;   %local_ip%  [wireless+wired]
@@ -479,22 +479,22 @@ battery = BAT1
 adapter = ADP1
 full-at = 98
 time-format = %H:%M:%S
-format-charging = %{F#007700}↑%{F-} <animation-charging> <label-charging>
-;format-charging-margin = 2
-format-charging-padding = 2
+format-charging          = %{F#007700}↑%{F-} <animation-charging> <label-charging>
+;format-charging-margin  = 2
+format-charging-padding  = 2
 ;format-charging-spacing = 2
-format-discharging = %{F#ff0000}↓%{F-} <ramp-capacity> <label-discharging>
-;format-discharging-margin = 2
-format-discharging-padding = 2
+format-discharging          = %{F#ff0000}↓%{F-} <ramp-capacity> <label-discharging>
+;format-discharging-margin  = 2
+format-discharging-padding  = 2
 ;format-discharging-spacing = 2
-format-full = %{F#ff69b4}♥ %{F-} <ramp-capacity> <label-full>
-;format-full-margin = 2
-format-full-padding = 2
+format-full          = %{F#ff69b4}♥ %{F-} <ramp-capacity> <label-full>
+;format-full-margin  = 2
+format-full-padding  = 2
 ;format-full-spacing = 2
-label-charging = %percentage%%
+label-charging    = %percentage%%
 label-discharging = %percentage%%
-label-full = %percentage%%
-label-font = 0
+label-full        = %percentage%%
+label-font        = 0
 animation-charging-0 = 
 animation-charging-0-font = 0
 animation-charging-1 = 
@@ -521,14 +521,14 @@ ramp-capacity-4-font = 0
 type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
-format = <label>
-;format-margin = 2
-format-padding = 2
-;format-spacing = 2
-format-warn = <label-warn>
-;format-warn-margin = 2
-format-warn-padding = 2
+;format-margin       = 2
+;format-spacing      = 2
+;format-warn-margin  = 2
 ;format-warn-spacing = 2
+format              = <label>
+format-padding      = 2
+format-warn         = <label-warn>
+format-warn-padding = 2
 label = %temperature%
 label-warn = %temperature%
 label-warn-foreground = #f00
