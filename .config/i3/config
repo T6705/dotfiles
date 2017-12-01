@@ -218,9 +218,10 @@ bindsym $mod+r mode " "
 
 #set $FOCUS #008080
 #set $FOCUS #989898
+#set $FOCUS #add8e6
 #set $UNFOCUS #989898
-set $FOCUS #add8e6
 set $UNFOCUS #3c3b37
+set $FOCUS #d3d3d3
 
 #                       BORDER      BACKGROUND  TEXT        INDICATOR   CHILD_BORDER
 client.focused          $FOCUS      $FOCUS      $FOCUS      $FOCUS

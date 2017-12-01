@@ -48,9 +48,9 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left = 0
 
-modules-right = spotify previous playpause next volume
-modules-center = date
 modules-left = i3
+modules-center = date
+modules-right = spotify previous playpause next volume
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -96,7 +96,7 @@ locale = en_HK.UTF-8
 enable-ipc = true
 
 padding-left = 0
-padding-right = 0
+padding-right = 2
 
 module-margin-right = 0
 module-margin-left = 0
@@ -108,7 +108,7 @@ modules-right = cpu memory battery temperature
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 0
+underline-size = 2
 underline-color = ${colors.white}
 
 tray-detached = false
@@ -156,14 +156,14 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left = 0
 
-modules-right = spotify previous playpause next volume
-modules-center = date
 modules-left = i3
+modules-center = date
+modules-right = spotify previous playpause next volume
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 0
+underline-size = 2
 underline-color = ${colors.white}
 
 tray-detached = false
@@ -205,7 +205,7 @@ locale = en_HK.UTF-8
 enable-ipc = true
 
 padding-left = 0
-padding-right = 0
+padding-right = 2
 
 module-margin-right = 0
 module-margin-left = 0
@@ -217,7 +217,7 @@ modules-right = cpu memory battery temperature
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 0
+underline-size = 2
 underline-color = ${colors.white}
 
 tray-detached = false
@@ -356,7 +356,6 @@ format = <label> <ramp-coreload>
 ;format-margin = 2
 format-padding = 2
 ;format-spacing = 2
-format-underline = #f90000
 label = %{F#6ff}CPU%{F-}  %percentage%%
 ;label = %percentage%
 label-font = 0
@@ -393,7 +392,6 @@ format = <label> <bar-used>
 ;format-margin = 2
 format-padding = 2
 ;format-spacing = 2
-format-underline = #4bffdc
 label = %{F#6ff}RAM%{F-}  %percentage_used%%
 ;label = %percentage_used%
 label-font = 0
