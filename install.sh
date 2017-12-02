@@ -130,6 +130,14 @@ function install_dots {
     curl -fLo ~/.zsh/functions.zsh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.zsh/functions.zsh
 
+    echo ""
+    echo "========================="
+    echo "== Download gtk config =="
+    echo "========================="
+    echo ""
+
+    curl -fLo ~/.config/gtk-3.0/settings.ini --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/gtk-3.0/settings.ini
 
     TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
     if [[ "$TEST_CURRENT_SHELL" == "zsh" ]]; then
@@ -174,6 +182,8 @@ function install_dependencies {
         sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils
+        sudo pacman -S --noconfirm `pacman -Ssq numix`
+        sudo pacman -S --noconfirm `pacman -Ssq papirus`
         pacaur -S --noconfirm dropbox dropbox-cli neofetch secure-delete spotify veracrypt
     fi
 

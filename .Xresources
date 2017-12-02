@@ -48,14 +48,18 @@ URxvt.depth: 24
 ! ------------------------------------------------------------------------------
 rofi.color-enabled: true
 
-!rofi.color-window:    #222222 , #222222 , #222222 , #222222 , base07
-!rofi.color-normal:    #222222 , #ffffff, #222222 , #222222 ,  base0E
-!rofi.color-active:    #222222 , base0B  , #222222 , #222222 , base07
-!rofi.color-urgent:    #222222 , base03  , #222222 , #222222 , base07
+!rofi.color-active : #ffffff, #c2cad0, #f5f5f5, #5294e2, #c2cad0
+!rofi.color-normal : #ffffff, #525d76, #f5f5f5, #5294e2, #ffffff
+!rofi.color-urgent : #ffffff, #dc322f, #f5f5f5, #5294e2, #dc322f
+!rofi.color-window : #ffffff, #f5f5f5
+!rofi.color-active : #ffffff, #c2cad0, #f5f5f5, #008080, #c2cad0
+!rofi.color-normal : #ffffff, #525d76, #f5f5f5, #008080, #ffffff
+!rofi.color-urgent : #ffffff, #dc322f, #f5f5f5, #008080, #dc322f
+!rofi.color-window : #ffffff, #f5f5f5
 
+rofi.case-sensitive    : false
 rofi.columns           : 1
 rofi.fake-transparency : true
 rofi.fullscreen        : false
 rofi.hide-scrollbar    : true
 rofi.separator-style   : none
-
