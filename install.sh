@@ -184,7 +184,7 @@ function install_dependencies {
         sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils
         sudo pacman -S --noconfirm `pacman -Ssq numix`
         sudo pacman -S --noconfirm `pacman -Ssq papirus`
-        pacaur -S --noconfirm dropbox dropbox-cli neofetch secure-delete spotify veracrypt
+        pacaur -S --noconfirm dropbox dropbox-cli neofetch python-pywal-git secure-delete spotify veracrypt
     fi
 
     if which npm &> /dev/null && ! which pacman &> /dev/null ; then
