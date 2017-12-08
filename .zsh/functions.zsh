@@ -168,8 +168,9 @@ function ram {
 function extract_frame {
     echo "Extracting frame from $1 ..."
     if [ -f $1 ] ; then
-        mkdir -p frame && cd frame
+        mkdir -p frame
         time ffmpeg -i $1 frame/frame%09d.bmp
+        cd frame
     else
         echo "'$1' is not a valid file"
     fi

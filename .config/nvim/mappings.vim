@@ -107,6 +107,9 @@ nnoremap <silent> n nzz
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz
 
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
+
 " Vmap for maintain Visual Mode after shifting > and <
 vnoremap < <gv
 vnoremap > >gv
