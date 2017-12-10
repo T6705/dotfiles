@@ -228,7 +228,7 @@ function install_i3 {
         mkdir -p ~/git
         cd ~/git
         rm -rf polybar
-        git clone --branch 3.0.5 --recursive https://github.com/jaagr/polybar
+        git clone --branch 3.1.0 --recursive https://github.com/jaagr/polybar
         cd polybar
         time ./build.sh
 

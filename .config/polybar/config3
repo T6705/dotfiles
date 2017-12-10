@@ -13,9 +13,8 @@ red = #c795ae
 blue = #95aec7
 yellow = #c7ae95
 green = #aec795
-#background = #1f222d
-#background = #4a000000
-background = #aa000000
+#background = #aa000000
+background = #000000
 background-alt = #4e4e4e
 foreground = #dfdfdf
 ;foreground = ${xrdb:foreground}
@@ -58,14 +57,15 @@ foreground = ${colors.foreground}
 underline-size = 2
 underline-color = ${colors.white}
 
-tray-detached = false
-tray-position =
-tray-offset-x = 0
-tray-offset-y = 0
-;tray-maxsize = 16
-tray-padding = 0
+;tray-maxsize    = 16
+tray-background  = #aa000000
+tray-detached    = false
+tray-offset-x    = 0
+tray-offset-y    = 0
+tray-padding     = 0
+tray-position    =
+tray-scale       = 1.0
 tray-transparent = false
-tray-scale = 1.0
 
 font-0  = "KnackNerdFont:size=8;2"
 font-1  = "Hack:size=8;2"
@@ -111,14 +111,15 @@ foreground = ${colors.foreground}
 underline-size = 2
 underline-color = ${colors.white}
 
-tray-detached = false
-tray-position =
-tray-offset-x = 0
-tray-offset-y = 0
-;tray-maxsize = 16
-tray-padding = 0
+;tray-maxsize    = 16
+tray-background  = #aa000000
+tray-detached    = false
+tray-offset-x    = 0
+tray-offset-y    = 0
+tray-padding     = 0
+tray-position    = right
+tray-scale       = 1.0
 tray-transparent = false
-tray-scale = 1.0
 
 font-0  = "KnackNerdFont:size=8;2"
 font-1  = "Hack:size=8;2"
@@ -166,14 +167,15 @@ foreground = ${colors.foreground}
 underline-size = 2
 underline-color = ${colors.white}
 
-tray-detached = false
-tray-position =
-tray-offset-x = 0
-tray-offset-y = 0
-;tray-maxsize = 16
-tray-padding = 0
+;tray-maxsize    = 16
+tray-background  = #aa000000
+tray-detached    = false
+tray-offset-x    = 0
+tray-offset-y    = 0
+tray-padding     = 0
+tray-position    =
+tray-scale       = 1.0
 tray-transparent = false
-tray-scale = 1.0
 
 font-0  = "KnackNerdFont:size=8;2"
 font-1  = "Hack:size=8;2"
@@ -220,14 +222,15 @@ foreground = ${colors.foreground}
 underline-size = 2
 underline-color = ${colors.white}
 
-tray-detached = false
-tray-position =
-tray-offset-x = 0
-tray-offset-y = 0
-;tray-maxsize = 16
-tray-padding = 0
+;tray-maxsize    = 16
+tray-background  = #aa000000
+tray-detached    = false
+tray-offset-x    = 0
+tray-offset-y    = 0
+tray-padding     = 0
+tray-position    = right
+tray-scale       = 1.0
 tray-transparent = false
-tray-scale = 1.0
 
 font-0  = "KnackNerdFont:size=9;2"
 font-1  = "Hack:size=9;2"
