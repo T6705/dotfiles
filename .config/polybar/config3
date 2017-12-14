@@ -2,54 +2,53 @@
 ; laptop = LVDS1
 
 [colors]
-;orange = #FF6200
-;orange = #d65d0e
-darkgray = ${xrdb:color8}
-orange = ${xrdb:color9}
-white = #ebdbb2
-gray = #585858
-black = #090909
-red = #c795ae
-blue = #95aec7
-yellow = #c7ae95
-green = #aec795
-#background = #aa000000
-background = #000000
+black    = #282828
+blue     = #076678
+darkgray = #585858
+gray     = #928374
+green    = #79740e
+orange   = #d79921
+red      = #9d0006
+white    = #ebdbb2
+yellow   = #b57614
+
+;background    = #1d2021
+;background    = #000000
+;foreground    = #fbf1c7
+;foreground    = #dfdfdf
+;foreground    = ${xrdb:foreground}
+alert          = #fb4934
+background     = #aa000000
 background-alt = #4e4e4e
-foreground = #dfdfdf
-;foreground = ${xrdb:foreground}
+foreground     = #ffffff
 foreground-alt = #4e4e4e
-primary = #1f222d
-secondary = #FF6200
-alert = #fb4934
+primary        = #1f222d
+secondary      = #FF6200
 
 ;-------------------------------------------------------------------------------
 
 [bar/top]
-monitor = LVDS1
-;bottom = true
-wm-restack = i3
+height            = 26
+monitor           = LVDS1
+offset-x          = 1%
+offset-y          = 6
 override-redirect = true
-width = 98%
-;width = 1356
-height = 26
-;offset-x = 5
-offset-x = 1%
-offset-y = 6
+width             = 98%
+wm-restack        = i3
 
 locale = en_HK.UTF-8
 
 enable-ipc = true
 
-padding-left = 0
+padding-left  = 0
 padding-right = 2
 
 module-margin-right = 0
-module-margin-left = 0
+module-margin-left  = 0
 
-modules-left = i3
+modules-left   = i3
 modules-center = date
-modules-right = spotify previous playpause next volume
+modules-right  = spotify previous playpause next volume
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -58,7 +57,7 @@ underline-size = 2
 underline-color = ${colors.white}
 
 ;tray-maxsize    = 16
-tray-background  = #aa000000
+tray-background  = ${colors.background}
 tray-detached    = false
 tray-offset-x    = 0
 tray-offset-y    = 0
@@ -80,44 +79,43 @@ font-9  = "siji:pixelsize=10;0"
 font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
 [bar/bottom]
-monitor = LVDS1
-bottom = true
-wm-restack = i3
+bottom            = true
+height            = 26
+monitor           = LVDS1
+offset-x          = 1%
+offset-y          = 6
 override-redirect = true
-width = 98%
-;width = 1356
-height = 26
-;offset-x = 5
-offset-x = 1%
-offset-y = 6
+width             = 98%
+wm-restack        = i3
 
 locale = en_HK.UTF-8
 
 enable-ipc = true
 
-padding-left = 0
+padding-left  = 0
 padding-right = 2
 
 module-margin-right = 0
-module-margin-left = 0
+module-margin-left  = 0
 
-modules-left = wlan eth
+modules-left   = wlan eth
 modules-center =
-modules-right = cpu memory battery temperature
+modules-right  = cpu memory battery temperature
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 2
+underline-size  = 2
 underline-color = ${colors.white}
 
 ;tray-maxsize    = 16
-tray-background  = #aa000000
+tray-background  = ${colors.background}
 tray-detached    = false
 tray-offset-x    = 0
 tray-offset-y    = 0
 tray-padding     = 0
-tray-position    = right
+;tray-position    = right
+tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
@@ -136,39 +134,36 @@ font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 ;-------------------------------------------------------------------------------
 
 [bar/external_top]
-monitor = HDMI1
-;bottom = true
-wm-restack = i3
+height            = 26
+monitor           = HDMI1
+offset-x          = 1%
+offset-y          = 6
 override-redirect = true
-width = 98%
-;width = 1910
-height = 26
-;offset-x = 5
-offset-x = 1%
-offset-y = 6
+width             = 98%
+wm-restack        = i3
 
 locale = en_HK.UTF-8
 
 enable-ipc = true
 
-padding-left = 0
+padding-left  = 0
 padding-right = 2
 
 module-margin-right = 0
-module-margin-left = 0
+module-margin-left  = 0
 
-modules-left = i3
+modules-left   = i3
 modules-center = date
-modules-right = spotify previous playpause next volume
+modules-right  = spotify previous playpause next volume
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 2
+underline-size  = 2
 underline-color = ${colors.white}
 
 ;tray-maxsize    = 16
-tray-background  = #aa000000
+tray-background  = ${colors.background}
 tray-detached    = false
 tray-offset-x    = 0
 tray-offset-y    = 0
@@ -190,45 +185,44 @@ font-9  = "siji:pixelsize=10;0"
 font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
 [bar/external_bottom]
-monitor = HDMI1
-bottom = true
-wm-restack = i3
+bottom            = true
+height            = 26
+monitor           = HDMI1
+offset-x          = 1%
+offset-y          = 6
 override-redirect = true
-width = 98%
-;width = 1910
-height = 26
-;offset-x = 5
-offset-x = 1%
-offset-y = 6
+width             = 98%
+wm-restack        = i3
 
 
 locale = en_HK.UTF-8
 
 enable-ipc = true
 
-padding-left = 0
+padding-left  = 0
 padding-right = 2
 
 module-margin-right = 0
-module-margin-left = 0
+module-margin-left  = 0
 
-modules-left = wlan eth
+modules-left   = wlan eth
 modules-center =
-modules-right = cpu memory battery temperature
+modules-right  = cpu memory battery temperature
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-underline-size = 2
+underline-size  = 2
 underline-color = ${colors.white}
 
 ;tray-maxsize    = 16
-tray-background  = #aa000000
+tray-background  = ${colors.background}
 tray-detached    = false
 tray-offset-x    = 0
 tray-offset-y    = 0
 tray-padding     = 0
-tray-position    = right
+;tray-position    = right
+tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
