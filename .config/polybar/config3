@@ -247,6 +247,7 @@ tail = true
 interval = 1
 format = <label>
 label = %{T2}%output%%{T-}
+click-left = i3 workspace number 8
 
 [module/playpause]
 type = custom/script
@@ -255,7 +256,6 @@ format-padding = 1
 interval = 1
 format = <label>
 format-foreground = ${colors.foreground}
-;format-background = ${colors.foreground-alt}
 click-left = playerctl play-pause
 
 [module/next]
@@ -265,7 +265,6 @@ format-padding = 1
 interval = 1
 format = <label>
 format-foreground = ${colors.foreground}
-;format-background = ${colors.foreground-alt}
 click-left = playerctl next
 
 [module/previous]
@@ -274,17 +273,12 @@ exec = bash ~/.config/polybar/previous.sh
 format-padding = 1
 format = <label>
 format-foreground = ${colors.foreground}
-;format-background = ${colors.foreground-alt}
 click-left = playerctl previous
 
 [module/volume]
 type = internal/volume
-;#label-muted =%{F#928374} %{F-}mute
-;#label-muted-foreground = ${colors.gray}
-;#label-volume-foreground = ${color.white}
 format-muted = <label-muted>
 format-muted-padding = 2
-format-muted-underline = ${colors.white}
 format-margin  = 4
 format-padding = 4
 format-spacing = 4
