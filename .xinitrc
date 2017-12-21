@@ -69,6 +69,7 @@ get_session(){
 
 exec $(get_session)
 
+run_im none
 
 # twm &
 # xclock -geometry 50x50-1+1 &

@@ -90,7 +90,11 @@ set tabstop=4     " the visible width of tabs
 
 " toggle invisible characters
 set invlist
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+if &encoding == "utf-8"
+    set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+else
+    set listchars=tab:\|\ ,nbsp:~,eol:$,trail:.,extends:>,precedes:<
+endif
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 if has('patch-7.4.338')
     "let &showbreak = '↳ '

@@ -163,6 +163,7 @@ if v:version >= 703
     Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays tags in a window, ordered by scope
     Plug 'mhinz/vim-signify'                           " Show a diff using Vim its sign column.
 endif
+Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }       " highlighting columns in csv/tsv files and executing SELECT and UPDATE queries in SQL-like language
 Plug 'mklabs/split-term.vim', Cond(has('nvim'))
 Plug 'raghur/vim-ghost', Cond(has('nvim'), {'do': ':GhostInstall', 'on': 'GhostStart' }) " Nvim client for GhostText
 Plug 'ryanoasis/vim-devicons'                          " Adds file type glyphs/icons to popular Vim plugins
@@ -172,6 +173,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }         " Visualize your undo tree.
 Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' } " Run Async Shell Commands in Vim 8.0 / NeoVim and Output to Quickfix Window
 Plug 'terryma/vim-multiple-cursors'                   " True Sublime Text style multiple selections for Vim
+Plug 'thiagoalessio/rainbow_levels.vim', { 'on': 'RainbowLevelsToggle' } "code highlighting
 Plug 'tpope/vim-fugitive'                             " fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-repeat'                               " enables repeating other supported plugins with the . command
 Plug 'tpope/vim-surround', { 'on': [] }               " surround.vim: quoting/parenthesizing made simple
