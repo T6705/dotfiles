@@ -36,15 +36,15 @@ if which fzf &> /dev/null ; then
     }
 
     # ---------------------------------------------------------------------
-    # usage: fzf-ls | list subdirectories recursively with preview
+    # usage: vimf | list subdirectories recursively with preview
     # ---------------------------------------------------------------------
-    function fzf-ls {
+    function vimf {
         previous_file="$1"
         file_to_edit=`select_file $previous_file`
 
         if [ -n "$file_to_edit"  ] ; then
             $EDITOR "$file_to_edit"
-            fzf-ls "$file_to_edit"
+            vimf "$file_to_edit"
         fi
     }
 
@@ -336,36 +336,6 @@ function aes {
     fi
 }
 
-function qutebrowser-install {
-    sudo apt-get install -y python3-lxml python-tox python3-pyqt5 python3-pyqt5.qtwebkit python3-pyqt5.qtquick python3-sip python3-jinja2 python3-pygments python3-yaml
-    sudo apt-get install -y python3-pyqt5 python3-pyqt5.qtwebkit python3-pyqt5.qtquick python-tox python3-sip python3-dev
-    sudo apt-get install -y asciidoc source-highlight
-    sudo apt-get install -y gstreamer1.0-plugins-{bad,base,good,ugly}
-    time mkdir ~/git
-    time rm -rf ~/git/qutebrowser
-    time git clone https://github.com/qutebrowser/qutebrowser.git ~/git/qutebrowser
-    time cd ~/git/qutebrowser
-    time tox -e mkvenv-pypi
-}
-
-function qutebrowser-update {
-    if [ -f ~/git/qutebrowser/.venv/bin/python3 ]; then
-        time cd ~/git/qutebrowser && time git pull
-        time tox -r -e mkvenv-pypi
-    else
-        qutebrowser-install
-    fi
-}
-
-function qutebrowser {
-    if [ -f ~/git/qutebrowser/.venv/bin/python3 ]; then
-        ~/git/qutebrowser/.venv/bin/python3 -m qutebrowser "$@"
-    else
-        qutebrowser-install
-        qutebrowser
-    fi
-}
-
 function nerd-fonts-install {
     time mkdir -p ~/git
     time rm -rf ~/git/nerd-fonts
@@ -386,61 +356,32 @@ function edb-install {
     echo "=============================================="
     echo "== edb - cross platform x86/x86-64 debugger =="
     echo "=============================================="
-    # install dependencies For Ubuntu >= 15.10
-    sudo apt-get install -y    \
-        cmake                  \
-        build-essential        \
-        libboost-dev           \
-        libqt5xmlpatterns5-dev \
-        qtbase5-dev            \
-        qt5-default            \
-        libqt5svg5-dev         \
-        libgraphviz-dev        \
-        libcapstone-dev
+    if which apt-get &> /dev/null ; then
+        # install dependencies For Ubuntu >= 15.10
+        sudo apt-get install -y    \
+            cmake                  \
+            build-essential        \
+            libboost-dev           \
+            libqt5xmlpatterns5-dev \
+            qtbase5-dev            \
+            qt5-default            \
+            libqt5svg5-dev         \
+            libgraphviz-dev        \
+            libcapstone-dev
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S qt4 boost boost-libs capstone graphviz
+        sudo pacman -S `pacman -Ssq qt | sort -u | grep -E "^qt5-"`
+    fi
 
     if [ -d ~/git/edb-debugger ]; then
         time rm -rf ~/git/edb-debugger && cd ~/git
     else
         mkdir -p ~/git && cd ~/git
     fi
+
     time git clone --recursive https://github.com/eteran/edb-debugger.git
     cd edb-debugger
     mkdir build && cd build
     time cmake -DCMAKE_INSTALL_PREFIX=/usr/local/ ..
     time make && time sudo make install && time edb --version
-}
-
-function alacritty_install {
-    echo "======================================================================"
-    echo "== alacritty -  A cross-platform, GPU-accelerated terminal emulator =="
-    echo "======================================================================"
-
-    # install rustup
-    curl https://sh.rustup.rs -sSf | sh
-
-    source $HOME/.cargo/env
-
-    # Make sure you have the right Rust compiler installed
-    rustup override set stable
-    rustup update stable
-
-    sudo apt-get -y install cmake libfreetype6-dev libfontconfig1-dev xclip
-
-    mkdir -p ~/git
-    cd ~/git
-    rm -rf alacritty
-
-    # clone the repository
-    git clone https://github.com/jwilm/alacritty.git ~/git/alacritty
-    cd ~/git/alacritty
-
-    # building
-    time cargo build --release
-
-    # Desktop Entry
-    sudo cp ~/git/alacritty/target/release/alacritty /usr/local/bin # or anywhere else in $PATH
-    cp ~/git/alacritty/Alacritty.desktop ~/.local/share/applications
-
-    # config
-    cp ~/git/alacritty/alacritty.yml ~/
 }
