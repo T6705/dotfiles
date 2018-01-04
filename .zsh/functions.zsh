@@ -385,3 +385,25 @@ function edb-install {
     time cmake -DCMAKE_INSTALL_PREFIX=/usr/local/ ..
     time make && time sudo make install && time edb --version
 }
+
+function plasma-install {
+    echo "========================================================"
+    echo "== plasma - interactive disassembler for x86/ARM/MIPS =="
+    echo "========================================================"
+    if which apt-get &> /dev/null ; then
+        if [ -d ~/git/plasma ]; then
+            time rm -rf ~/git/plasma && cd ~/git
+        else
+            mkdir -p ~/git && cd ~/git
+        fi
+        time git clone https://github.com/plasma-disassembler/plasma
+        cd plasma && time ./install.sh
+    elif which pacman &> /dev/null ; then
+        if which pacaur &> /dev/null ; then
+            pacaur -S plasma-git
+        else
+            sudo pacman -S pacaur
+            pacaur -S plasma-git
+        fi
+    fi
+}

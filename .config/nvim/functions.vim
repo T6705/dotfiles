@@ -72,9 +72,9 @@ command! WordProcessorMode call WordProcessorMode()
 fu! Compile_and_Run()
     exec 'w'
     if &filetype == 'c'
-        call VimuxRunCommand('gcc '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
+        call VimuxRunCommand('time gcc -O3 -Wall -Wextra '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
     elseif &filetype == 'cpp'
-        call VimuxRunCommand('g++ -std=c++11 '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
+        call VimuxRunCommand('time g++ -O3 -Wall -Wextra -std=c++11 '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
     elseif &filetype == 'java'
         exec 'cd %:p:h'
         call VimuxRunCommand('time javac '.expand('%').' && time java '.expand('%<'))

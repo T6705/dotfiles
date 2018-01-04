@@ -181,10 +181,10 @@ function install_dependencies {
         sudo pacman -S --noconfirm pacaur pacli yaourt
         sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
-        sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils
+        sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils veracrypt
         sudo pacman -S --noconfirm `pacman -Ssq numix`
         sudo pacman -S --noconfirm `pacman -Ssq papirus`
-        pacaur -S --noconfirm cava dropbox dropbox-cli neofetch python-pywal-git secure-delete spotify veracryptA
+        pacaur -S --noconfirm cava dropbox dropbox-cli neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
     fi
 
     if which npm &> /dev/null && ! which pacman &> /dev/null ; then
