@@ -10,6 +10,11 @@ alias mkdir='mkdir -p'
 alias mv="mv -v"
 alias rm='rm -v'
 
+alias :q!="exit"
+alias :q="exit"
+alias :qall!="exit"
+alias :qall="exit"
+
 if which xclip &> /dev/null ; then
 	alias xcopy='xclip -selection clipboard'
 	alias xpaste='xclip -selection clipboard -o'

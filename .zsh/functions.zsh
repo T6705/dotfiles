@@ -3,12 +3,37 @@
 ###############
 
 function weather {
-    if [ -n "$1" ]; then
+    if [[ -n "$1" ]]; then
         curl wttr.in
     else
         curl wttr.in | tac | tac | head -n 7
     fi
 }
+
+if which cower &> /dev/null ; then
+    function coweri {
+        if [[ -n "$1" ]]; then
+            if [[ ! ( -d ~/.cache/cower ) ]]; then
+                mkdir -p -v ~/.cache/cower
+            fi
+
+            cd ~/.cache/cower
+            if [[ ( -d ~/.cache/cower/$1 ) ]]; then
+                whattodo="r"
+                vared -p "~/.cache/cower/$1 already exists, (o)verwrite/(r)emove? : " -c whattodo
+                [[ "$whattodo" == "o" ]] && cower -df $1 && cd $1
+                [[ "$whattodo" == "r" ]] && rm -rf ~/.cache/cower/$1 && cower -d $1 && cd $1
+            else
+                cower -d $1 && cd $1
+            fi
+            $EDITOR PKGBUILD
+
+            ans="y"
+            vared -p "Install $1?: " -c ans
+            [[ "$ans" == "y" ]] && makepkg -is
+        fi
+    }
+fi
 
 # ---------------------------------------------------------------------
 # fzf
@@ -24,7 +49,7 @@ if which fzf &> /dev/null ; then
     # usage: sf <keyword>
     # ---------------------------------------------------------------------
     function sf {
-        if [ "$#" -lt 1 ]; then echo "Supply string to search for!"; return 1; fi
+        if [[ "$#" -lt 1 ]]; then echo "Supply string to search for!"; return 1; fi
         printf -v search "%q" "$*"
         include="yml,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst"
         exclude=".config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist"
@@ -42,7 +67,7 @@ if which fzf &> /dev/null ; then
         previous_file="$1"
         file_to_edit=`select_file $previous_file`
 
-        if [ -n "$file_to_edit"  ] ; then
+        if [[ -n "$file_to_edit"  ]]; then
             $EDITOR "$file_to_edit"
             vimf "$file_to_edit"
         fi
@@ -58,7 +83,7 @@ fi
 # usage: brightness <level> | adjust brightness
 # ---------------------------------------------------------------------
 function brightness {
-    if [ -n "$1" ]; then
+    if [[ -n "$1" ]]; then
         xrandr --output LVDS1 --brightness $1
     else
         echo "brightness <0-1>"
@@ -73,7 +98,7 @@ function 2display {
     connected_displays=`xrandr | grep " connected" | awk '{print $1}'`
     echo $connected_displays
 
-    vared -p "main display : "  -c main
+    vared -p "main display : " -c main
     vared -p "second display : " -c second
 
     [[ $connected_displays =~ "$main" ]] &&
@@ -104,7 +129,7 @@ function mirrordisplay {
 # usage: ipv4_in <filename> | grep ipv4 in file
 # ---------------------------------------------------------------------
 function ipv4_in {
-    if [ -n "$1" ]; then
+    if [[ -n "$1" ]]; then
         regex='([0-9]{1,3}\.){3}[0-9]{1,3}'
         grep -oE "$regex" $1
     else
@@ -116,7 +141,7 @@ function ipv4_in {
 # usage: ipv6_in <filename> | grep ipv4 in file
 # ---------------------------------------------------------------------
 function ipv6_in {
-    if [ -n "$1" ]; then
+    if [[ -n "$1" ]]; then
         regex='(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'
         grep -oE "$regex" $1
     else
@@ -128,7 +153,7 @@ function ipv6_in {
 # usage: url_in <filename> | grep url in file
 # ---------------------------------------------------------------------
 function url_in {
-    if [ -n "$1" ]; then
+    if [[ -n "$1" ]]; then
         regex="(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~-]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?"
         grep -oE "$regex" $1
     else
@@ -146,7 +171,7 @@ function ram {
     local sum
     local items
     local app="$1"
-    if [ -z "$app" ]; then
+    if [[ -z "$app" ]]; then
         echo "First argument - pattern to grep from processes"
     else
         sum=0
@@ -167,7 +192,7 @@ function ram {
 # ---------------------------------------------------------------------
 function extract_frame {
     echo "Extracting frame from $1 ..."
-    if [ -f $1 ] ; then
+    if [[ -f $1 ]]; then
         mkdir -p frame
         time ffmpeg -i $1 frame/frame%09d.bmp
         cd frame
@@ -181,7 +206,7 @@ function extract_frame {
 # ---------------------------------------------------------------------
 function extract {
     echo Extracting $1 ...
-    if [ -f $1 ] ; then
+    if [[ -f $1 ]]; then
         case $1 in
             *.7z)       7z x $1       ;;
             *.Z)        uncompress $1 ;;
@@ -207,7 +232,7 @@ function extract {
 # ---------------------------------------------------------------------
 compress() {
     if [[ -e $1 ]]; then
-        if [ $2 ]; then
+        if [[ $2 ]]; then
             case $2 in
                 bz2 | bzip2)    bzip2           $1                 ;;
                 gpg)            gpg -e --default-recipient-self $1 ;;
@@ -229,19 +254,6 @@ compress() {
     fi
 }
 
-# ---------------------------------------------------------------------
-# usage: colours | print available colors and their numbers
-# ---------------------------------------------------------------------
-function colours {
-    for i in {0..255}; do
-        printf "\x1b[38;5;${i}m colour${i}"
-        if (( $i % 5 == 0 )); then
-            printf "\n"
-        else
-            printf "\t"
-        fi
-    done
-}
 # ---------------------------------------------------------------------
 # usage: base64key <keyname> <keysize>
 # ---------------------------------------------------------------------
@@ -344,7 +356,7 @@ function nerd-fonts-install {
 }
 
 function nerd-fonts-update {
-    if [ -d ~/git/nerd-fonts ]; then
+    if [[ -d ~/git/nerd-fonts ]]; then
         time cd ~/git/nerd-fonts && time git pull
         time ./install.sh
     else
@@ -373,7 +385,7 @@ function edb-install {
         sudo pacman -S `pacman -Ssq qt | sort -u | grep -E "^qt5-"`
     fi
 
-    if [ -d ~/git/edb-debugger ]; then
+    if [[ -d ~/git/edb-debugger ]]; then
         time rm -rf ~/git/edb-debugger && cd ~/git
     else
         mkdir -p ~/git && cd ~/git
@@ -391,7 +403,7 @@ function plasma-install {
     echo "== plasma - interactive disassembler for x86/ARM/MIPS =="
     echo "========================================================"
     if which apt-get &> /dev/null ; then
-        if [ -d ~/git/plasma ]; then
+        if [[ -d ~/git/plasma ]]; then
             time rm -rf ~/git/plasma && cd ~/git
         else
             mkdir -p ~/git && cd ~/git

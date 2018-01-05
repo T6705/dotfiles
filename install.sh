@@ -178,13 +178,15 @@ function install_dependencies {
         sudo pacman Syyu --noconfirm
         sudo pacman -S --noconfirm base
         sudo pacman -S --noconfirm base-devel
-        sudo pacman -S --noconfirm pacaur pacli yaourt
+        sudo pacman -S --noconfirm cower pacaur pacli yaourt
         sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils veracrypt
         sudo pacman -S --noconfirm `pacman -Ssq numix`
         sudo pacman -S --noconfirm `pacman -Ssq papirus`
-        pacaur -S --noconfirm cava dropbox dropbox-cli neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
+        if which pacaur &> /dev/null ; then
+            pacaur -S --noconfirm cava dropbox dropbox-cli neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
+        fi
     fi
 
     if which npm &> /dev/null && ! which pacman &> /dev/null ; then
@@ -261,8 +263,10 @@ function install_i3 {
         echo ""
         sudo pacman -S --noconfirm base-devel libmpdclient wireless_tools
         sudo pacman -S `pacman -Ssq alsa | grep alsa`
-        pacaur Syyu
-        pacaur -S polybar-git
+        if which pacaur &> /dev/null ; then
+            pacaur Syyu
+            pacaur -S polybar-git
+        fi
         #mkdir -p ~/git
         #git clone https://aur.archlinux.org/polybar-git.git ~/git/polybar-git
         #cd ~/git/polybar-git
