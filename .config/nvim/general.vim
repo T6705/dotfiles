@@ -351,7 +351,7 @@ set splitright
 
 " Use persistent history, Keep undo history across sessions by storing it in a file
 if has('persistent_undo')
-    let undo_dir = expand('~/.vim/undo_dir')
+    let undo_dir = expand('~/.vim-undo-dir')
     if !isdirectory(undo_dir)
         call mkdir(undo_dir, "", 0700)
     endif

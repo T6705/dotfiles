@@ -12,6 +12,8 @@ alias rm='rm -v'
 
 alias :q!="exit"
 alias :q="exit"
+alias :qa!="exit"
+alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
 

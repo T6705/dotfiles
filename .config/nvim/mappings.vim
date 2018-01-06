@@ -274,7 +274,13 @@ nnoremap <Leader>, :%s/, */, /g<CR>
 vnoremap <Leader>, :s/, */, /g<CR>
 
 " Explore dir
-"nnoremap <silent> <Leader>E :Lexplore<CR>
+"if exists(":Lexplore") != 1
+"    nnoremap <silent> <Leader>E :Lexplore<CR>
+"elseif exists(":Vexplore") != 1
+"    nnoremap <silent> <Leader>E :Vexplore<CR>
+"else
+"    nnoremap <silent> <Leader>E :Explore<CR>
+"endif
 nnoremap <silent> <Leader>E :NERDTreeToggle<CR>
 nnoremap <silent> <Leader>EF :NERDTreeFind<CR>
 
@@ -377,7 +383,11 @@ imap <C-x>p <plug>(fzf-complete-path)
 imap <C-x>a <plug>(fzf-complete-file-ag)
 imap <C-x>l <plug>(fzf-complete-line)
 
-
+" Completetion
+inoremap ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+inoremap ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+inoremap ,n <C-X><C-n><C-r>=pumvisible()      ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+inoremap ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
 
 " folding
 nnoremap <Leader>f za<CR>
@@ -439,6 +449,10 @@ nnoremap <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 " Make check spelling on or off
 nnoremap <Leader>cson   :set spell<CR>
 nnoremap <Leader>csoff :set nospell<CR>
+
+" search and replace
+nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
+nnoremap <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
 
 " ----------------------------------------------------------------------------------------
 " vimux

@@ -21,11 +21,8 @@ augroup END
 
 augroup auto_mkdir
     au!
-    au BufWritePre *
-                \ if !isdirectory(expand('<afile>:p:h')) |
-                \ call mkdir(expand('<afile>:p:h'), 'p') |
-                \ endif
-augroup end
+    au BufWritePre * if !isdirectory(expand('<afile>:p:h')) | call mkdir(expand('<afile>:p:h'), 'p') | endif
+augroup END
 
 augroup vimrc_active_options
     au!
@@ -48,6 +45,8 @@ let mapleader=' '
 
 let php_sql_query = 1
 let php_htmlInStrings = 1
+
+set updatetime=500
 
 "cnoreabbrev W w
 "cnoreabbrev W! w!
@@ -123,7 +122,11 @@ set tabstop=4     " the visible width of tabs
 
 " toggle invisible characters
 set invlist
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+if &encoding == "utf-8"
+    set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+else
+    set listchars=tab:\|\ ,nbsp:~,eol:$,trail:.,extends:>,precedes:<
+endif
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 if has('patch-7.4.338')
     "let &showbreak = '↳ '
@@ -201,7 +204,7 @@ endif
 "set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
 "set statusline+=%6*\ col:%03c\                       " Colnr
 "set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
-"
+
 "hi User1 ctermfg=red ctermbg=black
 "hi User2 ctermfg=blue ctermbg=black
 "hi User3 ctermfg=green ctermbg=black
@@ -378,14 +381,13 @@ set tags=./tags;/
 set splitbelow
 set splitright
 
-" Use persistent history
-if v:version >= 703
-    if !isdirectory("/tmp/.vim-undo-dir")
-        call mkdir("/tmp/.vim-undo-dir", "", 0777)
-        "call mkdir("/tmp/.vim-undo-dir", "", 0700)
-""" }}}
+" Use persistent history, Keep undo history across sessions by storing it in a file
+if has('persistent_undo')
+    let undo_dir = expand('~/.vim-undo-dir')
+    if !isdirectory(undo_dir)
+        call mkdir(undo_dir, "", 0700)
     endif
-    set undodir=/tmp/.vim-undo-dir
+    set undodir=~/.vim-undo-dir
     set undofile
 endif
 
@@ -415,7 +417,7 @@ ruby << RB
   first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
   (first..last).map { |l| $curbuf[l] }.shuffle.each_with_index do |line, i|
     $curbuf[first + i] = line
-  end
+  END
 RB
 endfu
 command! -range Shuffle <line1>,<line2>call s:shuffle()
@@ -644,6 +646,9 @@ nnoremap <silent> <Leader>y "+y
 vnoremap <silent> <Leader>x "+x
 vnoremap <silent> <Leader>y "+y
 
+" select the current line without indentation
+nnoremap vv ^vg_
+
 " place whole file on the system clipboard
 nnoremap <silent> <Leader>a :%y+<CR>
 
@@ -676,11 +681,11 @@ cnoremap <C-l>  <right>
 "" CTRL+E moves to end of line in command mode
 "cnoremap <C-e> <end>
 
-"" Map arrow keys to window resize commands.
-"nnoremap <Right> 2<C-W>>
-"nnoremap <Left> 2<C-W><
-"nnoremap <Up> 2<C-W>+
-"nnoremap <Down> 2<C-W>-
+" Map arrow keys to window resize commands.
+nnoremap <Right> 2<C-W>>
+nnoremap <Left> 2<C-W><
+nnoremap <Up> 2<C-W>+
+nnoremap <Down> 2<C-W>-
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
@@ -707,6 +712,9 @@ nnoremap <silent> gg :norm! ggzz<CR>
 nnoremap <silent> n nzz
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz
+
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
 
 " Vmap for maintain Visual Mode after shifting > and <
 vnoremap < <gv
@@ -784,14 +792,23 @@ nnoremap <silent> <Leader>wz :wincmd _ \|wincmd \| \| normal 0 <CR>
 nnoremap <Leader>m  :<C-u><C-r><C-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><C-f><left>
 
 " quickfix
-nnoremap <silent> <Leader>lo :lopen<CR>
+let g:quickfix_height = 50
+
+"nnoremap <silent> [q :cprev<CR>zz
+"nnoremap <silent> ]q :cnext<CR>zz
 nnoremap <silent> <Leader>lc :lclose<CR>
-nnoremap <silent> [l :lprevious<CR> " Neomake
-nnoremap <silent> ]l :lnext<CR>     " Neomake
-nnoremap <silent> ]q :cnext<CR>zz
+nnoremap <silent> <Leader>lo :lopen<CR>
+nnoremap <silent> <Leader>lw :lwindow<CR>
+nnoremap <silent> [L :lfirst<CR>zz
+nnoremap <silent> [l :lprev<CR>zz
+nnoremap <silent> ]L :llast<CR>zz
+nnoremap <silent> ]l :lnext<CR>zz
+
+nnoremap <silent> <Leader>qw :cwindow<CR>
+nnoremap <silent> [Q :cfirst<CR>zz
 nnoremap <silent> [q :cprev<CR>zz
-"nmap <silent> [l <Plug>(ale_previous_wrap) " Asynchronous Lint Engine
-"nmap <silent> ]l <Plug>(ale_next_wrap      " Asynchronous Lint Engine
+nnoremap <silent> ]Q :clast<CR>zz
+nnoremap <silent> ]q :cnext<CR>zz
 
 " Tabs
 nnoremap ]t gt
@@ -803,13 +820,28 @@ nnoremap <silent> [b :bp<CR>
 nnoremap <silent> ]b :bn<CR>
 nnoremap <silent> <Leader>q :bd!<CR>
 nnoremap <silent> <Leader>nb :enew<CR>
+nnoremap <silent> <Leader>bs :ls<CR>:buffer<Space>
+nnoremap <silent> <Leader>vbs :ls<CR>:sbuffer<Space>
 
 " add space after comma
 nnoremap <Leader>, :%s/, */, /g<CR>
 vnoremap <Leader>, :s/, */, /g<CR>
 
 " Explore dir
-nnoremap <silent> <Leader>E :Lexplore<CR>
+if exists(":Lexplore") != 1
+    nnoremap <silent> <Leader>E :Lexplore<CR>
+elseif exists(":Vexplore") != 1
+    nnoremap <silent> <Leader>E :Vexplore<CR>
+else
+    nnoremap <silent> <Leader>E :Explore<CR>
+endif
+
+
+" Completetion
+inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+inoremap <silent> ,n <C-x><C-n><C-r>=pumvisible()      ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
 
 " folding
 nnoremap <Leader>f za<CR>
@@ -829,6 +861,26 @@ nnoremap <Leader>5 m`^i##### <esc>``6l
 " Make check spelling on or off
 nnoremap <Leader>cson   :set spell<CR>
 nnoremap <Leader>csoff :set nospell<CR>
+
+" search and replace
+nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
+nnoremap <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
+
+" ----------------------------------------------------------------------------------------
+" Search in project
+" ----------------------------------------------------------------------------------------
+command! -nargs=+ -complete=file_in_path -bar Grep  silent! grep! <args> | redraw!
+command! -nargs=+ -complete=file_in_path -bar LGrep silent! lgrep! <args> | redraw!
+
+nnoremap <silent> <Leader>G :Grep <C-r><C-w><CR>
+xnoremap <silent> <Leader>G :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
+                        \ call histadd("cmd", cmd) <bar>
+                        \ execute cmd<CR>
+
+if executable("ag")
+    set grepprg=ag\ --vimgrep
+    set grepformat^=%f:%l:%c:%m
+endif
 
 " ----------------------------------------------------------------------------------------
 " nvim
