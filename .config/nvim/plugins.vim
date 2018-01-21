@@ -147,7 +147,7 @@ Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-prefix)',
             \'<Plug>(easymotion-overwin-w)',
             \'<Plug>(easymotion-overwin-f)'] }                    " Vim motions on speed!
 Plug 'ervandew/supertab'                                          " Perform all your vim insert mode completions with Tab
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }                  " text filtering and alignment
 Plug 'haya14busa/vim-operator-flashy'                             " Highlight yanked area
 Plug 'itchyny/vim-cursorword'                                     " Underlines the word under the cursor
 Plug 'johngrib/vim-game-code-break', { 'on': 'VimGameCodeBreak' } " Block-breaking game in vim 8.0

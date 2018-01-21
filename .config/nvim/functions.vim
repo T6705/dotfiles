@@ -104,6 +104,33 @@ endfu
 command! ChangeEncoding call ChangeEncoding()
 
 " ----------------------------------------------------------------------------------------
+" :HandleSpecialFile
+" ----------------------------------------------------------------------------------------
+fu! HandleSpecialFile()
+    if get(b:, 'did_filter_special_file', 0)
+        return
+    endif
+    let fname = shellescape(expand('%:p'), 1)
+    let ext = expand('%:e')
+    let ext2cmd = {
+    \               'doc' : '%!antiword '.fname,
+    \               'docx': '%!pandoc -f docx -t markdown '.fname,
+    \               'epub': '%!pandoc -f epub -t markdown '.fname,
+    \               'odp' : '%!odt2txt '.fname,
+    \               'odt' : '%!odt2txt '.fname,
+    \               'pdf' : '%!pdftotext -nopgbrk -layout -q -eol unix '.fname.' -',
+    \               'rtf' : '%!unrtf --text',
+    \             }
+    if has_key(ext2cmd, ext)
+        setl ma noro
+        sil exe ext2cmd[ext]
+        let b:did_filter_special_file = 1
+        setl noma ro nomod
+    endif
+endfu
+command! HandleSpecialFile call HandleSpecialFile()
+
+" ----------------------------------------------------------------------------------------
 " :Hexmode
 " ----------------------------------------------------------------------------------------
 fu ToggleHex()

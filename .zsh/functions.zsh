@@ -13,6 +13,7 @@ function weather {
 if which cower &> /dev/null ; then
     function coweri {
         if [[ -n "$1" ]]; then
+            currentdir=`pwd`
             if [[ ! ( -d ~/.cache/cower ) ]]; then
                 mkdir -p -v ~/.cache/cower
             fi
@@ -30,7 +31,7 @@ if which cower &> /dev/null ; then
 
             ans="y"
             vared -p "Install $1?: " -c ans
-            [[ "$ans" == "y" ]] && makepkg -is
+            [[ "$ans" == "y" ]] && makepkg -is && cd $currentdir
         fi
     }
 fi
@@ -368,6 +369,7 @@ function edb-install {
     echo "=============================================="
     echo "== edb - cross platform x86/x86-64 debugger =="
     echo "=============================================="
+    currentdir=`pwd`
     if which apt-get &> /dev/null ; then
         # install dependencies For Ubuntu >= 15.10
         sudo apt-get install -y    \
@@ -381,8 +383,8 @@ function edb-install {
             libgraphviz-dev        \
             libcapstone-dev
     elif which pacman &> /dev/null ; then
-        sudo pacman -S qt4 boost boost-libs capstone graphviz
-        sudo pacman -S `pacman -Ssq qt | sort -u | grep -E "^qt5-"`
+        sudo pacman -S --needed qt4 boost boost-libs capstone graphviz
+        sudo pacman -S --needed `pacman -Ssq qt | sort -u | grep -E "^qt5-"`
     fi
 
     if [[ -d ~/git/edb-debugger ]]; then
@@ -395,7 +397,7 @@ function edb-install {
     cd edb-debugger
     mkdir build && cd build
     time cmake -DCMAKE_INSTALL_PREFIX=/usr/local/ ..
-    time make && time sudo make install && time edb --version
+    time make && time sudo make install && time edb --version && cd $currentdir
 }
 
 function plasma-install {
@@ -403,13 +405,14 @@ function plasma-install {
     echo "== plasma - interactive disassembler for x86/ARM/MIPS =="
     echo "========================================================"
     if which apt-get &> /dev/null ; then
+        currentdir=`pwd`
         if [[ -d ~/git/plasma ]]; then
             time rm -rf ~/git/plasma && cd ~/git
         else
             mkdir -p ~/git && cd ~/git
         fi
         time git clone https://github.com/plasma-disassembler/plasma
-        cd plasma && time ./install.sh
+        cd plasma && time ./install.sh && cd $currentdir
     elif which pacman &> /dev/null ; then
         if which pacaur &> /dev/null ; then
             pacaur -S plasma-git
@@ -418,4 +421,30 @@ function plasma-install {
             pacaur -S plasma-git
         fi
     fi
+}
+
+function yuzu-install {
+    echo "======================================"
+    echo "== yuzu -  Nintendo Switch Emulator =="
+    echo "======================================"
+
+    if which apt-get &> /dev/null ; then
+        sudo apt-get install build-essential clang cmake libc++-dev libcurl4-openssl-dev libqt5opengl5-dev libsdl2-2.0-0 libsdl2-dev qtbase5-dev sdl2
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --needed base-devel clang cmake libcurl-compat qt5 sdl2
+    fi
+
+    currentdir=`pwd`
+    if [[ -d ~/git/yuzu ]]; then
+        time rm -rf ~/git/yuzu && cd ~/git
+    else
+        mkdir -p ~/git && cd ~/git
+    fi
+    time git clone --recursive https://github.com/yuzu-emu/yuzu
+    cd yuzu
+
+    mkdir build && cd build
+    cmake ../
+    make
+    sudo make install
 }

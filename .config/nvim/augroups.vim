@@ -16,6 +16,7 @@ augroup configgroup
     "au InsertLeave,WinEnter * set cursorline
 
     au BufEnter * call NERDTreeRefresh() "
+    au BufWinEnter *.{doc,docx,epub,odp,odt,pdf,rtf} call HandleSpecialFile()
     au BufRead * call ChangeEncoding()
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files

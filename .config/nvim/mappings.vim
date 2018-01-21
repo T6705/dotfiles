@@ -84,6 +84,8 @@ nnoremap <Down> 2<C-W>-
 " moving up and down work as you would expect
 nnoremap <silent> j gj
 nnoremap <silent> k gk
+"nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+"nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <silent> 0 g0
 nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
