@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #dconf reset -f /org/gnome/terminal/legacy/profiles:/
 
 ####################################################################
@@ -42,15 +44,15 @@ color14="#8FBCBB"    #rgb(143,188,187)
 color15="#ECEFF4"    #rgb(236,239,244)
 
 #get profileid and display the value of each key
-profileid=`dconf list /org/gnome/terminal/legacy/profiles:/ | grep -E '^:'`
+profileid=$(dconf list /org/gnome/terminal/legacy/profiles:/ | grep -E '^:')
 path="/org/gnome/terminal/legacy/profiles:/$profileid"
 echo "profileid = $profileid"
 echo "path      = $path"
-for i in `eval dconf list $path`; do
+for i in $(eval dconf list "$path"); do
     echo "==========================================================="
     value=$path$i
     echo "$i:"
-    eval dconf read $value
+    eval dconf read "$value"
 done
 
 #################
@@ -59,9 +61,9 @@ done
 background_color="'rgb(46,52,64)'"
 foreground_color="'rgb(216,222,233)'"
 palette_color="['rgb(59,66,82)', 'rgb(191,97,106)', 'rgb(163,190,140)', 'rgb(235,203,139)', 'rgb(129,161,193)', 'rgb(180,142,173)', 'rgb(136,192,208)', 'rgb(229,233,240)', 'rgb(76,86,106)', 'rgb(191,97,106)', 'rgb(163,190,140)', 'rgb(235,203,139)', 'rgb(129,161,193)', 'rgb(180,142,173)', 'rgb(143,188,187)', 'rgb(236,239,244)']"
-eval dconf write $path"background-color" \"$background_color\"
-eval dconf write $path"foreground-color" \"$foreground_color\"
-eval dconf write $path"palette" \"$palette_color\"
+eval dconf write "$path""background-color" \"$background_color\"
+eval dconf write "$path""foreground-color" \"$foreground_color\"
+eval dconf write "$path""palette" \"$palette_color\"
 
 #############
 ## setting ##
@@ -75,12 +77,12 @@ use_system_colors_value="false"
 use_system_font_value="false"
 use_theme_colors_value="false"
 use_transparent_background_value="false"
-eval dconf write $path"font" \"$font_value\"
-eval dconf write $path"scroll-on-keystroke" \"$scroll_on_keystroke_value\"
-eval dconf write $path"scroll-on-output" \"$scroll_on_output_value\"
-eval dconf write $path"scroll-policy" \"$scroll_policy_value\"
-eval dconf write $path"scrollbar-policy" \"$scrollbar_policy_value\"
-eval dconf write $path"use-system-colors" \"$use_system_colors_value\"
-eval dconf write $path"use-system-font" \"$use_system_font_value\"
-eval dconf write $path"use-theme-colors" \"$use_theme_colors_value\"
-eval dconf write $path"use-transparent-background" \"$use_transparent_background_value\"
+eval dconf write "$path""font" \"$font_value\"
+eval dconf write "$path""scroll-on-keystroke" \"$scroll_on_keystroke_value\"
+eval dconf write "$path""scroll-on-output" \"$scroll_on_output_value\"
+eval dconf write "$path""scroll-policy" \"$scroll_policy_value\"
+eval dconf write "$path""scrollbar-policy" \"$scrollbar_policy_value\"
+eval dconf write "$path""use-system-colors" \"$use_system_colors_value\"
+eval dconf write "$path""use-system-font" \"$use_system_font_value\"
+eval dconf write "$path""use-theme-colors" \"$use_theme_colors_value\"
+eval dconf write "$path""use-transparent-background" \"$use_transparent_background_value\"

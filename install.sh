@@ -185,7 +185,7 @@ function install_dependencies {
         sudo pacman -S --noconfirm `pacman -Ssq numix`
         sudo pacman -S --noconfirm `pacman -Ssq papirus`
         if which pacaur &> /dev/null ; then
-            pacaur -S --noconfirm cava dropbox dropbox-cli neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
+            pacaur -S --noconfirm cava dropbox dropbox-cli hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
         fi
     fi
 

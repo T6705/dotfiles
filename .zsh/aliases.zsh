@@ -17,6 +17,16 @@ alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
 
+if which python3 &> /dev/null ; then
+    alias pywebserver="python3 -m http.server"
+elif which python2 &> /dev/null ; then
+    alias pywebserver="python -m SimpleHTTPServer"
+fi
+
+if which youtube-dl &> /dev/null ; then
+    alias mp3="youtube-dl --extract-audio --audio-format mp3"
+fi
+
 if which xclip &> /dev/null ; then
 	alias xcopy='xclip -selection clipboard'
 	alias xpaste='xclip -selection clipboard -o'
