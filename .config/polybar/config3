@@ -244,7 +244,7 @@ font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 type = custom/script
 exec = bash ~/.config/polybar/spotify_p.sh
 tail = true
-interval = 1
+interval = 1.5
 format = <label>
 label = %{T2}%output%%{T-}
 click-left = i3 workspace number 8
@@ -253,7 +253,7 @@ click-left = i3 workspace number 8
 type = custom/script
 exec = bash ~/.config/polybar/playpause.sh
 format-padding = 1
-interval = 1
+interval = 1.5
 format = <label>
 format-foreground = ${colors.foreground}
 click-left = playerctl play-pause
@@ -262,7 +262,7 @@ click-left = playerctl play-pause
 type = custom/script
 exec = bash ~/.config/polybar/next.sh
 format-padding = 1
-interval = 1
+interval = 1.5
 format = <label>
 format-foreground = ${colors.foreground}
 click-left = playerctl next
@@ -284,8 +284,13 @@ format-padding = 4
 format-spacing = 4
 format-volume = <label-volume>
 format-volume-padding = 2
-label-muted =%{F#928374} %{F-}0%
-label-volume = %{F#928374} %{F-}%percentage:3%%
+label-muted = muted
+label-volume =  %percentage%%
+ramp-headphones-0 = 
+ramp-headphones-1 = 
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
 
 [module/separator]
 type = custom/text
@@ -341,7 +346,7 @@ format-padding = 2
 [module/cpu]
 
 type = internal/cpu
-interval         = 1
+interval         = 1.5
 format           = <label> <ramp-coreload>
 format-padding   = 2
 label            = %{F#6ff}CPU%{F-}  %percentage%%
@@ -374,7 +379,7 @@ ramp-coreload-7-foreground = #ff5555
 
 [module/memory]
 type             = internal/memory
-interval         = 1
+interval         = 1.5
 format           = <label> <bar-used>
 format-padding   = 2
 label            = %{F#6ff}RAM%{F-}  %percentage_used%%
@@ -398,7 +403,7 @@ bar-used-width                = 30
 [module/wlan]
 type = internal/network
 interface = wlp2s0
-interval = 1.0
+interval = 1.5
 format-connected           =  <label-connected>
 format-connected-margin    = 2
 format-disconnected        = <label-disconnected>
@@ -419,7 +424,7 @@ label-connected = %{F#ff69b4}%essid% %{F#6ff}%local_ip%%{F-} %downspeed%
 [module/eth]
 type      = internal/network
 interface = enp3s0
-interval  = 1.0
+interval  = 1.5
 format-connected           =  <label-connected>
 format-connected-margin    = 2
 format-disconnected        = <label-disconnected>

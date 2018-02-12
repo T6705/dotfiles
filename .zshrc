@@ -62,10 +62,10 @@ autoload -U compinit && compinit
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
+[ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 [ -d $HOME/.gem/ruby/2.5.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.5.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/go ] && export GOPATH="$HOME/go" && export PATH="$PATH:$GOPATH/bin"
-export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh

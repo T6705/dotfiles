@@ -18,6 +18,8 @@ alias :qall!="exit"
 alias :qall="exit"
 
 if which python3 &> /dev/null ; then
+    alias pywebserver-cgi="python -m http.server --cgi"
+    alias pywebserver-local="python3 -m http.server --bind 127.0.0.1"
     alias pywebserver="python3 -m http.server"
 elif which python2 &> /dev/null ; then
     alias pywebserver="python -m SimpleHTTPServer"
