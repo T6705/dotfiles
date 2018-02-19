@@ -157,11 +157,11 @@ fi
 source ~/.zsh/aliases.zsh
 source ~/.zsh/functions.zsh
 
-if which neofetch &> /dev/null ; then
-    neofetch
-elif which screenfetch &> /dev/null ; then
-    screenfetch
-fi
+#if which neofetch &> /dev/null ; then
+#    neofetch
+#elif which screenfetch &> /dev/null ; then
+#    screenfetch
+#fi
 
 #if which cowsay &> /dev/null && which fortune &> /dev/null && which lolcat &> /dev/null; then
 #    cowsay `fortune` | lolcat

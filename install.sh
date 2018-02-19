@@ -320,6 +320,14 @@ function install_tmux {
 }
 
 function install_vim {
+
+    echo ""
+    echo "============================================================="
+    echo "== vim-anywhere (https://github.com/cknadler/vim-anywhere) =="
+    echo "============================================================="
+    echo ""
+    curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
+
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y vim
     elif which pacman &> /dev/null ; then

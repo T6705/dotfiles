@@ -33,6 +33,9 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec gnome-terminal
 
+# https://github.com/cknadler/vim-anywhere
+bindsym $mod+Shift+v exec ~/.vim-anywhere/bin/run
+
 # start gnome-control-center
 bindsym $mod+g exec export XDG_CURRENT_DESKTOP=GNOME&&gnome-control-center
 
@@ -49,10 +52,6 @@ new_window 1pixel
 
 # kill focused window
 bindsym $mod+q kill
-
-# Custom keybindings
-# bindsym $mod+shift+g exec google-chrome-stable
-# bindsym $mod+shift+t exec Thunar
 
 # start rofi (a program launcher)
 bindsym $mod+p exec rofi -show run -hide-scrollbar -matching regex -sidebar-mode -lines 6 -eh 2 -font "Knack Nerd Font 12" &
@@ -181,10 +180,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 mode " " {
         # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
         bindsym h resize shrink width 10 px or 10 ppt
         bindsym j resize grow height 10 px or 10 ppt
         bindsym k resize shrink height 10 px or 10 ppt
@@ -232,41 +227,6 @@ client.focused_inactive $UNFOCUS    $UNFOCUS    $UNFOCUS    $UNFOCUS
 client.urgent           $FOCUS      $FOCUS      $FOCUS      $FOCUS$
 client.background       $UNFOCUS
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-###########################
-### Old i3blocks config ###
-###########################
-#bar {
-#        colors{
-#            #background #000000
-#            #background #777777
-#            #background #696969
-#            background #3e3e3e
-#            statusline #ffffff
-#            separator #666666
-#
-#            focused_workspace #008fff #007fff #ffffff
-#            active_workspace #333333 #5f676a #ffffff
-#            inactive_workspace #333333 #222222 #888888
-#            urgent_workspace #aa0000 #990000 #ffffff
-#
-#            #background  $COLOR_BLACK
-#            #statusline  $COLOR_BLUE
-#
-#            # Colors            border           backgr.          text
-#            #focused_workspace   $COLOR_BLACK     $COLOR_BLACK     $COLOR_PINK
-#            #active_workspace    $COLOR_BLACK     $COLOR_BLACK     $COLOR_PINK
-#            #inactive_workspace  $COLOR_BLACK     $COLOR_BLACK     $COLOR_WHITE
-#            #urgent_workspace    $COLOR_PINK      $COLOR_PINK      $COLOR_WHITE
-#        }
-#        position top
-#        #status_command i3status
-#        #status_command lemonbar
-#        #status_command i3status -c ~/.config/i3/i3status.conf
-#        status_command i3blocks -c ~/.config/i3/i3blocks/i3blocks.conf
-#}
-
 # Colors
 set $base00 #1d1f21
 set $base01 #282a2e
@@ -298,24 +258,10 @@ hide_edge_borders both
 # Other Keybindings
 
 bindsym $mod+shift+Return exec bash ~/.config/i3/i3lock.sh
-# bindsym $mod+u exec scrot
-# bindsym $mod+z exec xrdb ~/.Xresources
-
-
-# Pulse Audio controls
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +5% && ~/.yabar_scripts/update_wallpaper.sh
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -5% && ~/.yabar_scripts/update_wallpaper.sh
-#bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master toggle && ~/.yabar_scripts/update_wallpaper.sh
-
-
-# Media player controls
-#bindsym XF86AudioPlay exec playerctl play
-#bindsym XF86AudioPause exec playerctl pause
-#bindsym XF86AudioNext exec playerctl next
-#bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+u exec scrot
+bindsym $mod+z exec xrdb ~/.Xresources
 
 # Start up
-
 #exec --no-startup-id pulseaudio --start
 #exec --no-startup-id setxkbmap -option ctrl:swapcaps
 exec --no-startup-id dropbox start

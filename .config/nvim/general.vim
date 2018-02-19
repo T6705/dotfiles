@@ -65,10 +65,6 @@ endif
 " ----------------------------------------------------------------------------------------
 set binary
 set bomb
-if &encoding ==# 'latin1' && has('gui_running')
-    set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
-endif
-"set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 set fileencoding=utf-8
 set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
 set ffs=unix,dos,mac " Use Unix as the standard file type
@@ -140,19 +136,6 @@ set ttyfast                                                       " faster redra
 if has('syntax') && !exists('g:syntax_on')
     "syntax enable
     syntax on                                                         " switch syntax highlighting on
-endif
-
-" Set font according to system
-if has("mac") || has("macunix")
-    set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
-elseif has("win16") || has("win32")
-    set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("gui_gtk2")
-    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("linux")
-    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("unix")
-    set gfn=Monospace\ 11
 endif
 
 " ----------------------------------------------------------------------------------------
@@ -329,8 +312,6 @@ set modelines=10
 
 set autoread                 " detect when a file is changed
 set fileformats=unix,dos,mac
-set gfn=Monospace\ 10
-set guioptions=egmrti
 if &history < 1000
     set history=1000         " change history to 1000
 endif
@@ -364,6 +345,7 @@ endif
 " ----------------------------------------------------------------------------------------
 " With this, the gui (gvim and macvim) now doesn't have the toolbar, the left
 " and right scrollbars and the menu.
+set guioptions=egmrti
 set guioptions-=T
 set guioptions-=l
 set guioptions-=L
@@ -371,4 +353,23 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=m
 set guioptions-=M
+
+" Set font according to system
+if has("mac") || has("macunix")
+    set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+elseif has("win16") || has("win32")
+    set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+elseif has("gui_gtk2")
+    set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+elseif has("linux")
+    set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+elseif has("unix")
+    set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+else
+    set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+endif
+
+if &encoding ==# 'latin1' && has('gui_running')
+    set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
+endif
 """ }}}
