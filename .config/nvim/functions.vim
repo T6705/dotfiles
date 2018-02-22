@@ -229,7 +229,7 @@ command! Root call s:root()
 " ----------------------------------------------------------------------------
 " :Scriptnames <name>
 " ----------------------------------------------------------------------------
-function! s:Scratch (command, ...)
+fu! s:Scratch (command, ...)
     redir => lines
     let saveMore = &more
     set nomore
@@ -249,7 +249,7 @@ function! s:Scratch (command, ...)
     let height = line('$') + 3
     execute 'normal! z'.height."\<cr>"
     0
-endfunction
+endfu
 
 command! -nargs=? Scriptnames call <sid>Scratch('scriptnames', <f-args>)
 command! -nargs=+ Scratch call <sid>Scratch(<f-args>)
@@ -311,28 +311,68 @@ endfu
 " ----------------------------------------------------------------------------------------
 " :Goyo
 " ----------------------------------------------------------------------------------------
-function! s:goyo_enter()
-  "silent !tmux set status off
-  "silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  set nonu
-  set noshowcmd
-  set noshowmode
-  set scrolloff=999
-  Limelight
-endfunction
+fu! s:goyo_enter()
+    "silent !tmux set status off
+    "silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+    set nonu
+    set noshowcmd
+    set noshowmode
+    set scrolloff=999
+    Limelight
+endfu
 
-function! s:goyo_leave()
-  "silent !tmux set status on
-  "silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  set nu
-  set showcmd
-  set showmode
-  set scrolloff=5
-  Limelight!
-endfunction
+fu! s:goyo_leave()
+    "silent !tmux set status on
+    "silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+    set nu
+    set showcmd
+    set showmode
+    set scrolloff=5
+    Limelight!
+endfu
 
 au! User GoyoEnter nested call <SID>goyo_enter()
 au! User GoyoLeave nested call <SID>goyo_leave()
+
+" ----------------------------------------------------------------------------------------
+" :LightTheme (PaperColor)
+" ----------------------------------------------------------------------------------------
+fu! LightTheme()
+    set background=light
+    colorscheme PaperColor
+    AirlineTheme papercolor
+endfu
+command! LightTheme call LightTheme()
+
+" ----------------------------------------------------------------------------------------
+" :DarkTheme (Monokai)
+" ----------------------------------------------------------------------------------------
+fu! DarkTheme()
+    set background=dark
+    colorscheme molokai
+    AirlineTheme wombat
+endfu
+command! DarkTheme call DarkTheme()
+
+" ----------------------------------------------------------------------------------------
+" :GruvboxLight
+" ----------------------------------------------------------------------------------------
+fu! GruvboxLight()
+    set background=light
+    colorscheme gruvbox
+    AirlineTheme gruvbox
+endfu
+command! GruvboxLight call GruvboxLight()
+
+" ----------------------------------------------------------------------------------------
+" :GruvboxDark
+" ----------------------------------------------------------------------------------------
+fu! GruvboxDark()
+    set background=dark
+    colorscheme gruvbox
+    AirlineTheme gruvbox
+endfu
+command! GruvboxDark call GruvboxDark()
 
 " smart tab completion
 fu! functions#Smart_TabComplete()

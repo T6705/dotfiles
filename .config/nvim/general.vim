@@ -145,23 +145,23 @@ endif
 "set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
 
 """ === basic statusline === {{{
-"set statusline=
-"set statusline+=%0*\ [%n]                            " buffernr
-"set statusline+=%0*\ %<%F\                           " File+path
-"set statusline+=%1*\ %y\                             " FileType
-"set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
-"set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
-"set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
-"set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
-"set statusline+=%6*\ col:%03c\                       " Colnr
-"set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
+set statusline=
+set statusline+=%0*\ [%n]                            " buffernr
+set statusline+=%0*\ %<%F\                           " File+path
+set statusline+=%1*\ %y\                             " FileType
+set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
+set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
+set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
+set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
+set statusline+=%6*\ col:%03c\                       " Colnr
+set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
 
-"hi User1 ctermfg=red ctermbg=black
-"hi User2 ctermfg=blue ctermbg=black
-"hi User3 ctermfg=green ctermbg=black
-"hi User4 ctermfg=yellow ctermbg=black
-"hi User5 ctermfg=cyan ctermbg=black
-"hi User6 ctermfg=magenta ctermbg=black
+hi User1 ctermfg=red ctermbg=black
+hi User2 ctermfg=blue ctermbg=black
+hi User3 ctermfg=green ctermbg=black
+hi User4 ctermfg=yellow ctermbg=black
+hi User5 ctermfg=cyan ctermbg=black
+hi User6 ctermfg=magenta ctermbg=black
 """ }}}
 
 """ === advance statusline === {{{

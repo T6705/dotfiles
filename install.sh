@@ -337,22 +337,18 @@ function install_vim {
     fi
 
     echo ""
-    echo "========================================"
-    echo "== Download vim-plugs and color theme =="
-    echo "========================================"
+    echo "========================"
+    echo "== Download vim-plugs =="
+    echo "========================"
     echo ""
 
     ### vim
     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    curl -fLo ~/.vim/colors/molokai.vim --create-dirs \
-        https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 
     ### nvim
     curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    curl -fLo ~/.config/nvim/colors/molokai.vim --create-dirs \
-        https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 
     echo ""
     echo "===================="
@@ -430,8 +426,15 @@ function install_zsh {
         time git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
     fi
 
-    curl -fLo ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme --create-dirs \
-        https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/spaceship.zsh
+    if [[ -d ~/.oh-my-zsh/custom/themes/spaceship-prompt ]]; then
+        time cd ~/.oh-my-zsh/custom/themes/spaceship-prompt && time git pull
+        if [[ ! -h ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme ]]; then
+            ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+        fi
+    else
+        time git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt
+        ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+    fi
 
     echo ""
     echo "========================"

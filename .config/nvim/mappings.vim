@@ -157,10 +157,10 @@ nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 
 " Change current word to uppercase
-nnoremap <Leader>u gUiw
+nnoremap <silent> <Leader>u gUiw
 
 " Change current word to lowercase
-nnoremap <Leader>l guiw
+nnoremap <silent> <Leader>l guiw
 
 " clear highlighted search
 nnoremap <silent> <Leader>sc :set hlsearch! hlsearch?<CR>
@@ -184,7 +184,7 @@ nnoremap /ip4 /\v([0-9]{1,3}\.){3}[0-9]{1,3}<CR>
 nnoremap /url /\v(http\|https\|ftp):\/\/[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?<CR>
 
 " search for word under the cursor
-nnoremap <Leader>/ "fyiw :/<C-r>f<CR>
+nnoremap <silent> <Leader>/ "fyiw :/<C-r>f<CR>
 
 " window navigation
 nnoremap <silent> <Leader>wh :call functions#WinMove('h')<CR>
@@ -201,7 +201,7 @@ nnoremap <silent> <Leader>we <C-w>=
 nnoremap <silent> <Leader>wz :wincmd _ \|wincmd \| \| normal 0 <CR>
 
 " Quickly edit your macros
-nnoremap <Leader>m  :<C-u><C-r><C-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><C-f><left>
+nnoremap <silent> <Leader>m  :<C-u><C-r><C-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><C-f><left>
 
 " Git
 nnoremap <silent> <Leader>gb  :Gblame<CR>
@@ -259,21 +259,22 @@ nnoremap <silent> ]q :cnext<CR>zz
 " Tabs
 nnoremap ]t gt
 nnoremap [t gT
-nnoremap <silent> <Leader>nt :tabnew<CR>
+nnoremap <silent> <Leader>tn :tabnew<CR>
 
 " Buffer nav
 nnoremap <silent> [b :bp<CR>
 nnoremap <silent> ]b :bn<CR>
 nnoremap <silent> <Leader>q :bd!<CR>
-nnoremap <silent> <Leader>nb :enew<CR>
+nnoremap <silent> <Leader>bn :enew<CR>
 nnoremap <silent> <Leader>bs :Buffers<CR>
 nnoremap <silent> <Leader>bls :Lines<CR>
+nnoremap <silent> <bs> <c-^>
 "noremap <silent> <Leader>b :CtrlPBuffer<CR>
-"nnoremap <Leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
+"nnoremap <silent> <Leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 
 " add space after comma
-nnoremap <Leader>, :%s/, */, /g<CR>
-vnoremap <Leader>, :s/, */, /g<CR>
+nnoremap <silent> <Leader>, :%s/, */, /g<CR>
+vnoremap <silent> <Leader>, :s/, */, /g<CR>
 
 " Explore dir
 "if exists(":Lexplore") != 1
@@ -289,7 +290,7 @@ nnoremap <silent> <Leader>EF :NERDTreeFind<CR>
 "Gundo
 nnoremap <silent> <Leader>ut :GundoToggle<CR>
 
-nnoremap <Leader>bp Oimport pdb; pdb.set_trace()  # BREAKPOINT<C-c>
+nnoremap <silent> <Leader>bp Oimport pdb; pdb.set_trace()  # BREAKPOINT<C-c>
 
 if has('nvim')
     "nnoremap <silent> <Leader>rg :Ranger<CR>
@@ -392,8 +393,8 @@ inoremap ,n <C-X><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;
 inoremap ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
 
 " folding
-nnoremap <Leader>f za<CR>
-vnoremap <Leader>f za<CR>
+nnoremap <silent> <Leader>f za<CR>
+vnoremap <silent> <Leader>f za<CR>
 
 " vim-table-mode
 nnoremap <silent> <Leader>tm :TableModeToggle<CR>
@@ -424,12 +425,12 @@ nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 " Tabular
 " ----------------------------------------------------------------------------------------
 if exists(":Tabularize")
-  nnoremap <Leader>a= :Tabularize /=<CR>
-  vnoremap <Leader>a= :Tabularize /=<CR>
-  nnoremap <Leader>a: :Tabularize /:<CR>
-  vnoremap <Leader>a: :Tabularize /:<CR>
-  "nnoremap <Leader>a: :Tabularize /:\zs<CR>
-  "vnoremap <Leader>a: :Tabularize /:\zs<CR>
+  nnoremap <silent> <Leader>a= :Tabularize /=<CR>
+  vnoremap <silent> <Leader>a= :Tabularize /=<CR>
+  nnoremap <silent> <Leader>a: :Tabularize /:<CR>
+  vnoremap <silent> <Leader>a: :Tabularize /:<CR>
+  "nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+  "vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
 endif
 
 " compile and run
@@ -438,19 +439,19 @@ endif
 noremap <silent> <Leader>cr :CompileandRun<CR>
 
 " Markdown headings
-nnoremap <Leader>1 m`yypVr=``
-nnoremap <Leader>2 m`yypVr-``
-nnoremap <Leader>3 m`^i### <esc>``4l
-nnoremap <Leader>4 m`^i#### <esc>``5l
-nnoremap <Leader>5 m`^i##### <esc>``6l
+nnoremap <silent> <Leader>1 m`yypVr=``
+nnoremap <silent> <Leader>2 m`yypVr-``
+nnoremap <silent> <Leader>3 m`^i### <esc>``4l
+nnoremap <silent> <Leader>4 m`^i#### <esc>``5l
+nnoremap <silent> <Leader>5 m`^i##### <esc>``6l
 
-"nnoremap <Leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
-"nnoremap <Leader>pdf :w<CR> :NeoTex<CR>
-nnoremap <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
+"nnoremap <silent> <Leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
+"nnoremap <silent> <Leader>pdf :w<CR> :NeoTex<CR>
+nnoremap <silent> <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
 " Make check spelling on or off
-nnoremap <Leader>cson   :set spell<CR>
-nnoremap <Leader>csoff :set nospell<CR>
+nnoremap <silent> <Leader>cson   :set spell<CR>
+nnoremap <silent> <Leader>csoff :set nospell<CR>
 
 " search and replace
 nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
@@ -460,22 +461,22 @@ nnoremap <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
 " vimux
 " ----------------------------------------------------------------------------------------
 " Inspect runner pane
-nnoremap <Leader>vi :VimuxInspectRunner<CR>
+nnoremap <silent> <Leader>vi :VimuxInspectRunner<CR>
 
 " Run last command executed by VimuxRunCommand
-nnoremap <Leader>vl :VimuxRunLastCommand<CR>
+nnoremap <silent> <Leader>vl :VimuxRunLastCommand<CR>
 
 " Prompt for a command to run
-nnoremap <Leader>vp :VimuxPromptCommand<CR>
+nnoremap <silent> <Leader>vp :VimuxPromptCommand<CR>
 
 " Close vim tmux runner opened by VimuxRunCommand
-nnoremap <Leader>vq :VimuxCloseRunner<CR>
+nnoremap <silent> <Leader>vq :VimuxCloseRunner<CR>
 
 " Interrupt any command running in the runner pane
-nnoremap <Leader>vx :VimuxInterruptRunner<CR>
+nnoremap <silent> <Leader>vx :VimuxInterruptRunner<CR>
 
 " Zoom the runner pane (use <bind-key> z to restore runner pane)
-nnoremap <Leader>vz :call VimuxZoomRunner()<CR>
+nnoremap <silent> <Leader>vz :call VimuxZoomRunner()<CR>
 
 " ----------------------------------------------------------------------------------------
 " Surround
@@ -490,37 +491,37 @@ nmap sl yss
 "vmap s S
 
 " <Leader>` Surround a word with "backticks"
-nmap     <Leader>` ysiw`
-vnoremap <Leader>` c`<C-R>"`<ESC>
+nmap     <silent> <Leader>` ysiw`
+vnoremap <silent> <Leader>` c`<C-R>"`<ESC>
 
 " <Leader>" Surround a word with "quotes"
-nmap     <Leader>" ysiw"
-vnoremap <Leader>" c"<C-R>""<ESC>
+nmap     <silent> <Leader>" ysiw"
+vnoremap <silent> <Leader>" c"<C-R>""<ESC>
 
 " <Leader>' Surround a word with 'single quotes'
-nmap     <Leader>' ysiw'
-vnoremap <Leader>' c'<C-R>"'<ESC>
+nmap     <silent> <Leader>' ysiw'
+vnoremap <silent> <Leader>' c'<C-R>"'<ESC>
 
 " <Leader>( Surround a word with ( brackets )
 " <Leader>) Surround a word with (brackets)
-nmap     <Leader>( ysiw(
-nmap     <Leader>) ysiw)
-vnoremap <Leader>( c( <C-R>" )<ESC>
-vnoremap <Leader>) c(<C-R>")<ESC>
+nmap     <silent> <Leader>( ysiw(
+nmap     <silent> <Leader>) ysiw)
+vnoremap <silent> <Leader>( c( <C-R>" )<ESC>
+vnoremap <silent> <Leader>) c(<C-R>")<ESC>
 
 " <Leader>[ Surround a word with [ brackets ]
 " <Leader>] Surround a word with [brackets]
-nmap     <Leader>] ysiw]
-nmap     <Leader>[ ysiw[
-vnoremap <Leader>[ c[ <C-R>" ]<ESC>
-vnoremap <Leader>] c[<C-R>"]<ESC>
+nmap     <silent> <Leader>] ysiw]
+nmap     <silent> <Leader>[ ysiw[
+vnoremap <silent> <Leader>[ c[ <C-R>" ]<ESC>
+vnoremap <silent> <Leader>] c[<C-R>"]<ESC>
 
 " <Leader>{ Surround a word with { braces }
 " <Leader>{ Surround a word with {braces}
-nmap     <Leader>} ysiw}
-nmap     <Leader>{ ysiw{
-vnoremap <Leader>} c{ <C-R>" }<ESC>
-vnoremap <Leader>{ c{<C-R>"}<ESC>
+nmap     <silent> <Leader>} ysiw}
+nmap     <silent> <Leader>{ ysiw{
+vnoremap <silent> <Leader>} c{ <C-R>" }<ESC>
+vnoremap <silent> <Leader>{ c{<C-R>"}<ESC>
 
 " ----------------------------------------------------------------------------------------
 " splitjoin
@@ -528,8 +529,8 @@ vnoremap <Leader>{ c{<C-R>"}<ESC>
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
 
-noremap <Leader>j :SplitjoinJoin<cr>
-noremap <Leader>s :SplitjoinSplit<cr>
+noremap <silent> <Leader>j :SplitjoinJoin<cr>
+noremap <silent> <Leader>s :SplitjoinSplit<cr>
 
 
 " ----------------------------------------------------------------------------------------
