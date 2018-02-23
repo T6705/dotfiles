@@ -55,16 +55,24 @@ done
 ## colorscheme ##
 #################
 background_color="'rgb(29,32,33)'"
+cursor_background_color_value="'rgb(251,241,199)'"
+cursor_foreground_color_value="'rgb(40,40,40)'"
 foreground_color="'rgb(251,241,199)'"
 palette_color="['rgb(40,40,40)', 'rgb(157,0,6)', 'rgb(121,116,14)', 'rgb(181,118,20)', 'rgb(7,102,120)', 'rgb(143,63,113)', 'rgb(66,123,88)', 'rgb(124,111,100)', 'rgb(146,131,116)', 'rgb(204,36,29)', 'rgb(152,151,26)', 'rgb(215,153,33)', 'rgb(69,133,136)', 'rgb(177,98,134)', 'rgb(142,192,124)', 'rgb(235,219,178)']"
 eval dconf write "$path""background-color" \"$background_color\"
+eval dconf write "$path""cursor-background-color" \"$cursor_background_color_value\"
+eval dconf write "$path""cursor-foreground-color" \"$cursor_foreground_color_value\"
 eval dconf write "$path""foreground-color" \"$foreground_color\"
 eval dconf write "$path""palette" \"$palette_color\"
 
 #############
 ## setting ##
 #############
+audible_bell_value="false"
+bold_color_same_as_fg_value="true"
+cursor_colors_set_value="true"
 font_value="'Knack Nerd Font 10'"
+highlight_colors_set_value="false"
 scroll_on_keystroke_value="false"
 scroll_on_output_value="true"
 scroll_policy_value="'never'"
@@ -73,7 +81,11 @@ use_system_colors_value="false"
 use_system_font_value="false"
 use_theme_colors_value="false"
 use_transparent_background_value="false"
+eval dconf write "$path""audible-bell" \"$audible_bell_value\"
+eval dconf write "$path""bold-color-same-as-fg" \"$bold_color_same_as_fg_value\"
+eval dconf write "$path""cursor-colors-set" \"$cursor_colors_set_value\"
 eval dconf write "$path""font" \"$font_value\"
+eval dconf write "$path""highlight-colors-set" \"$highlight_colors_set_value\"
 eval dconf write "$path""scroll-on-keystroke" \"$scroll_on_keystroke_value\"
 eval dconf write "$path""scroll-on-output" \"$scroll_on_output_value\"
 eval dconf write "$path""scroll-policy" \"$scroll_policy_value\"

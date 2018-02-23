@@ -2,10 +2,6 @@
 
 #dconf reset -f /org/gnome/terminal/legacy/profiles:/
 
-####################################################################
-## source: https://github.com/arcticicestudio/nord-gnome-terminal ##
-####################################################################
-
 path="/org/gnome/terminal/legacy/"
 #echo "path      = $path"
 #for i in `eval dconf list $path`; do
@@ -24,25 +20,6 @@ eval dconf write $path"default-show-menubar" \"$default_show_menubar_value\"
 ### setup colorscheme for gnome-terminal ###
 ############################################
 
-terminalbg="#2E3440" #rgb(46,52,64)
-terminalfg="#D8DEE9" #rgb(216,222,233)
-color0="#3B4252"     #rgb(59,66,82)
-color1="#BF616A"     #rgb(191,97,106)
-color2="#A3BE8C"     #rgb(163,190,140)
-color3="#EBCB8B"     #rgb(235,203,139)
-color4="#81A1C1"     #rgb(129,161,193)
-color5="#B48EAD"     #rgb(180,142,173)
-color6="#88C0D0"     #rgb(136,192,208)
-color7="#E5E9F0"     #rgb(229,233,240)
-color8="#4C566A"     #rgb(76,86,106)
-color9="#BF616A"     #rgb(191,97,106)
-color10="#A3BE8C"    #rgb(163,190,140)
-color11="#EBCB8B"    #rgb(235,203,139)
-color12="#81A1C1"    #rgb(129,161,193)
-color13="#B48EAD"    #rgb(180,142,173)
-color14="#8FBCBB"    #rgb(143,188,187)
-color15="#ECEFF4"    #rgb(236,239,244)
-
 #get profileid and display the value of each key
 profileid=$(dconf list /org/gnome/terminal/legacy/profiles:/ | grep -E '^:')
 path="/org/gnome/terminal/legacy/profiles:/$profileid"
@@ -58,11 +35,11 @@ done
 #################
 ## colorscheme ##
 #################
-background_color="'rgb(46,52,64)'"
-cursor_background_color_value="'rgb(136,192,208)'"
-cursor_foreground_color_value="'rgb(46,52,64)'"
-foreground_color="'rgb(216,222,233)'"
-palette_color="['rgb(59,66,82)', 'rgb(191,97,106)', 'rgb(163,190,140)', 'rgb(235,203,139)', 'rgb(129,161,193)', 'rgb(180,142,173)', 'rgb(136,192,208)', 'rgb(229,233,240)', 'rgb(76,86,106)', 'rgb(191,97,106)', 'rgb(163,190,140)', 'rgb(235,203,139)', 'rgb(129,161,193)', 'rgb(180,142,173)', 'rgb(143,188,187)', 'rgb(236,239,244)']"
+background_color="'rgb(238,238,238)'"
+cursor_background_color_value="'rgb(0,95,135)'"
+cursor_foreground_color_value="'rgb(238,238,238)'"
+foreground_color="'rgb(68,68,68)'"
+palette_color="['rgb(238,238,238)', 'rgb(175,0,0)', 'rgb(0,135,0)', 'rgb(95,135,0)', 'rgb(0,135,175)', 'rgb(135,135,135)', 'rgb(0,95,135)', 'rgb(68,68,68)', 'rgb(188,188,188)', 'rgb(215,0,0)', 'rgb(215,0,135)', 'rgb(135,0,175)', 'rgb(215,95,0)', 'rgb(215,95,0)', 'rgb(0,95,175)', 'rgb(0,95,134)']"
 eval dconf write "$path""background-color" \"$background_color\"
 eval dconf write "$path""cursor-background-color" \"$cursor_background_color_value\"
 eval dconf write "$path""cursor-foreground-color" \"$cursor_foreground_color_value\"

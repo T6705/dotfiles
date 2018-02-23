@@ -6,13 +6,6 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="spaceship"
-SPACESHIP_DOCKER_SYMBOL=" "
-SPACESHIP_ELIXIR_SYMBOL=" "
-SPACESHIP_EMBER_SYMBOL=" "
-SPACESHIP_GOLANG_SYMBOL=" "
-SPACESHIP_PHP_SYMBOL=" "
-SPACESHIP_PYENV_SYMBOL=" "
-SPACESHIP_RUBY_SYMBOL=" "
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -56,7 +49,7 @@ COMPLETION_WAITING_DOTS="false"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(alias-tips archlinux catimg django git history k pip python themes tmux vi-mode web-search zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
+plugins=(alias-tips archlinux catimg django docker docker-compose docker-machine git history k pip python themes tmux vi-mode web-search zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
 autoload -U compinit && compinit
 
 # User configuration

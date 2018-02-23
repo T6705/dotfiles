@@ -300,9 +300,11 @@ content-foreground = #fffff
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
+enable-click = true
+enable-scroll = true
 index-sort = true
 strip-wsnumbers = true
-wrapping-scroll = false
+wrapping-scroll = true
 
 ;label-focused-background = #88000000
 label-focused             = %name%
