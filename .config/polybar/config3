@@ -63,6 +63,7 @@ tray-offset-x    = 0
 tray-offset-y    = 0
 tray-padding     = 0
 tray-position    =
+;tray-position   = right
 tray-scale       = 1.0
 tray-transparent = false
 

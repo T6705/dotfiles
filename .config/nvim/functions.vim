@@ -338,6 +338,9 @@ au! User GoyoLeave nested call <SID>goyo_leave()
 " :LightTheme (PaperColor)
 " ----------------------------------------------------------------------------------------
 fu! LightTheme()
+    "let g:transparent_background = 1
+    let g:allow_bold=1
+    let g:allow_italic=1
     set background=light
     colorscheme PaperColor
     AirlineTheme papercolor
@@ -358,6 +361,8 @@ command! DarkTheme call DarkTheme()
 " :GruvboxLight
 " ----------------------------------------------------------------------------------------
 fu! GruvboxLight()
+    let g:gruvbox_italic=1
+    let g:gruvbox_contrast_light="hard"
     set background=light
     colorscheme gruvbox
     AirlineTheme gruvbox
@@ -368,6 +373,8 @@ command! GruvboxLight call GruvboxLight()
 " :GruvboxDark
 " ----------------------------------------------------------------------------------------
 fu! GruvboxDark()
+    let g:gruvbox_italic=1
+    let g:gruvbox_contrast_dark="soft"
     set background=dark
     colorscheme gruvbox
     AirlineTheme gruvbox

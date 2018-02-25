@@ -105,6 +105,8 @@ nnoremap <silent> ]] ]]zz
 nnoremap <silent> g; g;zz " go to place of last change
 nnoremap <silent> gV `[v`] " highlight last inserted text
 nnoremap <silent> gg :norm! ggzz<CR>
+nnoremap <silent> g= mmgg=G`m
+nnoremap <silent> gQ mmgggqG`m
 nnoremap <silent> n nzz
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz

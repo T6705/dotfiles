@@ -17,6 +17,10 @@ alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
 
+if which gem &> /dev/null ; then
+    gemup="gem update --system && gem update && gem cleanup"
+fi
+
 if which python3 &> /dev/null ; then
     alias pywebserver-cgi="python -m http.server --cgi"
     alias pywebserver-local="python3 -m http.server --bind 127.0.0.1"
@@ -116,6 +120,9 @@ if which docker &> /dev/null ; then
 
     # Get images
     alias di="docker images"
+
+    # list all container
+    alias dcla="docker container ls --all"
 
     # Get container IP
     alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"

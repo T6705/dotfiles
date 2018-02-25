@@ -1,3 +1,18 @@
+export LANG="en_HK.UTF-8"
+export LC_CTYPE="en_HK.UTF-8"
+export LC_NUMERIC="en_HK.UTF-8"
+export LC_TIME="en_HK.UTF-8"
+export LC_COLLATE="en_HK.UTF-8"
+export LC_MONETARY="en_HK.UTF-8"
+export LC_MESSAGES="en_HK.UTF-8"
+export LC_PAPER="en_HK.UTF-8"
+export LC_NAME="en_HK.UTF-8"
+export LC_ADDRESS="en_HK.UTF-8"
+export LC_TELEPHONE="en_HK.UTF-8"
+export LC_MEASUREMENT="en_HK.UTF-8"
+export LC_IDENTIFICATION="en_HK.UTF-8"
+export LC_ALL=
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
