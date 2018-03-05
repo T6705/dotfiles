@@ -187,8 +187,8 @@ let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippet
 let g:UltiSnipsExpandTrigger       = "<TAB>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-p>"
 let g:UltiSnipsJumpForwardTrigger  = "<C-n>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit = "vertical"
+let g:UltiSnipsEditSplit           = "vertical" " If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsSnippetsDir         = "~/.vim/UltiSnips"
 
 
 " ----------------------------------------------------------------------------------------

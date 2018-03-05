@@ -4,9 +4,9 @@
 !URxvt.letterSpace             : 1
 !URxvt.lineSpace               : 0
 URXvt.tabbed.reopen-on-close  : no
-URxvt.boldFont                : xft:Hack-Bold:size=9
+URxvt.boldFont                : xft:Hack Regular:style=Regular:size=9
 URxvt.cursorBlink             : 0
-URxvt.font                    : xft:Hack-Regular:size=9
+URxvt.font                    : xft:Hack Regular:style=Regular:size=9
 URxvt.keysym.Control-Shift-t  : perl:tabbedex:new_tab
 URxvt.keysym.Shifft-Right     : perl:tabbedex:next_tab
 URxvt.keysym.Shift-Left       : perl:tabbedex:prev_tab

@@ -17,3 +17,9 @@ if [[ -n `xrandr | grep "HDMI1 connected"` ]]; then
     FC_DEBUG=1 polybar external_top -c ~/.config/polybar/config3 &
     FC_DEBUG=1 polybar external_bottom -c ~/.config/polybar/config3 &
 fi
+
+#if [[ -n `xrandr | grep "VGA1 connected"` ]]; then
+#    echo "HDMI1 connected"
+#    FC_DEBUG=1 polybar external_top -c ~/.config/polybar/config3 &
+#    FC_DEBUG=1 polybar external_bottom -c ~/.config/polybar/config3 &
+#fi

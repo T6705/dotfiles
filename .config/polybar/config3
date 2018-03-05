@@ -67,9 +67,9 @@ tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
-font-0  = "KnackNerdFont:size=8;2"
-font-1  = "Hack:size=8;2"
-font-2  = "NotoSansMonoCJKtc-Regular:size=8;2"
+font-0  = "KnackNerdFont:size=9;2"
+font-1  = "Hack:size=9;2"
+font-2  = "NotoSansMonoCJKtc-Regular:size=9;2"
 font-3  = "FontAwesome:size=8;2"
 font-4  = "NotoSans-Regular:size=8;-1"
 font-5  = "Termsynu:size=7;0"
@@ -120,9 +120,9 @@ tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
-font-0  = "KnackNerdFont:size=8;2"
-font-1  = "Hack:size=8;2"
-font-2  = "NotoSansMonoCJKtc-Regular:size=8;2"
+font-0  = "KnackNerdFont:size=9;2"
+font-1  = "Hack:size=9;2"
+font-2  = "NotoSansMonoCJKtc-Regular:size=9;2"
 font-3  = "FontAwesome:size=8;2"
 font-4  = "NotoSans-Regular:size=8;-1"
 font-5  = "Termsynu:size=7;0"
@@ -173,9 +173,9 @@ tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
-font-0  = "KnackNerdFont:size=8;2"
-font-1  = "Hack:size=8;2"
-font-2  = "NotoSansMonoCJKtc-Regular:size=8;2"
+font-0  = "KnackNerdFont:size=9;2"
+font-1  = "Hack:size=9;2"
+font-2  = "NotoSansMonoCJKtc-Regular:size=9;2"
 font-3  = "FontAwesome:size=8;2"
 font-4  = "NotoSans-Regular:size=8;-1"
 font-5  = "Termsynu:size=7;0"

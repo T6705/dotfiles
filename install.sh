@@ -152,10 +152,17 @@ function install_dependencies {
         sudo apt-get dist-upgrade -y
         sudo apt-get autoremove -y
         sudo apt-get clean
-        sudo apt-get install -y npm ranger tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
+        sudo apt-get install -y npm ranger tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh curl
 
         ### for neovim
-        sudo apt-get install -y autoconf automake cmake g++ libtool libtool-bin pkg-config unzip
+        sudo apt-get install -y autoconf automake cmake g++ libtool libtool-bin pkg-config unzip python-pip python3-pip
+        if which pip &> /dev/null ; then
+            sudo pip install -U neovim
+        fi
+        if which pip3 &> /dev/null ; then
+            sudo pip3 install -U neovim
+        fi
+
 
         ### for i3-gaps (Ubuntu >= 14.04 LTS, <= 16.04)
         sudo add-apt-repository ppa:aguignard/ppa
@@ -179,13 +186,19 @@ function install_dependencies {
         sudo pacman -S --noconfirm base
         sudo pacman -S --noconfirm base-devel
         sudo pacman -S --noconfirm cower pacaur pacli yaourt
-        sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh
+        sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh curl python-pip python2-pip
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils veracrypt
         sudo pacman -S --noconfirm `pacman -Ssq numix`
         sudo pacman -S --noconfirm `pacman -Ssq papirus`
-        if which pacaur &> /dev/null ; then
-            pacaur -S --noconfirm cava dropbox dropbox-cli hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
+        if which yaourt &> /dev/null ; then
+            yaourt -S --noconfirm cava dropbox dropbox-cli hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
+        fi
+        if which pip2 &> /dev/null ; then
+            sudo pip2 install -U neovim
+        fi
+        if which pip3 &> /dev/null ; then
+            sudo pip3 install -U neovim
         fi
     fi
 
