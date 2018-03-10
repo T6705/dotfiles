@@ -1,24 +1,49 @@
-!URxvt.cursorUnderline         : true
-!URxvt.geometry                : 60x25
-!URxvt.internalBorder          : 8
-!URxvt.letterSpace             : 1
-!URxvt.lineSpace               : 0
-URXvt.tabbed.reopen-on-close  : no
-URxvt.boldFont                : xft:Hack Regular:style=Regular:size=9
-URxvt.cursorBlink             : 0
-URxvt.font                    : xft:Hack Regular:style=Regular:size=9
-URxvt.keysym.Control-Shift-t  : perl:tabbedex:new_tab
-URxvt.keysym.Shifft-Right     : perl:tabbedex:next_tab
-URxvt.keysym.Shift-Left       : perl:tabbedex:prev_tab
-URxvt.matcher.button          : 1
-URxvt.perl-ext-common         : default,tabbedex,matcher
-URxvt.scrollBar               : false
-URxvt.scrollBar_right         : false
-URxvt.tabbed.new-button       : true
-URxvt.tabbed.no-tabbedex-keys : true
-URxvt.thickness               : 5
-URxvt.titleBar                : false
-URxvt.url-launcher            : /usr/bin/firefox
+!URxvt*externalBorder:  0
+!URxvt*internalBorder:  24
+!URxvt.cursorUnderline: true
+!URxvt.internalBorder:  8
+!URxvt.letterSpace:     1
+!URxvt.lineSpace:       0
+!URxvt.thickness:       5
+!URXvt.tabbed.reopen-on-close:  no
+URxvt*buffered:                false
+URxvt*depth:                   32
+URxvt*iso14755:                false
+URxvt*letterSpace:             0
+URxvt*saveline:                2000
+URxvt*scrollBar:               false
+URxvt*scrollBar_right:         false
+URxvt*termName:                rxvt-256color
+URxvt.boldFont:                xft:Hack Regular:style = Regular:size=9
+URxvt.copyCommand:             xclip -i -selection clipboard
+URxvt.cursorBlink:             0
+URxvt.font:                    xft:Hack Regular:style = Regular:size=9
+URxvt.geometry:                72x18
+URxvt.keysym.Control-Shift-t:  perl:tabbedex:new_tab
+URxvt.keysym.M-C-v:            perl:clipboard:paste_escaped
+URxvt.keysym.M-Escape:         perl:keyboard-select:activate
+URxvt.keysym.M-c:              perl:clipboard:copy
+URxvt.keysym.M-s:              perl:keyboard-select:search
+URxvt.keysym.M-u:              perl:url-select:select_next
+URxvt.keysym.M-v:              perl:clipboard:paste
+URxvt.keysym.Shifft-Right:     perl:tabbedex:next_tab
+URxvt.keysym.Shift-Down:       command:\033]721;1\007
+URxvt.keysym.Shift-Left:       perl:tabbedex:prev_tab
+URxvt.keysym.Shift-Up:         command:\033]720;1\007
+URxvt.lineSpace:               0
+URxvt.matcher.button:          1
+URxvt.pasteCommand:            xclip -o -selection clipboard
+URxvt.perl-ext-common:         default,clipboard,keyboard-select,matcher,tabbedex,url-select
+URxvt.scrollBar:               false
+URxvt.scrollBar_right:         false
+URxvt.tabbed.new-button:       true
+URxvt.tabbed.no-tabbedex-keys: true
+URxvt.titleBar:                false
+URxvt.underlineURLs:           true
+URxvt.urgentOnBell:            True
+URxvt.url-launcher:            /usr/bin/firefox
+URxvt.urlButton:               1
+URxvt.urlLauncher:             firefox
 
 ! Colours
 URxvt.depth: 24

@@ -31,7 +31,10 @@ set $mod Mod1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec st
+#bindsym $mod+Return exec alacritty
+#bindsym $mod+Return exec gnome-terminal
+#bindsym $mod+Return exec termite
 
 # https://github.com/cknadler/vim-anywhere
 bindsym $mod+Shift+v exec ~/.vim-anywhere/bin/run

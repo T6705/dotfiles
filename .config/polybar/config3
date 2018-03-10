@@ -29,6 +29,7 @@ secondary      = #FF6200
 
 [bar/top]
 height            = 26
+radius            = 5.0
 monitor           = LVDS1
 offset-x          = 1%
 offset-y          = 6
@@ -82,6 +83,7 @@ font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 [bar/bottom]
 bottom            = true
 height            = 26
+radius            = 5.0
 monitor           = LVDS1
 offset-x          = 1%
 offset-y          = 6
@@ -136,6 +138,7 @@ font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
 [bar/external_top]
 height            = 26
+radius            = 5.0
 monitor           = HDMI1
 offset-x          = 1%
 offset-y          = 6
@@ -188,6 +191,7 @@ font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 [bar/external_bottom]
 bottom            = true
 height            = 26
+radius            = 5.0
 monitor           = HDMI1
 offset-x          = 1%
 offset-y          = 6

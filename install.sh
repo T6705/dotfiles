@@ -6,7 +6,6 @@ function install_dots {
     echo "== Download i3 config =="
     echo "========================"
     echo ""
-
     curl -fLo ~/.config/i3/config --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config
     curl -fLo ~/.config/i3/i3blocks/i3blocks.conf --create-dirs \
@@ -23,7 +22,6 @@ function install_dots {
     echo "== Download polybar config =="
     echo "============================="
     echo ""
-
     curl -fLo ~/.config/polybar/config --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/config
     curl -fLo ~/.config/polybar/config2 --create-dirs \
@@ -47,7 +45,6 @@ function install_dots {
     echo "== Download ranger config =="
     echo "============================"
     echo ""
-
     curl -fLo ~/.config/ranger/rc.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rc.conf
     curl -fLo ~/.config/ranger/rifle.conf --create-dirs \
@@ -61,7 +58,6 @@ function install_dots {
     echo "== Download qutebrowser config =="
     echo "================================="
     echo ""
-
     curl -fLo ~/.config/qutebrowser/qutebrowser.conf --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/qutebrowser/qutebrowser.conf
 
@@ -71,15 +67,29 @@ function install_dots {
     echo "== Download spacemacs config =="
     echo "==============================="
     echo ""
-
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.spacemacs > ~/.spacemacs
+
+    echo ""
+    echo "============================="
+    echo "== Download alacritty config =="
+    echo "============================="
+    echo ""
+    curl -fLo ~/.config/alacritty/alacritty.yml --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/alacritty/alacritty.yml
+
+    echo ""
+    echo "============================="
+    echo "== Download termite config =="
+    echo "============================="
+    echo ""
+    curl -fLo ~/.config/termite/config --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/termite/config
 
     echo ""
     echo "=========================="
     echo "== Download tmux config =="
     echo "=========================="
     echo ""
-
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf.local > ~/.tmux.conf.local
 
@@ -88,7 +98,6 @@ function install_dots {
     echo "== Download vim/nvim config =="
     echo "=============================="
     echo ""
-
     curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/augroups.vim
     curl -fLo ~/.config/nvim/functions.vim --create-dirs \
@@ -114,7 +123,6 @@ function install_dots {
     echo "== Download bash config =="
     echo "=========================="
     echo ""
-
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.bashrc > ~/.bashrc
 
     echo ""
@@ -122,9 +130,7 @@ function install_dots {
     echo "== Download zsh config =="
     echo "========================="
     echo ""
-
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
-
     curl -fLo ~/.zsh/aliases.zsh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.zsh/aliases.zsh
     curl -fLo ~/.zsh/functions.zsh --create-dirs \
@@ -135,7 +141,6 @@ function install_dots {
     echo "== Download gtk config =="
     echo "========================="
     echo ""
-
     curl -fLo ~/.config/gtk-3.0/settings.ini --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/gtk-3.0/settings.ini
 
@@ -186,7 +191,7 @@ function install_dependencies {
         sudo pacman -S --noconfirm base
         sudo pacman -S --noconfirm base-devel
         sudo pacman -S --noconfirm cower pacaur pacli yaourt
-        sudo pacman -S --noconfirm neovim npm ranger tmux vim xclip xsel zsh curl python-pip python2-pip
+        sudo pacman -S --noconfirm curl neovim npm python-pip python2-pip ranger termite tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils veracrypt
         sudo pacman -S --noconfirm `pacman -Ssq numix`
@@ -388,6 +393,31 @@ function install_vim {
     reset
 }
 
+function install_st {
+    echo ""
+    echo "=================="
+    echo "== git clone st =="
+    echo "=================="
+    echo ""
+    git clone git://git.suckless.org/st ~/git/st
+    cd ~/git/st
+
+    echo ""
+    echo "========================"
+    echo "== Download st config =="
+    echo "========================"
+    echo ""
+    curl -fLo ~/git/st/config.def.h --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/st/config.def.h
+
+    echo ""
+    echo "==========================="
+    echo "== compile and install st=="
+    echo "==========================="
+    echo ""
+    make && sudo make install
+}
+
 function install_zsh {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y zsh
@@ -560,14 +590,15 @@ function install_zsh {
     fi
 
     echo ""
-    echo "=================="
-    echo "== install ccat =="
-    echo "=================="
+    echo "====================================================="
+    echo "== install ccat (https://github.com/jingweno/ccat) =="
+    echo "====================================================="
     echo ""
     if which pacman &> /dev/null ; then
         sudo pacman -S --noconfirm go
+    elif which apt-get &> /dev/null ; then
+        sudo apt-get install -y golang
     fi
-    # https://github.com/jingweno/ccat
     if which go &> /dev/null ; then
         export GOPATH=$HOME/go
         go get -u github.com/jingweno/ccat
@@ -627,6 +658,8 @@ function main {
         install_ranger
     elif [[ $1 == "spacemacs" ]]; then
         install_spacemacs
+    elif [[ $1 == "st" ]]; then
+        install_st
     elif [[ $1 == "tmux" ]]; then
         install_tmux
     elif [[ $1 == "vim" ]]; then
@@ -650,6 +683,7 @@ function main {
         echo "    i3"
         echo "    ranger"
         echo "    spacemacs"
+        echo "    st"
         echo "    tmux"
         echo "    vim"
         echo "    zsh"
