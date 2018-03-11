@@ -14,8 +14,11 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf
     curl -fLo ~/.config/i3/i3lock.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3lock.sh
+    curl -fLo ~/.config/i3/start-term.sh --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/start-term.sh
     curl -fLo ~/.config/i3/lock.png --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/lock.png
+    find ~/.config/i3 -type f -iname '*.sh' -exec chmod +x {} \;
 
     echo ""
     echo "============================="
@@ -39,6 +42,7 @@ function install_dots {
     curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/spotify_p.sh
     chmod +x ~/.config/polybar/*.sh
+    find ~/.config/polybar -type f -iname '*.sh' -exec chmod +x {} \;
 
     echo ""
     echo "============================"
@@ -220,18 +224,18 @@ function install_i3 {
         echo "== install i3-gaps =="
         echo "====================="
         echo ""
-        mkdir -p ~/git
+        time mkdir -p ~/git
         cd ~/git
         rm -rf i3-gaps
 
         # clone the repository
-        git clone https://www.github.com/Airblader/i3 i3-gaps
+        time git clone https://www.github.com/Airblader/i3 i3-gaps
         cd i3-gaps
 
         # compile & install
         autoreconf --force --install
         rm -rf build/
-        mkdir -p build && cd build/
+        time mkdir -p build && cd build/
 
         # Disabling sanitizers is important for release versions!
         # The prefix and sysconfdir are, obviously, dependent on the distribution.
@@ -245,10 +249,10 @@ function install_i3 {
         echo "====================="
         echo ""
 
-        mkdir -p ~/git
+        time mkdir -p ~/git
         cd ~/git
         rm -rf polybar
-        git clone --branch 3.1.0 --recursive https://github.com/jaagr/polybar
+        time git clone --branch 3.1.0 --recursive https://github.com/jaagr/polybar
         cd polybar
         time ./build.sh
 
@@ -257,10 +261,10 @@ function install_i3 {
         echo "== Download i3lock-fancy =="
         echo "==========================="
         echo ""
-        mkdir -p ~/git
+        time mkdir -p ~/git
         cd ~/git
         rm -rf i3lock-fancy
-        git clone "https://github.com/meskarune/i3lock-fancy"
+        time git clone "https://github.com/meskarune/i3lock-fancy"
         cd ~/git/i3lock-fancy
         sudo cp -v lock /usr/local/bin/
         sudo cp -r -v icons /usr/local/bin/
@@ -285,8 +289,8 @@ function install_i3 {
             pacaur Syyu
             pacaur -S polybar-git
         fi
-        #mkdir -p ~/git
-        #git clone https://aur.archlinux.org/polybar-git.git ~/git/polybar-git
+        #time mkdir -p ~/git
+        #time git clone https://aur.archlinux.org/polybar-git.git ~/git/polybar-git
         #cd ~/git/polybar-git
         #makepkg -si
 
@@ -314,9 +318,9 @@ function install_spacemacs {
     echo "======================="
     echo ""
     if [[ -d ~/.emacs.d ]]; then
-        cd ~/.emacs.d && git pull
+        cd ~/.emacs.d && time git pull
     else
-        git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+        time git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
     fi
 }
 
@@ -334,7 +338,7 @@ function install_tmux {
     echo ""
 
     sudo rm -rf ~/.tmux
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    time git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
 function install_vim {
@@ -399,16 +403,22 @@ function install_st {
     echo "== git clone st =="
     echo "=================="
     echo ""
-    git clone git://git.suckless.org/st ~/git/st
-    cd ~/git/st
+    if [ -d ~/git/st ]; then
+        time cd ~/git/st && time git pull
+    else
+        time mkdir -p ~/git
+        time git clone git://git.suckless.org/st ~/git/st
+    fi
 
     echo ""
-    echo "========================"
-    echo "== Download st config =="
-    echo "========================"
+    echo "==================================="
+    echo "== Download font and color patch =="
+    echo "==================================="
     echo ""
-    curl -fLo ~/git/st/config.def.h --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/st/config.def.h
+    curl -fLo /tmp/font-and-color.patch --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/st/font-and-color.patch
+    cd ~/git/st && patch < /tmp/font-and-color.patch
+
 
     echo ""
     echo "==========================="
@@ -437,7 +447,7 @@ function install_zsh {
         time git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
     fi
 
-    mkdir -p ~/.oh-my-zsh/custom/plugins
+    time mkdir -p ~/.oh-my-zsh/custom/plugins
 
     if [[ -d ~/.oh-my-zsh/custom/plugins/alias-tips ]]; then
         time cd ~/.oh-my-zsh/custom/plugins/alias-tips && time git pull
@@ -514,12 +524,12 @@ function install_zsh {
         cd /tmp
         wget "https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip"
         unzip Noto-hinted.zip
-        mkdir -p ~/.fonts
+        time mkdir -p ~/.fonts
         cp -v *.otc ~/.fonts
         cp -v *.otf ~/.fonts
         cp -v *.ttf ~/.fonts
         fc-cache -f -v # optional
-        sudo mkdir -p /usr/share/fonts/opentype/noto
+        sudo time mkdir -p /usr/share/fonts/opentype/noto
         sudo cp -v *.otc /usr/share/fonts/opentype/noto
         sudo cp -v *.otf /usr/share/fonts/opentype/noto
         sudo cp -v *.ttf /usr/share/fonts/opentype/noto
@@ -555,7 +565,7 @@ function install_zsh {
         #https://github.com/banga/powerline-shell
 
         #rm -rf ~/powerline-shell
-        #git clone https://github.com/milkbikis/powerline-shell ~/powerline-shell
+        #time git clone https://github.com/milkbikis/powerline-shell ~/powerline-shell
         #cd ~/powerline-shell
         #cp -v config.py.dist config.py
         #./install.py
@@ -566,7 +576,6 @@ function install_zsh {
     elif which pacman &> /dev/null ; then
         sudo pacman -S --noconfirm fontforge powerline powerline-fonts
     fi
-
 
     echo ""
     echo "======================="
