@@ -277,6 +277,53 @@ compress() {
     fi
 }
 
+function sshlf {
+    localport=$1
+    targethost=$2
+    targetport=$3
+    remoteaccount=$4
+    remotehost=$5
+    remotesshport=$6
+    keyfile=$7
+
+    if [[ "$#" -eq 5 ]]; then
+        echo "127.0.0.1:$localport --> $remotehost --> $targethost:$targetport"
+        ssh -gNfL $localport:$targethost:$targetport $remoteaccount@$remotehost
+    elif [[ "$#" -eq 6 ]]; then
+        echo "127.0.0.1:$localport --> $remotehost --> $targethost:$targetport"
+        ssh -p $remotesshport -gNfL $localport:$targethost:$targetport $remoteaccount@$remotehost
+    elif [[ "$#" -eq 7 ]]; then
+        echo "127.0.0.1:$localport --> $remotehost --> $targethost:$targetport"
+        ssh -i $keyfile -p $remotesshport -gNfL $localport:$targethost:$targetport $remoteaccount@$remotehost
+    else
+        echo "usage: sshlf <localport> <targethost> <targetport> <remoteaccount> <remotehost> <remotesshport> <keyfile>"
+        echo "127.0.0.1:localport --> remotehost --> targethost:targetport"
+    fi
+}
+
+function sshrf {
+    localport=$1
+    remoteaccount=$2
+    remotehost=$3
+    remoteport=$4
+    remotepsshport=$5
+    keyfile=$6
+
+    if [[ "$#" -eq 4 ]]; then
+        echo "$remotehost:$remoteport --> 127.0.0.1:$localport"
+        ssh -NfR $remoteport:127.0.0.1:$localport $remoteaccount@$remotehost
+    elif [[ "$#" -eq 5 ]]; then
+        echo "$remotehost:$remoteport --> 127.0.0.1:$localport"
+        ssh -p $remotesshport -NfR $remoteport:127.0.0.1:$localport $remoteaccount@$remotehost
+    elif [[ "$#" -eq 6 ]]; then
+        echo "$remotehost:$remoteport --> 127.0.0.1:$localport"
+        ssh -i $keyfile -p $remotesshport -NfR $remoteport:127.0.0.1:$localport $remoteaccount@$remotehost
+    else
+        echo "usage: sshrf <localport> <remoteaccount> <remotehost> <remoteport> <remotesshport> <keyfile>"
+        echo "remotehost:remoteport --> 127.0.0.1:localport"
+    fi
+}
+
 # ---------------------------------------------------------------------
 # usage: base64key <keyname> <keysize>
 # ---------------------------------------------------------------------

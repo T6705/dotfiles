@@ -111,6 +111,10 @@ nnoremap <silent> n nzz
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz
 
+" Jump to matching pairs easily, with Shift-Tab
+nmap <silent> <S-Tab> %
+vmap <silent> <S-Tab> %
+
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
 
@@ -231,8 +235,8 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 "endif
 
 "" YouCompleteMe
-"noremap <leader>g :YcmCompleter GoTo<CR>
-"noremap <leader>d :YcmCompleter GoToDefinition<CR>
+"noremap <Leader>g :YcmCompleter GoTo<CR>
+"noremap <Leader>d :YcmCompleter GoToDefinition<CR>
 
 " quickfix
 let g:quickfix_height = 50
@@ -244,7 +248,7 @@ let g:quickfix_height = 50
 "nnoremap <silent> ]l :lnext<CR> " Neomake
 nnoremap <silent> <Leader>lc :lclose<CR>
 nnoremap <silent> <Leader>lo :lopen<CR>
-nnoremap <silent> <leader>lw :lwindow<CR>
+nnoremap <silent> <Leader>lw :lwindow<CR>
 nnoremap <silent> [L :lfirst<CR>zz
 nnoremap <silent> [l :lprev<CR>zz
 nnoremap <silent> ]L :llast<CR>zz
@@ -252,7 +256,7 @@ nnoremap <silent> ]l :lnext<CR>zz
 
 "nnoremap <silent> [q :cprev<CR>zz
 "nnoremap <silent> ]q :cnext<CR>zz
-nnoremap <silent> <leader>qw :cwindow<CR>
+nnoremap <silent> <Leader>qw :cwindow<CR>
 nnoremap <silent> [Q :cfirst<CR>zz
 nnoremap <silent> [q :cprev<CR>zz
 nnoremap <silent> ]Q :clast<CR>zz

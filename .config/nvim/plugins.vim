@@ -75,6 +75,7 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPre
 " python
 " ----------------------------------------------------------------------------------------
 "Plug 'klen/python-mode', { 'for': 'python' }
+"Plug 'ehamberg/vim-cute-python', { 'branch': 'moresymbols' }
 
 
 " ----------------------------------------------------------------------------------------

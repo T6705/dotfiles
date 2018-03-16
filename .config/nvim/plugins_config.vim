@@ -171,7 +171,7 @@ let g:VimuxHeight      = "50"
 " ----------------------------------------------------------------------------------------
 let g:indentLine_char      = '▸'
 let g:indentLine_enabled   = 1 "enable by default
-let g:indentLine_setColors = 1 "do not overwrite 'conceal' color
+let g:indentLine_setColors = 1 "overwrite 'conceal' color
 
 
 " ----------------------------------------------------------------------------------------

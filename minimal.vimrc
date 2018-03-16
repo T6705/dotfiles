@@ -97,10 +97,6 @@ endif
 " ----------------------------------------------------------------------------------------
 set binary
 set bomb
-if &encoding ==# 'latin1' && has('gui_running')
-    set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
-endif
-"set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 set fileencoding=utf-8
 set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
 set ffs=unix,dos,mac " Use Unix as the standard file type
@@ -174,116 +170,20 @@ if has('syntax') && !exists('g:syntax_on')
     syntax on                                                         " switch syntax highlighting on
 endif
 
-" Set font according to system
-if has("mac") || has("macunix")
-    set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
-elseif has("win16") || has("win32")
-    set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("gui_gtk2")
-    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("linux")
-    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("unix")
-    set gfn=Monospace\ 11
-endif
-
 " ----------------------------------------------------------------------------------------
 " statusline
 " ----------------------------------------------------------------------------------------
-" tpope's
-"set statusline=[%n]\ %<%.99f\ %h%w%m%r%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%y%=%-16(\ %l,%c-%v\ %)%P
-
 """ === basic statusline === {{{
-"set statusline=
-"set statusline+=%0*\ [%n]                            " buffernr
-"set statusline+=%0*\ %<%F\                           " File+path
-"set statusline+=%1*\ %y\                             " FileType
-"set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
-"set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
-"set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
-"set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
-"set statusline+=%6*\ col:%03c\                       " Colnr
-"set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
-
-"hi User1 ctermfg=red ctermbg=black
-"hi User2 ctermfg=blue ctermbg=black
-"hi User3 ctermfg=green ctermbg=black
-"hi User4 ctermfg=yellow ctermbg=black
-"hi User5 ctermfg=cyan ctermbg=black
-"hi User6 ctermfg=magenta ctermbg=black
-""" }}}
-
-""" === advance statusline === {{{
-let g:currentmode={ 'n'  : 'Normal ', 'no' : 'N-Operator Pending ', 'v'  : 'Visual ', 'V'  : 'V-Line ', '' : 'V-Block ', 's'  : 'Select ', 'S'  : 'S-Line ', '^S' : 'S-Block ', 'i'  : 'Insert ', 'R'  : 'Replace ', 'Rv' : 'V-Replace ', 'c'  : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r'  : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!'  : 'Shell ', 't'  : 'Terminal ' }
-
-" Automatically change the statusline color depending on mode
-fu! ChangeStatuslineColor()
-  if (mode() =~# '\v(n|no)')
-    exe 'hi! StatusLine ctermfg=008'
-  elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V-Block' || get(g:currentmode, mode(), '') ==# 't')
-    exe 'hi! StatusLine ctermfg=005'
-  elseif (mode() ==# 'i')
-    exe 'hi! StatusLine ctermfg=004'
-  else
-    exe 'hi! StatusLine ctermfg=006'
-  endif
-  return ''
-endfu
-
-" Find out current buffer's size and output it.
-fu! FileSize()
-  let bytes = getfsize(expand('%:p'))
-  if (bytes >= 1024)
-    let kbytes = bytes / 1024
-  endif
-  if (exists('kbytes') && kbytes >= 1000)
-    let mbytes = kbytes / 1000
-  endif
-
-  if bytes <= 0
-    return '0'
-  endif
-
-  if (exists('mbytes'))
-    return mbytes . 'MB '
-  elseif (exists('kbytes'))
-    return kbytes . 'KB '
-  else
-    return bytes . 'B '
-  endif
-endfu
-
-fu! ReadOnly()
-  if &readonly || !&modifiable
-    return '\ue0a2'
-  else
-    return ''
-  endif
-endfu
-
-fu! GitInfo()
-  let git = fugitive#head()
-  if git != ''
-    return '\ue0a0 '.fugitive#head()
-  else
-    return ''
-  endfi
-endfu
-
 set statusline=
-set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
-set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
-set statusline+=%1*\ [%n]                                " buffernr
-set statusline+=%2*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
-set statusline+=%#warningmsg#
-set statusline+=%*
-set statusline+=%3*\ %=                                  " Space
-set statusline+=%4*\ %y\                                 " FileType
-set statusline+=%5*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
-set statusline+=%6*\ %-3(%{FileSize()}%)                 " File size
-set statusline+=%7*\ %=\ row:%l/%L\ \                    " Rownumber/total (%)
-set statusline+=%7*\ col:%03c\                           " Colnr
-set statusline+=%0*\ \ %m%r%w\ %P\ \                     " Modified? Readonly? Top/bot.
+set statusline+=%0*\ [%n]                            " buffernr
+set statusline+=%0*\ %<%F\                           " File+path
+set statusline+=%1*\ %y\                             " FileType
+set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
+set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
+set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
+set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
+set statusline+=%6*\ col:%03c\                       " Colnr
+set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
 
 hi User1 ctermfg=red ctermbg=black
 hi User2 ctermfg=blue ctermbg=black
@@ -291,9 +191,89 @@ hi User3 ctermfg=green ctermbg=black
 hi User4 ctermfg=yellow ctermbg=black
 hi User5 ctermfg=cyan ctermbg=black
 hi User6 ctermfg=magenta ctermbg=black
-hi User7 ctermfg=white ctermbg=black
-hi User8 ctermfg=blue ctermbg=black
-hi User9 ctermfg=green ctermbg=black
+""" }}}
+
+""" === advance statusline === {{{
+"let g:currentmode={ 'n'  : 'Normal ', 'no' : 'N-Operator Pending ', 'v'  : 'Visual ', 'V'  : 'V-Line ', '' : 'V-Block ', 's'  : 'Select ', 'S'  : 'S-Line ', '^S' : 'S-Block ', 'i'  : 'Insert ', 'R'  : 'Replace ', 'Rv' : 'V-Replace ', 'c'  : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r'  : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!'  : 'Shell ', 't'  : 'Terminal ' }
+
+"" Automatically change the statusline color depending on mode
+"function! ChangeStatuslineColor()
+"  if (mode() =~# '\v(n|no)')
+"    exe 'hi! StatusLine ctermfg=008'
+"  elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V-Block' || get(g:currentmode, mode(), '') ==# 't')
+"    exe 'hi! StatusLine ctermfg=005'
+"  elseif (mode() ==# 'i')
+"    exe 'hi! StatusLine ctermfg=004'
+"  else
+"    exe 'hi! StatusLine ctermfg=006'
+"  endif
+"  return ''
+"endfunction
+
+"" Find out current buffer's size and output it.
+"function! FileSize()
+"  let bytes = getfsize(expand('%:p'))
+"  if (bytes >= 1024)
+"    let kbytes = bytes / 1024
+"  endif
+"  if (exists('kbytes') && kbytes >= 1000)
+"    let mbytes = kbytes / 1000
+"  endif
+
+"  if bytes <= 0
+"    return '0'
+"  endif
+
+"  if (exists('mbytes'))
+"    return mbytes . 'MB '
+"  elseif (exists('kbytes'))
+"    return kbytes . 'KB '
+"  else
+"    return bytes . 'B '
+"  endif
+"endfunction
+
+"function! ReadOnly()
+"  if &readonly || !&modifiable
+"    return '\ue0a2'
+"  else
+"    return ''
+"  endif
+"endfunction
+
+"function! GitInfo()
+"  let git = fugitive#head()
+"  if git != ''
+"    return '\ue0a0 '.fugitive#head()
+"  else
+"    return ''
+"  endfi
+"endfunction
+
+"set statusline=
+"set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
+"set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
+"set statusline+=%1*\ [%n]                                " buffernr
+"set statusline+=%2*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
+"set statusline+=%#warningmsg#
+"set statusline+=%*
+"set statusline+=%3*\ %=                                  " Space
+"set statusline+=%4*\ %y\                                 " FileType
+"set statusline+=%5*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
+"set statusline+=%6*\ %-3(%{FileSize()}%)                 " File size
+"set statusline+=%7*\ %=\ row:%l/%L\ \                    " Rownumber/total (%)
+"set statusline+=%7*\ col:%03c\                           " Colnr
+"set statusline+=%0*\ \ %m%r%w\ %P\ \                     " Modified? Readonly? Top/bot.
+
+"hi User1 ctermfg=red ctermbg=black
+"hi User2 ctermfg=blue ctermbg=black
+"hi User3 ctermfg=green ctermbg=black
+"hi User4 ctermfg=yellow ctermbg=black
+"hi User5 ctermfg=cyan ctermbg=black
+"hi User6 ctermfg=magenta ctermbg=black
+"hi User7 ctermfg=white ctermbg=black
+"hi User8 ctermfg=blue ctermbg=black
+"hi User9 ctermfg=green ctermbg=black
 """ }}}
 
 " ----------------------------------------------------------------------------------------
@@ -361,8 +341,6 @@ set modelines=10
 
 set autoread                 " detect when a file is changed
 set fileformats=unix,dos,mac
-set gfn=Monospace\ 10
-set guioptions=egmrti
 if &history < 1000
     set history=1000         " change history to 1000
 endif
@@ -396,6 +374,7 @@ endif
 " ----------------------------------------------------------------------------------------
 " With this, the gui (gvim and macvim) now doesn't have the toolbar, the left
 " and right scrollbars and the menu.
+set guioptions=egmrti
 set guioptions-=T
 set guioptions-=l
 set guioptions-=L
@@ -403,9 +382,27 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=m
 set guioptions-=M
+
+" Set font according to system
+if has("mac") || has("macunix")
+    set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+elseif has("win16") || has("win32")
+    set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+elseif has("gui_gtk2")
+    set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+elseif has("linux")
+    set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+elseif has("unix")
+    set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+else
+    set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+endif
+
+if &encoding ==# 'latin1' && has('gui_running')
+    set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
+endif
 """ }}}
 
-" vim:foldmethod=marker:foldlevel=0
 
 """ === Functions === {{{
 
@@ -417,7 +414,7 @@ ruby << RB
   first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
   (first..last).map { |l| $curbuf[l] }.shuffle.each_with_index do |line, i|
     $curbuf[first + i] = line
-  END
+  end
 RB
 endfu
 command! -range Shuffle <line1>,<line2>call s:shuffle()
@@ -489,6 +486,33 @@ endfu
 command! ChangeEncoding call ChangeEncoding()
 
 " ----------------------------------------------------------------------------------------
+" :HandleSpecialFile
+" ----------------------------------------------------------------------------------------
+fu! HandleSpecialFile()
+    if get(b:, 'did_filter_special_file', 0)
+        return
+    endif
+    let fname = shellescape(expand('%:p'), 1)
+    let ext = expand('%:e')
+    let ext2cmd = {
+    \               'doc' : '%!antiword '.fname,
+    \               'docx': '%!pandoc -f docx -t markdown '.fname,
+    \               'epub': '%!pandoc -f epub -t markdown '.fname,
+    \               'odp' : '%!odt2txt '.fname,
+    \               'odt' : '%!odt2txt '.fname,
+    \               'pdf' : '%!pdftotext -nopgbrk -layout -q -eol unix '.fname.' -',
+    \               'rtf' : '%!unrtf --text',
+    \             }
+    if has_key(ext2cmd, ext)
+        setl ma noro
+        sil exe ext2cmd[ext]
+        let b:did_filter_special_file = 1
+        setl noma ro nomod
+    endif
+endfu
+command! HandleSpecialFile call HandleSpecialFile()
+
+" ----------------------------------------------------------------------------------------
 " :Hexmode
 " ----------------------------------------------------------------------------------------
 fu ToggleHex()
@@ -535,7 +559,7 @@ command! Hexmode call ToggleHex()
 " :OpenUrl
 " ----------------------------------------------------------------------------------------
 fu! HandleURL()
-    if executable('firefox')
+    if executable("firefox")
         "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
         let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
 
@@ -690,6 +714,8 @@ nnoremap <Down> 2<C-W>-
 " moving up and down work as you would expect
 nnoremap <silent> j gj
 nnoremap <silent> k gk
+"nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+"nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
 nnoremap <silent> 0 g0
 nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
@@ -709,9 +735,15 @@ nnoremap <silent> ]] ]]zz
 nnoremap <silent> g; g;zz " go to place of last change
 nnoremap <silent> gV `[v`] " highlight last inserted text
 nnoremap <silent> gg :norm! ggzz<CR>
+nnoremap <silent> g= mmgg=G`m
+nnoremap <silent> gQ mmgggqG`m
 nnoremap <silent> n nzz
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz
+
+" Jump to matching pairs easily, with Shift-Tab
+nmap <silent> <S-Tab> %
+vmap <silent> <S-Tab> %
 
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z
@@ -748,10 +780,10 @@ nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 
 " Change current word to uppercase
-nnoremap <Leader>u gUiw
+nnoremap <silent> <Leader>u gUiw
 
 " Change current word to lowercase
-nnoremap <Leader>l guiw
+nnoremap <silent> <Leader>l guiw
 
 " clear highlighted search
 nnoremap <silent> <Leader>sc :set hlsearch! hlsearch?<CR>
@@ -772,7 +804,7 @@ nnoremap /ip4 /\v([0-9]{1,3}\.){3}[0-9]{1,3}<CR>
 nnoremap /url /\v(http\|https\|ftp):\/\/[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?<CR>
 
 " search for word under the cursor
-nnoremap <Leader>/ "fyiw :/<C-r>f<CR>
+nnoremap <silent> <Leader>/ "fyiw :/<C-r>f<CR>
 
 " window navigation
 nnoremap <silent> <Leader>wh <C-W>h
@@ -789,13 +821,16 @@ nnoremap <silent> <Leader>we <C-w>=
 nnoremap <silent> <Leader>wz :wincmd _ \|wincmd \| \| normal 0 <CR>
 
 " Quickly edit your macros
-nnoremap <Leader>m  :<C-u><C-r><C-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><C-f><left>
+nnoremap <silent> <Leader>m  :<C-u><C-r><C-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><C-f><left>
 
 " quickfix
 let g:quickfix_height = 50
-
-"nnoremap <silent> [q :cprev<CR>zz
-"nnoremap <silent> ]q :cnext<CR>zz
+"nmap <silent> [l <Plug>(ale_previous)
+"nmap <silent> [l <Plug>(ale_previous_wrap)
+"nmap <silent> ]l <Plug>(ale_next)
+"nmap <silent> ]l <Plug>(ale_next_wrap)
+"nnoremap <silent> [l :lprev<CR> " Neomake
+"nnoremap <silent> ]l :lnext<CR> " Neomake
 nnoremap <silent> <Leader>lc :lclose<CR>
 nnoremap <silent> <Leader>lo :lopen<CR>
 nnoremap <silent> <Leader>lw :lwindow<CR>
@@ -804,6 +839,8 @@ nnoremap <silent> [l :lprev<CR>zz
 nnoremap <silent> ]L :llast<CR>zz
 nnoremap <silent> ]l :lnext<CR>zz
 
+"nnoremap <silent> [q :cprev<CR>zz
+"nnoremap <silent> ]q :cnext<CR>zz
 nnoremap <silent> <Leader>qw :cwindow<CR>
 nnoremap <silent> [Q :cfirst<CR>zz
 nnoremap <silent> [q :cprev<CR>zz
@@ -813,19 +850,19 @@ nnoremap <silent> ]q :cnext<CR>zz
 " Tabs
 nnoremap ]t gt
 nnoremap [t gT
-nnoremap <silent> <Leader>nt :tabnew<CR>
+nnoremap <silent> <Leader>tn :tabnew<CR>
 
 " Buffer nav
 nnoremap <silent> [b :bp<CR>
 nnoremap <silent> ]b :bn<CR>
 nnoremap <silent> <Leader>q :bd!<CR>
-nnoremap <silent> <Leader>nb :enew<CR>
+nnoremap <silent> <Leader>bn :enew<CR>
 nnoremap <silent> <Leader>bs :ls<CR>:buffer<Space>
 nnoremap <silent> <Leader>vbs :ls<CR>:sbuffer<Space>
 
 " add space after comma
-nnoremap <Leader>, :%s/, */, /g<CR>
-vnoremap <Leader>, :s/, */, /g<CR>
+nnoremap <silent> <Leader>, :%s/, */, /g<CR>
+vnoremap <silent> <Leader>, :s/, */, /g<CR>
 
 " Explore dir
 if exists(":Lexplore") != 1
@@ -840,27 +877,27 @@ endif
 " Completetion
 inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
 inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
-inoremap <silent> ,n <C-x><C-n><C-r>=pumvisible()      ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+inoremap <silent> ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
 inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
 
 " folding
-nnoremap <Leader>f za<CR>
-vnoremap <Leader>f za<CR>
+nnoremap <silent> <Leader>f za<CR>
+vnoremap <silent> <Leader>f za<CR>
 
 " Make the dot command work as expected in visual mode (via
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
 vnoremap . :norm.<CR>
 
 " Markdown headings
-nnoremap <Leader>1 m`yypVr=``
-nnoremap <Leader>2 m`yypVr-``
-nnoremap <Leader>3 m`^i### <esc>``4l
-nnoremap <Leader>4 m`^i#### <esc>``5l
-nnoremap <Leader>5 m`^i##### <esc>``6l
+nnoremap <silent> <Leader>1 m`yypVr=``
+nnoremap <silent> <Leader>2 m`yypVr-``
+nnoremap <silent> <Leader>3 m`^i### <esc>``4l
+nnoremap <silent> <Leader>4 m`^i#### <esc>``5l
+nnoremap <silent> <Leader>5 m`^i##### <esc>``6l
 
 " Make check spelling on or off
-nnoremap <Leader>cson   :set spell<CR>
-nnoremap <Leader>csoff :set nospell<CR>
+nnoremap <silent> <Leader>cson   :set spell<CR>
+nnoremap <silent> <Leader>csoff :set nospell<CR>
 
 " search and replace
 nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
