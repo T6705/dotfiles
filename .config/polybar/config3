@@ -101,7 +101,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left  = 0
 
-modules-left   = wlan eth
+modules-left   = tor wlan eth
 modules-center =
 modules-right  = cpu memory battery temperature
 
@@ -210,7 +210,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left  = 0
 
-modules-left   = wlan eth
+modules-left   = tor wlan eth
 modules-center =
 modules-right  = cpu memory battery temperature
 
@@ -246,51 +246,56 @@ font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 ;-------------------------------------------------------------------------------
 
 [module/spotify]
-type = custom/script
-exec = bash ~/.config/polybar/spotify_p.sh
-tail = true
-interval = 1.5
-format = <label>
-label = %{T2}%output%%{T-}
-click-left = i3 workspace number 8
+type              = custom/script
+exec              = bash ~/.config/polybar/spotify_p.sh
+exec-if           = pgrep -x spotify
+tail              = true
+interval          = 1.5
+format            = <label>
+format-foreground = ${colors.foreground}
+label             = %{F#ff69b4}%{T2}%output%%{T-}%{F-}
+click-left        = i3 workspace number 8
 
 [module/playpause]
-type = custom/script
-exec = bash ~/.config/polybar/playpause.sh
-format-padding = 1
-interval = 1.5
-format = <label>
+type              = custom/script
+exec              = bash ~/.config/polybar/playpause.sh
+exec-if           = pgrep -x spotify
+format-padding    = 1
+interval          = 1.5
+format            = <label>
 format-foreground = ${colors.foreground}
-click-left = playerctl play-pause
+click-left        = playerctl play-pause
 
 [module/next]
-type = custom/script
-exec = bash ~/.config/polybar/next.sh
-format-padding = 1
-interval = 1.5
-format = <label>
+type              = custom/script
+exec              = bash ~/.config/polybar/next.sh
+exec-if           = pgrep -x spotify
+format-padding    = 1
+interval          = 1.5
+format            = <label>
 format-foreground = ${colors.foreground}
-click-left = playerctl next
+click-left        = playerctl next
 
 [module/previous]
-type = custom/script
-exec = bash ~/.config/polybar/previous.sh
-format-padding = 1
-format = <label>
+type              = custom/script
+exec              = bash ~/.config/polybar/previous.sh
+exec-if           = pgrep -x spotify
+format-padding    = 1
+format            = <label>
 format-foreground = ${colors.foreground}
-click-left = playerctl previous
+click-left        = playerctl previous
 
 [module/volume]
-type = internal/volume
-format-muted = <label-muted>
-format-muted-padding = 2
-format-margin  = 4
-format-padding = 4
-format-spacing = 4
-format-volume = <label-volume>
+type                  = internal/volume
+format-muted          = <label-muted>
+format-muted-padding  = 2
+format-margin         = 4
+format-padding        = 4
+format-spacing        = 4
+format-volume         = <label-volume>
 format-volume-padding = 2
-label-muted = muted
-label-volume =  %percentage%%
+label-muted           =  muted
+label-volume          =  %percentage%%
 ramp-headphones-0 = 
 ramp-headphones-1 = 
 ramp-volume-0 = 🔈
@@ -347,7 +352,8 @@ date-alt       = %a %d %b %Y
 time           = %H:%M:%S
 time-alt       = %H:%M:%S
 label          = %{F#689d6a}%date%%{F-}%{F#b16286} %time%%{F-}
-format         =  <label>
+;format         =  <label>
+format         = <label>
 format-padding = 2
 
 [module/cpu]
@@ -407,10 +413,17 @@ bar-used-indicator-font       = 7
 bar-used-indicator-foreground = #fff
 bar-used-width                = 30
 
+[module/tor]
+type          = custom/script
+interval      = 1.5
+format        = "<label>"
+format-margin = 2
+exec          = bash ~/.config/polybar/tor.sh
+
 [module/wlan]
-type = internal/network
+type      = internal/network
 interface = wlp2s0
-interval = 1.5
+interval  = 1.5
 format-connected           =  <label-connected>
 format-connected-margin    = 2
 format-disconnected        = <label-disconnected>
@@ -454,9 +467,9 @@ battery     = BAT1
 adapter     = ADP1
 full-at     = 98
 time-format = %H:%M:%S
-format-charging            = %{F#007700}↑%{F-} <animation-charging> <label-charging>
+format-charging            = %{F#007700} %{F-} <animation-charging> <label-charging>
 format-charging-padding    = 2
-format-discharging         = %{F#ff0000}↓%{F-} <ramp-capacity> <label-discharging>
+format-discharging         = %{F#ff0000} %{F-} <ramp-capacity> <label-discharging>
 format-discharging-padding = 2
 format-full                = %{F#ff69b4}♥ %{F-} <ramp-capacity> <label-full>
 format-full-padding        = 2
@@ -494,6 +507,5 @@ format              = <label>
 format-padding      = 2
 format-warn         = <label-warn>
 format-warn-padding = 2
-label                 = %temperature%
-label-warn            = %temperature%
-label-warn-foreground = #f00
+label                 =  %temperature%
+label-warn            =  %{F#f00}%temperature%%{F-}

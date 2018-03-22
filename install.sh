@@ -41,6 +41,8 @@ function install_dots {
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/previous.sh
     curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/spotify_p.sh
+    curl -fLo ~/.config/polybar/tor.sh --create-dirs \
+        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/tor.sh
     chmod +x ~/.config/polybar/*.sh
     find ~/.config/polybar -type f -iname '*.sh' -exec chmod +x {} \;
 
@@ -163,15 +165,14 @@ function install_dependencies {
         sudo apt-get clean
         sudo apt-get install -y npm ranger tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh curl
 
+        curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" > /usr/bin/diff-so-fancy
+        chmod +x /usr/bin/diff-so-fancy
+
         ### for neovim
         sudo apt-get install -y autoconf automake cmake g++ libtool libtool-bin pkg-config unzip python-pip python3-pip
         if which pip &> /dev/null ; then
             sudo pip install -U neovim
         fi
-        if which pip3 &> /dev/null ; then
-            sudo pip3 install -U neovim
-        fi
-
 
         ### for i3-gaps (Ubuntu >= 14.04 LTS, <= 16.04)
         sudo add-apt-repository ppa:aguignard/ppa
@@ -197,7 +198,7 @@ function install_dependencies {
         sudo pacman -S --noconfirm cower pacaur pacli yaourt
         sudo pacman -S --noconfirm curl neovim npm python-pip python2-pip ranger termite tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
-        sudo pacman -S --noconfirm compton net-tools screenfetch xdg-utils veracrypt
+        sudo pacman -S --noconfirm compton diff-so-fancy net-tools screenfetch veracrypt xdg-utils
         sudo pacman -S --noconfirm `pacman -Ssq numix`
         sudo pacman -S --noconfirm `pacman -Ssq papirus`
         if which yaourt &> /dev/null ; then
@@ -206,9 +207,14 @@ function install_dependencies {
         if which pip2 &> /dev/null ; then
             sudo pip2 install -U neovim
         fi
-        if which pip3 &> /dev/null ; then
-            sudo pip3 install -U neovim
-        fi
+    fi
+
+    if which pip3 &> /dev/null ; then
+        sudo pip3 install -U neovim
+    fi
+
+    if which diff-so-fancy &> /dev/null ; then
+        git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     fi
 
     if which npm &> /dev/null && ! which pacman &> /dev/null ; then

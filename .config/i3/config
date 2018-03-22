@@ -111,13 +111,13 @@ bindsym $mod+a focus parent
 # bindsym $mod+d focus child
 
 #    
-#  terminal
+#   terminal
 #   telegram
 #   skype
 #  steam
 #   spotify
-#  safari
-#  chrome
+#   safari
+#   chrome
 #  firefox
 #   rpi
 #

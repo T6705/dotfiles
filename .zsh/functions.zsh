@@ -3,15 +3,15 @@
 ###############
 
 function man {
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-		LESS_TERMCAP_md=$(printf "\e[1;31m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;32m") \
-			man "$@"
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+        man "$@"
 }
 
 function weather {
@@ -25,7 +25,7 @@ function weather {
 if which cower &> /dev/null ; then
     function coweri {
         if [[ -n "$1" ]]; then
-            currentdir=`pwd`
+            currentdir=$(pwd)
             if [[ ! ( -d ~/.cache/cower ) ]]; then
                 mkdir -p -v ~/.cache/cower
             fi
@@ -67,9 +67,9 @@ if which fzf &> /dev/null ; then
         include="yml,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst"
         exclude=".config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist"
         rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always" -g "*.{'$include'}" -g "!{'$exclude'}/*"'
-        result=`eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}'`
-        files=`echo $result | awk -F ':' '{print $1}'`
-        lines=`echo $result | awk -F ':' '{print $2}'`
+        result=$(eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}')
+        files=$(echo $result | awk -F ':' '{print $1}')
+        lines=$(echo $result | awk -F ':' '{print $2}')
         [[ -n "$files" ]] && ${EDITOR:-vim} +$lines $files
     }
 
@@ -78,7 +78,7 @@ if which fzf &> /dev/null ; then
     # ---------------------------------------------------------------------
     function vimf {
         previous_file="$1"
-        file_to_edit=`select_file $previous_file`
+        file_to_edit=$(select_file $previous_file)
 
         if [[ -n "$file_to_edit"  ]]; then
             $EDITOR "$file_to_edit"
@@ -108,7 +108,7 @@ function 2display {
     #xrandr
     # LVDS1 as primary monitor, HDMI1 right of LVDS1
     #xrandr --output LVDS1 --auto --primary --output HDMI1 --auto --right-of LVDS1
-    connected_displays=`xrandr | grep " connected" | awk '{print $1}'`
+    connected_displays=$(xrandr | grep " connected" | awk '{print $1}')
     echo $connected_displays
 
     vared -p "main display : " -c main
@@ -121,7 +121,7 @@ function 2display {
 }
 
 function mirrordisplay {
-    connected_displays=`xrandr | grep " connected" | awk '{print $1}'`
+    connected_displays=$(xrandr | grep " connected" | awk '{print $1}')
 
     echo $connected_displays
 
@@ -188,7 +188,7 @@ function ram {
         echo "First argument - pattern to grep from processes"
     else
         sum=0
-        for i in `ps aux | grep -i "$app" | grep -v "grep" | awk '{print $6}'`; do
+        for i in $(ps aux | grep -i "$app" | grep -v "grep" | awk '{print $6}'); do
             sum=$(($i + $sum))
         done
         sum=$(echo "scale=2; $sum / 1024.0" | bc)
@@ -438,7 +438,7 @@ function edb-install {
     echo "=============================================="
     echo "== edb - cross platform x86/x86-64 debugger =="
     echo "=============================================="
-    currentdir=`pwd`
+    currentdir=$(pwd)
     if which apt-get &> /dev/null ; then
         # install dependencies For Ubuntu >= 15.10
         sudo apt-get install -y    \
@@ -453,7 +453,7 @@ function edb-install {
             libcapstone-dev
     elif which pacman &> /dev/null ; then
         sudo pacman -S --needed qt4 boost boost-libs capstone graphviz
-        sudo pacman -S --needed `pacman -Ssq qt | sort -u | grep -E "^qt5-"`
+        sudo pacman -S --needed $(pacman -Ssq qt | sort -u | grep -E "^qt5-")
     fi
 
     if [[ -d ~/git/edb-debugger ]]; then
@@ -474,7 +474,7 @@ function plasma-install {
     echo "== plasma - interactive disassembler for x86/ARM/MIPS =="
     echo "========================================================"
     if which apt-get &> /dev/null ; then
-        currentdir=`pwd`
+        currentdir=$(pwd)
         if [[ -d ~/git/plasma ]]; then
             time rm -rf ~/git/plasma && cd ~/git
         else
@@ -503,7 +503,7 @@ function yuzu-install {
         sudo pacman -S --needed base-devel clang cmake libcurl-compat qt5 sdl2
     fi
 
-    currentdir=`pwd`
+    currentdir=$(pwd)
     if [[ -d ~/git/yuzu ]]; then
         time rm -rf ~/git/yuzu && cd ~/git
     else
@@ -518,9 +518,54 @@ function yuzu-install {
     sudo make install
 }
 
-# ------------------------------------
+# ---------------------------------------------------------------------
+# Function for upload file to https://transfer.sh/
+# Use : $ (tor-)transfer hello.txt
+# ---------------------------------------------------------------------
+tor-transfer() {
+    torIp=127.0.0.1
+    torPort=9050
+
+    if [ $# -eq 0 ]; then
+        echo -e "No arguments specified. Usage:\necho tor-transfer /tmp/test.md\ncat /tmp/test.md | tor-transfer test.md";
+        return 1;
+    fi
+
+    tmpfile=$( mktemp -t transferXXX );
+    if tty -s; then
+        basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g');
+        curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile;
+    else
+        curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ;
+    fi;
+    echo ""
+    cat $tmpfile;
+    echo ""
+    rm -f $tmpfile;
+}
+
+transfer() {
+    if [ $# -eq 0 ]; then
+        echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md";
+        return 1;
+    fi
+
+    tmpfile=$( mktemp -t transferXXX );
+    if tty -s; then
+        basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g');
+        curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile;
+    else
+        curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ;
+    fi;
+    echo ""
+    cat $tmpfile;
+    echo ""
+    rm -f $tmpfile;
+}
+
+# ---------------------------------------------------------------------
 # Docker functions
-# ------------------------------------
+# ---------------------------------------------------------------------
 if which docker &> /dev/null ; then
     docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
     docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }
