@@ -6,11 +6,11 @@ fi
 
 status=$(playerctl status)
 
-if [ "$status" == Playing ]; then
+if [ "$status" == "Playing" ]; then
     #echo 
     #echo 
     echo 
-elif [ "$status" == Paused ]; then
+elif [ "$status" == "Paused" ]; then
     #echo 
     #echo 
     echo 

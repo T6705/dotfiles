@@ -199,8 +199,8 @@ function install_dependencies {
         sudo pacman -S --noconfirm curl neovim npm python-pip python2-pip ranger termite tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --noconfirm compton diff-so-fancy net-tools screenfetch veracrypt xdg-utils
-        sudo pacman -S --noconfirm `pacman -Ssq numix`
-        sudo pacman -S --noconfirm `pacman -Ssq papirus`
+        sudo pacman -S --noconfirm $(pacman -Ssq numix)
+        sudo pacman -S --noconfirm $(pacman -Ssq papirus)
         if which yaourt &> /dev/null ; then
             yaourt -S --noconfirm cava dropbox dropbox-cli hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
         fi
@@ -290,7 +290,7 @@ function install_i3 {
         echo "====================="
         echo ""
         sudo pacman -S --noconfirm base-devel libmpdclient wireless_tools
-        sudo pacman -S `pacman -Ssq alsa | grep alsa`
+        sudo pacman -S $(pacman -Ssq alsa | grep alsa)
         if which pacaur &> /dev/null ; then
             pacaur Syyu
             pacaur -S polybar-git
@@ -360,7 +360,7 @@ function install_vim {
         sudo apt-get install -y vim
     elif which pacman &> /dev/null ; then
         sudo pacman -S --noconfirm gvim neovim python-neovim python2-neovim ctags
-        sudo pacman -S --noconfirm `pacman -Ss pep8`
+        sudo pacman -S --noconfirm $(pacman -Ss pep8)
         sudo pip install -U vulture
     fi
 
@@ -541,7 +541,7 @@ function install_zsh {
         sudo cp -v *.ttf /usr/share/fonts/opentype/noto
         sudo fc-cache -f -v # optional
     elif which pacman &> /dev/null ; then
-        sudo pacman -S `pacman -Ssq noto | grep font` --noconfirm
+        sudo pacman -S $(pacman -Ssq noto | grep font) --noconfirm
     fi
 
     echo ""

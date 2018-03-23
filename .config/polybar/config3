@@ -37,7 +37,7 @@ override-redirect = true
 width             = 98%
 wm-restack        = i3
 
-locale = en_HK.UTF-8
+locale = en_US.UTF-8
 
 enable-ipc = true
 
@@ -49,7 +49,7 @@ module-margin-left  = 0
 
 modules-left   = i3
 modules-center = date
-modules-right  = spotify previous playpause next volume
+modules-right  = spotify previous playpause next volume lock
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -91,7 +91,7 @@ override-redirect = true
 width             = 98%
 wm-restack        = i3
 
-locale = en_HK.UTF-8
+locale = en_US.UTF-8
 
 enable-ipc = true
 
@@ -146,7 +146,7 @@ override-redirect = true
 width             = 98%
 wm-restack        = i3
 
-locale = en_HK.UTF-8
+locale = en_US.UTF-8
 
 enable-ipc = true
 
@@ -158,7 +158,7 @@ module-margin-left  = 0
 
 modules-left   = i3
 modules-center = date
-modules-right  = spotify previous playpause next volume
+modules-right  = spotify previous playpause next volume lock
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -199,8 +199,7 @@ override-redirect = true
 width             = 98%
 wm-restack        = i3
 
-
-locale = en_HK.UTF-8
+locale = en_US.UTF-8
 
 enable-ipc = true
 
@@ -250,9 +249,10 @@ type              = custom/script
 exec              = bash ~/.config/polybar/spotify_p.sh
 exec-if           = pgrep -x spotify
 tail              = true
-interval          = 1.5
 format            = <label>
 format-foreground = ${colors.foreground}
+format-padding    = 1
+interval          = 1.5
 label             = %{F#ff69b4}%{T2}%output%%{T-}%{F-}
 click-left        = i3 workspace number 8
 
@@ -260,40 +260,38 @@ click-left        = i3 workspace number 8
 type              = custom/script
 exec              = bash ~/.config/polybar/playpause.sh
 exec-if           = pgrep -x spotify
+format            = <label>
+format-foreground = #6ff
 format-padding    = 1
 interval          = 1.5
-format            = <label>
-format-foreground = ${colors.foreground}
 click-left        = playerctl play-pause
 
 [module/next]
 type              = custom/script
 exec              = bash ~/.config/polybar/next.sh
 exec-if           = pgrep -x spotify
+format            = <label>
+format-foreground = #6ff
 format-padding    = 1
 interval          = 1.5
-format            = <label>
-format-foreground = ${colors.foreground}
 click-left        = playerctl next
 
 [module/previous]
 type              = custom/script
 exec              = bash ~/.config/polybar/previous.sh
 exec-if           = pgrep -x spotify
-format-padding    = 1
 format            = <label>
-format-foreground = ${colors.foreground}
+format-foreground = #6ff
+format-padding    = 1
+interval          = 1.5
 click-left        = playerctl previous
 
 [module/volume]
 type                  = internal/volume
 format-muted          = <label-muted>
-format-muted-padding  = 2
-format-margin         = 4
-format-padding        = 4
-format-spacing        = 4
+format-muted-padding  = 1
 format-volume         = <label-volume>
-format-volume-padding = 2
+format-volume-padding = 1
 label-muted           =  muted
 label-volume          =  %percentage%%
 ramp-headphones-0 = 
@@ -301,6 +299,22 @@ ramp-headphones-1 = 
 ramp-volume-0 = 🔈
 ramp-volume-1 = 🔉
 ramp-volume-2 = 🔊
+
+[module/lock]
+type = custom/text
+content = 
+content-foreground = ${colors.orange}
+content-background = ${colors.background}
+content-padding    = 1
+click-left = ~/.config/i3/i3lock.sh &
+
+[module/vim]
+type = custom/text
+content = 
+content-foreground = ${colors.foreground}
+content-background = ${colors.background}
+content-padding    = 1
+click-left = ~/.vim-anywhere/bin/run
 
 [module/separator]
 type = custom/text
@@ -354,15 +368,15 @@ time-alt       = %H:%M:%S
 label          = %{F#689d6a}%date%%{F-}%{F#b16286} %time%%{F-}
 ;format         =  <label>
 format         = <label>
-format-padding = 2
+format-padding = 1
 
 [module/cpu]
 
 type = internal/cpu
 interval         = 1.5
 format           = <label> <ramp-coreload>
-format-padding   = 2
-label            = %{F#6ff}CPU%{F-}  %percentage%%
+format-padding   = 1
+label            = %{F#6ff}%{F-} %percentage%%
 label-font       = 0
 label-foreground = #99
 ramp-coreload-0            = ▁
@@ -393,43 +407,29 @@ ramp-coreload-7-foreground = #ff5555
 [module/memory]
 type             = internal/memory
 interval         = 1.5
-format           = <label> <bar-used>
-format-padding   = 2
-label            = %{F#6ff}RAM%{F-}  %percentage_used%%
+format           = <label>
+format-padding   = 1
+label            = %{F#6ff}%{F-} %percentage_used%%
 label-font       = 0
 label-foreground = #99
-bar-used-empty                = █
-bar-used-empty-font           = 7
-bar-used-empty-foreground     = #44
-bar-used-fill                 = █
-bar-used-fill-font            = 7
-bar-used-foreground-0         = #449f3d
-bar-used-foreground-1         = #2f8419
-bar-used-foreground-2         = #f5a70a
-bar-used-foreground-3         = #ed5456
-bar-used-gradient             = true
-bar-used-indicator            = █
-bar-used-indicator-font       = 7
-bar-used-indicator-foreground = #fff
-bar-used-width                = 30
 
 [module/tor]
-type          = custom/script
-interval      = 1.5
-format        = "<label>"
-format-margin = 2
-exec          = bash ~/.config/polybar/tor.sh
+type           = custom/script
+interval       = 1.5
+format         = "<label>"
+format-padding = 1
+exec           = bash ~/.config/polybar/tor.sh
 
 [module/wlan]
 type      = internal/network
 interface = wlp2s0
 interval  = 1.5
-format-connected           =  <label-connected>
-format-connected-margin    = 2
-format-disconnected        = <label-disconnected>
-format-disconnected-margin = 2
-format-packetloss          =  <label-connected>
-format-packetloss-margin   = 2
+format-connected            =  <label-connected>
+format-connected-padding    = 1.8
+format-disconnected         = <label-disconnected>
+format-disconnected-padding = 1.8
+format-packetloss           =  <label-connected>
+format-packetloss-padding   = 1.8
 
 ; Available tokens:
 ;   %ifname%    [wireless+wired]
@@ -445,12 +445,12 @@ label-connected = %{F#ff69b4}%essid% %{F#6ff}%local_ip%%{F-} %downspeed%
 type      = internal/network
 interface = enp3s0
 interval  = 1.5
-format-connected           =  <label-connected>
-format-connected-margin    = 2
-format-disconnected        = <label-disconnected>
-format-disconnected-margin = 2
-format-packetloss          = <label-connected>
-format-packetloss-margin   = 2
+format-connected            =  <label-connected>
+format-connected-padding    = 1.8
+format-disconnected         = <label-disconnected>
+format-disconnected-padding = 1.8
+format-packetloss           = <label-connected>
+format-packetloss-padding   = 1.8
 ; Available tokens:
 ;   %ifname%    [wireless+wired]
 ;   %local_ip%  [wireless+wired]
@@ -467,12 +467,12 @@ battery     = BAT1
 adapter     = ADP1
 full-at     = 98
 time-format = %H:%M:%S
-format-charging            = %{F#007700} %{F-} <animation-charging> <label-charging>
-format-charging-padding    = 2
-format-discharging         = %{F#ff0000} %{F-} <ramp-capacity> <label-discharging>
-format-discharging-padding = 2
-format-full                = %{F#ff69b4}♥ %{F-} <ramp-capacity> <label-full>
-format-full-padding        = 2
+format-charging            = %{F#007700}%{F-} <animation-charging> <label-charging>
+format-charging-padding    = 1
+format-discharging         = %{F#ff0000}%{F-} <ramp-capacity> <label-discharging>
+format-discharging-padding = 1
+format-full                = %{F#ff69b4}♥%{F-} <ramp-capacity> <label-full>
+format-full-padding        = 1
 label-charging    = %percentage%%
 label-discharging = %percentage%%
 label-full        = %percentage%%
@@ -504,8 +504,8 @@ type             = internal/temperature
 thermal-zone     = 0
 warn-temperature = 60
 format              = <label>
-format-padding      = 2
+format-padding      = 1
 format-warn         = <label-warn>
-format-warn-padding = 2
+format-warn-padding = 1
 label                 =  %temperature%
 label-warn            =  %{F#f00}%temperature%%{F-}

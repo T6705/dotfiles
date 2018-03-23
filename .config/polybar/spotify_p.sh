@@ -18,7 +18,7 @@ main() {
 
   #echo "${*:-%artist% - %title%}" | sed "s/%artist%/$artist/g;s/%title%/$title/g;s/%album%/$album/g"i | sed 's/&/\\&/g'
   #echo " $artist - $title "
-  echo " $artist - $title "
+  echo " $artist - $title"
 }
 
 main "$@"

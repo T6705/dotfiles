@@ -8,7 +8,7 @@
 
 path="/org/gnome/terminal/legacy/"
 #echo "path      = $path"
-#for i in `eval dconf list $path`; do
+#for i in $(eval dconf list $path); do
 #    echo "==========================================================="
 #    value=$path$i
 #    echo "$i:"
