@@ -82,10 +82,12 @@ nnoremap <Up> 2<C-W>+
 nnoremap <Down> 2<C-W>-
 
 " moving up and down work as you would expect
-nnoremap <silent> j gj
-nnoremap <silent> k gk
+"nnoremap <silent> j gj
+"nnoremap <silent> k gk
 "nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 "nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 nnoremap <silent> 0 g0
 nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
@@ -157,6 +159,7 @@ noremap <silent> <F8> :Hexmode<CR>
 
 " qq to record, Q to replay (recursive noremap due to peekaboo)
 nnoremap Q @q
+xnoremap Q :'<,'>:normal @q<CR>
 
 " Switch to the directory of opened buffer
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:pwd<CR>
@@ -319,7 +322,7 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
 " File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
 let g:fzf_files_options =
-\ '--preview "(highlight -O ansi {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+\ '--preview "[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (rougify {} || highlight -O ansi -l {} || coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
 " Files command with preview window
 command! -bang -nargs=? -complete=dir Files
@@ -393,10 +396,10 @@ imap <C-x>a <plug>(fzf-complete-file-ag)
 imap <C-x>l <plug>(fzf-complete-line)
 
 " Completetion
-inoremap ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
-inoremap ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
-inoremap ,n <C-X><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
-inoremap ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
+inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+inoremap <silent> ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
 
 " folding
 nnoremap <silent> <Leader>f za<CR>

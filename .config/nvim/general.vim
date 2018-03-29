@@ -269,7 +269,7 @@ endif
 " ----------------------------------------------------------------------------------------
 " Searching
 " ----------------------------------------------------------------------------------------
-set hlsearch
+set hlsearch   " highlight search results
 set ignorecase " Ignore case when searching
 if has('nvim')
     set inccommand=split
@@ -277,7 +277,7 @@ endif
 set incsearch  " Makes search act like search in modern browsers
 set magic      " For regular expressions turn magic on
 set showmatch  " Show matching brackets when text indicator is over them
-set smartcase  " When searching try to be smart about cases
+set smartcase  " case-sensitive if expresson contains a capital letter
 
 " Folding
 "set foldmethod=marker
@@ -326,6 +326,10 @@ set tags=./tags;/
 
 set splitbelow
 set splitright
+
+" Completion for spellings
+"set spell
+set complete+=kspell
 
 " Use persistent history, Keep undo history across sessions by storing it in a file
 if has('persistent_undo')

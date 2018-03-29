@@ -48,9 +48,9 @@ if which cower &> /dev/null ; then
     }
 fi
 
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 # fzf
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 if which fzf &> /dev/null ; then
     if which rg &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
@@ -58,9 +58,36 @@ if which fzf &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
     fi
 
-    # ---------------------------------------------------------------------
-    # usage: sf <keyword>
-    # ---------------------------------------------------------------------
+    # -----------------------------------------------------------------------------------------
+    # Usage: fkill | kill process
+    # -----------------------------------------------------------------------------------------
+    fkill() {
+      local pid
+      pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+      if [ "x$pid" != "x" ]
+      then
+        echo $pid | xargs kill -${1:-9}
+      fi
+    }
+
+    # -----------------------------------------------------------------------------------------
+    # tm - create new tmux session, or switch to existing one. Works from within tmux too. (@bag-man)
+    # `tm` will allow you to select your tmux session via fzf.
+    # `tm irc` will attach to the irc session (if it exists), else it will create it.
+    # -----------------------------------------------------------------------------------------
+
+    tm() {
+      [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+      if [ $1 ]; then
+        tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+      fi
+      session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+    }
+
+    # -----------------------------------------------------------------------------------------
+    # Usage: sf <keyword>
+    # -----------------------------------------------------------------------------------------
     function sf {
         if [[ "$#" -lt 1 ]]; then echo "Supply string to search for!"; return 1; fi
         printf -v search "%q" "$*"
@@ -73,9 +100,9 @@ if which fzf &> /dev/null ; then
         [[ -n "$files" ]] && ${EDITOR:-vim} +$lines $files
     }
 
-    # ---------------------------------------------------------------------
-    # usage: vimf | list subdirectories recursively with preview
-    # ---------------------------------------------------------------------
+    # -----------------------------------------------------------------------------------------
+    # Usage: vimf | list subdirectories recursively with preview
+    # -----------------------------------------------------------------------------------------
     function vimf {
         previous_file="$1"
         file_to_edit=$(select_file $previous_file)
@@ -88,13 +115,18 @@ if which fzf &> /dev/null ; then
 
     function select_file {
         given_file="$1"
-        fzf --preview="cat {}" --preview-window=right:70%:wrap --query="$given_file"
+        fzf --preview-window right:70%:wrap --query "$given_file" --preview '[[ $(file --mime {}) =~ binary ]] &&
+                                                                                echo {} is a binary file ||
+                                                                                (rougify {} ||
+                                                                                highlight -O ansi -l {} ||
+                                                                                coderay {} ||
+                                                                                cat {}) 2> /dev/null | head -500'
     }
 fi
 
-# ---------------------------------------------------------------------
-# usage: brightness <level> | adjust brightness
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Usage: brightness <level> | adjust brightness
+# -----------------------------------------------------------------------------------------
 function brightness {
     if [[ -n "$1" ]]; then
         xrandr --output LVDS1 --brightness $1
@@ -138,9 +170,9 @@ function mirrordisplay {
     #[[ "$main" != "$second" ]] && echo "3ok"
 }
 
-# ---------------------------------------------------------------------
-# usage: ipv4_in <filename> | grep ipv4 in file
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Usage: ipv4_in <filename> | grep ipv4 in file
+# -----------------------------------------------------------------------------------------
 function ipv4_in {
     if [[ -n "$1" ]]; then
         regex='([0-9]{1,3}\.){3}[0-9]{1,3}'
@@ -150,9 +182,9 @@ function ipv4_in {
     fi
 }
 
-# ---------------------------------------------------------------------
-# usage: ipv6_in <filename> | grep ipv4 in file
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Usage: ipv6_in <filename> | grep ipv4 in file
+# -----------------------------------------------------------------------------------------
 function ipv6_in {
     if [[ -n "$1" ]]; then
         regex='(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'
@@ -162,9 +194,9 @@ function ipv6_in {
     fi
 }
 
-# ---------------------------------------------------------------------
-# usage: url_in <filename> | grep url in file
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Usage: url_in <filename> | grep url in file
+# -----------------------------------------------------------------------------------------
 function url_in {
     if [[ -n "$1" ]]; then
         regex="(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~-]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?"
@@ -200,9 +232,9 @@ function ram {
     fi
 }
 
-# ---------------------------------------------------------------------
-# usage: extract_frame <filename>
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Usage: extract_frame <filename>
+# -----------------------------------------------------------------------------------------
 function extract_frame {
     echo "Extracting frame from $1 ..."
     if [[ -f $1 ]]; then
@@ -214,9 +246,9 @@ function extract_frame {
     fi
 }
 
-# ---------------------------------------------------------------------
-# usage: gz <filename> | get gzipped size
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Usage: gz <filename> | get gzipped size
+# -----------------------------------------------------------------------------------------
 function gz() {
     echo "orig size    (bytes): "
     cat "$1" | wc -c
@@ -224,9 +256,9 @@ function gz() {
     gzip -c "$1" | wc -c
 }
 
-# ---------------------------------------------------------------------
-# usage: extract <filename>
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Usage: extract <filename>
+# -----------------------------------------------------------------------------------------
 function extract {
     echo Extracting $1 ...
     if [[ -f $1 ]]; then
@@ -250,9 +282,9 @@ function extract {
     fi
 }
 
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 # Usage: compress <file> (<type>)
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 compress() {
     if [[ -e $1 ]]; then
         if [[ $2 ]]; then
@@ -296,7 +328,7 @@ function sshlf {
         echo "127.0.0.1:$localport --> $remotehost --> $targethost:$targetport"
         ssh -i $keyfile -p $remotesshport -gNfL $localport:$targethost:$targetport $remoteaccount@$remotehost
     else
-        echo "usage: sshlf <localport> <targethost> <targetport> <remoteaccount> <remotehost> <remotesshport> <keyfile>"
+        echo "Usage: sshlf <localport> <targethost> <targetport> <remoteaccount> <remotehost> <remotesshport> <keyfile>"
         echo "127.0.0.1:localport --> remotehost --> targethost:targetport"
     fi
 }
@@ -319,21 +351,21 @@ function sshrf {
         echo "$remotehost:$remoteport --> 127.0.0.1:$localport"
         ssh -i $keyfile -p $remotesshport -NfR $remoteport:127.0.0.1:$localport $remoteaccount@$remotehost
     else
-        echo "usage: sshrf <localport> <remoteaccount> <remotehost> <remoteport> <remotesshport> <keyfile>"
+        echo "Usage: sshrf <localport> <remoteaccount> <remotehost> <remoteport> <remotesshport> <keyfile>"
         echo "remotehost:remoteport --> 127.0.0.1:localport"
     fi
 }
 
-# ---------------------------------------------------------------------
-# usage: base64key <keyname> <keysize>
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Usage: base64key <keyname> <keysize>
+# -----------------------------------------------------------------------------------------
 function base64key {
     if [[ ( -n $1 && -n $2 ) ]]; then
         keyname=$1
         size=$2
         time openssl rand -base64 -out $keyname $size
     else
-        echo "usage: base64key <keyname> <keysize>"
+        echo "Usage: base64key <keyname> <keysize>"
     fi
 }
 
@@ -346,7 +378,7 @@ function rsa {
             time openssl genrsa -out $pri $size
             time openssl rsa -in $pri -out $pub -outform PEM -pubout
         else
-            echo "usage: rsa keygen <keyname> <keysize>"
+            echo "Usage: rsa keygen <keyname> <keysize>"
         fi
     elif [[ ( $1 == "encrypt" || $1 == "e" )]]; then
         if [[ ( -n $2 && -n $3 && -n $4) ]]; then
@@ -355,7 +387,7 @@ function rsa {
             outfile=$4
             time openssl rsautl -encrypt -inkey $pub -pubin -in $infile -out $outfile
         else
-            echo "usage: rsa encrypt <pubkey> <infile> <outfile>"
+            echo "Usage: rsa encrypt <pubkey> <infile> <outfile>"
         fi
     elif [[ ( $1 == "decrypt" || $1 == "d" ) ]]; then
         if [[ ( -n $2 && -n $3 && -n $4) ]]; then
@@ -364,10 +396,10 @@ function rsa {
             outfile=$4
             time openssl rsautl -decrypt -inkey $pri -in $infile -out $outfile
         else
-            echo "usage: rsa decrypt <prikey> <infile> <outfile>"
+            echo "Usage: rsa decrypt <prikey> <infile> <outfile>"
         fi
     else
-        echo "usage:"
+        echo "Usage:"
         echo "rsa keygen <keyname> <keysize>"
         echo "rsa encrypt <pubkey> <infile> <outfile>"
         echo "rsa decrypt <prikey> <infile> <outfile>"
@@ -388,7 +420,7 @@ function aes {
             #time openssl aes-256-cbc -a -salt -in $infile -out $outfile
             time openssl enc -aes-256-cbc -a -salt -in $infile -out $outfile
         else
-            echo "usage:"
+            echo "Usage:"
             echo "aes encrypt <infile> <outfile>"
             echo "aes encrypt <infile> <outfile> <keyfile>"
         fi
@@ -405,12 +437,12 @@ function aes {
             #time openssl aes-256-cbc -d -a -in $infile -out $outfile
             time openssl enc -aes-256-cbc -d -a -in $infile -out $outfile
         else
-            echo "usage:"
+            echo "Usage:"
             echo "aes decrypt <infile> <outfile>"
             echo "aes decrypt <infile> <outfile> <keyfile>"
         fi
     else
-        echo "usage:"
+        echo "Usage:"
         echo "aes encrypt <infile> <outfile>"
         echo "aes encrypt <infile> <outfile> <keyfile>"
         echo "aes decrypt <infile> <outfile>"
@@ -518,10 +550,18 @@ function yuzu-install {
     sudo make install
 }
 
-# ---------------------------------------------------------------------
-# Function for upload file to https://transfer.sh/
-# Use : $ (tor-)transfer hello.txt
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Usage: viewimg <filename> | display image in terminal
+# -----------------------------------------------------------------------------------------
+if which w3m &> /dev/null && [[ -f /usr/lib/w3m/w3mimgdisplay ]]; then
+    viewimg() {
+        w3m -o imgdisplay=/usr/lib/w3m/w3mimgdisplay -o ext_image_viewer=N $1
+    }
+fi
+
+# -----------------------------------------------------------------------------------------
+# Usage: $ (tor-)transfer hello.txt | Function for upload file to https://transfer.sh/
+# -----------------------------------------------------------------------------------------
 tor-transfer() {
     torIp=127.0.0.1
     torPort=9050
@@ -531,17 +571,23 @@ tor-transfer() {
         return 1;
     fi
 
-    tmpfile=$( mktemp -t transferXXX );
-    if tty -s; then
-        basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g');
-        curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile;
+    torstatus=$(systemctl status tor | grep Active | cut -d":" -f2 | cut -d" " -f2)
+    if [[ -n "$torstatus" ]] && [[ "$torstatus" == "active" ]];then
+        tmpfile=$( mktemp -t transferXXX );
+        if tty -s; then
+            basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g');
+            curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile;
+        else
+            curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ;
+        fi;
+        echo ""
+        cat $tmpfile;
+        echo ""
+        rm -f $tmpfile;
     else
-        curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ;
-    fi;
-    echo ""
-    cat $tmpfile;
-    echo ""
-    rm -f $tmpfile;
+        echo "tor is inactive"
+        return 1;
+    fi
 }
 
 transfer() {
@@ -563,9 +609,9 @@ transfer() {
     rm -f $tmpfile;
 }
 
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 # Docker functions
-# ---------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
 if which docker &> /dev/null ; then
     docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
     docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }

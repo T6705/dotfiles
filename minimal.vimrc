@@ -359,6 +359,10 @@ set tags=./tags;/
 set splitbelow
 set splitright
 
+" Completion for spellings
+"set spell
+set complete+=kspell
+
 " Use persistent history, Keep undo history across sessions by storing it in a file
 if has('persistent_undo')
     let undo_dir = expand('~/.vim-undo-dir')
@@ -712,10 +716,12 @@ nnoremap <Up> 2<C-W>+
 nnoremap <Down> 2<C-W>-
 
 " moving up and down work as you would expect
-nnoremap <silent> j gj
-nnoremap <silent> k gk
+"nnoremap <silent> j gj
+"nnoremap <silent> k gk
 "nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
 "nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 nnoremap <silent> 0 g0
 nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
@@ -774,6 +780,7 @@ nnoremap <silent> <Leader>ffo :!firefox %<CR>
 
 " qq to record, Q to replay (recursive noremap due to peekaboo)
 nnoremap Q @q
+xnoremap Q :'<,'>:normal @q<CR>
 
 " Switch to the directory of opened buffer
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:pwd<CR>
@@ -859,6 +866,7 @@ nnoremap <silent> <Leader>q :bd!<CR>
 nnoremap <silent> <Leader>bn :enew<CR>
 nnoremap <silent> <Leader>bs :ls<CR>:buffer<Space>
 nnoremap <silent> <Leader>vbs :ls<CR>:sbuffer<Space>
+nnoremap <silent> <bs> <c-^>
 
 " add space after comma
 nnoremap <silent> <Leader>, :%s/, */, /g<CR>

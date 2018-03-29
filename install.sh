@@ -163,7 +163,7 @@ function install_dependencies {
         sudo apt-get dist-upgrade -y
         sudo apt-get autoremove -y
         sudo apt-get clean
-        sudo apt-get install -y npm ranger tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh curl
+        sudo apt-get install -y curl npm ranger ruby-rouge tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
 
         curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" > /usr/bin/diff-so-fancy
         chmod +x /usr/bin/diff-so-fancy
@@ -196,7 +196,7 @@ function install_dependencies {
         sudo pacman -S --noconfirm base
         sudo pacman -S --noconfirm base-devel
         sudo pacman -S --noconfirm cower pacaur pacli yaourt
-        sudo pacman -S --noconfirm curl neovim npm python-pip python2-pip ranger termite tmux vim xclip xsel zsh
+        sudo pacman -S --noconfirm curl neovim npm python-pip python2-pip ranger ruby-rouge termite tmux vim xclip xsel zsh
         sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --noconfirm compton diff-so-fancy net-tools screenfetch veracrypt xdg-utils
         sudo pacman -S --noconfirm $(pacman -Ssq numix)
