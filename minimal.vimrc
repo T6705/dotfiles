@@ -30,6 +30,12 @@ augroup vimrc_active_options
     au WinLeave,BufLeave * setlocal nonu
 augroup END
 
+augroup auto_quickfix_window
+    au!
+    au QuickFixCmdPost [^l]* cwindow
+    au QuickFixCmdPost l*    lwindow
+augroup END
+
 """ }}}
 
 """ === General Setting === {{{
@@ -301,7 +307,7 @@ endif
 " ----------------------------------------------------------------------------------------
 " Searching
 " ----------------------------------------------------------------------------------------
-set hlsearch
+set hlsearch   " highlight search results
 set ignorecase " Ignore case when searching
 if has('nvim')
     set inccommand=split
@@ -309,7 +315,7 @@ endif
 set incsearch  " Makes search act like search in modern browsers
 set magic      " For regular expressions turn magic on
 set showmatch  " Show matching brackets when text indicator is over them
-set smartcase  " When searching try to be smart about cases
+set smartcase  " case-sensitive if expresson contains a capital letter
 
 " Folding
 "set foldmethod=marker
@@ -922,9 +928,12 @@ xnoremap <silent> <Leader>G :<C-u>let cmd = "Grep " . visual#GetSelection() <bar
                         \ call histadd("cmd", cmd) <bar>
                         \ execute cmd<CR>
 
-if executable("ag")
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable("ag")
     set grepprg=ag\ --vimgrep
-    set grepformat^=%f:%l:%c:%m
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
 " ----------------------------------------------------------------------------------------

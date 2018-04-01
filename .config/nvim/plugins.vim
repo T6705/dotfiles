@@ -43,6 +43,7 @@ Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'flazz/vim-colorschemes'
 Plug 'google/vim-colorscheme-primary'
 Plug 'morhetz/gruvbox'
+Plug 'rakr/vim-one'
 Plug 'roosta/vim-srcery'
 Plug 'tomasr/molokai'
 

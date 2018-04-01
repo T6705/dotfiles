@@ -71,6 +71,12 @@ augroup vimrc_active_options
     au WinLeave,BufLeave * setlocal nonu
 augroup END
 
+augroup auto_quickfix_window
+    au!
+    au QuickFixCmdPost [^l]* cwindow
+    au QuickFixCmdPost l*    lwindow
+augroup END
+
 ""google/vim-codefmt
 "augroup autoformat_settings
 "    au FileType bzl AutoFormatBuffer buildifier

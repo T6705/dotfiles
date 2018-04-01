@@ -346,9 +346,7 @@ if executable('rg')
     nnoremap <silent> <Leader>rg :Rg<CR>
     ":Rg! - Start fzf in fullscreen and display the preview window above
     nnoremap <silent> <Leader>RG :Rg!<CR>
-endif
-
-if executable('ag')
+elseif executable('ag')
     let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
     autocmd VimEnter * command! -bang -nargs=* Ag
