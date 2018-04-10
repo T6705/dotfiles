@@ -138,7 +138,7 @@ if has('syntax') && !exists('g:syntax_on')
     syntax on                                                         " switch syntax highlighting on
 endif
 
-if has('nvim') || has('termguicolors')
+if has('nvim') && has('termguicolors')
   set termguicolors
 endif
 

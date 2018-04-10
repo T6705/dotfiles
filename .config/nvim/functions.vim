@@ -344,7 +344,7 @@ fu! LightTheme()
     set background=light
     colorscheme PaperColor
     AirlineTheme papercolor
-    if has('nvim') || has('termguicolors')
+    if has('nvim') && has('termguicolors')
       set termguicolors
     endif
 endfu
@@ -357,7 +357,7 @@ fu! DarkTheme()
     set background=dark
     colorscheme molokai
     AirlineTheme wombat
-    if has('nvim') || has('termguicolors')
+    if has('nvim') && has('termguicolors')
       set termguicolors
     endif
 endfu
@@ -370,7 +370,7 @@ fu! OneLight()
     set background=light
     colorscheme one
     AirlineTheme one
-    if has('nvim') || has('termguicolors')
+    if has('nvim') && has('termguicolors')
       set termguicolors
     endif
 endfu
@@ -385,7 +385,7 @@ fu! GruvboxLight()
     set background=light
     colorscheme gruvbox
     AirlineTheme gruvbox
-    if has('nvim') || has('termguicolors')
+    if has('nvim') && has('termguicolors')
       set termguicolors
     endif
 endfu
@@ -400,7 +400,7 @@ fu! GruvboxDark()
     set background=dark
     colorscheme gruvbox
     AirlineTheme gruvbox
-    if has('nvim') || has('termguicolors')
+    if has('nvim') && has('termguicolors')
       set termguicolors
     endif
 endfu
