@@ -257,8 +257,8 @@ nnoremap <silent> [l :lprev<CR>zz
 nnoremap <silent> ]L :llast<CR>zz
 nnoremap <silent> ]l :lnext<CR>zz
 
-"nnoremap <silent> [q :cprev<CR>zz
-"nnoremap <silent> ]q :cnext<CR>zz
+nnoremap <silent> <Leader>qc :cclose<CR>
+nnoremap <silent> <Leader>qo :copen<CR>
 nnoremap <silent> <Leader>qw :cwindow<CR>
 nnoremap <silent> [Q :cfirst<CR>zz
 nnoremap <silent> [q :cprev<CR>zz

@@ -373,9 +373,11 @@ let g:ale_linters = {
 \   'php': ['phpcs', 'php', 'phpmd'],
 \   'python': ['flake8', 'pep8', 'vulture'],
 \}
-let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
-let g:ale_python_flake8_args   = '--ignore=E221,E265,E266,E501'
-let g:ale_python_pep8_args     = '--max-line-length=100 --ignore=E221,E265,E266,E501'
+let g:ale_fixers             = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
+let g:ale_python_flake8_args = '--ignore=E221,E265,E266,E501'
+let g:ale_python_pep8_args   = '--max-line-length=100 --ignore=E221,E265,E266,E501'
+let g:ale_set_loclist        = 1
+let g:ale_set_quickfix       = 0
 
 
 "" ----------------------------------------------------------------------------------------
