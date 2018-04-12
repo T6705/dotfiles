@@ -11,8 +11,9 @@ endif
 
 let mapleader=' '
 
-let php_sql_query = 1
-let php_htmlInStrings = 1
+let g:loaded_matchparen = 1 " Highlighting matching parens
+let php_htmlInStrings   = 1
+let php_sql_query       = 1
 
 set updatetime=500
 
@@ -343,14 +344,6 @@ if has('persistent_undo')
     endif
     set undodir=~/.vim-undo-dir
     set undofile
-endif
-
-if executable("rg")
-    set grepprg=rg\ --vimgrep\ --no-heading
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
-elseif executable("ag")
-    set grepprg=ag\ --vimgrep
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
 " ----------------------------------------------------------------------------------------

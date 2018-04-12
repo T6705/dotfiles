@@ -109,15 +109,15 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 " ----------------------------------------------------------------------------------------
 "let g:netrw_altv         = 1 " open splits to the right
 "let g:netrw_browse_split = 4 " open in prior window
-let g:netrw_banner      = 0 " disable annoying banner
+"let g:netrw_liststyle    = 1 " Detail View
+let g:netrw_banner      = 0                      " disable annoying banner
 let g:netrw_bufsettings = 'relativenumber'
-let g:netrw_hide        = 1 " hide dotfiles by default
+let g:netrw_hide        = 1                      " hide dotfiles by default
 let g:netrw_list_hide   = '\(^\|\s\s\)\zs\.\S\+' " hide dotfiles
 let g:netrw_list_hide   = netrw_gitignore#Hide()
-"let g:netrw_liststyle   = 1 " Detail View
-let g:netrw_liststyle   = 3 " tree view
+let g:netrw_liststyle   = 3                      " tree view
 let g:netrw_preview     = 1
-let g:netrw_sizestyle   = "H" " Human-readable file sizes
+let g:netrw_sizestyle   = "H"                    " Human-readable file sizes
 let g:netrw_winsize     = 30
 
 
@@ -125,8 +125,8 @@ let g:netrw_winsize     = 30
 " Airline.vim
 " ----------------------------------------------------------------------------------------
 "let g:airline_theme="luna"
-"let g:airline_theme="papercolor"
 "let g:airline_theme="onedark"
+"let g:airline_theme="papercolor"
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show   = 1
 let g:airline#extensions#tabline#enabled          = 1
@@ -144,19 +144,19 @@ let g:airline_theme                               = "wombat"
 " ----------------------------------------------------------------------------------------
 " vim-devicons
 " ----------------------------------------------------------------------------------------
-let g:webdevicons_enable = 1 " loading the plugin
-let g:webdevicons_enable_airline_statusline = 1 " adding to vim-airline's statusline
-let g:webdevicons_enable_airline_tabline = 1 " adding to vim-airline's tabline
-let g:webdevicons_enable_nerdtree = 1 " adding the flags to NERDTree
-let g:DevIconsEnableFolderExtensionPatternMatching = 1 " enable file extension pattern matching glyphs on folder/directory
-let g:DevIconsEnableFolderPatternMatching = 1 " enable pattern matching glyphs on folder/directory
-let g:DevIconsEnableFoldersOpenClose = 1 " enable open and close folder/directory glyph flags
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1 " Force extra padding in NERDTree so that the filetype icons line up vertically
+let g:webdevicons_enable                             = 1   " loading the plugin
+let g:webdevicons_enable_airline_statusline          = 1   " adding to vim-airline's statusline
+let g:webdevicons_enable_airline_tabline             = 1   " adding to vim-airline's tabline
+let g:webdevicons_enable_nerdtree                    = 1   " adding the flags to NERDTree
+let g:DevIconsEnableFolderExtensionPatternMatching   = 1   " enable file extension pattern matching glyphs on folder/directory
+let g:DevIconsEnableFolderPatternMatching            = 1   " enable pattern matching glyphs on folder/directory
+let g:DevIconsEnableFoldersOpenClose                 = 1   " enable open and close folder/directory glyph flags
+let g:WebDevIconsNerdTreeGitPluginForceVAlign        = 1   " Force extra padding in NERDTree so that the filetype icons line up vertically
 let g:WebDevIconsUnicodeByteOrderMarkerDefaultSymbol = '' " set a byte character marker (BOM) utf-8 symbol when retrieving file encoding
-let g:WebDevIconsUnicodeDecorateFileNodes = 1 " turn on/off file node glyph decorations
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1 " enable folder/directory glyph flag
-let g:WebDevIconsUnicodeGlyphDoubleWidth = 1 " use double-width(1) or single-width(0) glyphs
-let g:webdevicons_conceal_nerdtree_brackets = 0 " whether or not to show the nerdtree brackets around flags
+let g:WebDevIconsUnicodeDecorateFileNodes            = 1   " turn on/off file node glyph decorations
+let g:WebDevIconsUnicodeDecorateFolderNodes          = 1   " enable folder/directory glyph flag
+let g:WebDevIconsUnicodeGlyphDoubleWidth             = 1   " use double-width(1) or single-width(0) glyphs
+let g:webdevicons_conceal_nerdtree_brackets          = 0   " whether or not to show the nerdtree brackets around flags
 
 
 " ----------------------------------------------------------------------------------------
@@ -197,12 +197,12 @@ let g:UltiSnipsSnippetsDir         = "~/.vim/UltiSnips"
 let g:SuperTabDefaultCompletionType = "<C-n>"
 
 
-" ----------------------------------------------------------------------------------------
-" comfortable-motion
-" ----------------------------------------------------------------------------------------
-let g:comfortable_motion_no_default_key_mappings = 1
-let g:comfortable_motion_friction                = 80.0
-let g:comfortable_motion_air_drag                = 2.0
+"" ----------------------------------------------------------------------------------------
+"" comfortable-motion
+"" ----------------------------------------------------------------------------------------
+"let g:comfortable_motion_no_default_key_mappings = 1
+"let g:comfortable_motion_friction                = 80.0
+"let g:comfortable_motion_air_drag                = 2.0
 
 
 " ----------------------------------------------------------------------------------------
@@ -461,22 +461,21 @@ let g:ale_set_quickfix       = 0
 " ----------------------------------------------------------------------------------------
 " jedi-vim
 " ----------------------------------------------------------------------------------------
-let g:jedi#auto_initialization    = 1
-let g:jedi#auto_vim_configuration = 1
-let g:jedi#completions_enabled    = 1
-let g:jedi#popup_on_dot           = 1
-let g:jedi#popup_select_first     = 1
-let g:jedi#show_call_signatures   = "1"
-let g:jedi#use_splits_not_buffers = "right"
-let g:jedi#use_tabs_not_buffers   = 0
-
+let g:jedi#auto_initialization      = 1
+let g:jedi#auto_vim_configuration   = 1
 let g:jedi#completions_command      = "<C-Space>"
+let g:jedi#completions_enabled      = 1
 let g:jedi#documentation_command    = "K"
 let g:jedi#goto_assignments_command = "<Leader>g"
 let g:jedi#goto_command             = "<Leader>d"
 let g:jedi#goto_definitions_command = "<TAB>"
+let g:jedi#popup_on_dot             = 1
+let g:jedi#popup_select_first       = 1
 let g:jedi#rename_command           = "<Leader>r"
+let g:jedi#show_call_signatures     = "1"
 let g:jedi#usages_command           = "<Leader>n"
+let g:jedi#use_splits_not_buffers   = "right"
+let g:jedi#use_tabs_not_buffers     = 0
 
 
 " ----------------------------------------------------------------------------------------

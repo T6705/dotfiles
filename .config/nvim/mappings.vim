@@ -29,10 +29,10 @@ command! PU PlugUpdate | PlugUpgrade
 "nnoremap c "_c
 "vnoremap c "_c
 
-" Make `Y` behave like `C` and `D`
+"" Make `Y` behave like `C` and `D`
 "nnoremap Y y$
-map y <Plug>(operator-flashy)
-nmap Y <Plug>(operator-flashy)$
+"map y <Plug>(operator-flashy)
+"nmap Y <Plug>(operator-flashy)$
 
 nnoremap <silent> <Leader>p "+gP
 nnoremap <silent> <Leader>x "+x
@@ -410,35 +410,35 @@ nnoremap <silent> <Leader>tm :TableModeToggle<CR>
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
 vnoremap . :norm.<CR>
 
-" ----------------------------------------------------------------------------------------
-" easymotion
-" ----------------------------------------------------------------------------------------
-" <Leader>f{char} to move to {char}
-map  <Leader><Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+"" ----------------------------------------------------------------------------------------
+"" easymotion
+"" ----------------------------------------------------------------------------------------
+"" <Leader>f{char} to move to {char}
+"map  <Leader><Leader>f <Plug>(easymotion-bd-f)
+"nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
+"
+"" s{char}{char} to move to {char}{char}
+"nmap s <Plug>(easymotion-overwin-f2)
+"
+"" Move to line
+"map  <Leader><Leader>L <Plug>(easymotion-bd-jk)
+"nmap <Leader><Leader>L <Plug>(easymotion-overwin-line)
+"
+"" Move to word
+"map  <Leader><Leader>w <Plug>(easymotion-bd-w)
+"nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
 
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Move to line
-map  <Leader><Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader><Leader>L <Plug>(easymotion-overwin-line)
-
-" Move to word
-map  <Leader><Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
-
-" ----------------------------------------------------------------------------------------
-" Tabular
-" ----------------------------------------------------------------------------------------
-if exists(":Tabularize")
-  nnoremap <silent> <Leader>a= :Tabularize /=<CR>
-  vnoremap <silent> <Leader>a= :Tabularize /=<CR>
-  nnoremap <silent> <Leader>a: :Tabularize /:<CR>
-  vnoremap <silent> <Leader>a: :Tabularize /:<CR>
-  "nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-  "vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-endif
+"" ----------------------------------------------------------------------------------------
+"" Tabular
+"" ----------------------------------------------------------------------------------------
+"if exists(":Tabularize")
+"  nnoremap <silent> <Leader>a= :Tabularize /=<CR>
+"  vnoremap <silent> <Leader>a= :Tabularize /=<CR>
+"  nnoremap <silent> <Leader>a: :Tabularize /:<CR>
+"  vnoremap <silent> <Leader>a: :Tabularize /:<CR>
+"  "nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+"  "vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
+"endif
 
 " compile and run
 "noremap <silent> <Leader>ccr :w<CR> :!gcc % -o %< && time %:p:r<CR>
@@ -530,15 +530,33 @@ nmap     <silent> <Leader>{ ysiw{
 vnoremap <silent> <Leader>} c{ <C-R>" }<ESC>
 vnoremap <silent> <Leader>{ c{<C-R>"}<ESC>
 
-" ----------------------------------------------------------------------------------------
-" splitjoin
-" ----------------------------------------------------------------------------------------
-let g:splitjoin_split_mapping = ''
-let g:splitjoin_join_mapping = ''
+"" ----------------------------------------------------------------------------------------
+"" splitjoin
+"" ----------------------------------------------------------------------------------------
+"let g:splitjoin_split_mapping = ''
+"let g:splitjoin_join_mapping = ''
+"
+"noremap <silent> <Leader>j :SplitjoinJoin<cr>
+"noremap <silent> <Leader>s :SplitjoinSplit<cr>
 
-noremap <silent> <Leader>j :SplitjoinJoin<cr>
-noremap <silent> <Leader>s :SplitjoinSplit<cr>
+" ----------------------------------------------------------------------------------------
+" Search in project
+" ----------------------------------------------------------------------------------------
+command! -nargs=+ -complete=file_in_path -bar Grep  silent! grep! <args> | redraw!
+command! -nargs=+ -complete=file_in_path -bar LGrep silent! lgrep! <args> | redraw!
 
+nnoremap <silent> <Leader>G :Grep <C-r><C-w><CR>
+xnoremap <silent> <Leader>G :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
+                        \ call histadd("cmd", cmd) <bar>
+                        \ execute cmd<CR>
+
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable("ag")
+    set grepprg=ag\ --vimgrep
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
 " ----------------------------------------------------------------------------------------
 " nvim
