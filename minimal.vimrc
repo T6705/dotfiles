@@ -36,6 +36,11 @@ augroup auto_quickfix_window
     au QuickFixCmdPost l*    lwindow
 augroup END
 
+augroup autoSaveAndRead
+    au!
+    au TextChanged,InsertLeave,FocusLost * silent! wall
+    au CursorHold * silent! checktime
+augroup END
 """ }}}
 
 """ === General Setting === {{{
@@ -49,8 +54,9 @@ endif
 
 let mapleader=' '
 
-let php_sql_query = 1
-let php_htmlInStrings = 1
+let g:loaded_matchparen = 1 " highlighting matching parens
+let php_htmlinstrings   = 1
+let php_sql_query       = 1
 
 set updatetime=500
 
@@ -176,7 +182,7 @@ if has('syntax') && !exists('g:syntax_on')
     syntax on                                                         " switch syntax highlighting on
 endif
 
-if has('nvim') || has('termguicolors')
+if has('nvim') && has('termguicolors')
   set termguicolors
 endif
 
@@ -795,7 +801,6 @@ xnoremap Q :'<,'>:normal @q<CR>
 " Switch to the directory of opened buffer
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
-
 " Change current word to uppercase
 nnoremap <silent> <Leader>u gUiw
 
@@ -891,7 +896,6 @@ else
     nnoremap <silent> <Leader>E :Explore<CR>
 endif
 
-
 " Completetion
 inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
 inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
@@ -963,15 +967,15 @@ endif
 " ----------------------------------------------------------------------------------------
 "let g:netrw_altv         = 1 " open splits to the right
 "let g:netrw_browse_split = 4 " open in prior window
-let g:netrw_banner      = 0 " disable annoying banner
+"let g:netrw_liststyle    = 1 " Detail View
+let g:netrw_banner      = 0                      " disable annoying banner
 let g:netrw_bufsettings = 'relativenumber'
-let g:netrw_hide        = 1 " hide dotfiles by default
+let g:netrw_hide        = 1                      " hide dotfiles by default
 let g:netrw_list_hide   = '\(^\|\s\s\)\zs\.\S\+' " hide dotfiles
 let g:netrw_list_hide   = netrw_gitignore#Hide()
-"let g:netrw_liststyle   = 1 " Detail View
-let g:netrw_liststyle   = 3 " tree view
+let g:netrw_liststyle   = 3                      " tree view
 let g:netrw_preview     = 1
-let g:netrw_sizestyle   = "H" " Human-readable file sizes
+let g:netrw_sizestyle   = "H"                    " Human-readable file sizes
 let g:netrw_winsize     = 30
 
 """ }}}
