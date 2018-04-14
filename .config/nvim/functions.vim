@@ -31,16 +31,19 @@ command! ClearRegisters call ClearRegisters()
 " ----------------------------------------------------------------------------------------
 " :RangerExplorer (vim only)
 " ----------------------------------------------------------------------------------------
-fu RangerExplorer()
-    if executable("ranger")
-        exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
-        if filereadable('/tmp/vim_ranger_current_file')
-            exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
-            call system('rm /tmp/vim_ranger_current_file')
+if ! has('nvim')
+    fu RangerExplorer()
+        if executable("ranger")
+            exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
+            if filereadable('/tmp/vim_ranger_current_file')
+                exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
+                call system('rm /tmp/vim_ranger_current_file')
+            endif
+            redraw!
         endif
-        redraw!
-    endif
-endfu
+    endfu
+    command! RangerExplorer call RangerExplorer()
+endif
 
 " ----------------------------------------------------------------------------
 " :EX | chmod +x
@@ -53,7 +56,7 @@ command! EX if !empty(expand('%'))
          \|   echohl WarningMsg
          \|   echo 'Save the file first'
          \|   echohl None
-        \| endif
+         \| endif
 
 " ----------------------------------------------------------------------------------------
 " :WordProcessorMode

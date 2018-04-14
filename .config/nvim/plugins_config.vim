@@ -478,10 +478,71 @@ let g:jedi#use_splits_not_buffers   = "right"
 let g:jedi#use_tabs_not_buffers     = 0
 
 
+"" ----------------------------------------------------------------------------------------
+"" vim-easymotion
+"" ----------------------------------------------------------------------------------------
+"let g:EasyMotion_smartcase = 1
+
+
 " ----------------------------------------------------------------------------------------
-" vim-easymotion
+" fzf
 " ----------------------------------------------------------------------------------------
-let g:EasyMotion_smartcase = 1
+if has('nvim') || has('gui_running')
+  let $FZF_DEFAULT_OPTS .= ' --inline-info'
+endif
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+" File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
+let g:fzf_files_options =
+\ '--preview "[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (rougify {} || highlight -O ansi -l {} || coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+" Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Command for git grep
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
+
+if executable('rg')
+    let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
+    command! -bang -nargs=* Rg
+      \ call fzf#vim#grep(
+      \   'rg --column --line-number --no-heading --color=always --ignore-case '.shellescape(<q-args>), 1,
+      \   <bang>0 ? fzf#vim#with_preview('up:60%')
+      \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \   <bang>0)
+
+    ":Rg  - Start fzf with hidden preview window that can be enabled with "?" key
+    nnoremap <silent> <Leader>rg :Rg<CR>
+    ":Rg! - Start fzf in fullscreen and display the preview window above
+    nnoremap <silent> <Leader>RG :Rg!<CR>
+elseif executable('ag')
+    let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+
+    autocmd VimEnter * command! -bang -nargs=* Ag
+      \ call fzf#vim#ag(<q-args>,
+      \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+      \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+      \                 <bang>0)
+
+    ":Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+    nnoremap <silent> <Leader>ag :Ag<CR>
+    ":Ag! - Start fzf in fullscreen and display the preview window above
+    nnoremap <silent> <Leader>AG :Ag!<CR>
+endif
 
 
 " ----------------------------------------------------------------------------------------
@@ -531,48 +592,8 @@ nmap gaa ga_
 " ----------------------------------------------------------------------------------------
 " vim-slash
 " ----------------------------------------------------------------------------------------
-function! s:blink(times, delay)
-  let s:blink = { 'ticks': 2 * a:times, 'delay': a:delay }
-
-  function! s:blink.tick(_)
-    let self.ticks -= 1
-    let active = self == s:blink && self.ticks > 0
-
-    if !self.clear() && active && &hlsearch
-      let [line, col] = [line('.'), col('.')]
-      let w:blink_id = matchadd('IncSearch',
-            \ printf('\%%%dl\%%>%dc\%%<%dc', line, max([0, col-2]), col+2))
-    endif
-    if active
-      call timer_start(self.delay, self.tick)
-    endif
-  endfunction
-
-  function! s:blink.clear()
-    if exists('w:blink_id')
-      call matchdelete(w:blink_id)
-      unlet w:blink_id
-      return 1
-    endif
-  endfunction
-
-  call s:blink.clear()
-  call s:blink.tick(0)
-  return ''
-endfunction
-
-if has('timers')
-  "if has_key(g:plugs, 'vim-slash')
-  "  noremap <expr> <plug>(slash-after) <sid>blink(2, 50)
-  "else
-  "  noremap <expr> n 'n'.<sid>blink(2, 50)
-  "  noremap <expr> N 'N'.<sid>blink(2, 50)
-  "  cnoremap <expr> <CR> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<CR>"
-  "endif
-  "noremap <expr> <plug>(slash-after) <sid>blink(2, 50)
-  noremap <expr> n 'n'.<sid>blink(2, 50)
-  noremap <expr> N 'N'.<sid>blink(2, 50)
-  cnoremap <expr> <CR> (stridx('/?', getcmdtype()) < 0 ? '' : <sid>blink(2, 50))."\<CR>"
+if has('timers') && !has('nvim')
+  noremap <expr> <plug>(slash-after) slash#blink(2, 50)
 endif
 
 

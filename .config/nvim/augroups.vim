@@ -77,11 +77,11 @@ augroup auto_quickfix_window
     au QuickFixCmdPost l*    lwindow
 augroup END
 
-augroup autoSaveAndRead
-    au!
-    au TextChanged,InsertLeave,FocusLost * silent! wall
-    au CursorHold * silent! checktime
-augroup END
+"augroup autoSaveAndRead
+"    au!
+"    au TextChanged,InsertLeave,FocusLost * silent! wall
+"    au CursorHold * silent! checktime
+"augroup END
 
 ""google/vim-codefmt
 "augroup autoformat_settings
