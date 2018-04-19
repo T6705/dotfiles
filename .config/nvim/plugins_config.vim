@@ -127,14 +127,17 @@ let g:netrw_winsize     = 30
 "let g:airline_theme="luna"
 "let g:airline_theme="onedark"
 "let g:airline_theme="papercolor"
+let g:airline#extensions#gutentags#enabled = 1
+let g:airline#extensions#tabline#enabled   = 1
+let g:airline#extensions#tagbar#enabled    = 1
+let g:airline#extensions#ale#enabled       = 1
+
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show   = 1
-let g:airline#extensions#tabline#enabled          = 1
 let g:airline#extensions#tabline#fnamecollapse    = 0
 let g:airline#extensions#tabline#fnamemod         = ':t'
 let g:airline#extensions#tabline#left_alt_sep     = '|'
 let g:airline#extensions#tabline#left_sep         = ' '
-let g:airline#extensions#tagbar#enabled           = 0
 let g:airline_left_sep                            = ''
 let g:airline_powerline_fonts                     = 1
 let g:airline_right_sep                           = ''
@@ -271,6 +274,16 @@ let g:instant_markdown_slow                   = 0 " realtime preview
 " tagbar
 " ----------------------------------------------------------------------------------------
 let g:tagbar_sort = 0
+
+
+"" ----------------------------------------------------------------------------------------
+"" vim-gutentags
+"" ----------------------------------------------------------------------------------------
+"let gutentags_dir = expand('~/.vim-gutentags-dir')
+"if !isdirectory(gutentags_dir)
+"    call mkdir(gutentags_dir, "", 0700)
+"endif
+"let g:gutentags_cache_dir = "~/.vim-gutentags-dir"
 
 
 " ----------------------------------------------------------------------------------------

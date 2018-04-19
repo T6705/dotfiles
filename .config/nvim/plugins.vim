@@ -166,6 +166,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'                              " Enhancing in-buffer search experience
 Plug 'kana/vim-operator-user'                          " Vim plugin: Define your own operator easily
 Plug 'kshenoy/vim-signature'                           " Plugin to toggle, display and navigate marks
+Plug 'ludovicchabant/vim-gutentags'                    " A Vim plugin that manages your tag files
 if v:version >= 703
     Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays tags in a window, ordered by scope
     Plug 'mhinz/vim-signify'                           " Show a diff using Vim its sign column.
