@@ -20,8 +20,6 @@ if [[ -n $(xrandr | grep "HDMI1 connected") ]]; then
     main="LVDS1"
     second="HDMI1"
     xrandr --output $main --auto --primary --output $second --auto --right-of $main
-
-    feh --bg-fill ~/Dropbox/useful/config/wallpaper/frame.jpg
 fi
 
 #if [[ -n $(xrandr | grep "VGA1 connected") ]]; then
@@ -31,6 +29,8 @@ fi
 #    main="LVDS1"
 #    second="VGA1"
 #    xrandr --output $main --auto --primary --output $second --auto --right-of $main
-#
-#    feh --bg-fill ~/Dropbox/useful/config/wallpaper/frame.jpg
 #fi
+
+if which feh &> /dev/null; then
+    feh --bg-fill ~/Dropbox/useful/config/wallpaper/frame.jpg
+fi

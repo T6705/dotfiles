@@ -36,7 +36,6 @@ augroup configgroup
     au FocusLost *: wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste
     au VimResized * wincmd =
-    "au! BufWritePost * Neomake    " run neomake on the current file on every write
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
 
@@ -49,6 +48,11 @@ augroup LoadDuringHold_Targets
     au CursorHold,CursorHoldI *.py call plug#load('jedi-vim') | au! LoadDuringHold_Targets
     au CursorHold,CursorHoldI *.php call plug#load('phpcomplete.vim') | au! LoadDuringHold_Targets
 augroup END
+
+"augroup Snippet
+"    au FileType java call JavaAbbrev()
+"    au FileType cpp call CppAbbrev()
+"augroup END
 
 augroup install_missing_plugins
     au VimEnter *

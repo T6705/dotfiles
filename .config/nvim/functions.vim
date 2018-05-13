@@ -409,6 +409,20 @@ fu! GruvboxDark()
 endfu
 command! GruvboxDark call GruvboxDark()
 
+function! JavaAbbrev()
+  inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<cr>
+  inoreabbr sop System.out.println("%");<esc>F%s<c-o>:call getchar()<cr>
+  inoreabbr sep System.err.println("%");<esc>F%s<c-o>:call getchar()<cr>
+  inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<cr>
+  inoreabbr ctm System.currentTimeMillis()
+endfunction
+
+function! CppAbbrev()
+  inoreabbr inc #include <><esc>i<c-o>:call getchar()<cr>
+  inoreabbr main int main() {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
+  inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
+endfunction
+
 " smart tab completion
 fu! functions#Smart_TabComplete()
     let line = getline('.')                    " current line

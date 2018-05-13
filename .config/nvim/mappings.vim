@@ -164,7 +164,6 @@ xnoremap Q :'<,'>:normal @q<CR>
 " Switch to the directory of opened buffer
 nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
-
 " Change current word to uppercase
 nnoremap <silent> <Leader>u gUiw
 
@@ -464,11 +463,26 @@ vnoremap <silent> <Leader>[ c[ <C-R>" ]<ESC>
 vnoremap <silent> <Leader>] c[<C-R>"]<ESC>
 
 " <Leader>{ Surround a word with { braces }
-" <Leader>{ Surround a word with {braces}
+" <Leader>} Surround a word with {braces}
 nmap     <silent> <Leader>} ysiw}
 nmap     <silent> <Leader>{ ysiw{
 vnoremap <silent> <Leader>} c{ <C-R>" }<ESC>
 vnoremap <silent> <Leader>{ c{<C-R>"}<ESC>
+
+nnoremap cs({ m1F(m2%r}`2r{`1
+nnoremap cs{( m1F{m2%r)`2r(`1
+nnoremap cs([ m1F(m2%r]`2r[`1
+nnoremap cs[( m1F[m2%r)`2r(`1
+nnoremap cs[{ m1F[m2%r}`2r{`1
+nnoremap cs{[ m1F{m2%r]`2r[`1
+
+vnoremap S# "zdi#<C-R>z#<esc>
+vnoremap S* "zdi*<C-R>z*<esc>
+vnoremap S" "zdi"<C-R>z"<esc>
+vnoremap S' "zdi'<C-R>z'<esc>
+vnoremap S( "zdi(<C-R>z)<esc>
+vnoremap S{ "zdi{<C-R>z}<esc>
+vnoremap S[ "zdi[<C-R>z]<esc>
 
 "" ----------------------------------------------------------------------------------------
 "" splitjoin

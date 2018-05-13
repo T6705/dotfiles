@@ -19,6 +19,11 @@ augroup configgroup
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
 
+augroup Snippet
+    au FileType java call JavaAbbrev()
+    au FileType cpp call CppAbbrev()
+augroup END
+
 augroup auto_mkdir
     au!
     au BufWritePre * if !isdirectory(expand('<afile>:p:h')) | call mkdir(expand('<afile>:p:h'), 'p') | endif
@@ -54,8 +59,8 @@ endif
 
 let mapleader=' '
 
-let g:loaded_matchparen = 1 " highlighting matching parens
-let php_htmlinstrings   = 1
+let g:loaded_matchparen = 1 " Highlighting matching parens
+let php_htmlInStrings   = 1
 let php_sql_query       = 1
 
 set updatetime=500
@@ -655,6 +660,20 @@ command! AutoFoldsEnable  call <sid>open_folds('enable')
 command! AutoFoldsDisable call <sid>open_folds('disable')
 command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
 
+function! JavaAbbrev()
+  inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<cr>
+  inoreabbr sop System.out.println("%");<esc>F%s<c-o>:call getchar()<cr>
+  inoreabbr sep System.err.println("%");<esc>F%s<c-o>:call getchar()<cr>
+  inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<cr>
+  inoreabbr ctm System.currentTimeMillis()
+endfunction
+
+function! CppAbbrev()
+  inoreabbr inc #include <><esc>i<c-o>:call getchar()<cr>
+  inoreabbr main int main() {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
+  inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
+endfunction
+
 """ }}}
 
 """ === Mappings === {{{
@@ -924,6 +943,24 @@ nnoremap <silent> <Leader>csoff :set nospell<CR>
 " search and replace
 nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
 nnoremap <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
+
+" ----------------------------------------------------------------------------------------
+" Surround
+" ----------------------------------------------------------------------------------------
+nnoremap cs({ m1F(m2%r}`2r{`1
+nnoremap cs{( m1F{m2%r)`2r(`1
+nnoremap cs([ m1F(m2%r]`2r[`1
+nnoremap cs[( m1F[m2%r)`2r(`1
+nnoremap cs[{ m1F[m2%r}`2r{`1
+nnoremap cs{[ m1F{m2%r]`2r[`1
+
+vnoremap S# "zdi#<C-R>z#<esc>
+vnoremap S* "zdi*<C-R>z*<esc>
+vnoremap S" "zdi"<C-R>z"<esc>
+vnoremap S' "zdi'<C-R>z'<esc>
+vnoremap S( "zdi(<C-R>z)<esc>
+vnoremap S{ "zdi{<C-R>z}<esc>
+vnoremap S[ "zdi[<C-R>z]<esc>
 
 " ----------------------------------------------------------------------------------------
 " Search in project
