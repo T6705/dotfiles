@@ -941,8 +941,13 @@ nnoremap <silent> <Leader>cson   :set spell<CR>
 nnoremap <silent> <Leader>csoff :set nospell<CR>
 
 " search and replace
-nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
-nnoremap <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
+nnoremap <silent> <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
+nnoremap <silent> <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
+
+nnoremap <silent> <Leader>rp /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
+nnoremap <silent> <Leader>RP ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
+nnoremap <silent> <Leader>dw /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
+nnoremap <silent> <Leader>DW ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 
 " ----------------------------------------------------------------------------------------
 " Surround
