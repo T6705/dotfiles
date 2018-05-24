@@ -20,7 +20,7 @@ alias :qall="exit"
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
 if which gem &> /dev/null ; then
-    gemup="gem update --system && gem update && gem cleanup"
+    alias gemup="gem update --system && gem update && gem cleanup"
 fi
 
 if which python3 &> /dev/null ; then

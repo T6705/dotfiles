@@ -2,7 +2,7 @@
 ## functions ##
 ###############
 
-function man {
+man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
         LESS_TERMCAP_md=$(printf "\e[1;31m") \
@@ -14,7 +14,7 @@ function man {
         man "$@"
 }
 
-function weather {
+weather() {
     if [[ -n "$1" ]]; then
         curl wttr.in
     else
@@ -23,7 +23,7 @@ function weather {
 }
 
 if which cower &> /dev/null ; then
-    function coweri {
+    coweri() {
         if [[ -n "$1" ]]; then
             currentdir=$(pwd)
             if [[ ! ( -d ~/.cache/cower ) ]]; then
@@ -88,7 +88,7 @@ if which fzf &> /dev/null ; then
     # -----------------------------------------------------------------------------------------
     # Usage: sf <keyword>
     # -----------------------------------------------------------------------------------------
-    function sf {
+    sf() {
         if [[ "$#" -lt 1 ]]; then echo "Supply string to search for!"; return 1; fi
         printf -v search "%q" "$*"
         include="yml,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst"
@@ -103,7 +103,7 @@ if which fzf &> /dev/null ; then
     # -----------------------------------------------------------------------------------------
     # Usage: vimf | list subdirectories recursively with preview
     # -----------------------------------------------------------------------------------------
-    function vimf {
+    vimf() {
         previous_file="$1"
         file_to_edit=$(select_file $previous_file)
 
@@ -113,7 +113,7 @@ if which fzf &> /dev/null ; then
         fi
     }
 
-    function select_file {
+    select_file() {
         given_file="$1"
         fzf --preview-window right:70%:wrap --query "$given_file" --preview '[[ $(file --mime {}) =~ binary ]] &&
                                                                                 echo {} is a binary file ||
@@ -127,7 +127,7 @@ fi
 # -----------------------------------------------------------------------------------------
 # Usage: brightness <level> | adjust brightness
 # -----------------------------------------------------------------------------------------
-function brightness {
+brightness() {
     if [[ -n "$1" ]]; then
         xrandr --output LVDS1 --brightness $1
     else
@@ -135,7 +135,7 @@ function brightness {
     fi
 }
 
-function 2display {
+2display() {
     # display screen information
     #xrandr
     # LVDS1 as primary monitor, HDMI1 right of LVDS1
@@ -152,7 +152,7 @@ function 2display {
                 xrandr --output $main --auto --primary --output $second --auto --right-of $main
 }
 
-function mirrordisplay {
+mirrordisplay() {
     connected_displays=$(xrandr | grep " connected" | awk '{print $1}')
 
     echo $connected_displays
@@ -173,7 +173,7 @@ function mirrordisplay {
 # -----------------------------------------------------------------------------------------
 # Usage: ipv4_in <filename> | grep ipv4 in file
 # -----------------------------------------------------------------------------------------
-function ipv4_in {
+ipv4_in() {
     if [[ -n "$1" ]]; then
         regex='([0-9]{1,3}\.){3}[0-9]{1,3}'
         grep -oE "$regex" $1
@@ -185,7 +185,7 @@ function ipv4_in {
 # -----------------------------------------------------------------------------------------
 # Usage: ipv6_in <filename> | grep ipv4 in file
 # -----------------------------------------------------------------------------------------
-function ipv6_in {
+ipv6_in() {
     if [[ -n "$1" ]]; then
         regex='(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'
         grep -oE "$regex" $1
@@ -197,7 +197,7 @@ function ipv6_in {
 # -----------------------------------------------------------------------------------------
 # Usage: url_in <filename> | grep url in file
 # -----------------------------------------------------------------------------------------
-function url_in {
+url_in() {
     if [[ -n "$1" ]]; then
         regex="(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~-]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?"
         grep -oE "$regex" $1
@@ -212,7 +212,7 @@ function url_in {
 # # => safari uses 154.69 MBs of RAM.
 # from https://github.com/paulmillr/dotfiles
 # -------------------------------------------------------------------
-function ram {
+ram() {
     local sum
     local items
     local app="$1"
@@ -235,7 +235,7 @@ function ram {
 # -----------------------------------------------------------------------------------------
 # Usage: extract_frame <filename>
 # -----------------------------------------------------------------------------------------
-function extract_frame {
+extract_frame() {
     echo "Extracting frame from $1 ..."
     if [[ -f $1 ]]; then
         mkdir -p frame
@@ -249,17 +249,19 @@ function extract_frame {
 # -----------------------------------------------------------------------------------------
 # Usage: gz <filename> | get gzipped size
 # -----------------------------------------------------------------------------------------
-function gz() {
-    echo "orig size    (bytes): "
+gz() {
+    echo -n "\noriginal  size  (bytes): "
     cat "$1" | wc -c
-    echo "gzipped size (bytes): "
+    echo -n "\ngzipped   size  (bytes): "
     gzip -c "$1" | wc -c
+    echo -n "\ngzipped -9 size (bytes): "
+    gzip -c -9 "$1" | wc -c
 }
 
 # -----------------------------------------------------------------------------------------
 # Usage: extract <filename>
 # -----------------------------------------------------------------------------------------
-function extract {
+extract() {
     echo Extracting $1 ...
     if [[ -f $1 ]]; then
         case $1 in
@@ -309,7 +311,7 @@ compress() {
     fi
 }
 
-function sshlf {
+sshlf() {
     localport=$1
     targethost=$2
     targetport=$3
@@ -333,7 +335,7 @@ function sshlf {
     fi
 }
 
-function sshrf {
+sshrf() {
     localport=$1
     remoteaccount=$2
     remotehost=$3
@@ -359,7 +361,7 @@ function sshrf {
 # -----------------------------------------------------------------------------------------
 # Usage: base64key <keyname> <keysize>
 # -----------------------------------------------------------------------------------------
-function base64key {
+base64key() {
     if [[ ( -n $1 && -n $2 ) ]]; then
         keyname=$1
         size=$2
@@ -369,7 +371,7 @@ function base64key {
     fi
 }
 
-function rsa {
+rsa() {
     if [[ $1 == "keygen" ]]; then
         if [[ ( -n $2 && -n $3 ) ]]; then
             pri=$2
@@ -406,7 +408,7 @@ function rsa {
     fi
 }
 
-function aes {
+aes() {
     if [[ ( $1 == "encrypt" || $1 == "e" ) ]]; then
         if [[ ( -n $2 && -n $3 && -n $4 ) ]]; then
             infile=$2
@@ -450,14 +452,14 @@ function aes {
     fi
 }
 
-function nerd-fonts-install {
+nerd-fonts-install() {
     time mkdir -p ~/git
     time rm -rf ~/git/nerd-fonts
     time git clone https://github.com/ryanoasis/nerd-fonts ~/git/nerd-fonts
     time ~/git/nerd-fonts/install.sh
 }
 
-function nerd-fonts-update {
+nerd-fonts-update() {
     if [[ -d ~/git/nerd-fonts ]]; then
         time cd ~/git/nerd-fonts && time git pull
         time ./install.sh
@@ -466,7 +468,7 @@ function nerd-fonts-update {
     fi
 }
 
-function edb-install {
+edb-install() {
     echo "=============================================="
     echo "== edb - cross platform x86/x86-64 debugger =="
     echo "=============================================="
@@ -501,7 +503,7 @@ function edb-install {
     time make && time sudo make install && time edb --version && cd $currentdir
 }
 
-function plasma-install {
+plasma-install() {
     echo "========================================================"
     echo "== plasma - interactive disassembler for x86/ARM/MIPS =="
     echo "========================================================"
@@ -524,7 +526,7 @@ function plasma-install {
     fi
 }
 
-function yuzu-install {
+yuzu-install() {
     echo "======================================"
     echo "== yuzu -  Nintendo Switch Emulator =="
     echo "======================================"
@@ -615,7 +617,7 @@ transfer() {
 if which docker &> /dev/null ; then
     docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
     docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }
-    docker_alias_remove_all_empty_images() {docker images | awk '{print $2 " " $3}' | grep '^<none>' | awk '{print $2}' | xargs -I{} docker rmi {}; }
+    docker_alias_remove_all_empty_images() { docker images | awk '{print $2 " " $3}' | grep '^<none>' | awk '{print $2}' | xargs -I{} docker rmi {}; }
     docker_alias_docker_file_build() { docker build -t=$1 .; }
     docker_alias_show_all_docker_related_alias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
     docker_alias_bash_into_running_container() { docker exec -it $(docker ps -aqf "name=$1") bash; }
