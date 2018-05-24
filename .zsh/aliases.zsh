@@ -17,7 +17,6 @@ alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
 
-alias nethack-nao="ssh -Y nethack@alt.org"
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
 if which gem &> /dev/null ; then

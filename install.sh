@@ -660,6 +660,7 @@ function install_zsh {
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.xinitrc > ~/.xinitrc
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.Xresources > ~/.Xresources
+    curl https://raw.githubusercontent.com/T6705/dotfile/master/.nethackrc > ~/.nethackrc
 }
 
 function main {

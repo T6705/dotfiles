@@ -620,3 +620,17 @@ if which docker &> /dev/null ; then
     docker_alias_show_all_docker_related_alias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
     docker_alias_bash_into_running_container() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 fi
+
+# -----------------------------------------------------------------------------------------
+# nethack NAO
+# -----------------------------------------------------------------------------------------
+nethack-nao() {
+    if [[ -z "$DGLAUTH" ]]; then
+        echo "DGLAUTH is empty"
+        vared -p "value : " -c value
+        export DGLAUTH="$value"
+        ssh -Y -o SendEnv=DGLAUTH nethack@alt.org
+    else
+        ssh -Y -o SendEnv=DGLAUTH nethack@alt.org
+    fi
+}
