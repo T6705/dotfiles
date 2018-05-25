@@ -74,6 +74,7 @@ autoload -U compinit && compinit
 [ -d $HOME/.gem/ruby/2.5.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.5.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/go ] && export GOPATH="$HOME/go" && export PATH="$PATH:$GOPATH/bin"
+[ -d /usr/games ] && export PATH="$PATH:/usr/games"
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh

@@ -279,11 +279,21 @@ let g:tagbar_sort = 0
 "" ----------------------------------------------------------------------------------------
 "" vim-gutentags
 "" ----------------------------------------------------------------------------------------
-"let gutentags_dir = expand('~/.vim-gutentags-dir')
-"if !isdirectory(gutentags_dir)
-"    call mkdir(gutentags_dir, "", 0700)
-"endif
-"let g:gutentags_cache_dir = "~/.vim-gutentags-dir"
+" enable gtags module
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
+
+" config project root markers.
+let g:gutentags_project_root = ['.root']
+
+" generate datebases in my cache directory, prevent gtags files polluting my project
+let gutentags_dir = expand('~/.cache/tags')
+if !isdirectory(gutentags_dir)
+    call mkdir(gutentags_dir, "", 0700)
+endif
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+" forbid gutentags adding gtags databases
+let g:gutentags_auto_add_gtags_cscope = 0
 
 
 " ----------------------------------------------------------------------------------------

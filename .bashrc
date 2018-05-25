@@ -876,3 +876,47 @@ nethack-nao() {
         ssh -Y -o SendEnv=DGLAUTH nethack@alt.org
     fi
 }
+
+nethack-nao-game-status() {
+    if [[ -z "$1" ]]; then
+        url="https://alt.org/nethack/mostrecent.php"
+        if which firefox &> /dev/null ; then
+            firefox $url
+        else
+            echo "$url"
+        fi
+    else
+        url="https://alt.org/nethack/player-all.php?player=$1"
+        if which firefox &> /dev/null ; then
+            firefox $url
+        else
+            echo "$url"
+        fi
+    fi
+}
+
+# -----------------------------------------------------------------------------------------
+# Dungeon Crawl Stone Soup (crawl.jorgrun.rocks [Montreal, Canada])
+# -----------------------------------------------------------------------------------------
+crawl-cjr() {
+    if [[ -f ~/.ssh/jorgrun_key ]]; then
+        ssh -Y -i ~/.ssh/jorgrun_key jorgrun@crawl.jorgrun.rocks
+    else
+        curl -fLo ~/.ssh/jorgrun_key --create-dirs https://crawl.jorgrun.rocks/ssh/jorgrun_key
+        chmod 600 ~/.ssh/jorgrun_key
+        crawl-cjr
+    fi
+}
+
+# -----------------------------------------------------------------------------------------
+# Dungeon Crawl Stone Soup (crawl.akrasiac.org [Arizona, United States of America])
+# -----------------------------------------------------------------------------------------
+crawl-cao() {
+    if [[ -f ~/.ssh/cao_key ]]; then
+        ssh -Y -i ~/.ssh/cao_key joshua@crawl.akrasiac.org
+    else
+        curl -fLo ~/.ssh/cao_key --create-dirs http://crawl.develz.org/cao_key
+        chmod 600 ~/.ssh/cao_key
+        crawl-cao
+    fi
+}

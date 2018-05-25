@@ -179,6 +179,7 @@ Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }          " Visualize your undo tre
 Plug 'terryma/vim-multiple-cursors'                    " True Sublime Text style multiple selections for Vim
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }             " git status
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }                     " file tree
+Plug 'skywind3000/gutentags_plus'                     " The right way to use gtags with gutentags
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } " Extra syntax and highlight for nerdtree files
 Plug 'tpope/vim-fugitive'                             " fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-repeat'                               " enables repeating other supported plugins with the . command
