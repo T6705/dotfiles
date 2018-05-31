@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-function install_dots {
+install_dots() {
     echo ""
     echo "========================"
     echo "== Download i3 config =="
@@ -76,9 +76,9 @@ function install_dots {
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.spacemacs > ~/.spacemacs
 
     echo ""
-    echo "============================="
+    echo "==============================="
     echo "== Download alacritty config =="
-    echo "============================="
+    echo "==============================="
     echo ""
     curl -fLo ~/.config/alacritty/alacritty.yml --create-dirs \
         https://raw.githubusercontent.com/T6705/dotfile/master/.config/alacritty/alacritty.yml
@@ -156,7 +156,7 @@ function install_dots {
     fi
 }
 
-function install_dependencies {
+install_dependencies() {
     if which apt-get &> /dev/null ; then
         sudo apt-get update
         sudo apt-get upgrade -y
@@ -193,16 +193,16 @@ function install_dependencies {
     elif which pacman &> /dev/null ; then
         sudo pacman-mirrors -f 0 && sudo pacman -Syy && sudo pacman-optimize && sync
         sudo pacman Syyu --noconfirm
-        sudo pacman -S --noconfirm base
-        sudo pacman -S --noconfirm base-devel
-        sudo pacman -S --noconfirm cower pacaur pacli yaourt
-        sudo pacman -S --noconfirm curl neovim npm python-pip python2-pip ranger ruby-rouge termite tmux vim xclip xsel zsh
-        sudo pacman -S --noconfirm autoconf automake cmake libtool pkg-config unzip
-        sudo pacman -S --noconfirm compton diff-so-fancy net-tools screenfetch veracrypt xdg-utils
-        sudo pacman -S --noconfirm $(pacman -Ssq numix)
-        sudo pacman -S --noconfirm $(pacman -Ssq papirus)
+        sudo pacman -S --needed --noconfirm base
+        sudo pacman -S --needed --noconfirm base-devel
+        sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt
+        sudo pacman -S --needed --noconfirm curl neovim npm python-pip python2-pip ranger ruby-rouge termite tmux vim xclip xsel zsh
+        sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
+        sudo pacman -S --needed --noconfirm compton diff-so-fancy net-tools screenfetch veracrypt xdg-utils
+        sudo pacman -S --needed --noconfirm $(pacman -Ssq numix)
+        sudo pacman -S --needed --noconfirm $(pacman -Ssq papirus)
         if which yaourt &> /dev/null ; then
-            yaourt -S --noconfirm cava dropbox dropbox-cli hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
+            yaourt -S cava dropbox dropbox-cli hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
         fi
         if which pip2 &> /dev/null ; then
             sudo pip2 install -U neovim
@@ -222,7 +222,27 @@ function install_dependencies {
     fi
 }
 
-function install_i3 {
+install_games() {
+    if which apt-get &> /dev/null ; then
+        for i in $(apt-cache search dungeon | grep -iE "dungeon|game|rogue" | awk '{print $1}'); do
+            echo "============================================="
+            echo $i
+            sudo apt-get install -y $i
+        done
+        for i in $(apt-cache search rogue | grep -iE "dungeon|game|rogue" | awk '{print $1}');do
+            echo "============================================="
+            echo $i
+            sudo apt-get install -y $i
+        done
+    elif which pacman &> /dev/null ; then
+        sudo pacman -S --needed --noconfirm yaourt angband asciiportal cataclysm-dda dwarffortress glhack nethack rogue stone-soup
+        if which yaourt &> /dev/null ; then
+            yaourt -S tome4
+        fi
+    fi
+}
+
+install_i3() {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y i3
         echo ""
@@ -276,20 +296,20 @@ function install_i3 {
         sudo cp -r -v icons /usr/local/bin/
 
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm feh qutebrowser rofi
+        sudo pacman -S --needed --noconfirm feh qutebrowser rofi
         echo ""
         echo "====================="
         echo "== install i3-gaps =="
         echo "====================="
         echo ""
-        sudo pacman -S --noconfirm i3-gaps i3lock i3-scrot
+        sudo pacman -S --needed --noconfirm i3-gaps i3lock i3-scrot
 
         echo ""
         echo "====================="
         echo "== install polybar =="
         echo "====================="
         echo ""
-        sudo pacman -S --noconfirm base-devel libmpdclient wireless_tools
+        sudo pacman -S --needed --noconfirm base-devel libmpdclient wireless_tools
         sudo pacman -S $(pacman -Ssq alsa | grep alsa)
         if which pacaur &> /dev/null ; then
             pacaur Syyu
@@ -303,19 +323,19 @@ function install_i3 {
     fi
 }
 
-function install_ranger {
+install_ranger() {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y ranger
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm ranger
+        sudo pacman -S --needed --noconfirm ranger
     fi
 }
 
-function install_spacemacs {
+install_spacemacs() {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y emacs
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm emacs
+        sudo pacman -S --needed --noconfirm emacs
     fi
 
     echo ""
@@ -330,11 +350,11 @@ function install_spacemacs {
     fi
 }
 
-function install_tmux {
+install_tmux() {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y tmux
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm tmux
+        sudo pacman -S --needed --noconfirm tmux
     fi
 
     echo ""
@@ -347,7 +367,7 @@ function install_tmux {
     time git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
-function install_vim {
+install_vim() {
 
     echo ""
     echo "============================================================="
@@ -359,8 +379,8 @@ function install_vim {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y vim
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm gvim neovim python-neovim python2-neovim ctags
-        sudo pacman -S --noconfirm $(pacman -Ss pep8)
+        sudo pacman -S --needed --noconfirm gvim neovim python-neovim python2-neovim ctags
+        sudo pacman -S --needed --noconfirm $(pacman -Ss pep8)
         sudo pip install -U vulture
     fi
 
@@ -403,7 +423,7 @@ function install_vim {
     reset
 }
 
-function install_st {
+install_st() {
     echo ""
     echo "=================="
     echo "== git clone st =="
@@ -427,18 +447,18 @@ function install_st {
 
 
     echo ""
-    echo "==========================="
-    echo "== compile and install st=="
-    echo "==========================="
+    echo "============================"
+    echo "== compile and install st =="
+    echo "============================"
     echo ""
     make && sudo make install
 }
 
-function install_zsh {
+install_zsh() {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y zsh
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm zsh
+        sudo pacman -S --needed --noconfirm zsh
     fi
 
     echo ""
@@ -503,7 +523,7 @@ function install_zsh {
     if which apt-get &> /dev/null ; then
         sudo apt-get install -y fonts-hack-otf fonts-hack-ttf fonts-hack-web
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm ttf-hack
+        sudo pacman -S --needed --noconfirm ttf-hack
     fi
 
     echo ""
@@ -580,7 +600,7 @@ function install_zsh {
 
         sudo pip install -U powerline-shell
     elif which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm fontforge powerline powerline-fonts
+        sudo pacman -S --needed --noconfirm fontforge powerline powerline-fonts
     fi
 
     echo ""
@@ -610,7 +630,7 @@ function install_zsh {
     echo "====================================================="
     echo ""
     if which pacman &> /dev/null ; then
-        sudo pacman -S --noconfirm go
+        sudo pacman -S --needed --noconfirm go
     elif which apt-get &> /dev/null ; then
         sudo apt-get install -y golang
     fi
@@ -663,7 +683,7 @@ function install_zsh {
     curl https://raw.githubusercontent.com/T6705/dotfile/master/.nethackrc > ~/.nethackrc
 }
 
-function main {
+main() {
     if [[ $1 == "dependencies" ]]; then
         install_dependencies
     elif [[ $1 == "dots" ]]; then
@@ -696,6 +716,7 @@ function main {
         echo "options:"
         echo "    dependencies"
         echo "    dots"
+        echo "    games"
         echo "    i3"
         echo "    ranger"
         echo "    spacemacs"

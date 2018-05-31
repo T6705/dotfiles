@@ -240,12 +240,15 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 "noremap <Leader>g :YcmCompleter GoTo<CR>
 "noremap <Leader>d :YcmCompleter GoToDefinition<CR>
 
-" quickfix
-let g:quickfix_height = 50
+"ALE
 "nmap <silent> [l <Plug>(ale_previous)
 "nmap <silent> [l <Plug>(ale_previous_wrap)
 "nmap <silent> ]l <Plug>(ale_next)
 "nmap <silent> ]l <Plug>(ale_next_wrap)
+nnoremap <silent> <Leader>fx <Plug>(ale_fix)
+
+" quickfix
+let g:quickfix_height = 50
 "nnoremap <silent> [l :lprev<CR> " Neomake
 "nnoremap <silent> ]l :lnext<CR> " Neomake
 nnoremap <silent> <Leader>lc :lclose<CR>

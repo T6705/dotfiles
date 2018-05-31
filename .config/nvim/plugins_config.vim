@@ -396,11 +396,12 @@ let g:ale_linters = {
 \   'php': ['phpcs', 'php', 'phpmd'],
 \   'python': ['flake8', 'pep8', 'vulture'],
 \}
-let g:ale_fixers             = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
-let g:ale_python_flake8_args = '--ignore=E221,E265,E266,E501'
-let g:ale_python_pep8_args   = '--max-line-length=100 --ignore=E221,E265,E266,E501'
-let g:ale_set_loclist        = 1
-let g:ale_set_quickfix       = 0
+let g:ale_fixers = {'python': ['add_blank_lines_for_python_control_statements', 'autopep8', 'isort', 'yapf', 'remove_trailing_lines', 'trim_whitespace']}
+let g:ale_python_flake8_executable = 'python3'
+let g:ale_python_flake8_options    = '-m flake8 --ignore=E221,E265,E266,E501'
+let g:ale_python_pep8_options      = '--max-line-length=100 --ignore=E221,E265,E266,E501'
+let g:ale_set_loclist              = 1
+let g:ale_set_quickfix             = 0
 
 
 "" ----------------------------------------------------------------------------------------

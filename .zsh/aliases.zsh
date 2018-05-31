@@ -23,6 +23,11 @@ if which gem &> /dev/null ; then
     alias gemup="gem update --system && gem update && gem cleanup"
 fi
 
+if which exa &> /dev/null ; then
+    alias ls="exa"
+    alias la="exa -lahgimuU"
+fi
+
 if which python3 &> /dev/null ; then
     alias pywebserver-cgi="python -m http.server --cgi"
     alias pywebserver-local="python3 -m http.server --bind 127.0.0.1"
