@@ -157,7 +157,7 @@ install_dots() {
 }
 
 install_dependencies() {
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         sudo apt-get update
         sudo apt-get upgrade -y
         sudo apt-get dist-upgrade -y
@@ -170,7 +170,7 @@ install_dependencies() {
 
         ### for neovim
         sudo apt-get install -y autoconf automake cmake g++ libtool libtool-bin pkg-config unzip python-pip python3-pip
-        if which pip &> /dev/null ; then
+        if which pip &> /dev/null; then
             sudo pip install -U neovim
         fi
 
@@ -190,40 +190,40 @@ install_dependencies() {
         sudo apt-get install -y libiw-dev            # Enables the internal network module
         sudo apt-get install -y libmpdclient-dev     # Enables the internal mpd module
         sudo apt-get install -y libxcb-xrm-dev       # Enables support for getting values from the X resource db
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman-mirrors -f 0 && sudo pacman -Syy && sudo pacman-optimize && sync
         sudo pacman Syyu --noconfirm
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel
         sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt
-        sudo pacman -S --needed --noconfirm curl neovim npm python-pip python2-pip ranger ruby-rouge termite tmux vim xclip xsel zsh
+        sudo pacman -S --needed --noconfirm curl git neovim npm python-pip python2-pip ranger ruby-rouge termite tmux vim xclip xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --noconfirm compton diff-so-fancy net-tools screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm $(pacman -Ssq numix)
         sudo pacman -S --needed --noconfirm $(pacman -Ssq papirus)
-        if which yaourt &> /dev/null ; then
+        if which yaourt &> /dev/null; then
             yaourt -S cava dropbox dropbox-cli hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
         fi
-        if which pip2 &> /dev/null ; then
+        if which pip2 &> /dev/null; then
             sudo pip2 install -U neovim
         fi
     fi
 
-    if which pip3 &> /dev/null ; then
+    if which pip3 &> /dev/null; then
         sudo pip3 install -U neovim
     fi
 
-    if which diff-so-fancy &> /dev/null ; then
+    if which diff-so-fancy &> /dev/null; then
         git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     fi
 
-    if which npm &> /dev/null && ! which pacman &> /dev/null ; then
+    if which npm &> /dev/null && ! which pacman &> /dev/null; then
         sudo npm install npm@latest -g
     fi
 }
 
 install_games() {
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         for i in $(apt-cache search dungeon | grep -iE "dungeon|game|rogue" | awk '{print $1}'); do
             echo "============================================="
             echo $i
@@ -234,16 +234,16 @@ install_games() {
             echo $i
             sudo apt-get install -y $i
         done
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm yaourt angband asciiportal cataclysm-dda dwarffortress glhack nethack rogue stone-soup
-        if which yaourt &> /dev/null ; then
+        if which yaourt &> /dev/null; then
             yaourt -S tome4
         fi
     fi
 }
 
 install_i3() {
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         sudo apt-get install -y i3
         echo ""
         echo "====================="
@@ -295,7 +295,7 @@ install_i3() {
         sudo cp -v lock /usr/local/bin/
         sudo cp -r -v icons /usr/local/bin/
 
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm feh qutebrowser rofi
         echo ""
         echo "====================="
@@ -311,7 +311,7 @@ install_i3() {
         echo ""
         sudo pacman -S --needed --noconfirm base-devel libmpdclient wireless_tools
         sudo pacman -S $(pacman -Ssq alsa | grep alsa)
-        if which pacaur &> /dev/null ; then
+        if which pacaur &> /dev/null; then
             pacaur Syyu
             pacaur -S polybar-git
         fi
@@ -324,17 +324,17 @@ install_i3() {
 }
 
 install_ranger() {
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         sudo apt-get install -y ranger
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm ranger
     fi
 }
 
 install_spacemacs() {
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         sudo apt-get install -y emacs
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm emacs
     fi
 
@@ -351,9 +351,9 @@ install_spacemacs() {
 }
 
 install_tmux() {
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         sudo apt-get install -y tmux
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm tmux
     fi
 
@@ -376,9 +376,9 @@ install_vim() {
     echo ""
     curl -fsSL https://raw.github.com/cknadler/vim-anywhere/master/install | bash
 
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         sudo apt-get install -y vim
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm gvim neovim python-neovim python2-neovim ctags
         sudo pacman -S --needed --noconfirm $(pacman -Ss pep8)
         sudo pip install -U vulture
@@ -406,16 +406,16 @@ install_vim() {
 
     curl https://raw.githubusercontent.com/T6705/dotfile/master/visincr.vba > /tmp/visincr.vba
 
-    if which npm &> /dev/null ; then
+    if which npm &> /dev/null; then
         sudo npm -g install instant-markdown-d
     fi
 
-    if which vim &> /dev/null ; then
+    if which vim &> /dev/null; then
         vim /tmp/visincr.vba +"so %" +qall
         vim +PlugUpdate
     fi
 
-    if which nvim &> /dev/null ; then
+    if which nvim &> /dev/null; then
         nvim /tmp/visincr.vba +"so %" +qall
         nvim +PlugUpdate
     fi
@@ -455,9 +455,9 @@ install_st() {
 }
 
 install_zsh() {
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         sudo apt-get install -y zsh
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm zsh
     fi
 
@@ -520,9 +520,9 @@ install_zsh() {
     echo "== install hack fonts =="
     echo "========================"
     echo ""
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         sudo apt-get install -y fonts-hack-otf fonts-hack-ttf fonts-hack-web
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm ttf-hack
     fi
 
@@ -546,7 +546,7 @@ install_zsh() {
     echo "========================"
     echo ""
 
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         cd /tmp
         wget "https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip"
         unzip Noto-hinted.zip
@@ -560,7 +560,7 @@ install_zsh() {
         sudo cp -v *.otf /usr/share/fonts/opentype/noto
         sudo cp -v *.ttf /usr/share/fonts/opentype/noto
         sudo fc-cache -f -v # optional
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S $(pacman -Ssq noto | grep font) --noconfirm
     fi
 
@@ -584,7 +584,7 @@ install_zsh() {
     echo "======================="
     echo ""
 
-    if which apt-get &> /dev/null ; then
+    if which apt-get &> /dev/null; then
         sudo apt-get install fonts-powerline -y
 
         #https://github.com/milkbikis/powerline-shell
@@ -599,7 +599,7 @@ install_zsh() {
         #ln -s ~/powerline-shell/powerline-shell.py ~/powerline-shell.py
 
         sudo pip install -U powerline-shell
-    elif which pacman &> /dev/null ; then
+    elif which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm fontforge powerline powerline-fonts
     fi
 
@@ -625,16 +625,43 @@ install_zsh() {
     fi
 
     echo ""
+    echo "================================================="
+    echo "== install hub (https://github.com/github/hub) =="
+    echo "================================================="
+    echo ""
+    if which go &> /dev/null; then
+        export GOPATH=$HOME/go
+        go get github.com/github/hub
+        export PATH=$PATH:$GOPATH/bin
+    fi
+
+    echo ""
+    echo "====================================================="
+    echo "== install lab (https://github.com/zaquestion/lab) =="
+    echo "====================================================="
+    echo ""
+    if which go &> /dev/null; then
+        if ! which dep &> /dev/null; then
+            export GOPATH=$HOME/go
+            go get -u github.com/golang/dep/cmd/dep
+        fi
+        export GOPATH=$HOME/go
+        go get -u -d github.com/zaquestion/lab
+        cd $GOPATH/src/github.com/zaquestion/lab
+        make install
+    fi
+
+    echo ""
     echo "====================================================="
     echo "== install ccat (https://github.com/jingweno/ccat) =="
     echo "====================================================="
     echo ""
-    if which pacman &> /dev/null ; then
+    if which pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm go
-    elif which apt-get &> /dev/null ; then
+    elif which apt-get &> /dev/null; then
         sudo apt-get install -y golang
     fi
-    if which go &> /dev/null ; then
+    if which go &> /dev/null; then
         export GOPATH=$HOME/go
         go get -u github.com/jingweno/ccat
         export PATH=$PATH:$GOPATH/bin
@@ -666,7 +693,7 @@ install_zsh() {
     TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
     if [[ "$TEST_CURRENT_SHELL" != "zsh" ]]; then
         # If this platform provides a "chsh" command (not Cygwin), do it, man!
-        if which chsh &> /dev/null ; then
+        if which chsh &> /dev/null; then
             echo "Time to change your default shell to zsh!"
             chsh -s $(grep /zsh$ /etc/shells | tail -1)
             # Else, suggest the user do so manually.

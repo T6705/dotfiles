@@ -64,7 +64,27 @@ COMPLETION_WAITING_DOTS="false"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(alias-tips archlinux catimg django docker docker-compose docker-machine git history k pip python themes tmux vi-mode web-search zsh-autosuggestions zsh-completions zsh-syntax-highlighting)
+plugins=(
+    alias-tips
+    archlinux
+    catimg
+    django
+    docker
+    docker-compose
+    docker-machine
+    git
+    history
+    k
+    pip
+    python
+    themes
+    tmux
+    vi-mode
+    web-search
+    zsh-autosuggestions
+    zsh-completions
+    zsh-syntax-highlighting
+)
 autoload -U compinit && compinit
 
 # User configuration
