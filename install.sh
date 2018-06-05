@@ -7,17 +7,17 @@ install_dots() {
     echo "========================"
     echo ""
     curl -fLo ~/.config/i3/config --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/config
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/config
     curl -fLo ~/.config/i3/i3blocks/i3blocks.conf --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3blocks/i3blocks.conf
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/i3blocks/i3blocks.conf
     curl -fLo ~/.config/i3/compton.conf --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/compton.conf
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/compton.conf
     curl -fLo ~/.config/i3/i3lock.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/i3lock.sh
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/i3lock.sh
     curl -fLo ~/.config/i3/start-term.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/start-term.sh
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/start-term.sh
     curl -fLo ~/.config/i3/lock.png --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/i3/lock.png
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/lock.png
     find ~/.config/i3 -type f -iname '*.sh' -exec chmod +x {} \;
 
     echo ""
@@ -26,23 +26,23 @@ install_dots() {
     echo "============================="
     echo ""
     curl -fLo ~/.config/polybar/config --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/config
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config
     curl -fLo ~/.config/polybar/config2 --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/config2
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config2
     curl -fLo ~/.config/polybar/config3 --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/config3
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config3
     curl -fLo ~/.config/polybar/launch.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/launch.sh
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/launch.sh
     curl -fLo ~/.config/polybar/next.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/next.sh
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/next.sh
     curl -fLo ~/.config/polybar/playpause.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/playpause.sh
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/playpause.sh
     curl -fLo ~/.config/polybar/previous.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/previous.sh
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/previous.sh
     curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/spotify_p.sh
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/spotify_p.sh
     curl -fLo ~/.config/polybar/tor.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/polybar/tor.sh
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/tor.sh
     chmod +x ~/.config/polybar/*.sh
     find ~/.config/polybar -type f -iname '*.sh' -exec chmod +x {} \;
 
@@ -52,11 +52,11 @@ install_dots() {
     echo "============================"
     echo ""
     curl -fLo ~/.config/ranger/rc.conf --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rc.conf
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/rc.conf
     curl -fLo ~/.config/ranger/rifle.conf --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/rifle.conf
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/rifle.conf
     curl -fLo ~/.config/ranger/scope.sh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/ranger/scope.sh
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/scope.sh
     chmod +x ~/.config/ranger/scope.sh
 
     echo ""
@@ -65,7 +65,7 @@ install_dots() {
     echo "================================="
     echo ""
     curl -fLo ~/.config/qutebrowser/qutebrowser.conf --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/qutebrowser/qutebrowser.conf
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/qutebrowser/qutebrowser.conf
 
 
     echo ""
@@ -73,7 +73,7 @@ install_dots() {
     echo "== Download spacemacs config =="
     echo "==============================="
     echo ""
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.spacemacs > ~/.spacemacs
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.spacemacs > ~/.spacemacs
 
     echo ""
     echo "==============================="
@@ -81,7 +81,7 @@ install_dots() {
     echo "==============================="
     echo ""
     curl -fLo ~/.config/alacritty/alacritty.yml --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/alacritty/alacritty.yml
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/alacritty/alacritty.yml
 
     echo ""
     echo "============================="
@@ -89,15 +89,15 @@ install_dots() {
     echo "============================="
     echo ""
     curl -fLo ~/.config/termite/config --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/termite/config
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/termite/config
 
     echo ""
     echo "=========================="
     echo "== Download tmux config =="
     echo "=========================="
     echo ""
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf > ~/.tmux.conf
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.tmux.conf.local > ~/.tmux.conf.local
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.tmux.conf > ~/.tmux.conf
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.tmux.conf.local > ~/.tmux.conf.local
 
     echo ""
     echo "=============================="
@@ -105,42 +105,42 @@ install_dots() {
     echo "=============================="
     echo ""
     curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/augroups.vim
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/augroups.vim
     curl -fLo ~/.config/nvim/functions.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/functions.vim
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/functions.vim
     curl -fLo ~/.config/nvim/general.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/general.vim
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/general.vim
     curl -fLo ~/.config/nvim/mappings.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/mappings.vim
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/mappings.vim
     curl -fLo ~/.config/nvim/plugins.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins.vim
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins.vim
     curl -fLo ~/.config/nvim/plugins_config.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/plugins_config.vim
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins_config.vim
 
     ### vim
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.vimrc > ~/.vimrc
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.vimrc > ~/.vimrc
 
     ### nvim
     curl -fLo ~/.config/nvim/init.vim --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/nvim/init.vim
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/init.vim
 
     echo ""
     echo "=========================="
     echo "== Download bash config =="
     echo "=========================="
     echo ""
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.bashrc > ~/.bashrc
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.bashrc > ~/.bashrc
 
     echo ""
     echo "========================="
     echo "== Download zsh config =="
     echo "========================="
     echo ""
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.zshrc > ~/.zshrc
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.zshrc > ~/.zshrc
     curl -fLo ~/.zsh/aliases.zsh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.zsh/aliases.zsh
+        https://gitlab.com/T6705/dotfiles/raw/master/.zsh/aliases.zsh
     curl -fLo ~/.zsh/functions.zsh --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.zsh/functions.zsh
+        https://gitlab.com/T6705/dotfiles/raw/master/.zsh/functions.zsh
 
     echo ""
     echo "========================="
@@ -148,7 +148,7 @@ install_dots() {
     echo "========================="
     echo ""
     curl -fLo ~/.config/gtk-3.0/settings.ini --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/.config/gtk-3.0/settings.ini
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/gtk-3.0/settings.ini
 
     TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
     if [[ "$TEST_CURRENT_SHELL" == "zsh" ]]; then
@@ -404,7 +404,7 @@ install_vim() {
     echo "===================="
     echo ""
 
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/visincr.vba > /tmp/visincr.vba
+    curl https://gitlab.com/T6705/dotfiles/raw/master/visincr.vba > /tmp/visincr.vba
 
     if which npm &> /dev/null; then
         sudo npm -g install instant-markdown-d
@@ -442,7 +442,7 @@ install_st() {
     echo "==================================="
     echo ""
     curl -fLo /tmp/font-and-color.patch --create-dirs \
-        https://raw.githubusercontent.com/T6705/dotfile/master/st/font-and-color.patch
+        https://gitlab.com/T6705/dotfiles/raw/master/st/font-and-color.patch
     cd ~/git/st && patch < /tmp/font-and-color.patch
 
 
@@ -705,9 +705,9 @@ install_zsh() {
         . ~/.zshrc
     fi
 
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.xinitrc > ~/.xinitrc
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.Xresources > ~/.Xresources
-    curl https://raw.githubusercontent.com/T6705/dotfile/master/.nethackrc > ~/.nethackrc
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.xinitrc > ~/.xinitrc
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.Xresources > ~/.Xresources
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.nethackrc > ~/.nethackrc
 }
 
 main() {
@@ -739,7 +739,7 @@ main() {
         install_vim
         install_zsh
     else
-        echo "bash install.sh <options>/all"
+        echo "zsh install.sh <options>/all"
         echo "options:"
         echo "    dependencies"
         echo "    dots"
