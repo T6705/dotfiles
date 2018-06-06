@@ -32,6 +32,7 @@ augroup configgroup
     "au FileType html,css,php EmmetInstall
     au FileType java setlocal omnifunc=javacomplete#Complete
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    au FileType go setlocal omnifunc=go#complete#Complete
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste

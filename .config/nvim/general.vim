@@ -76,7 +76,6 @@ set backspace=indent,eol,start " make backspace behave in a sane manner
 " ----------------------------------------------------------------------------------------
 " Tabs
 " ----------------------------------------------------------------------------------------
-"set completeopt+=longest
 "set noexpandtab   " insert tabs rather than spaces for <TAB>
 "set shiftround    " round indent to a multiple of 'shiftwidth'
 set expandtab     " Use spaces instead of tabs
@@ -127,6 +126,7 @@ if !&sidescrolloff
     set sidescrolloff=5
 endif
 
+set completeopt=longest,menuone,preview
 set showcmd                                                       " show incomplete commands
 set so=7                                                          " Set 7 lines to the cursor - when moving vertically using j/k
 set t_Co=256                                                      " Explicitly tell vim that the terminal supports 256 colors

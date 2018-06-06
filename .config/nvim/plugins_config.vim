@@ -324,6 +324,12 @@ if has('nvim')
     let g:deoplete#enable_at_startup           = 1
     let g:deoplete#sources#jedi#enable_cache   = 1
     let g:deoplete#sources#jedi#show_docstring = 0
+
+    " https://github.com/zchee/deoplete-go
+    let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+    let g:deoplete#sources#go#package_dot   = 1
+    let g:deoplete#sources#go#pointer       = 1
+    let g:deoplete#sources#go#sort_class    = ['package', 'func', 'type', 'var', 'const']
 else
     " neocomplete
     "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -480,6 +486,63 @@ let g:ale_set_quickfix             = 0
 ""let g:pymode_syntax_string_format=g:pymode_syntax_all
 ""let g:pymode_syntax_string_formatting=g:pymode_syntax_all
 ""let g:pymode_syntax_string_templates=g:pymode_syntax_all
+
+
+" ----------------------------------------------------------------------------------------
+" vim-go
+" ----------------------------------------------------------------------------------------
+let g:go_fmt_options = {
+            \ 'goimports': '-local do/',
+            \ }
+"
+let g:go_debug_windows = {
+            \ 'vars':  'leftabove 35vnew',
+            \ 'stack': 'botright 10new',
+            \ }
+
+let g:go_auto_sameids                        = 0
+let g:go_auto_type_info                      = 0
+let g:go_autodetect_gopath                   = 1
+let g:go_def_mode                            = "guru"
+let g:go_echo_command_info                   = 1
+let g:go_fmt_command                         = "goimports"
+let g:go_fmt_fail_silently                   = 0
+let g:go_fold_enable                         = []
+let g:go_gocode_autobuild                    = 1
+let g:go_gocode_unimported_packages          = 1
+let g:go_highlight_array_whitespace_error    = 0
+let g:go_highlight_build_constraints         = 1
+let g:go_highlight_extra_types               = 0
+let g:go_highlight_format_strings            = 0
+let g:go_highlight_space_tab_error           = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_types                     = 0
+let g:go_info_mode                           = "guru"
+let g:go_list_type                           = "quickfix"
+let g:go_modifytags_transform                = 'snakecase'
+let g:go_sameid_search_enabled               = 1
+
+nmap <C-g> :GoDecls<cr>
+imap <C-g> <esc>:<C-u>GoDecls<cr>
+
+augroup go
+    autocmd!
+    autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+    autocmd FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
+    autocmd FileType go nmap <silent> <Leader>i <Plug>(go-info)
+    autocmd FileType go nmap <silent> <Leader>ml <Plug>(go-metalinter)
+    autocmd FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
+    autocmd FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
+    autocmd FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
+    autocmd FileType go nmap <silent> <leader>b <Plug>(go-build)
+    autocmd FileType go nmap <silent> <leader>in  <Plug>(go-install)
+    autocmd FileType go nmap <silent> <leader>r  <Plug>(go-run)
+    autocmd FileType go nmap <silent> <leader>t  <Plug>(go-test)
+    autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+    autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+    autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+    autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+augroup END
 
 
 " ----------------------------------------------------------------------------------------

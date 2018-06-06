@@ -87,6 +87,8 @@ fu! Compile_and_Run()
         call VimuxRunCommand('time php '.expand('%'))
     elseif &filetype == 'python'
         call VimuxRunCommand('time python3 '.expand('%'))
+    elseif &filetype == 'go'
+        call VimuxRunCommand('time go run '.expand('%'))
     endif
 endfu
 command! CompileandRun call Compile_and_Run()

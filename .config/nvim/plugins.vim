@@ -79,6 +79,12 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPre
 "Plug 'ehamberg/vim-cute-python', { 'branch': 'moresymbols', 'for': 'python' }
 
 
+" ----------------------------------------------------------------------------------------
+" golang
+" ----------------------------------------------------------------------------------------
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+
+
 "" ----------------------------------------------------------------------------------------
 "" html
 "" ----------------------------------------------------------------------------------------
@@ -106,6 +112,7 @@ Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': function('DoRemote') })
 Plug 'Shougo/neocomplete.vim', Cond(!has('nvim'))
 Plug 'davidhalter/jedi-vim', { 'for': 'python', 'on': [] }
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php', 'on': [] }
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 
 
 " ----------------------------------------------------------------------------------------
