@@ -1,33 +1,45 @@
 " vim:foldmethod=marker:foldlevel=0
 
-function! DoRemote(arg)
+fu! DoRemote(arg)
     UpdateRemotePlugins
-endfunction
+endfu
 
-function! BuildYCM(info)
+fu! BuildYCM(info)
   if a:info.status == 'installed' || a:info.force
     !./install.py --clang-completer --gocode-completer
   endif
-endfunction
+endfu
 
-function! Cond(cond, ...)
+fu! Cond(cond, ...)
   let opts = get(a:000, 0, {})
   return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
-endfunction
+endfu
 
 
 " vim-plug automatic installation
 if has('nvim')
     if empty(glob('~/.config/nvim/autoload/plug.vim'))
-      silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+        if !executable("curl")
+            echoerr "You have to install curl or first install vim-plug yourself!"
+            execute "q!"
+        endif
+        echo "Installing Vim-Plug..."
+        echo ""
+        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        au VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 else
     if empty(glob('~/.vim/autoload/plug.vim'))
-      silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+        if !executable("curl")
+            echoerr "You have to install curl or first install vim-plug yourself!"
+            execute "q!"
+        endif
+        echo "Installing Vim-Plug..."
+        echo ""
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        au VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 endif
 
@@ -51,11 +63,9 @@ Plug 'tomasr/molokai'
 " ----------------------------------------------------------------------------------------
 " Interface
 " ----------------------------------------------------------------------------------------
-"Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }           " Distraction-free writing in Vim
-"Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " All the world's indeed a stage and we are merely players
-Plug 'Yggdroot/indentLine'                           " A vim plugin to display the indention levels with thin vertical lines
-Plug 'vim-airline/vim-airline'                       " lean & mean status/tabline for vim that's light as air
-Plug 'vim-airline/vim-airline-themes'                " A collection of themes for vim-airline
+Plug 'Yggdroot/indentLine'            " A vim plugin to display the indention levels with thin vertical lines
+Plug 'vim-airline/vim-airline'        " lean & mean status/tabline for vim that's light as air
+Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
 
 
 "" ----------------------------------------------------------------------------------------
@@ -73,13 +83,6 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPre
 
 
 " ----------------------------------------------------------------------------------------
-" python
-" ----------------------------------------------------------------------------------------
-"Plug 'klen/python-mode', { 'for': 'python' }
-"Plug 'ehamberg/vim-cute-python', { 'branch': 'moresymbols', 'for': 'python' }
-
-
-" ----------------------------------------------------------------------------------------
 " golang
 " ----------------------------------------------------------------------------------------
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
@@ -94,7 +97,6 @@ Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 " ----------------------------------------------------------------------------------------
 " lint & autoformat
 " ----------------------------------------------------------------------------------------
-"Plug 'benekastah/neomake', { 'on': [] }       " Asynchronous linting and make framework for Neovim/Vim
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
@@ -107,7 +109,6 @@ Plug 'w0rp/ale' " Asynchronous Lint Engine
 " ----------------------------------------------------------------------------------------
 "Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'java'], 'do': function('BuildYCM') }
 "Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-"Plug 'zchee/deoplete-jedi', { 'for': 'python' }
 Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': function('DoRemote') })
 Plug 'Shougo/neocomplete.vim', Cond(!has('nvim'))
 Plug 'davidhalter/jedi-vim', { 'for': 'python', 'on': [] }
@@ -120,7 +121,9 @@ Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 " ----------------------------------------------------------------------------------------
 Plug 'Shougo/neosnippet'          " snippets support
 Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnippet
-Plug 'SirVer/ultisnips'           " The ultimate snippet solution for Vim.
+if v:version >= 704
+    Plug 'SirVer/ultisnips'           " The ultimate snippet solution for Vim.
+endif
 Plug 'honza/vim-snippets'         " vim-snipmate default snippets
 
 
@@ -138,24 +141,7 @@ Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 " ----------------------------------------------------------------------------------------
 " utilities
 " ----------------------------------------------------------------------------------------
-"Plug 'AndrewRadev/splitjoin.vim', { 'on': ['SplitjoinJoin', 'SplitjoinSplit'] }          " simplifies the transition between multiline and single-line code
-"Plug 'chrisbra/csv.vim', { 'for': 'csv' }
-"Plug 'easymotion/vim-easymotion', { 'on': ['<Plug>(easymotion-prefix)',
-"            \'<Plug>(easymotion-overwin-line)',
-"            \'<Plug>(easymotion-overwin-f2)',
-"            \'<Plug>(easymotion-overwin-w)',
-"            \'<Plug>(easymotion-overwin-f)'] }                                           " Vim motions on speed!
-"Plug 'godlygeek/tabular', { 'on': 'Tabularize' }                                         " text filtering and alignment
-"Plug 'haya14busa/vim-operator-flashy'                                                    " Highlight yanked area
-"Plug 'jiangmiao/auto-pairs'
-"Plug 'johngrib/vim-game-code-break', { 'on': 'VimGameCodeBreak' }                        " Block-breaking game in vim 8.0
-"Plug 'mklabs/split-term.vim', Cond(has('nvim'))
-"Plug 'raghur/vim-ghost', Cond(has('nvim'), {'do': ':GhostInstall', 'on': 'GhostStart' }) " Nvim client for GhostText
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
-"Plug 'sheerun/vim-polyglot'                                                              " A collection of language packs for Vim.
-"Plug 'skywind3000/asyncrun.vim', { 'on': 'AsyncRun' }                                    " Run Async Shell Commands in Vim 8.0 / NeoVim and Output to Quickfix Window
-"Plug 'thiagoalessio/rainbow_levels.vim', { 'on': 'RainbowLevelsToggle' }                 " code highlighting
-"Plug 'yuttie/comfortable-motion.vim'
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }             " perform diffs on blocks of code
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                       " Interactive command execution in Vim.
 Plug 'VincentCordobes/vim-translate', { 'on': 'Translate' }       "  A tiny translate-shell wrapper for Vim.
@@ -184,14 +170,14 @@ Plug 'ryanoasis/vim-devicons'                          " Adds file type glyphs/i
 Plug 'scrooloose/nerdcommenter'                        " Vim plugin for intensely orgasmic commenting
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }          " Visualize your undo tree.
 Plug 'terryma/vim-multiple-cursors'                    " True Sublime Text style multiple selections for Vim
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }             " git status
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }                     " file tree
-Plug 'skywind3000/gutentags_plus'                     " The right way to use gtags with gutentags
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } " Extra syntax and highlight for nerdtree files
-Plug 'tpope/vim-fugitive'                             " fugitive.vim: a Git wrapper so awesome, it should be illegal
-Plug 'tpope/vim-repeat'                               " enables repeating other supported plugins with the . command
-Plug 'tpope/vim-surround', { 'on': [] }               " surround.vim: quoting/parenthesizing made simple
-Plug 'wellle/targets.vim', { 'on': [] }               " Vim plugin that provides additional text objects
+Plug 'Xuyuanp/nerdtree-git-plugin'                     " git status
+Plug 'scrooloose/nerdtree'                             " file tree
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'         " Extra syntax and highlight for nerdtree files
+Plug 'skywind3000/gutentags_plus'                      " The right way to use gtags with gutentags
+Plug 'tpope/vim-fugitive'                              " fugitive.vim: a Git wrapper so awesome, it should be illegal
+Plug 'tpope/vim-repeat'                                " enables repeating other supported plugins with the . command
+Plug 'tpope/vim-surround', { 'on': [] }                " surround.vim: quoting/parenthesizing made simple
+Plug 'wellle/targets.vim', { 'on': [] }                " Vim plugin that provides additional text objects
 call plug#end()
 endif
 

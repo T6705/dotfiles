@@ -73,10 +73,12 @@ plugins=(
     docker-compose
     docker-machine
     git
+    golang
     history
     k
     pip
     python
+    systemd
     themes
     tmux
     vi-mode
@@ -88,14 +90,20 @@ plugins=(
 autoload -U compinit && compinit
 
 # User configuration
+if which go &> /dev/null; then
+    [ ! -d $HOME/go ] && mkdir -p $HOME/go
+    [ ! -d $HOME/go/bin ] && mkdir -p $HOME/go/bin
+fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 [ -d $HOME/.gem/ruby/2.5.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.5.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
-[ -d $HOME/go ] && export GOPATH="$HOME/go" && export PATH="$PATH:$GOPATH/bin"
+[ -d $HOME/go ] && export GOPATH="$HOME/go"
+[ -d $HOME/go/bin ] && export GOBIN="$GOPATH/bin" && export PATH="$PATH:$GOPATH/bin"
 [ -d /usr/games ] && export PATH="$PATH:/usr/games"
-export PATH="$HOME/bin:/usr/local/bin:$PATH"
+[ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
+[ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 

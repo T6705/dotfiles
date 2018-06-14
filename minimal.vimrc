@@ -7,16 +7,26 @@ augroup configgroup
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
 
-    " Restore cursor position when opening file
-    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-
     au FileType java setlocal omnifunc=javacomplete#Complete
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    au FileType go setlocal omnifunc=go#complete#Complete
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste
     au VimResized * wincmd =
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
+augroup END
+
+" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
+augroup vimrc-sync-fromstart
+    au!
+    au BufEnter * :syntax sync maxlines=200
+augroup END
+
+" Restore cursor position when opening file
+augroup vimrc-restore-cursor-position
+    au!
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
 augroup Snippet
@@ -114,9 +124,10 @@ endif
 " ----------------------------------------------------------------------------------------
 set binary
 set bomb
+set encoding=utf-8
+set ffs=unix,dos,mac " Use Unix as the standard file type
 set fileencoding=utf-8
 set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
-set ffs=unix,dos,mac " Use Unix as the standard file type
 
 " Fix backspace indent
 set backspace=indent,eol,start " make backspace behave in a sane manner
@@ -124,7 +135,6 @@ set backspace=indent,eol,start " make backspace behave in a sane manner
 " ----------------------------------------------------------------------------------------
 " Tabs
 " ----------------------------------------------------------------------------------------
-"set completeopt+=longest
 "set noexpandtab   " insert tabs rather than spaces for <TAB>
 "set shiftround    " round indent to a multiple of 'shiftwidth'
 set expandtab     " Use spaces instead of tabs
@@ -175,6 +185,7 @@ if !&sidescrolloff
     set sidescrolloff=5
 endif
 
+set completeopt=longest,menuone,preview
 set showcmd                                                       " show incomplete commands
 set so=7                                                          " Set 7 lines to the cursor - when moving vertically using j/k
 set t_Co=256                                                      " Explicitly tell vim that the terminal supports 256 colors
@@ -365,13 +376,17 @@ set fileformats=unix,dos,mac
 if &history < 1000
     set history=1000         " change history to 1000
 endif
-set nocompatible             " not compatible with vi
+if has('vim_starting')
+    set nocompatible             " not compatible with vi
+endif
 set path+=**
 
-if executable('zsh')
-    set shell=/bin/zsh
-else
+if exists('$SHELL')
+    set shell=$SHELL
+elseif executable('bash')
     set shell=/bin/bash
+else
+    set shell=/bin/sh
 endif
 
 " ctags
@@ -386,11 +401,11 @@ set complete+=kspell
 
 " Use persistent history, Keep undo history across sessions by storing it in a file
 if has('persistent_undo')
-    let undo_dir = expand('~/.vim-undo-dir')
+    let undo_dir = expand('~/.cache/vim-undo-dir')
     if !isdirectory(undo_dir)
         call mkdir(undo_dir, "", 0700)
     endif
-    set undodir=~/.vim-undo-dir
+    set undodir=~/.cache/vim-undo-dir
     set undofile
 endif
 
@@ -407,6 +422,7 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=m
 set guioptions-=M
+set mousemodel=popup
 
 " Set font according to system
 if has("mac") || has("macunix")
@@ -460,16 +476,19 @@ command! ClearRegisters call ClearRegisters()
 " ----------------------------------------------------------------------------------------
 " :RangerExplorer (vim only)
 " ----------------------------------------------------------------------------------------
-fu RangerExplorer()
-    if executable("ranger")
-        exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
-        if filereadable('/tmp/vim_ranger_current_file')
-            exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
-            call system('rm /tmp/vim_ranger_current_file')
+if ! has('nvim')
+    fu RangerExplorer()
+        if executable("ranger")
+            exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
+            if filereadable('/tmp/vim_ranger_current_file')
+                exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
+                call system('rm /tmp/vim_ranger_current_file')
+            endif
+            redraw!
         endif
-        redraw!
-    endif
-endfu
+    endfu
+    command! RangerExplorer call RangerExplorer()
+endif
 
 " ----------------------------------------------------------------------------
 " :EX | chmod +x
@@ -482,7 +501,7 @@ command! EX if !empty(expand('%'))
          \|   echohl WarningMsg
          \|   echo 'Save the file first'
          \|   echohl None
-        \| endif
+         \| endif
 
 " ----------------------------------------------------------------------------------------
 " :WordProcessorMode
@@ -660,19 +679,19 @@ command! AutoFoldsEnable  call <sid>open_folds('enable')
 command! AutoFoldsDisable call <sid>open_folds('disable')
 command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
 
-function! JavaAbbrev()
+fu! JavaAbbrev()
   inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<cr>
   inoreabbr sop System.out.println("%");<esc>F%s<c-o>:call getchar()<cr>
   inoreabbr sep System.err.println("%");<esc>F%s<c-o>:call getchar()<cr>
   inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<cr>
   inoreabbr ctm System.currentTimeMillis()
-endfunction
+endfu
 
-function! CppAbbrev()
+fu! CppAbbrev()
   inoreabbr inc #include <><esc>i<c-o>:call getchar()<cr>
   inoreabbr main int main() {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
   inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
-endfunction
+endfu
 
 """ }}}
 
@@ -703,11 +722,20 @@ command Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 "nnoremap c "_c
 "vnoremap c "_c
 
+"" Make `Y` behave like `C` and `D`
+"nnoremap Y y$
+
 nnoremap <silent> <Leader>p "+gP
 nnoremap <silent> <Leader>x "+x
 nnoremap <silent> <Leader>y "+y
 vnoremap <silent> <Leader>x "+x
 vnoremap <silent> <Leader>y "+y
+
+if has('macunix')
+  " pbcopy for OSX copy/paste
+  vmap <C-x> :!pbcopy<CR>
+  vmap <C-c> :w !pbcopy<CR><CR>
+endif
 
 " select the current line without indentation
 nnoremap vv ^vg_
@@ -768,7 +796,7 @@ vnoremap H ^
 vnoremap L $
 
 nnoremap <silent> G :norm! Gzz<CR>
-nnoremap <silent> N Nzz
+nnoremap <silent> N Nzzzv
 nnoremap <silent> [[ [[zz
 nnoremap <silent> [] []zz
 nnoremap <silent> ][ ][zz
@@ -778,7 +806,7 @@ nnoremap <silent> gV `[v`] " highlight last inserted text
 nnoremap <silent> gg :norm! ggzz<CR>
 nnoremap <silent> g= mmgg=G`m
 nnoremap <silent> gQ mmgggqG`m
-nnoremap <silent> n nzz
+nnoremap <silent> n nzzzv
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz
 
@@ -798,10 +826,6 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " Scrolling
-"nnoremap <silent> <C-d> :call comfortable_motion#flick(400)<CR>
-"nnoremap <silent> <C-u> :call comfortable_motion#flick(-400)<CR>
-"nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
-"nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
 noremap <C-j> 2<C-e>
 noremap <C-k> 2<C-y>
 
@@ -870,8 +894,9 @@ let g:quickfix_height = 50
 "nmap <silent> [l <Plug>(ale_previous_wrap)
 "nmap <silent> ]l <Plug>(ale_next)
 "nmap <silent> ]l <Plug>(ale_next_wrap)
-"nnoremap <silent> [l :lprev<CR> " Neomake
-"nnoremap <silent> ]l :lnext<CR> " Neomake
+
+" quickfix
+let g:quickfix_height = 50
 nnoremap <silent> <Leader>lc :lclose<CR>
 nnoremap <silent> <Leader>lo :lopen<CR>
 nnoremap <silent> <Leader>lw :lwindow<CR>

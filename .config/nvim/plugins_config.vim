@@ -124,13 +124,19 @@ let g:netrw_winsize     = 30
 " ----------------------------------------------------------------------------------------
 " Airline.vim
 " ----------------------------------------------------------------------------------------
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
 "let g:airline_theme="luna"
 "let g:airline_theme="onedark"
 "let g:airline_theme="papercolor"
-let g:airline#extensions#gutentags#enabled = 1
-let g:airline#extensions#tabline#enabled   = 1
-let g:airline#extensions#tagbar#enabled    = 1
-let g:airline#extensions#ale#enabled       = 1
+let g:airline#extensions#ale#enabled        = 1
+let g:airline#extensions#branch#enabled     = 1
+let g:airline#extensions#gutentags#enabled  = 1
+let g:airline#extensions#tabline#enabled    = 1
+let g:airline#extensions#tagbar#enabled     = 1
+let g:airline#extensions#virtualenv#enabled = 1
+let g:airline_skip_empty_sections           = 1
 
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show   = 1
@@ -151,6 +157,7 @@ let g:webdevicons_enable                             = 1   " loading the plugin
 let g:webdevicons_enable_airline_statusline          = 1   " adding to vim-airline's statusline
 let g:webdevicons_enable_airline_tabline             = 1   " adding to vim-airline's tabline
 let g:webdevicons_enable_nerdtree                    = 1   " adding the flags to NERDTree
+let g:webdevicons_conceal_nerdtree_brackets          = 1   " whether or not to show the nerdtree brackets around flags
 let g:DevIconsEnableFolderExtensionPatternMatching   = 1   " enable file extension pattern matching glyphs on folder/directory
 let g:DevIconsEnableFolderPatternMatching            = 1   " enable pattern matching glyphs on folder/directory
 let g:DevIconsEnableFoldersOpenClose                 = 1   " enable open and close folder/directory glyph flags
@@ -198,14 +205,6 @@ let g:UltiSnipsSnippetsDir         = "~/.vim/UltiSnips"
 " SuperTab
 " ----------------------------------------------------------------------------------------
 let g:SuperTabDefaultCompletionType = "<C-n>"
-
-
-"" ----------------------------------------------------------------------------------------
-"" comfortable-motion
-"" ----------------------------------------------------------------------------------------
-"let g:comfortable_motion_no_default_key_mappings = 1
-"let g:comfortable_motion_friction                = 80.0
-"let g:comfortable_motion_air_drag                = 2.0
 
 
 " ----------------------------------------------------------------------------------------
@@ -273,7 +272,8 @@ let g:instant_markdown_slow                   = 0 " realtime preview
 " ----------------------------------------------------------------------------------------
 " tagbar
 " ----------------------------------------------------------------------------------------
-let g:tagbar_sort = 0
+let g:tagbar_sort      = 0
+let g:tagbar_autofocus = 1
 
 
 "" ----------------------------------------------------------------------------------------
@@ -410,84 +410,6 @@ let g:ale_set_loclist              = 1
 let g:ale_set_quickfix             = 0
 
 
-"" ----------------------------------------------------------------------------------------
-"" neomake
-"" ----------------------------------------------------------------------------------------
-"let g:neomake_error_sign = {'text': '✖', 'texthl': 'NeomakeErrorSign'}
-"let g:neomake_warning_sign = {
-"    \   'text': '⚠',
-"    \   'texthl': 'NeomakeWarningSign',
-"    \ }
-"let g:neomake_message_sign = {
-"     \   'text': '➤',
-"     \   'texthl': 'NeomakeMessageSign',
-"     \ }
-"let g:neomake_info_sign = {'text': 'ℹ', 'texthl': 'NeomakeInfoSign'}
-
-"" Python2/3
-"let g:neomake_python_enabled_makers = ['flake8', 'pep8', 'vulture']
-"let g:neomake_python_flake8_maker   = { 'args': ['--ignore E221 E265 E266'], }
-"let g:neomake_python_pep8_maker     = { 'args': ['--max-line-length=100', '--ignore=E221,E265,E266'], }
-
-"" php
-"let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
-
-
-"" ----------------------------------------------------------------------------------------
-"" Pymode
-"" ----------------------------------------------------------------------------------------
-"" let g:pymode_options_max_line_length = 79 " Setup max line length
-"let g:pymode                  = 1            " enable Pymode
-"let g:pymode_breakpoint       = 1
-"let g:pymode_breakpoint_bind  = '<Leader>pb' " add breakpoint with ' pb'
-"let g:pymode_doc              = 1            " read doc :PymodeDoc arg
-"let g:pymode_doc_bind         = '<Leader>pd' " press ' pd' to show doc for current word
-"let g:pymode_folding          = 0            " disable folding
-"let g:pymode_indent           = 1            " pep8 indent style
-"let g:pymode_options          = 0            " disable default python options
-"let g:pymode_python           = 'python3'
-"let g:pymode_rope             = 0            " Disable rope
-"let g:pymode_run              = 1
-"let g:pymode_run_bind         = '<Leader>pr' " run python code with ,pr
-"let g:pymode_trim_whitespaces = 1            " Trim unused white spaces on save
-"let g:pymode_virtualenv       = 1            " Enable automatic virtualenv detection
-
-"" rope
-"let g:pymode_rope                     = 0
-"let g:pymode_rope_auto_project        = 0
-"let g:pymode_rope_autoimport_generate = 0
-"let g:pymode_rope_complete_on_dot     = 0
-"let g:pymode_rope_completion          = 0
-"let g:pymode_rope_enable_autoimport   = 0
-"let g:pymode_rope_guess_project       = 0
-
-"""" linting code with neomake
-"let g:pymode_lint_checkers   = ['pyflakes', 'pep8', 'mccabe']
-"let g:pymode_lint_on_fly     = 0
-"let g:pymode_lint_on_write   = 0
-"let g:pymode_lint_unmodified = 0
-
-""" syntax highlight
-""let g:pymode_syntax=1
-""let g:pymode_syntax_all=1
-""let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
-""let g:pymode_syntax_builtin_types=g:pymode_syntax_all
-""let g:pymode_syntax_docstrings=g:pymode_syntax_all
-""let g:pymode_syntax_doctests=g:pymode_syntax_all
-""let g:pymode_syntax_highlight_async_await=g:pymode_syntax_all
-""let g:pymode_syntax_highlight_equal_operator=g:pymode_syntax_all
-""let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
-""let g:pymode_syntax_highlight_self=g:pymode_syntax_all
-""let g:pymode_syntax_highlight_stars_operator=g:pymode_syntax_all
-""let g:pymode_syntax_indent_errors=g:pymode_syntax_all
-""let g:pymode_syntax_print_as_function=g:pymode_syntax_all
-""let g:pymode_syntax_slow_sync=1
-""let g:pymode_syntax_space_errors=g:pymode_syntax_all
-""let g:pymode_syntax_string_format=g:pymode_syntax_all
-""let g:pymode_syntax_string_formatting=g:pymode_syntax_all
-""let g:pymode_syntax_string_templates=g:pymode_syntax_all
-
-
 " ----------------------------------------------------------------------------------------
 " vim-go
 " ----------------------------------------------------------------------------------------
@@ -512,36 +434,55 @@ let g:go_gocode_autobuild                    = 1
 let g:go_gocode_unimported_packages          = 1
 let g:go_highlight_array_whitespace_error    = 0
 let g:go_highlight_build_constraints         = 1
-let g:go_highlight_extra_types               = 0
+let g:go_highlight_extra_types               = 1
+let g:go_highlight_fields                    = 1
 let g:go_highlight_format_strings            = 0
+let g:go_highlight_functions                 = 1
+let g:go_highlight_generate_tags             = 1
+let g:go_highlight_methods                   = 1
+let g:go_highlight_operators                 = 1
 let g:go_highlight_space_tab_error           = 0
+let g:go_highlight_structs                   = 1
 let g:go_highlight_trailing_whitespace_error = 0
-let g:go_highlight_types                     = 0
+let g:go_highlight_types                     = 1
 let g:go_info_mode                           = "guru"
 let g:go_list_type                           = "quickfix"
 let g:go_modifytags_transform                = 'snakecase'
 let g:go_sameid_search_enabled               = 1
 
-nmap <C-g> :GoDecls<cr>
-imap <C-g> <esc>:<C-u>GoDecls<cr>
-
 augroup go
-    autocmd!
-    autocmd FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
-    autocmd FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
-    autocmd FileType go nmap <silent> <Leader>i <Plug>(go-info)
-    autocmd FileType go nmap <silent> <Leader>ml <Plug>(go-metalinter)
-    autocmd FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
-    autocmd FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
-    autocmd FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
-    autocmd FileType go nmap <silent> <leader>b <Plug>(go-build)
-    autocmd FileType go nmap <silent> <leader>in  <Plug>(go-install)
-    autocmd FileType go nmap <silent> <leader>r  <Plug>(go-run)
-    autocmd FileType go nmap <silent> <leader>t  <Plug>(go-test)
-    autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-    autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-    autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-    autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+    au!
+    au FileType go imap <silent> <C-g> <esc>:<C-u>GoDecls<cr>
+    au FileType go nmap <silent> <C-g> :GoDecls<cr>
+    au FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+    au FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
+    au FileType go nmap <silent> <Leader>db <Plug>(go-doc-browser)
+    au FileType go nmap <silent> <Leader>i <Plug>(go-info)
+    au FileType go nmap <silent> <Leader>ml <Plug>(go-metalinter)
+    au FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
+    au FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
+    au FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
+    au FileType go nmap <silent> <leader>b <Plug>(go-build)
+    au FileType go nmap <silent> <leader>in  <Plug>(go-install)
+    au FileType go nmap <silent> <leader>r  <Plug>(go-run)
+    au FileType go nmap <silent> <leader>rb :<C-u>call <SID>build_go_files()<CR>
+    au FileType go nmap <silent> <leader>t  <Plug>(go-test)
+    au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+    au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+    au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+    au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+    au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+
+    " run :GoBuild or :GoTestCompile based on the go file
+    fu! s:build_go_files()
+        let l:file = expand('%')
+        if l:file =~# '^\f\+_test\.go$'
+            call go#test#Test(0, 1)
+        elseif l:file =~# '^\f\+\.go$'
+            call go#cmd#Build(0)
+        endif
+    endfu
+
 augroup END
 
 
@@ -563,12 +504,6 @@ let g:jedi#show_call_signatures     = "1"
 let g:jedi#usages_command           = "<Leader>n"
 let g:jedi#use_splits_not_buffers   = "right"
 let g:jedi#use_tabs_not_buffers     = 0
-
-
-"" ----------------------------------------------------------------------------------------
-"" vim-easymotion
-"" ----------------------------------------------------------------------------------------
-"let g:EasyMotion_smartcase = 1
 
 
 " ----------------------------------------------------------------------------------------
@@ -619,7 +554,7 @@ if executable('rg')
 elseif executable('ag')
     let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 
-    autocmd VimEnter * command! -bang -nargs=* Ag
+    au VimEnter * command! -bang -nargs=* Ag
       \ call fzf#vim#ag(<q-args>,
       \                 <bang>0 ? fzf#vim#with_preview('up:60%')
       \                         : fzf#vim#with_preview('right:50%:hidden', '?'),

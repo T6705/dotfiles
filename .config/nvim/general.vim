@@ -66,9 +66,10 @@ endif
 " ----------------------------------------------------------------------------------------
 set binary
 set bomb
+set encoding=utf-8
+set ffs=unix,dos,mac " Use Unix as the standard file type
 set fileencoding=utf-8
 set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
-set ffs=unix,dos,mac " Use Unix as the standard file type
 
 " Fix backspace indent
 set backspace=indent,eol,start " make backspace behave in a sane manner
@@ -317,13 +318,17 @@ set fileformats=unix,dos,mac
 if &history < 1000
     set history=1000         " change history to 1000
 endif
-set nocompatible             " not compatible with vi
+if has('vim_starting')
+    set nocompatible             " not compatible with vi
+endif
 set path+=**
 
-if executable('zsh')
-    set shell=/bin/zsh
-else
+if exists('$SHELL')
+    set shell=$SHELL
+elseif executable('bash')
     set shell=/bin/bash
+else
+    set shell=/bin/sh
 endif
 
 " ctags
@@ -359,6 +364,7 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=m
 set guioptions-=M
+set mousemodel=popup
 
 " Set font according to system
 if has("mac") || has("macunix")

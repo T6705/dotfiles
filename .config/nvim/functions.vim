@@ -314,32 +314,6 @@ fu! functions#WinMove(key)
 endfu
 
 " ----------------------------------------------------------------------------------------
-" :Goyo
-" ----------------------------------------------------------------------------------------
-fu! s:goyo_enter()
-    "silent !tmux set status off
-    "silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-    set nonu
-    set noshowcmd
-    set noshowmode
-    set scrolloff=999
-    Limelight
-endfu
-
-fu! s:goyo_leave()
-    "silent !tmux set status on
-    "silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-    set nu
-    set showcmd
-    set showmode
-    set scrolloff=5
-    Limelight!
-endfu
-
-au! User GoyoEnter nested call <SID>goyo_enter()
-au! User GoyoLeave nested call <SID>goyo_leave()
-
-" ----------------------------------------------------------------------------------------
 " :LightTheme (PaperColor)
 " ----------------------------------------------------------------------------------------
 fu! LightTheme()
@@ -411,19 +385,19 @@ fu! GruvboxDark()
 endfu
 command! GruvboxDark call GruvboxDark()
 
-function! JavaAbbrev()
+fu! JavaAbbrev()
   inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<cr>
   inoreabbr sop System.out.println("%");<esc>F%s<c-o>:call getchar()<cr>
   inoreabbr sep System.err.println("%");<esc>F%s<c-o>:call getchar()<cr>
   inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<cr>
   inoreabbr ctm System.currentTimeMillis()
-endfunction
+endfu
 
-function! CppAbbrev()
+fu! CppAbbrev()
   inoreabbr inc #include <><esc>i<c-o>:call getchar()<cr>
   inoreabbr main int main() {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
   inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
-endfunction
+endfu
 
 " smart tab completion
 fu! functions#Smart_TabComplete()

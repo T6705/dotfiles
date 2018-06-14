@@ -31,14 +31,18 @@ command! PU PlugUpdate | PlugUpgrade
 
 "" Make `Y` behave like `C` and `D`
 "nnoremap Y y$
-"map y <Plug>(operator-flashy)
-"nmap Y <Plug>(operator-flashy)$
 
 nnoremap <silent> <Leader>p "+gP
 nnoremap <silent> <Leader>x "+x
 nnoremap <silent> <Leader>y "+y
 vnoremap <silent> <Leader>x "+x
 vnoremap <silent> <Leader>y "+y
+
+if has('macunix')
+  " pbcopy for OSX copy/paste
+  vmap <C-x> :!pbcopy<CR>
+  vmap <C-c> :w !pbcopy<CR><CR>
+endif
 
 " select the current line without indentation
 nnoremap vv ^vg_
@@ -99,7 +103,7 @@ vnoremap H ^
 vnoremap L $
 
 nnoremap <silent> G :norm! Gzz<CR>
-nnoremap <silent> N Nzz
+nnoremap <silent> N Nzzzv
 nnoremap <silent> [[ [[zz
 nnoremap <silent> [] []zz
 nnoremap <silent> ][ ][zz
@@ -109,7 +113,7 @@ nnoremap <silent> gV `[v`] " highlight last inserted text
 nnoremap <silent> gg :norm! ggzz<CR>
 nnoremap <silent> g= mmgg=G`m
 nnoremap <silent> gQ mmgggqG`m
-nnoremap <silent> n nzz
+nnoremap <silent> n nzzzv
 nnoremap <silent> { {zz
 nnoremap <silent> } }zz
 
@@ -129,10 +133,6 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " Scrolling
-"nnoremap <silent> <C-d> :call comfortable_motion#flick(400)<CR>
-"nnoremap <silent> <C-u> :call comfortable_motion#flick(-400)<CR>
-"nnoremap <silent> <C-j> :call comfortable_motion#flick(100)<CR>
-"nnoremap <silent> <C-k> :call comfortable_motion#flick(-100)<CR>
 noremap <C-j> 2<C-e>
 noremap <C-k> 2<C-y>
 
@@ -249,8 +249,6 @@ nnoremap <silent> <Leader>fx <Plug>(ale_fix)
 
 " quickfix
 let g:quickfix_height = 50
-"nnoremap <silent> [l :lprev<CR> " Neomake
-"nnoremap <silent> ]l :lnext<CR> " Neomake
 nnoremap <silent> <Leader>lc :lclose<CR>
 nnoremap <silent> <Leader>lo :lopen<CR>
 nnoremap <silent> <Leader>lw :lwindow<CR>
@@ -352,39 +350,7 @@ nnoremap <silent> <Leader>tm :TableModeToggle<CR>
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
 vnoremap . :norm.<CR>
 
-"" ----------------------------------------------------------------------------------------
-"" easymotion
-"" ----------------------------------------------------------------------------------------
-"" <Leader>f{char} to move to {char}
-"map  <Leader><Leader>f <Plug>(easymotion-bd-f)
-"nmap <Leader><Leader>f <Plug>(easymotion-overwin-f)
-"
-"" s{char}{char} to move to {char}{char}
-"nmap s <Plug>(easymotion-overwin-f2)
-"
-"" Move to line
-"map  <Leader><Leader>L <Plug>(easymotion-bd-jk)
-"nmap <Leader><Leader>L <Plug>(easymotion-overwin-line)
-"
-"" Move to word
-"map  <Leader><Leader>w <Plug>(easymotion-bd-w)
-"nmap <Leader><Leader>w <Plug>(easymotion-overwin-w)
-
-"" ----------------------------------------------------------------------------------------
-"" Tabular
-"" ----------------------------------------------------------------------------------------
-"if exists(":Tabularize")
-"  nnoremap <silent> <Leader>a= :Tabularize /=<CR>
-"  vnoremap <silent> <Leader>a= :Tabularize /=<CR>
-"  nnoremap <silent> <Leader>a: :Tabularize /:<CR>
-"  vnoremap <silent> <Leader>a: :Tabularize /:<CR>
-"  "nnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-"  "vnoremap <silent> <Leader>a: :Tabularize /:\zs<CR>
-"endif
-
 " compile and run
-"noremap <silent> <Leader>ccr :w<CR> :!gcc % -o %< && time %:p:r<CR>
-"noremap <silent> <Leader>jcr :w<CR> :cd %:p:h<CR> :!javac % && time java %<<CR>
 noremap <silent> <Leader>cr :CompileandRun<CR>
 
 " Markdown headings
@@ -491,15 +457,6 @@ vnoremap S' "zdi'<C-R>z'<esc>
 vnoremap S( "zdi(<C-R>z)<esc>
 vnoremap S{ "zdi{<C-R>z}<esc>
 vnoremap S[ "zdi[<C-R>z]<esc>
-
-"" ----------------------------------------------------------------------------------------
-"" splitjoin
-"" ----------------------------------------------------------------------------------------
-"let g:splitjoin_split_mapping = ''
-"let g:splitjoin_join_mapping = ''
-"
-"noremap <silent> <Leader>j :SplitjoinJoin<cr>
-"noremap <silent> <Leader>s :SplitjoinSplit<cr>
 
 " ----------------------------------------------------------------------------------------
 " Search in project

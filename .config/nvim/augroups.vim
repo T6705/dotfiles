@@ -5,12 +5,13 @@
 augroup configgroup
     au!
 
-    "" Open NERDTree automatically when vim starts up if no files were specified
-    "au StdinReadPre * let s:std_in=1
+    au StdinReadPre * let s:std_in=1
+    " Open NERDTree automatically when vim starts up if no files were specified
     "au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-    "au FileType text Goyo
-    "au FileType text Limelight
+    " Open NERDTree automatically when vim starts up on opening a directory
+    au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | wincmd h |endif
+    " Close vim if the only window left open is a NERDTree
+    au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
     "au InsertEnter,WinLeave * set nocursorline
     "au InsertLeave,WinEnter * set cursorline
@@ -21,11 +22,6 @@ augroup configgroup
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
 
-    " Restore cursor position when opening file
-    au BufReadPost *
-                \ if line("'\"") > 1 && line("'\"") <= line("$") |
-                \   exe "normal! g`\"" |
-                \ endif
 
     au FileType * RainbowParentheses
     "au FileType html,css EmmetInstall
@@ -40,10 +36,21 @@ augroup configgroup
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
 
+" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
+augroup vimrc-sync-fromstart
+    au!
+    au BufEnter * :syntax sync maxlines=200
+augroup END
+
+" Restore cursor position when opening file
+augroup vimrc-restore-cursor-position
+    au!
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
 augroup LoadDuringHold_Targets
     au!
     "au CursorHold,CursorHoldI * call plug#load('vim-markdown') | au! LoadDuringHold_Targets
-    "au CursorHold,CursorHoldI * call plug#load('neomake') | au! LoadDuringHold_Targets
     au CursorHold,CursorHoldI * call plug#load('targets.vim') | au! LoadDuringHold_Targets
     au CursorHold,CursorHoldI * call plug#load('vim-surround') | au! LoadDuringHold_Targets
     au CursorHold,CursorHoldI *.py call plug#load('jedi-vim') | au! LoadDuringHold_Targets
@@ -57,9 +64,9 @@ augroup END
 
 augroup install_missing_plugins
     au VimEnter *
-      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-      \|   PlugInstall --sync | q
-      \| endif
+                \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+                \|   PlugInstall --sync | q
+                \| endif
 augroup END
 
 augroup auto_mkdir
@@ -110,9 +117,4 @@ augroup nerd_loader
                 \|   execute 'au! nerd_loader'
                 \| endif
 augroup END
-
-augroup asyncrun
-    au User AsyncRunStart call asyncrun#quickfix_toggle(10, 1)
-augroup END
-
 """ }}}
