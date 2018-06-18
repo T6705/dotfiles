@@ -60,7 +60,7 @@ COMPLETION_WAITING_DOTS="false"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# command -v plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
@@ -90,7 +90,7 @@ plugins=(
 autoload -U compinit && compinit
 
 # User configuration
-if which go &> /dev/null; then
+if command -v go &> /dev/null; then
     [ ! -d $HOME/go ] && mkdir -p $HOME/go
     [ ! -d $HOME/go/bin ] && mkdir -p $HOME/go/bin
 fi
@@ -112,13 +112,13 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-    if which nvim &> /dev/null ; then
+    if command -v nvim &> /dev/null ; then
         export EDITOR='nvim'
     else
         export EDITOR='vim'
     fi
 else
-    if which nvim &> /dev/null ; then
+    if command -v nvim &> /dev/null ; then
         export EDITOR='nvim'
     else
         export EDITOR='vim'
@@ -194,12 +194,12 @@ fi
 source ~/.zsh/aliases.zsh
 source ~/.zsh/functions.zsh
 
-#if which neofetch &> /dev/null ; then
+#if command -v neofetch &> /dev/null ; then
 #    neofetch
-#elif which screenfetch &> /dev/null ; then
+#elif command -v screenfetch &> /dev/null ; then
 #    screenfetch
 #fi
 
-#if which cowsay &> /dev/null && which fortune &> /dev/null && which lolcat &> /dev/null; then
+#if command -v cowsay &> /dev/null && command -v fortune &> /dev/null && command -v lolcat &> /dev/null; then
 #    cowsay `fortune` | lolcat
 #fi

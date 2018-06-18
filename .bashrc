@@ -87,6 +87,20 @@ xterm*|rxvt*)
     ;;
 esac
 
+if command -v go &> /dev/null; then
+    [ ! -d $HOME/go ] && mkdir -p $HOME/go
+    [ ! -d $HOME/go/bin ] && mkdir -p $HOME/go/bin
+fi
+
+[ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
+[ -d $HOME/.gem/ruby/2.5.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.5.0/bin"
+[ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
+[ -d $HOME/go ] && export GOPATH="$HOME/go"
+[ -d $HOME/go/bin ] && export GOBIN="$GOPATH/bin" && export PATH="$PATH:$GOPATH/bin"
+[ -d /usr/games ] && export PATH="$PATH:/usr/games"
+[ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
+[ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -101,13 +115,13 @@ fi
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-    if which nvim &> /dev/null ; then
+    if command -v nvim &> /dev/null ; then
         export EDITOR='nvim'
     else
         export EDITOR='vim'
     fi
 else
-    if which nvim &> /dev/null ; then
+    if command -v nvim &> /dev/null ; then
         export EDITOR='nvim'
     else
         export EDITOR='vim'
@@ -144,45 +158,45 @@ alias :qall="exit"
 
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
-if which gem &> /dev/null ; then
+if command -v gem &> /dev/null ; then
     alias gemup="gem update --system && gem update && gem cleanup"
 fi
 
-if which python3 &> /dev/null ; then
+if command -v python3 &> /dev/null ; then
     alias pywebserver-cgi="python -m http.server --cgi"
     alias pywebserver-local="python3 -m http.server --bind 127.0.0.1"
     alias pywebserver="python3 -m http.server"
-elif which python2 &> /dev/null ; then
+elif command -v python2 &> /dev/null ; then
     alias pywebserver="python -m SimpleHTTPServer"
 fi
 
-if which youtube-dl &> /dev/null ; then
+if command -v youtube-dl &> /dev/null ; then
     alias mp3="youtube-dl --extract-audio --audio-format mp3"
 fi
 
-if which xclip &> /dev/null ; then
+if command -v xclip &> /dev/null ; then
 	alias xcopy='xclip -selection clipboard'
 	alias xpaste='xclip -selection clipboard -o'
 fi
 
-if which tr &> /dev/null ; then
+if command -v tr &> /dev/null ; then
     alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 fi
 
-if which clamscan &> /dev/null ; then
+if command -v clamscan &> /dev/null ; then
     alias checkvirus="clamscan --recursive=yes --infected ~/"
 fi
 
-if which freshclam &> /dev/null ; then
+if command -v freshclam &> /dev/null ; then
     alias updateantivirus="sudo freshclam"
 fi
 
-if which rkhunter &> /dev/null ; then
+if command -v rkhunter &> /dev/null ; then
     alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
 fi
 
 #Colorizing "cat" https://github.com/jingweno/ccat
-if which ccat &> /dev/null ; then
+if command -v ccat &> /dev/null ; then
     alias cat='ccat --bg=dark'
 fi
 
@@ -195,6 +209,66 @@ alias nvimn='nvim -N -u NONE'
 alias sshlf="ssh -gNfL"
 # sshrf 1234:127.0.0.1:4321 name@1.1.1.1
 alias sshrf="ssh -NfR"
+
+# ------------------------------------
+# Docker alias
+# ------------------------------------
+if command -v docker &> /dev/null ; then
+    # Stop all containers
+    alias dstop='docker_alias_stop_all_containers'
+
+    # Remove all containers
+    alias drm='docker_alias_remove_all_containers'
+
+    # Stop and Remove all containers
+    alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+
+    # stop and remove all Exited containers
+    alias drsc='docker rm $(docker ps -aq --filter status=exited)'
+
+    # Docker remove image
+    alias dri='docker rmi'
+
+    # Remove all empty images
+    alias drei='docker_alias_remove_all_empty_images'
+
+    # Dockerfile build, e.g., $dbu tcnksm/test
+    alias dbu='docker_alias_docker_file_build'
+
+    # Show all alias related docker
+    alias dalias='docker_alias_show_all_docker_related_alias'
+
+    # Bash into running container
+    alias dbash='docker_alias_bash_into_running_container'
+
+    # Get latest container ID
+    alias dl="docker ps -l -q"
+
+    alias dp='docker ps --format="table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}"'
+
+    alias dclean='drmf && drei'
+
+    # Get images
+    alias di="docker images"
+
+    # list all container
+    alias dcla="docker container ls --all"
+
+    # Get container IP
+    alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+
+    # Run deamonized container, e.g., $dkd base /bin/echo hello
+    alias dkd="docker run -d -P"
+
+    # Run interactive container, e.g., $dki base /bin/bash
+    alias dki="docker run -i -t -P"
+
+    # Run interactive container and then auto kill it
+    alias drit='docker run --rm -i -t'
+
+    # Execute interactive container, e.g., $dex base /bin/bash
+    alias dex="docker exec -i -t"
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -223,7 +297,7 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 eval $(dircolors -b $HOME/.dircolors)
 
-#if ! which powerline-shell &> /dev/null ; then
+#if ! command -v powerline-shell &> /dev/null ; then
 #    curl "https://bootstrap.pypa.io/get-pip.py" > ~/get-pip.py
 #    sudo python3 ~/get-pip.py
 #    sudo pip install -U powerline-shell
@@ -261,7 +335,7 @@ weather() {
     fi
 }
 
-if which cower &> /dev/null ; then
+if command -v cower &> /dev/null ; then
     coweri() {
         if [[ -n "$1" ]]; then
             currentdir=$(pwd)
@@ -290,10 +364,10 @@ fi
 # -----------------------------------------------------------------------------------------
 # fzf
 # -----------------------------------------------------------------------------------------
-if which fzf &> /dev/null ; then
-    if which rg &> /dev/null ; then
+if command -v fzf &> /dev/null ; then
+    if command -v rg &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-    elif which ag &> /dev/null ; then
+    elif command -v ag &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
     fi
 
@@ -712,7 +786,7 @@ edb-install() {
     echo "== edb - cross platform x86/x86-64 debugger =="
     echo "=============================================="
     currentdir=$(pwd)
-    if which apt-get &> /dev/null ; then
+    if command -v apt-get &> /dev/null ; then
         # install dependencies For Ubuntu >= 15.10
         sudo apt-get install -y    \
             cmake                  \
@@ -724,7 +798,7 @@ edb-install() {
             libqt5svg5-dev         \
             libgraphviz-dev        \
             libcapstone-dev
-    elif which pacman &> /dev/null ; then
+    elif command -v pacman &> /dev/null ; then
         sudo pacman -S --needed qt4 boost boost-libs capstone graphviz
         sudo pacman -S --needed $(pacman -Ssq qt | sort -u | grep -E "^qt5-")
     fi
@@ -746,7 +820,7 @@ plasma-install() {
     echo "========================================================"
     echo "== plasma - interactive disassembler for x86/ARM/MIPS =="
     echo "========================================================"
-    if which apt-get &> /dev/null ; then
+    if command -v apt-get &> /dev/null ; then
         currentdir=$(pwd)
         if [[ -d ~/git/plasma ]]; then
             time rm -rf ~/git/plasma && cd ~/git
@@ -755,8 +829,8 @@ plasma-install() {
         fi
         time git clone https://github.com/plasma-disassembler/plasma
         cd plasma && time ./install.sh && cd $currentdir
-    elif which pacman &> /dev/null ; then
-        if which pacaur &> /dev/null ; then
+    elif command -v pacman &> /dev/null ; then
+        if command -v pacaur &> /dev/null ; then
             pacaur -S plasma-git
         else
             sudo pacman -S pacaur
@@ -770,9 +844,9 @@ yuzu-install() {
     echo "== yuzu -  Nintendo Switch Emulator =="
     echo "======================================"
 
-    if which apt-get &> /dev/null ; then
+    if command -v apt-get &> /dev/null ; then
         sudo apt-get install build-essential clang cmake libc++-dev libcurl4-openssl-dev libqt5opengl5-dev libsdl2-2.0-0 libsdl2-dev qtbase5-dev sdl2
-    elif which pacman &> /dev/null ; then
+    elif command -v pacman &> /dev/null ; then
         sudo pacman -S --needed base-devel clang cmake libcurl-compat qt5 sdl2
     fi
 
@@ -794,7 +868,7 @@ yuzu-install() {
 # -----------------------------------------------------------------------------------------
 # Usage: viewimg <filename> | display image in terminal
 # -----------------------------------------------------------------------------------------
-if which w3m &> /dev/null && [[ -f /usr/lib/w3m/w3mimgdisplay ]]; then
+if command -v w3m &> /dev/null && [[ -f /usr/lib/w3m/w3mimgdisplay ]]; then
     viewimg() {
         w3m -o imgdisplay=/usr/lib/w3m/w3mimgdisplay -o ext_image_viewer=N $1
     }
@@ -853,7 +927,7 @@ transfer() {
 # -----------------------------------------------------------------------------------------
 # Docker functions
 # -----------------------------------------------------------------------------------------
-if which docker &> /dev/null ; then
+if command -v docker &> /dev/null ; then
     docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
     docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }
     docker_alias_remove_all_empty_images() { docker images | awk '{print $2 " " $3}' | grep '^<none>' | awk '{print $2}' | xargs -I{} docker rmi {}; }
@@ -880,14 +954,14 @@ nethack-nao() {
 nethack-nao-game-status() {
     if [[ -z "$1" ]]; then
         url="https://alt.org/nethack/mostrecent.php"
-        if which firefox &> /dev/null ; then
+        if command -v firefox &> /dev/null ; then
             firefox $url
         else
             echo "$url"
         fi
     else
         url="https://alt.org/nethack/player-all.php?player=$1"
-        if which firefox &> /dev/null ; then
+        if command -v firefox &> /dev/null ; then
             firefox $url
         else
             echo "$url"
@@ -920,3 +994,36 @@ crawl-cao() {
         crawl-cao
     fi
 }
+
+# ------------------------------------
+# Docker functions
+# ------------------------------------
+
+if command -v docker &> /dev/null ; then
+    docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
+    docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }
+    docker_alias_remove_all_empty_images() { docker images | awk '{print $2 " " $3}' | grep '^<none>' | awk '{print $2}' | xargs -I{} docker rmi {}; }
+    docker_alias_docker_file_build() { docker build -t=$1 .; }
+    docker_alias_show_all_docker_related_alias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+    docker_alias_bash_into_running_container() { docker exec -it $(docker ps -aqf "name=$1") bash; }
+
+    #open-source lightweight management UI for Docker hosts or Swarm clusters
+    portainer() {
+        docker volume create portainer_data
+        docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+
+        if command -v firefox &> /dev/null; then
+            firefox "http://127.0.0.1:9000"
+        else
+            echo "http://127.0.0.1:9000"
+        fi
+    }
+
+    #Top-like interface for container metrics (https://github.com/bcicen/ctop)
+    ctop() {
+        docker run --rm -ti \
+            --name=ctop \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            quay.io/vektorlab/ctop:latest
+    }
+fi

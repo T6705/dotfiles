@@ -22,7 +22,7 @@ weather() {
     fi
 }
 
-if which cower &> /dev/null ; then
+if command -v cower &> /dev/null ; then
     coweri() {
         if [[ -n "$1" ]]; then
             currentdir=$(pwd)
@@ -51,10 +51,10 @@ fi
 # -----------------------------------------------------------------------------------------
 # fzf
 # -----------------------------------------------------------------------------------------
-if which fzf &> /dev/null ; then
-    if which rg &> /dev/null ; then
+if command -v fzf &> /dev/null ; then
+    if command -v rg &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-    elif which ag &> /dev/null ; then
+    elif command -v ag &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
     fi
 
@@ -473,7 +473,7 @@ edb-install() {
     echo "== edb - cross platform x86/x86-64 debugger =="
     echo "=============================================="
     currentdir=$(pwd)
-    if which apt-get &> /dev/null ; then
+    if command -v apt-get &> /dev/null ; then
         # install dependencies For Ubuntu >= 15.10
         sudo apt-get install -y    \
             cmake                  \
@@ -485,7 +485,7 @@ edb-install() {
             libqt5svg5-dev         \
             libgraphviz-dev        \
             libcapstone-dev
-    elif which pacman &> /dev/null ; then
+    elif command -v pacman &> /dev/null ; then
         sudo pacman -S --needed qt4 boost boost-libs capstone graphviz
         sudo pacman -S --needed $(pacman -Ssq qt | sort -u | grep -E "^qt5-")
     fi
@@ -507,7 +507,7 @@ plasma-install() {
     echo "========================================================"
     echo "== plasma - interactive disassembler for x86/ARM/MIPS =="
     echo "========================================================"
-    if which apt-get &> /dev/null ; then
+    if command -v apt-get &> /dev/null ; then
         currentdir=$(pwd)
         if [[ -d ~/git/plasma ]]; then
             time rm -rf ~/git/plasma && cd ~/git
@@ -516,8 +516,8 @@ plasma-install() {
         fi
         time git clone https://github.com/plasma-disassembler/plasma
         cd plasma && time ./install.sh && cd $currentdir
-    elif which pacman &> /dev/null ; then
-        if which pacaur &> /dev/null ; then
+    elif command -v pacman &> /dev/null ; then
+        if command -v pacaur &> /dev/null ; then
             pacaur -S plasma-git
         else
             sudo pacman -S pacaur
@@ -531,9 +531,9 @@ yuzu-install() {
     echo "== yuzu -  Nintendo Switch Emulator =="
     echo "======================================"
 
-    if which apt-get &> /dev/null ; then
+    if command -v apt-get &> /dev/null ; then
         sudo apt-get install build-essential clang cmake libc++-dev libcurl4-openssl-dev libqt5opengl5-dev libsdl2-2.0-0 libsdl2-dev qtbase5-dev sdl2
-    elif which pacman &> /dev/null ; then
+    elif command -v pacman &> /dev/null ; then
         sudo pacman -S --needed base-devel clang cmake libcurl-compat qt5 sdl2
     fi
 
@@ -555,7 +555,7 @@ yuzu-install() {
 # -----------------------------------------------------------------------------------------
 # Usage: viewimg <filename> | display image in terminal
 # -----------------------------------------------------------------------------------------
-if which w3m &> /dev/null && [[ -f /usr/lib/w3m/w3mimgdisplay ]]; then
+if command -v w3m &> /dev/null && [[ -f /usr/lib/w3m/w3mimgdisplay ]]; then
     viewimg() {
         w3m -o imgdisplay=/usr/lib/w3m/w3mimgdisplay -o ext_image_viewer=N $1
     }
@@ -614,7 +614,7 @@ transfer() {
 # -----------------------------------------------------------------------------------------
 # Docker functions
 # -----------------------------------------------------------------------------------------
-if which docker &> /dev/null ; then
+if command -v docker &> /dev/null ; then
     docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
     docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }
     docker_alias_remove_all_empty_images() { docker images | awk '{print $2 " " $3}' | grep '^<none>' | awk '{print $2}' | xargs -I{} docker rmi {}; }
@@ -640,14 +640,14 @@ nethack-nao() {
 nethack-nao-game-status() {
     if [[ -z "$1" ]]; then
         url="https://alt.org/nethack/mostrecent.php"
-        if which firefox &> /dev/null ; then
+        if command -v firefox &> /dev/null ; then
             firefox $url
         else
             echo "$url"
         fi
     else
         url="https://alt.org/nethack/player-all.php?player=$1"
-        if which firefox &> /dev/null ; then
+        if command -v firefox &> /dev/null ; then
             firefox $url
         else
             echo "$url"
@@ -680,3 +680,36 @@ crawl-cao() {
         crawl-cao
     fi
 }
+
+# ------------------------------------
+# Docker functions
+# ------------------------------------
+
+if command -v docker &> /dev/null ; then
+    docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
+    docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }
+    docker_alias_remove_all_empty_images() { docker images | awk '{print $2 " " $3}' | grep '^<none>' | awk '{print $2}' | xargs -I{} docker rmi {}; }
+    docker_alias_docker_file_build() { docker build -t=$1 .; }
+    docker_alias_show_all_docker_related_alias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+    docker_alias_bash_into_running_container() { docker exec -it $(docker ps -aqf "name=$1") bash; }
+
+    #open-source lightweight management UI for Docker hosts or Swarm clusters
+    portainer() {
+        docker volume create portainer_data
+        docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+
+        if command -v firefox &> /dev/null; then
+            firefox "http://127.0.0.1:9000"
+        else
+            echo "http://127.0.0.1:9000"
+        fi
+    }
+
+    #Top-like interface for container metrics (https://github.com/bcicen/ctop)
+    ctop() {
+        docker run --rm -ti \
+            --name=ctop \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            quay.io/vektorlab/ctop:latest
+    }
+fi

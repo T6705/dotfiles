@@ -19,50 +19,50 @@ alias :qall="exit"
 
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
-if which gem &> /dev/null ; then
+if command -v gem &> /dev/null ; then
     alias gemup="gem update --system && gem update && gem cleanup"
 fi
 
-if which exa &> /dev/null ; then
+if command -v exa &> /dev/null ; then
     alias ls="exa"
     alias la="exa -lahgimuU"
 fi
 
-if which python3 &> /dev/null ; then
+if command -v python3 &> /dev/null ; then
     alias pywebserver-cgi="python -m http.server --cgi"
     alias pywebserver-local="python3 -m http.server --bind 127.0.0.1"
     alias pywebserver="python3 -m http.server"
-elif which python2 &> /dev/null ; then
+elif command -v python2 &> /dev/null ; then
     alias pywebserver="python -m SimpleHTTPServer"
 fi
 
-if which youtube-dl &> /dev/null ; then
+if command -v youtube-dl &> /dev/null ; then
     alias mp3="youtube-dl --extract-audio --audio-format mp3"
 fi
 
-if which xclip &> /dev/null ; then
+if command -v xclip &> /dev/null ; then
 	alias xcopy='xclip -selection clipboard'
 	alias xpaste='xclip -selection clipboard -o'
 fi
 
-if which tr &> /dev/null ; then
+if command -v tr &> /dev/null ; then
     alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 fi
 
-if which clamscan &> /dev/null ; then
+if command -v clamscan &> /dev/null ; then
     alias checkvirus="clamscan --recursive=yes --infected ~/"
 fi
 
-if which freshclam &> /dev/null ; then
+if command -v freshclam &> /dev/null ; then
     alias updateantivirus="sudo freshclam"
 fi
 
-if which rkhunter &> /dev/null ; then
+if command -v rkhunter &> /dev/null ; then
     alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
 fi
 
 #Colorizing "cat" https://github.com/jingweno/ccat
-if which ccat &> /dev/null ; then
+if command -v ccat &> /dev/null ; then
     alias cat='ccat --bg=dark'
 fi
 
@@ -72,20 +72,9 @@ alias vimn='vim -N -u NONE'
 alias nvimn='nvim -N -u NONE'
 
 # ------------------------------------
-# Docker functions
-# ------------------------------------
-
-docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
-docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }
-docker_alias_remove_all_empty_images() {docker images | awk '{print $2 " " $3}' | grep '^<none>' | awk '{print $2}' | xargs -I{} docker rmi {}; }
-docker_alias_docker_file_build() { docker build -t=$1 .; }
-docker_alias_show_all_docker_related_alias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
-docker_alias_bash_into_running_container() { docker exec -it $(docker ps -aqf "name=$1") bash; }
-
-# ------------------------------------
 # Docker alias
 # ------------------------------------
-if which docker &> /dev/null ; then
+if command -v docker &> /dev/null ; then
     # Stop all containers
     alias dstop='docker_alias_stop_all_containers'
 
