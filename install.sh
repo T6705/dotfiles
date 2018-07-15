@@ -125,6 +125,14 @@ install_dots() {
         https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/init.vim
 
     echo ""
+    echo "========================="
+    echo "== Download oni config =="
+    echo "========================="
+    echo ""
+    curl -fLo ~/.config/oni/config.tsx --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/oni/config.tsx
+
+    echo ""
     echo "=========================="
     echo "== Download bash config =="
     echo "=========================="
@@ -418,6 +426,13 @@ install_vim() {
     if command -v nvim &> /dev/null; then
         nvim /tmp/visincr.vba +"so %" +qall
         nvim +PlugUpdate
+    fi
+
+    if command -v oni &> /dev/null; then # language servers
+        if command -v gem &> /dev/null; then gem install language_server fi
+        if command -v go &> /dev/null; then go get -u github.com/sourcegraph/go-langserver fi
+        if command -v npm &> /dev/null; then npm i -g bash-language-server fi
+        if command -v pip3 &> /dev/null; then pip3 install -U autopep8 flake8 isort mccabe pep8 pycodestyle pydocstyle pyflakes python-language-server vulture yapf fi
     fi
 
     reset

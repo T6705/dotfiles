@@ -149,6 +149,7 @@ Plug 'andymass/matchup.vim'                                       " vim match-up
 Plug 'benmills/vimux'                                             " vim plugin to interact with tmux
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'chrisbra/vim-diff-enhanced'                                 " Better Diff options for Vim
+Plug 'dbeniamine/cheat.sh-vim'                                    " A vim plugin to access cheat.sh sheets
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }    " VIM Table Mode for instant table creation.
 Plug 'ervandew/supertab'                                          " Perform all your vim insert mode completions with Tab
 Plug 'itchyny/vim-cursorword'                                     " Underlines the word under the cursor
