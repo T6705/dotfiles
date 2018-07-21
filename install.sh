@@ -171,7 +171,7 @@ install_dependencies() {
         sudo apt-get dist-upgrade -y
         sudo apt-get autoremove -y
         sudo apt-get clean
-        sudo apt-get install -y curl npm ranger ruby-rouge tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
+        sudo apt-get install -y curl fontconfig git npm ntp ntpdate ranger ruby-rouge time tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
 
         curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" > /usr/bin/diff-so-fancy
         chmod +x /usr/bin/diff-so-fancy
@@ -204,7 +204,7 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel
         sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt
-        sudo pacman -S --needed --noconfirm curl git neovim npm python-pip python2-pip ranger ruby-rouge termite tmux vim xclip xsel zsh
+        sudo pacman -S --needed --noconfirm curl fontconfig git neovim npm ntp python-pip python2-pip ranger ruby-rouge termite time tmux vim xclip xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --noconfirm compton diff-so-fancy net-tools screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm $(pacman -Ssq numix)
@@ -428,12 +428,12 @@ install_vim() {
         nvim +PlugUpdate
     fi
 
-    if command -v oni &> /dev/null; then # language servers
-        if command -v gem &> /dev/null; then gem install language_server fi
-        if command -v go &> /dev/null; then go get -u github.com/sourcegraph/go-langserver fi
-        if command -v npm &> /dev/null; then npm i -g bash-language-server fi
-        if command -v pip3 &> /dev/null; then pip3 install -U autopep8 flake8 isort mccabe pep8 pycodestyle pydocstyle pyflakes python-language-server vulture yapf fi
-    fi
+    #if command -v oni &> /dev/null; then # language servers
+    #    if command -v gem &> /dev/null; then gem install language_server fi
+    #    if command -v go &> /dev/null; then go get -u github.com/sourcegraph/go-langserver fi
+    #    if command -v npm &> /dev/null; then npm i -g bash-language-server fi
+    #    if command -v pip3 &> /dev/null; then pip3 install -U autopep8 flake8 isort mccabe pep8 pycodestyle pydocstyle pyflakes python-language-server vulture yapf fi
+    #fi
 
     reset
 }
