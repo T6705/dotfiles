@@ -156,10 +156,24 @@ alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
 
+if command -v tmux &> /dev/null ; then
+    alias ta='tmux attach -t'
+    alias tad='tmux attach -d -t'
+    alias ts='tmux new-session -s'
+    alias tl='tmux list-sessions'
+    alias tksv='tmux kill-server'
+    alias tkss='tmux kill-session -t'
+fi
+
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
 if command -v gem &> /dev/null ; then
     alias gemup="gem update --system && gem update && gem cleanup"
+fi
+
+if command -v exa &> /dev/null ; then
+    alias ls="exa"
+    alias la="exa -lahgimuU"
 fi
 
 if command -v python3 &> /dev/null ; then
@@ -998,13 +1012,30 @@ if command -v docker &> /dev/null ; then
     #open-source lightweight management UI for Docker hosts or Swarm clusters
     portainer() {
         docker volume create portainer_data
-        docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+        docker run -d --name=portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 
         if command -v firefox &> /dev/null; then
             firefox "http://127.0.0.1:9000"
         else
             echo "http://127.0.0.1:9000"
         fi
+    }
+
+    # A visualizer for Docker Swarm Mode using the Docker Remote API, Node.JS, and D3
+    visualizer() {
+        $image="dockersamples/visualizer"
+
+        cpu_architecture=$(lscpu | grep "Architecture:" | awk '{print $2}')
+
+        if [[ $cpu_architecture =~ "*arm*" ]]; then
+            $image="alexellis2/visualizer-arm:latest"
+        fi
+
+        docker run -rm -it -d \
+            -name visualizer
+            -p 8080:8080 \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            $image
     }
 
     #Top-like interface for container metrics (https://github.com/bcicen/ctop)

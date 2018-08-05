@@ -693,6 +693,23 @@ if command -v docker &> /dev/null ; then
         fi
     }
 
+    # A visualizer for Docker Swarm Mode using the Docker Remote API, Node.JS, and D3
+    visualizer() {
+        $image="dockersamples/visualizer"
+
+        cpu_architecture=$(lscpu | grep "Architecture:" | awk '{print $2}')
+
+        if [[ $cpu_architecture =~ "*arm*" ]]; then
+            $image="alexellis2/visualizer-arm:latest"
+        fi
+
+        docker run -rm -it -d \
+            -name visualizer
+            -p 8080:8080 \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            $image
+    }
+
     #Top-like interface for container metrics (https://github.com/bcicen/ctop)
     ctop() {
         docker run --rm -ti \
