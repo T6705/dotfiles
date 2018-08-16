@@ -13,6 +13,8 @@ export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_ALL=
 
+export BETTER_EXCEPTIONS=1
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -100,6 +102,19 @@ fi
 [ -d /usr/games ] && export PATH="$PATH:/usr/games"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
+
+####################################
+## https://github.com/pyenv/pyenv ##
+####################################
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+####################################
+## https://github.com/pypa/pipenv ##
+####################################
+if command -v pipenv &> /dev/null; then
+    eval "$(pipenv --completion)"
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then

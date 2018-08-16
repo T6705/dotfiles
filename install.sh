@@ -258,8 +258,8 @@ install_i3() {
         echo "== install i3-gaps =="
         echo "====================="
         echo ""
-        time mkdir -p ~/git
-        cd ~/git
+        time mkdir -p ~/git/hub
+        cd ~/git/hub
         rm -rf i3-gaps
 
         # clone the repository
@@ -283,8 +283,8 @@ install_i3() {
         echo "====================="
         echo ""
 
-        time mkdir -p ~/git
-        cd ~/git
+        time mkdir -p ~/git/hub
+        cd ~/git/hub
         rm -rf polybar
         time git clone --branch 3.1.0 --recursive https://github.com/jaagr/polybar
         cd polybar
@@ -295,11 +295,11 @@ install_i3() {
         echo "== Download i3lock-fancy =="
         echo "==========================="
         echo ""
-        time mkdir -p ~/git
-        cd ~/git
+        time mkdir -p ~/git/hub
+        cd ~/git/hub
         rm -rf i3lock-fancy
         time git clone "https://github.com/meskarune/i3lock-fancy"
-        cd ~/git/i3lock-fancy
+        cd ~/git/hub/i3lock-fancy
         sudo cp -v lock /usr/local/bin/
         sudo cp -r -v icons /usr/local/bin/
 
@@ -323,9 +323,9 @@ install_i3() {
             pacaur Syyu
             pacaur -S polybar-git
         fi
-        #time mkdir -p ~/git
-        #time git clone https://aur.archlinux.org/polybar-git.git ~/git/polybar-git
-        #cd ~/git/polybar-git
+        #time mkdir -p ~/git/hub
+        #time git clone https://aur.archlinux.org/polybar-git.git ~/git/hub/polybar-git
+        #cd ~/git/hub/polybar-git
         #makepkg -si
 
     fi
@@ -444,11 +444,11 @@ install_st() {
     echo "== git clone st =="
     echo "=================="
     echo ""
-    if [ -d ~/git/st ]; then
-        time cd ~/git/st && time git pull
+    if [ -d ~/git/hub/st ]; then
+        time cd ~/git/hub/st && time git pull
     else
-        time mkdir -p ~/git
-        time git clone git://git.suckless.org/st ~/git/st
+        time mkdir -p ~/git/hub
+        time git clone git://git.suckless.org/st ~/git/hub/st
     fi
 
     echo ""
@@ -458,7 +458,7 @@ install_st() {
     echo ""
     curl -fLo /tmp/font-and-color.patch --create-dirs \
         https://gitlab.com/T6705/dotfiles/raw/master/st/font-and-color.patch
-    cd ~/git/st && patch < /tmp/font-and-color.patch
+    cd ~/git/hub/st && patch < /tmp/font-and-color.patch
 
 
     echo ""
@@ -584,13 +584,13 @@ install_zsh() {
     echo "== install Nerd fonts =="
     echo "========================"
     echo ""
-    if [ -d ~/git/nerd-fonts ]; then
-        time cd ~/git/nerd-fonts && time git pull
+    if [ -d ~/git/hub/nerd-fonts ]; then
+        time cd ~/git/hub/nerd-fonts && time git pull
         time ./install.sh
     else
-        time mkdir -p ~/git
-        time git clone https://github.com/ryanoasis/nerd-fonts ~/git/nerd-fonts
-        time ~/git/nerd-fonts/install.sh
+        time mkdir -p ~/git/hub
+        time git clone https://github.com/ryanoasis/nerd-fonts ~/git/hub/nerd-fonts
+        time ~/git/hub/nerd-fonts/install.sh
     fi
 
     echo ""

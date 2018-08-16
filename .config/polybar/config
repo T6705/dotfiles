@@ -1,50 +1,73 @@
 [colors]
-;background = #222
-background-alt = #444
-foreground     = #dfdfdf
-foreground-alt = #55
-primary        = #ffb52a
-secondary      = #e60053
-alert          = #bd2c40
+black    = #282828
+blue     = #076678
+darkgray = #585858
+gray     = #928374
+green    = #79740e
+orange   = #d79921
+red      = #9d0006
+white    = #ebdbb2
+yellow   = #b57614
 
-background = #3c3836
-color1     = #e74c3c
-color1l    = #40955540
-color2     = #2980b9
-color2l    = #40477893
-color3     = #f39c12
-color3l    = #40BC832C
-color4     = #689d6a
-color4l    = #8ec07c
+;background    = #1d2021
+;background    = #000000
+;foreground    = #fbf1c7
+;foreground    = #dfdfdf
+;foreground    = ${xrdb:foreground}
+alert          = #fb4934
+background     = #aa000000
+background-alt = #4e4e4e
+foreground     = #ffffff
+foreground-alt = #4e4e4e
+primary        = #1f222d
+secondary      = #FF6200
 
 [global/wm]
 margin-top    = 5
 margin-bottom = 5
 
 [bar/top]
-monitor = LVDS1
-width = 100%
-height = 24
-offset-x = 0
-offset-y = 0
+monitor           = LVDS1
+width             = 100%
+height            = 26
+offset-x          = 0
+offset-y          = 0
+override-redirect = true
+;width             = 98%
+wm-restack        = i3
+
+locale = en_US.UTF-8
+
+enable-ipc = true
+
+padding-left  = 0
+padding-right = 2
+
+module-margin-right = 0
+module-margin-left  = 0
+
+modules-left   = i3
+modules-center = date
+modules-right  = spotify previous playpause next volume lock
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-overline-size = 2
-overline-color = #f00
 underline-size = 2
-underline-color = #00f
+underline-color = ${colors.white}
 
-border-bottom-size = 2
-border-bottom-color = #333
+;tray-maxsize    = 16
+tray-background  = ${colors.background}
+tray-detached    = false
+tray-offset-x    = 0
+tray-offset-y    = 0
+tray-padding     = 0
+tray-position    =
+;tray-position   = right
+tray-scale       = 1.0
+tray-transparent = false
 
-padding-left = 0
-padding-right = 1
-module-margin-left = 0
-module-margin-right = 0
-
-font-0  = "KnackNerdFont:size=8;2"
+font-0  = "HackNerdFont:size=8;2"
 font-1  = "Hack:size=8;2"
 font-2  = "NotoSansMonoCJKtc-Regular:size=8;2"
 font-3  = "FontAwesome:size=8;2"
@@ -56,27 +79,60 @@ font-8  = "monospace:size=9;2"
 font-9  = "siji:pixelsize=10;0"
 font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
-modules-left = i3
+[bar/bottom]
+bottom            = true
+monitor           = LVDS1
+width             = 100%
+height            = 26
+offset-x          = 0
+offset-y          = 0
+override-redirect = true
+;width             = 98%
+wm-restack        = i3
+
+locale = en_US.UTF-8
+
+enable-ipc = true
+
+padding-left  = 0
+padding-right = 2
+
+module-margin-right = 0
+module-margin-left  = 0
+
+modules-left   = tor wlan eth
 modules-center =
-modules-right = volume memory cpu wlan eth battery temperature date
-;modules-right = backlight volume xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-right  = cpu memory temperature
+;modules-right  = cpu memory battery temperature
 
-tray-position = right
-tray-padding = 2
-;tray-transparent = true
-;tray-background = #0063ff
+background = ${colors.background}
+foreground = ${colors.foreground}
 
-;wm-restack = bspwm
-wm-restack = i3
+underline-size  = 2
+underline-color = ${colors.white}
 
-;override-redirect = true
+;tray-maxsize    = 16
+tray-background  = ${colors.background}
+tray-detached    = false
+tray-offset-x    = 0
+tray-offset-y    = 0
+tray-padding     = 0
+;tray-position    = right
+tray-position    =
+tray-scale       = 1.0
+tray-transparent = false
 
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
-
+font-0  = "HackNerdFont:size=9;2"
+font-1  = "Hack:size=9;2"
+font-2  = "NotoSansMonoCJKtc-Regular:size=9;2"
+font-3  = "FontAwesome:size=8;2"
+font-4  = "NotoSans-Regular:size=8;-1"
+font-5  = "Termsynu:size=7;0"
+font-6  = "Unifont:size=5;0"
+font-7  = "fixed:pixelsize=10;0"
+font-8  = "monospace:size=9;2"
+font-9  = "siji:pixelsize=10;0"
+font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
 
 [module/xwindow]
 type = internal/xwindow
@@ -128,126 +184,213 @@ label-empty-padding = 2
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
-enable-click    = true
-enable-scroll   = true
-index-sort      = true
+enable-click = true
+enable-scroll = true
+index-sort = true
 strip-wsnumbers = true
-;wrapping-scroll = false
+wrapping-scroll = true
 
-;label-focused = %index%
-label-focused = %name%
-label-focused-background   = #008fff
-label-focused-foreground   = #ffffff
-label-focused-padding      = 2
+;label-focused-background = #88000000
+label-focused             = %name%
+;label-focused-background = #add8e6
+label-focused-background  = #008080
+label-focused-foreground  = #ffffff
+label-focused-padding     = 2
+;label-focused-underline  = #008080
+label-focused-underline   = #add8e6
 
-;label-unfocused = %index%
-label-unfocused = %name%
-;label-unfocused-padding = ${module/bspwm.label-occupied-padding}
-label-unfocused-foreground = ${colors.color4}
-label-unfocused-padding    = 2
+label-unfocused         = %name%
+label-unfocused-padding = 2
 
-;label-urgent = %index%!
-label-urgent = %name%
-;label-urgent-background = ${module/bspwm.label-urgent-background}
-;label-urgent-padding = ${module/bspwm.label-urgent-padding}
-label-urgent-background    = #bd2c40
-label-urgent-foreground    = #000000
-label-urgent-padding       = 2
+label-occupied         = %name%
+label-occupied-padding = 2
 
-label-empty = %name%
+label-urgent            = %name%
+label-urgent-background = #bd2c40
+label-urgent-foreground = #000000
+label-urgent-padding    = 2
+
+label-empty            = %name%
 label-empty-foreground = #44ffffff
-label-empty-padding = 2
+label-empty-padding    = 2
 
-label-visible = %name%
-label-visible-foreground   = #55
-label-visible-padding      = 2
-;label-visible = %index%
-;label-visible-background = ${self.label-focused-background}
-;label-visible-underline = ${self.label-focused-underline}
-;label-visible-padding = ${self.label-focused-padding}
+label-visible            = %name%
+label-visible-background = ${colors.background}
+label-visible-padding    = ${self.label-focused-padding}
 
 [module/cpu]
-format-padding = 1
 type = internal/cpu
-interval = 1
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
-label = CPU %percentage%%
-label-font = 4
+interval         = 1.5
+format           = <label> <ramp-coreload>
+format-padding   = 1.8
+label            = %{F#6ff}%{F-} %percentage%%
+label-font       = 0
 label-foreground = #99
+ramp-coreload-0            = ▁
+ramp-coreload-0-font       = 7
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1            = ▂
+ramp-coreload-1-font       = 7
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2            = ▃
+ramp-coreload-2-font       = 7
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3            = ▄
+ramp-coreload-3-font       = 7
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4            = ▅
+ramp-coreload-4-font       = 7
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5            = ▆
+ramp-coreload-5-font       = 7
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6            = ▇
+ramp-coreload-6-font       = 7
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7            = █
+ramp-coreload-7-font       = 7
+ramp-coreload-7-foreground = #ff5555
 
 [module/memory]
-format-padding = 1
-type = internal/memory
-interval = 1
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
-label = RAM %percentage_used%%
-label-font = 4
+type             = internal/memory
+interval         = 1.5
+format           = <label>
+format-padding   = 1.8
+label            = %{F#6ff}%{F-} %percentage_used%%
+label-font       = 0
 label-foreground = #99
 
-[module/wlan]
+[module/tor]
+type           = custom/script
+interval       = 1.5
+format         = "<label>"
 format-padding = 1
-type = internal/network
+exec           = bash ~/.config/polybar/tor.sh
+
+[module/wlan]
+type      = internal/network
 interface = wlp2s0
-interval = 1.0
+interval  = 1.5
+format-connected            =  <label-connected>
+format-connected-padding    = 1.8
+format-disconnected         = <label-disconnected>
+format-disconnected-padding = 1.8
+format-packetloss           =  <label-connected>
+format-packetloss-padding   = 1.8
 
-format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
-format-disconnected-underline = ${self.format-connected-underline}
-
-label-connected = %essid%
-label-disconnected = %ifname% disconnected
-label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = ${colors.foreground-alt}
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+label-connected = %{F#ff69b4}%essid% %{F#6ff}%local_ip%%{F-} %downspeed%
 
 [module/eth]
-format-padding = 1
-type = internal/network
+type      = internal/network
 interface = enp3s0
-interval = 1.0
-
-format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-foreground-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
-
-format-disconnected-underline = ${self.format-connected-underline}
-label-disconnected = %ifname% disconnected
-label-disconnected-foreground = ${colors.foreground-alt}
+interval  = 1.5
+format-connected            =  <label-connected>
+format-connected-padding    = 1.8
+format-disconnected         = <label-disconnected>
+format-disconnected-padding = 1.8
+format-packetloss           = <label-connected>
+format-packetloss-padding   = 1.8
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+label-connected = %{F#6ff}%local_ip%%{F-} %downspeed%
 
 [module/date]
-date = %H:%M:%S
-date-alt = %d-%m-%Y
-format-padding = 2
-format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
-interval = 1.0
-type = internal/date
+type           = internal/date
+interval       = 1.0
+date           = %a %d-%m-%Y
+date-alt       = %a %d %b %Y
+time           = %H:%M:%S
+time-alt       = %H:%M:%S
+label          = %{F#689d6a} %date%%{F-}%{F#b16286}  %time%%{F-}
+;format         =  <label>
+format         = <label>
+format-padding = 1
+
+[module/spotify]
+type              = custom/script
+exec              = bash ~/.config/polybar/spotify_p.sh
+exec-if           = pgrep -x spotify
+tail              = true
+format            = <label>
+format-foreground = ${colors.foreground}
+format-padding    = 1
+interval          = 1.5
+label             = %{F#ff69b4}%{T2}%output%%{T-}%{F-}
+click-left        = i3 workspace number 8
+
+[module/playpause]
+type              = custom/script
+exec              = bash ~/.config/polybar/playpause.sh
+exec-if           = pgrep -x spotify
+format            = <label>
+format-foreground = #6ff
+format-padding    = 1
+interval          = 1.5
+click-left        = playerctl play-pause
+
+[module/next]
+type              = custom/script
+exec              = bash ~/.config/polybar/next.sh
+exec-if           = pgrep -x spotify
+format            = <label>
+format-foreground = #6ff
+format-padding    = 1
+interval          = 1.5
+click-left        = playerctl next
+
+[module/previous]
+type              = custom/script
+exec              = bash ~/.config/polybar/previous.sh
+exec-if           = pgrep -x spotify
+format            = <label>
+format-foreground = #6ff
+format-padding    = 1
+interval          = 1.5
+click-left        = playerctl previous
 
 [module/volume]
-type = internal/volume
-format-volume = <label-volume>
-format-volume-padding = 2
-;format-volume-underline = ${colors.white}
-label-volume = %{F#928374} %{F-}%percentage:3%%
-#label-volume-foreground = ${color.white}
-label-muted =%{F#928374} %{F-}0%
-#label-muted =%{F#928374} %{F-}mute
-format-muted = <label-muted>
-;format-muted-underline = ${colors.white}
-format-muted-padding = 2
-#label-muted-foreground = ${colors.gray}
-format-padding = 2
+type                  = internal/volume
+format-muted          = <label-muted>
+format-muted-padding  = 1
+format-volume         = <label-volume>
+format-volume-padding = 1
+label-muted           =  muted
+label-volume          =  %percentage%%
+ramp-headphones-0 = 
+ramp-headphones-1 = 
+ramp-volume-0 = 🔈
+ramp-volume-1 = 🔉
+ramp-volume-2 = 🔊
+
+[module/lock]
+type = custom/text
+content = 
+content-foreground = ${colors.orange}
+content-background = ${colors.background}
+content-padding    = 1
+click-left = ~/.config/i3/i3lock.sh &
+
+[module/vim]
+type = custom/text
+content = 
+content-foreground = ${colors.foreground}
+content-background = ${colors.background}
+content-padding    = 1
+click-left = ~/.vim-anywhere/bin/run
 
 [module/battery]
 type = internal/battery
@@ -277,23 +420,15 @@ animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
 [module/temperature]
-type = internal/temperature
-thermal-zone = 0
+type             = internal/temperature
+thermal-zone     = 0
 warn-temperature = 60
-
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
-label = %temperature%
-label-warn = %temperature%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+format              = <label>
+format-padding      = 1.8
+format-warn         = <label-warn>
+format-warn-padding = 1.8
+label                 =  %temperature%
+label-warn            =  %{F#f00}%temperature%%{F-}
 
 [module/powermenu]
 type = custom/menu

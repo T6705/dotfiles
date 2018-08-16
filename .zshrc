@@ -13,6 +13,8 @@ export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_ALL=
 
+export BETTER_EXCEPTIONS=1
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -159,6 +161,13 @@ setopt SHARE_HISTORY          # Share history between all sessions.
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+####################################
+## https://github.com/pypa/pipenv ##
+####################################
+if command -v pipenv &> /dev/null; then
+    eval "$(pipenv --completion)"
+fi
+
 ##################################################
 ## https://github.com/milkbikis/powerline-shell ##
 ##################################################
@@ -191,8 +200,8 @@ fi
 ###########################################
 [ -f $HOME/.dircolors ] && eval $(dircolors -b $HOME/.dircolors)
 
-source ~/.zsh/aliases.zsh
-source ~/.zsh/functions.zsh
+[ -f ~/.zsh/aliases.zsh ] && source ~/.zsh/aliases.zsh
+[ -f ~/.zsh/functions.zsh ] && source ~/.zsh/functions.zsh
 
 #if command -v neofetch &> /dev/null ; then
 #    neofetch

@@ -434,9 +434,9 @@ elseif has("gui_gtk2")
 elseif has("linux")
     set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
 elseif has("unix")
-    set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+    set gfn=Hack\ Nerd\ Font\ Mono\ 10,Hack\ 10
 else
-    set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+    set gfn=Hack\ Nerd\ Font\ Mono\ 10,Hack\ 10
 endif
 
 if &encoding ==# 'latin1' && has('gui_running')

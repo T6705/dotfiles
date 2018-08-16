@@ -212,7 +212,7 @@ let g:SuperTabDefaultCompletionType = "<C-n>"
 " ----------------------------------------------------------------------------------------
 if empty(glob('~/.config/nvim/.ycm_extra_conf.py'))
   silent !curl -fLo ~/.config/nvim/.ycm_extra_conf.py --create-dirs
-    \ https://raw.githubusercontent.com/Valloric/ycmd/master/cpp/ycm/.ycm_extra_conf.py
+    \ https://raw.githubusercontent.com/Valloric/ycmd/master/examples/.ycm_extra_conf.py
 endif
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_collect_identifiers_from_tags_files       = 1 " Let YCM read tags from Ctags file
