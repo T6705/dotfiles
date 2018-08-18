@@ -174,6 +174,9 @@ bindsym $mod+r mode " "
 #client.focused_inactive        $COLOR_BLACK     $COLOR_BLACK      $COLOR_BLUE     $COLOR_BLUE
 #client.urgent                  $COLOR_PINK      $COLOR_PINK       $COLOR_BLACK    $COLOR_BLACK
 
+# Set Font
+font pango:Knack Nerd Font Mono 10,Hack 10, DejaVu 10, fontawesome 10
+
 #set $FOCUS #008080
 #set $FOCUS #989898
 #set $FOCUS #add8e6
@@ -217,6 +220,33 @@ gaps inner 20
 gaps outer 20
 
 hide_edge_borders both
+
+# status bar
+
+#set $bg-color            #2f343f
+#set $inactive-bg-color   #2f343f
+#set $text-color          #f3f4f5
+#set $inactive-text-color #676E7D
+#set $urgent-bg-color     #E53935
+
+set $bg-color            #4e4e4e
+set $inactive-bg-color   #4e4e4e
+set $text-color          #ffffff
+set $inactive-text-color #676E7D
+set $urgent-bg-color     #fb4934
+
+#bar {
+#    status_command i3blocks -c ~/.config/i3/i3blocks/i3blocks.conf
+#    position       top
+#    colors {
+#        background $bg-color
+#        separator #757575
+#        #                  border             background         text
+#        focused_workspace  $bg-color          $bg-color          $text-color
+#        inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+#        urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+#    }
+#}
 
 # Other Keybindings
 
