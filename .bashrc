@@ -89,6 +89,8 @@ xterm*|rxvt*)
     ;;
 esac
 
+PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\] "
+
 if command -v go &> /dev/null; then
     [ ! -d $HOME/go ] && mkdir -p $HOME/go
     [ ! -d $HOME/go/bin ] && mkdir -p $HOME/go/bin
@@ -132,14 +134,18 @@ fi
 if [[ -n $SSH_CONNECTION ]]; then
     if command -v nvim &> /dev/null ; then
         export EDITOR='nvim'
-    else
+    elif command -v vim &> /dev/null ; then
         export EDITOR='vim'
+    elif command -v vi &> /dev/null ; then
+        export EDITOR='vi'
     fi
 else
     if command -v nvim &> /dev/null ; then
         export EDITOR='nvim'
-    else
+    elif command -v vim &> /dev/null ; then
         export EDITOR='vim'
+    elif command -v vi &> /dev/null ; then
+        export EDITOR='vi'
     fi
 fi
 
@@ -344,6 +350,143 @@ eval $(dircolors -b $HOME/.dircolors)
 ## functions ##
 ###############
 
+if ! command -v trim_string &> /dev/null ; then
+    trim_string() {
+        # Usage: trim_string "   example   string    "
+        : "${1#"${1%%[![:space:]]*}"}"
+        : "${_%"${_##*[![:space:]]}"}"
+        printf '%s\n' "$_"
+    }
+fi
+
+if ! command -v trim_all &> /dev/null ; then
+    trim_all() {
+        # Usage: trim_all "   example   string    "
+        set -f
+        set -- $*
+        printf '%s\n' "$*"
+        set +f
+    }
+fi
+
+if ! command -v trim_quotes &> /dev/null ; then
+    trim_quotes() {
+        # Usage: trim_quotes "string"
+        : "${1//\'}"
+        printf '%s\n' "${_//\"}"
+    }
+fi
+
+
+if ! command -v regex &> /dev/null ; then
+    regex() {
+        # Usage: regex "string" "regex"
+        [[ $1 =~ $2 ]] && printf '%s\n' "${BASH_REMATCH[1]}"
+    }
+fi
+
+if ! command -v split &> /dev/null ; then
+    split() {
+       # Usage: split "string" "delimiter"
+       IFS=$'\n' read -d "" -ra arr <<< "${1//$2/$'\n'}"
+       printf '%s\n' "${arr[@]}"
+    }
+fi
+
+if ! command -v lower &> /dev/null ; then
+    lower() {
+        # Usage: lower "string"
+        printf '%s\n' "${1,,}"
+    }
+fi
+
+if ! command -v upper &> /dev/null ; then
+    upper() {
+        # Usage: upper "string"
+        printf '%s\n' "${1^^}"
+    }
+fi
+
+
+if ! command -v strip_all &> /dev/null ; then
+    strip_all() {
+        # Usage: strip_all "string" "pattern"
+        printf '%s\n' "${1//$2}"
+    }
+fi
+
+
+if ! command -v strip &> /dev/null ; then
+    strip() {
+        # Usage: strip "string" "pattern"
+        printf '%s\n' "${1/$2}"
+    }
+fi
+
+if ! command -v lstrip &> /dev/null ; then
+    lstrip() {
+        # Usage: lstrip "string" "pattern"
+        printf '%s\n' "${1##$2}"
+    }
+fi
+
+if ! command -v rstrip &> /dev/null ; then
+    rstrip() {
+        # Usage: rstrip "string" "pattern"
+        printf '%s\n' "${1%%$2}"
+    }
+fi
+
+if ! command -v reverse_array &> /dev/null ; then
+    reverse_array() {
+        # Usage: reverse_array "array"
+        shopt -s extdebug
+        f()(printf '%s\n' "${BASH_ARGV[@]}"); f "$@"
+        shopt -u extdebug
+    }
+fi
+
+if ! command -v random_array_element &> /dev/null ; then
+    random_array_element() {
+        # Usage: random_array_element "array"
+        local arr=("$@")
+        printf '%s\n' "${arr[RANDOM % $#]}"
+    }
+fi
+
+if ! command -v head &> /dev/null ; then
+    head() {
+        # Usage: head "n" "file"
+        mapfile -tn "$1" line < "$2"
+        printf '%s\n' "${line[@]}"
+    }
+fi
+
+if ! command -v head &> /dev/null ; then
+    tail() {
+        # Usage: tail "n" "file"
+        mapfile -tn 0 line < "$2"
+        printf '%s\n' "${line[@]: -$1}"
+    }
+fi
+
+if ! command -v hex_to_rgb &> /dev/null ; then
+    hex_to_rgb() {
+        # Usage: hex_to_rgb "#FFFFFF"
+        #        hex_to_rgb "000000"
+        : "${1/\#}"
+        ((r=16#${_:0:2},g=16#${_:2:2},b=16#${_:4:2}))
+        printf '%s\n' "$r $g $b"
+    }
+fi
+
+if ! command -v bkr &> /dev/null ; then
+    bkr() {
+        # Usage: bkr ./some_script.sh # some_script.sh is now running in the background
+        (nohup "$@" &>/dev/null &)
+    }
+fi
+
 man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -442,28 +585,43 @@ if command -v fzf &> /dev/null ; then
         [[ -n "$files" ]] && ${EDITOR:-vim} +$lines $files
     }
 
-    # -----------------------------------------------------------------------------------------
-    # Usage: vimf | list subdirectories recursively with preview
-    # -----------------------------------------------------------------------------------------
-    vimf() {
-        previous_file="$1"
-        file_to_edit=$(select_file $previous_file)
+    if [ "$EDITOR" = "nvim" ] || [ "$EDITOR" = "vim" ] ; then
+        ## -----------------------------------------------------------------------------------------
+        ## Usage: vim-replace <old_text> <new_text>
+        ## -----------------------------------------------------------------------------------------
+        #vim-replace(){
+        #    $oldtext="$0"
+        #    $newtext="$1"
+        #    if command -v rg &> /dev/null ; then
+        #        rg -l "$oldtext" && $EDITOR -c "bufdo %s/$oldtext/$newtext/gc" $(rg -l "$oldtext")
+        #    elif command -v ag &> /dev/null ; then
+        #        ag -l "$oldtext" && $EDITOR -c "bufdo %s/$oldtext/$newtext/gc" $(ag -l "$oldtext")
+        #    fi
+        #}
 
-        if [[ -n "$file_to_edit"  ]]; then
-            $EDITOR "$file_to_edit"
-            vimf "$file_to_edit"
-        fi
-    }
+        # -----------------------------------------------------------------------------------------
+        # Usage: vimf | list subdirectories recursively with preview
+        # -----------------------------------------------------------------------------------------
+        vimf() {
+            previous_file="$1"
+            file_to_edit=$(select_file $previous_file)
 
-    select_file() {
-        given_file="$1"
-        fzf --preview-window right:70%:wrap --query "$given_file" --preview '[[ $(file --mime {}) =~ binary ]] &&
-                                                                                echo {} is a binary file ||
-                                                                                (rougify {} ||
-                                                                                highlight -O ansi -l {} ||
-                                                                                coderay {} ||
-                                                                                cat {}) 2> /dev/null | head -500'
-    }
+            if [[ -n "$file_to_edit"  ]]; then
+                $EDITOR "$file_to_edit"
+                vimf "$file_to_edit"
+            fi
+        }
+
+        select_file() {
+            given_file="$1"
+            fzf --preview-window right:70%:wrap --query "$given_file" --preview '[[ $(file --mime {}) =~ binary ]] &&
+                                                                                    echo {} is a binary file ||
+                                                                                    (rougify {} ||
+                                                                                    highlight -O ansi -l {} ||
+                                                                                    coderay {} ||
+                                                                                    cat {}) 2> /dev/null | head -500'
+        }
+    fi
 fi
 
 # -----------------------------------------------------------------------------------------

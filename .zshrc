@@ -116,14 +116,18 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
     if command -v nvim &> /dev/null ; then
         export EDITOR='nvim'
-    else
+    elif command -v vim &> /dev/null ; then
         export EDITOR='vim'
+    elif command -v vi &> /dev/null ; then
+        export EDITOR='vi'
     fi
 else
     if command -v nvim &> /dev/null ; then
         export EDITOR='nvim'
-    else
+    elif command -v vim &> /dev/null ; then
         export EDITOR='vim'
+    elif command -v vi &> /dev/null ; then
+        export EDITOR='vi'
     fi
 fi
 
