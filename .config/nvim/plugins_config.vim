@@ -627,4 +627,10 @@ let g:peekaboo_compact = 0                         " Compact display; do not dis
 let g:peekaboo_delay   = 0                         " Delay opening of peekaboo window (in ms. default: 0)
 let g:peekaboo_window  = 'vertical botright 30new' " Default peekaboo window
 
+" ----------------------------------------------------------------------------------------
+" vim-which-key
+" ----------------------------------------------------------------------------------------
+let g:which_key_vertical=1        " show popup vertically
+let g:which_key_hspace=5          " minimum horizontal space between columns
+
 """ }}}
