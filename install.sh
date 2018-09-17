@@ -177,15 +177,20 @@ install_dependencies() {
         chmod +x /usr/bin/diff-so-fancy
 
         ### for neovim
-        sudo apt-get install -y autoconf automake cmake g++ libtool libtool-bin pkg-config unzip python-pip python3-pip
+        sudo apt-get install -y autoconf automake cmake g++ gettext libtool libtool-bin ninja-build pkg-config python-pip python3-pip unzip
+
         if command -v pip &> /dev/null; then
             sudo pip install -U neovim
+        fi
+
+        if command -v pip3 &> /dev/null; then
+            sudo pip3 install -U neovim
         fi
 
         ### for i3-gaps (Ubuntu >= 14.04 LTS, <= 16.04)
         sudo add-apt-repository ppa:aguignard/ppa
         sudo apt-get update
-        sudo apt-get install -y autoconf libev-dev libpango1.0-dev libstartup-notification0-dev libxcb-cursor-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xinerama0-dev libxcb-xkb-dev libxcb-xrm-dev libxcb1-dev libxkbcommon-dev libxkbcommon-x11-dev libyajl-dev xdg-utils
+        sudo apt-get install -y autoconf automake libev-dev libpango1.0-dev libstartup-notification0-dev libxcb-cursor-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xinerama0-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-xrm0 libxcb1-dev libxkbcommon-dev libxkbcommon-x11-dev libyajl-dev xcb xdg-utils
 
         ### for i3-gaps (Ubuntu >= 16.10)
         #sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev
@@ -252,7 +257,7 @@ install_games() {
 
 install_i3() {
     if command -v apt-get &> /dev/null; then
-        sudo apt-get install -y i3
+        sudo apt-get install -y compton feh i3 mpv playerctl rofi snapd vlc
         echo ""
         echo "====================="
         echo "== install i3-gaps =="
@@ -286,7 +291,7 @@ install_i3() {
         time mkdir -p ~/git/hub
         cd ~/git/hub
         rm -rf polybar
-        time git clone --branch 3.1.0 --recursive https://github.com/jaagr/polybar
+        time git clone --recursive https://github.com/jaagr/polybar
         cd polybar
         time ./build.sh
 
@@ -304,7 +309,7 @@ install_i3() {
         sudo cp -r -v icons /usr/local/bin/
 
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm feh qutebrowser rofi
+        sudo pacman -S --needed --noconfirm compton feh mpv playerctl qutebrowser rofi vlc
         echo ""
         echo "====================="
         echo "== install i3-gaps =="
@@ -376,6 +381,31 @@ install_tmux() {
 }
 
 install_vim() {
+
+    echo ""
+    echo "=================="
+    echo "== build neovim =="
+    echo "=================="
+    echo ""
+
+    if command -v apt-get &> /dev/null; then
+        sudo apt-get install -y autoconf automake cmake g++ gettext libtool libtool-bin ninja-build pkg-config python-pip python3-pip unzip
+    elif command -v pacman &> /dev/null; then
+        sudo pacman -S base-devel cmake unzip ninja
+    fi
+
+    if [ -d ~/git/hub/neovim ]; then
+        time cd ~/git/hub/neovim && time git pull
+    else
+        time mkdir -p ~/git/hub
+        time cd ~/git/hub
+        time git clone https://github.com/neovim/neovim
+    fi
+
+    time cd ~/git/hub/neovim
+    time make CMAKE_BUILD_TYPE=Release
+    time sudo make install
+    time nvim -v
 
     echo ""
     echo "============================================================="
@@ -730,6 +760,8 @@ main() {
         install_dependencies
     elif [[ $1 == "dots" ]]; then
         install_dots
+    elif [[ $1 == "games" ]]; then
+        install_games
     elif [[ $1 == "i3" ]]; then
         install_i3
     elif [[ $1 == "ranger" ]]; then

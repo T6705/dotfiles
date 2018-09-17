@@ -1,4 +1,4 @@
-; monitor = HDMI1
+; monitor = HDMI1 / HDMI-1
 ; laptop = LVDS1
 
 [colors]
@@ -30,7 +30,7 @@ secondary      = #FF6200
 [bar/top]
 height            = 26
 radius            = 5.0
-monitor           = LVDS1
+monitor           = HDMI-1
 offset-x          = 1%
 offset-y          = 6
 override-redirect = true
@@ -68,23 +68,23 @@ tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
-font-0  = "KnackNerdFont:size=9;2"
-font-1  = "Hack:size=9;2"
-font-2  = "NotoSansMonoCJKtc-Regular:size=9;2"
-font-3  = "FontAwesome:size=8;2"
-font-4  = "NotoSans-Regular:size=8;-1"
-font-5  = "Termsynu:size=7;0"
-font-6  = "Unifont:size=5;0"
-font-7  = "fixed:pixelsize=10;0"
-font-8  = "monospace:size=9;2"
-font-9  = "siji:pixelsize=10;0"
-font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
+font-0  = "Hack:size=9;2"
+font-1  = "NotoSansMonoCJKtc-Regular:size=9;2"
+font-2  = "FontAwesome:size=8;2"
+font-3  = "NotoSans-Regular:size=8;-1"
+font-4  = "Termsynu:size=7;0"
+font-5  = "Unifont:size=5;0"
+font-6  = "fixed:pixelsize=10;0"
+font-7  = "monospace:size=9;2"
+font-8  = "siji:pixelsize=10;0"
+font-9 = "unifont:size=6:heavy:fontformat=truetype;-2"
+font-10  = "KnackNerdFont:size=9;2"
 
 [bar/bottom]
 bottom            = true
 height            = 26
 radius            = 5.0
-monitor           = LVDS1
+monitor           = HDMI-1
 offset-x          = 1%
 offset-y          = 6
 override-redirect = true
@@ -122,24 +122,24 @@ tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
-font-0  = "KnackNerdFont:size=9;2"
-font-1  = "Hack:size=9;2"
-font-2  = "NotoSansMonoCJKtc-Regular:size=9;2"
-font-3  = "FontAwesome:size=8;2"
-font-4  = "NotoSans-Regular:size=8;-1"
-font-5  = "Termsynu:size=7;0"
-font-6  = "Unifont:size=5;0"
-font-7  = "fixed:pixelsize=10;0"
-font-8  = "monospace:size=9;2"
-font-9  = "siji:pixelsize=10;0"
-font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
+font-0  = "Hack:size=9;2"
+font-1  = "NotoSansMonoCJKtc-Regular:size=9;2"
+font-2  = "FontAwesome:size=8;2"
+font-3  = "NotoSans-Regular:size=8;-1"
+font-4  = "Termsynu:size=7;0"
+font-5  = "Unifont:size=5;0"
+font-6  = "fixed:pixelsize=10;0"
+font-7  = "monospace:size=9;2"
+font-8  = "siji:pixelsize=10;0"
+font-9 = "unifont:size=6:heavy:fontformat=truetype;-2"
+font-10  = "KnackNerdFont:size=9;2"
 
 ;-------------------------------------------------------------------------------
 
 [bar/external_top]
 height            = 26
 radius            = 5.0
-monitor           = HDMI1
+monitor           = VGA-1
 offset-x          = 1%
 offset-y          = 6
 override-redirect = true
@@ -176,23 +176,23 @@ tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
-font-0  = "KnackNerdFont:size=9;2"
-font-1  = "Hack:size=9;2"
-font-2  = "NotoSansMonoCJKtc-Regular:size=9;2"
-font-3  = "FontAwesome:size=8;2"
-font-4  = "NotoSans-Regular:size=8;-1"
-font-5  = "Termsynu:size=7;0"
-font-6  = "Unifont:size=5;0"
-font-7  = "fixed:pixelsize=10;0"
-font-8  = "monospace:size=9;2"
-font-9  = "siji:pixelsize=10;0"
-font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
+font-0  = "Hack:size=9;2"
+font-1  = "NotoSansMonoCJKtc-Regular:size=9;2"
+font-2  = "FontAwesome:size=8;2"
+font-3  = "NotoSans-Regular:size=8;-1"
+font-4  = "Termsynu:size=7;0"
+font-5  = "Unifont:size=5;0"
+font-6  = "fixed:pixelsize=10;0"
+font-7  = "monospace:size=9;2"
+font-8  = "siji:pixelsize=10;0"
+font-9 = "unifont:size=6:heavy:fontformat=truetype;-2"
+font-10  = "KnackNerdFont:size=9;2"
 
 [bar/external_bottom]
 bottom            = true
 height            = 26
 radius            = 5.0
-monitor           = HDMI1
+monitor           = VGA-1
 offset-x          = 1%
 offset-y          = 6
 override-redirect = true
@@ -230,17 +230,17 @@ tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
-font-0  = "KnackNerdFont:size=9;2"
-font-1  = "Hack:size=9;2"
-font-2  = "NotoSansMonoCJKtc-Regular:size=9;2"
-font-3  = "FontAwesome:size=8;2"
-font-4  = "NotoSans-Regular:size=8;-1"
-font-5  = "Termsynu:size=7;0"
-font-6  = "Unifont:size=5;0"
-font-7  = "fixed:pixelsize=10;0"
-font-8  = "monospace:size=9;2"
-font-9  = "siji:pixelsize=10;0"
-font-10 = "unifont:size=6:heavy:fontformat=truetype;-2"
+font-0  = "Hack:size=9;2"
+font-1  = "NotoSansMonoCJKtc-Regular:size=9;2"
+font-2  = "FontAwesome:size=8;2"
+font-3  = "NotoSans-Regular:size=8;-1"
+font-4  = "Termsynu:size=7;0"
+font-5  = "Unifont:size=5;0"
+font-6  = "fixed:pixelsize=10;0"
+font-7  = "monospace:size=9;2"
+font-8  = "siji:pixelsize=10;0"
+font-9 = "unifont:size=6:heavy:fontformat=truetype;-2"
+font-10  = "KnackNerdFont:size=9;2"
 
 ;-------------------------------------------------------------------------------
 
@@ -253,7 +253,7 @@ format            = <label>
 format-foreground = ${colors.foreground}
 format-padding    = 1
 interval          = 1.5
-label             = %{F#ff69b4}%{T2}%output%%{T-}%{F-}
+label             = %{F#ff69b4}%{T1}%output%%{T-}%{F-}
 click-left        = i3 workspace number 8
 
 [module/playpause]
@@ -376,7 +376,7 @@ type = internal/cpu
 interval         = 1.5
 format           = <label> <ramp-coreload>
 format-padding   = 1.8
-label            = %{F#6ff}%{F-} %percentage%%
+label            = %{F#6ff}%{T1}%{T-}%{F-} %percentage%%
 label-font       = 0
 label-foreground = #99
 ramp-coreload-0            = ▁
@@ -422,7 +422,7 @@ exec           = bash ~/.config/polybar/tor.sh
 
 [module/wlan]
 type      = internal/network
-interface = wlp2s0
+interface = wlan0
 interval  = 1.5
 format-connected            =  <label-connected>
 format-connected-padding    = 1.8
@@ -443,7 +443,7 @@ label-connected = %{F#ff69b4}%essid% %{F#6ff}%local_ip%%{F-} %downspeed%
 
 [module/eth]
 type      = internal/network
-interface = enp3s0
+interface = eth0
 interval  = 1.5
 format-connected            =  <label-connected>
 format-connected-padding    = 1.8
