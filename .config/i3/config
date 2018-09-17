@@ -20,7 +20,7 @@ new_window 1pixel
 bindsym $mod+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+p exec rofi -show run -hide-scrollbar -matching regex -sidebar-mode -lines 6 -eh 2 -font "Knack Nerd Font 12" &
+bindsym $mod+p exec rofi -show run -hide-scrollbar -matching regex -sidebar-mode -lines 6 -eh 2 -font "Hack 12" &
 #bindsym $mod+p exec --no-startup-id i3-dmenu-desktop
 
 # change focus
