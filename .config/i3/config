@@ -20,7 +20,7 @@ new_window 1pixel
 bindsym $mod+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+p exec rofi -show run -hide-scrollbar -matching regex -sidebar-mode -lines 6 -eh 2 -font "Hack 12" &
+bindsym $mod+p exec rofi -show run -hide-scrollbar -matching regex -sidebar-mode -lines 6 -eh 2 -font "Hack Nerd Font Mono 12" &
 #bindsym $mod+p exec --no-startup-id i3-dmenu-desktop
 
 # change focus
@@ -175,7 +175,7 @@ bindsym $mod+r mode " "
 #client.urgent                  $COLOR_PINK      $COLOR_PINK       $COLOR_BLACK    $COLOR_BLACK
 
 # Set Font
-font pango:Knack Nerd Font Mono 10,Hack 10, DejaVu 10, fontawesome 10
+font pango:Hack Nerd Font Mono 10,Hack 10, DejaVu 10, fontawesome 10
 
 #set $FOCUS #008080
 #set $FOCUS #989898

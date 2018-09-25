@@ -216,3 +216,5 @@ fi
 #if command -v cowsay &> /dev/null && command -v fortune &> /dev/null && command -v lolcat &> /dev/null; then
 #    cowsay `fortune` | lolcat
 #fi
+
+banner
