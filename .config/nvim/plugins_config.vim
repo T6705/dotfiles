@@ -272,8 +272,10 @@ let g:instant_markdown_slow                   = 0 " realtime preview
 " ----------------------------------------------------------------------------------------
 " tagbar
 " ----------------------------------------------------------------------------------------
-let g:tagbar_sort      = 0
-let g:tagbar_autofocus = 1
+if v:version >= 703
+    let g:tagbar_sort      = 0
+    let g:tagbar_autofocus = 1
+endif
 
 
 "" ----------------------------------------------------------------------------------------
@@ -319,7 +321,7 @@ let g:codi#interpreters = {
 " ----------------------------------------------------------------------------------------
 " Shougo deoplete/neocomplete
 " ----------------------------------------------------------------------------------------
-if has('nvim')
+if has('nvim') || v:version >= 800
     " deoplete
     let g:deoplete#enable_at_startup           = 1
     let g:deoplete#sources#jedi#enable_cache   = 1
@@ -413,78 +415,80 @@ let g:ale_set_quickfix             = 0
 " ----------------------------------------------------------------------------------------
 " vim-go
 " ----------------------------------------------------------------------------------------
-let g:go_fmt_options = {
-            \ 'goimports': '-local do/',
-            \ }
-"
-let g:go_debug_windows = {
-            \ 'vars':  'leftabove 35vnew',
-            \ 'stack': 'botright 10new',
-            \ }
+if executable("go")
+    let g:go_fmt_options = {
+                \ 'goimports': '-local do/',
+                \ }
+    "
+    let g:go_debug_windows = {
+                \ 'vars':  'leftabove 35vnew',
+                \ 'stack': 'botright 10new',
+                \ }
 
-let g:go_auto_sameids                        = 0
-let g:go_auto_type_info                      = 0
-let g:go_autodetect_gopath                   = 1
-let g:go_def_mode                            = "guru"
-let g:go_echo_command_info                   = 1
-let g:go_fmt_command                         = "goimports"
-let g:go_fmt_fail_silently                   = 0
-let g:go_fold_enable                         = []
-let g:go_gocode_autobuild                    = 1
-let g:go_gocode_unimported_packages          = 1
-let g:go_highlight_array_whitespace_error    = 1
-let g:go_highlight_build_constraints         = 1
-let g:go_highlight_extra_types               = 1
-let g:go_highlight_fields                    = 1
-let g:go_highlight_format_strings            = 1
-let g:go_highlight_function_calls            = 1
-let g:go_highlight_functions                 = 1
-let g:go_highlight_generate_tags             = 1
-let g:go_highlight_methods                   = 1
-let g:go_highlight_operators                 = 1
-let g:go_highlight_space_tab_error           = 1
-let g:go_highlight_structs                   = 1
-let g:go_highlight_trailing_whitespace_error = 1
-let g:go_highlight_types                     = 1
-let g:go_info_mode                           = "guru"
-let g:go_list_type                           = "quickfix"
-let g:go_modifytags_transform                = 'snakecase'
-let g:go_sameid_search_enabled               = 1
+    let g:go_auto_sameids                        = 0
+    let g:go_auto_type_info                      = 0
+    let g:go_autodetect_gopath                   = 1
+    let g:go_def_mode                            = "guru"
+    let g:go_echo_command_info                   = 1
+    let g:go_fmt_command                         = "goimports"
+    let g:go_fmt_fail_silently                   = 0
+    let g:go_fold_enable                         = []
+    let g:go_gocode_autobuild                    = 1
+    let g:go_gocode_unimported_packages          = 1
+    let g:go_highlight_array_whitespace_error    = 1
+    let g:go_highlight_build_constraints         = 1
+    let g:go_highlight_extra_types               = 1
+    let g:go_highlight_fields                    = 1
+    let g:go_highlight_format_strings            = 1
+    let g:go_highlight_function_calls            = 1
+    let g:go_highlight_functions                 = 1
+    let g:go_highlight_generate_tags             = 1
+    let g:go_highlight_methods                   = 1
+    let g:go_highlight_operators                 = 1
+    let g:go_highlight_space_tab_error           = 1
+    let g:go_highlight_structs                   = 1
+    let g:go_highlight_trailing_whitespace_error = 1
+    let g:go_highlight_types                     = 1
+    let g:go_info_mode                           = "guru"
+    let g:go_list_type                           = "quickfix"
+    let g:go_modifytags_transform                = 'snakecase'
+    let g:go_sameid_search_enabled               = 1
 
-augroup go
-    au!
-    au FileType go imap <silent> <C-g> <esc>:<C-u>GoDecls<cr>
-    au FileType go nmap <silent> <C-g> :GoDecls<cr>
-    au FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
-    au FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
-    au FileType go nmap <silent> <Leader>db <Plug>(go-doc-browser)
-    au FileType go nmap <silent> <Leader>i <Plug>(go-info)
-    au FileType go nmap <silent> <Leader>ml <Plug>(go-metalinter)
-    au FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
-    au FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
-    au FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
-    au FileType go nmap <silent> <leader>b <Plug>(go-build)
-    au FileType go nmap <silent> <leader>in  <Plug>(go-install)
-    au FileType go nmap <silent> <leader>r  <Plug>(go-run)
-    au FileType go nmap <silent> <leader>rb :<C-u>call <SID>build_go_files()<CR>
-    au FileType go nmap <silent> <leader>t  <Plug>(go-test)
-    au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
-    au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-    au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-    au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-    au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+    augroup go
+        au!
+        au FileType go imap <silent> <C-g> <esc>:<C-u>GoDecls<cr>
+        au FileType go nmap <silent> <C-g> :GoDecls<cr>
+        au FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+        au FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
+        au FileType go nmap <silent> <Leader>db <Plug>(go-doc-browser)
+        au FileType go nmap <silent> <Leader>i <Plug>(go-info)
+        au FileType go nmap <silent> <Leader>ml <Plug>(go-metalinter)
+        au FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
+        au FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
+        au FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
+        au FileType go nmap <silent> <leader>b <Plug>(go-build)
+        au FileType go nmap <silent> <leader>in  <Plug>(go-install)
+        au FileType go nmap <silent> <leader>r  <Plug>(go-run)
+        au FileType go nmap <silent> <leader>rb :<C-u>call <SID>build_go_files()<CR>
+        au FileType go nmap <silent> <leader>t  <Plug>(go-test)
+        au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+        au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+        au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+        au Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+        au Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
 
-    " run :GoBuild or :GoTestCompile based on the go file
-    fu! s:build_go_files()
-        let l:file = expand('%')
-        if l:file =~# '^\f\+_test\.go$'
-            call go#test#Test(0, 1)
-        elseif l:file =~# '^\f\+\.go$'
-            call go#cmd#Build(0)
-        endif
-    endfu
+        " run :GoBuild or :GoTestCompile based on the go file
+        fu! s:build_go_files()
+            let l:file = expand('%')
+            if l:file =~# '^\f\+_test\.go$'
+                call go#test#Test(0, 1)
+            elseif l:file =~# '^\f\+\.go$'
+                call go#cmd#Build(0)
+            endif
+        endfu
 
-augroup END
+    augroup END
+endif
 
 
 " ----------------------------------------------------------------------------------------

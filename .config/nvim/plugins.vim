@@ -85,7 +85,9 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPre
 " ----------------------------------------------------------------------------------------
 " golang
 " ----------------------------------------------------------------------------------------
-Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+if executable("go")
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+endif
 
 
 "" ----------------------------------------------------------------------------------------
@@ -109,11 +111,24 @@ Plug 'w0rp/ale' " Asynchronous Lint Engine
 " ----------------------------------------------------------------------------------------
 "Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'java'], 'do': function('BuildYCM') }
 "Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
-Plug 'Shougo/deoplete.nvim', Cond(has('nvim'), { 'do': function('DoRemote') })
-Plug 'Shougo/neocomplete.vim', Cond(!has('nvim'))
-Plug 'davidhalter/jedi-vim', { 'for': 'python', 'on': [] }
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php', 'on': [] }
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+elseif v:version >= 800
+    Plug 'Shougo/deoplete.nvim' " Dark powered asynchronous completion framework for neovim/Vim8
+    Plug 'roxma/nvim-yarp'      " Yet Another Remote Plugin Framework for Neovim
+    Plug 'roxma/vim-hug-neovim-rpc'
+else
+    Plug 'Shougo/neocomplete.vim' " Next generation completion framework after neocomplcache
+endif
+if executable("python")
+    Plug 'davidhalter/jedi-vim', { 'for': 'python', 'on': [] }
+endif
+if executable("php")
+    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php', 'on': [] }
+endif
+if executable("go")
+    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+endif
 
 
 " ----------------------------------------------------------------------------------------
@@ -141,6 +156,7 @@ Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 " ----------------------------------------------------------------------------------------
 " utilities
 " ----------------------------------------------------------------------------------------
+"Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!', 'WhichKeyVisual'] } " Vim plugin that shows keybindings in popup
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }             " perform diffs on blocks of code
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                       " Interactive command execution in Vim.
@@ -161,7 +177,6 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-slash'                                                              " Enhancing in-buffer search experience
 Plug 'kana/vim-operator-user'                                                          " Vim plugin: Define your own operator easily
 Plug 'kshenoy/vim-signature'                                                           " Plugin to toggle, display and navigate marks
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!', 'WhichKeyVisual'] } " Vim plugin that shows keybindings in popup
 Plug 'ludovicchabant/vim-gutentags'                                                    " A Vim plugin that manages your tag files
 if v:version >= 703
     Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays tags in a window, ordered by scope

@@ -196,7 +196,8 @@ install_dependencies() {
         #sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev
 
         ### for polybar
-        sudo apt-get install -y cmake cmake-data libcairo2-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xkb-dev libxcb1-dev pkg-config python-xcbgen xcb-proto
+        apt-get install -y cmake cmake-data i3-wm libasound2-dev libcairo2-dev libcurl4-openssl-dev libjsoncpp-dev libmpdclient-dev libnl-3-dev libpulse-dev libxcb-composite0-dev libxcb-cursor-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xkb-dev libxcb-xrm-dev libxcb1-dev pkg-config python-xcbgen xcb-proto
+
         sudo apt-get install -y i3-wm                # Enables the internal i3 module
         sudo apt-get install -y libasound2-dev       # Enables the internal volume module
         sudo apt-get install -y libcurl4-openssl-dev # Enables the internal github module
