@@ -17,6 +17,10 @@ alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
 
+# Improve od for hexdump
+alias od='od -Ax -tx1z'
+alias hexdump='hexdump -C'
+
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
 if command -v gem &> /dev/null ; then

@@ -177,6 +177,10 @@ alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
 
+# Improve od for hexdump
+alias od='od -Ax -tx1z'
+alias hexdump='hexdump -C'
+
 if command -v tmux &> /dev/null ; then
     alias ta='tmux attach -t'
     alias tad='tmux attach -d -t'
