@@ -419,7 +419,7 @@ install_vim() {
         sudo apt-get install -y vim
     elif command -v pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm gvim neovim python-neovim python2-neovim ctags
-        sudo pacman -S --needed --noconfirm $(pacman -Ss pep8)
+        sudo pacman -S --needed --noconfirm $(pacman -Ssq pep8)
         sudo pip install -U vulture
     fi
 
