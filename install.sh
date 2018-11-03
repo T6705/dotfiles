@@ -392,7 +392,7 @@ install_vim() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y autoconf automake cmake g++ gettext libtool libtool-bin ninja-build pkg-config python-pip python3-pip unzip
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S base-devel cmake unzip ninja
+        sudo pacman -S --needed --noconfirm base-devel cmake unzip ninja
     fi
 
     if [ -d ~/git/hub/neovim ]; then
