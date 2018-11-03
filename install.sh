@@ -324,7 +324,7 @@ install_i3() {
         echo "====================="
         echo ""
         sudo pacman -S --needed --noconfirm base-devel libmpdclient wireless_tools
-        sudo pacman -S $(pacman -Ssq alsa | grep alsa)
+        sudo pacman -S --needed --noconfirm $(pacman -Ssq alsa | grep alsa)
         if command -v pacaur &> /dev/null; then
             pacaur Syyu
             pacaur -S polybar-git
