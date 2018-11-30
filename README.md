@@ -1,2 +1,2 @@
 # dotfile
-```zsh install.sh dots"```
+```zsh install.sh dots```

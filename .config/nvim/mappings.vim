@@ -13,13 +13,6 @@ command Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 
 command! PU PlugUpdate | PlugUpgrade
 
-
-" ----------------------------------------------------------------------------------------
-" vim-which-key
-" ----------------------------------------------------------------------------------------
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-
 " ----------------------------------------------------------------------------------------
 " Copy and Paste
 " ----------------------------------------------------------------------------------------
@@ -38,6 +31,10 @@ vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 
 "" Make `Y` behave like `C` and `D`
 "nnoremap Y y$
+
+" change word under cursor and dot repeat
+nnoremap c* *Ncgn
+nnoremap c# #NcgN
 
 nnoremap <silent> <Leader>p "+gP
 nnoremap <silent> <Leader>x "+x
@@ -132,12 +129,12 @@ vmap <silent> <S-Tab> %
 nnoremap J mzJ`z
 
 " Vmap for maintain Visual Mode after shifting > and <
-vnoremap < <gv
-vnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 
 " Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+xnoremap J :m '>+1<CR>gv=gv
+xnoremap K :m '<-2<CR>gv=gv
 
 " Scrolling
 noremap <C-j> 2<C-e>
@@ -285,8 +282,6 @@ nnoremap <silent> <Leader>bn :enew<CR>
 nnoremap <silent> <Leader>bs :Buffers<CR>
 nnoremap <silent> <Leader>bls :Lines<CR>
 nnoremap <silent> <bs> <c-^>
-"noremap <silent> <Leader>b :CtrlPBuffer<CR>
-"nnoremap <silent> <Leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 
 " add space after comma
 nnoremap <silent> <Leader>, :%s/, */, /g<CR>
@@ -384,6 +379,9 @@ nnoremap <silent> <Leader>RP ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 nnoremap <silent> <Leader>dw /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
 nnoremap <silent> <Leader>DW ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 
+" Recompute syntax highlighting
+nnoremap <silent> <Leader>ss :syntax sync fromstart<CR>
+
 " ----------------------------------------------------------------------------------------
 " vimux
 " ----------------------------------------------------------------------------------------
@@ -410,6 +408,8 @@ nnoremap <silent> <Leader>vz :call VimuxZoomRunner()<CR>
 " ----------------------------------------------------------------------------------------
 if executable("isort")
     nnoremap <silent> <Leader>is :%!isort -<CR>
+else
+    nnoremap <silent> <Leader>is :echo "isort is not installed"<CR>
 endif
 
 " ----------------------------------------------------------------------------------------

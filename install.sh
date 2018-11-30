@@ -171,7 +171,7 @@ install_dependencies() {
         sudo apt-get dist-upgrade -y
         sudo apt-get autoremove -y
         sudo apt-get clean
-        sudo apt-get install -y curl fontconfig git npm ntp ntpdate ranger ruby-rouge time tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
+        sudo apt-get install -y curl figlet fontconfig git htop lolcat npm ntp ntpdate ranger ruby-rouge time tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
 
         curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" > /usr/bin/diff-so-fancy
         chmod +x /usr/bin/diff-so-fancy
@@ -212,7 +212,7 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt
         sudo pacman -S --needed --noconfirm curl fontconfig git neovim npm ntp python-pip python2-pip ranger ruby-rouge termite time tmux vim xclip xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
-        sudo pacman -S --needed --noconfirm compton diff-so-fancy net-tools screenfetch veracrypt xdg-utils
+        sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm $(pacman -Ssq numix)
         sudo pacman -S --needed --noconfirm $(pacman -Ssq papirus)
         if command -v yaourt &> /dev/null; then
@@ -337,11 +337,27 @@ install_i3() {
     fi
 }
 
-install_ranger() {
+install_file_manager() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y ranger
+
+        ################################
+        # https://github.com/jarun/nnn #
+        ################################
+        sudo apt-get install -y nnn                              # terminal file manager
+        sudo apt-get install -y atool patool                     # create, list and extract archives
+        sudo apt-get install -y mediainfo libimage-exiftool-perl # multimedia file details
+        sudo apt-get install -y moreutils                        # batch rename, move, delete dir entries
     elif command -v pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm ranger
+
+        ################################
+        # https://github.com/jarun/nnn #
+        ################################
+        sudo pacman -S --needed --noconfirm nnn                           # terminal file manager
+        sudo pacman -S --needed --noconfirm atool                         # create, list and extract archives
+        sudo pacman -S --needed --noconfirm mediainfo perl-image-exiftool # multimedia file details
+        sudo pacman -S --needed --noconfirm moreutils                     # batch rename, move, delete dir entries
     fi
 }
 
@@ -607,7 +623,7 @@ install_zsh() {
         sudo cp -v *.ttf /usr/share/fonts/opentype/noto
         sudo fc-cache -f -v # optional
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S $(pacman -Ssq noto | grep font) --noconfirm
+        sudo pacman -S --needed --noconfirm $(pacman -Ssq noto | grep font)
     fi
 
     echo ""
@@ -766,7 +782,7 @@ main() {
     elif [[ $1 == "i3" ]]; then
         install_i3
     elif [[ $1 == "ranger" ]]; then
-        install_ranger
+        install_file_manager
     elif [[ $1 == "spacemacs" ]]; then
         install_spacemacs
     elif [[ $1 == "st" ]]; then
@@ -781,7 +797,7 @@ main() {
         install_dependencies
         install_dots
         install_i3
-        install_ranger
+        install_file_manager
         install_spacemacs
         install_tmux
         install_vim
@@ -793,7 +809,7 @@ main() {
         echo "    dots"
         echo "    games"
         echo "    i3"
-        echo "    ranger"
+        echo "    file_manager"
         echo "    spacemacs"
         echo "    st"
         echo "    tmux"

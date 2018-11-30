@@ -3,6 +3,20 @@
 """ === Functions === {{{
 
 " ----------------------------------------------------------------------------------------
+" :BufSearch <pattern> | Search in all currently opened buffers
+" ----------------------------------------------------------------------------------------
+function! ClearQuickfixList()
+    call setqflist([])
+endfunction
+function! Vimgrepall(pattern)
+    call ClearQuickfixList()
+    exe 'bufdo noautocmd vimgrepadd ' . a:pattern . ' %'
+    cnext
+    cwindow
+endfunction
+command! -nargs=1 BufSearch call Vimgrepall(<f-args>)
+
+" ----------------------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
 " ----------------------------------------------------------------------------------------
 fu! s:shuffle() range

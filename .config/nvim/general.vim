@@ -119,6 +119,7 @@ set lazyredraw                                                    " Don't redraw
 set number                                                        " show line numbers
 "set relativenumber                                               " show relative line numbers
 set ruler                                                         " Always show current position
+set shortmess=aIT
 
 if !&scrolloff
     set scrolloff=3                                                 " 3 lines above/below cursor when scrolling
@@ -137,7 +138,8 @@ set titlestring=%F
 set ttyfast                                                       " faster redrawing
 if has('syntax') && !exists('g:syntax_on')
     "syntax enable
-    syntax on                                                         " switch syntax highlighting on
+    syntax on                              " switch syntax highlighting on
+    set synmaxcol=200                      " only syntax highlighting the first 200 characters of each line
 endif
 
 if has('nvim') && has('termguicolors')

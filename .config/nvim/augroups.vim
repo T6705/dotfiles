@@ -29,6 +29,7 @@ augroup configgroup
     au FileType java setlocal omnifunc=javacomplete#Complete
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
     au FileType go setlocal omnifunc=go#complete#Complete
+    au FileType markdown syntax sync fromstart
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste
@@ -89,11 +90,10 @@ augroup auto_quickfix_window
     au QuickFixCmdPost l*    lwindow
 augroup END
 
-"augroup autoSaveAndRead
-"    au!
-"    au TextChanged,InsertLeave,FocusLost * silent! wall
-"    au CursorHold * silent! checktime
-"augroup END
+augroup autoRead
+    au!
+    au CursorHold * silent! checktime " auto update buffer
+augroup END
 
 ""google/vim-codefmt
 "augroup autoformat_settings

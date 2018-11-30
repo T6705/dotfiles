@@ -10,6 +10,7 @@ augroup configgroup
     au FileType java setlocal omnifunc=javacomplete#Complete
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
     au FileType go setlocal omnifunc=go#complete#Complete
+    au FileType markdown syntax sync fromstart
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste
@@ -51,9 +52,8 @@ augroup auto_quickfix_window
     au QuickFixCmdPost l*    lwindow
 augroup END
 
-augroup autoSaveAndRead
+augroup autoRead
     au!
-    au TextChanged,InsertLeave,FocusLost * silent! wall
     au CursorHold * silent! checktime
 augroup END
 """ }}}
@@ -177,6 +177,7 @@ set lazyredraw                                                    " Don't redraw
 set number                                                        " show line numbers
 "set relativenumber                                               " show relative line numbers
 set ruler                                                         " Always show current position
+set shortmess=aIT
 
 if !&scrolloff
     set scrolloff=3                                                 " 3 lines above/below cursor when scrolling
@@ -196,6 +197,7 @@ set ttyfast                                                       " faster redra
 if has('syntax') && !exists('g:syntax_on')
     "syntax enable
     syntax on                                                         " switch syntax highlighting on
+    set synmaxcol=200                      " only syntax highlighting the first 200 characters of each line
 endif
 
 if has('nvim') && has('termguicolors')
@@ -446,6 +448,19 @@ endif
 
 
 """ === Functions === {{{
+" ----------------------------------------------------------------------------------------
+" :BufSearch <pattern> | Search in all currently opened buffers
+" ----------------------------------------------------------------------------------------
+function! ClearQuickfixList()
+    call setqflist([])
+endfunction
+function! Vimgrepall(pattern)
+    call ClearQuickfixList()
+    exe 'bufdo noautocmd vimgrepadd ' . a:pattern . ' %'
+    cnext
+    cwindow
+endfunction
+command! -nargs=1 BufSearch call Vimgrepall(<f-args>)
 
 " ----------------------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
@@ -725,6 +740,10 @@ command Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 "" Make `Y` behave like `C` and `D`
 "nnoremap Y y$
 
+" change word under cursor and dot repeat
+nnoremap c* *Ncgn
+nnoremap c# #NcgN
+
 nnoremap <silent> <Leader>p "+gP
 nnoremap <silent> <Leader>x "+x
 nnoremap <silent> <Leader>y "+y
@@ -818,12 +837,12 @@ vmap <silent> <S-Tab> %
 nnoremap J mzJ`z
 
 " Vmap for maintain Visual Mode after shifting > and <
-vnoremap < <gv
-vnoremap > >gv
+xnoremap < <gv
+xnoremap > >gv
 
 " Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+xnoremap J :m '>+1<CR>gv=gv
+xnoremap K :m '<-2<CR>gv=gv
 
 " Scrolling
 noremap <C-j> 2<C-e>
@@ -973,6 +992,18 @@ nnoremap <silent> <Leader>rp /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
 nnoremap <silent> <Leader>RP ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
 nnoremap <silent> <Leader>dw /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
 nnoremap <silent> <Leader>DW ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
+
+" Recompute syntax highlighting
+nnoremap <silent> <leader>ss :syntax sync fromstart<CR>
+
+" ----------------------------------------------------------------------------------------
+" isort
+" ----------------------------------------------------------------------------------------
+if executable("isort")
+    nnoremap <silent> <Leader>is :%!isort -<CR>
+else
+    nnoremap <silent> <Leader>is :echo "isort is not installed"<CR>
+endif
 
 " ----------------------------------------------------------------------------------------
 " Surround

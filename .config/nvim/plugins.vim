@@ -156,7 +156,6 @@ Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 " ----------------------------------------------------------------------------------------
 " utilities
 " ----------------------------------------------------------------------------------------
-"Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!', 'WhichKeyVisual'] } " Vim plugin that shows keybindings in popup
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }             " perform diffs on blocks of code
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                       " Interactive command execution in Vim.
@@ -194,6 +193,7 @@ Plug 'skywind3000/gutentags_plus'                      " The right way to use gt
 Plug 'tpope/vim-fugitive'                              " fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-repeat'                                " enables repeating other supported plugins with the . command
 Plug 'tpope/vim-surround', { 'on': [] }                " surround.vim: quoting/parenthesizing made simple
+Plug 'unblevable/quick-scope'                          " Lightning fast left-right movement in Vim
 Plug 'wellle/targets.vim', { 'on': [] }                " Vim plugin that provides additional text objects
 call plug#end()
 endif

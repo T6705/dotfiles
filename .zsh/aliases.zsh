@@ -65,8 +65,10 @@ if command -v rkhunter &> /dev/null ; then
     alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
 fi
 
-#Colorizing "cat" https://github.com/jingweno/ccat
-if command -v ccat &> /dev/null ; then
+if command -v bat &> /dev/null ; then
+    alias cat='bat'
+elif command -v ccat &> /dev/null ; then
+    #Colorizing "cat" https://github.com/jingweno/ccat
     alias cat='ccat --bg=dark'
 fi
 

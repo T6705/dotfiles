@@ -35,6 +35,13 @@ if ! command -v bkr &> /dev/null ; then
     }
 fi
 
+repeat_cmd() {
+    while [ -n "$2" ]; do
+        eval "$2"
+        sleep $1
+    done
+}
+
 man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \

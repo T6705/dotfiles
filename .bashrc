@@ -491,6 +491,13 @@ if ! command -v bkr &> /dev/null ; then
     }
 fi
 
+repeat_cmd() {
+    while [ -n "$2" ]; do
+        eval "$2"
+        sleep $1
+    done
+}
+
 man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[1;31m") \
@@ -501,6 +508,43 @@ man() {
         LESS_TERMCAP_ue=$(printf "\e[0m") \
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
         man "$@"
+}
+
+banner() {
+    if command -v figlet &> /dev/null ; then
+        if command -v lolcat &> /dev/null ; then
+            figlet "$(hostname)" | lolcat -f
+        else
+            figlet "$(hostname)"
+        fi
+    fi
+
+    # get load averages
+    IFS=" " read LOAD1 LOAD5 LOAD15 <<<$(/bin/cat /proc/loadavg | awk '{ print $1,$2,$3 }')
+    # get free memory
+    IFS=" " read USED FREE TOTAL <<<$(free -htm | grep "Mem" | awk {'print $3,$4,$2'})
+    # get processes
+    PROCESS=`ps -eo user=|sort|uniq -c | awk '{ print $2 " " $1 }'`
+    PROCESS_ALL=`echo "$PROCESS"| awk {'print $2'} | awk '{ SUM += $1} END { print SUM }'`
+    PROCESS_ROOT=`echo "$PROCESS"| grep root | awk {'print $2'}`
+    PROCESS_USER=`echo "$PROCESS"| grep -v root | awk {'print $2'} | awk '{ SUM += $1} END { print SUM }'`
+
+    W="\e[0;39m"
+    G="\e[1;32m"
+
+    echo -e "
+    ${W}system info:
+    $W  Distro......: $W`cat /etc/*release | grep "PRETTY_NAME" | cut -d "=" -f 2- | sed 's/"//g'`
+    $W  Kernel......: $W`uname -sr`
+
+    $W  Uptime......: $W`uptime -p`
+    $W  Load........: $G$LOAD1$W (1m), $G$LOAD5$W (5m), $G$LOAD15$W (15m)
+    $W  Processes...:$W $G$PROCESS_ROOT$W (root), $G$PROCESS_USER$W (user) | $G$PROCESS_ALL$W (total)
+
+    $W  CPU.........: $W`cat /proc/cpuinfo | grep "model name" | cut -d ' ' -f3- | awk {'print $0'} | head -1`
+    $W  Memory......: $G$USED$W used, $G$FREE$W free, $G$TOTAL$W in total$W"
+
+    echo ""
 }
 
 weather() {
@@ -1223,3 +1267,5 @@ if command -v docker &> /dev/null ; then
             quay.io/vektorlab/ctop:latest
     }
 fi
+
+banner
