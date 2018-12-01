@@ -73,17 +73,6 @@ command! EX if !empty(expand('%'))
          \| endif
 
 " ----------------------------------------------------------------------------------------
-" :WordProcessorMode
-" ----------------------------------------------------------------------------------------
-fu! WordProcessorMode()
-    setlocal textwidth=80
-    setlocal smartindent
-    setlocal spell spelllang=en_us
-    setlocal noexpandtab
-endfu
-command! WordProcessorMode call WordProcessorMode()
-
-" ----------------------------------------------------------------------------------------
 " compile_and_run | <Leader>cr
 " ----------------------------------------------------------------------------------------
 fu! Compile_and_Run()
@@ -246,34 +235,6 @@ endfu
 command! Root call s:root()
 
 " ----------------------------------------------------------------------------
-" :Scriptnames <name>
-" ----------------------------------------------------------------------------
-fu! s:Scratch (command, ...)
-    redir => lines
-    let saveMore = &more
-    set nomore
-    execute a:command
-    redir END
-    let &more = saveMore
-    call feedkeys("\<cr>")
-    new | setlocal buftype=nofile bufhidden=hide noswapfile
-    put=lines
-    if a:0 > 0
-        execute 'vglobal/'.a:1.'/delete'
-    endif
-    if a:command == 'scriptnames'
-        %substitute#^[[:space:]]*[[:digit:]]\+:[[:space:]]*##e
-    endif
-    silent %substitute/\%^\_s*\n\|\_s*\%$
-    let height = line('$') + 3
-    execute 'normal! z'.height."\<cr>"
-    0
-endfu
-
-command! -nargs=? Scriptnames call <sid>Scratch('scriptnames', <f-args>)
-command! -nargs=+ Scratch call <sid>Scratch(<f-args>)
-
-" ----------------------------------------------------------------------------
 " autofold
 " ----------------------------------------------------------------------------
 fu! s:open_folds(action) abort
@@ -413,50 +374,50 @@ fu! CppAbbrev()
   inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
 endfu
 
-" smart tab completion
-fu! functions#Smart_TabComplete()
-    let line = getline('.')                    " current line
-
-    let substr = strpart(line, -1, col('.')+1) " from the start of the current
-                                               " line to one character right
-                                               " of the cursor
-    let substr = matchstr(substr, '[^ \t]*$')  " word till cursor
-    if (strlen(substr)==0)                     " nothing to match on empty string
-        return '\<TAB>'
-    endif
-    let has_period = match(substr, '\.') != -1 " position of period, if any
-    let has_slash = match(substr, '\/') != -1  " position of slash, if any
-    if (!has_period && !has_slash)
-        return '\<C-X>\<C-P>'                  " existing text matching
-    elseif ( has_slash )
-        return '\<C-X>\<C-F>'                  " file matching
-    else
-        return '\<C-X>\<C-O>'                  " plugin matching
-    endif
-endfu
-
-" execute a custom command
-fu! functions#RunCustomCommand()
-    up
-    if g:silent_custom_command
-        execute 'silent !' . s:customcommand
-    else
-        execute '!' . s:customcommand
-    endif
-endfu
-
-fu! functions#SetCustomCommand()
-    let s:customcommand = input('Enter Custom Command$ ')
-endfu
-
-fu! functions#TrimWhiteSpace()
-    %s/\s\+$//e
-endfu
-
-fu! functions#HtmlUnEscape()
-    silent s/&lt;/</eg
-    silent s/&gt;/>/eg
-    silent s/&amp;/\&/eg
-endfu
+"" smart tab completion
+"fu! functions#Smart_TabComplete()
+"    let line = getline('.')                    " current line
+"
+"    let substr = strpart(line, -1, col('.')+1) " from the start of the current
+"                                               " line to one character right
+"                                               " of the cursor
+"    let substr = matchstr(substr, '[^ \t]*$')  " word till cursor
+"    if (strlen(substr)==0)                     " nothing to match on empty string
+"        return '\<TAB>'
+"    endif
+"    let has_period = match(substr, '\.') != -1 " position of period, if any
+"    let has_slash = match(substr, '\/') != -1  " position of slash, if any
+"    if (!has_period && !has_slash)
+"        return '\<C-X>\<C-P>'                  " existing text matching
+"    elseif ( has_slash )
+"        return '\<C-X>\<C-F>'                  " file matching
+"    else
+"        return '\<C-X>\<C-O>'                  " plugin matching
+"    endif
+"endfu
+"
+"" execute a custom command
+"fu! functions#RunCustomCommand()
+"    up
+"    if g:silent_custom_command
+"        execute 'silent !' . s:customcommand
+"    else
+"        execute '!' . s:customcommand
+"    endif
+"endfu
+"
+"fu! functions#SetCustomCommand()
+"    let s:customcommand = input('Enter Custom Command$ ')
+"endfu
+"
+"fu! functions#TrimWhiteSpace()
+"    %s/\s\+$//e
+"endfu
+"
+"fu! functions#HtmlUnEscape()
+"    silent s/&lt;/</eg
+"    silent s/&gt;/>/eg
+"    silent s/&amp;/\&/eg
+"endfu
 
 """ }}}

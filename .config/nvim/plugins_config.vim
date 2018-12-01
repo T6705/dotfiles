@@ -25,20 +25,6 @@ let g:rainbow#pairs     = [['(', ')'], ['[', ']'], ['{','}']]
 
 
 " ----------------------------------------------------------------------------------------
-" rainbow_levels.vim
-" ----------------------------------------------------------------------------------------
-let g:rainbow_levels = [
-    \{'ctermfg': 2, 'guifg': '#a6e22e'},
-    \{'ctermfg': 6, 'guifg': '#66d9ef'},
-    \{'ctermfg': 4, 'guifg': '#ae81ff'},
-    \{'ctermfg': 5, 'guifg': '#f92672'},
-    \{'ctermfg': 1, 'guifg': '#fd971f'},
-    \{'ctermfg': 3, 'guifg': '#f4bf75'},
-    \{'ctermfg': 7, 'guifg': '#f8f8f2'},
-    \{'ctermfg': 0, 'guifg': '#75715e'}]
-
-
-" ----------------------------------------------------------------------------------------
 " vimtex
 " ----------------------------------------------------------------------------------------
 "let g:vimtex_latexmk_options = '-pdf'
@@ -630,11 +616,5 @@ endif
 let g:peekaboo_compact = 0                         " Compact display; do not display the names of the register groups
 let g:peekaboo_delay   = 0                         " Delay opening of peekaboo window (in ms. default: 0)
 let g:peekaboo_window  = 'vertical botright 30new' " Default peekaboo window
-
-" ----------------------------------------------------------------------------------------
-" vim-which-key
-" ----------------------------------------------------------------------------------------
-let g:which_key_vertical=1        " show popup vertically
-let g:which_key_hspace=5          " minimum horizontal space between columns
 
 """ }}}

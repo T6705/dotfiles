@@ -11,9 +11,8 @@ endif
 
 let mapleader=' '
 
-let g:loaded_matchparen = 1 " Highlighting matching parens
-let php_htmlInStrings   = 1
-let php_sql_query       = 1
+let php_htmlInStrings = 1 " highlight HTML in string
+let php_sql_query     = 1 " highlight SQL syntax in string
 
 set updatetime=500
 
@@ -157,7 +156,7 @@ set statusline+=%1*\ %y\                             " FileType
 set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
 set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
 set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
-set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
+set statusline+=%5*\ %=\ row:%l/%L\                  " Rownumber/total (%)
 set statusline+=%6*\ col:%03c\                       " Colnr
 set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
 
@@ -321,7 +320,7 @@ if &history < 1000
     set history=1000         " change history to 1000
 endif
 if has('vim_starting')
-    set nocompatible             " not compatible with vi
+    set nocompatible         " not compatible with vi
 endif
 set path+=**
 

@@ -69,9 +69,8 @@ endif
 
 let mapleader=' '
 
-let g:loaded_matchparen = 1 " Highlighting matching parens
-let php_htmlInStrings   = 1
-let php_sql_query       = 1
+let php_htmlInStrings = 1 " highlight HTML in string
+let php_sql_query     = 1 " highlight SQL syntax in string
 
 set updatetime=500
 
@@ -518,16 +517,6 @@ command! EX if !empty(expand('%'))
          \|   echohl None
          \| endif
 
-" ----------------------------------------------------------------------------------------
-" :WordProcessorMode
-" ----------------------------------------------------------------------------------------
-fu! WordProcessorMode()
-    setlocal textwidth=80
-    setlocal smartindent
-    setlocal spell spelllang=en_us
-    setlocal noexpandtab
-endfu
-command! WordProcessorMode call WordProcessorMode()
 
 " ----------------------------------------------------------------------------------------
 " :ChangeEncoding

@@ -73,9 +73,9 @@ elif command -v ccat &> /dev/null ; then
 fi
 
 # fast Vim that doesn't load a vimrc or plugins
-alias vimn='vim -N -u NONE'
+alias vimn='vim -n -u NONE -i NONE -N'
 # fast Neovim that doesn't load a vimrc or plugins
-alias nvimn='nvim -N -u NONE'
+alias nvimn='nvim -u NONE -i NONE -N'
 
 # ------------------------------------
 # Docker alias

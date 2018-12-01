@@ -336,9 +336,13 @@ imap <C-x>a <plug>(fzf-complete-file-ag)
 imap <C-x>l <plug>(fzf-complete-line)
 
 " Completetion
+" file names
 inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+" line
 inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+" keyword from current file
 inoremap <silent> ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+" omni completion
 inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
 
 " folding
