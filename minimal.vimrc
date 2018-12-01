@@ -161,7 +161,17 @@ nmap <Leader>l :set list!<CR>
 " ----------------------------------------------------------------------------------------
 " UI
 " ----------------------------------------------------------------------------------------
-"colorscheme molokai
+if empty(glob('~/.vim/colors/molokai.vim'))
+    if !executable("curl")
+        echoerr "You have to install curl or install molokai.vim yourself!"
+    endif
+    echo "Installing molokai.vim"
+    echo ""
+    silent !curl -fLo ~/.vim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+    colorscheme molokai
+else
+    colorscheme molokai
+endif
 "filetype on
 filetype indent on                                                " load filetype-specific indent files
 filetype plugin on

@@ -413,7 +413,7 @@ nnoremap <silent> <Leader>vz :call VimuxZoomRunner()<CR>
 if executable("isort")
     nnoremap <silent> <Leader>is :%!isort -<CR>
 else
-    nnoremap <silent> <Leader>is :echo "isort is not installed"<CR>
+    nnoremap <Leader>is :echo "isort is not installed"<CR>
 endif
 
 " ----------------------------------------------------------------------------------------
