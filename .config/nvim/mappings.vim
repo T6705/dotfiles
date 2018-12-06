@@ -485,8 +485,8 @@ vnoremap S[ "zdi[<C-R>z]<esc>
 command! -nargs=+ -complete=file_in_path -bar Grep  silent! grep! <args> | redraw!
 command! -nargs=+ -complete=file_in_path -bar LGrep silent! lgrep! <args> | redraw!
 
-cnoremap <expr> <Tab>   getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-z>"
-cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"
+"cnoremap <expr> <Tab>   getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-z>"
+"cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"
 
 nnoremap <silent> <Leader>g :Grep <C-r><C-w><CR>
 xnoremap <silent> <Leader>g :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
