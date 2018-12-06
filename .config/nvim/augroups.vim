@@ -26,9 +26,6 @@ augroup configgroup
     au FileType * RainbowParentheses
     "au FileType html,css EmmetInstall
     "au FileType html,css,php EmmetInstall
-    au FileType java setlocal omnifunc=javacomplete#Complete
-    au FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    au FileType go setlocal omnifunc=go#complete#Complete
     au FileType markdown syntax sync fromstart
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
@@ -36,6 +33,20 @@ augroup configgroup
     au VimResized * wincmd =
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
+
+" omnifuncs
+augroup omnifuncs
+    au!
+    au FileType c setlocal omnifunc=ccomplete#Complete
+    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    au FileType go setlocal omnifunc=go#complete#Complete
+    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType java setlocal omnifunc=javacomplete#Complete
+    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    au FileType python setlocal omnifunc=pythoncomplete#Complete
+    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
 
 " The PC is fast enough, do syntax highlight syncing from start unless 200 lines
 augroup vimrc-sync-fromstart
@@ -88,6 +99,7 @@ augroup auto_quickfix_window
     au!
     au QuickFixCmdPost [^l]* cwindow
     au QuickFixCmdPost l*    lwindow
+    au VimEnter * cwindow
 augroup END
 
 augroup autoRead

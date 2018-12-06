@@ -336,6 +336,9 @@ imap <C-x>a <plug>(fzf-complete-file-ag)
 imap <C-x>l <plug>(fzf-complete-line)
 
 " Completetion
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 " file names
 inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
 " line
@@ -482,8 +485,11 @@ vnoremap S[ "zdi[<C-R>z]<esc>
 command! -nargs=+ -complete=file_in_path -bar Grep  silent! grep! <args> | redraw!
 command! -nargs=+ -complete=file_in_path -bar LGrep silent! lgrep! <args> | redraw!
 
-nnoremap <silent> <Leader>G :Grep <C-r><C-w><CR>
-xnoremap <silent> <Leader>G :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
+cnoremap <expr> <Tab>   getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-z>"
+cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"
+
+nnoremap <silent> <Leader>g :Grep <C-r><C-w><CR>
+xnoremap <silent> <Leader>g :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
                         \ call histadd("cmd", cmd) <bar>
                         \ execute cmd<CR>
 
@@ -494,6 +500,9 @@ elseif executable("ag")
     set grepprg=ag\ --vimgrep
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
+
+" smooth listing
+cnoremap <expr> <CR> <SID>CCR()
 
 " ----------------------------------------------------------------------------------------
 " nvim

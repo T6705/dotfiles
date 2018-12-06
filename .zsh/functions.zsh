@@ -131,6 +131,8 @@ fi
 if command -v fzf &> /dev/null ; then
     if command -v rg &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+    elif command -v fd &> /dev/null; then
+        export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
     elif command -v ag &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
     fi

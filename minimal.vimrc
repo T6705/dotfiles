@@ -7,9 +7,6 @@ augroup configgroup
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
 
-    au FileType java setlocal omnifunc=javacomplete#Complete
-    au FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    au FileType go setlocal omnifunc=go#complete#Complete
     au FileType markdown syntax sync fromstart
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
@@ -17,6 +14,20 @@ augroup configgroup
     au VimResized * wincmd =
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
+
+" omnifuncs
+augroup omnifuncs
+    au!
+    au FileType c setlocal omnifunc=ccomplete#Complete
+    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    au FileType go setlocal omnifunc=go#complete#Complete
+    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    au FileType java setlocal omnifunc=javacomplete#Complete
+    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType php setlocal omnifunc=phpcomplete#CompletePHP
+    au FileType python setlocal omnifunc=pythoncomplete#Complete
+    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
 
 " The PC is fast enough, do syntax highlight syncing from start unless 200 lines
 augroup vimrc-sync-fromstart
@@ -50,6 +61,7 @@ augroup auto_quickfix_window
     au!
     au QuickFixCmdPost [^l]* cwindow
     au QuickFixCmdPost l*    lwindow
+    au VimEnter * cwindow
 augroup END
 
 augroup autoRead
@@ -91,10 +103,6 @@ cnoreabbrev Qall qall
 "endif
 "set clipboard=unnamed
 
-if has('nvim')
-    packadd vimball
-endif
-
 if has('patch-7.4.1480')
     packadd justify
     packadd shellmenu
@@ -111,7 +119,11 @@ if !has('nvim') && &ttimeoutlen == -1
 endif
 
 if v:version > 703 || v:version == 703 && has("patch-7.3.541")
+    set formatoptions=q  " allow gq to work on comment
     set formatoptions+=j " Delete comment character when joining commented lines
+    set formatoptions+=r " enter extends comments
+    set formatoptions+=n " format numbered lists using 'formatlistpat'
+    set formatoptions+=1 " don't break after one letter word
 endif
 
 if !has('nvim') && v:version > 704 || (v:version == 704 && has('patch401'))
@@ -173,40 +185,45 @@ else
     colorscheme molokai
 endif
 "filetype on
-filetype indent on                                                " load filetype-specific indent files
+filetype indent on    " load filetype-specific indent files
 filetype plugin on
 set autoindent
 set background=dark
 set cindent
-set cursorline                                                    " highlight current line
+set cursorline        " highlight current line
 set display+=lastline
-set hidden                                                        " current buffer can be put into background
-set laststatus=2                                                  " Status bar always on
-set lazyredraw                                                    " Don't redraw while executing macros (good performance config)
-set number                                                        " show line numbers
-"set relativenumber                                               " show relative line numbers
-set ruler                                                         " Always show current position
-set shortmess=aIT
-
+set hidden            " current buffer can be put into background
+set laststatus=2      " Status bar always on
+set lazyredraw        " Don't redraw while executing macros (good performance config)
+set number            " show line numbers
+"set relativenumber   " show relative line numbers
+set ruler             " Always show current position
+set shortmess=a       " use every short text trick
+set shortmess+=O      " file read message overwrites subsequent
+set shortmess+=s      " no search hit bottom crap
+set shortmess+=t      " truncate file message
+set shortmess+=T      " truncate messages in the middle
+set shortmess+=I      " no intro message
+set shortmess+=c      " no ins-completion messages
 if !&scrolloff
-    set scrolloff=3                                                 " 3 lines above/below cursor when scrolling
+    set scrolloff=3   " 3 lines above/below cursor when scrolling
 endif
 if !&sidescrolloff
     set sidescrolloff=5
 endif
 
 set completeopt=longest,menuone,preview
-set showcmd                                                       " show incomplete commands
-set so=7                                                          " Set 7 lines to the cursor - when moving vertically using j/k
-set t_Co=256                                                      " Explicitly tell vim that the terminal supports 256 colors
-"set title
-"set titleold="Terminal"
-"set titlestring=%F
-set ttyfast                                                       " faster redrawing
+set showcmd           " show incomplete commands
+set so=7              " Set 7 lines to the cursor - when moving vertically using j/k
+set t_Co=256          " Explicitly tell vim that the terminal supports 256 colors
+set title
+set titleold="Terminal"
+set titlestring=%F
+set ttyfast           " faster redrawing
 if has('syntax') && !exists('g:syntax_on')
-    "syntax enable
-    syntax on                                                         " switch syntax highlighting on
-    set synmaxcol=200                      " only syntax highlighting the first 200 characters of each line
+    " syntax enable
+    syntax on         " switch syntax highlighting on
+    set synmaxcol=200 " only syntax highlighting the first 200 characters of each line
 endif
 
 if has('nvim') && has('termguicolors')
@@ -224,7 +241,7 @@ set statusline+=%1*\ %y\                             " FileType
 set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
 set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
 set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
-set statusline+=%5*\ %=\ row:%l/%L\        " Rownumber/total (%)
+set statusline+=%5*\ %=\ row:%l/%L\                  " Rownumber/total (%)
 set statusline+=%6*\ col:%03c\                       " Colnr
 set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
 
@@ -325,20 +342,18 @@ hi User6 ctermfg=magenta ctermbg=black
 set wildmenu                                     " Turn on the WiLd menu
 "set wildmode=full
 set wildmode=list:longest                        " complete files like a shell
-set wildignore+=*.aux,*.out,*.toc                " Latex Indermediate files"
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " Binary Imgs"
-set wildignore+=*.luac                           " Lua byte code"
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " Compiled Object files"
-set wildignore+=*.orig,*.rej                     " Merge resolution files"
-set wildignore+=*.pyc                            " Python Object codes"
-set wildignore+=*.spl                            " Compiled speolling world list"
-set wildignore+=*.sw?                            " Vim swap files"
-set wildignore+=migrations                       " Django migrations"
+set wildignore=*.a,*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.DS_Store                          " OSX bullshit
+set wildignore+=*.aux,*.out,*.toc                   " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg      " binary images
+set wildignore+=*.luac                              " Lua byte code
+set wildignore+=*.orig,*.rej                        " Merge resolution files
+set wildignore+=*.pdf,*.zip,*.so                    " binaries
+set wildignore+=*.pyc,*.pyo                         " Python byte code
 if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
 else
     set wildignore+=.hg,.git,.svn                " Version Controls"
-    set wildignore+=*.DS_Store                   " OSX SHIT"
 endif
 
 " ----------------------------------------------------------------------------------------
@@ -388,7 +403,7 @@ if &history < 1000
     set history=1000         " change history to 1000
 endif
 if has('vim_starting')
-    set nocompatible             " not compatible with vi
+    set nocompatible         " not compatible with vi
 endif
 set path+=**
 
@@ -707,6 +722,22 @@ fu! CppAbbrev()
   inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
 endfu
 
+fu! s:CCR()
+	command! -bar Z silent set more|delcommand Z
+	if getcmdtype() == ":"
+		let cmdline = getcmdline()
+		    if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
+		elseif cmdline =~ '\v\C^(cli|lli)' | return "\<CR>:silent " . repeat(cmdline[0], 2) . "\<Space>"
+		elseif cmdline =~ '\C^changes' | set nomore | return "\<CR>:Z|norm! g;\<S-Left>"
+		elseif cmdline =~ '\C^ju' | set nomore | return "\<CR>:Z|norm! \<C-o>\<S-Left>"
+		elseif cmdline =~ '\v\C(#|nu|num|numb|numbe|number)$' | return "\<CR>:"
+		elseif cmdline =~ '\C^ol' | set nomore | return "\<CR>:Z|e #<"
+		elseif cmdline =~ '\v\C^(ls|files|buffers)' | return "\<CR>:b"
+		elseif cmdline =~ '\C^marks' | return "\<CR>:norm! `"
+		elseif cmdline =~ '\C^undol' | return "\<CR>:u "
+		else | return "\<CR>" | endif
+	else | return "\<CR>" | endif
+endfu
 """ }}}
 
 """ === Mappings === {{{
@@ -959,10 +990,17 @@ else
 endif
 
 " Completetion
-inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
-inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
-inoremap <silent> ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
-inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+" file names
+inoremap ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+" line
+inoremap ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+" keyword from current file
+inoremap ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+" omni completion
+inoremap ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
 
 " folding
 nnoremap <silent> <Leader>f za<CR>
@@ -1028,8 +1066,11 @@ vnoremap S[ "zdi[<C-R>z]<esc>
 command! -nargs=+ -complete=file_in_path -bar Grep  silent! grep! <args> | redraw!
 command! -nargs=+ -complete=file_in_path -bar LGrep silent! lgrep! <args> | redraw!
 
-nnoremap <silent> <Leader>G :Grep <C-r><C-w><CR>
-xnoremap <silent> <Leader>G :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
+cnoremap <expr> <Tab>   getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-z>"
+cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"
+
+nnoremap <silent> <Leader>g :Grep <C-r><C-w><CR>
+xnoremap <silent> <Leader>g :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
                         \ call histadd("cmd", cmd) <bar>
                         \ execute cmd<CR>
 
@@ -1040,6 +1081,9 @@ elseif executable("ag")
     set grepprg=ag\ --vimgrep
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
+
+" smooth listing
+cnoremap <expr> <CR> <SID>CCR()
 
 " ----------------------------------------------------------------------------------------
 " nvim

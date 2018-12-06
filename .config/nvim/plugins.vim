@@ -167,6 +167,7 @@ Plug 'chrisbra/vim-diff-enhanced'                                 " Better Diff 
 Plug 'dbeniamine/cheat.sh-vim'                                    " A vim plugin to access cheat.sh sheets
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }    " VIM Table Mode for instant table creation.
 Plug 'ervandew/supertab'                                          " Perform all your vim insert mode completions with Tab
+Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
 Plug 'itchyny/vim-cursorword'                                     " Underlines the word under the cursor
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " A command-line fuzzy finder
 Plug 'junegunn/fzf.vim'
