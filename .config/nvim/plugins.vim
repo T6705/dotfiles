@@ -90,6 +90,14 @@ if executable("go")
 endif
 
 
+" ----------------------------------------------------------------------------------------
+" dart
+" ----------------------------------------------------------------------------------------
+if executable("dart")
+    Plug 'dart-lang/dart-vim-plugin'
+endif
+
+
 "" ----------------------------------------------------------------------------------------
 "" html
 "" ----------------------------------------------------------------------------------------
@@ -166,7 +174,6 @@ Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                " A Vim plugin
 Plug 'chrisbra/vim-diff-enhanced'                                 " Better Diff options for Vim
 Plug 'dbeniamine/cheat.sh-vim'                                    " A vim plugin to access cheat.sh sheets
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }    " VIM Table Mode for instant table creation.
-Plug 'ervandew/supertab'                                          " Perform all your vim insert mode completions with Tab
 Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
 Plug 'itchyny/vim-cursorword'                                     " Underlines the word under the cursor
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " A command-line fuzzy finder

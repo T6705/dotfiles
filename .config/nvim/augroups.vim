@@ -10,8 +10,6 @@ augroup configgroup
     "au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     " Open NERDTree automatically when vim starts up on opening a directory
     au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | wincmd h |endif
-    " Close vim if the only window left open is a NERDTree
-    au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
     "au InsertEnter,WinLeave * set nocursorline
     "au InsertLeave,WinEnter * set cursorline
@@ -22,7 +20,7 @@ augroup configgroup
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
 
-
+    au BufRead,BufNewFile *.dart setlocal sw=2 sts=2
     au FileType * RainbowParentheses
     "au FileType html,css EmmetInstall
     "au FileType html,css,php EmmetInstall
@@ -32,6 +30,12 @@ augroup configgroup
     au InsertLeave * silent! set nopaste
     au VimResized * wincmd =
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
+augroup END
+
+" Close vim if the only window left open is a NERDTree or quickfix
+augroup finalcountdown
+    au!
+    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) || &buftype == 'quickfix' | q | endif
 augroup END
 
 " omnifuncs
@@ -46,6 +50,12 @@ augroup omnifuncs
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
     au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+
+" close preview on completion complete
+augroup completionhide
+    au!
+    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup end
 
 " The PC is fast enough, do syntax highlight syncing from start unless 200 lines
@@ -83,10 +93,7 @@ augroup END
 
 augroup auto_mkdir
     au!
-    au BufWritePre *
-                \ if !isdirectory(expand('<afile>:p:h')) |
-                \ call mkdir(expand('<afile>:p:h'), 'p') |
-                \ endif
+    au BufWritePre * if !isdirectory(expand('<afile>:p:h')) | call mkdir(expand('<afile>:p:h'), 'p') | endif
 augroup END
 
 augroup vimrc_active_options

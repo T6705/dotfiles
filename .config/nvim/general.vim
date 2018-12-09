@@ -344,6 +344,7 @@ set splitright
 " Completion for spellings
 "set spell
 set complete+=kspell
+set ofu=syntaxcomplete#Complete " Set omni-completion method
 
 " Use persistent history, Keep undo history across sessions by storing it in a file
 if has('persistent_undo')
@@ -358,34 +359,36 @@ endif
 " ----------------------------------------------------------------------------------------
 " gvim
 " ----------------------------------------------------------------------------------------
-" With this, the gui (gvim and macvim) now doesn't have the toolbar, the left
-" and right scrollbars and the menu.
-set guioptions=egmrti
-set guioptions-=T
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
-set guioptions-=m
-set guioptions-=M
-set mousemodel=popup
+if has('gui_running')
+    " With this, the gui (gvim and macvim) now doesn't have the toolbar, the left
+    " and right scrollbars and the menu.
+    set guioptions=egmrti
+    set guioptions-=T
+    set guioptions-=l
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
+    set guioptions-=m
+    set guioptions-=M
+    set mousemodel=popup
 
-" Set font according to system
-if has("mac") || has("macunix")
-    set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
-elseif has("win16") || has("win32")
-    set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("gui_gtk2")
-    set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("linux")
-    set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("unix")
-    set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
-else
-    set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
-endif
+    " Set font according to system
+    if has("mac") || has("macunix")
+        set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+    elseif has("win16") || has("win32")
+        set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+    elseif has("gui_gtk2")
+        set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    elseif has("linux")
+        set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    elseif has("unix")
+        set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+    else
+        set gfn=Knack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+    endif
 
-if &encoding ==# 'latin1' && has('gui_running')
-    set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
+    if &encoding ==# 'latin1'
+        set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
+    endif
 endif
 """ }}}

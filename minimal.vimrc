@@ -15,6 +15,12 @@ augroup configgroup
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
 augroup END
 
+" Close vim if the only window left open is a NERDTree or quickfix
+augroup finalcountdown
+    au!
+    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) || &buftype == 'quickfix' | q | endif
+augroup END
+
 " omnifuncs
 augroup omnifuncs
     au!
@@ -27,6 +33,12 @@ augroup omnifuncs
     au FileType php setlocal omnifunc=phpcomplete#CompletePHP
     au FileType python setlocal omnifunc=pythoncomplete#Complete
     au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+
+" close preview on completion complete
+augroup completionhide
+    au!
+    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 augroup end
 
 " The PC is fast enough, do syntax highlight syncing from start unless 200 lines
@@ -187,7 +199,7 @@ endif
 "filetype on
 filetype indent on    " load filetype-specific indent files
 filetype plugin on
-set autoindent
+set autoindent        " Copy indent from last line when starting new line
 set background=dark
 set cindent
 set cursorline        " highlight current line
@@ -424,6 +436,7 @@ set splitright
 " Completion for spellings
 "set spell
 set complete+=kspell
+set ofu=syntaxcomplete#Complete " Set omni-completion method
 
 " Use persistent history, Keep undo history across sessions by storing it in a file
 if has('persistent_undo')
@@ -438,35 +451,37 @@ endif
 " ----------------------------------------------------------------------------------------
 " gvim
 " ----------------------------------------------------------------------------------------
-" With this, the gui (gvim and macvim) now doesn't have the toolbar, the left
-" and right scrollbars and the menu.
-set guioptions=egmrti
-set guioptions-=T
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
-set guioptions-=m
-set guioptions-=M
-set mousemodel=popup
+if has('gui_running')
+    " With this, the gui (gvim and macvim) now doesn't have the toolbar, the left
+    " and right scrollbars and the menu.
+    set guioptions=egmrti
+    set guioptions-=T
+    set guioptions-=l
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
+    set guioptions-=m
+    set guioptions-=M
+    set mousemodel=popup
 
-" Set font according to system
-if has("mac") || has("macunix")
-    set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
-elseif has("win16") || has("win32")
-    set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("gui_gtk2")
-    set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("linux")
-    set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("unix")
-    set gfn=Hack\ Nerd\ Font\ Mono\ 10,Hack\ 10
-else
-    set gfn=Hack\ Nerd\ Font\ Mono\ 10,Hack\ 10
-endif
+    " Set font according to system
+    if has("mac") || has("macunix")
+        set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+    elseif has("win16") || has("win32")
+        set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+    elseif has("gui_gtk2")
+        set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    elseif has("linux")
+        set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    elseif has("unix")
+        set gfn=Hack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+    else
+        set gfn=Hack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+    endif
 
-if &encoding ==# 'latin1' && has('gui_running')
-    set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
+    if &encoding ==# 'latin1'
+        set encoding=utf-8 " Set utf8 as standard encoding and en_US as the standard language
+    endif
 endif
 """ }}}
 
