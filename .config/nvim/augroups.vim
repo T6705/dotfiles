@@ -21,6 +21,8 @@ augroup configgroup
     "au FileType html,css EmmetInstall
     "au FileType html,css,php EmmetInstall
     au FileType markdown syntax sync fromstart
+    au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
+    au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste
