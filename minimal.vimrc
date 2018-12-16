@@ -6,7 +6,7 @@ augroup configgroup
     au!
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
-
+    au BufRead,BufNewFile *.dart setlocal sw=2 sts=2
     au FileType markdown syntax sync fromstart
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
@@ -280,7 +280,7 @@ hi User6 ctermfg=magenta ctermbg=black
 "    exe 'hi! StatusLine ctermfg=006'
 "  endif
 "  return ''
-"endfunction
+"endfu
 
 "" Find out current buffer's size and output it.
 "function! FileSize()
@@ -303,7 +303,7 @@ hi User6 ctermfg=magenta ctermbg=black
 "  else
 "    return bytes . 'B '
 "  endif
-"endfunction
+"endfu
 
 "function! ReadOnly()
 "  if &readonly || !&modifiable
@@ -311,7 +311,7 @@ hi User6 ctermfg=magenta ctermbg=black
 "  else
 "    return ''
 "  endif
-"endfunction
+"endfu
 
 "function! GitInfo()
 "  let git = fugitive#head()
@@ -320,7 +320,7 @@ hi User6 ctermfg=magenta ctermbg=black
 "  else
 "    return ''
 "  endfi
-"endfunction
+"endfu
 
 "set statusline=
 "set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
@@ -490,15 +490,15 @@ endif
 " ----------------------------------------------------------------------------------------
 " :BufSearch <pattern> | Search in all currently opened buffers
 " ----------------------------------------------------------------------------------------
-function! ClearQuickfixList()
+fu! ClearQuickfixList()
     call setqflist([])
-endfunction
-function! Vimgrepall(pattern)
+endfu
+fu! Vimgrepall(pattern)
     call ClearQuickfixList()
     exe 'bufdo noautocmd vimgrepadd ' . a:pattern . ' %'
     cnext
     cwindow
-endfunction
+endfu
 command! -nargs=1 BufSearch call Vimgrepall(<f-args>)
 
 " ----------------------------------------------------------------------------------------
@@ -737,21 +737,42 @@ fu! CppAbbrev()
   inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
 endfu
 
-fu! s:CCR()
-	command! -bar Z silent set more|delcommand Z
-	if getcmdtype() == ":"
-		let cmdline = getcmdline()
-		    if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
-		elseif cmdline =~ '\v\C^(cli|lli)' | return "\<CR>:silent " . repeat(cmdline[0], 2) . "\<Space>"
-		elseif cmdline =~ '\C^changes' | set nomore | return "\<CR>:Z|norm! g;\<S-Left>"
-		elseif cmdline =~ '\C^ju' | set nomore | return "\<CR>:Z|norm! \<C-o>\<S-Left>"
-		elseif cmdline =~ '\v\C(#|nu|num|numb|numbe|number)$' | return "\<CR>:"
-		elseif cmdline =~ '\C^ol' | set nomore | return "\<CR>:Z|e #<"
-		elseif cmdline =~ '\v\C^(ls|files|buffers)' | return "\<CR>:b"
-		elseif cmdline =~ '\C^marks' | return "\<CR>:norm! `"
-		elseif cmdline =~ '\C^undol' | return "\<CR>:u "
-		else | return "\<CR>" | endif
-	else | return "\<CR>" | endif
+" make list-like commands more intuitive
+fu! CCR()
+    let cmdline = getcmdline()
+    if cmdline =~ '\v\C^(ls|files|buffers)'
+        " like :ls but prompts for a buffer command
+        return "\<CR>:b"
+    elseif cmdline =~ '\v\C/(#|nu|num|numb|numbe|number)$'
+        " like :g//# but prompts for a command
+        return "\<CR>:"
+    elseif cmdline =~ '\v\C^(dli|il)'
+        " like :dlist or :ilist but prompts for a count for :djump or :ijump
+        return "\<CR>:" . cmdline[0] . "j  " . split(cmdline, " ")[1] . "\<S-Left>\<Left>"
+    elseif cmdline =~ '\v\C^(cli|lli)'
+        " like :clist or :llist but prompts for an error/location number
+        return "\<CR>:sil " . repeat(cmdline[0], 2) . "\<Space>"
+    elseif cmdline =~ '\C^old'
+        " like :oldfiles but prompts for an old file to edit
+        set nomore
+        return "\<CR>:sil se more|e #<"
+    elseif cmdline =~ '\C^changes'
+        " like :changes but prompts for a change to jump to
+        set nomore
+        return "\<CR>:sil se more|norm! g;\<S-Left>"
+    elseif cmdline =~ '\C^ju'
+        " like :jumps but prompts for a position to jump to
+        set nomore
+        return "\<CR>:sil se more|norm! \<C-o>\<S-Left>"
+    elseif cmdline =~ '\C^marks'
+        " like :marks but prompts for a mark to jump to
+        return "\<CR>:norm! `"
+    elseif cmdline =~ '\C^undol'
+        " like :undolist but prompts for a change to undo
+        return "\<CR>:u "
+    else
+        return "\<CR>"
+    endif
 endfu
 """ }}}
 
@@ -1098,7 +1119,7 @@ elseif executable("ag")
 endif
 
 " smooth listing
-cnoremap <expr> <CR> <SID>CCR()
+cnoremap <expr> <CR> CCR()
 
 " ----------------------------------------------------------------------------------------
 " nvim

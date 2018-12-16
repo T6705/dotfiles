@@ -351,7 +351,7 @@ else
       return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
       " For no inserting <CR> key.
       "return pumvisible() ? "\<C-y>" : "\<CR>"
-    endfunction
+    endfu
     " <TAB>: completion.
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     " <C-h>, <BS>: close popup and delete backword char.

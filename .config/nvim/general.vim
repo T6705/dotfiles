@@ -103,7 +103,17 @@ nmap <Leader>l :set list!<CR>
 " ----------------------------------------------------------------------------------------
 " UI
 " ----------------------------------------------------------------------------------------
-colorscheme molokai
+if empty(glob('~/.vim/colors/molokai.vim'))
+    if !executable("curl")
+        echoerr "You have to install curl or install molokai.vim yourself!"
+    endif
+    echo "Installing molokai.vim"
+    echo ""
+    silent !curl -fLo ~/.vim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+    colorscheme molokai
+else
+    colorscheme molokai
+endif
 "filetype on
 filetype indent on    " load filetype-specific indent files
 filetype plugin on
@@ -188,7 +198,7 @@ hi User6 ctermfg=magenta ctermbg=black
 "    exe 'hi! StatusLine ctermfg=006'
 "  endif
 "  return ''
-"endfunction
+"endfu
 
 "" Find out current buffer's size and output it.
 "function! FileSize()
@@ -211,7 +221,7 @@ hi User6 ctermfg=magenta ctermbg=black
 "  else
 "    return bytes . 'B '
 "  endif
-"endfunction
+"endfu
 
 "function! ReadOnly()
 "  if &readonly || !&modifiable
@@ -219,7 +229,7 @@ hi User6 ctermfg=magenta ctermbg=black
 "  else
 "    return ''
 "  endif
-"endfunction
+"endfu
 
 "function! GitInfo()
 "  let git = fugitive#head()
@@ -228,7 +238,7 @@ hi User6 ctermfg=magenta ctermbg=black
 "  else
 "    return ''
 "  endfi
-"endfunction
+"endfu
 
 "set statusline=
 "set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color

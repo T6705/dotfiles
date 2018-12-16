@@ -502,7 +502,7 @@ elseif executable("ag")
 endif
 
 " smooth listing
-cnoremap <expr> <CR> <SID>CCR()
+cnoremap <expr> <CR> CCR()
 
 " ----------------------------------------------------------------------------------------
 " nvim

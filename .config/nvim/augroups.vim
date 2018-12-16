@@ -11,15 +11,11 @@ augroup configgroup
     " Open NERDTree automatically when vim starts up on opening a directory
     au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | wincmd h |endif
 
-    "au InsertEnter,WinLeave * set nocursorline
-    "au InsertLeave,WinEnter * set cursorline
-
     au BufEnter * call NERDTreeRefresh() "
     au BufWinEnter *.{doc,docx,epub,odp,odt,pdf,rtf} call HandleSpecialFile()
     au BufRead * call ChangeEncoding()
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
-
     au BufRead,BufNewFile *.dart setlocal sw=2 sts=2
     au FileType * RainbowParentheses
     "au FileType html,css EmmetInstall
