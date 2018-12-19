@@ -480,6 +480,31 @@ vnoremap S{ "zdi{<C-R>z}<esc>
 vnoremap S[ "zdi[<C-R>z]<esc>
 
 " ----------------------------------------------------------------------------------------
+" text object
+" ----------------------------------------------------------------------------------------
+" "in line" (entire line sans white-space; cursor at beginning--ie, ^)
+xnoremap <silent> il :<c-u>normal! g_v^<cr>
+onoremap <silent> il :<c-u>normal! g_v^<cr>
+" "around line" (entire line sans trailing newline; cursor at beginning--ie, 0)
+xnoremap <silent> al :<c-u>normal! $v0<cr>
+onoremap <silent> al :<c-u>normal! $v0<cr>
+" "in document" (from first line to last; cursor at top--ie, gg)
+xnoremap <silent> id :<c-u>normal! G$Vgg0<cr>
+onoremap <silent> id :<c-u>normal! GVgg<cr>
+" "in number" (next number after cursor on current line)
+xnoremap <silent> in :<c-u>call <sid>inNumber()<cr>
+onoremap <silent> in :<c-u>call <sid>inNumber()<cr>
+" "around number" (next number on line and possible surrounding white-space)
+xnoremap <silent> an :<c-u>call <sid>aroundNumber()<cr>
+onoremap <silent> an :<c-u>call <sid>aroundNumber()<cr>
+" "in indentation" (indentation level sans any surrounding empty lines)
+xnoremap <silent> ii :<c-u>call <sid>inIndentation()<cr>
+onoremap <silent> ii :<c-u>call <sid>inIndentation()<cr>
+" "around indentation" (indentation level and any surrounding empty lines)
+xnoremap <silent> ai :<c-u>call <sid>aroundIndentation()<cr>
+onoremap <silent> ai :<c-u>call <sid>aroundIndentation()<cr>
+
+" ----------------------------------------------------------------------------------------
 " Search in project
 " ----------------------------------------------------------------------------------------
 command! -nargs=+ -complete=file_in_path -bar Grep  silent! grep! <args> | redraw!
