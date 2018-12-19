@@ -103,16 +103,7 @@ nmap <Leader>l :set list!<CR>
 " ----------------------------------------------------------------------------------------
 " UI
 " ----------------------------------------------------------------------------------------
-if empty(glob('~/.vim/colors/vim-monokai-tasty.vim'))
-    if !executable("curl")
-        echoerr "You have to install curl or install vim-monokai-tasty.vim yourself!"
-    endif
-    echo "Installing vim-monokai-tasty.vim"
-    echo ""
-    silent !curl -fLo ~/.vim/colors/vim-monokai-tasty.vim --create-dirs https://raw.githubusercontent.com/patstockwell/vim-monokai-tasty/master/colors/vim-monokai-tasty.vim
-    let g:vim_monokai_tasty_italic = 1
-    colorscheme vim-monokai-tasty
-elseif empty(glob('~/.vim/colors/molokai.vim'))
+if empty(glob('~/.vim/colors/molokai.vim'))
     if !executable("curl")
         echoerr "You have to install curl or install molokai.vim yourself!"
     endif
@@ -121,9 +112,7 @@ elseif empty(glob('~/.vim/colors/molokai.vim'))
     silent !curl -fLo ~/.vim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
     colorscheme molokai
 else
-    let g:vim_monokai_tasty_italic = 1
-    colorscheme vim-monokai-tasty
-    "colorscheme molokai
+    colorscheme molokai
 endif
 "filetype on
 filetype indent on    " load filetype-specific indent files
