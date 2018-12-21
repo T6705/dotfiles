@@ -76,6 +76,11 @@ run_im none
 # xterm -geometry 80x50+494+51 &
 # xterm -geometry 80x20+494-0 &
 #exec xterm -geometry 80x66+0+0 -name login
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
+
+#export GTK_IM_MODULE=fcitx
+#export QT_IM_MODULE=fcitx
+#export XMODIFIERS=@im=fcitx
+
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+export XMODIFIERS=@im=ibus

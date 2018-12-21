@@ -337,6 +337,14 @@ install_i3() {
     fi
 }
 
+install_ibus() {
+    if command -v pacman &> /dev/null; then
+        sudo pacman -S --needed --noconfirm curl ibus ibus-rime ibus-table ibus-table-chinese ibus-table-extraphrase libgusb libibus libusb libusbmuxd
+        curl -fLo ~/.config/ibus/rime/default.custom.yaml --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/ibus/rime/default.custom.yaml
+        curl https://gitlab.com/T6705/dotfiles/raw/master/.xinitrc > ~/.xinitrc
+    fi
+}
+
 install_file_manager() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y ranger
@@ -781,6 +789,8 @@ main() {
         install_games
     elif [[ $1 == "i3" ]]; then
         install_i3
+    elif [[ $1 == "ibus" ]]; then
+        install_ibus
     elif [[ $1 == "ranger" ]]; then
         install_file_manager
     elif [[ $1 == "spacemacs" ]]; then
@@ -796,9 +806,12 @@ main() {
     elif [[ $1 == "all" ]]; then
         install_dependencies
         install_dots
+        install_games
         install_i3
+        install_ibus
         install_file_manager
         install_spacemacs
+        install_st
         install_tmux
         install_vim
         install_zsh
@@ -809,6 +822,7 @@ main() {
         echo "    dots"
         echo "    games"
         echo "    i3"
+        echo "    ibus"
         echo "    file_manager"
         echo "    spacemacs"
         echo "    st"
