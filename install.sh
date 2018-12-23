@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 install_dots() {
     echo ""
@@ -171,9 +171,9 @@ install_dunst() {
     echo "==================="
     echo ""
     if command -v apt-get &> /dev/null; then
-        apt-get install -y dunst notify-osd
+        sudo apt-get install -y dunst notify-osd
     elif command -v pacman &> /dev/null; then
-        pacman -S --needed --noconfirm dunst dunstify notify-osd
+        sudo pacman -S --needed --noconfirm dunst dunstify notify-osd
     fi
 }
 
@@ -358,7 +358,7 @@ install_ibus() {
     echo ""
     if command -v apt-get &> /dev/null; then
         apt-get install -y ibus ibus-dbg ibus-gtk ibus-gtk3 ibus-input-pad ibus-qt4 ibus-rime ibus-table ibus-table-cantonese ibus-table-cantonhk ibus-table-latex ibus-table-quick ibus-table-quick-classic ibus-table-quick3 ibus-table-quick5
-    if command -v pacman &> /dev/null; then
+    elif command -v pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm curl ibus ibus-rime ibus-table ibus-table-chinese ibus-table-extraphrase libgusb libibus libusb libusbmuxd
     fi
     curl -fLo ~/.config/ibus/rime/default.custom.yaml --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/ibus/rime/default.custom.yaml
@@ -810,6 +810,8 @@ main() {
         install_dependencies
     elif [[ $1 == "dots" ]]; then
         install_dots
+    elif [[ $1 == "dunst" ]]; then
+        install_dunst
     elif [[ $1 == "games" ]]; then
         install_games
     elif [[ $1 == "i3" ]]; then
@@ -831,10 +833,11 @@ main() {
     elif [[ $1 == "all" ]]; then
         install_dependencies
         install_dots
+        install_dunst
+        install_file_manager
         install_games
         install_i3
         install_ibus
-        install_file_manager
         install_spacemacs
         install_st
         install_tmux
@@ -845,10 +848,11 @@ main() {
         echo "options:"
         echo "    dependencies"
         echo "    dots"
+        echo "    dunst"
+        echo "    file_manager"
         echo "    games"
         echo "    i3"
         echo "    ibus"
-        echo "    file_manager"
         echo "    spacemacs"
         echo "    st"
         echo "    tmux"

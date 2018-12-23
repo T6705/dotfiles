@@ -23,6 +23,8 @@ alias hexdump='hexdump -C'
 
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
+alias choregraphe='/opt/Softbank\ Robotics/Choregraphe\ Suite\ 2.5/bin/choregraphe-bin'
+
 if command -v gem &> /dev/null ; then
     alias gemup="gem update --system && gem update && gem cleanup"
 fi
