@@ -164,6 +164,19 @@ install_dots() {
     fi
 }
 
+install_dunst() {
+    echo ""
+    echo "==================="
+    echo "== install dunst =="
+    echo "==================="
+    echo ""
+    if command -v apt-get &> /dev/null; then
+        apt-get install -y dunst notify-osd
+    elif command -v pacman &> /dev/null; then
+        pacman -S --needed --noconfirm dunst dunstify notify-osd
+    fi
+}
+
 install_dependencies() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get update
@@ -338,14 +351,26 @@ install_i3() {
 }
 
 install_ibus() {
+    echo ""
+    echo "=================="
+    echo "== install ibus =="
+    echo "=================="
+    echo ""
+    if command -v apt-get &> /dev/null; then
+        apt-get install -y ibus ibus-dbg ibus-gtk ibus-gtk3 ibus-input-pad ibus-qt4 ibus-rime ibus-table ibus-table-cantonese ibus-table-cantonhk ibus-table-latex ibus-table-quick ibus-table-quick-classic ibus-table-quick3 ibus-table-quick5
     if command -v pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm curl ibus ibus-rime ibus-table ibus-table-chinese ibus-table-extraphrase libgusb libibus libusb libusbmuxd
-        curl -fLo ~/.config/ibus/rime/default.custom.yaml --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/ibus/rime/default.custom.yaml
-        curl https://gitlab.com/T6705/dotfiles/raw/master/.xinitrc > ~/.xinitrc
     fi
+    curl -fLo ~/.config/ibus/rime/default.custom.yaml --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/ibus/rime/default.custom.yaml
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.xinitrc > ~/.xinitrc
 }
 
 install_file_manager() {
+    echo ""
+    echo "=========================="
+    echo "== install file manager =="
+    echo "=========================="
+    echo ""
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y ranger
 

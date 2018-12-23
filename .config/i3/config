@@ -265,3 +265,4 @@ exec --no-startup-id ibus-daemon -drx
 exec --no-startup-id bash ~/.config/polybar/launch.sh
 exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/frame.jpg
 exec_always compton -Cf --config ~/.config/i3/compton.conf
+exec_always dunst -config ~/.config/dunst/dunstrc &
