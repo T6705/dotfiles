@@ -30,7 +30,7 @@ secondary      = #FF6200
 [bar/top]
 height            = 26
 radius            = 5.0
-monitor           = HDMI-1
+monitor           = VGA-1
 offset-x          = 1%
 offset-y          = 6
 override-redirect = true
@@ -68,19 +68,127 @@ tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
-font-0  = "HackNerdFontMono:size=10;2"
-font-1  = "NotoSansMonoCJKtc-Regular:size=9;2"
-font-2  = "FontAwesome:size=8;2"
-font-3  = "NotoSans-Regular:size=8;-1"
-font-4  = "Termsynu:size=7;0"
-font-5  = "Unifont:size=5;0"
-font-6  = "fixed:pixelsize=10;0"
-font-7  = "monospace:size=9;2"
-font-8  = "siji:pixelsize=10;0"
-font-9 = "unifont:size=6:heavy:fontformat=truetype;-2"
-font-10  = "KnackNerdFont:size=9;2"
+font-0  = "HackNerdFontMono:size=13;3"
+font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
+font-2  = "FontAwesome:size=13;2"
+font-3  = "NotoSans-Regular:size=13;-1"
+font-4  = "Termsynu:size=13;0"
+font-5  = "Unifont:size=13;0"
+font-6  = "fixed:pixelsize=13;0"
+font-7  = "monospace:size=13;2"
+font-8  = "siji:pixelsize=13;0"
+font-9 = "unifont:size=13:heavy:fontformat=truetype;-2"
+font-10  = "KnackNerdFont:size=13;2"
 
 [bar/bottom]
+bottom            = true
+height            = 26
+radius            = 5.0
+monitor           = VGA-1
+offset-x          = 1%
+offset-y          = 6
+override-redirect = true
+width             = 98%
+wm-restack        = i3
+
+locale = en_US.UTF-8
+
+enable-ipc = true
+
+padding-left  = 0
+padding-right = 2
+
+module-margin-right = 0
+module-margin-left  = 0
+
+modules-left   = tor wlan eth
+modules-center =
+modules-right  = cpu memory battery temperature
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+underline-size  = 2
+underline-color = ${colors.white}
+
+;tray-maxsize    = 16
+tray-background  = ${colors.background}
+tray-detached    = false
+tray-offset-x    = 0
+tray-offset-y    = 0
+tray-padding     = 0
+;tray-position    = right
+tray-position    =
+tray-scale       = 1.0
+tray-transparent = false
+
+font-0  = "HackNerdFontMono:size=13;3"
+font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
+font-2  = "FontAwesome:size=13;2"
+font-3  = "NotoSans-Regular:size=13;-1"
+font-4  = "Termsynu:size=13;0"
+font-5  = "Unifont:size=13;0"
+font-6  = "fixed:pixelsize=13;0"
+font-7  = "monospace:size=13;2"
+font-8  = "siji:pixelsize=13;0"
+font-9 = "unifont:size=13:heavy:fontformat=truetype;-2"
+font-10  = "KnackNerdFont:size=13;2"
+
+;-------------------------------------------------------------------------------
+
+[bar/external_top]
+height            = 26
+radius            = 5.0
+monitor           = HDMI-1
+offset-x          = 1%
+offset-y          = 6
+override-redirect = true
+width             = 98%
+wm-restack        = i3
+
+locale = en_US.UTF-8
+
+enable-ipc = true
+
+padding-left  = 0
+padding-right = 2
+
+module-margin-right = 0
+module-margin-left  = 0
+
+modules-left   = i3
+modules-center = date
+modules-right  = spotify previous playpause next volume lock
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+underline-size  = 2
+underline-color = ${colors.white}
+
+;tray-maxsize    = 16
+tray-background  = ${colors.background}
+tray-detached    = false
+tray-offset-x    = 0
+tray-offset-y    = 0
+tray-padding     = 0
+tray-position    =
+tray-scale       = 1.0
+tray-transparent = false
+
+font-0  = "HackNerdFontMono:size=13;3"
+font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
+font-2  = "FontAwesome:size=13;2"
+font-3  = "NotoSans-Regular:size=13;-1"
+font-4  = "Termsynu:size=13;0"
+font-5  = "Unifont:size=13;0"
+font-6  = "fixed:pixelsize=13;0"
+font-7  = "monospace:size=13;2"
+font-8  = "siji:pixelsize=13;0"
+font-9 = "unifont:size=13:heavy:fontformat=truetype;-2"
+font-10  = "KnackNerdFont:size=13;2"
+
+[bar/external_bottom]
 bottom            = true
 height            = 26
 radius            = 5.0
@@ -122,125 +230,17 @@ tray-position    =
 tray-scale       = 1.0
 tray-transparent = false
 
-font-0  = "HackNerdFontMono:size=10;2"
-font-1  = "NotoSansMonoCJKtc-Regular:size=9;2"
-font-2  = "FontAwesome:size=8;2"
-font-3  = "NotoSans-Regular:size=8;-1"
-font-4  = "Termsynu:size=7;0"
-font-5  = "Unifont:size=5;0"
-font-6  = "fixed:pixelsize=10;0"
-font-7  = "monospace:size=9;2"
-font-8  = "siji:pixelsize=10;0"
-font-9 = "unifont:size=6:heavy:fontformat=truetype;-2"
-font-10  = "KnackNerdFont:size=9;2"
-
-;-------------------------------------------------------------------------------
-
-[bar/external_top]
-height            = 26
-radius            = 5.0
-monitor           = VGA-1
-offset-x          = 1%
-offset-y          = 6
-override-redirect = true
-width             = 98%
-wm-restack        = i3
-
-locale = en_US.UTF-8
-
-enable-ipc = true
-
-padding-left  = 0
-padding-right = 2
-
-module-margin-right = 0
-module-margin-left  = 0
-
-modules-left   = i3
-modules-center = date
-modules-right  = spotify previous playpause next volume lock
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-underline-size  = 2
-underline-color = ${colors.white}
-
-;tray-maxsize    = 16
-tray-background  = ${colors.background}
-tray-detached    = false
-tray-offset-x    = 0
-tray-offset-y    = 0
-tray-padding     = 0
-tray-position    =
-tray-scale       = 1.0
-tray-transparent = false
-
-font-0  = "HackNerdFontMono:size=10;2"
-font-1  = "NotoSansMonoCJKtc-Regular:size=9;2"
-font-2  = "FontAwesome:size=8;2"
-font-3  = "NotoSans-Regular:size=8;-1"
-font-4  = "Termsynu:size=7;0"
-font-5  = "Unifont:size=5;0"
-font-6  = "fixed:pixelsize=10;0"
-font-7  = "monospace:size=9;2"
-font-8  = "siji:pixelsize=10;0"
-font-9 = "unifont:size=6:heavy:fontformat=truetype;-2"
-font-10  = "KnackNerdFont:size=9;2"
-
-[bar/external_bottom]
-bottom            = true
-height            = 26
-radius            = 5.0
-monitor           = VGA-1
-offset-x          = 1%
-offset-y          = 6
-override-redirect = true
-width             = 98%
-wm-restack        = i3
-
-locale = en_US.UTF-8
-
-enable-ipc = true
-
-padding-left  = 0
-padding-right = 2
-
-module-margin-right = 0
-module-margin-left  = 0
-
-modules-left   = tor wlan eth
-modules-center =
-modules-right  = cpu memory battery temperature
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-underline-size  = 2
-underline-color = ${colors.white}
-
-;tray-maxsize    = 16
-tray-background  = ${colors.background}
-tray-detached    = false
-tray-offset-x    = 0
-tray-offset-y    = 0
-tray-padding     = 0
-;tray-position    = right
-tray-position    =
-tray-scale       = 1.0
-tray-transparent = false
-
-font-0  = "HackNerdFontMono:size=10;2"
-font-1  = "NotoSansMonoCJKtc-Regular:size=9;2"
-font-2  = "FontAwesome:size=8;2"
-font-3  = "NotoSans-Regular:size=8;-1"
-font-4  = "Termsynu:size=7;0"
-font-5  = "Unifont:size=5;0"
-font-6  = "fixed:pixelsize=10;0"
-font-7  = "monospace:size=9;2"
-font-8  = "siji:pixelsize=10;0"
-font-9 = "unifont:size=6:heavy:fontformat=truetype;-2"
-font-10  = "KnackNerdFont:size=9;2"
+font-0  = "HackNerdFontMono:size=13;3"
+font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
+font-2  = "FontAwesome:size=13;2"
+font-3  = "NotoSans-Regular:size=13;-1"
+font-4  = "Termsynu:size=13;0"
+font-5  = "Unifont:size=13;0"
+font-6  = "fixed:pixelsize=13;0"
+font-7  = "monospace:size=13;2"
+font-8  = "siji:pixelsize=13;0"
+font-9 = "unifont:size=13:heavy:fontformat=truetype;-2"
+font-10  = "KnackNerdFont:size=13;2"
 
 ;-------------------------------------------------------------------------------
 
