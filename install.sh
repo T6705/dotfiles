@@ -396,9 +396,21 @@ install_file_manager() {
 
 install_spacemacs() {
     if command -v apt-get &> /dev/null; then
-        sudo apt-get install -y emacs
+        sudo apt-get install -y emacs exuberant-ctags global pandoc python-pygments
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm emacs
+        sudo pacman -S --needed --noconfirm ctags emacs pandoc python-pygments
+    fi
+
+    if command -v npm &> /dev/null; then
+        npm install -g eslint js-beautify vmd
+    fi
+
+    if command -v go &> /dev/null; then
+        go get -u -v github.com/nsf/gocode
+        go get -u -v github.com/rogpeppe/godef
+        go get -u -v golang.org/x/tools/cmd/oracle
+        go get -u -v golang.org/x/tools/cmd/gorename
+        go get -u -v golang.org/x/tools/cmd/goimports
     fi
 
     echo ""
