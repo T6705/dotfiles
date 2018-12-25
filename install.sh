@@ -184,7 +184,7 @@ install_dependencies() {
         sudo apt-get dist-upgrade -y
         sudo apt-get autoremove -y
         sudo apt-get clean
-        sudo apt-get install -y curl figlet fontconfig git htop lolcat npm ntp ntpdate ranger ruby-rouge time tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
+        sudo apt-get install -y curl figlet fontconfig git glances htop lolcat npm ntp ntpdate ranger ruby-rouge time tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
 
         curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" > /usr/bin/diff-so-fancy
         chmod +x /usr/bin/diff-so-fancy
@@ -225,7 +225,7 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt
         sudo pacman -S --needed --noconfirm curl fontconfig git neovim npm ntp python-pip python2-pip ranger ruby-rouge termite time tmux vim xclip xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
-        sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
+        sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm $(pacman -Ssq numix)
         sudo pacman -S --needed --noconfirm $(pacman -Ssq papirus)
         if command -v yaourt &> /dev/null; then
@@ -271,7 +271,7 @@ install_games() {
 
 install_i3() {
     if command -v apt-get &> /dev/null; then
-        sudo apt-get install -y compton feh i3 mpv playerctl rofi snapd vlc
+        sudo apt-get install -y compton feh i3 maim mpv playerctl rofi scrot snapd vlc
         echo ""
         echo "====================="
         echo "== install i3-gaps =="
@@ -323,7 +323,7 @@ install_i3() {
         sudo cp -r -v icons /usr/local/bin/
 
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm compton feh mpv playerctl qutebrowser rofi vlc
+        sudo pacman -S --needed --noconfirm compton feh maim mpv playerctl qutebrowser rofi vlc
         echo ""
         echo "====================="
         echo "== install i3-gaps =="

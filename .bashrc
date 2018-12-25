@@ -510,6 +510,73 @@ man() {
         man "$@"
 }
 
+screenshot() {
+    if ! command -v maim &> /dev/null; then
+        notify-send "maim is not installed"
+        exit
+    fi
+
+    SCREENSHOTS_DIR=~/Screenshots
+    TIMESTAMP="$(date +%Y.%m.%d-%H.%M.%S)"
+    FILENAME=$SCREENSHOTS_DIR/$TIMESTAMP.screenshot.png
+    PHOTO_ICON_PATH=/usr/share/icons/Papirus/64x64/devices/camera-photo.svg
+    GIMP_ICON_PATH=/usr/share/icons/Papirus/64x64/apps/gimp.svg
+
+    if ! [ -d ~/Screenshots ]; then
+        mkdir ~/Screenshots
+        #notify-send "Create dir '$HOME/Screenshots'" --urgency low
+    fi
+
+    if ! [ -f "$PHOTO_ICON_PATH" ]; then
+        PHOTO_ICON_PATH=$(find /usr/share/icons -type f -iname "camera*" | grep -vE "16x16|22x22|24x24|32x32|symbolic" | shuf | tail -n 1)
+        #notify-send "$PHOTO_ICON_PATH"
+    fi
+
+    if ! [ -f "$GIMP_ICON_PATH" ]; then
+        GIMP_ICON_PATH=$(find /usr/share/icons -type f -iname "gimp*" | grep -vE "16x16|22x22|24x24|32x32|symbolic" | shuf | tail -n 1)
+        #notify-send "$GIMP_ICON_PATH"
+    fi
+
+    # -u option hides cursor
+    # -m option changes the compression level
+    #   -m 3 takes the shot faster but the file size is slightly bigger
+
+    if [[ "$1" = "-s" ]]; then
+        # Area/window selection.
+        notify-send 'Select area to capture.' --urgency low -i $PHOTO_ICON_PATH
+        maim -u -m 3 -s "$FILENAME"
+        if [[ "$?" = "0" ]]; then
+            notify-send "Screenshot taken." --urgency low -i $PHOTO_ICON_PATH
+        fi
+    elif [[ "$1" = "-c" ]]; then
+        notify-send 'Select area to copy to clipboard.' --urgency low -i $PHOTO_ICON_PATH
+        # Copy selection to clipboard
+        #maim -u -m 3 -s | xclip -selection clipboard -t image/png
+        maim -u -m 3 -s /tmp/maim_clipboard
+        if [[ "$?" = "0" ]]; then
+            xclip -selection clipboard -t image/png /tmp/maim_clipboard
+            notify-send "Copied selection to clipboard." --urgency low -i $PHOTO_ICON_PATH
+            rm /tmp/maim_clipboard
+        fi
+    elif [[ "$1" = "-b" ]]; then
+        # Browse with feh
+        cd $SCREENSHOTS_DIR ; feh $(ls -t) &
+    elif [[ "$1" = "-e" ]]; then
+        # Edit last screenshot with GIMP
+        cd $SCREENSHOTS_DIR ; gimp $(ls -t | head -n1) & notify-send 'Opening last screenshot with GIMP' --urgency low -i $GIMP_ICON_PATH
+    elif [[ "$1" = "-h" ]]; then
+        # help
+        echo " -s   Area/window selection"
+        echo " -c   Copy selection to clipboard"
+        echo " -b   Browse with feh"
+        echo " -e   Edit last screenshot with GIMP"
+    else
+        # Full screenshot
+        maim -u -m 3 $FILENAME
+        notify-send "Screenshot taken." --urgency low -i $PHOTO_ICON_PATH
+    fi
+}
+
 banner() {
     if command -v figlet &> /dev/null ; then
         if command -v lolcat &> /dev/null ; then
