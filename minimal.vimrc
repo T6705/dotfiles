@@ -90,7 +90,7 @@ augroup END
 
 augroup autoRead
     au!
-    au CursorHold * silent! checktime
+    au CursorHold * silent! checktime " auto update buffer
 augroup END
 """ }}}
 
@@ -131,6 +131,10 @@ if has('patch-7.4.1480')
     packadd justify
     packadd shellmenu
     packadd swapmouse
+endif
+
+if has('nvim')
+    packadd vimball
 endif
 
 if has('mouse')
@@ -1455,7 +1459,7 @@ nnoremap <silent> <Leader>dw /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
 nnoremap <silent> <Leader>DW ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 
 " Recompute syntax highlighting
-nnoremap <silent> <leader>ss :syntax sync fromstart<CR>
+nnoremap <silent> <Leader>ss :syntax sync fromstart<CR>
 
 " ----------------------------------------------------------------------------------------
 " isort
@@ -1463,7 +1467,7 @@ nnoremap <silent> <leader>ss :syntax sync fromstart<CR>
 if executable("isort")
     nnoremap <silent> <Leader>is :%!isort -<CR>
 else
-    nnoremap <silent> <Leader>is :echo "isort is not installed"<CR>
+    nnoremap <Leader>is :echo "isort is not installed"<CR>
 endif
 
 " ----------------------------------------------------------------------------------------

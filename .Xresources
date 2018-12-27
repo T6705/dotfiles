@@ -82,10 +82,18 @@ rofi.color-enabled: true
 !rofi.color-urgent : #ffffff, #dc322f, #f5f5f5, #008080, #dc322f
 !rofi.color-window : #ffffff, #f5f5f5
 
-rofi.case-sensitive    : false
-rofi.columns           : 1
-rofi.fake-transparency : true
-rofi.fullscreen        : false
-rofi.hide-scrollbar    : true
-rofi.modi              : window,drun,ssh
-rofi.separator-style   : none
+rofi.case-sensitive:    false
+rofi.columns:           1
+rofi.eh:                2
+rofi.fake-transparency: true
+rofi.font:              "Hack Nerd Font Mono" 13
+rofi.fullscreen:        false
+rofi.hide-scrollbar:    true
+rofi.line-margin:       5
+rofi.lines:             6
+rofi.matching:          regex
+rofi.modi:              window,drun
+rofi.padding:           10
+rofi.separator-style:   dash
+rofi.show-icons:        true
+rofi.sidebar-mode:      true

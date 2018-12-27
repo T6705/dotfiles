@@ -387,6 +387,7 @@ endif
 " Asynchronous Lint Engine
 " ----------------------------------------------------------------------------------------
 let g:ale_linters = {
+\   'javascript': ['eslint', 'tsserver'],
 \   'php': ['phpcs', 'php', 'phpmd'],
 \   'python': ['flake8', 'pep8', 'vulture'],
 \}
@@ -452,11 +453,11 @@ if executable("go")
         au FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
         au FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
         au FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
-        au FileType go nmap <silent> <leader>b <Plug>(go-build)
-        au FileType go nmap <silent> <leader>in  <Plug>(go-install)
-        au FileType go nmap <silent> <leader>r  <Plug>(go-run)
-        au FileType go nmap <silent> <leader>rb :<C-u>call <SID>build_go_files()<CR>
-        au FileType go nmap <silent> <leader>t  <Plug>(go-test)
+        au FileType go nmap <silent> <Leader>b <Plug>(go-build)
+        au FileType go nmap <silent> <Leader>in  <Plug>(go-install)
+        au FileType go nmap <silent> <Leader>r  <Plug>(go-run)
+        au FileType go nmap <silent> <Leader>rb :<C-u>call <SID>build_go_files()<CR>
+        au FileType go nmap <silent> <Leader>t  <Plug>(go-test)
         au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
         au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
         au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')

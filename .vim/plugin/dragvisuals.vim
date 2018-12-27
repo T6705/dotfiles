@@ -198,7 +198,7 @@ function! s:Drag_Lines (dir)
             return   "O\<ESC>gv"
 
         " Otherwise, just cut-move-paste-reselect...
-        else 
+        else
             return   s:NO_REPORT
                  \ . 'gvxp'
                  \ . s:PREV_REPORT

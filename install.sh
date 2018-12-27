@@ -219,7 +219,7 @@ install_dependencies() {
         sudo apt-get install -y libxcb-xrm-dev       # Enables support for getting values from the X resource db
     elif command -v pacman &> /dev/null; then
         sudo pacman-mirrors -f 0 && sudo pacman -Syy && sudo pacman-optimize && sync
-        sudo pacman Syyu --noconfirm
+        sudo pacman -Syyu --noconfirm
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel
         sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt
@@ -339,7 +339,7 @@ install_i3() {
         sudo pacman -S --needed --noconfirm base-devel libmpdclient wireless_tools
         sudo pacman -S --needed --noconfirm $(pacman -Ssq alsa | grep alsa)
         if command -v pacaur &> /dev/null; then
-            pacaur Syyu
+            pacaur -Syyu
             pacaur -S polybar-git
         fi
         #time mkdir -p ~/git/hub
