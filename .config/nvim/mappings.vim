@@ -7,7 +7,7 @@
 command W w !sudo tee % > /dev/null
 
 " :J json prettify
-command J :%!python -mjson.tool
+command J :%!python -m json.tool
 
 command Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 
@@ -336,15 +336,25 @@ imap <C-x>a <plug>(fzf-complete-file-ag)
 imap <C-x>l <plug>(fzf-complete-line)
 
 " Completetion
+
+" Use <Tab> and <S-Tab> for navigate completion list:
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <enter> to confirm complete
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
 inoremap ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+
 " file names
 inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+
 " line
 inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+
 " keyword from current file
 inoremap <silent> ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+
 " omni completion
 inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
 

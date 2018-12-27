@@ -101,7 +101,7 @@ endif
 "" ----------------------------------------------------------------------------------------
 "" html
 "" ----------------------------------------------------------------------------------------
-"Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
+Plug 'mattn/emmet-vim', { 'for': ['html', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
 
 
 " ----------------------------------------------------------------------------------------
@@ -117,8 +117,6 @@ Plug 'w0rp/ale' " Asynchronous Lint Engine
 " ----------------------------------------------------------------------------------------
 " Auto Completion
 " ----------------------------------------------------------------------------------------
-"Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'php', 'python', 'java'], 'do': function('BuildYCM') }
-"Plug 'artur-shaik/vim-javacomplete2', { 'for': 'java' }
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 elseif v:version >= 800
@@ -128,16 +126,24 @@ elseif v:version >= 800
 else
     Plug 'Shougo/neocomplete.vim' " Next generation completion framework after neocomplcache
 endif
+
 if executable("python")
-    Plug 'davidhalter/jedi-vim', { 'for': 'python', 'on': [] }
+    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 endif
+
 if executable("php")
-    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php', 'on': [] }
+    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 endif
+
 if executable("go")
     Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 endif
 
+if executable("tmux")
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'wellle/tmux-complete.vim' " Vim plugin for insert mode completion of words in adjacent tmux panes
+endif
 
 " ----------------------------------------------------------------------------------------
 " Snippet
@@ -200,9 +206,9 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'         " Extra syntax and highli
 Plug 'skywind3000/gutentags_plus'                      " The right way to use gtags with gutentags
 Plug 'tpope/vim-fugitive'                              " fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-repeat'                                " enables repeating other supported plugins with the . command
-Plug 'tpope/vim-surround', { 'on': [] }                " surround.vim: quoting/parenthesizing made simple
+Plug 'tpope/vim-surround'                              " surround.vim: quoting/parenthesizing made simple
 Plug 'unblevable/quick-scope'                          " Lightning fast left-right movement in Vim
-Plug 'wellle/targets.vim', { 'on': [] }                " Vim plugin that provides additional text objects
+Plug 'wellle/targets.vim'                              " Vim plugin that provides additional text objects
 call plug#end()
 endif
 

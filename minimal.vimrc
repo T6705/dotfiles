@@ -7,6 +7,7 @@ augroup configgroup
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
     au BufRead,BufNewFile *.dart setlocal sw=2 sts=2
+    au FileType json setlocal equalprg=python\ -m\ json.tool
     au FileType markdown syntax sync fromstart
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
@@ -15,6 +16,15 @@ augroup configgroup
     au InsertLeave * silent! set nopaste
     au VimResized * wincmd =
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
+    au! BufWritePre *.json :%!python -m json.tool
+augroup END
+
+augroup html
+    au!
+    au FileType html setlocal sw=2 sts=2
+    au FileType html setlocal path+=./;/
+    au FileType html setlocal equalprg=tidy\ -i\ -q
+    "au! BufWritePre * :!tidy -imq wrap 0 %
 augroup END
 
 " Close vim if the only window left open is a NERDTree or quickfix
@@ -1151,7 +1161,7 @@ endfu
 command W w !sudo tee % > /dev/null
 
 " :J json prettify
-command J :%!python -mjson.tool
+command J :%!python -m json.tool
 
 command Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 
@@ -1394,17 +1404,27 @@ else
 endif
 
 " Completetion
+
+" Use <Tab> and <S-Tab> for navigate completion list:
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <enter> to confirm complete
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
 inoremap ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+
 " file names
-inoremap ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+
 " line
-inoremap ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+
 " keyword from current file
-inoremap ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+inoremap <silent> ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+
 " omni completion
-inoremap ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
+inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
 
 " folding
 nnoremap <silent> <Leader>f za<CR>

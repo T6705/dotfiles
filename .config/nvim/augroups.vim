@@ -18,8 +18,7 @@ augroup configgroup
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
     au BufRead,BufNewFile *.dart setlocal sw=2 sts=2
     au FileType * RainbowParentheses
-    "au FileType html,css EmmetInstall
-    "au FileType html,css,php EmmetInstall
+    au FileType json setlocal equalprg=python\ -m\ json.tool
     au FileType markdown syntax sync fromstart
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
@@ -28,6 +27,15 @@ augroup configgroup
     au InsertLeave * silent! set nopaste
     au VimResized * wincmd =
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
+    au! BufWritePre *.json :%!python -m json.tool
+augroup END
+
+augroup html
+    au!
+    au FileType html setlocal sw=2 sts=2
+    au FileType html setlocal path+=./;/
+    au FileType html setlocal equalprg=tidy\ -i\ -q
+    "au! BufWritePre * :!tidy -imq wrap 0 %
 augroup END
 
 " Close vim if the only window left open is a NERDTree or quickfix
@@ -66,15 +74,6 @@ augroup END
 augroup vimrc-restore-cursor-position
     au!
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup END
-
-augroup LoadDuringHold_Targets
-    au!
-    "au CursorHold,CursorHoldI * call plug#load('vim-markdown') | au! LoadDuringHold_Targets
-    au CursorHold,CursorHoldI * call plug#load('targets.vim') | au! LoadDuringHold_Targets
-    au CursorHold,CursorHoldI * call plug#load('vim-surround') | au! LoadDuringHold_Targets
-    au CursorHold,CursorHoldI *.py call plug#load('jedi-vim') | au! LoadDuringHold_Targets
-    au CursorHold,CursorHoldI *.php call plug#load('phpcomplete.vim') | au! LoadDuringHold_Targets
 augroup END
 
 "augroup Snippet
