@@ -16,7 +16,6 @@ augroup configgroup
     au BufRead * call ChangeEncoding()
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
-    au BufRead,BufNewFile *.dart setlocal sw=2 sts=2
     au FileType * RainbowParentheses
     au FileType json setlocal equalprg=python\ -m\ json.tool
     au FileType markdown syntax sync fromstart
@@ -27,15 +26,25 @@ augroup configgroup
     au InsertLeave * silent! set nopaste
     au VimResized * wincmd =
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace
-    au! BufWritePre *.json :%!python -m json.tool
 augroup END
 
-augroup html
+augroup tabs
+    "set expandtab     " Use spaces instead of tabs
+    "set shiftwidth=4  " number of spaces to use for indent and unindent (1 tab == 4 spaces)
+    "set smarttab      " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+    "set softtabstop=4 " edit as if the tabs are 4 characters wide
+    "set tabstop=4     " the visible width of tabs
     au!
-    au FileType html setlocal sw=2 sts=2
-    au FileType html setlocal path+=./;/
-    au FileType html setlocal equalprg=tidy\ -i\ -q
-    "au! BufWritePre * :!tidy -imq wrap 0 %
+    au BufRead,BufNewFile * setlocal expandtab shiftwidth=4 smarttab softtabstop=4 tabstop=4
+    au BufRead,BufNewFile *.css setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
+    au BufRead,BufNewFile *.dart setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
+    au BufRead,BufNewFile *.html setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
+    au BufRead,BufNewFile *.js setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
+augroup END
+
+augroup html_js_css
+    au!
+    au BufRead,BufNewFile *.js *.html *.css setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
 augroup END
 
 " Close vim if the only window left open is a NERDTree or quickfix

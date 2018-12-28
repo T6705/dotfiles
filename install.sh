@@ -226,8 +226,8 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm curl fontconfig git neovim npm ntp python-pip python2-pip ranger ruby-rouge termite time tmux vim xclip xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
-        sudo pacman -S --needed --noconfirm $(pacman -Ssq numix)
-        sudo pacman -S --needed --noconfirm $(pacman -Ssq papirus)
+        sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"
+        sudo pacman -S --needed --noconfirm "$(pacman -Ssq papirus)"
         if command -v yaourt &> /dev/null; then
             yaourt -S cava dropbox dropbox-cli hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
         fi
@@ -253,13 +253,13 @@ install_games() {
     if command -v apt-get &> /dev/null; then
         for i in $(apt-cache search dungeon | grep -iE "dungeon|game|rogue" | awk '{print $1}'); do
             echo "============================================="
-            echo $i
-            sudo apt-get install -y $i
+            echo "$i"
+            sudo apt-get install -y "$i"
         done
         for i in $(apt-cache search rogue | grep -iE "dungeon|game|rogue" | awk '{print $1}');do
             echo "============================================="
-            echo $i
-            sudo apt-get install -y $i
+            echo "$i"
+            sudo apt-get install -y "$i"
         done
     elif command -v pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm yaourt angband asciiportal cataclysm-dda dwarffortress glhack nethack rogue stone-soup
@@ -337,7 +337,7 @@ install_i3() {
         echo "====================="
         echo ""
         sudo pacman -S --needed --noconfirm base-devel libmpdclient wireless_tools
-        sudo pacman -S --needed --noconfirm $(pacman -Ssq alsa | grep alsa)
+        sudo pacman -S --needed --noconfirm "$(pacman -Ssq alsa | grep alsa)"
         if command -v pacaur &> /dev/null; then
             pacaur -Syyu
             pacaur -S polybar-git
@@ -479,8 +479,8 @@ install_vim() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y vim
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm gvim neovim python-neovim python2-neovim ctags
-        sudo pacman -S --needed --noconfirm $(pacman -Ssq pep8)
+        sudo pacman -S --needed --noconfirm ctags prettier python-neovim python2-neovim
+        sudo pacman -S --needed --noconfirm "$(pacman -Ssq pep8)"
         sudo pip install -U vulture
     fi
 
@@ -658,17 +658,17 @@ install_zsh() {
         wget "https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip"
         unzip Noto-hinted.zip
         time mkdir -p ~/.fonts
-        cp -v *.otc ~/.fonts
-        cp -v *.otf ~/.fonts
-        cp -v *.ttf ~/.fonts
+        cp -v ./*.otc ~/.fonts
+        cp -v ./*.otf ~/.fonts
+        cp -v ./*.ttf ~/.fonts
         fc-cache -f -v # optional
         sudo time mkdir -p /usr/share/fonts/opentype/noto
-        sudo cp -v *.otc /usr/share/fonts/opentype/noto
-        sudo cp -v *.otf /usr/share/fonts/opentype/noto
-        sudo cp -v *.ttf /usr/share/fonts/opentype/noto
+        sudo cp -v ./*.otc /usr/share/fonts/opentype/noto
+        sudo cp -v ./*.otf /usr/share/fonts/opentype/noto
+        sudo cp -v ./*.ttf /usr/share/fonts/opentype/noto
         sudo fc-cache -f -v # optional
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm $(pacman -Ssq noto | grep font)
+        sudo pacman -S --needed --noconfirm "$(pacman -Ssq noto | grep font)"
     fi
 
     echo ""
@@ -802,7 +802,7 @@ install_zsh() {
         # If this platform provides a "chsh" command (not Cygwin), do it, man!
         if command -v chsh &> /dev/null; then
             echo "Time to change your default shell to zsh!"
-            chsh -s $(grep /zsh$ /etc/shells | tail -1)
+            chsh -s "$(grep /zsh$ /etc/shells | tail -1)"
             # Else, suggest the user do so manually.
         else
             echo "I can't change your shell automatically because this system does not have chsh."
@@ -817,60 +817,73 @@ install_zsh() {
     curl https://gitlab.com/T6705/dotfiles/raw/master/.nethackrc > ~/.nethackrc
 }
 
-main() {
-    if [[ $1 == "dependencies" ]]; then
-        install_dependencies
-    elif [[ $1 == "dots" ]]; then
-        install_dots
-    elif [[ $1 == "dunst" ]]; then
-        install_dunst
-    elif [[ $1 == "games" ]]; then
-        install_games
-    elif [[ $1 == "i3" ]]; then
-        install_i3
-    elif [[ $1 == "ibus" ]]; then
-        install_ibus
-    elif [[ $1 == "ranger" ]]; then
-        install_file_manager
-    elif [[ $1 == "spacemacs" ]]; then
-        install_spacemacs
-    elif [[ $1 == "st" ]]; then
-        install_st
-    elif [[ $1 == "tmux" ]]; then
-        install_tmux
-    elif [[ $1 == "vim" ]]; then
-        install_vim
-    elif [[ $1 == "zsh" ]]; then
-        install_zsh
-    elif [[ $1 == "all" ]]; then
-        install_dependencies
-        install_dots
-        install_dunst
-        install_file_manager
-        install_games
-        install_i3
-        install_ibus
-        install_spacemacs
-        install_st
-        install_tmux
-        install_vim
-        install_zsh
-    else
-        echo "zsh install.sh <options>/all"
-        echo "options:"
-        echo "    dependencies"
-        echo "    dots"
-        echo "    dunst"
-        echo "    file_manager"
-        echo "    games"
-        echo "    i3"
-        echo "    ibus"
-        echo "    spacemacs"
-        echo "    st"
-        echo "    tmux"
-        echo "    vim"
-        echo "    zsh"
-    fi
+install_de() {
+    install_dunst
+    install_i3
+    install_ibus
+    install_term
 }
 
-main $1
+install_term() {
+    install_editor
+    install_file_manager
+    install_st
+    install_tmux
+    install_zsh
+}
+
+install_editor() {
+    install_spacemacs
+    install_vim
+}
+
+main() {
+    # if no command line arg given
+    if [ -z "$1" ]; then
+        user_input="None"
+    elif [ -n "$1" ]; then
+        # otherwise make first arg as a rental
+        user_input=$1
+    fi
+
+    case $user_input in
+        "de")           install_de;;
+        "dependencies") install_dependencies;;
+        "dots")         install_dots;;
+        "dunst")        install_dunst;;
+        "editor")       install_editor;;
+        "file_manager") install_file_manager;;
+        "games")        install_games;;
+        "i3")           install_i3;;
+        "ibus")         install_ibus;;
+        "spacemacs")    install_spacemacs;;
+        "st")           install_st;;
+        "term")         install_term;;
+        "tmux")         install_tmux;;
+        "vim")          install_vim;;
+        "zsh")          install_zsh;;
+        "None")
+            echo "bash install.sh <options>/all"
+            echo "options:"
+            echo "all"
+            echo "├─ dependencies"
+            echo "├─ dots"
+            echo "├─ games"
+            echo "└─ de"
+            echo "   ├─ dunst"
+            echo "   ├─ i3"
+            echo "   ├─ ibus"
+            echo "   └─ term"
+            echo "      ├─ file_manager"
+            echo "      ├─ st"
+            echo "      ├─ tmux"
+            echo "      ├─ zsh"
+            echo "      └─ editor"
+            echo "         ├─ spacemacs"
+            echo "         └─ vim"
+            ;;
+        *) echo "unknown option $user_input"
+    esac
+}
+
+main "$1"
