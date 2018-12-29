@@ -639,17 +639,17 @@ endfu
 command! GruvboxDark call GruvboxDark()
 
 fu! JavaAbbrev()
-  inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<cr>
-  inoreabbr sop System.out.println("%");<esc>F%s<c-o>:call getchar()<cr>
-  inoreabbr sep System.err.println("%");<esc>F%s<c-o>:call getchar()<cr>
-  inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<cr>
+  inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<CR>
+  inoreabbr sop System.out.println("%");<esc>F%s<C-o>:call getchar()<CR>
+  inoreabbr sep System.err.println("%");<esc>F%s<C-o>:call getchar()<CR>
+  inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<CR>
   inoreabbr ctm System.currentTimeMillis()
 endfu
 
 fu! CppAbbrev()
-  inoreabbr inc #include <><esc>i<c-o>:call getchar()<cr>
-  inoreabbr main int main() {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
-  inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
+  inoreabbr inc #include <><esc>i<C-o>:call getchar()<CR>
+  inoreabbr main int main() {}<esc>i<CR><esc>Oreturn 0;<esc>O<esc>k:call getchar()<CR>
+  inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<CR><esc>Oreturn 0;<esc>O<esc>k:call getchar()<CR>
 endfu
 
 " make list-like commands more intuitive

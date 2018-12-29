@@ -25,26 +25,18 @@ install_dots() {
     echo "== Download polybar config =="
     echo "============================="
     echo ""
-    curl -fLo ~/.config/polybar/config --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config
-    curl -fLo ~/.config/polybar/config2 --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config2
-    curl -fLo ~/.config/polybar/config3 --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config3
-    curl -fLo ~/.config/polybar/launch.sh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/launch.sh
-    curl -fLo ~/.config/polybar/next.sh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/next.sh
-    curl -fLo ~/.config/polybar/playpause.sh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/playpause.sh
-    curl -fLo ~/.config/polybar/previous.sh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/previous.sh
-    curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/spotify_p.sh
-    curl -fLo ~/.config/polybar/tor.sh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/tor.sh
+    curl -fLo ~/.config/polybar/config --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config
+    curl -fLo ~/.config/polybar/config2 --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config2
+    curl -fLo ~/.config/polybar/config3 --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config3
+    curl -fLo ~/.config/polybar/launch.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/launch.sh
+    curl -fLo ~/.config/polybar/logo.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/logo.sh
+    curl -fLo ~/.config/polybar/next.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/next.sh
+    curl -fLo ~/.config/polybar/playpause.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/playpause.sh
+    curl -fLo ~/.config/polybar/previous.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/previous.sh
+    curl -fLo ~/.config/polybar/spotify_p.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/spotify_p.sh
+    curl -fLo ~/.config/polybar/tor.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/tor.sh
     chmod +x ~/.config/polybar/*.sh
-    find ~/.config/polybar -type f -iname '*.sh' -exec chmod +x {} \;
+    find ~/.config/polybar -type f -iname '*.sh' -exec chmod +x {} ;
 
     echo ""
     echo "============================"

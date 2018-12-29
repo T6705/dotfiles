@@ -27,7 +27,7 @@
 " You believe that God is one. You do well. The demons also {{{1
 " believe, and shudder. But do you want to know, vain man, that
 " faith apart from works is dead?  (James 2:19,20 WEB)
-"redraw!|call inputsave()|call input("Press <cr> to continue")|call inputrestore()
+"redraw!|call inputsave()|call input("Press <CR> to continue")|call inputrestore()
 
 " ---------------------------------------------------------------------
 " Load Once: {{{1
@@ -101,14 +101,14 @@ fun! SaveWinPosn(...)
 "  echomsg "Decho: sw[".swline.",".swcol."] sww[".swwline.",".swwcol."]"
   let savedposn = "call GoWinbufnr(".winbufnr(0).")"
   let savedposn = savedposn."|".s:modifier.swline
-  let savedposn = savedposn."|".s:modifier."norm! 0z\<cr>"
+  let savedposn = savedposn."|".s:modifier."norm! 0z\<CR>"
   if swwline > 0
-   let savedposn= savedposn.":".s:modifier."call s:WinLineRestore(".(swwline+1).")\<cr>"
+   let savedposn= savedposn.":".s:modifier."call s:WinLineRestore(".(swwline+1).")\<CR>"
   endif
   if swwcol > 0
-   let savedposn= savedposn.":".s:modifier."norm! 0".swwcol."zl\<cr>"
+   let savedposn= savedposn.":".s:modifier."norm! 0".swwcol."zl\<CR>"
   endif
-  let savedposn = savedposn.":".s:modifier."call cursor(".swline.",".swcol.")\<cr>"
+  let savedposn = savedposn.":".s:modifier."call cursor(".swline.",".swcol.")\<CR>"
 
   " save window position in
   " b:cecutil_winposn_{iwinposn} (stack)
@@ -228,7 +228,7 @@ fun! s:WinLineRestore(swwline)
 "  echomsg "Decho: s:WinLineRestore(swwline=".a:swwline.")"
   while winline() < a:swwline
    let curwinline= winline()
-   exe s:modifier."norm! \<c-y>"
+   exe s:modifier."norm! \<C-y>"
    if curwinline == winline()
 	break
    endif
@@ -455,8 +455,8 @@ fun! SaveUserMaps(mapmode,maplead,mapchx,suffix)
   if strpart(a:mapchx,0,1) == ':'
 "   call Decho("save single map :...something...")
    let amap= strpart(a:mapchx,1)
-   if amap == "|" || amap == "\<c-v>"
-    let amap= "\<c-v>".amap
+   if amap == "|" || amap == "\<C-v>"
+    let amap= "\<C-v>".amap
    endif
    let amap                    = a:maplead.amap
    let s:restoremap_{a:suffix} = s:restoremap_{a:suffix}."|:silent! ".mapmode."unmap ".dobuffer.amap
@@ -472,8 +472,8 @@ fun! SaveUserMaps(mapmode,maplead,mapchx,suffix)
   elseif strpart(a:mapchx,0,1) == '<'
 "   call Decho("save single map <something>")
    let amap       = a:mapchx
-   if amap == "|" || amap == "\<c-v>"
-    let amap= "\<c-v>".amap
+   if amap == "|" || amap == "\<C-v>"
+    let amap= "\<C-v>".amap
 "	call Decho("amap[[".amap."]]")
    endif
    let s:restoremap_{a:suffix} = s:restoremap_{a:suffix}."|silent! ".mapmode."unmap ".dobuffer.amap
@@ -491,8 +491,8 @@ fun! SaveUserMaps(mapmode,maplead,mapchx,suffix)
    let i= 1
    while i <= strlen(a:mapchx)
     let amap= a:maplead.strpart(a:mapchx,i-1,1)
-	if amap == "|" || amap == "\<c-v>"
-	 let amap= "\<c-v>".amap
+	if amap == "|" || amap == "\<C-v>"
+	 let amap= "\<C-v>".amap
 	endif
 	let s:restoremap_{a:suffix} = s:restoremap_{a:suffix}."|silent! ".mapmode."unmap ".dobuffer.amap
     if maparg(amap,mapmode) != ""

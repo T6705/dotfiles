@@ -205,16 +205,30 @@ if command -v fzf &> /dev/null ; then
     fi
 
     # -----------------------------------------------------------------------------------------
-    # Usage: fkill | kill process
+    # Usage: kp | kill Process
     # -----------------------------------------------------------------------------------------
-    fkill() {
-      local pid
-      pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+    kp() {
+        local pid
+        pid=$(ps -ef | sed 1d | fzf -m --header='[kill:process]' | awk '{print $2}')
 
-      if [ "x$pid" != "x" ]
-      then
-        echo $pid | xargs kill -${1:-9}
-      fi
+        if [ "x$pid" != "x" ]
+        then
+            echo $pid | xargs kill -${1:-9}
+        fi
+    }
+
+    # -----------------------------------------------------------------------------------------
+    # Usage: ks | kill Server
+    # -----------------------------------------------------------------------------------------
+    ks() {
+        local pid
+        pid=$(lsof -Pwni tcp | sed 1d | fzf -m --header="[kill:tcp]" | awk '{print $2}')
+
+        if [ "x$pid" != "x" ]
+        then
+            echo $pid | xargs kill -${1:-9}
+            ks
+        fi
     }
 
     # -----------------------------------------------------------------------------------------
@@ -224,11 +238,11 @@ if command -v fzf &> /dev/null ; then
     # -----------------------------------------------------------------------------------------
 
     tm() {
-      [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
-      if [ $1 ]; then
-        tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
-      fi
-      session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+        [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+        if [ $1 ]; then
+            tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+        fi
+        session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
     }
 
     # -----------------------------------------------------------------------------------------

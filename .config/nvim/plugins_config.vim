@@ -443,8 +443,8 @@ if executable("go")
 
     augroup go
         au!
-        au FileType go imap <silent> <C-g> <esc>:<C-u>GoDecls<cr>
-        au FileType go nmap <silent> <C-g> :GoDecls<cr>
+        au FileType go imap <silent> <C-g> <esc>:<C-u>GoDecls<CR>
+        au FileType go nmap <silent> <C-g> :GoDecls<CR>
         au FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
         au FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
         au FileType go nmap <silent> <Leader>db <Plug>(go-doc-browser)

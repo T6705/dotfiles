@@ -1115,17 +1115,17 @@ command! AutoFoldsDisable call <sid>open_folds('disable')
 command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
 
 fu! JavaAbbrev()
-  inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<cr>
-  inoreabbr sop System.out.println("%");<esc>F%s<c-o>:call getchar()<cr>
-  inoreabbr sep System.err.println("%");<esc>F%s<c-o>:call getchar()<cr>
-  inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<cr>
+  inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<CR>
+  inoreabbr sop System.out.println("%");<esc>F%s<C-o>:call getchar()<CR>
+  inoreabbr sep System.err.println("%");<esc>F%s<C-o>:call getchar()<CR>
+  inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<CR>
   inoreabbr ctm System.currentTimeMillis()
 endfu
 
 fu! CppAbbrev()
-  inoreabbr inc #include <><esc>i<c-o>:call getchar()<cr>
-  inoreabbr main int main() {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
-  inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<cr><esc>Oreturn 0;<esc>O<esc>k:call getchar()<cr>
+  inoreabbr inc #include <><esc>i<C-o>:call getchar()<CR>
+  inoreabbr main int main() {}<esc>i<CR><esc>Oreturn 0;<esc>O<esc>k:call getchar()<CR>
+  inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<CR><esc>Oreturn 0;<esc>O<esc>k:call getchar()<CR>
 endfu
 
 " make list-like commands more intuitive
@@ -1201,11 +1201,11 @@ command Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 nnoremap c* *Ncgn
 nnoremap c# #NcgN
 
-nnoremap <silent> <Leader>p "+gP
-nnoremap <silent> <Leader>x "+x
-nnoremap <silent> <Leader>y "+y
-vnoremap <silent> <Leader>x "+x
-vnoremap <silent> <Leader>y "+y
+nnoremap <Leader>p "+gP
+nnoremap <Leader>x "+x
+nnoremap <Leader>y "+y
+vnoremap <Leader>x "+x
+vnoremap <Leader>y "+y
 
 if has('macunix')
   " pbcopy for OSX copy/paste
@@ -1401,7 +1401,7 @@ nnoremap <silent> <Leader>q :bd!<CR>
 nnoremap <silent> <Leader>bn :enew<CR>
 nnoremap <silent> <Leader>bs :ls<CR>:buffer<Space>
 nnoremap <silent> <Leader>vbs :ls<CR>:sbuffer<Space>
-nnoremap <silent> <bs> <c-^>
+nnoremap <silent> <bs> <C-^>
 
 " add space after comma
 nnoremap <silent> <Leader>, :%s/, */, /g<CR>
@@ -1423,7 +1423,7 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Use <enter> to confirm complete
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 inoremap ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
@@ -1459,8 +1459,8 @@ nnoremap <silent> <Leader>cson   :set spell<CR>
 nnoremap <silent> <Leader>csoff :set nospell<CR>
 
 " search and replace
-nnoremap <silent> <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
-nnoremap <silent> <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
+nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
+nnoremap <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
 
 nnoremap <silent> <Leader>rp /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
 nnoremap <silent> <Leader>RP ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
@@ -1510,26 +1510,26 @@ vnoremap S[ "zdi[<C-R>z]<esc>
 " text object
 " ----------------------------------------------------------------------------------------
 " "in line" (entire line sans white-space; cursor at beginning--ie, ^)
-xnoremap <silent> il :<c-u>normal! g_v^<cr>
-onoremap <silent> il :<c-u>normal! g_v^<cr>
+xnoremap <silent> il :<C-u>normal! g_v^<CR>
+onoremap <silent> il :<C-u>normal! g_v^<CR>
 " "around line" (entire line sans trailing newline; cursor at beginning--ie, 0)
-xnoremap <silent> al :<c-u>normal! $v0<cr>
-onoremap <silent> al :<c-u>normal! $v0<cr>
+xnoremap <silent> al :<C-u>normal! $v0<CR>
+onoremap <silent> al :<C-u>normal! $v0<CR>
 " "in document" (from first line to last; cursor at top--ie, gg)
-xnoremap <silent> id :<c-u>normal! G$Vgg0<cr>
-onoremap <silent> id :<c-u>normal! GVgg<cr>
+xnoremap <silent> id :<C-u>normal! G$Vgg0<CR>
+onoremap <silent> id :<C-u>normal! GVgg<CR>
 " "in number" (next number after cursor on current line)
-xnoremap <silent> in :<c-u>call <sid>inNumber()<cr>
-onoremap <silent> in :<c-u>call <sid>inNumber()<cr>
+xnoremap <silent> in :<C-u>call <sid>inNumber()<CR>
+onoremap <silent> in :<C-u>call <sid>inNumber()<CR>
 " "around number" (next number on line and possible surrounding white-space)
-xnoremap <silent> an :<c-u>call <sid>aroundNumber()<cr>
-onoremap <silent> an :<c-u>call <sid>aroundNumber()<cr>
+xnoremap <silent> an :<C-u>call <sid>aroundNumber()<CR>
+onoremap <silent> an :<C-u>call <sid>aroundNumber()<CR>
 " "in indentation" (indentation level sans any surrounding empty lines)
-xnoremap <silent> ii :<c-u>call <sid>inIndentation()<cr>
-onoremap <silent> ii :<c-u>call <sid>inIndentation()<cr>
+xnoremap <silent> ii :<C-u>call <sid>inIndentation()<CR>
+onoremap <silent> ii :<C-u>call <sid>inIndentation()<CR>
 " "around indentation" (indentation level and any surrounding empty lines)
-xnoremap <silent> ai :<c-u>call <sid>aroundIndentation()<cr>
-onoremap <silent> ai :<c-u>call <sid>aroundIndentation()<cr>
+xnoremap <silent> ai :<C-u>call <sid>aroundIndentation()<CR>
+onoremap <silent> ai :<C-u>call <sid>aroundIndentation()<CR>
 
 " ----------------------------------------------------------------------------------------
 " Search in project

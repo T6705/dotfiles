@@ -63,10 +63,9 @@ tray-detached    = false
 tray-offset-x    = 0
 tray-offset-y    = 0
 tray-padding     = 0
-tray-position    =
-;tray-position   = right
+;tray-position    = right
+tray-position    = none
 tray-scale       = 1.0
-tray-transparent = false
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
@@ -101,7 +100,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left  = 0
 
-modules-left   = tor wlan eth
+modules-left   = drun tor wlan eth
 modules-center =
 modules-right  = cpu memory battery temperature
 
@@ -117,10 +116,8 @@ tray-detached    = false
 tray-offset-x    = 0
 tray-offset-y    = 0
 tray-padding     = 0
-;tray-position    = right
-tray-position    =
+tray-position    = none
 tray-scale       = 1.0
-tray-transparent = false
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
@@ -172,9 +169,9 @@ tray-detached    = false
 tray-offset-x    = 0
 tray-offset-y    = 0
 tray-padding     = 0
-tray-position    =
+;tray-position    = right
+tray-position    = none
 tray-scale       = 1.0
-tray-transparent = false
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
@@ -209,7 +206,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left  = 0
 
-modules-left   = tor wlan eth
+modules-left   = drun tor wlan eth
 modules-center =
 modules-right  = cpu memory battery temperature
 
@@ -225,10 +222,8 @@ tray-detached    = false
 tray-offset-x    = 0
 tray-offset-y    = 0
 tray-padding     = 0
-;tray-position    = right
-tray-position    =
+tray-position    = none
 tray-scale       = 1.0
-tray-transparent = false
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
@@ -243,6 +238,16 @@ font-9 = "unifont:size=13:heavy:fontformat=truetype;-2"
 font-10  = "KnackNerdFont:size=13;2"
 
 ;-------------------------------------------------------------------------------
+
+[module/drun]
+type = custom/script
+exec              = bash ~/.config/polybar/logo.sh &
+tail              = true
+format            = <label>
+format-foreground = ${colors.foreground}
+format-padding    = 1
+interval          = 1.5
+click-left        = rofi -show drun -modi drun -location 7 -yoffset -50 -xoffset 15 -line-padding 4 -columns 1 -width 25 -padding 25 -hide-scrollbar -show-icons
 
 [module/spotify]
 type              = custom/script
