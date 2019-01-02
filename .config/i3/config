@@ -6,22 +6,12 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec bash ~/.config/i3/start-term.sh
 
-# https://github.com/cknadler/vim-anywhere
-bindsym $mod+Shift+v exec ~/.vim-anywhere/bin/run
-
-# start gnome-control-center
-bindsym $mod+g exec export XDG_CURRENT_DESKTOP=GNOME&&gnome-control-center
-
 focus_follows_mouse no
 
 new_window 1pixel
 
 # kill focused window
 bindsym $mod+q kill
-
-# start rofi (a program launcher)
-bindsym $mod+p exec rofi -show drun &
-#bindsym $mod+p exec --no-startup-id i3-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
@@ -250,9 +240,15 @@ set $urgent-bg-color     #fb4934
 
 # Other Keybindings
 
-bindsym $mod+shift+Return exec bash ~/.config/i3/i3lock.sh
-bindsym $mod+u exec scrot
-bindsym $mod+z exec xrdb ~/.Xresources
+#bindsym $mod+p exec --no-startup-id i3-dmenu-desktop
+#bindsym $mod+u exec scrot
+#bindsym $mod+z exec xrdb ~/.Xresources
+#
+bindsym $mod+Shift+v exec ~/.vim-anywhere/bin/run                          # https://github.com/cknadler/vim-anywhere
+bindsym $mod+g exec export XDG_CURRENT_DESKTOP=GNOME&&gnome-control-center # start gnome-control-center
+bindsym $mod+p exec rofi -show drun &                                      # start rofi (a program launcher)
+bindsym $mod+shift+Return exec bash ~/.config/i3/i3lock.sh                 # lock screen
+binysym $mod+s exec ~/.scripts/screenshot.sh                               # screenshot
 
 # Start up
 #exec --no-startup-id pulseaudio --start

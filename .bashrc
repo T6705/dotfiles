@@ -177,6 +177,9 @@ alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
 
+alias todo="$EDITOR ~/.todo"
+alias notes="$EDITOR ~/.notes"
+
 # Improve od for hexdump
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
@@ -191,6 +194,8 @@ if command -v tmux &> /dev/null ; then
 fi
 
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
+
+alias choregraphe='/opt/Softbank\ Robotics/Choregraphe\ Suite\ 2.5/bin/choregraphe-bin'
 
 if command -v gem &> /dev/null ; then
     alias gemup="gem update --system && gem update && gem cleanup"
@@ -234,8 +239,10 @@ if command -v rkhunter &> /dev/null ; then
     alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
 fi
 
-#Colorizing "cat" https://github.com/jingweno/ccat
-if command -v ccat &> /dev/null ; then
+if command -v bat &> /dev/null ; then
+    alias cat='bat'
+elif command -v ccat &> /dev/null ; then
+    #Colorizing "cat" https://github.com/jingweno/ccat
     alias cat='ccat --bg=dark'
 fi
 
@@ -759,10 +766,14 @@ fi
 # Usage: brightness <level> | adjust brightness
 # -----------------------------------------------------------------------------------------
 brightness() {
-    if [[ -n "$1" ]]; then
-        xrandr --output LVDS1 --brightness $1
+    if [[ -n "$1" ]] && [[ -n "$2" ]]; then
+        xrandr --output $1 --brightness $2
     else
-        echo "brightness <0-1>"
+        connected_displays=$(xrandr | grep " connected" | awk '{print $1}')
+        echo "brightness <connected_displays> <0-1>"
+        echo ""
+        echo "connected_display:"
+        echo "$connected_displays"
     fi
 }
 

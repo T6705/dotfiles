@@ -31,6 +31,15 @@ augroup tabs
     au BufRead,BufNewFile *.js setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
 augroup END
 
+augroup todo
+    au!
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>i 0i[ ] ""<Left>
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>o o[ ] ""<Left>
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>O O[ ] ""<Left>
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>td mm:s/\[\ \]/\[X\]<CR>`m:delmarks m<CR>zz
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>`m:delmarks m<CR>zz
+augroup END
+
 augroup html_js_css
     au!
     au BufRead,BufNewFile *.js *.html *.css setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
@@ -1409,11 +1418,16 @@ vnoremap <silent> <Leader>, :s/, */, /g<CR>
 
 " Explore dir
 if exists(":Lexplore") != 1
-    nnoremap <silent> <Leader>E :Lexplore<CR>
+    nnoremap <silent> <Leader>e :Lexplore<CR>
 elseif exists(":Vexplore") != 1
-    nnoremap <silent> <Leader>E :Vexplore<CR>
+    nnoremap <silent> <Leader>e :Vexplore<CR>
 else
-    nnoremap <silent> <Leader>E :Explore<CR>
+    nnoremap <silent> <Leader>e :Explore<CR>
+endif
+
+" Explore dir with ranger
+if executable("ranger")
+    nnoremap <silent> <Leader>E :RangerExplorer<CR>
 endif
 
 " Completetion
@@ -1483,7 +1497,7 @@ endif
 " prettier
 " ----------------------------------------------------------------------------------------
 if executable("prettier")
-    nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>
+    nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
 else
     nnoremap <Leader>pt :echo "prettier is not installed"<CR>
 endif

@@ -433,7 +433,7 @@ endif
 " prettier
 " ----------------------------------------------------------------------------------------
 if executable("prettier")
-    nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>
+    nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
 else
     nnoremap <Leader>pt :echo "prettier is not installed"<CR>
 endif

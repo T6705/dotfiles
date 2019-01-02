@@ -303,10 +303,14 @@ fi
 # Usage: brightness <level> | adjust brightness
 # -----------------------------------------------------------------------------------------
 brightness() {
-    if [[ -n "$1" ]]; then
-        xrandr --output LVDS1 --brightness $1
+    if [[ -n "$1" ]] && [[ -n "$2" ]]; then
+        xrandr --output $1 --brightness $2
     else
-        echo "brightness <0-1>"
+        connected_displays=$(xrandr | grep " connected" | awk '{print $1}')
+        echo "brightness <connected_displays> <0-1>"
+        echo ""
+        echo "connected_display:"
+        echo "$connected_displays"
     fi
 }
 

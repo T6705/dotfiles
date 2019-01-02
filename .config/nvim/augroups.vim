@@ -42,6 +42,15 @@ augroup tabs
     au BufRead,BufNewFile *.js setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
 augroup END
 
+augroup todo
+    au!
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>i 0i[ ] ""<Left>
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>o o[ ] ""<Left>
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>O O[ ] ""<Left>
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>td mm:s/\[\ \]/\[X\]<CR>`m:delmarks m<CR>zz
+    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>`m:delmarks m<CR>zz
+augroup END
+
 augroup html_js_css
     au!
     au BufRead,BufNewFile *.js *.html *.css setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma

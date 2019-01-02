@@ -17,6 +17,9 @@ alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
 
+alias todo="$EDITOR ~/.todo"
+alias notes="$EDITOR ~/.notes"
+
 # Improve od for hexdump
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
