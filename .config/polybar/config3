@@ -1,6 +1,10 @@
 ; monitor = HDMI1 / HDMI-1
 ; laptop = LVDS1
 
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
+
 [colors]
 black    = #282828
 blue     = #076678
