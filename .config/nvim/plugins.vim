@@ -105,6 +105,17 @@ Plug 'mattn/emmet-vim', { 'for': ['*html', '*css', '*jsx', 'php'] } " emmet supp
 
 
 " ----------------------------------------------------------------------------------------
+" javascript
+" ----------------------------------------------------------------------------------------
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
+Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }        " deoplete.nvim source for javascript
+Plug 'moll/vim-node', { 'for': 'javascript' }                                                " Tools and environment to make Vim superb for developing with Node.js
+Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }                              " React JSX syntax highlighting and indenting for vim.
+Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }                " Yet Another JavaScript Syntax for Vim
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' } " Tern plugin for Vim
+
+
+" ----------------------------------------------------------------------------------------
 " lint & autoformat
 " ----------------------------------------------------------------------------------------
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}

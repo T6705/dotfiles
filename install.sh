@@ -221,7 +221,7 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq papirus)"
         if command -v yaourt &> /dev/null; then
-            yaourt -S cava dropbox dropbox-cli hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
+            yaourt -S cava dropbox dropbox-cli gitkraken hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
         fi
         if command -v pip2 &> /dev/null; then
             sudo pip2 install -U neovim
@@ -499,7 +499,9 @@ install_vim() {
     curl https://gitlab.com/T6705/dotfiles/raw/master/visincr.vba > /tmp/visincr.vba
 
     if command -v npm &> /dev/null; then
+        sudo npm -g install eslint
         sudo npm -g install instant-markdown-d
+        sudo npm -g install tern
     fi
 
     if command -v vim &> /dev/null; then

@@ -12,15 +12,17 @@ augroup configgroup
     au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | wincmd h |endif
 
     au BufEnter * call NERDTreeRefresh() "
-    au BufWinEnter *.{doc,docx,epub,odp,odt,pdf,rtf} call HandleSpecialFile()
     au BufRead * call ChangeEncoding()
     au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
+    au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
+    au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
+    au BufWinEnter *.{doc,docx,epub,odp,odt,pdf,rtf} call HandleSpecialFile()
+    au BufWritePost .vimrc,.vimrc.local,init.vim source %
+    au BufWritePost .vimrc.local source %
     au FileType * RainbowParentheses
     au FileType json setlocal equalprg=python\ -m\ json.tool
     au FileType markdown syntax sync fromstart
-    au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
-    au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste
@@ -53,7 +55,9 @@ augroup END
 
 augroup html_js_css
     au!
-    au BufRead,BufNewFile *.js *.html *.css setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+    au BufRead,BufNewFile *.css setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+    au BufRead,BufNewFile *.html setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+    au BufRead,BufNewFile *.js setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
 augroup END
 
 " Close vim if the only window left open is a NERDTree or quickfix
