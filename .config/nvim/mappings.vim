@@ -4,12 +4,12 @@
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 " :J json prettify
-command J :%!python -m json.tool
+command! J :%!python -m json.tool
 
-command Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
+command! Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 
 command! PU PlugUpdate | PlugUpgrade
 
@@ -36,11 +36,12 @@ command! PU PlugUpdate | PlugUpgrade
 nnoremap c* *Ncgn
 nnoremap c# #NcgN
 
-nnoremap <silent> <Leader>p "+gP
-nnoremap <silent> <Leader>x "+x
-nnoremap <silent> <Leader>y "+y
-vnoremap <silent> <Leader>x "+x
-vnoremap <silent> <Leader>y "+y
+nnoremap <Leader>p "+gP
+nnoremap <Leader>x "+x
+"nnoremap <Leader>y "+y
+nnoremap <Leader>y mm:Osc52CopyYank<CR>`m:delmarks m<CR>zz
+vnoremap <Leader>x "+x
+vnoremap <Leader>y "+y
 
 if has('macunix')
   " pbcopy for OSX copy/paste

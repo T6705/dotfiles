@@ -525,6 +525,17 @@ endif
 
 
 """ === Functions === {{{
+
+fu! Osc52Yank()
+    let buffer=system('base64 -w0', @0)
+    let buffer=substitute(buffer, "\n$", "", "")
+    let buffer='\e]52;c;'.buffer.'\x07'
+    silent exe "!echo -ne ".shellescape(buffer)." > ".shellescape("/dev/pts/0")
+    redraw!
+    redraws!
+endfu
+command! Osc52CopyYank call Osc52Yank()
+
 " ----------------------------------------------------------------------------------------
 " text object
 " ----------------------------------------------------------------------------------------
@@ -1184,12 +1195,12 @@ endfu
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 " :J json prettify
-command J :%!python -m json.tool
+command! J :%!python -m json.tool
 
-command Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
+command! Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 
 " ----------------------------------------------------------------------------------------
 " Copy and Paste
@@ -1216,9 +1227,9 @@ nnoremap c# #NcgN
 
 nnoremap <Leader>p "+gP
 nnoremap <Leader>x "+x
-nnoremap <Leader>y "+y
+nnoremap <Leader>y mm:Osc52CopyYank<CR>`m:delmarks m<CR>zz
 vnoremap <Leader>x "+x
-vnoremap <Leader>y "+y
+vnoremap <Leader>y mm:Osc52CopyYank<CR>`m:delmarks m<CR>zz
 
 if has('macunix')
   " pbcopy for OSX copy/paste

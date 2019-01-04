@@ -1,6 +1,17 @@
 " vim:foldmethod=marker:foldlevel=0
 
 """ === Functions === {{{
+
+fu! Osc52Yank()
+    let buffer=system('base64 -w0', @0)
+    let buffer=substitute(buffer, "\n$", "", "")
+    let buffer='\e]52;c;'.buffer.'\x07'
+    silent exe "!echo -ne ".shellescape(buffer)." > ".shellescape("/dev/pts/0")
+    redraw!
+    redraws!
+endfu
+command! Osc52CopyYank call Osc52Yank()
+
 " ----------------------------------------------------------------------------------------
 " text object
 " ----------------------------------------------------------------------------------------
