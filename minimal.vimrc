@@ -8,6 +8,7 @@ augroup configgroup
     au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
+    au BufWinEnter *.{doc,docx,epub,odp,odt,pdf,rtf} call HandleSpecialFile()
     au BufWritePost .vimrc,.vimrc.local,init.vim source %
     au BufWritePost .vimrc.local source %
     au FileType json setlocal equalprg=python\ -m\ json.tool
@@ -114,6 +115,11 @@ augroup autoRead
     au!
     au CursorHold * silent! checktime " auto update buffer
 augroup END
+
+"augroup Yanks
+"    autocmd!
+"    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank() | endif
+"augroup END
 """ }}}
 
 """ === General Setting === {{{
@@ -1569,8 +1575,9 @@ command! -nargs=+ -complete=file_in_path -bar LGrep silent! lgrep! <args> | redr
 "cnoremap <expr> <Tab>   getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-z>"
 "cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"
 
-nnoremap <silent> <Leader>g :Grep <C-r><C-w><CR>
-xnoremap <silent> <Leader>g :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
+nnoremap ;f :find <Right>
+nnoremap ;g :Grep <C-r><C-w><CR>
+xnoremap <Leader>g :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
                         \ call histadd("cmd", cmd) <bar>
                         \ execute cmd<CR>
 

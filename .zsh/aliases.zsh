@@ -16,6 +16,7 @@ alias :qa!="exit"
 alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
+alias fucking="sudo"
 
 alias todo="$EDITOR ~/.todo"
 alias notes="$EDITOR ~/.notes"

@@ -533,8 +533,9 @@ command! -nargs=+ -complete=file_in_path -bar LGrep silent! lgrep! <args> | redr
 "cnoremap <expr> <Tab>   getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-z>"
 "cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"
 
-nnoremap <silent> <Leader>g :Grep <C-r><C-w><CR>
-xnoremap <silent> <Leader>g :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
+nnoremap ;f :find <Right>
+nnoremap ;g :Grep <C-r><C-w><CR>
+xnoremap <Leader>g :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
                         \ call histadd("cmd", cmd) <bar>
                         \ execute cmd<CR>
 

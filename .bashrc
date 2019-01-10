@@ -108,8 +108,10 @@ fi
 ####################################
 ## https://github.com/pyenv/pyenv ##
 ####################################
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if command -v pyenv &> /dev/null; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 
 ####################################
 ## https://github.com/pypa/pipenv ##
@@ -176,6 +178,7 @@ alias :qa!="exit"
 alias :qa="exit"
 alias :qall!="exit"
 alias :qall="exit"
+alias fucking="sudo"
 
 alias todo="$EDITOR ~/.todo"
 alias notes="$EDITOR ~/.notes"

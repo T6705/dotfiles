@@ -133,6 +133,11 @@ augroup autoRead
     au CursorHold * silent! checktime " auto update buffer
 augroup END
 
+"augroup Yanks
+"    autocmd!
+"    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank() | endif
+"augroup END
+
 ""google/vim-codefmt
 "augroup autoformat_settings
 "    au FileType bzl AutoFormatBuffer buildifier

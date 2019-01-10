@@ -162,8 +162,10 @@ setopt SHARE_HISTORY          # Share history between all sessions.
 ####################################
 ## https://github.com/pyenv/pyenv ##
 ####################################
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if command -v pyenv &> /dev/null; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 
 ####################################
 ## https://github.com/pypa/pipenv ##
