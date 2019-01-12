@@ -1317,8 +1317,8 @@ nnoremap <silent> { {zz
 nnoremap <silent> } }zz
 
 " Jump to matching pairs easily, with Shift-Tab
-nmap <silent> <S-Tab> %
-vmap <silent> <S-Tab> %
+nmap <silent> <S-Tab> %zz
+vmap <silent> <S-Tab> %zz
 
 " Keep the cursor in place while joining lines
 nnoremap J mzJ`z

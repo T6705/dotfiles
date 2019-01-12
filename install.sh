@@ -628,6 +628,15 @@ install_zsh() {
     fi
 
     echo ""
+    echo "========================"
+    echo "== install fira fonts =="
+    echo "========================"
+    echo ""
+    if command -v pacman &> /dev/null; then
+        sudo pacman -S --needed --noconfirm $(pacman -Ssq fira)
+    fi
+
+    echo ""
     echo "============================="
     echo "== install powerline fonts =="
     echo "============================="

@@ -46,5 +46,4 @@ fi
 
 if command -v dunst &> /dev/null; then
     bash ~/.config/dunst/Reload_dunst.sh
-    dunst -config ~/.config/dunst/dunstrc &
 fi
