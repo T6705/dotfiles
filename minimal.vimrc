@@ -28,26 +28,21 @@ augroup tabs
     "set tabstop=4     " the visible width of tabs
     au!
     au BufRead,BufNewFile * setlocal expandtab shiftwidth=4 smarttab softtabstop=4 tabstop=4
-    au BufRead,BufNewFile *.css setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
-    au BufRead,BufNewFile *.dart setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
-    au BufRead,BufNewFile *.html setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
-    au BufRead,BufNewFile *.js setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
+    au BufRead,BufNewFile *.{css,dart,html,js} setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
 augroup END
 
 augroup todo
     au!
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>i 0i[ ] ""<Left>
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>o o[ ] ""<Left>
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>O O[ ] ""<Left>
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>td mm:s/\[\ \]/\[X\]<CR>`m:delmarks m<CR>zz
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>`m:delmarks m<CR>zz
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>i 0i[ ] ""<Left>
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>o o[ ] ""<Left>
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>O O[ ] ""<Left>
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>td mm:s/\[\ \]/\[X\]<CR>:put = strftime('%Y/%m/%d %H:%M:%S')<CR>kJ`m:delmarks m<CR>zz
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>`m:delmarks m<CR>zz
 augroup END
 
 augroup html_js_css
     au!
-    au BufRead,BufNewFile *.css setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
-    au BufRead,BufNewFile *.html setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
-    au BufRead,BufNewFile *.js setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+    au BufRead,BufNewFile *.{css,html,js} setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
 augroup END
 
 " Close vim if the only window left open is a NERDTree or quickfix
@@ -91,6 +86,8 @@ augroup END
 augroup Snippet
     au FileType java call JavaAbbrev()
     au FileType cpp call CppAbbrev()
+    au BufRead,BufNewFile *.{tmpl,htm,js} call JavascriptAbbrev()
+    au BufRead,BufNewFile *.py call PythonAbbrev()
 augroup END
 
 augroup auto_mkdir
@@ -952,7 +949,7 @@ command! ClearRegisters call ClearRegisters()
 " :RangerExplorer (vim only)
 " ----------------------------------------------------------------------------------------
 if ! has('nvim')
-    fu RangerExplorer()
+    fu! RangerExplorer()
         if executable("ranger")
             exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
             if filereadable('/tmp/vim_ranger_current_file')
@@ -1024,7 +1021,7 @@ command! HandleSpecialFile call HandleSpecialFile()
 " ----------------------------------------------------------------------------------------
 " :Hexmode
 " ----------------------------------------------------------------------------------------
-fu ToggleHex()
+fu! ToggleHex()
     " hex mode should be considered a read-only operation
     " save values for modified and read-only for restoration later,
     " and clear the read-only flag for now
@@ -1145,17 +1142,29 @@ command! AutoFoldsDisable call <sid>open_folds('disable')
 command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
 
 fu! JavaAbbrev()
-  inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<CR>
-  inoreabbr sop System.out.println("%");<esc>F%s<C-o>:call getchar()<CR>
-  inoreabbr sep System.err.println("%");<esc>F%s<C-o>:call getchar()<CR>
-  inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<CR>
-  inoreabbr ctm System.currentTimeMillis()
+    inorea <buffer> psvm public static void main(String[] args){<CR>}<Esc>k:call getchar()<CR>
+    inorea <buffer> sop System.out.println("%");<Esc>F%s<C-o>:call getchar()<CR>
+    inorea <buffer> sep System.err.println("%");<Esc>F%s<C-o>:call getchar()<CR>
+    inorea <buffer> try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<Esc>3k:call getchar()<CR>
+    inorea <buffer> ctm System.currentTimeMillis()
 endfu
 
 fu! CppAbbrev()
-  inoreabbr inc #include <><esc>i<C-o>:call getchar()<CR>
-  inoreabbr main int main() {}<esc>i<CR><esc>Oreturn 0;<esc>O<esc>k:call getchar()<CR>
-  inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<CR><esc>Oreturn 0;<esc>O<esc>k:call getchar()<CR>
+    inorea <buffer> inc #include <><Esc>i<C-o>:call getchar()<CR>
+    inorea <buffer> main int main() {}<Esc>i<CR><Esc>Oreturn 0;<Esc>O<Esc>k:call getchar()<CR>
+    inorea <buffer> amain int main(int argc, char* argv[]) {}<Esc>i<CR><Esc>Oreturn 0;<Esc>O<Esc>k:call getchar()<CR>
+endfu
+
+fu! JavascriptAbbrev()
+    inorea <buffer> csl console.log({ })<Esc>==F{a<space>
+    inorea <buffer> csi console.info({ })<Esc>==F{a<space>
+    inorea <buffer> csw console.warn({ })<Esc>==F{a<space>
+    inorea <buffer> cse console.error({ })<Esc>==F{a<space>
+endfu
+
+fu! PythonAbbrev()
+    inorea <buffer> ifmain if __name__ == "__main__":<CR>main()<Esc>
+    inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
 endfu
 
 " make list-like commands more intuitive
@@ -1338,8 +1347,8 @@ noremap <C-k> 2<C-y>
 nnoremap <silent> <Leader>ffo :!firefox %<CR>
 
 " hexedit
-"inoremap <silent> <F7> <esc>:%!xxd<CR>
-"inoremap <silent> <F8> <esc>:%!xxd -r<CR>
+"inoremap <silent> <F7> <Esc>:%!xxd<CR>
+"inoremap <silent> <F8> <Esc>:%!xxd -r<CR>
 "noremap <silent> <F7> :%!xxd<CR>
 "noremap <silent> <F8> :%!xxd -r<CR>
 
@@ -1485,9 +1494,9 @@ vnoremap . :norm.<CR>
 " Markdown headings
 nnoremap <silent> <Leader>1 m`yypVr=``
 nnoremap <silent> <Leader>2 m`yypVr-``
-nnoremap <silent> <Leader>3 m`^i### <esc>``4l
-nnoremap <silent> <Leader>4 m`^i#### <esc>``5l
-nnoremap <silent> <Leader>5 m`^i##### <esc>``6l
+nnoremap <silent> <Leader>3 m`^i### <Esc>``4l
+nnoremap <silent> <Leader>4 m`^i#### <Esc>``5l
+nnoremap <silent> <Leader>5 m`^i##### <Esc>``6l
 
 " Make check spelling on or off
 nnoremap <silent> <Leader>cson   :set spell<CR>
@@ -1533,13 +1542,13 @@ nnoremap cs[( m1F[m2%r)`2r(`1
 nnoremap cs[{ m1F[m2%r}`2r{`1
 nnoremap cs{[ m1F{m2%r]`2r[`1
 
-vnoremap S# "zdi#<C-R>z#<esc>
-vnoremap S* "zdi*<C-R>z*<esc>
-vnoremap S" "zdi"<C-R>z"<esc>
-vnoremap S' "zdi'<C-R>z'<esc>
-vnoremap S( "zdi(<C-R>z)<esc>
-vnoremap S{ "zdi{<C-R>z}<esc>
-vnoremap S[ "zdi[<C-R>z]<esc>
+vnoremap S# "zdi#<C-R>z#<Esc>
+vnoremap S* "zdi*<C-R>z*<Esc>
+vnoremap S" "zdi"<C-R>z"<Esc>
+vnoremap S' "zdi'<C-R>z'<Esc>
+vnoremap S( "zdi(<C-R>z)<Esc>
+vnoremap S{ "zdi{<C-R>z}<Esc>
+vnoremap S[ "zdi[<C-R>z]<Esc>
 
 " ----------------------------------------------------------------------------------------
 " text object
@@ -1600,10 +1609,10 @@ if has('nvim')
     "command! VTerm vnew | terminal
 
     tnoremap <Esc> <C-\><C-n>
-    "tnoremap <a-a> <esc>a
-    "tnoremap <a-b> <esc>b
-    "tnoremap <a-d> <esc>d
-    "tnoremap <a-f> <esc>f
+    "tnoremap <a-a> <Esc>a
+    "tnoremap <a-b> <Esc>b
+    "tnoremap <a-d> <Esc>d
+    "tnoremap <a-f> <Esc>f
 endif
 
 """ }}}

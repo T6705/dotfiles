@@ -38,26 +38,21 @@ augroup tabs
     "set tabstop=4     " the visible width of tabs
     au!
     au BufRead,BufNewFile * setlocal expandtab shiftwidth=4 smarttab softtabstop=4 tabstop=4
-    au BufRead,BufNewFile *.css setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
-    au BufRead,BufNewFile *.dart setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
-    au BufRead,BufNewFile *.html setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
-    au BufRead,BufNewFile *.js setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
+    au BufRead,BufNewFile *.{css,dart,html,js} setlocal expandtab shiftwidth=2 smarttab softtabstop=2 tabstop=2
 augroup END
 
 augroup todo
     au!
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>i 0i[ ] ""<Left>
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>o o[ ] ""<Left>
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>O O[ ] ""<Left>
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>td mm:s/\[\ \]/\[X\]<CR>`m:delmarks m<CR>zz
-    au BufRead,BufNewFile *.todo nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>`m:delmarks m<CR>zz
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>i 0i[ ] ""<Left>
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>o o[ ] ""<Left>
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>O O[ ] ""<Left>
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>td mm:s/\[\ \]/\[X\]<CR>:put = strftime('%Y/%m/%d %H:%M:%S')<CR>kJ`m:delmarks m<CR>zz
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>`m:delmarks m<CR>zz
 augroup END
 
 augroup html_js_css
     au!
-    au BufRead,BufNewFile *.css setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
-    au BufRead,BufNewFile *.html setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
-    au BufRead,BufNewFile *.js setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+    au BufRead,BufNewFile *.{css,html,js} setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
 augroup END
 
 " Close vim if the only window left open is a NERDTree or quickfix
@@ -98,10 +93,12 @@ augroup vimrc-restore-cursor-position
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-"augroup Snippet
-"    au FileType java call JavaAbbrev()
-"    au FileType cpp call CppAbbrev()
-"augroup END
+augroup Snippet
+    au FileType java call JavaAbbrev()
+    au FileType cpp call CppAbbrev()
+    au BufRead,BufNewFile *.{tmpl,htm,js} call JavascriptAbbrev()
+    au BufRead,BufNewFile *.py call PythonAbbrev()
+augroup END
 
 augroup install_missing_plugins
     au VimEnter *

@@ -63,7 +63,7 @@ endif
 function! DVB_Drag (dir)
     " No-op in Visual mode...
     if mode() ==# 'v'
-        return "\<ESC>gv"
+        return "\<Esc>gv"
 
     " Do Visual Line drag indirectly via temporary nmap
     " (to ensure we have access to block position data)...
@@ -195,7 +195,7 @@ function! s:Drag_Lines (dir)
 
         " Needs special handling at EOF (to push selection down into new space)...
         if line_left == EOF || line_right == EOF
-            return   "O\<ESC>gv"
+            return   "O\<Esc>gv"
 
         " Otherwise, just cut-move-paste-reselect...
         else
@@ -255,7 +255,7 @@ function! s:Drag_Block (dir)
             let vcol = start_col - 2
             return   'gv'.square_up.'xhP'
                  \ . s:NO_REPORT
-                 \ . "gvhoho:s/\\s*$//\<CR>gv\<ESC>"
+                 \ . "gvhoho:s/\\s*$//\<CR>gv\<Esc>"
                  \ . ':set virtualedit=' . prev_ve . "\<CR>"
                  \ . s:PREV_REPORT
                  \ . ":nohlsearch\<CR>gv"
@@ -276,7 +276,7 @@ function! s:Drag_Block (dir)
             return   'gv'.square_up.'xp'
                  \ . s:NO_REPORT
                  \ . "gvlolo"
-                 \ . ":s/\\s*$//\<CR>gv\<ESC>"
+                 \ . ":s/\\s*$//\<CR>gv\<Esc>"
                  \ . ':set virtualedit=' . prev_ve . "\<CR>"
                  \ . s:PREV_REPORT
                  \ . (dollar_block ? 'gv$' : 'gv')

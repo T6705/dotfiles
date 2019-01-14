@@ -143,23 +143,23 @@ noremap <C-k> 2<C-y>
 
 nnoremap <silent> <Leader>ffo :!firefox %<CR>
 
-"inoremap <silent> <F2> <esc>:NERDTreeFind<CR>
-"inoremap <silent> <F3> <esc>:NERDTreeToggle<CR>
-"inoremap <silent> <F4> <esc>:GundoToggle<CR>
-"inoremap <silent> <F6> <esc>:TagbarToggle<CR>
+"inoremap <silent> <F2> <Esc>:NERDTreeFind<CR>
+"inoremap <silent> <F3> <Esc>:NERDTreeToggle<CR>
+"inoremap <silent> <F4> <Esc>:GundoToggle<CR>
+"inoremap <silent> <F6> <Esc>:TagbarToggle<CR>
 "nnoremap <silent> <F2> :NERDTreeFind<CR>
 "nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "nnoremap <silent> <F4> :GundoToggle<CR>
 "nnoremap <silent> <F6> :TagbarToggle<CR>
-inoremap <silent> <F5> <esc>:Codi!!<CR>
+inoremap <silent> <F5> <Esc>:Codi!!<CR>
 nnoremap <silent> <F5> :Codi!!<CR>
 
 " hexedit
-"inoremap <silent> <F7> <esc>:%!xxd<CR>
-"inoremap <silent> <F8> <esc>:%!xxd -r<CR>
+"inoremap <silent> <F7> <Esc>:%!xxd<CR>
+"inoremap <silent> <F8> <Esc>:%!xxd -r<CR>
 "noremap <silent> <F7> :%!xxd<CR>
 "noremap <silent> <F8> :%!xxd -r<CR>
-inoremap <silent> <F8> <esc>:Hexmode<CR>
+inoremap <silent> <F8> <Esc>:Hexmode<CR>
 noremap <silent> <F8> :Hexmode<CR>
 
 " qq to record, Q to replay (recursive noremap due to peekaboo)
@@ -376,9 +376,9 @@ noremap <silent> <Leader>cr :CompileandRun<CR>
 " Markdown headings
 nnoremap <silent> <Leader>1 m`yypVr=``
 nnoremap <silent> <Leader>2 m`yypVr-``
-nnoremap <silent> <Leader>3 m`^i### <esc>``4l
-nnoremap <silent> <Leader>4 m`^i#### <esc>``5l
-nnoremap <silent> <Leader>5 m`^i##### <esc>``6l
+nnoremap <silent> <Leader>3 m`^i### <Esc>``4l
+nnoremap <silent> <Leader>4 m`^i#### <Esc>``5l
+nnoremap <silent> <Leader>5 m`^i##### <Esc>``6l
 
 "nnoremap <silent> <Leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
 "nnoremap <silent> <Leader>pdf :w<CR> :NeoTex<CR>
@@ -453,36 +453,36 @@ nmap sl yss
 
 " <Leader>` Surround a word with "backticks"
 nmap     <silent> <Leader>` ysiw`
-vnoremap <silent> <Leader>` c`<C-R>"`<ESC>
+vnoremap <silent> <Leader>` c`<C-R>"`<Esc>
 
 " <Leader>" Surround a word with "quotes"
 nmap     <silent> <Leader>" ysiw"
-vnoremap <silent> <Leader>" c"<C-R>""<ESC>
+vnoremap <silent> <Leader>" c"<C-R>""<Esc>
 
 " <Leader>' Surround a word with 'single quotes'
 nmap     <silent> <Leader>' ysiw'
-vnoremap <silent> <Leader>' c'<C-R>"'<ESC>
+vnoremap <silent> <Leader>' c'<C-R>"'<Esc>
 
 " <Leader>( Surround a word with ( brackets )
 " <Leader>) Surround a word with (brackets)
 nmap     <silent> <Leader>( ysiw(
 nmap     <silent> <Leader>) ysiw)
-vnoremap <silent> <Leader>( c( <C-R>" )<ESC>
-vnoremap <silent> <Leader>) c(<C-R>")<ESC>
+vnoremap <silent> <Leader>( c( <C-R>" )<Esc>
+vnoremap <silent> <Leader>) c(<C-R>")<Esc>
 
 " <Leader>[ Surround a word with [ brackets ]
 " <Leader>] Surround a word with [brackets]
 nmap     <silent> <Leader>] ysiw]
 nmap     <silent> <Leader>[ ysiw[
-vnoremap <silent> <Leader>[ c[ <C-R>" ]<ESC>
-vnoremap <silent> <Leader>] c[<C-R>"]<ESC>
+vnoremap <silent> <Leader>[ c[ <C-R>" ]<Esc>
+vnoremap <silent> <Leader>] c[<C-R>"]<Esc>
 
 " <Leader>{ Surround a word with { braces }
 " <Leader>} Surround a word with {braces}
 nmap     <silent> <Leader>} ysiw}
 nmap     <silent> <Leader>{ ysiw{
-vnoremap <silent> <Leader>} c{ <C-R>" }<ESC>
-vnoremap <silent> <Leader>{ c{<C-R>"}<ESC>
+vnoremap <silent> <Leader>} c{ <C-R>" }<Esc>
+vnoremap <silent> <Leader>{ c{<C-R>"}<Esc>
 
 nnoremap cs({ m1F(m2%r}`2r{`1
 nnoremap cs{( m1F{m2%r)`2r(`1
@@ -491,13 +491,13 @@ nnoremap cs[( m1F[m2%r)`2r(`1
 nnoremap cs[{ m1F[m2%r}`2r{`1
 nnoremap cs{[ m1F{m2%r]`2r[`1
 
-vnoremap S# "zdi#<C-R>z#<esc>
-vnoremap S* "zdi*<C-R>z*<esc>
-vnoremap S" "zdi"<C-R>z"<esc>
-vnoremap S' "zdi'<C-R>z'<esc>
-vnoremap S( "zdi(<C-R>z)<esc>
-vnoremap S{ "zdi{<C-R>z}<esc>
-vnoremap S[ "zdi[<C-R>z]<esc>
+vnoremap S# "zdi#<C-R>z#<Esc>
+vnoremap S* "zdi*<C-R>z*<Esc>
+vnoremap S" "zdi"<C-R>z"<Esc>
+vnoremap S' "zdi'<C-R>z'<Esc>
+vnoremap S( "zdi(<C-R>z)<Esc>
+vnoremap S{ "zdi{<C-R>z}<Esc>
+vnoremap S[ "zdi[<C-R>z]<Esc>
 
 " ----------------------------------------------------------------------------------------
 " text object
@@ -558,10 +558,10 @@ if has('nvim')
     "command! VTerm vnew | terminal
 
     tnoremap <Esc> <C-\><C-n>
-    "tnoremap <a-a> <esc>a
-    "tnoremap <a-b> <esc>b
-    "tnoremap <a-d> <esc>d
-    "tnoremap <a-f> <esc>f
+    "tnoremap <a-a> <Esc>a
+    "tnoremap <a-b> <Esc>b
+    "tnoremap <a-d> <Esc>d
+    "tnoremap <a-f> <Esc>f
 endif
 
 """ }}}

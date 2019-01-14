@@ -335,7 +335,7 @@ command! ClearRegisters call ClearRegisters()
 " :RangerExplorer (vim only)
 " ----------------------------------------------------------------------------------------
 if ! has('nvim')
-    fu RangerExplorer()
+    fu! RangerExplorer()
         if executable("ranger")
             exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
             if filereadable('/tmp/vim_ranger_current_file')
@@ -430,7 +430,7 @@ command! HandleSpecialFile call HandleSpecialFile()
 " ----------------------------------------------------------------------------------------
 " :Hexmode
 " ----------------------------------------------------------------------------------------
-fu ToggleHex()
+fu! ToggleHex()
     " hex mode should be considered a read-only operation
     " save values for modified and read-only for restoration later,
     " and clear the read-only flag for now
@@ -650,17 +650,29 @@ endfu
 command! GruvboxDark call GruvboxDark()
 
 fu! JavaAbbrev()
-  inoreabbr psvm public static void main(String[] args){<CR>}<esc>k:call getchar()<CR>
-  inoreabbr sop System.out.println("%");<esc>F%s<C-o>:call getchar()<CR>
-  inoreabbr sep System.err.println("%");<esc>F%s<C-o>:call getchar()<CR>
-  inoreabbr try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<esc>3k:call getchar()<CR>
-  inoreabbr ctm System.currentTimeMillis()
+    inorea <buffer> psvm public static void main(String[] args){<CR>}<Esc>k:call getchar()<CR>
+    inorea <buffer> sop System.out.println("%");<Esc>F%s<C-o>:call getchar()<CR>
+    inorea <buffer> sep System.err.println("%");<Esc>F%s<C-o>:call getchar()<CR>
+    inorea <buffer> try try {<CR>} catch (Exception e) {<CR> e.printStackTrace();<CR>}<Esc>3k:call getchar()<CR>
+    inorea <buffer> ctm System.currentTimeMillis()
 endfu
 
 fu! CppAbbrev()
-  inoreabbr inc #include <><esc>i<C-o>:call getchar()<CR>
-  inoreabbr main int main() {}<esc>i<CR><esc>Oreturn 0;<esc>O<esc>k:call getchar()<CR>
-  inoreabbr amain int main(int argc, char* argv[]) {}<esc>i<CR><esc>Oreturn 0;<esc>O<esc>k:call getchar()<CR>
+    inorea <buffer> inc #include <><Esc>i<C-o>:call getchar()<CR>
+    inorea <buffer> main int main() {}<Esc>i<CR><Esc>Oreturn 0;<Esc>O<Esc>k:call getchar()<CR>
+    inorea <buffer> amain int main(int argc, char* argv[]) {}<Esc>i<CR><Esc>Oreturn 0;<Esc>O<Esc>k:call getchar()<CR>
+endfu
+
+fu! JavascriptAbbrev()
+    inorea <buffer> csl console.log({ })<Esc>==F{a<space>
+    inorea <buffer> csi console.info({ })<Esc>==F{a<space>
+    inorea <buffer> csw console.warn({ })<Esc>==F{a<space>
+    inorea <buffer> cse console.error({ })<Esc>==F{a<space>
+endfu
+
+fu! PythonAbbrev()
+    inorea <buffer> ifmain if __name__ == "__main__":<CR>main()<Esc>
+    inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
 endfu
 
 " make list-like commands more intuitive
