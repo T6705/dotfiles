@@ -664,10 +664,10 @@ fu! CppAbbrev()
 endfu
 
 fu! JavascriptAbbrev()
-    inorea <buffer> csl console.log({ })<Esc>==F{a<space>
-    inorea <buffer> csi console.info({ })<Esc>==F{a<space>
-    inorea <buffer> csw console.warn({ })<Esc>==F{a<space>
-    inorea <buffer> cse console.error({ })<Esc>==F{a<space>
+    inorea <buffer> csl console.log("")<Esc>==f"ci"
+    inorea <buffer> csi console.info("")<Esc>==f"ci"
+    inorea <buffer> csw console.warn("")<Esc>==f"ci"
+    inorea <buffer> cse console.error("")<Esc>==f"ci"
 endfu
 
 fu! PythonAbbrev()

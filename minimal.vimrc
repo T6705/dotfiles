@@ -539,6 +539,119 @@ fu! Osc52Yank()
 endfu
 command! Osc52CopyYank call Osc52Yank()
 
+
+" ----------------------------------------------------------------------------------------
+" Finder
+" ----------------------------------------------------------------------------------------
+fun! FilterClose(bufnr)
+    wincmd p
+    execute "bwipe" a:bufnr
+    redraw
+    echo "\r"
+    return []
+endf
+
+fun! Finder(input, prompt) abort
+ let l:prompt = a:prompt . '>'
+ let l:filter = ""
+ let l:undoseq = []
+ botright 10new +setlocal\ buftype=nofile\ bufhidden=wipe\
+     \ nobuflisted\ nonumber\ norelativenumber\ noswapfile\ nowrap\
+     \ foldmethod=manual\ nofoldenable\ modifiable\ noreadonly
+ let l:cur_buf = bufnr('%')
+ if type(a:input) ==# v:t_string
+     let l:input = systemlist(a:input)
+     call setline(1, l:input)
+ else " Assume List
+     call setline(1, a:input)
+ endif
+ setlocal cursorline
+ redraw
+ echo l:prompt . " "
+ while 1
+     let l:error = 0 " Set to 1 when pattern is invalid
+     try
+         let ch = getchar()
+     catch /^Vim:Interrupt$/    " CTRL-C
+         return FilterClose(l:cur_buf)
+     endtry
+     if ch ==# "\<bs>" " Backspace
+         let l:filter = l:filter[:-2]
+         let l:undo = empty(l:undoseq) ? 0 : remove(l:undoseq, -1)
+         if l:undo
+             silent norm u
+         endif
+     elseif ch >=# 0x20 " Printable character
+         let l:filter .= nr2char(ch)
+         let l:seq_old = get(undotree(), 'seq_cur', 0)
+         try " Ignore invalid regexps
+             execute 'silent keepp g!:\m' . escape(l:filter, '~\[:') . ':norm "_dd'
+         catch /^Vim\%((\a\+)\)\=:E/
+             let l:error = 1
+         endtry
+         let l:seq_new = get(undotree(), 'seq_cur', 0)
+         " seq_new != seq_old iff the buffer has changed
+         call add(l:undoseq, l:seq_new != l:seq_old)
+     elseif ch ==# 0x1B " Escape
+         return FilterClose(l:cur_buf)
+     elseif ch ==# 0x0D " Enter
+         let l:result = empty(getline('.')) ? [] : [getline('.')]
+         call FilterClose(l:cur_buf)
+         return l:result
+     elseif ch ==# 0x0C " CTRL-L (clear)
+         call setline(1, type(a:input) ==# v:t_string ? l:input : a:input)
+         let l:undoseq = []
+         let l:filter = ""
+         redraw
+     elseif ch ==# 0x0B " CTRL-K
+         norm k
+     elseif ch ==# 0x0A " CTRL-J
+         norm j
+     endif
+     redraw
+     echo (l:error ? "[Invalid pattern] " : "").l:prompt l:filter
+ endwhile
+endf
+
+fu! Buffers()
+    let buffers = split(execute('ls'), "\n")
+    let choice = Finder(buffers, 'Switch to buffer')
+    if !empty(choice)
+        execute "buffer" split(choice[0], '\s\+')[0]
+    endif
+endfu
+command! Buffers call Buffers()
+
+fu! Colors()
+    let colorschemes = map(globpath(&runtimepath, "colors/*.vim", 0, 1),
+                \                'fnamemodify(v:val, ":t:r")')
+    let colorschemes += map(globpath(&packpath,
+                \                "pack/*/{opt,start}/*/colors/*.vim", 0, 1),
+                \                'fnamemodify(v:val, ":t:r")')
+    let choice = Finder(colorschemes, 'Choose colorscheme')
+    if !empty(choice)
+        execute "colorscheme" choice[0]
+    endif
+endfu
+command! Colors call Colors()
+
+fu! Files()
+    if exists(":FZF") != 1
+        execute "FZF"
+        let choice = ""
+    elseif executable("rg")
+        let choice = Finder('rg --files --no-ignore --hidden --follow .', "Choose file")
+    elseif executable("fd")
+        let choice = Finder('fd --type f --hidden --follow .', "Choose file")
+    elseif executable("find")
+        let choice = Finder('find . -type f', "Choose file")
+    endif
+    if !empty(choice)
+        execute "edit" choice[0]
+    endif
+endfu
+command! Files call Files()
+
 " ----------------------------------------------------------------------------------------
 " text object
 " ----------------------------------------------------------------------------------------
@@ -1156,10 +1269,10 @@ fu! CppAbbrev()
 endfu
 
 fu! JavascriptAbbrev()
-    inorea <buffer> csl console.log({ })<Esc>==F{a<space>
-    inorea <buffer> csi console.info({ })<Esc>==F{a<space>
-    inorea <buffer> csw console.warn({ })<Esc>==F{a<space>
-    inorea <buffer> cse console.error({ })<Esc>==F{a<space>
+    inorea <buffer> csl console.log("")<Esc>==f"ci"
+    inorea <buffer> csi console.info("")<Esc>==f"ci"
+    inorea <buffer> csw console.warn("")<Esc>==f"ci"
+    inorea <buffer> cse console.error("")<Esc>==f"ci"
 endfu
 
 fu! PythonAbbrev()
@@ -1438,7 +1551,8 @@ nnoremap <silent> [b :bp<CR>
 nnoremap <silent> ]b :bn<CR>
 nnoremap <silent> <Leader>q :bd!<CR>
 nnoremap <silent> <Leader>bn :enew<CR>
-nnoremap <silent> <Leader>bs :ls<CR>:buffer<Space>
+"nnoremap <silent> <Leader>bs :ls<CR>:buffer<Space>
+nnoremap <silent> <Leader>bs :Buffers<CR>
 nnoremap <silent> <Leader>vbs :ls<CR>:sbuffer<Space>
 nnoremap <silent> <bs> <C-^>
 
@@ -1447,17 +1561,17 @@ nnoremap <silent> <Leader>, :%s/, */, /g<CR>
 vnoremap <silent> <Leader>, :s/, */, /g<CR>
 
 " Explore dir
-if exists(":Lexplore") != 1
-    nnoremap <silent> <Leader>e :Lexplore<CR>
-elseif exists(":Vexplore") != 1
-    nnoremap <silent> <Leader>e :Vexplore<CR>
-else
-    nnoremap <silent> <Leader>e :Explore<CR>
-endif
+nnoremap <silent> <Leader> e :Files<CR>
 
 " Explore dir with ranger
 if executable("ranger")
     nnoremap <silent> <Leader>E :RangerExplorer<CR>
+elseif exists(":Lexplore") != 1
+    nnoremap <silent> <Leader>E :Lexplore<CR>
+elseif exists(":Vexplore") != 1
+    nnoremap <silent> <Leader>E :Vexplore<CR>
+else
+    nnoremap <silent> <Leader>E :Explore<CR>
 endif
 
 " Completetion
