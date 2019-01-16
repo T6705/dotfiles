@@ -636,7 +636,7 @@ endfu
 command! Colors call Colors()
 
 fu! Files()
-    if exists(":FZF") != 1
+    if exists(":FZF") != 0
         execute "FZF"
         let choice = ""
     elseif executable("rg")
