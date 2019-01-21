@@ -13,8 +13,7 @@ augroup configgroup
 
     au BufEnter * call NERDTreeRefresh() "
     au BufRead * call ChangeEncoding()
-    au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
-    au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
+    au BufRead,BufNewFile *.{md,notes,todo,txt} setlocal spell " automtically turn on spell-checking
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
     au BufWinEnter *.{doc,docx,epub,odp,odt,pdf,rtf} call HandleSpecialFile()
@@ -47,7 +46,7 @@ augroup todo
     au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>o o[ ] ""<Left>
     au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>O O[ ] ""<Left>
     au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>td mm:s/\[\ \]/\[X\]<CR>:put = strftime('%Y/%m/%d %H:%M:%S')<CR>kJ`m:delmarks m<CR>zz
-    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>`m:delmarks m<CR>zz
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>:s/[0-9]*\/[0-9]*\/[0-9]* [0-9]*:[0-9]*:[0-9]*$/<CR>`m:delmarks m<CR>zz
 augroup END
 
 augroup html_js_css

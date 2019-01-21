@@ -184,6 +184,7 @@ Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }             " perform diffs on blocks of code
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                       " Interactive command execution in Vim.
+Plug 'TaDaa/vimade'                                               " An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
 Plug 'VincentCordobes/vim-translate', { 'on': 'Translate' }       " A tiny translate-shell wrapper for Vim.
 Plug 'andymass/matchup.vim'                                       " vim match-up: matchit replacement and more
 Plug 'benmills/vimux'                                             " vim plugin to interact with tmux

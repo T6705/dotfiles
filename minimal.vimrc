@@ -4,8 +4,7 @@
 
 augroup configgroup
     au!
-    au BufRead,BufNewFile *.md setlocal spell "automatically turn on spell-checking for Markdown files
-    au BufRead,BufNewFile *.txt setlocal spell "automatically turn on spell-checking for text files
+    au BufRead,BufNewFile *.{md,notes,todo,txt} setlocal spell " automtically turn on spell-checking
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
     au BufWinEnter *.{doc,docx,epub,odp,odt,pdf,rtf} call HandleSpecialFile()
@@ -233,10 +232,8 @@ if empty(glob('~/.vim/colors/molokai.vim'))
     echo "Installing molokai.vim"
     echo ""
     silent !curl -fLo ~/.vim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
-    colorscheme molokai
-else
-    colorscheme molokai
 endif
+colorscheme molokai
 "filetype on
 filetype indent on    " load filetype-specific indent files
 filetype plugin on
@@ -614,40 +611,46 @@ fun! Finder(input, prompt) abort
 endf
 
 fu! Buffers()
-    let buffers = split(execute('ls'), "\n")
-    let choice = Finder(buffers, 'Switch to buffer')
-    if !empty(choice)
-        execute "buffer" split(choice[0], '\s\+')[0]
+    if exists('v:t_string')
+        let buffers = split(execute('ls'), "\n")
+        let choice = Finder(buffers, 'Switch to buffer')
+        if !empty(choice)
+            execute "buffer" split(choice[0], '\s\+')[0]
+        endif
     endif
 endfu
 command! Buffers call Buffers()
 
 fu! Colors()
-    let colorschemes = map(globpath(&runtimepath, "colors/*.vim", 0, 1),
-                \                'fnamemodify(v:val, ":t:r")')
-    let colorschemes += map(globpath(&packpath,
-                \                "pack/*/{opt,start}/*/colors/*.vim", 0, 1),
-                \                'fnamemodify(v:val, ":t:r")')
-    let choice = Finder(colorschemes, 'Choose colorscheme')
-    if !empty(choice)
-        execute "colorscheme" choice[0]
+    if exists('v:t_string')
+        let colorschemes = map(globpath(&runtimepath, "colors/*.vim", 0, 1),
+                    \                'fnamemodify(v:val, ":t:r")')
+        let colorschemes += map(globpath(&packpath,
+                    \                "pack/*/{opt,start}/*/colors/*.vim", 0, 1),
+                    \                'fnamemodify(v:val, ":t:r")')
+        let choice = Finder(colorschemes, 'Choose colorscheme')
+        if !empty(choice)
+            execute "colorscheme" choice[0]
+        endif
     endif
 endfu
 command! Colors call Colors()
 
 fu! Files()
-    if exists(":FZF") != 0
-        execute "FZF"
-        let choice = ""
-    elseif executable("rg")
-        let choice = Finder('rg --files --no-ignore --hidden --follow .', "Choose file")
-    elseif executable("fd")
-        let choice = Finder('fd --type f --hidden --follow .', "Choose file")
-    elseif executable("find")
-        let choice = Finder('find . -type f', "Choose file")
-    endif
-    if !empty(choice)
-        execute "edit" choice[0]
+    if exists('v:t_string')
+        if exists(":FZF") != 0
+            execute "FZF"
+            let choice = ""
+        elseif executable("rg")
+            let choice = Finder('rg --files --no-ignore --hidden --follow .', "Choose file")
+        elseif executable("fd")
+            let choice = Finder('fd --type f --hidden --follow .', "Choose file")
+        elseif executable("find")
+            let choice = Finder('find . -type f', "Choose file")
+        endif
+        if !empty(choice)
+            execute "edit" choice[0]
+        endif
     endif
 endfu
 command! Files call Files()
