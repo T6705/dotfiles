@@ -1,6 +1,77 @@
 " vim:foldmethod=marker:foldlevel=0
 
 """ === Functions === {{{
+" -------------------------------------------------------------------------------
+" :LightTheme (PaperColor)
+" -------------------------------------------------------------------------------
+fu! LightTheme()
+    "let g:transparent_background = 1
+    let g:allow_bold=1
+    let g:allow_italic=1
+    set background=light
+    colorscheme PaperColor
+    AirlineTheme papercolor
+    if has('nvim') && has('termguicolors')
+      set termguicolors
+    endif
+endfu
+command! LightTheme call LightTheme()
+
+" -------------------------------------------------------------------------------
+" :DarkTheme (Molokai)
+" -------------------------------------------------------------------------------
+fu! DarkTheme()
+    set background=dark
+    colorscheme molokai
+    AirlineTheme wombat
+    if has('nvim') && has('termguicolors')
+      set termguicolors
+    endif
+endfu
+command! DarkTheme call DarkTheme()
+
+" -------------------------------------------------------------------------------
+" :OneLight
+" -------------------------------------------------------------------------------
+fu! OneLight()
+    set background=light
+    colorscheme one
+    AirlineTheme one
+    if has('nvim') && has('termguicolors')
+      set termguicolors
+    endif
+endfu
+command! OneLight call OneLight()
+
+" -------------------------------------------------------------------------------
+" :GruvboxLight
+" -------------------------------------------------------------------------------
+fu! GruvboxLight()
+    let g:gruvbox_italic=1
+    let g:gruvbox_contrast_light="hard"
+    set background=light
+    colorscheme gruvbox
+    AirlineTheme gruvbox
+    if has('nvim') && has('termguicolors')
+      set termguicolors
+    endif
+endfu
+command! GruvboxLight call GruvboxLight()
+
+" -------------------------------------------------------------------------------
+" :GruvboxDark
+" -------------------------------------------------------------------------------
+fu! GruvboxDark()
+    let g:gruvbox_italic=1
+    let g:gruvbox_contrast_dark="soft"
+    set background=dark
+    colorscheme gruvbox
+    AirlineTheme gruvbox
+    if has('nvim') && has('termguicolors')
+      set termguicolors
+    endif
+endfu
+command! GruvboxDark call GruvboxDark()
 
 fu! Osc52Yank()
     let buffer=system('base64 -w0', @0)
@@ -12,9 +83,9 @@ fu! Osc52Yank()
 endfu
 command! Osc52CopyYank call Osc52Yank()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " text object
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " regular expressions that match numbers (order matters .. keep '\d' last!)
 " note: \+ will be appended to the end of each
 let s:regNums = [ '0b[01]', '0x\x', '\d' ]
@@ -223,9 +294,9 @@ fu! s:aroundIndentation()
     let &magic = l:magic
 endfu
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " colder quickfix list
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! s:isLocation()
     " Get dictionary of properties of the current window
     let wininfo = filter(getwininfo(), {i,v -> v.winnr == winnr()})[0]
@@ -291,9 +362,9 @@ endfu
 command! Qolder call s:history(0)
 command! Qnewer call s:history(1)
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :BufSearch <pattern> | Search in all currently opened buffers
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ClearQuickfixList()
     call setqflist([])
 endfu
@@ -305,9 +376,9 @@ fu! Vimgrepall(pattern)
 endfu
 command! -nargs=1 BufSearch call Vimgrepall(<f-args>)
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! s:shuffle() range
 ruby << RB
   first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
@@ -318,9 +389,9 @@ RB
 endfu
 command! -range Shuffle <line1>,<line2>call s:shuffle()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :ClearRegisters
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ClearRegisters()
     let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
     let i=0
@@ -331,9 +402,9 @@ fu! ClearRegisters()
 endfu
 command! ClearRegisters call ClearRegisters()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :RangerExplorer (vim only)
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if ! has('nvim')
     fu! RangerExplorer()
         if executable("ranger")
@@ -348,9 +419,9 @@ if ! has('nvim')
     command! RangerExplorer call RangerExplorer()
 endif
 
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :EX | chmod +x
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 command! EX if !empty(expand('%'))
          \|   write
          \|   call system('chmod +x '.expand('%'))
@@ -361,9 +432,9 @@ command! EX if !empty(expand('%'))
          \|   echohl None
          \| endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " compile_and_run | <Leader>cr
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! Compile_and_Run()
     exec 'w'
     if &filetype == 'c'
@@ -385,9 +456,9 @@ fu! Compile_and_Run()
 endfu
 command! CompileandRun call Compile_and_Run()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :ChangeEncoding
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ChangeEncoding()
     if executable("file")
         let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
@@ -400,9 +471,9 @@ fu! ChangeEncoding()
 endfu
 command! ChangeEncoding call ChangeEncoding()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :HandleSpecialFile
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! HandleSpecialFile()
     if get(b:, 'did_filter_special_file', 0)
         return
@@ -427,9 +498,9 @@ fu! HandleSpecialFile()
 endfu
 command! HandleSpecialFile call HandleSpecialFile()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :Hexmode
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ToggleHex()
     " hex mode should be considered a read-only operation
     " save values for modified and read-only for restoration later,
@@ -470,9 +541,9 @@ fu! ToggleHex()
 endfu
 command! Hexmode call ToggleHex()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :NERDTreeRefresh
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! NERDTreeRefresh()
     if &filetype == "nerdtree"
         silent exe substitute(mapcheck("R"), "<CR>", "", "")
@@ -480,9 +551,9 @@ fu! NERDTreeRefresh()
 endfu
 command! NERDTreeRefresh call NERDTreeRefresh()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :OpenUrl
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! HandleURL()
     if executable("firefox")
         "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
@@ -499,9 +570,9 @@ fu! HandleURL()
 endfu
 command! OpenUrl call HandleURL()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :ShowMeUrl
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ShowMeUrl()
     %!grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,\!''*~-]*)?(\#[a-zA-Z0-9_/.\-+%\#?&=;@$,\!''*~]*)?"
     silent exec "sort u"
@@ -509,9 +580,9 @@ fu! ShowMeUrl()
 endfu
 command! ShowMeUrl call ShowMeUrl()
 
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :Root | Change directory to the root of the Git repository
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! s:root()
     let root = systemlist('git rev-parse --show-toplevel')[0]
     if v:shell_error
@@ -523,9 +594,9 @@ fu! s:root()
 endfu
 command! Root call s:root()
 
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " autofold
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! s:open_folds(action) abort
     if a:action ==# 'is_active'
         return exists('s:open_folds')
@@ -560,9 +631,9 @@ command! AutoFoldsEnable  call <sid>open_folds('enable')
 command! AutoFoldsDisable call <sid>open_folds('disable')
 command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Window movement shortcuts
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " move to the window in the direction shown, or create a new window
 fu! functions#WinMove(key)
     let t:curwin = winnr()
@@ -576,78 +647,6 @@ fu! functions#WinMove(key)
         exec "wincmd ".a:key
     endif
 endfu
-
-" ----------------------------------------------------------------------------------------
-" :LightTheme (PaperColor)
-" ----------------------------------------------------------------------------------------
-fu! LightTheme()
-    "let g:transparent_background = 1
-    let g:allow_bold=1
-    let g:allow_italic=1
-    set background=light
-    colorscheme PaperColor
-    AirlineTheme papercolor
-    if has('nvim') && has('termguicolors')
-      set termguicolors
-    endif
-endfu
-command! LightTheme call LightTheme()
-
-" ----------------------------------------------------------------------------------------
-" :DarkTheme (Monokai)
-" ----------------------------------------------------------------------------------------
-fu! DarkTheme()
-    set background=dark
-    colorscheme molokai
-    AirlineTheme wombat
-    if has('nvim') && has('termguicolors')
-      set termguicolors
-    endif
-endfu
-command! DarkTheme call DarkTheme()
-
-" ----------------------------------------------------------------------------------------
-" :OneLight
-" ----------------------------------------------------------------------------------------
-fu! OneLight()
-    set background=light
-    colorscheme one
-    AirlineTheme one
-    if has('nvim') && has('termguicolors')
-      set termguicolors
-    endif
-endfu
-command! OneLight call OneLight()
-
-" ----------------------------------------------------------------------------------------
-" :GruvboxLight
-" ----------------------------------------------------------------------------------------
-fu! GruvboxLight()
-    let g:gruvbox_italic=1
-    let g:gruvbox_contrast_light="hard"
-    set background=light
-    colorscheme gruvbox
-    AirlineTheme gruvbox
-    if has('nvim') && has('termguicolors')
-      set termguicolors
-    endif
-endfu
-command! GruvboxLight call GruvboxLight()
-
-" ----------------------------------------------------------------------------------------
-" :GruvboxDark
-" ----------------------------------------------------------------------------------------
-fu! GruvboxDark()
-    let g:gruvbox_italic=1
-    let g:gruvbox_contrast_dark="soft"
-    set background=dark
-    colorscheme gruvbox
-    AirlineTheme gruvbox
-    if has('nvim') && has('termguicolors')
-      set termguicolors
-    endif
-endfu
-command! GruvboxDark call GruvboxDark()
 
 fu! JavaAbbrev()
     inorea <buffer> psvm public static void main(String[] args){<CR>}<Esc>k:call getchar()<CR>
@@ -672,10 +671,12 @@ endfu
 
 fu! PythonAbbrev()
     inorea <buffer> ifmain if __name__ == "__main__":<CR>main()<Esc>
-    inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
+    inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
 endfu
 
+" -------------------------------------------------------------------------------
 " make list-like commands more intuitive
+" -------------------------------------------------------------------------------
 fu! CCR()
     let cmdline = getcmdline()
     if cmdline =~ '\v\C^(ls|files|buffers)'
@@ -713,10 +714,52 @@ fu! CCR()
     endif
 endfu
 
+fu! AlignAssignments ()
+    "Patterns needed to locate assignment operators...
+    let ASSIGN_OP   = '[-+*/%|&]\?=\@<!=[=~]\@!'
+    let ASSIGN_LINE = '^\(.\{-}\)\s*\(' . ASSIGN_OP . '\)'
+
+    "Locate block of code to be considered (same indentation, no blanks)
+    let indent_pat = '^' . matchstr(getline('.'), '^\s*') . '\S'
+    let firstline  = search('^\%('. indent_pat . '\)\@!','bnW') + 1
+    let lastline   = search('^\%('. indent_pat . '\)\@!', 'nW') - 1
+    if lastline < 0
+        let lastline = line('$')
+    endif
+
+    "Find the column at which the operators should be aligned...
+    let max_align_col = 0
+    let max_op_width  = 0
+    for linetext in getline(firstline, lastline)
+        "Does this line have an assignment in it?
+        let left_width = match(linetext, '\s*' . ASSIGN_OP)
+
+        "If so, track the maximal assignment column and operator width...
+        if left_width >= 0
+            let max_align_col = max([max_align_col, left_width])
+
+            let op_width      = strlen(matchstr(linetext, ASSIGN_OP))
+            let max_op_width  = max([max_op_width, op_width+1])
+         endif
+    endfor
+
+    "Code needed to reformat lines so as to align operators...
+    let FORMATTER = '\=printf("%-*s%*s", max_align_col, submatch(1),
+    \                                    max_op_width,  submatch(2))'
+
+    " Reformat lines with operators aligned in the appropriate column...
+    for linenum in range(firstline, lastline)
+        let oldline = getline(linenum)
+        let newline = substitute(oldline, ASSIGN_LINE, FORMATTER, "")
+        call setline(linenum, newline)
+    endfor
+endfu
+command! AlignAssignments call AlignAssignments()
+
 "" smart tab completion
 "fu! functions#Smart_TabComplete()
 "    let line = getline('.')                    " current line
-"
+
 "    let substr = strpart(line, -1, col('.')+1) " from the start of the current
 "                                               " line to one character right
 "                                               " of the cursor
@@ -734,7 +777,7 @@ endfu
 "        return '\<C-X>\<C-O>'                  " plugin matching
 "    endif
 "endfu
-"
+
 "" execute a custom command
 "fu! functions#RunCustomCommand()
 "    up
@@ -744,15 +787,15 @@ endfu
 "        execute '!' . s:customcommand
 "    endif
 "endfu
-"
+
 "fu! functions#SetCustomCommand()
 "    let s:customcommand = input('Enter Custom Command$ ')
 "endfu
-"
+
 "fu! functions#TrimWhiteSpace()
 "    %s/\s\+$//e
 "endfu
-"
+
 "fu! functions#HtmlUnEscape()
 "    silent s/&lt;/</eg
 "    silent s/&gt;/>/eg

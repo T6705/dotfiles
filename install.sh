@@ -214,7 +214,7 @@ install_dependencies() {
         sudo pacman -Syyu --noconfirm
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel
-        sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt
+        sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt yay
         sudo pacman -S --needed --noconfirm curl fontconfig git neovim npm ntp python-pip python2-pip ranger ruby-rouge termite time tmux vim xclip xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
@@ -330,9 +330,12 @@ install_i3() {
         echo ""
         sudo pacman -S --needed --noconfirm base-devel libmpdclient wireless_tools
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq alsa | grep alsa)"
-        if command -v pacaur &> /dev/null; then
-            pacaur -Syyu
-            pacaur -S polybar-git
+        if command -v yay &> /dev/null; then
+            yay -Syyu
+            yay -S polybar-git
+        elif command -v yaourt &> /dev/null; then
+            yaourt -Syyu
+            yaourt -S polybar-git
         fi
         #time mkdir -p ~/git/hub
         #time git clone https://aur.archlinux.org/polybar-git.git ~/git/hub/polybar-git

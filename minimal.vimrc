@@ -4,6 +4,7 @@
 
 augroup configgroup
     au!
+    au BufRead * call ChangeEncoding()
     au BufRead,BufNewFile *.{md,notes,todo,txt} setlocal spell " automtically turn on spell-checking
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
@@ -36,7 +37,7 @@ augroup todo
     au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>o o[ ] ""<Left>
     au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>O O[ ] ""<Left>
     au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>td mm:s/\[\ \]/\[X\]<CR>:put = strftime('%Y/%m/%d %H:%M:%S')<CR>kJ`m:delmarks m<CR>zz
-    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>`m:delmarks m<CR>zz
+    au BufRead,BufNewFile *.{notes,todo,txt} nnoremap <silent> <Leader>tu mm:s/\[X\]/\[\ \]<CR>:s/[0-9]*\/[0-9]*\/[0-9]* [0-9]*:[0-9]*:[0-9]*$/<CR>`m:delmarks m<CR>zz
 augroup END
 
 augroup html_js_css
@@ -182,9 +183,9 @@ if !has('nvim') && v:version > 704 || (v:version == 704 && has('patch401'))
     setlocal cryptmethod=blowfish2  " medium strong method
 endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Encoding
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 set binary
 set bomb
 set encoding=utf-8
@@ -195,9 +196,9 @@ set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
 " Fix backspace indent
 set backspace=indent,eol,start " make backspace behave in a sane manner
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Tabs
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 "set noexpandtab   " insert tabs rather than spaces for <TAB>
 "set shiftround    " round indent to a multiple of 'shiftwidth'
 set expandtab     " Use spaces instead of tabs
@@ -222,9 +223,9 @@ if has('patch-7.4.338')
 endif
 nmap <Leader>l :set list!<CR>
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " UI
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if empty(glob('~/.vim/colors/molokai.vim'))
     if !executable("curl")
         echoerr "You have to install curl or install molokai.vim yourself!"
@@ -280,9 +281,9 @@ if has('nvim') && has('termguicolors')
   set termguicolors
 endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " statusline
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 """ === basic statusline === {{{
 set statusline=
 set statusline+=%0*\ [%n]                            " buffernr
@@ -386,9 +387,9 @@ hi User6 ctermfg=magenta ctermbg=black
 "hi User9 ctermfg=green ctermbg=black
 """ }}}
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 "Wildmenu
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 set wildmenu                                     " Turn on the WiLd menu
 "set wildmode=full
 set wildmode=list:longest                        " complete files like a shell
@@ -406,9 +407,9 @@ else
     set wildignore+=.hg,.git,.svn                " Version Controls"
 endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Searching
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 set hlsearch   " highlight search results
 set ignorecase " Ignore case when searching
 if has('nvim')
@@ -486,9 +487,9 @@ if has('persistent_undo')
     set undofile
 endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " gvim
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if has('gui_running')
     " With this, the gui (gvim and macvim) now doesn't have the toolbar, the left
     " and right scrollbars and the menu.
@@ -525,6 +526,92 @@ endif
 
 
 """ === Functions === {{{
+" -------------------------------------------------------------------------------
+" :LightTheme (PaperColor)
+" -------------------------------------------------------------------------------
+fu! LightTheme()
+    if empty(glob('~/.vim/colors/PaperColor.vim'))
+        if !executable("curl")
+            echoerr "You have to install curl or install PaperColor.vim yourself!"
+        endif
+        echo "Installing PaperColor.vim"
+        echo ""
+        silent !curl -fLo ~/.vim/colors/PaperColor.vim --create-dirs https://raw.githubusercontent.com/NLKNguyen/papercolor-theme/master/colors/PaperColor.vim
+        "let g:transparent_background = 1
+    endif
+    let g:allow_bold=1
+    let g:allow_italic=1
+    set background=light
+    colorscheme PaperColor
+    if has('nvim') && has('termguicolors')
+      set termguicolors
+    endif
+endfu
+command! LightTheme call LightTheme()
+
+" -------------------------------------------------------------------------------
+" :DarkTheme (Molokai)
+" -------------------------------------------------------------------------------
+fu! DarkTheme()
+    if empty(glob('~/.vim/colors/molokai.vim'))
+        if !executable("curl")
+            echoerr "You have to install curl or install molokai.vim yourself!"
+        endif
+        echo "Installing molokai.vim"
+        echo ""
+        silent !curl -fLo ~/.vim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+    endif
+    set background=dark
+    colorscheme molokai
+    if has('nvim') && has('termguicolors')
+      set termguicolors
+    endif
+endfu
+command! DarkTheme call DarkTheme()
+
+" -------------------------------------------------------------------------------
+" :GruvboxLight
+" -------------------------------------------------------------------------------
+fu! GruvboxLight()
+    if empty(glob('~/.vim/colors/gruvbox.vim'))
+        if !executable("curl")
+            echoerr "You have to install curl or install gruvbox.vim yourself!"
+        endif
+        echo "Installing gruvbox.vim"
+        echo ""
+        silent !curl -fLo ~/.vim/colors/gruvbox.vim --create-dirs https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
+    endif
+    let g:gruvbox_italic=1
+    let g:gruvbox_contrast_light="hard"
+    set background=light
+    colorscheme gruvbox
+    if has('nvim') && has('termguicolors')
+      set termguicolors
+    endif
+endfu
+command! GruvboxLight call GruvboxLight()
+
+" -------------------------------------------------------------------------------
+" :GruvboxDark
+" -------------------------------------------------------------------------------
+fu! GruvboxDark()
+    if empty(glob('~/.vim/colors/gruvbox.vim'))
+        if !executable("curl")
+            echoerr "You have to install curl or install gruvbox.vim yourself!"
+        endif
+        echo "Installing gruvbox.vim"
+        echo ""
+        silent !curl -fLo ~/.vim/colors/gruvbox.vim --create-dirs https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
+    endif
+    let g:gruvbox_italic=1
+    let g:gruvbox_contrast_dark="soft"
+    set background=dark
+    colorscheme gruvbox
+    if has('nvim') && has('termguicolors')
+      set termguicolors
+    endif
+endfu
+command! GruvboxDark call GruvboxDark()
 
 fu! Osc52Yank()
     let buffer=system('base64 -w0', @0)
@@ -536,10 +623,9 @@ fu! Osc52Yank()
 endfu
 command! Osc52CopyYank call Osc52Yank()
 
-
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Finder
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fun! FilterClose(bufnr)
     wincmd p
     execute "bwipe" a:bufnr
@@ -655,9 +741,9 @@ fu! Files()
 endfu
 command! Files call Files()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " text object
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " regular expressions that match numbers (order matters .. keep '\d' last!)
 " note: \+ will be appended to the end of each
 let s:regNums = [ '0b[01]', '0x\x', '\d' ]
@@ -866,9 +952,9 @@ fu! s:aroundIndentation()
     let &magic = l:magic
 endfu
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " colder quickfix list
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! s:isLocation()
     " Get dictionary of properties of the current window
     let wininfo = filter(getwininfo(), {i,v -> v.winnr == winnr()})[0]
@@ -934,9 +1020,9 @@ endfu
 command! Qolder call s:history(0)
 command! Qnewer call s:history(1)
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :BufSearch <pattern> | Search in all currently opened buffers
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ClearQuickfixList()
     call setqflist([])
 endfu
@@ -948,96 +1034,9 @@ fu! Vimgrepall(pattern)
 endfu
 command! -nargs=1 BufSearch call Vimgrepall(<f-args>)
 
-" ----------------------------------------------------------------------------------------
-" :LightTheme (PaperColor)
-" ----------------------------------------------------------------------------------------
-fu! LightTheme()
-    if empty(glob('~/.vim/colors/PaperColor.vim'))
-        if !executable("curl")
-            echoerr "You have to install curl or install PaperColor.vim yourself!"
-        endif
-        echo "Installing PaperColor.vim"
-        echo ""
-        silent !curl -fLo ~/.vim/colors/PaperColor.vim --create-dirs https://raw.githubusercontent.com/NLKNguyen/papercolor-theme/master/colors/PaperColor.vim
-        "let g:transparent_background = 1
-    endif
-    let g:allow_bold=1
-    let g:allow_italic=1
-    set background=light
-    colorscheme PaperColor
-    if has('nvim') && has('termguicolors')
-      set termguicolors
-    endif
-endfu
-command! LightTheme call LightTheme()
-
-" ----------------------------------------------------------------------------------------
-" :DarkTheme (Molokai)
-" ----------------------------------------------------------------------------------------
-fu! DarkTheme()
-    if empty(glob('~/.vim/colors/molokai.vim'))
-        if !executable("curl")
-            echoerr "You have to install curl or install molokai.vim yourself!"
-        endif
-        echo "Installing molokai.vim"
-        echo ""
-        silent !curl -fLo ~/.vim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
-    endif
-    set background=dark
-    colorscheme molokai
-    if has('nvim') && has('termguicolors')
-      set termguicolors
-    endif
-endfu
-command! DarkTheme call DarkTheme()
-
-" ----------------------------------------------------------------------------------------
-" :GruvboxLight
-" ----------------------------------------------------------------------------------------
-fu! GruvboxLight()
-    if empty(glob('~/.vim/colors/gruvbox.vim'))
-        if !executable("curl")
-            echoerr "You have to install curl or install gruvbox.vim yourself!"
-        endif
-        echo "Installing gruvbox.vim"
-        echo ""
-        silent !curl -fLo ~/.vim/colors/gruvbox.vim --create-dirs https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
-    endif
-    let g:gruvbox_italic=1
-    let g:gruvbox_contrast_light="hard"
-    set background=light
-    colorscheme gruvbox
-    if has('nvim') && has('termguicolors')
-      set termguicolors
-    endif
-endfu
-command! GruvboxLight call GruvboxLight()
-
-" ----------------------------------------------------------------------------------------
-" :GruvboxDark
-" ----------------------------------------------------------------------------------------
-fu! GruvboxDark()
-    if empty(glob('~/.vim/colors/gruvbox.vim'))
-        if !executable("curl")
-            echoerr "You have to install curl or install gruvbox.vim yourself!"
-        endif
-        echo "Installing gruvbox.vim"
-        echo ""
-        silent !curl -fLo ~/.vim/colors/gruvbox.vim --create-dirs https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
-    endif
-    let g:gruvbox_italic=1
-    let g:gruvbox_contrast_dark="soft"
-    set background=dark
-    colorscheme gruvbox
-    if has('nvim') && has('termguicolors')
-      set termguicolors
-    endif
-endfu
-command! GruvboxDark call GruvboxDark()
-
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :Shuffle | Shuffle selected lines
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! s:shuffle() range
 ruby << RB
   first, last = %w[a:firstline a:lastline].map { |e| VIM::evaluate(e).to_i }
@@ -1048,9 +1047,9 @@ RB
 endfu
 command! -range Shuffle <line1>,<line2>call s:shuffle()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :ClearRegisters
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ClearRegisters()
     let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
     let i=0
@@ -1061,9 +1060,9 @@ fu! ClearRegisters()
 endfu
 command! ClearRegisters call ClearRegisters()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :RangerExplorer (vim only)
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if ! has('nvim')
     fu! RangerExplorer()
         if executable("ranger")
@@ -1078,9 +1077,9 @@ if ! has('nvim')
     command! RangerExplorer call RangerExplorer()
 endif
 
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :EX | chmod +x
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 command! EX if !empty(expand('%'))
          \|   write
          \|   call system('chmod +x '.expand('%'))
@@ -1092,9 +1091,9 @@ command! EX if !empty(expand('%'))
          \| endif
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :ChangeEncoding
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ChangeEncoding()
     if executable("file")
         let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
@@ -1107,9 +1106,9 @@ fu! ChangeEncoding()
 endfu
 command! ChangeEncoding call ChangeEncoding()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :HandleSpecialFile
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! HandleSpecialFile()
     if get(b:, 'did_filter_special_file', 0)
         return
@@ -1134,9 +1133,9 @@ fu! HandleSpecialFile()
 endfu
 command! HandleSpecialFile call HandleSpecialFile()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :Hexmode
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ToggleHex()
     " hex mode should be considered a read-only operation
     " save values for modified and read-only for restoration later,
@@ -1177,9 +1176,9 @@ fu! ToggleHex()
 endfu
 command! Hexmode call ToggleHex()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :OpenUrl
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! HandleURL()
     if executable("firefox")
         "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
@@ -1196,9 +1195,9 @@ fu! HandleURL()
 endfu
 command! OpenUrl call HandleURL()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :ShowMeUrl
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! ShowMeUrl()
     %!grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,\!''*~-]*)?(\#[a-zA-Z0-9_/.\-+%\#?&=;@$,\!''*~]*)?"
     silent exec "sort u"
@@ -1206,9 +1205,9 @@ fu! ShowMeUrl()
 endfu
 command! ShowMeUrl call ShowMeUrl()
 
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " :Root | Change directory to the root of the Git repository
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! s:root()
     let root = systemlist('git rev-parse --show-toplevel')[0]
     if v:shell_error
@@ -1220,9 +1219,9 @@ fu! s:root()
 endfu
 command! Root call s:root()
 
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " autofold
-" ----------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 fu! s:open_folds(action) abort
     if a:action ==# 'is_active'
         return exists('s:open_folds')
@@ -1280,10 +1279,12 @@ endfu
 
 fu! PythonAbbrev()
     inorea <buffer> ifmain if __name__ == "__main__":<CR>main()<Esc>
-    inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
+    inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
 endfu
 
+" -------------------------------------------------------------------------------
 " make list-like commands more intuitive
+" -------------------------------------------------------------------------------
 fu! CCR()
     let cmdline = getcmdline()
     if cmdline =~ '\v\C^(ls|files|buffers)'
@@ -1320,6 +1321,49 @@ fu! CCR()
         return "\<CR>"
     endif
 endfu
+
+fu! AlignAssignments ()
+    "Patterns needed to locate assignment operators...
+    let ASSIGN_OP   = '[-+*/%|&]\?=\@<!=[=~]\@!'
+    let ASSIGN_LINE = '^\(.\{-}\)\s*\(' . ASSIGN_OP . '\)'
+
+    "Locate block of code to be considered (same indentation, no blanks)
+    let indent_pat = '^' . matchstr(getline('.'), '^\s*') . '\S'
+    let firstline  = search('^\%('. indent_pat . '\)\@!','bnW') + 1
+    let lastline   = search('^\%('. indent_pat . '\)\@!', 'nW') - 1
+    if lastline < 0
+        let lastline = line('$')
+    endif
+
+    "Find the column at which the operators should be aligned...
+    let max_align_col = 0
+    let max_op_width  = 0
+    for linetext in getline(firstline, lastline)
+        "Does this line have an assignment in it?
+        let left_width = match(linetext, '\s*' . ASSIGN_OP)
+
+        "If so, track the maximal assignment column and operator width...
+        if left_width >= 0
+            let max_align_col = max([max_align_col, left_width])
+
+            let op_width      = strlen(matchstr(linetext, ASSIGN_OP))
+            let max_op_width  = max([max_op_width, op_width+1])
+         endif
+    endfor
+
+    "Code needed to reformat lines so as to align operators...
+    let FORMATTER = '\=printf("%-*s%*s", max_align_col, submatch(1),
+    \                                    max_op_width,  submatch(2))'
+
+    " Reformat lines with operators aligned in the appropriate column...
+    for linenum in range(firstline, lastline)
+        let oldline = getline(linenum)
+        let newline = substitute(oldline, ASSIGN_LINE, FORMATTER, "")
+        call setline(linenum, newline)
+    endfor
+endfu
+command! AlignAssignments call AlignAssignments()
+
 """ }}}
 
 """ === Mappings === {{{
@@ -1333,9 +1377,9 @@ command! J :%!python -m json.tool
 
 command! Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Copy and Paste
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 "" have x (removes single character) not go into the default registry
 "nnoremap x "_x
 
@@ -1631,27 +1675,29 @@ nnoremap <silent> <Leader>DW ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 " Recompute syntax highlighting
 nnoremap <silent> <Leader>ss :syntax sync fromstart<CR>
 
-" ----------------------------------------------------------------------------------------
+" alignment function
+nnoremap <silent>  ;=  :AlignAssignments<CR>
+" -------------------------------------------------------------------------------
 " isort
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if executable("isort")
     nnoremap <silent> <Leader>is :%!isort -<CR>
 else
     nnoremap <Leader>is :echo "isort is not installed"<CR>
 endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " prettier
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if executable("prettier")
     nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
 else
     nnoremap <Leader>pt :echo "prettier is not installed"<CR>
 endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Surround
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 nnoremap cs({ m1F(m2%r}`2r{`1
 nnoremap cs{( m1F{m2%r)`2r(`1
 nnoremap cs([ m1F(m2%r]`2r[`1
@@ -1667,9 +1713,9 @@ vnoremap S( "zdi(<C-R>z)<Esc>
 vnoremap S{ "zdi{<C-R>z}<Esc>
 vnoremap S[ "zdi[<C-R>z]<Esc>
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " text object
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " "in line" (entire line sans white-space; cursor at beginning--ie, ^)
 xnoremap <silent> il :<C-u>normal! g_v^<CR>
 onoremap <silent> il :<C-u>normal! g_v^<CR>
@@ -1692,9 +1738,9 @@ onoremap <silent> ii :<C-u>call <sid>inIndentation()<CR>
 xnoremap <silent> ai :<C-u>call <sid>aroundIndentation()<CR>
 onoremap <silent> ai :<C-u>call <sid>aroundIndentation()<CR>
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Search in project
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 command! -nargs=+ -complete=file_in_path -bar Grep  silent! grep! <args> | redraw!
 command! -nargs=+ -complete=file_in_path -bar LGrep silent! lgrep! <args> | redraw!
 
@@ -1718,9 +1764,9 @@ endif
 " smooth listing
 cnoremap <expr> <CR> CCR()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " nvim
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if has('nvim')
     "command! Term terminal
     "command! VTerm vnew | terminal
@@ -1736,9 +1782,9 @@ endif
 
 """ === plugin config === {{{
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " netrw
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 "let g:netrw_altv         = 1 " open splits to the right
 "let g:netrw_browse_split = 4 " open in prior window
 "let g:netrw_liststyle    = 1 " Detail View

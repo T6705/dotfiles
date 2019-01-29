@@ -47,9 +47,9 @@ endif
 
 silent! if plug#begin('~/.config/nvim/plugged')
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " ColorScheme
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'flazz/vim-colorschemes'
@@ -60,54 +60,55 @@ Plug 'roosta/vim-srcery'
 Plug 'tomasr/molokai'
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Interface
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine'            " A vim plugin to display the indention levels with thin vertical lines
 Plug 'vim-airline/vim-airline'        " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
 
 
-"" ----------------------------------------------------------------------------------------
+"" -------------------------------------------------------------------------------
 "" latex
-"" ----------------------------------------------------------------------------------------
+"" -------------------------------------------------------------------------------
 "Plug 'donRaphaco/neotex', Cond(has('nvim'), { 'do': function('DoRemote'), 'for': 'tex' })
 "Plug 'lervag/vimtex', { 'for': 'tex' }
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " markdown
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 "Plug 'plasticboy/vim-markdown', { 'for': 'markdown', 'on': [] }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " golang
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if executable("go")
     Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 endif
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " dart
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if executable("dart")
     Plug 'dart-lang/dart-vim-plugin'
 endif
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " html
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 Plug 'mattn/emmet-vim', { 'for': ['*html', '*css', '*jsx', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " javascript
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
+Plug 'burnettk/vim-angular'                                                                  " AngularJS with Vim
 Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }        " deoplete.nvim source for javascript
 Plug 'moll/vim-node', { 'for': 'javascript' }                                                " Tools and environment to make Vim superb for developing with Node.js
 Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }                              " React JSX syntax highlighting and indenting for vim.
@@ -115,9 +116,9 @@ Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }   
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' } " Tern plugin for Vim
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " lint & autoformat
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
@@ -125,9 +126,9 @@ Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for 
 Plug 'w0rp/ale' " Asynchronous Lint Engine
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Auto Completion
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 elseif v:version >= 800
@@ -156,9 +157,9 @@ if executable("tmux")
     Plug 'wellle/tmux-complete.vim' " Vim plugin for insert mode completion of words in adjacent tmux panes
 endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Snippet
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 Plug 'Shougo/neosnippet'          " snippets support
 Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnippet
 if v:version >= 704
@@ -167,9 +168,9 @@ endif
 Plug 'honza/vim-snippets'         " vim-snipmate default snippets
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " textobj
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 Plug 'kana/vim-textobj-user'                    " Create your own textobj
 Plug 'akiyan/vim-textobj-php', { 'for': 'php' } " aP/iP for a range between the PHP delimiters such as <?php and ?>
 Plug 'deris/vim-textobj-ipmac'                  " aA/iA for ipv4, ipv6, MAC Address
@@ -178,9 +179,9 @@ Plug 'kana/vim-textobj-indent'                  " ai/ii for a block of similarly
 Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " utilities
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }             " perform diffs on blocks of code
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                       " Interactive command execution in Vim.

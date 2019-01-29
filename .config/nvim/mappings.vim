@@ -13,9 +13,9 @@ command! Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
 
 command! PU PlugUpdate | PlugUpgrade
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Copy and Paste
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 "" have x (removes single character) not go into the default registry
 "nnoremap x "_x
 
@@ -400,9 +400,12 @@ nnoremap <silent> <Leader>DW ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 " Recompute syntax highlighting
 nnoremap <silent> <Leader>ss :syntax sync fromstart<CR>
 
-" ----------------------------------------------------------------------------------------
+" alignment function
+nnoremap <silent>  ;=  :AlignAssignments<CR>
+
+" -------------------------------------------------------------------------------
 " vimux
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Inspect runner pane
 nnoremap <silent> <Leader>vi :VimuxInspectRunner<CR>
 
@@ -421,27 +424,27 @@ nnoremap <silent> <Leader>vx :VimuxInterruptRunner<CR>
 " Zoom the runner pane (use <bind-key> z to restore runner pane)
 nnoremap <silent> <Leader>vz :call VimuxZoomRunner()<CR>
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " isort
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if executable("isort")
     nnoremap <silent> <Leader>is :%!isort -<CR>
 else
     nnoremap <Leader>is :echo "isort is not installed"<CR>
 endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " prettier
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if executable("prettier")
     nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
 else
     nnoremap <Leader>pt :echo "prettier is not installed"<CR>
 endif
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Surround
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Maps ss to surround word
 nmap ss ysiw
 
@@ -499,9 +502,9 @@ vnoremap S( "zdi(<C-R>z)<Esc>
 vnoremap S{ "zdi{<C-R>z}<Esc>
 vnoremap S[ "zdi[<C-R>z]<Esc>
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " text object
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " "in line" (entire line sans white-space; cursor at beginning--ie, ^)
 xnoremap <silent> il :<C-u>normal! g_v^<CR>
 onoremap <silent> il :<C-u>normal! g_v^<CR>
@@ -524,9 +527,9 @@ onoremap <silent> ii :<C-u>call <sid>inIndentation()<CR>
 xnoremap <silent> ai :<C-u>call <sid>aroundIndentation()<CR>
 onoremap <silent> ai :<C-u>call <sid>aroundIndentation()<CR>
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " Search in project
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 command! -nargs=+ -complete=file_in_path -bar Grep  silent! grep! <args> | redraw!
 command! -nargs=+ -complete=file_in_path -bar LGrep silent! lgrep! <args> | redraw!
 
@@ -550,9 +553,9 @@ endif
 " smooth listing
 cnoremap <expr> <CR> CCR()
 
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 " nvim
-" ----------------------------------------------------------------------------------------
+" -------------------------------------------------------------------------------
 if has('nvim')
     "command! Term terminal
     "command! VTerm vnew | terminal
