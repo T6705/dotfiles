@@ -674,6 +674,18 @@ fu! PythonAbbrev()
     inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
 endfu
 
+fu! CompleteTags()
+    if has('nvim')
+        inoremap <buffer> > ></<C-x><C-o><C-n><Cr><Esc>:startinsert!<CR><C-O>?</<CR>
+        inoremap <buffer> ><CR> ></<C-x><C-o><C-n><Cr><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
+    else
+        inoremap <buffer> > ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR>
+        inoremap <buffer> ><CR> ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
+    endif
+    inoremap <buffer> ><Leader> >
+endfu
+command! CompleteTags call CompleteTags()
+
 " -------------------------------------------------------------------------------
 " make list-like commands more intuitive
 " -------------------------------------------------------------------------------

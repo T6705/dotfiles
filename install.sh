@@ -167,6 +167,16 @@ install_dunst() {
     elif command -v pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm dunst dunstify notify-osd
     fi
+
+    echo ""
+    echo "==========================="
+    echo "== Download dunst config =="
+    echo "==========================="
+    echo ""
+    curl -fLo ~/.config/dunst/Reload_dunst.sh \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/dunst/Reload_dunst.sh
+    curl -fLo ~/.config/dunst/dunstrc \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/dunst/dunstrc
 }
 
 install_dependencies() {
@@ -215,7 +225,7 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel
         sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt yay
-        sudo pacman -S --needed --noconfirm curl fontconfig git neovim npm ntp python-pip python2-pip ranger ruby-rouge termite time tmux vim xclip xsel zsh
+        sudo pacman -S --needed --noconfirm bat curl fd fontconfig git neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge termite time tmux vim xclip xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"
@@ -674,7 +684,7 @@ install_zsh() {
         sudo cp -v ./*.ttf /usr/share/fonts/opentype/noto
         sudo fc-cache -f -v # optional
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm "$(pacman -Ssq noto | grep font)"
+        for i in $(pacman -Ssq noto | grep -E ^noto); do sudo pacman -S --needed --noconfirm $i ; done
     fi
 
     echo ""

@@ -43,6 +43,7 @@ augroup END
 augroup html_js_css
     au!
     au BufRead,BufNewFile *.{css,html,js} setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+    au BufRead,BufNewFile *.{html,js,xml} CompleteTags
 augroup END
 
 " Close vim if the only window left open is a NERDTree or quickfix
@@ -1282,6 +1283,18 @@ fu! PythonAbbrev()
     inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
 endfu
 
+fu! CompleteTags()
+    if has('nvim')
+        inoremap <buffer> > ></<C-x><C-o><C-n><Cr><Esc>:startinsert!<CR><C-O>?</<CR>
+        inoremap <buffer> ><CR> ></<C-x><C-o><C-n><Cr><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
+    else
+        inoremap <buffer> > ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR>
+        inoremap <buffer> ><CR> ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
+    endif
+    inoremap <buffer> ><Leader> >
+endfu
+command! CompleteTags call CompleteTags()
+
 " -------------------------------------------------------------------------------
 " make list-like commands more intuitive
 " -------------------------------------------------------------------------------
@@ -1320,6 +1333,34 @@ fu! CCR()
     else
         return "\<CR>"
     endif
+endfu
+
+fu! s:align_around_delimiter() abort
+    let delim = input('delimiter: ')
+    let indent_pat = '^' . matchstr(getline('.'), '^\s*') . '\S'
+    let firstline = search('^\%('. indent_pat . '\)\@!','bnW') + 1
+    let lastline = search('^\%('. indent_pat . '\)\@!', 'nW') - 1
+    if lastline < 0
+        let lastline = line('$')
+    endif
+    let max_align_col = 0
+    let max_op_width = 0
+    for linetext in getline(firstline, lastline)
+        let left_width = match(linetext, '\s*' . delim)
+        if left_width >= 0
+            let max_align_col = max([max_align_col, left_width])
+            let op_width = strlen(matchstr(linetext, delim))
+            let max_op_width = max([max_op_width, op_width+1])
+        endif
+    endfor
+    let LINE = '^\(.\{-}\)\s*\(' . delim . '\)'
+    let FORMATTER = '\=printf("%-*s%*s", max_align_col, submatch(1),
+    \                                    max_op_width, submatch(2))'
+    for linenum in range(firstline, lastline)
+        let oldline = getline(linenum)
+        let newline = substitute(oldline, LINE, FORMATTER, "")
+        call setline(linenum, newline)
+    endfor
 endfu
 
 fu! AlignAssignments ()
@@ -1676,7 +1717,9 @@ nnoremap <silent> <Leader>DW ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
 nnoremap <silent> <Leader>ss :syntax sync fromstart<CR>
 
 " alignment function
-nnoremap <silent>  ;=  :AlignAssignments<CR>
+"nnoremap <silent>  ;=  :AlignAssignments<CR>
+nnoremap <silent> ga :<c-u>call <sid>align_around_delimiter()<CR>
+
 " -------------------------------------------------------------------------------
 " isort
 " -------------------------------------------------------------------------------
