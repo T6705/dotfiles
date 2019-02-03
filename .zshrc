@@ -15,6 +15,9 @@ export LC_ALL=
 
 export BETTER_EXCEPTIONS=1
 
+# improved less option
+export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 

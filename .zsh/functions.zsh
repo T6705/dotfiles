@@ -11,6 +11,20 @@ fi
 ## functions ##
 ###############
 
+ramdisk_on() {
+    if ! [[ -d "/mnt/ramdisk" ]]; then
+        size=$1
+        echo " * create mount point '/mnt/ramdisk'"
+        sudo mkdir -p /mnt/ramdisk
+    fi
+
+    echo "create ramdisk with size: $size"
+    sudo mount -t tmpfs tmpfs /mnt/ramdisk -o size=$size
+
+    echo ""
+    df -h | grep ramdisk
+}
+
 if ! command -v trim_string &> /dev/null ; then
     trim_string() {
         # Usage: trim_string "   example   string    "

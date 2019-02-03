@@ -556,7 +556,7 @@ cnoremap <expr> <CR> CCR()
 " -------------------------------------------------------------------------------
 " nvim
 " -------------------------------------------------------------------------------
-if has('nvim')
+if has('nvim') || has('terminal')
     "command! Term terminal
     "command! VTerm vnew | terminal
 

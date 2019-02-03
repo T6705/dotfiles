@@ -308,81 +308,87 @@ let g:codi#interpreters = {
 " -------------------------------------------------------------------------------
 " Shougo deoplete/neocomplete
 " -------------------------------------------------------------------------------
-if has('nvim') || v:version >= 800
-    " deoplete
-    let g:deoplete#enable_at_startup           = 1
-    let g:deoplete#sources#jedi#enable_cache   = 1
-    let g:deoplete#sources#jedi#show_docstring = 0
+let g:deoplete#enable_at_startup           = 1
 
-    " https://github.com/zchee/deoplete-go
-    let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-    let g:deoplete#sources#go#package_dot   = 1
-    let g:deoplete#sources#go#pointer       = 1
-    let g:deoplete#sources#go#sort_class    = ['package', 'func', 'type', 'var', 'const']
-else
-    " neocomplete
-    "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    let g:acp_enableAtStartup                           = 0 " Disable AutoComplPop.
-    let g:neocomplete#enable_at_startup                 = 1 " Use neocomplete.
-    let g:neocomplete#enable_smart_case                 = 1 " Use smartcase.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3 " Set minimum syntax keyword length.
-    let g:neocomplete#lock_buffer_name_pattern          = '\*ku\*'
+" ---------------------------------------
+" https://github.com/zchee/deoplete-clang
+" ---------------------------------------
+let g:deoplete#sources#clang#libclang_path           = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header            = '/usr/lib/clang'
 
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
+" ------------------------------------
+" https://github.com/zchee/deoplete-go
+" ------------------------------------
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#package_dot   = 1
+let g:deoplete#sources#go#pointer       = 1
+let g:deoplete#sources#go#sort_class    = ['package', 'func', 'type', 'var', 'const']
 
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" --------------------------------------
+" https://github.com/zchee/deoplete-jedi
+" --------------------------------------
+let g:deoplete#sources#jedi#show_docstring = 1
 
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
+" -------------------------------------------
+" https://github.com/carlitux/deoplete-ternjs
+" -------------------------------------------
+" Set bin if you have many instalations
+let g:deoplete#sources#ternjs#tern_bin = '/usr/bin/tern'
+let g:deoplete#sources#ternjs#timeout = 1
 
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? "\<C-y>" : "\<CR>"
-    endfu
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+" Whether to include the types of the completions in the result data. Default: 0
+let g:deoplete#sources#ternjs#types = 1
 
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
+" Whether to include the distance (in scopes for variables, in prototypes for
+" properties) between the completions and the origin position in the result
+" data. Default: 0
+let g:deoplete#sources#ternjs#depths = 1
 
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+" Whether to include documentation strings (if found) in the result data.
+" Default: 0
+let g:deoplete#sources#ternjs#docs = 1
 
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" When on, only completions that match the current word at the given point will
+" be returned. Turn this off to get all results, so that you can filter on the
+" client side. Default: 1
+let g:deoplete#sources#ternjs#filter = 0
 
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-endif
+" Whether to use a case-insensitive compare between the current word and
+" potential completions. Default 0
+let g:deoplete#sources#ternjs#case_insensitive = 1
 
+" When completing a property and no completions are found, Tern will use some
+" heuristics to try and return some properties anyway. Set this to 0 to
+" turn that off. Default: 1
+let g:deoplete#sources#ternjs#guess = 0
+
+" Determines whether the result set will be sorted. Default: 1
+let g:deoplete#sources#ternjs#sort = 0
+
+" When disabled, only the text before the given position is considered part of
+" the word. When enabled (the default), the whole variable name that the cursor
+" is on will be included. Default: 1
+let g:deoplete#sources#ternjs#expand_word_forward = 0
+
+" Whether to ignore the properties of Object.prototype unless they have been
+" spelled out by at least two characters. Default: 1
+let g:deoplete#sources#ternjs#omit_object_prototype = 0
+
+" Whether to include JavaScript keywords when completing something that is not
+" a property. Default: 0
+let g:deoplete#sources#ternjs#include_keywords = 1
+
+" If completions should be returned when inside a literal. Default: 1
+let g:deoplete#sources#ternjs#in_literal = 0
+
+
+"Add extra filetypes
+let g:deoplete#sources#ternjs#filetypes = [
+                \ 'jsx',
+                \ 'javascript.jsx',
+                \ 'vue',
+                \ '...'
+                \ ]
 
 " -------------------------------------------------------------------------------
 " Asynchronous Lint Engine

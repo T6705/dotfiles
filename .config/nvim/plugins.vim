@@ -6,7 +6,7 @@ endfu
 
 fu! BuildYCM(info)
   if a:info.status == 'installed' || a:info.force
-    !./install.py --clang-completer --gocode-completer
+    !./install.py --clang-completer --gocode-completer --java-completer
   endif
 endfu
 
@@ -109,7 +109,6 @@ Plug 'mattn/emmet-vim', { 'for': ['*html', '*css', '*jsx', 'php'] } " emmet supp
 " -------------------------------------------------------------------------------
 " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
 Plug 'burnettk/vim-angular'                                                                  " AngularJS with Vim
-Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }        " deoplete.nvim source for javascript
 Plug 'moll/vim-node', { 'for': 'javascript' }                                                " Tools and environment to make Vim superb for developing with Node.js
 Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }                              " React JSX syntax highlighting and indenting for vim.
 Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }                " Yet Another JavaScript Syntax for Vim
@@ -123,39 +122,33 @@ Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'np
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
-Plug 'w0rp/ale' " Asynchronous Lint Engine
+Plug 'w0rp/ale'                                " Asynchronous Lint Engine
 
 
 " -------------------------------------------------------------------------------
 " Auto Completion
 " -------------------------------------------------------------------------------
+"Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'java', 'python'], 'do': function('BuildYCM') }
+
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 elseif v:version >= 800
     Plug 'Shougo/deoplete.nvim' " Dark powered asynchronous completion framework for neovim/Vim8
     Plug 'roxma/nvim-yarp'      " Yet Another Remote Plugin Framework for Neovim
     Plug 'roxma/vim-hug-neovim-rpc'
-else
-    Plug 'Shougo/neocomplete.vim' " Next generation completion framework after neocomplcache
 endif
+"Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
+Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
+Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 
-if executable("python")
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-endif
-
-if executable("php")
-    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-endif
-
-if executable("go")
-    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-endif
-
-if executable("tmux")
-    Plug 'prabirshrestha/async.vim'
-    Plug 'prabirshrestha/asyncomplete.vim'
-    Plug 'wellle/tmux-complete.vim' " Vim plugin for insert mode completion of words in adjacent tmux panes
-endif
+"if executable("tmux")
+"    Plug 'prabirshrestha/async.vim'
+"    Plug 'prabirshrestha/asyncomplete.vim'
+"    Plug 'wellle/tmux-complete.vim' " Vim plugin for insert mode completion of words in adjacent tmux panes
+"endif
 
 " -------------------------------------------------------------------------------
 " Snippet

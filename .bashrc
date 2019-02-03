@@ -13,6 +13,9 @@ export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_ALL=
 
+# improved less option
+export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
+
 export BETTER_EXCEPTIONS=1
 
 # ~/.bashrc: executed by bash(1) for non-login shells.

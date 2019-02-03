@@ -271,6 +271,12 @@ install_games() {
     fi
 }
 
+install_draw() {
+    if command -v pacman &> /dev/null; then
+        pacman -S --needed --noconfirm gimp inkscape krita
+    fi
+}
+
 install_i3() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y compton feh i3 maim mpv playerctl rofi scrot snapd vlc
@@ -853,6 +859,14 @@ install_editor() {
     install_vim
 }
 
+install_all() {
+    install_dependencies
+    install_dots
+    install_games
+    install_draw
+    install_de
+}
+
 main() {
     # if no command line arg given
     if [ -z "$1" ]; then
@@ -870,6 +884,7 @@ main() {
         "editor")       install_editor;;
         "file_manager") install_file_manager;;
         "games")        install_games;;
+        "draw")         install_draw;;
         "i3")           install_i3;;
         "ibus")         install_ibus;;
         "spacemacs")    install_spacemacs;;
@@ -878,6 +893,7 @@ main() {
         "tmux")         install_tmux;;
         "vim")          install_vim;;
         "zsh")          install_zsh;;
+        "all")          install_all;;
         "None")
             echo "bash install.sh <options>/all"
             echo "options:"
@@ -885,6 +901,7 @@ main() {
             echo "├─ dependencies"
             echo "├─ dots"
             echo "├─ games"
+            echo "├─ draw"
             echo "└─ de"
             echo "   ├─ dunst"
             echo "   ├─ i3"

@@ -1091,6 +1091,49 @@ command! EX if !empty(expand('%'))
          \|   echohl None
          \| endif
 
+" -------------------------------------------------------------------------------
+" compile_and_run | <Leader>cr
+" -------------------------------------------------------------------------------
+fu! Compile_and_Run()
+    if has('terminal')
+        exec 'w'
+        let l:r=15
+        let l:name="vim-term"
+        let l:opts = {}
+        let l:opts.term_name = l:name
+        let l:opts.term_rows = l:r
+        let l:cmd = ''
+        if &filetype == 'sh'
+            "exec 'term ++rows='.r.'time bash '.expand('%')
+            let l:cmd="bash ".expand('%')
+        elseif &filetype == 'php'
+            "exec 'term ++rows='.r.'time php '.expand('%')
+            let l:cmd="php ".expand('%')
+        elseif &filetype == 'python'
+            "exec 'term ++rows='.r.'time python3 '.expand('%')
+            let l:cmd="python3 ".expand('%')
+        elseif &filetype == 'go'
+            "exec 'term ++rows='.r.'time go run '.expand('%')
+            let l:cmd="go run ".expand('%')
+        else
+            let l:cmd=$SHELL
+        endif
+        if &buftype == 'terminal'
+            let l:opts.curwin = v:true
+        else
+            let l:windowsWithTerminal = filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "terminal"')
+            if !empty(l:windowsWithTerminal)
+                execute l:windowsWithTerminal[0] . 'wincmd w'
+                let l:opts.curwin = v:true
+            endif
+        endif
+        call term_start(l:cmd, l:opts)
+        exec 'wincmd k'
+    else
+        echo "no terminal =["
+    endif
+endfu
+command! CompileandRun call Compile_and_Run()
 
 " -------------------------------------------------------------------------------
 " :ChangeEncoding
@@ -1693,6 +1736,9 @@ vnoremap <silent> <Leader>f za<CR>
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
 vnoremap . :norm.<CR>
 
+" compile and run
+noremap <silent> <Leader>cr :CompileandRun<CR>
+
 " Markdown headings
 nnoremap <silent> <Leader>1 m`yypVr=``
 nnoremap <silent> <Leader>2 m`yypVr-``
@@ -1810,7 +1856,7 @@ cnoremap <expr> <CR> CCR()
 " -------------------------------------------------------------------------------
 " nvim
 " -------------------------------------------------------------------------------
-if has('nvim')
+if has('nvim') || has('terminal')
     "command! Term terminal
     "command! VTerm vnew | terminal
 
