@@ -114,10 +114,8 @@ if empty(glob('~/.vim/colors/molokai.vim'))
     echo "Installing molokai.vim"
     echo ""
     silent !curl -fLo ~/.vim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
-    colorscheme molokai
-else
-    colorscheme molokai
 endif
+colorscheme molokai
 "filetype on
 filetype indent on    " load filetype-specific indent files
 filetype plugin on
@@ -138,7 +136,9 @@ set shortmess+=s      " no search hit bottom crap
 set shortmess+=t      " truncate file message
 set shortmess+=T      " truncate messages in the middle
 set shortmess+=I      " no intro message
-set shortmess+=c      " no ins-completion messages
+if has("patch-7.4.314")
+    set shortmess+=c      " no ins-completion messages
+endif
 if !&scrolloff
     set scrolloff=3   " 3 lines above/below cursor when scrolling
 endif

@@ -252,10 +252,23 @@ elif command -v ccat &> /dev/null ; then
     alias cat='ccat --bg=dark'
 fi
 
-# fast Vim that doesn't load a vimrc or plugins
-alias vimn='vim -n -u NONE -i NONE -N'
-# fast Neovim that doesn't load a vimrc or plugins
-alias nvimn='nvim -u NONE -i NONE -N'
+if command -v vim &> /dev/null ; then
+    if [ -f ~/minimal.vimrc ] ; then
+        # fast Vim that doesn't load plugins
+        alias vimn='vim -u ~/minimal.vimrc'
+    fi
+    # fast Vim that doesn't load a vimrc or plugins
+    alias vimnn='vim -n -u NONE -i NONE -N'
+fi
+
+if command -v nvim &> /dev/null ; then
+    if [ -f ~/minimal.vimrc ] ; then
+        # fast Neovim that doesn't load plugins
+        alias nvimn='nvim -u ~/minimal.vimrc'
+    fi
+    # fast Neovim that doesn't load a vimrc or plugins
+    alias nvimnn='nvim -u NONE -i NONE -N'
+fi
 
 # sshlf 1234:127.0.0.1:4321 name@127.0.0.1
 alias sshlf="ssh -gNfL"

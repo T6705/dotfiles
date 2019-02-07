@@ -227,13 +227,19 @@ nmap <Leader>l :set list!<CR>
 " -------------------------------------------------------------------------------
 " UI
 " -------------------------------------------------------------------------------
-if empty(glob('~/.vim/colors/molokai.vim'))
+if has('nvim')
+    let g:molokai_path = expand('~/.config/nvim/colors/molokai.vim')
+else
+    let g:molokai_path = expand('~/.vim/colors/molokai.vim')
+endif
+if empty(glob(g:molokai_path))
     if !executable("curl")
         echoerr "You have to install curl or install molokai.vim yourself!"
+    else
+        echo "Installing molokai.vim"
+        echo ""
+        silent exe "!curl -fLo " . g:molokai_path . " --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim"
     endif
-    echo "Installing molokai.vim"
-    echo ""
-    silent !curl -fLo ~/.vim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
 endif
 colorscheme molokai
 "filetype on
@@ -256,7 +262,9 @@ set shortmess+=s      " no search hit bottom crap
 set shortmess+=t      " truncate file message
 set shortmess+=T      " truncate messages in the middle
 set shortmess+=I      " no intro message
-set shortmess+=c      " no ins-completion messages
+if has("patch-7.4.314")
+    set shortmess+=c      " no ins-completion messages
+endif
 if !&scrolloff
     set scrolloff=3   " 3 lines above/below cursor when scrolling
 endif
@@ -531,13 +539,18 @@ endif
 " :LightTheme (PaperColor)
 " -------------------------------------------------------------------------------
 fu! LightTheme()
-    if empty(glob('~/.vim/colors/PaperColor.vim'))
+    if has('nvim')
+        let g:PaperColor_path = expand('~/.config/nvim/colors/PaperColor.vim')
+    else
+        let g:PaperColor_path = expand('~/.vim/colors/PaperColor.vim')
+    endif
+    if empty(glob(g:PaperColor_path))
         if !executable("curl")
             echoerr "You have to install curl or install PaperColor.vim yourself!"
         endif
         echo "Installing PaperColor.vim"
         echo ""
-        silent !curl -fLo ~/.vim/colors/PaperColor.vim --create-dirs https://raw.githubusercontent.com/NLKNguyen/papercolor-theme/master/colors/PaperColor.vim
+        silent exe "!curl -fLo " . g:PaperColor_path .  " --create-dirs https://raw.githubusercontent.com/NLKNguyen/papercolor-theme/master/colors/PaperColor.vim"
         "let g:transparent_background = 1
     endif
     let g:allow_bold=1
@@ -554,13 +567,18 @@ command! LightTheme call LightTheme()
 " :DarkTheme (Molokai)
 " -------------------------------------------------------------------------------
 fu! DarkTheme()
-    if empty(glob('~/.vim/colors/molokai.vim'))
+    if has('nvim')
+        let g:molokai_path = expand('~/.config/nvim/colors/molokai.vim')
+    else
+        let g:molokai_path = expand('~/.vim/colors/molokai.vim')
+    endif
+    if empty(glob(g:molokai_path))
         if !executable("curl")
             echoerr "You have to install curl or install molokai.vim yourself!"
         endif
         echo "Installing molokai.vim"
         echo ""
-        silent !curl -fLo ~/.vim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+        silent exe "!curl -fLo " . g:molokai_path . " --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim"
     endif
     set background=dark
     colorscheme molokai
@@ -574,13 +592,18 @@ command! DarkTheme call DarkTheme()
 " :GruvboxLight
 " -------------------------------------------------------------------------------
 fu! GruvboxLight()
-    if empty(glob('~/.vim/colors/gruvbox.vim'))
+    if has('nvim')
+        let g:gruvbox_path = expand('~/.config/nvim/colors/gruvbox.vim')
+    else
+        let g:gruvbox_path = expand('~/.vim/colors/gruvbox.vim')
+    endif
+    if empty(glob(g:gruvbox_path))
         if !executable("curl")
             echoerr "You have to install curl or install gruvbox.vim yourself!"
         endif
         echo "Installing gruvbox.vim"
         echo ""
-        silent !curl -fLo ~/.vim/colors/gruvbox.vim --create-dirs https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
+        silent exe "!curl -fLo " . g:gruvbox_path . " --create-dirs https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim"
     endif
     let g:gruvbox_italic=1
     let g:gruvbox_contrast_light="hard"
@@ -596,13 +619,18 @@ command! GruvboxLight call GruvboxLight()
 " :GruvboxDark
 " -------------------------------------------------------------------------------
 fu! GruvboxDark()
-    if empty(glob('~/.vim/colors/gruvbox.vim'))
+    if has('nvim')
+        let g:gruvbox_path = expand('~/.config/nvim/colors/gruvbox.vim')
+    else
+        let g:gruvbox_path = expand('~/.vim/colors/gruvbox.vim')
+    endif
+    if empty(glob(g:gruvbox_path))
         if !executable("curl")
             echoerr "You have to install curl or install gruvbox.vim yourself!"
         endif
         echo "Installing gruvbox.vim"
         echo ""
-        silent !curl -fLo ~/.vim/colors/gruvbox.vim --create-dirs https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim
+        silent exe "!curl -fLo " . g:gruvbox_path . " --create-dirs https://raw.githubusercontent.com/morhetz/gruvbox/master/colors/gruvbox.vim"
     endif
     let g:gruvbox_italic=1
     let g:gruvbox_contrast_dark="soft"
