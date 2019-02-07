@@ -206,13 +206,13 @@ fu! s:inIndentation()
     endif
 
     " go to start (this includes empty lines) and--importantly--column 0
-    execute 'normal! '.l:start.'G0'
+    exe 'normal! '.l:start.'G0'
 
     " skip empty lines (unless already on one .. need to be in column 0)
     call search('^[^\n\r]', 'Wc')
 
     " go to end (this includes empty lines)
-    execute 'normal! Vo'.l:end.'G'
+    exe 'normal! Vo'.l:end.'G'
 
     " skip backwards to last selected non-empty line
     call search('^[^\n\r]', 'bWc')
@@ -280,7 +280,7 @@ fu! s:aroundIndentation()
         " desired for probably every circumstance; therefore, only subtract one
         " if the search() succeeded since this means that it will match at least
         " one line too far down
-        " NOTE: exec "norm! 0G" still goes to end-of-buffer just like "norm! G",
+        " NOTE: exe "norm! 0G" still goes to end-of-buffer just like "norm! G",
         "       so it's ok if l:end is kept as 0. As mentioned above, this means
         "       that it will match until end of buffer, but that is what I want
         "       anyway (change code if you don't want)
@@ -288,7 +288,7 @@ fu! s:aroundIndentation()
     endif
 
     " finally, select from l:start to l:end
-    execute 'normal! '.l:start.'G0V'.l:end.'G$o'
+    exe 'normal! '.l:start.'G0V'.l:end.'G$o'
 
     " restore magic
     let &magic = l:magic
@@ -334,12 +334,12 @@ fu! s:history(goNewer)
         if (a:goNewer && s:isLast()) || (!a:goNewer && s:isFirst()) | break | endif
         " Run the command. Use :silent to suppress message-history output.
         " Note that the :try wrapper is no longer necessary
-        silent execute l:cmd
+        silent exe l:cmd
         if s:length() | break | endif
     endwhile
 
     " Set the height of the quickfix window to the size of the list, max-height 10
-    execute 'resize' min([ 10, max([ 1, s:length() ]) ])
+    exe 'resize' min([ 10, max([ 1, s:length() ]) ])
 
     " Echo a description of the new quickfix / location list.
     " And make it look like a rainbow.
@@ -370,7 +370,7 @@ fu! ClearQuickfixList()
 endfu
 fu! Vimgrepall(pattern)
     call ClearQuickfixList()
-    exe 'bufdo noautocmd vimgrepadd ' . a:pattern . ' %'
+    exe 'bufdo noau vimgrepadd ' . a:pattern . ' %'
     cnext
     cwindow
 endfu
@@ -396,7 +396,7 @@ fu! ClearRegisters()
     let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
     let i=0
     while (i<strlen(regs))
-        exec 'let @'.regs[i].'=""'
+        exe 'let @'.regs[i].'=""'
         let i=i+1
     endwhile
 endfu
@@ -408,9 +408,9 @@ command! ClearRegisters call ClearRegisters()
 if ! has('nvim')
     fu! RangerExplorer()
         if executable("ranger")
-            exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
+            exe "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
             if filereadable('/tmp/vim_ranger_current_file')
-                exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
+                exe 'edit ' . system('cat /tmp/vim_ranger_current_file')
                 call system('rm /tmp/vim_ranger_current_file')
             endif
             redraw!
@@ -436,13 +436,13 @@ command! EX if !empty(expand('%'))
 " compile_and_run | <Leader>cr
 " -------------------------------------------------------------------------------
 fu! Compile_and_Run()
-    exec 'w'
+    exe 'w'
     if &filetype == 'c'
         call VimuxRunCommand('time gcc -O3 -Wall -Wextra '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
     elseif &filetype == 'cpp'
         call VimuxRunCommand('time g++ -O3 -Wall -Wextra -std=c++11 '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
     elseif &filetype == 'java'
-        exec 'cd %:p:h'
+        exe 'cd %:p:h'
         call VimuxRunCommand('time javac '.expand('%').' && time java '.expand('%<'))
     elseif &filetype == 'sh'
         call VimuxRunCommand('time bash '.expand('%'))
@@ -463,13 +463,43 @@ fu! ChangeEncoding()
     if executable("file")
         let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
         if result =~ "Little-endian UTF-16" && &enc != "utf-16le"
-            exec "e ++enc=utf-16le"
+            exe "e ++enc=utf-16le"
         elseif result =~ "ISO-8859" && &enc != "iso-8859-1"
-            exec "e ++enc=iso-8859-1"
+            exe "e ++enc=iso-8859-1"
         endif
     endif
 endfu
 command! ChangeEncoding call ChangeEncoding()
+
+" -------------------------------------------------------------------------------
+" :SetTitle
+" -------------------------------------------------------------------------------
+fu! SetTitle()
+	if expand("%:e") == 'sh'
+		call setline(1,"\#!/bin/bash")
+		call append(line("."), "")
+    elseif expand("%:e") == 'py'
+        call setline(1,"#!/usr/bin/env python")
+        call append(line("."),"# coding=utf-8")
+	    call append(line(".")+1, "")
+    elseif expand("%:e") == 'rb'
+        call setline(1,"#!/usr/bin/env ruby")
+        call append(line("."),"# encoding: utf-8")
+	    call append(line(".")+1, "")
+    elseif expand("%:e") == 'cpp'
+		call setline(1, "#include <iostream>")
+		call append(line("."), "using namespace std;")
+		call append(line(".")+1, "")
+    elseif expand("%:e") == 'c'
+		call setline(1, "#include <stdio.h>")
+		call append(line("."), "")
+    elseif expand("%:e") == 'java'
+        exe 'cd %:p:h'
+		call setline(1, "public class ".expand("%<")." {")
+		call append(line("."), "}")
+    endif
+endfu
+command! SetTitle call SetTitle()
 
 " -------------------------------------------------------------------------------
 " :HandleSpecialFile
@@ -561,8 +591,8 @@ fu! HandleURL()
 
         echo s:uri
         if s:uri != ""
-            "silent exec "!elinks '".s:uri."'"
-            silent exec "!firefox '".s:uri."'"
+            "silent exe "!elinks '".s:uri."'"
+            silent exe "!firefox '".s:uri."'"
         else
             echo "No URI found in line."
         endif
@@ -575,8 +605,8 @@ command! OpenUrl call HandleURL()
 " -------------------------------------------------------------------------------
 fu! ShowMeUrl()
     %!grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,\!''*~-]*)?(\#[a-zA-Z0-9_/.\-+%\#?&=;@$,\!''*~]*)?"
-    silent exec "sort u"
-    silent exec "%s/'$//g"
+    silent exe "sort u"
+    silent exe "%s/'$//g"
 endfu
 command! ShowMeUrl call ShowMeUrl()
 
@@ -588,7 +618,7 @@ fu! s:root()
     if v:shell_error
         echo 'Not in git repo'
     else
-        execute 'lcd' root
+        exe 'lcd' root
         echo 'Changed directory to: '.root
     endif
 endfu
@@ -637,14 +667,14 @@ command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'd
 " move to the window in the direction shown, or create a new window
 fu! functions#WinMove(key)
     let t:curwin = winnr()
-    exec "wincmd ".a:key
+    exe "wincmd ".a:key
     if (t:curwin == winnr())
         if (match(a:key,'[jk]'))
             wincmd v
         else
             wincmd s
         endif
-        exec "wincmd ".a:key
+        exe "wincmd ".a:key
     endif
 endfu
 
@@ -790,13 +820,13 @@ command! AlignAssignments call AlignAssignments()
 "    endif
 "endfu
 
-"" execute a custom command
+"" exe a custom command
 "fu! functions#RunCustomCommand()
 "    up
 "    if g:silent_custom_command
-"        execute 'silent !' . s:customcommand
+"        exe 'silent !' . s:customcommand
 "    else
-"        execute '!' . s:customcommand
+"        exe '!' . s:customcommand
 "    endif
 "endfu
 

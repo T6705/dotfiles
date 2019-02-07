@@ -13,6 +13,8 @@ augroup configgroup
 
     au BufEnter * call NERDTreeRefresh() "
     au BufRead * call ChangeEncoding()
+    au BufNewFile * call SetTitle()
+    au BufNewFile * normal G
     au BufRead,BufNewFile *.{md,notes,todo,txt} setlocal spell " automtically turn on spell-checking
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
@@ -58,7 +60,7 @@ augroup END
 " Close vim if the only window left open is a NERDTree or quickfix
 augroup finalcountdown
     au!
-    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) || &buftype == 'quickfix' | q | endif
+    au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) || &buftype == 'quickfix' | q | endif
 augroup END
 
 " omnifuncs
@@ -78,7 +80,10 @@ augroup end
 " close preview on completion complete
 augroup completionhide
     au!
-    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+    au InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+    "if v:version > 703 || v:version == 703 && has('patch598')
+    "    au CompleteDone * if !&previewwindow && &completeopt =~ 'preview' | silent! pclose | endif
+    "endif
 augroup end
 
 " The PC is fast enough, do syntax highlight syncing from start unless 200 lines
@@ -132,7 +137,7 @@ augroup END
 
 "augroup Yanks
 "    autocmd!
-"    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank() | endif
+"    au TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank() | endif
 "augroup END
 
 ""google/vim-codefmt
@@ -154,7 +159,7 @@ augroup nerd_loader
     au BufEnter,BufNew *
                 \  if isdirectory(expand('<amatch>'))
                 \|   call plug#load('nerdtree')
-                \|   execute 'au! nerd_loader'
+                \|   exe 'au! nerd_loader'
                 \| endif
 augroup END
 """ }}}

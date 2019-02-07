@@ -5,6 +5,8 @@
 augroup configgroup
     au!
     au BufRead * call ChangeEncoding()
+    au BufNewFile * call SetTitle()
+    au BufNewFile * normal G
     au BufRead,BufNewFile *.{md,notes,todo,txt} setlocal spell " automtically turn on spell-checking
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
@@ -49,7 +51,7 @@ augroup END
 " Close vim if the only window left open is a NERDTree or quickfix
 augroup finalcountdown
     au!
-    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) || &buftype == 'quickfix' | q | endif
+    au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) || &buftype == 'quickfix' | q | endif
 augroup END
 
 " omnifuncs
@@ -69,7 +71,10 @@ augroup end
 " close preview on completion complete
 augroup completionhide
     au!
-    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+    au InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+    "if v:version > 703 || v:version == 703 && has('patch598')
+    "    au CompleteDone * if !&previewwindow && &completeopt =~ 'preview' | silent! pclose | endif
+    "endif
 augroup end
 
 " The PC is fast enough, do syntax highlight syncing from start unless 200 lines
@@ -116,7 +121,7 @@ augroup END
 
 "augroup Yanks
 "    autocmd!
-"    autocmd TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank() | endif
+"    au TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank() | endif
 "augroup END
 """ }}}
 
@@ -657,7 +662,7 @@ command! Osc52CopyYank call Osc52Yank()
 " -------------------------------------------------------------------------------
 fun! FilterClose(bufnr)
     wincmd p
-    execute "bwipe" a:bufnr
+    exe "bwipe" a:bufnr
     redraw
     echo "\r"
     return []
@@ -697,7 +702,7 @@ fun! Finder(input, prompt) abort
          let l:filter .= nr2char(ch)
          let l:seq_old = get(undotree(), 'seq_cur', 0)
          try " Ignore invalid regexps
-             execute 'silent keepp g!:\m' . escape(l:filter, '~\[:') . ':norm "_dd'
+             exe 'silent keepp g!:\m' . escape(l:filter, '~\[:') . ':norm "_dd'
          catch /^Vim\%((\a\+)\)\=:E/
              let l:error = 1
          endtry
@@ -730,7 +735,7 @@ fu! Buffers()
         let buffers = split(execute('ls'), "\n")
         let choice = Finder(buffers, 'Switch to buffer')
         if !empty(choice)
-            execute "buffer" split(choice[0], '\s\+')[0]
+            exe "buffer" split(choice[0], '\s\+')[0]
         endif
     endif
 endfu
@@ -745,7 +750,7 @@ fu! Colors()
                     \                'fnamemodify(v:val, ":t:r")')
         let choice = Finder(colorschemes, 'Choose colorscheme')
         if !empty(choice)
-            execute "colorscheme" choice[0]
+            exe "colorscheme" choice[0]
         endif
     endif
 endfu
@@ -754,7 +759,7 @@ command! Colors call Colors()
 fu! Files()
     if exists('v:t_string')
         if exists(":FZF") != 0
-            execute "FZF"
+            exe "FZF"
             let choice = ""
         elseif executable("rg")
             let choice = Finder('rg --files --no-ignore --hidden --follow .', "Choose file")
@@ -764,7 +769,7 @@ fu! Files()
             let choice = Finder('find . -type f', "Choose file")
         endif
         if !empty(choice)
-            execute "edit" choice[0]
+            exe "edit" choice[0]
         endif
     endif
 endfu
@@ -893,13 +898,13 @@ fu! s:inIndentation()
     endif
 
     " go to start (this includes empty lines) and--importantly--column 0
-    execute 'normal! '.l:start.'G0'
+    exe 'normal! '.l:start.'G0'
 
     " skip empty lines (unless already on one .. need to be in column 0)
     call search('^[^\n\r]', 'Wc')
 
     " go to end (this includes empty lines)
-    execute 'normal! Vo'.l:end.'G'
+    exe 'normal! Vo'.l:end.'G'
 
     " skip backwards to last selected non-empty line
     call search('^[^\n\r]', 'bWc')
@@ -967,7 +972,7 @@ fu! s:aroundIndentation()
         " desired for probably every circumstance; therefore, only subtract one
         " if the search() succeeded since this means that it will match at least
         " one line too far down
-        " NOTE: exec "norm! 0G" still goes to end-of-buffer just like "norm! G",
+        " NOTE: exe "norm! 0G" still goes to end-of-buffer just like "norm! G",
         "       so it's ok if l:end is kept as 0. As mentioned above, this means
         "       that it will match until end of buffer, but that is what I want
         "       anyway (change code if you don't want)
@@ -975,7 +980,7 @@ fu! s:aroundIndentation()
     endif
 
     " finally, select from l:start to l:end
-    execute 'normal! '.l:start.'G0V'.l:end.'G$o'
+    exe 'normal! '.l:start.'G0V'.l:end.'G$o'
 
     " restore magic
     let &magic = l:magic
@@ -1021,12 +1026,12 @@ fu! s:history(goNewer)
         if (a:goNewer && s:isLast()) || (!a:goNewer && s:isFirst()) | break | endif
         " Run the command. Use :silent to suppress message-history output.
         " Note that the :try wrapper is no longer necessary
-        silent execute l:cmd
+        silent exe l:cmd
         if s:length() | break | endif
     endwhile
 
     " Set the height of the quickfix window to the size of the list, max-height 10
-    execute 'resize' min([ 10, max([ 1, s:length() ]) ])
+    exe 'resize' min([ 10, max([ 1, s:length() ]) ])
 
     " Echo a description of the new quickfix / location list.
     " And make it look like a rainbow.
@@ -1057,7 +1062,7 @@ fu! ClearQuickfixList()
 endfu
 fu! Vimgrepall(pattern)
     call ClearQuickfixList()
-    exe 'bufdo noautocmd vimgrepadd ' . a:pattern . ' %'
+    exe 'bufdo noau vimgrepadd ' . a:pattern . ' %'
     cnext
     cwindow
 endfu
@@ -1083,7 +1088,7 @@ fu! ClearRegisters()
     let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
     let i=0
     while (i<strlen(regs))
-        exec 'let @'.regs[i].'=""'
+        exe 'let @'.regs[i].'=""'
         let i=i+1
     endwhile
 endfu
@@ -1095,9 +1100,9 @@ command! ClearRegisters call ClearRegisters()
 if ! has('nvim')
     fu! RangerExplorer()
         if executable("ranger")
-            exec "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
+            exe "silent !ranger --choosefile=/tmp/vim_ranger_current_file " . expand("%:p:h")
             if filereadable('/tmp/vim_ranger_current_file')
-                exec 'edit ' . system('cat /tmp/vim_ranger_current_file')
+                exe 'edit ' . system('cat /tmp/vim_ranger_current_file')
                 call system('rm /tmp/vim_ranger_current_file')
             endif
             redraw!
@@ -1124,24 +1129,37 @@ command! EX if !empty(expand('%'))
 " -------------------------------------------------------------------------------
 fu! Compile_and_Run()
     if has('terminal')
-        exec 'w'
+        exe 'w'
         let l:r=15
         let l:name="vim-term"
         let l:opts = {}
         let l:opts.term_name = l:name
         let l:opts.term_rows = l:r
         let l:cmd = ''
-        if &filetype == 'sh'
-            "exec 'term ++rows='.r.'time bash '.expand('%')
+        if &filetype == 'c'
+            echo 'compiling'
+            exe "!time gcc -O3 -Wall -Wextra % -o %<"
+            let l:cmd="time ".expand('%:p:r')
+        elseif &filetype == 'c'
+            echo 'compiling'
+            exe "!time g++ -O3 -Wall -Wextra -std=c++11 % -o %<"
+            let l:cmd="time ".expand('%:p:r')
+        elseif &filetype == 'java'
+            exe 'cd %:p:h'
+            echo 'compiling'
+            exe '!time javac %'
+            let l:cmd="time java ".expand('%<')
+        elseif &filetype == 'sh'
+            "exe 'term ++rows='.r.'time bash '.expand('%')
             let l:cmd="bash ".expand('%')
         elseif &filetype == 'php'
-            "exec 'term ++rows='.r.'time php '.expand('%')
+            "exe 'term ++rows='.r.'time php '.expand('%')
             let l:cmd="php ".expand('%')
         elseif &filetype == 'python'
-            "exec 'term ++rows='.r.'time python3 '.expand('%')
+            "exe 'term ++rows='.r.'time python3 '.expand('%')
             let l:cmd="python3 ".expand('%')
         elseif &filetype == 'go'
-            "exec 'term ++rows='.r.'time go run '.expand('%')
+            "exe 'term ++rows='.r.'time go run '.expand('%')
             let l:cmd="go run ".expand('%')
         else
             let l:cmd=$SHELL
@@ -1151,12 +1169,12 @@ fu! Compile_and_Run()
         else
             let l:windowsWithTerminal = filter(range(1, winnr('$')), 'getwinvar(v:val, "&buftype") == "terminal"')
             if !empty(l:windowsWithTerminal)
-                execute l:windowsWithTerminal[0] . 'wincmd w'
+                exe l:windowsWithTerminal[0] . 'wincmd w'
                 let l:opts.curwin = v:true
             endif
         endif
         call term_start(l:cmd, l:opts)
-        exec 'wincmd k'
+        exe 'wincmd k'
     else
         echo "no terminal =["
     endif
@@ -1170,13 +1188,43 @@ fu! ChangeEncoding()
     if executable("file")
         let result = system("file " . escape(escape(escape(expand("%"), ' '), '['), ']'))
         if result =~ "Little-endian UTF-16" && &enc != "utf-16le"
-            exec "e ++enc=utf-16le"
+            exe "e ++enc=utf-16le"
         elseif result =~ "ISO-8859" && &enc != "iso-8859-1"
-            exec "e ++enc=iso-8859-1"
+            exe "e ++enc=iso-8859-1"
         endif
     endif
 endfu
 command! ChangeEncoding call ChangeEncoding()
+
+" -------------------------------------------------------------------------------
+" :SetTitle
+" -------------------------------------------------------------------------------
+fu! SetTitle()
+    if expand("%:e") == 'sh'
+        call setline(1,"\#!/bin/bash")
+        call append(line("."), "")
+    elseif expand("%:e") == 'py'
+        call setline(1,"#!/usr/bin/env python")
+        call append(line("."),"# coding=utf-8")
+        call append(line(".")+1, "")
+    elseif expand("%:e") == 'rb'
+        call setline(1,"#!/usr/bin/env ruby")
+        call append(line("."),"# encoding: utf-8")
+        call append(line(".")+1, "")
+    elseif expand("%:e") == 'cpp'
+        call setline(1, "#include <iostream>")
+        call append(line("."), "using namespace std;")
+        call append(line(".")+1, "")
+    elseif expand("%:e") == 'c'
+        call setline(1, "#include <stdio.h>")
+        call append(line("."), "")
+    elseif expand("%:e") == 'java'
+        exe 'cd %:p:h'
+        call setline(1, "public class ".expand("%<")." {")
+        call append(line("."), "}")
+    endif
+endfu
+command! SetTitle call SetTitle()
 
 " -------------------------------------------------------------------------------
 " :HandleSpecialFile
@@ -1258,8 +1306,8 @@ fu! HandleURL()
 
         echo s:uri
         if s:uri != ""
-            "silent exec "!elinks '".s:uri."'"
-            silent exec "!firefox '".s:uri."'"
+            "silent exe "!elinks '".s:uri."'"
+            silent exe "!firefox '".s:uri."'"
         else
             echo "No URI found in line."
         endif
@@ -1272,8 +1320,8 @@ command! OpenUrl call HandleURL()
 " -------------------------------------------------------------------------------
 fu! ShowMeUrl()
     %!grep -oE "(http[s]?|ftp|file)://[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,\!''*~-]*)?(\#[a-zA-Z0-9_/.\-+%\#?&=;@$,\!''*~]*)?"
-    silent exec "sort u"
-    silent exec "%s/'$//g"
+    silent exe "sort u"
+    silent exe "%s/'$//g"
 endfu
 command! ShowMeUrl call ShowMeUrl()
 
@@ -1285,7 +1333,7 @@ fu! s:root()
     if v:shell_error
         echo 'Not in git repo'
     else
-        execute 'lcd' root
+        exe 'lcd' root
         echo 'Changed directory to: '.root
     endif
 endfu
@@ -1868,7 +1916,7 @@ nnoremap ;f :find <Right>
 nnoremap ;g :Grep <C-r><C-w><CR>
 xnoremap <Leader>g :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
                         \ call histadd("cmd", cmd) <bar>
-                        \ execute cmd<CR>
+                        \ exe cmd<CR>
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading

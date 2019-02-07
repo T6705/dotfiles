@@ -21,7 +21,7 @@ if has('nvim')
     if empty(glob('~/.config/nvim/autoload/plug.vim'))
         if !executable("curl")
             echoerr "You have to install curl or first install vim-plug yourself!"
-            execute "q!"
+            exe "q!"
         endif
         echo "Installing Vim-Plug..."
         echo ""
@@ -33,7 +33,7 @@ else
     if empty(glob('~/.vim/autoload/plug.vim'))
         if !executable("curl")
             echoerr "You have to install curl or first install vim-plug yourself!"
-            execute "q!"
+            exe "q!"
         endif
         echo "Installing Vim-Plug..."
         echo ""
@@ -128,21 +128,23 @@ Plug 'w0rp/ale'                                " Asynchronous Lint Engine
 " -------------------------------------------------------------------------------
 " Auto Completion
 " -------------------------------------------------------------------------------
-"Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'java', 'python'], 'do': function('BuildYCM') }
-
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-elseif v:version >= 800
-    Plug 'Shougo/deoplete.nvim' " Dark powered asynchronous completion framework for neovim/Vim8
-    Plug 'roxma/nvim-yarp'      " Yet Another Remote Plugin Framework for Neovim
-    Plug 'roxma/vim-hug-neovim-rpc'
+if has('python3')
+    if has('nvim')
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    elseif v:version >= 800
+        Plug 'Shougo/deoplete.nvim' " Dark powered asynchronous completion framework for neovim/Vim8
+        Plug 'roxma/nvim-yarp'      " Yet Another Remote Plugin Framework for Neovim
+        Plug 'roxma/vim-hug-neovim-rpc'
+    endif
+    "Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
+    Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }
+    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+    Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
+    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+else
+    Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'java', 'python'], 'do': function('BuildYCM') }
 endif
-"Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
-Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
-Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
 
 "if executable("tmux")
 "    Plug 'prabirshrestha/async.vim'
@@ -178,7 +180,9 @@ Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }             " perform diffs on blocks of code
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                       " Interactive command execution in Vim.
-Plug 'TaDaa/vimade'                                               " An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
+if v:version >= 800
+    Plug 'TaDaa/vimade'                                           " An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
+endif
 Plug 'VincentCordobes/vim-translate', { 'on': 'Translate' }       " A tiny translate-shell wrapper for Vim.
 Plug 'andymass/matchup.vim'                                       " vim match-up: matchit replacement and more
 Plug 'benmills/vimux'                                             " vim plugin to interact with tmux

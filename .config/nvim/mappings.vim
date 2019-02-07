@@ -540,7 +540,7 @@ nnoremap ;f :find <Right>
 nnoremap ;g :Grep <C-r><C-w><CR>
 xnoremap <Leader>g :<C-u>let cmd = "Grep " . visual#GetSelection() <bar>
                         \ call histadd("cmd", cmd) <bar>
-                        \ execute cmd<CR>
+                        \ exe cmd<CR>
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
