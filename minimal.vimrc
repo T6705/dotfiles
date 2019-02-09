@@ -158,6 +158,8 @@ cnoreabbrev Qall qall
 "endif
 "set clipboard=unnamed
 
+runtime macros/matchit.vim
+
 if has('patch-7.4.1480')
     packadd justify
     packadd shellmenu
@@ -1205,7 +1207,7 @@ fu! SetTitle()
         call append(line("."), "")
     elseif expand("%:e") == 'py'
         call setline(1,"#!/usr/bin/env python")
-        call append(line("."),"# coding=utf-8")
+        call append(line("."),"# -*- coding: utf-8 -*-")
         call append(line(".")+1, "")
     elseif expand("%:e") == 'rb'
         call setline(1,"#!/usr/bin/env ruby")

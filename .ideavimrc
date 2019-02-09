@@ -1,0 +1,409 @@
+set autochdir
+set autoindent                                       " Copy indent from last line when starting new line
+set autoread                                         " detect when a file is changed
+set background=dark
+set backspace=indent,eol,start                       " make backspace behave in a sane manner
+set binary
+set bomb
+set cindent
+set complete+=kspell
+set completeopt=longest,menuone,preview
+set cursorline                                       " highlight current line
+set display+=lastline
+set encoding=utf-8
+set expandtab                                        " Use spaces instead of tabs
+set ffs=unix,dos,mac                                 " Use Unix as the standard file type
+set fileencoding=utf-8
+set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
+set fileformats=unix,dos,mac
+set foldlevel=99
+set foldmethod=indent
+set gcr=a:blinkon0
+set hidden                                           " current buffer can be put into background
+set hlsearch                                         " highlight search results
+set ignorecase                                       " Ignore case when searching
+set incsearch                                        " Makes search act like search in modern browsers
+set invlist
+set laststatus=2                                     " Status bar always on
+set lazyredraw                                       " Don't redraw while executing macros (good performance config)
+set magic                                            " For regular expressions turn magic on
+set mltiple-cursors
+set modeline
+set modelines=10
+set nobackup
+set noerrorbells
+set nofoldenable                                     " don't fold by default
+set noswapfile
+set nowb
+set number                                           " show line numbers
+set ofu=syntaxcomplete#Complete                      " Set omni-completion method
+set path+=**
+set ruler                                            " Always show current position
+set scrolloff=3
+set shiftwidth=4                                     " number of spaces to use for indent and unindent (1 tab == 4 spaces)
+set shortmess+=I                                     " no intro message
+set shortmess+=O                                     " file read message overwrites subsequent
+set shortmess+=T                                     " truncate messages in the middle
+set shortmess+=s                                     " no search hit bottom crap
+set shortmess+=t                                     " truncate file message
+set shortmess=a                                      " use every short text trick
+set showcmd                                          " show incomplete commands
+set showmatch                                        " Show matching brackets when text indicator is over them
+set smartcase                                        " case-sensitive if expresson contains a capital letter
+set smarttab                                         " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set so=7                                             " Set 7 lines to the cursor - when moving vertically using j/k
+set softtabstop=4                                    " edit as if the tabs are 4 characters wide
+set splitbelow
+set splitright
+set statusline+=%0*\ %<%F\                           " File+path
+set statusline+=%0*\ [%n]                            " buffernr
+set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
+set statusline+=%1*\ %y\                             " FileType
+set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
+set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
+set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
+set statusline+=%5*\ %=\ row:%l/%L\                  " Rownumber/total (%)
+set statusline+=%6*\ col:%03c\                       " Colnr
+set statusline=
+set surround
+set t_Co=256                                         " Explicitly tell vim that the terminal supports 256 colors
+set t_vb=
+set tabstop=4                                        " the visible width of tabs
+set tags=./tags;/
+set title
+set titleold="Terminal"
+set titlestring=%F
+set tm=500
+set ttyfast                                          " faster redrawing
+set updatetime=500
+set visualbell
+set wildignore+=*.DS_Store                           " OSX bullshit
+set wildignore+=*.aux,*.out,*.toc                    " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg       " binary images
+set wildignore+=*.luac                               " Lua byte code
+set wildignore+=*.orig,*.rej                         " Merge resolution files
+set wildignore+=*.pdf,*.zip,*.so                     " binaries
+set wildignore+=*.pyc,*.pyo                          " Python byte code
+set wildignore=*.a,*.o,*.obj,*.exe,*.dll,*.manifest  " compiled object files
+set wildmenu                                         " Turn on the WiLd menu
+set wildmode=list:longest                            " complete files like a shell
+
+let mapleader=' '
+
+nnoremap c* *Ncgn
+nnoremap c# #NcgN
+
+" easy system clipboard copy/paste
+noremap <leader>y "*y
+noremap <leader>yy "*Y
+noremap <leader>p "*p
+noremap <leader>P "*P
+
+if has('macunix')
+  " pbcopy for OSX copy/paste
+  vmap <C-x> :!pbcopy<CR>
+  vmap <C-c> :w !pbcopy<CR><CR>
+endif
+
+" select the current line without indentation
+nnoremap vv ^vg_
+
+" place whole file on the system clipboard
+nnoremap <Leader>a :%y+<CR>
+
+"" Escaping
+cnoremap <C-F> <Esc>
+inoremap <C-F> <Esc>
+nnoremap <C-F> <Esc>
+vnoremap <C-F> <Esc>
+xnoremap <C-F> <Esc>
+
+"" No arrow keys
+"no <down> <Nop>
+"no <left> <Nop>
+"no <right> <Nop>
+"no <up> <Nop>
+
+" No arrow keys in insert mode
+ino <down> <Nop>
+ino <left> <Nop>
+ino <right> <Nop>
+ino <up> <Nop>
+
+" Saner command-line history
+cnoremap <C-h>  <left>
+cnoremap <C-j>  <down>
+cnoremap <C-k>  <up>
+cnoremap <C-l>  <right>
+"" CTRL+A moves to start of line in command mode
+"cnoremap <C-a> <home>
+"" CTRL+E moves to end of line in command mode
+"cnoremap <C-e> <end>
+
+" Map arrow keys to window resize commands.
+nnoremap <Right> 2<C-W>>
+nnoremap <Left> 2<C-W><
+nnoremap <Up> 2<C-W>+
+nnoremap <Down> 2<C-W>-
+
+" moving up and down work as you would expect
+"nnoremap j gj
+"nnoremap k gk
+"nnoremap <expr> j (v:count == 0 ? 'gj' : 'j')
+"nnoremap <expr> k (v:count == 0 ? 'gk' : 'k')
+nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
+nnoremap 0 g0
+nnoremap ^ g^
+nnoremap $ g$
+
+" move to beginning/end of line
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L $
+
+"nnoremap G :norm! Gzz<CR>
+nnoremap N Nzzzv
+nnoremap [[ [[zz
+nnoremap [] []zz
+nnoremap ][ ][zz
+nnoremap ]] ]]zz
+nnoremap g; g;zz " go to place of last change
+nnoremap gV `[v`] " highlight last inserted text
+"nnoremap gg :norm! ggzz<CR>
+nnoremap g= mmgg=G`m
+nnoremap gQ mmgggqG`m
+nnoremap n nzzzv
+nnoremap { {zz
+nnoremap } }zz
+
+" Jump to matching pairs easily, with Shift-Tab
+nmap <S-Tab> %zz
+vmap <S-Tab> %zz
+
+" Keep the cursor in place while joining lines
+nnoremap J mzJ`z
+
+" Vmap for maintain Visual Mode after shifting > and <
+xnoremap < <gv
+xnoremap > >gv
+
+" Move visual block
+xnoremap J :m '>+1<CR>gv=gv
+xnoremap K :m '<-2<CR>gv=gv
+
+" Scrolling
+noremap <C-j> 2<C-e>
+noremap <C-k> 2<C-y>
+
+nnoremap <Leader>ffo :!firefox %<CR>
+
+" hexedit
+"inoremap <F7> <Esc>:%!xxd<CR>
+"inoremap <F8> <Esc>:%!xxd -r<CR>
+"noremap <F7> :%!xxd<CR>
+"noremap <F8> :%!xxd -r<CR>
+
+" qq to record, Q to replay (recursive noremap due to peekaboo)
+nnoremap Q @q
+xnoremap Q :'<,'>:normal @q<CR>
+
+" Switch to the directory of opened buffer
+nnoremap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
+
+" Change current word to uppercase
+nnoremap <Leader>u gUiw
+
+" Change current word to lowercase
+nnoremap <Leader>l guiw
+
+" clear highlighted search
+nnoremap <Leader>sc :set hlsearch! hlsearch?<CR>
+
+" automatically insert a \v before any search string, so search uses normal regexes
+nnoremap g/ /\v
+vnoremap g/ /\v
+nnoremap g? ?\v
+vnoremap g? ?\v
+
+" search for ipv4
+nnoremap /ip4 /\v([0-9]{1,3}\.){3}[0-9]{1,3}<CR>
+
+" search for ipv6
+"nnoremap /ip6 /\v(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}\|([0-9a-fA-F]{1,4}:){1,7}:\|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}\|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}\|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}\|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}\|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}\|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})\|:((:[0-9a-fA-F]{1,4}){1,7}\|:)\|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}\|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]\|(2[0-4]\|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]\|(2[0-4]\|1{0,1}[0-9]){0,1}[0-9])\|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]\|(2[0-4]\|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]\|(2[0-4]\|1{0,1}[0-9]){0,1}[0-9]))
+
+" search for url
+nnoremap /url /\v(http\|https\|ftp):\/\/[a-zA-Z0-9][a-zA-Z0-9_-]*(\.[a-zA-Z0-9][a-zA-Z0-9_-]*)*(:\d\+)?(\/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*)?(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*)?<CR>
+
+" search for word under the cursor
+nnoremap <Leader>/ "fyiw :/<C-r>f<CR>
+
+" window navigation
+nnoremap <Leader>wh <C-W>h
+nnoremap <Leader>wj <C-W>j
+nnoremap <Leader>wk <C-W>k
+nnoremap <Leader>wl <C-W>l
+nnoremap <Leader>wx <C-W>x
+nnoremap <Leader>wH <C-W>H
+nnoremap <Leader>wJ <C-W>J
+nnoremap <Leader>wK <C-W>K
+nnoremap <Leader>wL <C-W>L
+" Make splits the same width
+nnoremap <Leader>we <C-w>=
+nnoremap <Leader>wz :wincmd _ \|wincmd \| \| normal 0 <CR>
+
+" Quickly edit your macros
+nnoremap <Leader>m  :<C-u><C-r><C-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><C-f><left>
+
+" quickfix
+let g:quickfix_height = 50
+"nmap [l <Plug>(ale_previous)
+"nmap [l <Plug>(ale_previous_wrap)
+"nmap ]l <Plug>(ale_next)
+"nmap ]l <Plug>(ale_next_wrap)
+
+" quickfix
+let g:quickfix_height = 50
+nnoremap <Leader>lc :lclose<CR>
+nnoremap <Leader>lo :lopen<CR>
+nnoremap <Leader>lw :lwindow<CR>
+nnoremap [L :lfirst<CR>zz
+nnoremap [l :lprev<CR>zz
+nnoremap ]L :llast<CR>zz
+nnoremap ]l :lnext<CR>zz
+
+nnoremap <Leader>qc :cclose<CR>
+nnoremap <Leader>qo :copen<CR>
+nnoremap <Leader>qw :cwindow<CR>
+nnoremap [Q :cfirst<CR>zz
+nnoremap [q :cprev<CR>zz
+nnoremap ]Q :clast<CR>zz
+nnoremap ]q :cnext<CR>zz
+
+" Tabs
+nnoremap ]t gt
+nnoremap [t gT
+nnoremap <Leader>tn :tabnew<CR>
+
+" Buffer nav
+nnoremap <Leader>bn :enew<CR>
+"nnoremap <Leader>bs :ls<CR>:buffer<leader>
+nnoremap <Leader>bs :Buffers<CR>
+nnoremap <Leader>vbs :ls<CR>:sbuffer<leader>
+nnoremap <bs> <C-^>
+
+" add space after comma
+nnoremap <Leader>, :%s/, */, /g<CR>
+vnoremap <Leader>, :s/, */, /g<CR>
+
+" Explore dir
+nnoremap <Leader> e :Files<CR>
+
+" Explore dir with ranger
+if executable("ranger")
+    nnoremap <Leader>E :RangerExplorer<CR>
+elseif exists(":Lexplore") != 1
+    nnoremap <Leader>E :Lexplore<CR>
+elseif exists(":Vexplore") != 1
+    nnoremap <Leader>E :Vexplore<CR>
+else
+    nnoremap <Leader>E :Explore<CR>
+endif
+
+" Completetion
+
+" Use <Tab> and <S-Tab> for navigate completion list:
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <enter> to confirm complete
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+
+inoremap ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+
+" file names
+inoremap ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+
+" line
+inoremap ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+
+" keyword from current file
+inoremap ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+
+" omni completion
+inoremap ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
+
+" folding
+nnoremap <Leader>f za<CR>
+vnoremap <Leader>f za<CR>
+
+" Make the dot command work as expected in visual mode (via
+" https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
+vnoremap . :norm.<CR>
+
+" compile and run
+noremap <Leader>cr :CompileandRun<CR>
+
+" Markdown headings
+nnoremap <Leader>1 m`yypVr=``
+nnoremap <Leader>2 m`yypVr-``
+nnoremap <Leader>3 m`^i### <Esc>``4l
+nnoremap <Leader>4 m`^i#### <Esc>``5l
+nnoremap <Leader>5 m`^i##### <Esc>``6l
+
+" Make check spelling on or off
+nnoremap <Leader>cson   :set spell<CR>
+nnoremap <Leader>csoff :set nospell<CR>
+
+" search and replace
+nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
+nnoremap <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
+
+nnoremap <Leader>rp /\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgn
+nnoremap <Leader>RP ?\<<C-R>=expand('<cword>')<CR>\>\C<CR>``cgN
+nnoremap <Leader>dw /\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgn
+nnoremap <Leader>DW ?\<<C-r>=expand('<cword>')<CR>\>\C<CR>``dgN
+
+" Recompute syntax highlighting
+nnoremap <Leader>ss :syntax sync fromstart<CR>
+
+" built in search looks better
+nnoremap / :action Find<cr>
+
+" surround
+nnoremap <leader>" :action Macro.surround_with_double_quote<CR>
+nnoremap <leader>' :action Macro.surround_with_single_quote<CR>
+nnoremap cs"' :action Macro.surround_double_to_single_quote<CR>
+nnoremap ds" :action Macro.surround_undo_double_quote<CR>
+nnoremap ds' :action Macro.surround_undo_single_quote<CR>
+
+" actions
+nnoremap <leader>q :action CloseContent<cr>
+nnoremap <leader>Q :action ReopenClosedTab<cr>
+nnoremap <leader>T :action GotoSymbol<cr>
+nnoremap <leader>a :action GotoAction<cr>
+nnoremap <leader>cm :action CommentByLineComment<CR>
+nnoremap <leader>e :action SearchEverywhere<cr>
+nnoremap <leader>E :action Switcher<cr>
+nnoremap <leader>rfc :action ReformatCode<CR>
+nnoremap \r :action RunClass<cr>
+nnoremap \R :action Run<cr>
+nnoremap \d :action DebugClass<cr>
+nnoremap \D :action Debug<cr>
+
+" code navigation
+nnoremap <leader>] :action GotoImplementation<cr>
+nnoremap <leader>[ :action GotoSuperMethod<cr>
+nnoremap <leader>gt :action GotoTest<cr>
+nnoremap <leader>u :action FindUsages<cr>
+nnoremap <leader>k :action HighlightUsagesInFile<cr>
+nnoremap [b :action VimFilePrevious<cr>
+nnoremap ]b :action VimFileNext<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [q :action PreviousOccurence<cr>
+nnoremap ]q :action NextOccurence<cr>
+

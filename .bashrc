@@ -261,6 +261,15 @@ if command -v vim &> /dev/null ; then
     alias vimnn='vim -n -u NONE -i NONE -N'
 fi
 
+if command -v gvim &> /dev/null ; then
+    if [ -f ~/minimal.vimrc ] ; then
+        # fast gvim that doesn't load plugins
+        alias gvimn='gvim -u ~/minimal.vimrc'
+    fi
+    # fast gvim that doesn't load a gvimrc or plugins
+    alias gvimnn='gvim -n -u NONE -i NONE -N'
+fi
+
 if command -v nvim &> /dev/null ; then
     if [ -f ~/minimal.vimrc ] ; then
         # fast Neovim that doesn't load plugins
