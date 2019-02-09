@@ -475,28 +475,28 @@ command! ChangeEncoding call ChangeEncoding()
 " :SetTitle
 " -------------------------------------------------------------------------------
 fu! SetTitle()
-	if expand("%:e") == 'sh'
-		call setline(1,"\#!/bin/bash")
-		call append(line("."), "")
+    if expand("%:e") == 'sh'
+        call setline(1,"\#!/bin/bash")
+        call append(line("."), "")
     elseif expand("%:e") == 'py'
         call setline(1,"#!/usr/bin/env python")
         call append(line("."),"# -*- coding: utf-8 -*-")
-	    call append(line(".")+1, "")
+        call append(line(".")+1, "")
     elseif expand("%:e") == 'rb'
         call setline(1,"#!/usr/bin/env ruby")
         call append(line("."),"# encoding: utf-8")
-	    call append(line(".")+1, "")
+        call append(line(".")+1, "")
     elseif expand("%:e") == 'cpp'
-		call setline(1, "#include <iostream>")
-		call append(line("."), "using namespace std;")
-		call append(line(".")+1, "")
+        call setline(1, "#include <iostream>")
+        call append(line("."), "using namespace std;")
+        call append(line(".")+1, "")
     elseif expand("%:e") == 'c'
-		call setline(1, "#include <stdio.h>")
-		call append(line("."), "")
+        call setline(1, "#include <stdio.h>")
+        call append(line("."), "")
     elseif expand("%:e") == 'java'
         exe 'cd %:p:h'
-		call setline(1, "public class ".expand("%<")." {")
-		call append(line("."), "}")
+        call setline(1, "public class ".expand("%<")." {")
+        call append(line("."), "}")
     endif
 endfu
 command! SetTitle call SetTitle()
