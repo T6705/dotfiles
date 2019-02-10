@@ -51,7 +51,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left  = 0
 
-modules-left   = i3
+modules-left   = i3split i3tab i3stack i3
 modules-center = date
 modules-right  = spotify previous playpause next volume lock
 
@@ -157,7 +157,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left  = 0
 
-modules-left   = i3
+modules-left   = i3split i3tab i3stack i3
 modules-center = date
 modules-right  = spotify previous playpause next volume lock
 
@@ -320,8 +320,9 @@ click-left = ~/.config/i3/i3lock.sh &
 
 [module/vim]
 type = custom/text
-content = 
-content-foreground = ${colors.foreground}
+;content = 
+content = 
+content-foreground = #689d6a
 content-background = ${colors.background}
 content-padding    = 1
 click-left = ~/.vim-anywhere/bin/run
@@ -330,6 +331,38 @@ click-left = ~/.vim-anywhere/bin/run
 type = custom/text
 content = " | "
 content-foreground = #fffff
+
+[module/i3split]
+type = custom/text
+;content = ﱖ
+content = 﩯
+;content-foreground = #ff69b4
+content-foreground = #6ff
+content-background = ${colors.background}
+content-padding    = 1
+click-left = i3 layout toggle split
+
+[module/i3stack]
+type = custom/text
+;content = 
+;content = 
+;content = ﴳ
+content = 
+;content-foreground = #ff69b4
+content-foreground = #6ff
+content-background = ${colors.background}
+content-padding    = 1
+click-left = i3 layout stacking
+
+[module/i3tab]
+type = custom/text
+;content = ﴵ
+content = 
+;content-foreground = #ff69b4
+content-foreground = #6ff
+content-background = ${colors.background}
+content-padding    = 1
+click-left = i3 layout tabbed
 
 [module/i3]
 type = internal/i3

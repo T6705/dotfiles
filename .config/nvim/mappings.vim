@@ -331,10 +331,10 @@ if v:version >= 703
 endif
 
 " Insert mode completion
-imap <C-x>w <plug>(fzf-complete-word)
-imap <C-x>p <plug>(fzf-complete-path)
-imap <C-x>a <plug>(fzf-complete-file-ag)
-imap <C-x>l <plug>(fzf-complete-line)
+imap ,a <plug>(fzf-complete-file-ag)
+imap ,p <plug>(fzf-complete-path)
+imap ,fl <plug>(fzf-complete-line)
+imap ,fw <plug>(fzf-complete-word)
 
 " Completetion
 
@@ -348,16 +348,16 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
 " file names
-inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",:"<CR>
+inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",f"<CR>
 
 " line
-inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",="<CR>
+inoremap <silent> ,l <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",l"<CR>
 
 " keyword from current file
-inoremap <silent> ,n <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",;"<CR>
+inoremap <silent> ,w <C-x><C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",w"<CR>
 
 " omni completion
-inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",,"<CR>
+inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",o"<CR>
 
 " folding
 nnoremap <silent> <Leader>f za<CR>
