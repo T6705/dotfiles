@@ -122,6 +122,7 @@ Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'np
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
+Plug 'ambv/black', { 'for': 'python' }         " The uncompromising Python code formatter
 Plug 'w0rp/ale'                                " Asynchronous Lint Engine
 
 
