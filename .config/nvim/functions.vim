@@ -585,18 +585,24 @@ command! NERDTreeRefresh call NERDTreeRefresh()
 " :OpenUrl
 " -------------------------------------------------------------------------------
 fu! HandleURL()
-    if executable("firefox")
-        "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
-        let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
+    let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
 
-        echo s:uri
-        if s:uri != ""
-            "silent exe "!elinks '".s:uri."'"
+    echo s:uri
+    if s:uri != ""
+        if executable("firefox")
             silent exe "!firefox '".s:uri."'"
+        elseif executable("chromium")
+            silent exe "!chromium'".s:uri."'"
+        elseif executable("qutebrowser")
+            silent exe "!qutebrowser'".s:uri."'"
         else
-            echo "No URI found in line."
+            echo "no browser available"
         endif
+    else
+        echo "No url found in line."
     endif
+    redraw!
+    redraws!
 endfu
 command! OpenUrl call HandleURL()
 

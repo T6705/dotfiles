@@ -306,16 +306,78 @@ endif
 " statusline
 " -------------------------------------------------------------------------------
 """ === basic statusline === {{{
+
+let g:currentmode={ 'n'  : 'Normal ', 'no' : 'N-Operator Pending ', 'v'  : 'Visual ', 'V'  : 'V-Line ', '' : 'V-Block ', 's'  : 'Select ', 'S'  : 'S-Line ', '^S' : 'S-Block ', 'i'  : 'Insert ', 'R'  : 'Replace ', 'Rv' : 'V-Replace ', 'c'  : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r'  : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!'  : 'Shell ', 't'  : 'Terminal ' }
+
+" Automatically change the statusline color depending on mode
+fu! ChangeStatuslineColor()
+  if (mode() =~# '\v(n|no)')
+    exe 'hi! StatusLine ctermfg=008'
+  elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V-Block' || get(g:currentmode, mode(), '') ==# 't')
+    exe 'hi! StatusLine ctermfg=005'
+  elseif (mode() ==# 'i')
+    exe 'hi! StatusLine ctermfg=004'
+  else
+    exe 'hi! StatusLine ctermfg=006'
+  endif
+  return ''
+endfu
+
+" Find out current buffer's size and output it.
+fu! FileSize() abort
+    let l:bytes = getfsize(expand('%:p'))
+    if (l:bytes >= 1024)
+        let l:kbytes = l:bytes / 1024
+    endif
+    if (exists('kbytes') && l:kbytes >= 1000)
+        let l:mbytes = l:kbytes / 1000
+    endif
+
+    if l:bytes <= 0
+        return '0'
+    endif
+
+    if (exists('mbytes'))
+        return l:mbytes . 'MB '
+    elseif (exists('kbytes'))
+        return l:kbytes . 'KB '
+    else
+        return l:bytes . 'B '
+    endif
+endfu
+
+fu! ReadOnly() abort
+    if &readonly || !&modifiable
+        return ''
+    else
+        return ''
+    endif
+endfu
+
+fu! GitInfo()
+    let git = fugitive#head()
+    if git != ''
+        return ''.fugitive#head()
+    else
+        return ''
+    endfi
+endfu
+
 set statusline=
-set statusline+=%0*\ [%n]                            " buffernr
-set statusline+=%0*\ %<%F\                           " File+path
-set statusline+=%1*\ %y\                             " FileType
-set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
-set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
-set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
-set statusline+=%5*\ %=\ row:%l/%L\                  " Rownumber/total (%)
-set statusline+=%6*\ col:%03c\                       " Colnr
-set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
+set statusline+=%{ChangeStatuslineColor()}              " changing the statusline color
+set statusline+=%0*\ %{toupper(g:currentmode[mode()])}  " current mode
+set statusline+=%7*\ [%n]                               " buffernr
+set statusline+=%7*\ %<%F\ %{ReadOnly()}%m%r%w\         " file+path+readonly+modified
+set statusline+=%1*\ %y\                                " filetype
+set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}    " encoding
+set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\          " encoding2
+set statusline+=%4*\ %{&ff}\                            " fileformat (dos/unix..)
+set statusline+=%=
+set statusline+=%2*\ [%b][0x%b]\                        " ascii and byte code under cursor
+set statusline+=%5*\ row:%l/%L\                         " rownumber/total
+set statusline+=%6*\ col:%03c\                          " colnr
+set statusline+=%4*\ %-3(%{FileSize()}%)                " file size
+set statusline+=%0*\ \ %P\ \                            " modified? readonly? top/bot.
 
 hi User1 ctermfg=red ctermbg=black
 hi User2 ctermfg=blue ctermbg=black
@@ -323,89 +385,10 @@ hi User3 ctermfg=green ctermbg=black
 hi User4 ctermfg=yellow ctermbg=black
 hi User5 ctermfg=cyan ctermbg=black
 hi User6 ctermfg=magenta ctermbg=black
-""" }}}
+hi User7 ctermfg=white ctermbg=black
+hi User8 ctermfg=blue ctermbg=black
+hi User9 ctermfg=green ctermbg=black
 
-""" === advance statusline === {{{
-"let g:currentmode={ 'n'  : 'Normal ', 'no' : 'N-Operator Pending ', 'v'  : 'Visual ', 'V'  : 'V-Line ', '' : 'V-Block ', 's'  : 'Select ', 'S'  : 'S-Line ', '^S' : 'S-Block ', 'i'  : 'Insert ', 'R'  : 'Replace ', 'Rv' : 'V-Replace ', 'c'  : 'Command ', 'cv' : 'Vim Ex ', 'ce' : 'Ex ', 'r'  : 'Prompt ', 'rm' : 'More ', 'r?' : 'Confirm ', '!'  : 'Shell ', 't'  : 'Terminal ' }
-
-"" Automatically change the statusline color depending on mode
-"function! ChangeStatuslineColor()
-"  if (mode() =~# '\v(n|no)')
-"    exe 'hi! StatusLine ctermfg=008'
-"  elseif (mode() =~# '\v(v|V)' || g:currentmode[mode()] ==# 'V-Block' || get(g:currentmode, mode(), '') ==# 't')
-"    exe 'hi! StatusLine ctermfg=005'
-"  elseif (mode() ==# 'i')
-"    exe 'hi! StatusLine ctermfg=004'
-"  else
-"    exe 'hi! StatusLine ctermfg=006'
-"  endif
-"  return ''
-"endfu
-
-"" Find out current buffer's size and output it.
-"function! FileSize()
-"  let bytes = getfsize(expand('%:p'))
-"  if (bytes >= 1024)
-"    let kbytes = bytes / 1024
-"  endif
-"  if (exists('kbytes') && kbytes >= 1000)
-"    let mbytes = kbytes / 1000
-"  endif
-
-"  if bytes <= 0
-"    return '0'
-"  endif
-
-"  if (exists('mbytes'))
-"    return mbytes . 'MB '
-"  elseif (exists('kbytes'))
-"    return kbytes . 'KB '
-"  else
-"    return bytes . 'B '
-"  endif
-"endfu
-
-"function! ReadOnly()
-"  if &readonly || !&modifiable
-"    return '\ue0a2'
-"  else
-"    return ''
-"  endif
-"endfu
-
-"function! GitInfo()
-"  let git = fugitive#head()
-"  if git != ''
-"    return '\ue0a0 '.fugitive#head()
-"  else
-"    return ''
-"  endfi
-"endfu
-
-"set statusline=
-"set statusline+=%{ChangeStatuslineColor()}               " Changing the statusline color
-"set statusline+=%0*\ %{toupper(g:currentmode[mode()])}   " Current mode
-"set statusline+=%1*\ [%n]                                " buffernr
-"set statusline+=%2*\ %<%F\ %{ReadOnly()}\ %m\ %w\        " File+path
-"set statusline+=%#warningmsg#
-"set statusline+=%*
-"set statusline+=%3*\ %=                                  " Space
-"set statusline+=%4*\ %y\                                 " FileType
-"set statusline+=%5*\ %{(&fenc!=''?&fenc:&enc)}\[%{&ff}]\ " Encoding & Fileformat
-"set statusline+=%6*\ %-3(%{FileSize()}%)                 " File size
-"set statusline+=%7*\ %=\ row:%l/%L\ \                    " Rownumber/total (%)
-"set statusline+=%7*\ col:%03c\                           " Colnr
-"set statusline+=%0*\ \ %m%r%w\ %P\ \                     " Modified? Readonly? Top/bot.
-
-"hi User1 ctermfg=red ctermbg=black
-"hi User2 ctermfg=blue ctermbg=black
-"hi User3 ctermfg=green ctermbg=black
-"hi User4 ctermfg=yellow ctermbg=black
-"hi User5 ctermfg=cyan ctermbg=black
-"hi User6 ctermfg=magenta ctermbg=black
-"hi User7 ctermfg=white ctermbg=black
-"hi User8 ctermfg=blue ctermbg=black
-"hi User9 ctermfg=green ctermbg=black
 """ }}}
 
 " -------------------------------------------------------------------------------
@@ -545,7 +528,6 @@ if has('gui_running')
 endif
 """ }}}
 
-
 """ === Functions === {{{
 " -------------------------------------------------------------------------------
 " :LightTheme (PaperColor)
@@ -667,15 +649,15 @@ command! Osc52CopyYank call Osc52Yank()
 " -------------------------------------------------------------------------------
 " Finder
 " -------------------------------------------------------------------------------
-fun! FilterClose(bufnr)
+fu! FilterClose(bufnr)
     wincmd p
     exe "bwipe" a:bufnr
     redraw
     echo "\r"
     return []
-endf
+endfu
 
-fun! Finder(input, prompt) abort
+fu! Finder(input, prompt) abort
  let l:prompt = a:prompt . '>'
  let l:filter = ""
  let l:undoseq = []
@@ -735,7 +717,7 @@ fun! Finder(input, prompt) abort
      redraw
      echo (l:error ? "[Invalid pattern] " : "").l:prompt l:filter
  endwhile
-endf
+endfu
 
 fu! Buffers()
     if exists('v:t_string')
@@ -1307,18 +1289,24 @@ command! Hexmode call ToggleHex()
 " :OpenUrl
 " -------------------------------------------------------------------------------
 fu! HandleURL()
-    if executable("firefox")
-        "let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
-        let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
+    let s:uri = matchstr(getline("."), '\(http\|https\|ftp\)://[a-zA-Z0-9][a-zA-Z0-9_-]*\(\.[a-zA-Z0-9][a-zA-Z0-9_-]*\)*\(:\d\+\)\?\(/[a-zA-Z0-9_/.\-+%?&=;@$,!''*~]*\)\?\(#[a-zA-Z0-9_/.\-+%#?&=;@$,!''*~]*\)\?')
 
-        echo s:uri
-        if s:uri != ""
-            "silent exe "!elinks '".s:uri."'"
+    echo s:uri
+    if s:uri != ""
+        if executable("firefox")
             silent exe "!firefox '".s:uri."'"
+        elseif executable("chromium")
+            silent exe "!chromium'".s:uri."'"
+        elseif executable("qutebrowser")
+            silent exe "!qutebrowser'".s:uri."'"
         else
-            echo "No URI found in line."
+            echo "no browser available"
         endif
+    else
+        echo "No url found in line."
     endif
+    redraw!
+    redraws!
 endfu
 command! OpenUrl call HandleURL()
 

@@ -116,13 +116,16 @@ endif
 "let g:airline_theme="luna"
 "let g:airline_theme="onedark"
 "let g:airline_theme="papercolor"
-let g:airline#extensions#ale#enabled        = 1
-let g:airline#extensions#branch#enabled     = 1
-let g:airline#extensions#gutentags#enabled  = 1
-let g:airline#extensions#tabline#enabled    = 1
-let g:airline#extensions#tagbar#enabled     = 1
-let g:airline#extensions#virtualenv#enabled = 1
-let g:airline_skip_empty_sections           = 1
+let g:airline#extensions#ale#enabled          = 1
+let g:airline#extensions#branch#enabled       = 1
+let g:airline#extensions#fugitiveline#enabled = 1
+let g:airline#extensions#gutentags#enabled    = 1
+let g:airline#extensions#tabline#enabled      = 1
+let g:airline#extensions#tagbar#enabled       = 1
+let g:airline#extensions#virtualenv#enabled   = 1
+let g:airline#extensions#whitespace#enabled   = 1
+let g:airline#extensions#wordcount#enabled    = 1
+let g:airline#extensions#ycm#enabled          = 1
 
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show   = 1
@@ -130,10 +133,13 @@ let g:airline#extensions#tabline#fnamecollapse    = 0
 let g:airline#extensions#tabline#fnamemod         = ':t'
 let g:airline#extensions#tabline#left_alt_sep     = '|'
 let g:airline#extensions#tabline#left_sep         = ' '
-let g:airline_left_sep                            = ''
-let g:airline_powerline_fonts                     = 1
-let g:airline_right_sep                           = ''
-let g:airline_theme                               = "wombat"
+
+let g:airline_left_sep            = ''
+let g:airline_powerline_fonts     = 1
+let g:airline_right_sep           = ''
+let g:airline_skip_empty_sections = 1
+
+let g:airline_theme = "wombat"
 
 
 " -------------------------------------------------------------------------------
