@@ -89,11 +89,11 @@ augroup vimrc-restore-cursor-position
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-augroup Snippet
-    au FileType java call JavaAbbrev()
-    au FileType cpp call CppAbbrev()
-    au BufRead,BufNewFile *.{tmpl,htm,js} call JavascriptAbbrev()
-    au BufRead,BufNewFile *.py call PythonAbbrev()
+augroup LangConfig
+    au FileType java call JavaConfig()
+    au FileType cpp call CppConfig()
+    au BufRead,BufNewFile *.{tmpl,htm,js} call JavascriptConfig()
+    au BufRead,BufNewFile *.py call PythonConfig()
 augroup END
 
 augroup auto_mkdir
@@ -1371,7 +1371,7 @@ command! AutoFoldsEnable  call <sid>open_folds('enable')
 command! AutoFoldsDisable call <sid>open_folds('disable')
 command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
 
-fu! JavaAbbrev()
+fu! JavaConfig()
     inorea <buffer> psvm public static void main(String[] args){<CR>}<Esc>k:call getchar()<CR>
     inorea <buffer> sop System.out.println("%");<Esc>F%s<C-o>:call getchar()<CR>
     inorea <buffer> sep System.err.println("%");<Esc>F%s<C-o>:call getchar()<CR>
@@ -1379,22 +1379,42 @@ fu! JavaAbbrev()
     inorea <buffer> ctm System.currentTimeMillis()
 endfu
 
-fu! CppAbbrev()
+fu! CppConfig()
     inorea <buffer> inc #include <><Esc>i<C-o>:call getchar()<CR>
     inorea <buffer> main int main() {}<Esc>i<CR><Esc>Oreturn 0;<Esc>O<Esc>k:call getchar()<CR>
     inorea <buffer> amain int main(int argc, char* argv[]) {}<Esc>i<CR><Esc>Oreturn 0;<Esc>O<Esc>k:call getchar()<CR>
 endfu
 
-fu! JavascriptAbbrev()
+fu! JavascriptConfig()
     inorea <buffer> csl console.log("")<Esc>==f"ci"
     inorea <buffer> csi console.info("")<Esc>==f"ci"
     inorea <buffer> csw console.warn("")<Esc>==f"ci"
     inorea <buffer> cse console.error("")<Esc>==f"ci"
 endfu
 
-fu! PythonAbbrev()
+fu! PythonConfig()
     inorea <buffer> ifmain if __name__ == "__main__":<CR>main()<Esc>
     inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
+
+    " -------------------------------------------------------------------------------
+    " isort
+    " -------------------------------------------------------------------------------
+    if executable("isort")
+        nnoremap <silent> <Leader>is :%!isort -<CR>
+    else
+        nnoremap <Leader>is :echo "isort is not installed"<CR>
+    endif
+
+    " -------------------------------------------------------------------------------
+    " yapf
+    " -------------------------------------------------------------------------------
+    if executable("yapf")
+        "nnoremap <Leader>fx :0,$!yapf<CR>
+        nnoremap <Leader>= :0,$!yapf<CR>
+    else
+        nnoremap <Leader>is :echo "yapf is not installed"<CR>
+    endif
+
 endfu
 
 fu! CompleteTags()
@@ -1836,15 +1856,6 @@ nnoremap <silent> <Leader>ss :syntax sync fromstart<CR>
 " alignment function
 "nnoremap <silent>  ;=  :AlignAssignments<CR>
 nnoremap <silent> ga :<c-u>call <sid>align_around_delimiter()<CR>
-
-" -------------------------------------------------------------------------------
-" isort
-" -------------------------------------------------------------------------------
-if executable("isort")
-    nnoremap <silent> <Leader>is :%!isort -<CR>
-else
-    nnoremap <Leader>is :echo "isort is not installed"<CR>
-endif
 
 " -------------------------------------------------------------------------------
 " prettier

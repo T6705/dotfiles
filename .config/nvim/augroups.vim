@@ -98,11 +98,11 @@ augroup vimrc-restore-cursor-position
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-augroup Snippet
-    au FileType java call JavaAbbrev()
-    au FileType cpp call CppAbbrev()
-    au BufRead,BufNewFile *.{tmpl,htm,js} call JavascriptAbbrev()
-    au BufRead,BufNewFile *.py call PythonAbbrev()
+augroup LangConfig
+    au FileType java call JavaConfig()
+    au FileType cpp call CppConfig()
+    au BufRead,BufNewFile *.{tmpl,htm,js} call JavascriptConfig()
+    au BufRead,BufNewFile *.py call PythonConfig()
 augroup END
 
 augroup install_missing_plugins
