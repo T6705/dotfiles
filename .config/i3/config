@@ -4,7 +4,7 @@ set $mod Mod1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec bash ~/.config/i3/start-term.sh
+bindsym $mod+Return exec bash ~/.config/i3/scripts/start-term.sh
 
 focus_follows_mouse no
 
@@ -119,6 +119,9 @@ assign [class="Totem|mplayer|mpv|vlc"] $workspace6
 assign [class="Skype"] $workspace7
 assign [class="Steam"] $workspace9
 for_window [class="^.*"] border pixel 5
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [instance="float"] floating enable
 for_window [class="Spotify"] move to workspace $workspace8
 
 
@@ -246,9 +249,9 @@ set $urgent-bg-color     #fb4934
 
 bindsym $mod+g exec export XDG_CURRENT_DESKTOP=GNOME&&gnome-control-center # start gnome-control-center
 bindsym $mod+p exec rofi -show drun &                                      # start rofi (a program launcher)
-bindsym $mod+shift+Return exec bash ~/.config/i3/i3lock.sh                 # lock screen
+bindsym $mod+shift+Return exec bash ~/.config/i3/scripts/i3lock.sh         # lock screen
 bindsym $mod+shift+v exec ~/.vim-anywhere/bin/run                          # https://github.com/cknadler/vim-anywhere
-bindsym $mod+w exec bash ~/.config/i3/random_wallpaper.sh                  # change wallpaper randomly
+bindsym $mod+w exec bash ~/.config/i3/scripts/random_wallpaper.sh          # change wallpaper randomly
 #bindsym $mod+S exec bash ~/.scripts/screenshot.sh                          # screenshot
 
 #bindsym $mod+Shift+Left move left

@@ -12,10 +12,12 @@ install_dots() {
         https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/i3blocks/i3blocks.conf
     curl -fLo ~/.config/i3/compton.conf --create-dirs \
         https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/compton.conf
-    curl -fLo ~/.config/i3/i3lock.sh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/i3lock.sh
-    curl -fLo ~/.config/i3/start-term.sh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/start-term.sh
+    curl -fLo ~/.config/i3/scripts/i3lock.sh --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/scripts/i3lock.sh
+    curl -fLo ~/.config/i3/scripts/random_wallpaper.sh --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/scripts/random_wallpaper.sh
+    curl -fLo ~/.config/i3/scripts/start-term.sh --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/scripts/start-term.sh
     curl -fLo ~/.config/i3/lock.png --create-dirs \
         https://gitlab.com/T6705/dotfiles/raw/master/.config/i3/lock.png
     find ~/.config/i3 -type f -iname '*.sh' -exec chmod +x {} \;

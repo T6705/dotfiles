@@ -15,11 +15,10 @@ export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_ALL=
 
-
-if which st &> /dev/null ; then
-    st
+if command -v alacritty &> /dev/null ; then
+    alacritty
 else
-    for item in termite alacritty gnome-terminal i3-sensible-terminal; do
+    for item in st alacritty gnome-terminal i3-sensible-terminal; do
         ${item}
         break
     done
