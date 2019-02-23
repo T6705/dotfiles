@@ -251,7 +251,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 "nmap <silent> ]l <Plug>(ale_next)
 "nmap <silent> ]l <Plug>(ale_next_wrap)
 "nnoremap <silent> <Leader>fx <Plug>(ale_fix)
-nnoremap <silent> <Leader>fx :ALEFix<CR>
+nnoremap <silent> <Leader>alfx :ALEFix<CR>
 
 " quickfix
 let g:quickfix_height = 50

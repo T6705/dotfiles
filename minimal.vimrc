@@ -1409,10 +1409,9 @@ fu! PythonConfig()
     " yapf
     " -------------------------------------------------------------------------------
     if executable("yapf")
-        "nnoremap <Leader>fx :0,$!yapf<CR>
-        nnoremap <Leader>= :0,$!yapf<CR>
+        nnoremap <Leader>fx :0,$!yapf<CR>
     else
-        nnoremap <Leader>is :echo "yapf is not installed"<CR>
+        nnoremap <Leader>fx :echo "yapf is not installed"<CR>
     endif
 
 endfu
