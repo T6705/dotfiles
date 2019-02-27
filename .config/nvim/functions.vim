@@ -433,9 +433,9 @@ command! EX if !empty(expand('%'))
          \| endif
 
 " -------------------------------------------------------------------------------
-" compile_and_run | <Leader>cr
+" tmux_compile_and_run | <Leader>tcr
 " -------------------------------------------------------------------------------
-fu! Compile_and_Run()
+fu! Tmux_Compile_and_Run()
     exe 'w'
     if &filetype == 'c'
         call VimuxRunCommand('time gcc -O3 -Wall -Wextra '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
@@ -453,6 +453,45 @@ fu! Compile_and_Run()
     elseif &filetype == 'go'
         call VimuxRunCommand('time go run '.expand('%'))
     endif
+endfu
+command! TmuxCompileandRun call Tmux_Compile_and_Run()
+
+" -------------------------------------------------------------------------------
+" compile_and_run | <Leader>tcr
+" -------------------------------------------------------------------------------
+fu! Compile_and_Run()
+    exe 'w'
+
+    if &filetype == 'c'
+        echo 'compiling'
+        exe "!time gcc -O3 -Wall -Wextra % -o %<"
+        let l:cmd="time ".expand('%:p:r')
+    elseif &filetype == 'c'
+        echo 'compiling'
+        exe "!time g++ -O3 -Wall -Wextra -std=c++11 % -o %<"
+        let l:cmd="time ".expand('%:p:r')
+    elseif &filetype == 'java'
+        exe 'cd %:p:h'
+        echo 'compiling'
+        exe '!time javac %'
+        let l:cmd="time java ".expand('%<')
+    elseif &filetype == 'sh'
+        "exe 'term ++rows='.r.'time bash '.expand('%')
+        let l:cmd="bash ".expand('%')
+    elseif &filetype == 'php'
+        "exe 'term ++rows='.r.'time php '.expand('%')
+        let l:cmd="php ".expand('%')
+    elseif &filetype == 'python'
+        "exe 'term ++rows='.r.'time python3 '.expand('%')
+        let l:cmd="python3 ".expand('%')
+    elseif &filetype == 'go'
+        "exe 'term ++rows='.r.'time go run '.expand('%')
+        let l:cmd="go run ".expand('%')
+    endif
+
+    exe 'sp'
+    exe 'term '.l:cmd
+    exe 'wincmd k'
 endfu
 command! CompileandRun call Compile_and_Run()
 

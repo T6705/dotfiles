@@ -433,17 +433,20 @@ let g:vimade = {
 " -------------------------------------------------------------------------------
 " Asynchronous Lint Engine
 " -------------------------------------------------------------------------------
-let g:ale_linters = {
-\   'javascript': ['eslint', 'tsserver'],
-\   'php': ['phpcs', 'php', 'phpmd'],
-\   'python': ['flake8', 'pep8', 'vulture'],
-\}
 let g:ale_fixers                               = {}
+"let g:ale_fixers['go']                         = ['goimports', 'remove_trailing_lines', 'trim_whitespace']
 let g:ale_fixers['css']                        = ['prettier']
 let g:ale_fixers['javascript']                 = ['prettier']
 let g:ale_fixers['json']                       = ['prettier']
 let g:ale_fixers['python']                     = ['add_blank_lines_for_python_control_statements', 'autopep8', 'black', 'isort', 'yapf', 'remove_trailing_lines', 'trim_whitespace']
 let g:ale_fixers['typescript']                 = ['prettier', 'tslint']
+
+let g:ale_linters                              = {}
+"let g:ale_linters['go']                        = ['gometalinter']
+let g:ale_linters['javascript']                = ['eslint', 'tsserver']
+let g:ale_linters['php']                       = ['phpcs', 'php', 'phpmd']
+let g:ale_linters['python']                    = ['flake8', 'pep8', 'vulture']
+
 let g:ale_fix_on_save                          = 0
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_python_flake8_executable             = 'python3'
@@ -466,16 +469,25 @@ if executable("go")
                 \ 'stack': 'botright 10new',
                 \ }
 
-    let g:go_auto_sameids                        = 0
-    let g:go_auto_type_info                      = 0
-    let g:go_autodetect_gopath                   = 1
-    let g:go_def_mode                            = "guru"
-    let g:go_echo_command_info                   = 1
-    let g:go_fmt_command                         = "goimports"
-    let g:go_fmt_fail_silently                   = 0
-    let g:go_fold_enable                         = []
-    let g:go_gocode_autobuild                    = 1
-    let g:go_gocode_unimported_packages          = 1
+    let g:go_addtags_transform          = "snakecase"  " Set whether the JSON tags should be snakecase or camelcase.
+    let g:go_auto_sameids               = 1
+    let g:go_auto_type_info             = 1
+    let g:go_autodetect_gopath          = 1
+    let g:go_def_mode                   = "guru"
+    let g:go_echo_command_info          = 1            " Show the progress when running :GoCoverage
+    let g:go_fmt_command                = "goimports"  " Run goimports when running gofmt
+    let g:go_fmt_fail_silently          = 0
+    let g:go_fold_enable                = []
+    let g:go_gocode_autobuild           = 1
+    let g:go_gocode_unimported_packages = 1
+    let g:go_info_mode                  = "guru"
+    let g:go_list_type                  = "quickfix"   " Fix for location list when vim-go is used together with Syntastic
+    let g:go_modifytags_transform       = 'snakecase'
+    let g:go_sameid_search_enabled      = 1
+    let g:go_snippet_engine             = "automatic"  " Automatically detect a snippet engine.
+    let g:go_test_show_name             = 1            " Add the failing test name to the output of :GoTest
+
+    " Enable syntax highlighting
     let g:go_highlight_array_whitespace_error    = 1
     let g:go_highlight_build_constraints         = 1
     let g:go_highlight_extra_types               = 1
@@ -490,10 +502,6 @@ if executable("go")
     let g:go_highlight_structs                   = 1
     let g:go_highlight_trailing_whitespace_error = 1
     let g:go_highlight_types                     = 1
-    let g:go_info_mode                           = "guru"
-    let g:go_list_type                           = "quickfix"
-    let g:go_modifytags_transform                = 'snakecase'
-    let g:go_sameid_search_enabled               = 1
 
     augroup go
         au!

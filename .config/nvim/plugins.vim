@@ -191,6 +191,7 @@ Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                " A Vim plugin
 Plug 'chrisbra/vim-diff-enhanced'                                 " Better Diff options for Vim
 Plug 'dbeniamine/cheat.sh-vim'                                    " A vim plugin to access cheat.sh sheets
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }    " VIM Table Mode for instant table creation.
+Plug 'easymotion/vim-easymotion'                                  " Vim motions on speed!
 Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
 Plug 'itchyny/vim-cursorword'                                     " Underlines the word under the cursor
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " A command-line fuzzy finder
@@ -220,6 +221,7 @@ Plug 'tpope/vim-repeat'                                " enables repeating other
 Plug 'tpope/vim-surround'                              " surround.vim: quoting/parenthesizing made simple
 Plug 'unblevable/quick-scope'                          " Lightning fast left-right movement in Vim
 Plug 'wellle/targets.vim'                              " Vim plugin that provides additional text objects
+Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }        " Vim plugin to diff two directories
 call plug#end()
 endif
 
