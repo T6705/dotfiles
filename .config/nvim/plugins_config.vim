@@ -445,7 +445,7 @@ let g:ale_linters                              = {}
 "let g:ale_linters['go']                        = ['gometalinter']
 let g:ale_linters['javascript']                = ['eslint', 'tsserver']
 let g:ale_linters['php']                       = ['phpcs', 'php', 'phpmd']
-let g:ale_linters['python']                    = ['flake8', 'pep8']
+let g:ale_linters['python']                    = ['flake8', 'pep8', 'vulture']
 
 let g:ale_fix_on_save                          = 0
 let g:ale_javascript_prettier_use_local_config = 1
