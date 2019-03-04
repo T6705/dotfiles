@@ -116,6 +116,16 @@ Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'np
 
 
 " -------------------------------------------------------------------------------
+" git
+" -------------------------------------------------------------------------------
+if executable("git")
+    Plug 'Xuyuanp/nerdtree-git-plugin'                               " git status
+    Plug 'rbong/vim-flog', { 'on': ['Flog', 'Flogsplit', 'Flogit'] } " A lightweight and powerful git branch viewer for vim.
+    Plug 'tpope/vim-fugitive'                                        " fugitive.vim: a Git wrapper so awesome, it should be illegal
+endif
+
+
+" -------------------------------------------------------------------------------
 " lint & autoformat
 " -------------------------------------------------------------------------------
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
@@ -191,6 +201,7 @@ Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                " A Vim plugin
 Plug 'chrisbra/vim-diff-enhanced'                                 " Better Diff options for Vim
 Plug 'dbeniamine/cheat.sh-vim'                                    " A vim plugin to access cheat.sh sheets
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }    " VIM Table Mode for instant table creation.
+Plug 'easymotion/vim-easymotion'                                  " Vim motions on speed!
 Plug 'ekalinin/Dockerfile.vim'                                    " Vim syntax file & snippets for Docker's Dockerfile
 Plug 'itchyny/vim-cursorword'                                     " Underlines the word under the cursor
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " A command-line fuzzy finder
@@ -211,15 +222,14 @@ Plug 'ryanoasis/vim-devicons'                          " Adds file type glyphs/i
 Plug 'scrooloose/nerdcommenter'                        " Vim plugin for intensely orgasmic commenting
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }          " Visualize your undo tree.
 Plug 'terryma/vim-multiple-cursors'                    " True Sublime Text style multiple selections for Vim
-Plug 'Xuyuanp/nerdtree-git-plugin'                     " git status
 Plug 'scrooloose/nerdtree'                             " file tree
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'         " Extra syntax and highlight for nerdtree files
 Plug 'skywind3000/gutentags_plus'                      " The right way to use gtags with gutentags
-Plug 'tpope/vim-fugitive'                              " fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plug 'tpope/vim-repeat'                                " enables repeating other supported plugins with the . command
 Plug 'tpope/vim-surround'                              " surround.vim: quoting/parenthesizing made simple
 Plug 'unblevable/quick-scope'                          " Lightning fast left-right movement in Vim
 Plug 'wellle/targets.vim'                              " Vim plugin that provides additional text objects
+Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }        " Vim plugin to diff two directories
 call plug#end()
 endif
 

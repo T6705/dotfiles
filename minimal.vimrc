@@ -54,20 +54,6 @@ augroup finalcountdown
     au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) || &buftype == 'quickfix' | q | endif
 augroup END
 
-" omnifuncs
-augroup omnifuncs
-    au!
-    au FileType c setlocal omnifunc=ccomplete#Complete
-    au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    au FileType go setlocal omnifunc=go#complete#Complete
-    au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    au FileType java setlocal omnifunc=javacomplete#Complete
-    au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    au FileType php setlocal omnifunc=phpcomplete#CompletePHP
-    au FileType python setlocal omnifunc=pythoncomplete#Complete
-    au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-augroup end
-
 " close preview on completion complete
 augroup completionhide
     au!
