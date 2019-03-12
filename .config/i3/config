@@ -273,6 +273,5 @@ exec --no-startup-id xset r rate 200 120
 exec --no-startup-id ibus-daemon -drx
 exec --no-startup-id bash ~/.config/polybar/launch.sh
 exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/frame.jpg
-exec --no-startup-id i3-msg 'workspace 1; exec st; workspace 1'
 exec_always compton -Cf --config ~/.config/i3/compton.conf
 exec_always dunst -config ~/.config/dunst/dunstrc &

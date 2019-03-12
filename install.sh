@@ -275,7 +275,13 @@ install_games() {
 
 install_draw() {
     if command -v pacman &> /dev/null; then
-        pacman -S --needed --noconfirm gimp inkscape krita
+        sudo pacman -S --needed --noconfirm gimp inkscape krita
+    fi
+}
+
+install_music() {
+    if command -v pacman &> /dev/null; then
+        sudo pacman -S --needed --noconfirm ardour audacity lmms mixxx non-sequencer qtractor rosegarden
     fi
 }
 
@@ -866,6 +872,7 @@ install_all() {
     install_dots
     install_games
     install_draw
+    install_music
     install_de
 }
 
@@ -887,6 +894,7 @@ main() {
         "file_manager") install_file_manager;;
         "games")        install_games;;
         "draw")         install_draw;;
+        "music")        install_music;;
         "i3")           install_i3;;
         "ibus")         install_ibus;;
         "spacemacs")    install_spacemacs;;
@@ -904,6 +912,7 @@ main() {
             echo "├─ dots"
             echo "├─ games"
             echo "├─ draw"
+            echo "├─ music"
             echo "└─ de"
             echo "   ├─ dunst"
             echo "   ├─ i3"

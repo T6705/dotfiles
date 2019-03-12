@@ -10,6 +10,15 @@ fi
 ###############
 ## functions ##
 ###############
+random_chiptune() {
+    cat /dev/urandom | \
+        hexdump -v -e '/1 "%u\n"' | \
+        awk '{ split("0,3,5,6,7,10,12",a,","); \
+        for (i = 0; i < 1; i+= 0.0001) \
+        printf("%08X\n", 100*sin(1382*exp((a[$1 % 8]/12)*log(2))*i)) }' | \
+        xxd -r -p | \
+        aplay -c 2 -f S32_LE -r 24000
+}
 
 ramdisk_on() {
     if ! [[ -d "/mnt/ramdisk" ]]; then
@@ -179,6 +188,19 @@ weather() {
         curl wttr.in | tac | tac | head -n 7
     fi
 }
+
+if command -v chromium &> /dev/null ; then
+    proxy_chromium() {
+        #ssh -CNTvD port user@host
+        if [[ -n "$1" ]]; then
+            port=$1
+            chromium --proxy-server="socks://localhost:$port" &
+            exit
+        else
+            echo "proxy_chromium <port>"
+        fi
+    }
+fi
 
 if command -v cower &> /dev/null ; then
     coweri() {
@@ -643,106 +665,6 @@ aes() {
         echo "aes decrypt <infile> <outfile>"
         echo "aes decrypt <infile> <outfile> <keyfile>"
     fi
-}
-
-nerd-fonts-install() {
-    time mkdir -p ~/git
-    time rm -rf ~/git/nerd-fonts
-    time git clone https://github.com/ryanoasis/nerd-fonts ~/git/nerd-fonts
-    time ~/git/nerd-fonts/install.sh
-}
-
-nerd-fonts-update() {
-    if [[ -d ~/git/nerd-fonts ]]; then
-        time cd ~/git/nerd-fonts && time git pull
-        time ./install.sh
-    else
-        nerd-fonts-install
-    fi
-}
-
-edb-install() {
-    echo "=============================================="
-    echo "== edb - cross platform x86/x86-64 debugger =="
-    echo "=============================================="
-    currentdir=$(pwd)
-    if command -v apt-get &> /dev/null ; then
-        # install dependencies For Ubuntu >= 15.10
-        sudo apt-get install -y    \
-            cmake                  \
-            build-essential        \
-            libboost-dev           \
-            libqt5xmlpatterns5-dev \
-            qtbase5-dev            \
-            qt5-default            \
-            libqt5svg5-dev         \
-            libgraphviz-dev        \
-            libcapstone-dev
-    elif command -v pacman &> /dev/null ; then
-        sudo pacman -S --needed qt4 boost boost-libs capstone graphviz
-        sudo pacman -S --needed $(pacman -Ssq qt | sort -u | grep -E "^qt5-")
-    fi
-
-    if [[ -d ~/git/edb-debugger ]]; then
-        time rm -rf ~/git/edb-debugger && cd ~/git
-    else
-        mkdir -p ~/git && cd ~/git
-    fi
-
-    time git clone --recursive https://github.com/eteran/edb-debugger.git
-    cd edb-debugger
-    mkdir build && cd build
-    time cmake -DCMAKE_INSTALL_PREFIX=/usr/local/ ..
-    time make && time sudo make install && time edb --version && cd $currentdir
-}
-
-plasma-install() {
-    echo "========================================================"
-    echo "== plasma - interactive disassembler for x86/ARM/MIPS =="
-    echo "========================================================"
-    if command -v apt-get &> /dev/null ; then
-        currentdir=$(pwd)
-        if [[ -d ~/git/plasma ]]; then
-            time rm -rf ~/git/plasma && cd ~/git
-        else
-            mkdir -p ~/git && cd ~/git
-        fi
-        time git clone https://github.com/plasma-disassembler/plasma
-        cd plasma && time ./install.sh && cd $currentdir
-    elif command -v pacman &> /dev/null ; then
-        if command -v pacaur &> /dev/null ; then
-            pacaur -S plasma-git
-        else
-            sudo pacman -S pacaur
-            pacaur -S plasma-git
-        fi
-    fi
-}
-
-yuzu-install() {
-    echo "======================================"
-    echo "== yuzu -  Nintendo Switch Emulator =="
-    echo "======================================"
-
-    if command -v apt-get &> /dev/null ; then
-        sudo apt-get install build-essential clang cmake libc++-dev libcurl4-openssl-dev libqt5opengl5-dev libsdl2-2.0-0 libsdl2-dev qtbase5-dev sdl2
-    elif command -v pacman &> /dev/null ; then
-        sudo pacman -S --needed base-devel clang cmake libcurl-compat qt5 sdl2
-    fi
-
-    currentdir=$(pwd)
-    if [[ -d ~/git/yuzu ]]; then
-        time rm -rf ~/git/yuzu && cd ~/git
-    else
-        mkdir -p ~/git && cd ~/git
-    fi
-    time git clone --recursive https://github.com/yuzu-emu/yuzu
-    cd yuzu
-
-    mkdir build && cd build
-    cmake ../
-    make
-    sudo make install
 }
 
 # -----------------------------------------------------------------------------------------
