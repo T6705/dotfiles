@@ -328,8 +328,8 @@ if has('python3')
     " ---------------------------------------
     " https://github.com/zchee/deoplete-clang
     " ---------------------------------------
-    let g:deoplete#sources#clang#libclang_path           = '/usr/lib/libclang.so'
-    let g:deoplete#sources#clang#clang_header            = '/usr/lib/clang'
+    let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+    let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang'
 
     " ------------------------------------
     " https://github.com/zchee/deoplete-go

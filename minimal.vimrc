@@ -270,7 +270,11 @@ if !&sidescrolloff
     set sidescrolloff=5
 endif
 
-set completeopt=longest,menuone,preview
+if has('nvim')
+    set completeopt=longest,menuone
+else
+    set completeopt=longest,menuone,preview
+endif
 set showcmd           " show incomplete commands
 set so=7              " Set 7 lines to the cursor - when moving vertically using j/k
 set t_Co=256          " Explicitly tell vim that the terminal supports 256 colors
@@ -1782,6 +1786,7 @@ else
 endif
 
 " Completetion
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
 " Use <Tab> and <S-Tab> for navigate completion list:
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -1790,7 +1795,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <enter> to confirm complete
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
-inoremap ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap <silent> ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
 " file names
 inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",f"<CR>

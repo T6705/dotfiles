@@ -66,6 +66,9 @@ Plug 'tomasr/molokai'
 Plug 'Yggdroot/indentLine'            " A vim plugin to display the indention levels with thin vertical lines
 Plug 'vim-airline/vim-airline'        " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
+if has('nvim')
+    Plug 'ncm2/float-preview.nvim'    " Less annoying completion preview window based on neovim's floating window
+endif
 
 
 "" -------------------------------------------------------------------------------
@@ -128,6 +131,7 @@ Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'np
 if executable("git")
     Plug 'Xuyuanp/nerdtree-git-plugin'                               " git status
     Plug 'rbong/vim-flog', { 'on': ['Flog', 'Flogsplit', 'Flogit'] } " A lightweight and powerful git branch viewer for vim.
+    Plug 'rhysd/git-messenger.vim', { 'on' : 'GitMessenger' }        " Vim plugin to show the last commit message under the cursor
     Plug 'tpope/vim-fugitive'                                        " fugitive.vim: a Git wrapper so awesome, it should be illegal
 endif
 

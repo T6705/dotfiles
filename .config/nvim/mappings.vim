@@ -225,6 +225,7 @@ nnoremap <silent> <Leader>gpu :Gpull<CR>
 nnoremap <silent> <Leader>gr  :Gremove<CR>
 nnoremap <silent> <Leader>gs  :Gstatus<CR>
 nnoremap <silent> <Leader>gw  :Gwrite<CR>
+nnoremap <silent> <Leader>gm  :GitMessenger<CR>
 
 " neosnippet.vim
 " Plugin key-mappings.
@@ -338,6 +339,7 @@ imap ,fl <plug>(fzf-complete-line)
 imap ,fw <plug>(fzf-complete-word)
 
 " Completetion
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
 " Use <Tab> and <S-Tab> for navigate completion list:
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -346,7 +348,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <enter> to confirm complete
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
-inoremap ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap <silent> ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ",,"<CR>
 
 " file names
 inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",f"<CR>

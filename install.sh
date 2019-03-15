@@ -227,7 +227,7 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel
         sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt yay
-        sudo pacman -S --needed --noconfirm bat curl fd fontconfig git neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge termite time tmux vim xclip xsel zsh
+        sudo pacman -S --needed --noconfirm bat curl fd fontconfig git neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge termite tig time tmux vim xclip xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"
@@ -766,26 +766,10 @@ install_zsh() {
     echo "== install hub (https://github.com/github/hub) =="
     echo "================================================="
     echo ""
-    if command -v go &> /dev/null; then
-        export GOPATH=$HOME/go
-        go get github.com/github/hub
-        export PATH=$PATH:$GOPATH/bin
-    fi
-
-    echo ""
-    echo "====================================================="
-    echo "== install lab (https://github.com/zaquestion/lab) =="
-    echo "====================================================="
-    echo ""
-    if command -v go &> /dev/null; then
-        if ! command -v dep &> /dev/null; then
-            export GOPATH=$HOME/go
-            go get -u github.com/golang/dep/cmd/dep
-        fi
-        export GOPATH=$HOME/go
-        go get -u -d github.com/zaquestion/lab
-        cd $GOPATH/src/github.com/zaquestion/lab
-        make install
+    if command -v pacman &> /dev/null; then
+        sudo pacman -S --needed --noconfirm hub
+    elif command -v apt-get &> /dev/null; then
+        sudo apt-get install -y hub
     fi
 
     echo ""

@@ -152,7 +152,11 @@ if !&sidescrolloff
     set sidescrolloff=5
 endif
 
-set completeopt=longest,menuone,preview
+if has('nvim')
+    set completeopt=longest,menuone
+else
+    set completeopt=longest,menuone,preview
+endif
 set showcmd           " show incomplete commands
 set so=7              " Set 7 lines to the cursor - when moving vertically using j/k
 set t_Co=256          " Explicitly tell vim that the terminal supports 256 colors
