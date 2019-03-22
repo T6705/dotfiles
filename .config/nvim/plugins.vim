@@ -15,7 +15,6 @@ fu! Cond(cond, ...)
   return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
 endfu
 
-
 " vim-plug automatic installation
 if has('nvim')
     if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -59,17 +58,16 @@ Plug 'rakr/vim-one'
 Plug 'roosta/vim-srcery'
 Plug 'tomasr/molokai'
 
-
 " -------------------------------------------------------------------------------
 " Interface
 " -------------------------------------------------------------------------------
 Plug 'Yggdroot/indentLine'            " A vim plugin to display the indention levels with thin vertical lines
+Plug 'paroxayte/vwm.vim' " A highly extensible window manager for nvim/vim!
 Plug 'vim-airline/vim-airline'        " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
-if has('nvim')
-    Plug 'ncm2/float-preview.nvim'    " Less annoying completion preview window based on neovim's floating window
-endif
-
+"if has('nvim')
+"    Plug 'ncm2/float-preview.nvim'    " Less annoying completion preview window based on neovim's floating window
+"endif
 
 "" -------------------------------------------------------------------------------
 "" latex
@@ -77,13 +75,11 @@ endif
 "Plug 'donRaphaco/neotex', Cond(has('nvim'), { 'do': function('DoRemote'), 'for': 'tex' })
 "Plug 'lervag/vimtex', { 'for': 'tex' }
 
-
 " -------------------------------------------------------------------------------
 " markdown
 " -------------------------------------------------------------------------------
 "Plug 'plasticboy/vim-markdown', { 'for': 'markdown', 'on': [] }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
-
 
 " -------------------------------------------------------------------------------
 " golang
@@ -91,7 +87,6 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPre
 if executable("go")
     Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 endif
-
 
 " -------------------------------------------------------------------------------
 " dart
@@ -107,12 +102,10 @@ if executable("kotlin")
     Plug 'udalov/kotlin-vim'
 endif
 
-
 " -------------------------------------------------------------------------------
 " html
 " -------------------------------------------------------------------------------
 Plug 'mattn/emmet-vim', { 'for': ['*html', '*css', '*jsx', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
-
 
 " -------------------------------------------------------------------------------
 " javascript
@@ -124,7 +117,6 @@ Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }                 
 Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }                " Yet Another JavaScript Syntax for Vim
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' } " Tern plugin for Vim
 
-
 " -------------------------------------------------------------------------------
 " git
 " -------------------------------------------------------------------------------
@@ -135,7 +127,6 @@ if executable("git")
     Plug 'tpope/vim-fugitive'                                        " fugitive.vim: a Git wrapper so awesome, it should be illegal
 endif
 
-
 " -------------------------------------------------------------------------------
 " lint & autoformat
 " -------------------------------------------------------------------------------
@@ -145,7 +136,6 @@ endif
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
 Plug 'ambv/black', { 'for': 'python' }         " The uncompromising Python code formatter
 Plug 'w0rp/ale'                                " Asynchronous Lint Engine
-
 
 " -------------------------------------------------------------------------------
 " Auto Completion
@@ -184,7 +174,6 @@ if v:version >= 704
 endif
 Plug 'honza/vim-snippets'         " vim-snipmate default snippets
 
-
 " -------------------------------------------------------------------------------
 " textobj
 " -------------------------------------------------------------------------------
@@ -194,7 +183,6 @@ Plug 'deris/vim-textobj-ipmac'                  " aA/iA for ipv4, ipv6, MAC Addr
 Plug 'kana/vim-textobj-datetime'                " ada/ida and others for date and time such as 2013-03-13, 19:51:45, 2013-03-13T19:51:50
 Plug 'kana/vim-textobj-indent'                  " ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
 Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
-
 
 " -------------------------------------------------------------------------------
 " utilities

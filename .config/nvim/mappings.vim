@@ -151,8 +151,6 @@ nnoremap <silent> <Leader>ffo :!firefox %<CR>
 "nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "nnoremap <silent> <F4> :GundoToggle<CR>
 "nnoremap <silent> <F6> :TagbarToggle<CR>
-inoremap <silent> <F5> <Esc>:Codi!!<CR>
-nnoremap <silent> <F5> :Codi!!<CR>
 
 " hexedit
 "inoremap <silent> <F7> <Esc>:%!xxd<CR>
@@ -227,16 +225,6 @@ nnoremap <silent> <Leader>gs  :Gstatus<CR>
 nnoremap <silent> <Leader>gw  :Gwrite<CR>
 nnoremap <silent> <Leader>gm  :GitMessenger<CR>
 
-" neosnippet.vim
-" Plugin key-mappings.
-" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
 "" For conceal markers.
 "if has('conceal')
 "  set conceallevel=2 concealcursor=niv
@@ -252,7 +240,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 "nmap <silent> ]l <Plug>(ale_next)
 "nmap <silent> ]l <Plug>(ale_next_wrap)
 "nnoremap <silent> <Leader>fx <Plug>(ale_fix)
-nnoremap <silent> <Leader>alfx :ALEFix<CR>
 
 " quickfix
 let g:quickfix_height = 50
@@ -282,8 +269,6 @@ nnoremap <silent> [b :bp<CR>
 nnoremap <silent> ]b :bn<CR>
 nnoremap <silent> <Leader>q :bd!<CR>
 nnoremap <silent> <Leader>bn :enew<CR>
-nnoremap <silent> <Leader>bs :Buffers<CR>
-nnoremap <silent> <Leader>bls :Lines<CR>
 nnoremap <silent> <bs> <C-^>
 
 " add space after comma
@@ -298,45 +283,8 @@ vnoremap <silent> <Leader>, :s/, */, /g<CR>
 "else
 "    nnoremap <silent> <Leader>E :Explore<CR>
 "endif
-nnoremap <silent> <Leader>E :NERDTreeToggle<CR>
-nnoremap <silent> <Leader>EF :NERDTreeFind<CR>
-
-"Gundo
-nnoremap <silent> <Leader>ut :GundoToggle<CR>
 
 nnoremap <silent> <Leader>bp Oimport pdb; pdb.set_trace()  # BREAKPOINT<C-c>
-
-if isdirectory(".git")
-    " if in a git project, use :GFiles
-    nnoremap <silent> <Leader>e :GFiles<CR>
-else
-    " otherwise, use :FZF
-    nnoremap <silent> <Leader>e :FZF<CR>
-endif
-
-nmap <Leader><TAB> <plug>(fzf-maps-n)
-xmap <Leader><TAB> <plug>(fzf-maps-x)
-omap <Leader><TAB> <plug>(fzf-maps-o)
-
-" Windows
-nnoremap <silent> <Leader>ws :Windows<CR>
-
-" Marks
-nnoremap <silent> <Leader>ms :Marks<CR>
-
-" Tags
-nnoremap <silent> <Leader>ts :Tags<CR>
-
-" tagbar
-if v:version >= 703
-    nnoremap <silent> <Leader>tb :TagbarToggle<CR>
-endif
-
-" Insert mode completion
-imap ,a <plug>(fzf-complete-file-ag)
-imap ,p <plug>(fzf-complete-path)
-imap ,fl <plug>(fzf-complete-line)
-imap ,fw <plug>(fzf-complete-word)
 
 " Completetion
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
@@ -366,15 +314,11 @@ inoremap <silent> ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Dow
 nnoremap <silent> <Leader>f za<CR>
 vnoremap <silent> <Leader>f za<CR>
 
-" vim-table-mode
-nnoremap <silent> <Leader>tm :TableModeToggle<CR>
-
 " Make the dot command work as expected in visual mode (via
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
 vnoremap . :norm.<CR>
 
 " compile and run
-noremap <silent> <Leader>tcr :TmuxCompileandRun<CR>
 noremap <silent> <Leader>cr :CompileandRun<CR>
 
 " Markdown headings
@@ -386,11 +330,13 @@ nnoremap <silent> <Leader>5 m`^i##### <Esc>``6l
 
 "nnoremap <silent> <Leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
 "nnoremap <silent> <Leader>pdf :w<CR> :NeoTex<CR>
-nnoremap <silent> <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
 " Make check spelling on or off
 nnoremap <silent> <Leader>cson   :set spell<CR>
 nnoremap <silent> <Leader>csoff :set nospell<CR>
+
+" Correcting spelling mistakes
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " search and replace
 nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
@@ -430,36 +376,6 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 " Move to word
 map  <Leader>W <Plug>(easymotion-bd-w)
 nmap <Leader>W <Plug>(easymotion-overwin-w)
-
-" -------------------------------------------------------------------------------
-" vimux
-" -------------------------------------------------------------------------------
-" Inspect runner pane
-nnoremap <silent> <Leader>vi :VimuxInspectRunner<CR>
-
-" Run last command executed by VimuxRunCommand
-nnoremap <silent> <Leader>vl :VimuxRunLastCommand<CR>
-
-" Prompt for a command to run
-nnoremap <silent> <Leader>vp :VimuxPromptCommand<CR>
-
-" Close vim tmux runner opened by VimuxRunCommand
-nnoremap <silent> <Leader>vq :VimuxCloseRunner<CR>
-
-" Interrupt any command running in the runner pane
-nnoremap <silent> <Leader>vx :VimuxInterruptRunner<CR>
-
-" Zoom the runner pane (use <bind-key> z to restore runner pane)
-nnoremap <silent> <Leader>vz :call VimuxZoomRunner()<CR>
-
-" -------------------------------------------------------------------------------
-" isort
-" -------------------------------------------------------------------------------
-if executable("isort")
-    nnoremap <silent> <Leader>is :%!isort -<CR>
-else
-    nnoremap <Leader>is :echo "isort is not installed"<CR>
-endif
 
 " -------------------------------------------------------------------------------
 " prettier

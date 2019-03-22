@@ -3,11 +3,41 @@
 """ === Plugin Config === {{{
 
 " -------------------------------------------------------------------------------
+" vwm.vim
+" -------------------------------------------------------------------------------
+
+let s:py = {
+    \    'name': 'py',
+    \    'bot':
+    \    {
+    \      'init': ['call termopen("python3", {"detach": 0})'],
+    \      'sz': 12,
+    \    }
+    \  }
+
+let s:term = {
+    \    'name': 'term',
+    \    'bot':
+    \    {
+    \      'init': ['call termopen("zsh", {"detach": 0})'],
+    \      'sz': 12,
+    \    }
+    \  }
+
+let g:vwm#layouts = [s:term, s:py]
+
+nnoremap <Leader>vo :VwmOpen<space>
+nnoremap <Leader>vc :VwmClose<space>
+command Opy :VwmOpen py
+command Cpy :VwmClose py
+command Oterm :VwmOpen term
+command Cterm :VwmClose term
+
+" -------------------------------------------------------------------------------
 " Colorizer
 " -------------------------------------------------------------------------------
 let g:colorizer_syntax   = 1
 let g:colorizer_auto_map = 1
-
 
 " -------------------------------------------------------------------------------
 " table-mode
@@ -16,13 +46,13 @@ let g:table_mode_corner = "|"
 "let g:table_mode_corner_corner="+"
 "let g:table_mode_header_fillchar="="
 
+nnoremap <silent> <Leader>tm :TableModeToggle<CR>
 
 " -------------------------------------------------------------------------------
 " RainbowParentheses
 " -------------------------------------------------------------------------------
 let g:rainbow#max_level = 32
 let g:rainbow#pairs     = [['(', ')'], ['[', ']'], ['{','}']]
-
 
 " -------------------------------------------------------------------------------
 " vimtex
@@ -39,6 +69,29 @@ let g:vimtex_latexmk_continuous  = 1
 let g:vimtex_latexmk_options     = '-pdfdvi'
 let g:vimtex_view_general_viewer = 'zathura'
 
+" Inspect runner pane
+nnoremap <silent> <Leader>vi :VimuxInspectRunner<CR>
+
+" Run last command executed by VimuxRunCommand
+nnoremap <silent> <Leader>vl :VimuxRunLastCommand<CR>
+
+" Prompt for a command to run
+nnoremap <silent> <Leader>vp :VimuxPromptCommand<CR>
+
+" Close vim tmux runner opened by VimuxRunCommand
+nnoremap <silent> <Leader>vq :VimuxCloseRunner<CR>
+
+" Interrupt any command running in the runner pane
+nnoremap <silent> <Leader>vx :VimuxInterruptRunner<CR>
+
+" Zoom the runner pane (use <bind-key> z to restore runner pane)
+nnoremap <silent> <Leader>vz :call VimuxZoomRunner()<CR>
+
+" compile and run
+noremap <silent> <Leader>tcr :TmuxCompileandRun<CR>
+
+" compile pdf
+nnoremap <silent> <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
 " -------------------------------------------------------------------------------
 " Nerd Commenter
@@ -50,12 +103,12 @@ let g:NERDDefaultAlign           = 'left' " Align line-wise comment delimiters f
 let g:NERDSpaceDelims            = 1      " Add spaces after comment delimiters by default
 let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespace when uncommenting
 
-
 " -------------------------------------------------------------------------------
 " Gundo.vim
 " -------------------------------------------------------------------------------
 let g:gundo_prefer_python3 = 1
 
+nnoremap <silent> <Leader>ut :GundoToggle<CR>
 
 " -------------------------------------------------------------------------------
 " NERDTree
@@ -89,6 +142,8 @@ let g:NERDTreeIndicatorMapCustom   = {
 \ }
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
+nnoremap <silent> <Leader>E :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>EF :NERDTreeFind<CR>
 
 " -------------------------------------------------------------------------------
 " netrw
@@ -105,7 +160,6 @@ let g:netrw_liststyle   = 3                      " tree view
 let g:netrw_preview     = 1
 let g:netrw_sizestyle   = "H"                    " Human-readable file sizes
 let g:netrw_winsize     = 30
-
 
 " -------------------------------------------------------------------------------
 " Airline.vim
@@ -160,13 +214,11 @@ let g:WebDevIconsUnicodeDecorateFolderNodes          = 1   " enable folder/direc
 let g:WebDevIconsUnicodeGlyphDoubleWidth             = 1   " use double-width(1) or single-width(0) glyphs
 let g:webdevicons_conceal_nerdtree_brackets          = 0   " whether or not to show the nerdtree brackets around flags
 
-
 " -------------------------------------------------------------------------------
 " vimux
 " -------------------------------------------------------------------------------
 let g:VimuxOrientation = "h"
 let g:VimuxHeight      = "50"
-
 
 " -------------------------------------------------------------------------------
 " indentline
@@ -175,13 +227,19 @@ let g:indentLine_char      = '▸'
 let g:indentLine_enabled   = 1 "enable by default
 let g:indentLine_setColors = 1 "overwrite 'conceal' color
 
-
 " -------------------------------------------------------------------------------
 " neosnippet.vim
 " -------------------------------------------------------------------------------
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
 
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " -------------------------------------------------------------------------------
 " Ultsnips
@@ -192,12 +250,10 @@ let g:UltiSnipsJumpForwardTrigger  = "<C-n>"
 let g:UltiSnipsEditSplit           = "vertical" " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsSnippetsDir         = "~/.vim/UltiSnips"
 
-
 " -------------------------------------------------------------------------------
 " SuperTab
 " -------------------------------------------------------------------------------
 let g:SuperTabDefaultCompletionType = "<C-n>"
-
 
 " -------------------------------------------------------------------------------
 " YouCompleteMe
@@ -250,7 +306,6 @@ let g:ycm_filetype_blacklist = {
       \ 'vimwiki':  1
       \}
 
-
 " -------------------------------------------------------------------------------
 " instant_markdown
 " -------------------------------------------------------------------------------
@@ -260,35 +315,27 @@ let g:instant_markdown_autostart              = 0 " start markdown preview with 
 let g:instant_markdown_open_to_the_world      = 0 " listens on localhost
 let g:instant_markdown_slow                   = 0 " realtime preview
 
-
 " -------------------------------------------------------------------------------
 " tagbar
 " -------------------------------------------------------------------------------
 if v:version >= 703
     let g:tagbar_sort      = 0
     let g:tagbar_autofocus = 1
+    nnoremap <silent> <Leader>tb :TagbarToggle<CR>
 endif
-
 
 "" -------------------------------------------------------------------------------
 "" vim-gutentags
 "" -------------------------------------------------------------------------------
-" enable gtags module
-let g:gutentags_modules = ['ctags', 'gtags_cscope']
-
-" config project root markers.
-let g:gutentags_project_root = ['.root']
-
-" generate datebases in my cache directory, prevent gtags files polluting my project
 let gutentags_dir = expand('~/.cache/tags')
 if !isdirectory(gutentags_dir)
     call mkdir(gutentags_dir, "", 0700)
 endif
-let g:gutentags_cache_dir = expand('~/.cache/tags')
 
-" forbid gutentags adding gtags databases
-let g:gutentags_auto_add_gtags_cscope = 0
-
+let g:gutentags_modules               = ['ctags', 'gtags_cscope'] " enable gtags module
+let g:gutentags_project_root          = ['.root']                 " config project root markers.
+let g:gutentags_cache_dir             = expand('~/.cache/tags')   " generate datebases in my cache directory, prevent gtags files polluting my project
+let g:gutentags_auto_add_gtags_cscope = 0                         " forbid gutentags adding gtags databases
 
 " -------------------------------------------------------------------------------
 " emmet-vim
@@ -298,7 +345,6 @@ let g:gutentags_auto_add_gtags_cscope = 0
 "let g:user_emmet_mode='n'    "only enable normal mode functions.
 let g:user_emmet_install_global = 0
 let g:user_emmet_mode           = 'a'    "enable all function in all mode.
-
 
 " -------------------------------------------------------------------------------
 " Codi.vim
@@ -310,6 +356,8 @@ let g:codi#interpreters = {
                        \ },
                        \ }
 
+inoremap <silent> <F5> <Esc>:Codi!!<CR>
+nnoremap <silent> <F5> :Codi!!<CR>
 
 if has('python3')
     " -------------------------------------------------------------------------------
@@ -410,7 +458,6 @@ if has('python3')
     let g:tern#arguments = ["--persistent"]
 endif
 
-
 " -------------------------------------------------------------------------------
 " vimade
 " -------------------------------------------------------------------------------
@@ -429,6 +476,13 @@ let g:vimade = {
   \ "signsretentionperiod": 4000,
   \}
 
+" -------------------------------------------------------------------------------
+" Black
+" -------------------------------------------------------------------------------
+let g:black_fast                      = 0   " (defaults to 0)
+let g:black_linelength                = 88  " (defaults to 88)
+let g:black_skip_string_normalization = 0   " (defaults to 0)
+"let g:black_virtualenv               = ~/.vim/black " (defaults to ~/.vim/black)
 
 " -------------------------------------------------------------------------------
 " Asynchronous Lint Engine
@@ -455,6 +509,7 @@ let g:ale_python_pep8_options                  = '--max-line-length=100 --ignore
 let g:ale_set_loclist                          = 1
 let g:ale_set_quickfix                         = 0
 
+nnoremap <silent> <Leader>alfx :ALEFix<CR>
 
 " -------------------------------------------------------------------------------
 " vim-go
@@ -539,7 +594,6 @@ if executable("go")
     augroup END
 endif
 
-
 " -------------------------------------------------------------------------------
 " dart-vim-plugin
 " -------------------------------------------------------------------------------
@@ -549,7 +603,6 @@ if executable("dart")
     let dart_style_guide = 2
     let dart_format_on_save = 1
 endif
-
 
 " -------------------------------------------------------------------------------
 " jedi-vim
@@ -569,7 +622,6 @@ let g:jedi#show_call_signatures     = "1"
 let g:jedi#usages_command           = "<Leader>n"
 let g:jedi#use_splits_not_buffers   = "right"
 let g:jedi#use_tabs_not_buffers     = 0
-
 
 " -------------------------------------------------------------------------------
 " fzf
@@ -632,6 +684,37 @@ elseif executable('ag')
 endif
 
 
+if isdirectory(".git")
+    " if in a git project, use :GFiles
+    nnoremap <silent> <Leader>e :GFiles<CR>
+else
+    " otherwise, use :FZF
+    nnoremap <silent> <Leader>e :FZF<CR>
+endif
+
+nmap <Leader><TAB> <plug>(fzf-maps-n)
+xmap <Leader><TAB> <plug>(fzf-maps-x)
+omap <Leader><TAB> <plug>(fzf-maps-o)
+
+" Windows
+nnoremap <silent> <Leader>ws :Windows<CR>
+
+" Marks
+nnoremap <silent> <Leader>ms :Marks<CR>
+
+" Tags
+nnoremap <silent> <Leader>ts :Tags<CR>
+
+" Insert mode completion
+imap ,a <plug>(fzf-complete-file-ag)
+imap ,p <plug>(fzf-complete-path)
+imap ,fl <plug>(fzf-complete-line)
+imap ,fw <plug>(fzf-complete-word)
+
+" Buffers
+nnoremap <silent> <Leader>bs :Buffers<CR>
+nnoremap <silent> <Leader>bls :Lines<CR>
+
 " -------------------------------------------------------------------------------
 " vim-easy-align
 " -------------------------------------------------------------------------------
@@ -675,14 +758,12 @@ nmap gaa ga_
 
 " inoremap <silent> => =><Esc>mzvip:EasyAlign/=>/<CR>`z$a<Space>
 
-
 " -------------------------------------------------------------------------------
 " vim-slash
 " -------------------------------------------------------------------------------
 if has('timers') && !has('nvim')
   noremap <expr> <plug>(slash-after) slash#blink(2, 50)
 endif
-
 
 " -------------------------------------------------------------------------------
 " peekaboo

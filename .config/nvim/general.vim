@@ -350,6 +350,7 @@ set splitright
 
 " Completion for spellings
 "set spell
+set spelllang=en_us,nl
 set complete+=kspell
 set ofu=syntaxcomplete#Complete " Set omni-completion method
 

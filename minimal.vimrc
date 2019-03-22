@@ -4,6 +4,10 @@
 
 augroup configgroup
     au!
+
+    if has('nvim')
+        au BufWinEnter,WinEnter term://* startinser
+    endif
     au BufRead * call ChangeEncoding()
     au BufNewFile * call SetTitle()
     au BufNewFile * normal G
@@ -468,6 +472,7 @@ set splitright
 
 " Completion for spellings
 "set spell
+set spelllang=en_us,nl
 set complete+=kspell
 set ofu=syntaxcomplete#Complete " Set omni-completion method
 
@@ -1795,7 +1800,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <enter> to confirm complete
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
-inoremap <silent> ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap <silent> ,, <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ",,"<CR>
 
 " file names
 inoremap <silent> ,f <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",f"<CR>
@@ -1830,6 +1835,9 @@ nnoremap <silent> <Leader>5 m`^i##### <Esc>``6l
 " Make check spelling on or off
 nnoremap <silent> <Leader>cson   :set spell<CR>
 nnoremap <silent> <Leader>csoff :set nospell<CR>
+
+" Correcting spelling mistakes
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " search and replace
 nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/

@@ -11,6 +11,9 @@ augroup configgroup
     " Open NERDTree automatically when vim starts up on opening a directory
     au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | wincmd h |endif
 
+    if has('nvim')
+        au BufWinEnter,WinEnter term://* startinser
+    endif
     au BufEnter * call NERDTreeRefresh() "
     au BufRead * call ChangeEncoding()
     au BufNewFile * call SetTitle()

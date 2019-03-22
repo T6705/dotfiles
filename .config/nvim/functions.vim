@@ -466,7 +466,7 @@ fu! Compile_and_Run()
         echo 'compiling'
         exe "!time gcc -O3 -Wall -Wextra % -o %<"
         let l:cmd="time ".expand('%:p:r')
-    elseif &filetype == 'c'
+    elseif &filetype == 'cpp'
         echo 'compiling'
         exe "!time g++ -O3 -Wall -Wextra -std=c++11 % -o %<"
         let l:cmd="time ".expand('%:p:r')
