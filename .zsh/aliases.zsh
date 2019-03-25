@@ -105,6 +105,30 @@ if command -v nvim &> /dev/null ; then
     alias nvimnn='nvim -u NONE -i NONE -N'
 fi
 
+if command -v git &> /dev/null ; then
+    if command -v vim &> /dev/null ; then
+        #vd - Edit all uncommitted files that have changes since the last commit (be they staged or unstaged)
+        alias vd="vim \$(git diff HEAD --name-only --diff-filter=ACMR)"
+
+        #vds - Edit all staged files that have changes since the last commit
+        alias vds="vim \$(git diff --staged --name-only --diff-filter=ACMR)"
+
+        #vdc - Edit all files that were altered in the last commit
+        alias vdc="vim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
+    fi
+
+    if command -v nvim &> /dev/null ; then
+        #vd - Edit all uncommitted files that have changes since the last commit (be they staged or unstaged)
+        alias nvd="nvim \$(git diff HEAD --name-only --diff-filter=ACMR)"
+
+        #nvds - Edit all staged files that have changes since the last commit
+        alias nvds="nvim \$(git diff --staged --name-only --diff-filter=ACMR)"
+
+        #nvdc - Edit all files that were altered in the last commit
+        alias nvdc="nvim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
+    fi
+fi
+
 # ------------------------------------
 # Docker alias
 # ------------------------------------

@@ -367,6 +367,15 @@ install_i3() {
         #makepkg -si
 
     fi
+
+    echo ""
+    echo "========================"
+    echo "== Download corrupter =="
+    echo "========================"
+    echo ""
+    time mkdir -p ~/git/hub
+    time git clone https://github.com/r00tman/corrupter ~/git/hub/corrupter
+    time cd ~/git/hub/corrupter && time go build
 }
 
 install_ibus() {

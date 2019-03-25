@@ -65,9 +65,9 @@ Plug 'Yggdroot/indentLine'            " A vim plugin to display the indention le
 Plug 'paroxayte/vwm.vim' " A highly extensible window manager for nvim/vim!
 Plug 'vim-airline/vim-airline'        " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
-"if has('nvim')
-"    Plug 'ncm2/float-preview.nvim'    " Less annoying completion preview window based on neovim's floating window
-"endif
+if has('nvim')
+    Plug 'ncm2/float-preview.nvim'    " Less annoying completion preview window based on neovim's floating window
+endif
 
 "" -------------------------------------------------------------------------------
 "" latex

@@ -2,7 +2,11 @@
 
 scrot /tmp/screen.png
 
-convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
+if [ -f ~/git/hub/corrupter/corrupter ]; then
+    ~/git/hub/corrupter/corrupter /tmp/screen.png /tmp/screen.png
+else
+    convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
+fi
 
 #[[ -f $1 ]] && convert /tmp/screen.png $1 -gravity center -composite -matte /tmp/screen.png
 [[ -f ~/.config/i3/lock.png ]] && convert /tmp/screen.png ~/.config/i3/lock.png -gravity center -composite -matte /tmp/screen.png

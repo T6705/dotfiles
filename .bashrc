@@ -279,6 +279,30 @@ if command -v nvim &> /dev/null ; then
     alias nvimnn='nvim -u NONE -i NONE -N'
 fi
 
+if command -v git &> /dev/null ; then
+    if command -v vim &> /dev/null ; then
+        #vd - Edit all uncommitted files that have changes since the last commit (be they staged or unstaged)
+        alias vd="vim \$(git diff HEAD --name-only --diff-filter=ACMR)"
+
+        #vds - Edit all staged files that have changes since the last commit
+        alias vds="vim \$(git diff --staged --name-only --diff-filter=ACMR)"
+
+        #vdc - Edit all files that were altered in the last commit
+        alias vdc="vim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
+    fi
+
+    if command -v nvim &> /dev/null ; then
+        #vd - Edit all uncommitted files that have changes since the last commit (be they staged or unstaged)
+        alias nvd="nvim \$(git diff HEAD --name-only --diff-filter=ACMR)"
+
+        #nvds - Edit all staged files that have changes since the last commit
+        alias nvds="nvim \$(git diff --staged --name-only --diff-filter=ACMR)"
+
+        #nvdc - Edit all files that were altered in the last commit
+        alias nvdc="nvim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
+    fi
+fi
+
 # sshlf 1234:127.0.0.1:4321 name@127.0.0.1
 alias sshlf="ssh -gNfL"
 # sshrf 1234:127.0.0.1:4321 name@1.1.1.1
@@ -778,29 +802,25 @@ if command -v fzf &> /dev/null ; then
     sf() {
         if [[ "$#" -lt 1 ]]; then echo "Supply string to search for!"; return 1; fi
         printf -v search "%q" "$*"
-        include="yml,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst"
-        exclude=".config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist"
-        rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always" -g "*.{'$include'}" -g "!{'$exclude'}/*"'
+        rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"'
         result=$(eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}')
         files=$(echo $result | awk -F ':' '{print $1}')
         lines=$(echo $result | awk -F ':' '{print $2}')
         [[ -n "$files" ]] && ${EDITOR:-vim} +$lines $files
     }
 
-    if [ "$EDITOR" = "nvim" ] || [ "$EDITOR" = "vim" ] ; then
-        ## -----------------------------------------------------------------------------------------
-        ## Usage: vim-replace <old_text> <new_text>
-        ## -----------------------------------------------------------------------------------------
-        #vim-replace(){
-        #    $oldtext="$0"
-        #    $newtext="$1"
-        #    if command -v rg &> /dev/null ; then
-        #        rg -l "$oldtext" && $EDITOR -c "bufdo %s/$oldtext/$newtext/gc" $(rg -l "$oldtext")
-        #    elif command -v ag &> /dev/null ; then
-        #        ag -l "$oldtext" && $EDITOR -c "bufdo %s/$oldtext/$newtext/gc" $(ag -l "$oldtext")
-        #    fi
-        #}
+    # -----------------------------------------------------------------------------------------
+    # Usage: ea <keyword> | edit all file contain <keyword>
+    # -----------------------------------------------------------------------------------------
+    ea() {
+        if [[ "$#" -lt 1 ]]; then echo "Supply string to search for!"; return 1; fi
+        printf -v search "%q" "$*"
+        rg_command='rg --ignore-case --no-ignore --hidden --follow --files-with-matches'
+        result=$(eval $rg_command $search)
+        [[ -n "$result" ]] && ${EDITOR:-vim} $(echo $result | xargs)
+    }
 
+    if [ "$EDITOR" = "nvim" ] || [ "$EDITOR" = "vim" ] ; then
         # -----------------------------------------------------------------------------------------
         # Usage: vimf | list subdirectories recursively with preview
         # -----------------------------------------------------------------------------------------

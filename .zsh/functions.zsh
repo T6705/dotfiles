@@ -21,6 +21,11 @@ random_chiptune() {
 }
 
 ramdisk_on() {
+    if ! [[ -n "$1" ]]; then
+        echo "ramdisk_on '<size>'"
+        return
+    fi
+
     if ! [[ -d "/mnt/ramdisk" ]]; then
         size=$1
         echo " * create mount point '/mnt/ramdisk'"
@@ -287,29 +292,25 @@ if command -v fzf &> /dev/null ; then
     sf() {
         if [[ "$#" -lt 1 ]]; then echo "Supply string to search for!"; return 1; fi
         printf -v search "%q" "$*"
-        include="yml,js,json,php,md,styl,pug,jade,html,config,py,cpp,c,go,hs,rb,conf,fa,lst"
-        exclude=".config,.git,node_modules,vendor,build,yarn.lock,*.sty,*.bst,*.coffee,dist"
-        rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always" -g "*.{'$include'}" -g "!{'$exclude'}/*"'
+        rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"'
         result=$(eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}')
         files=$(echo $result | awk -F ':' '{print $1}')
         lines=$(echo $result | awk -F ':' '{print $2}')
         [[ -n "$files" ]] && ${EDITOR:-vim} +$lines $files
     }
 
-    if [ "$EDITOR" = "nvim" ] || [ "$EDITOR" = "vim" ] ; then
-        ## -----------------------------------------------------------------------------------------
-        ## Usage: vim-replace <old_text> <new_text>
-        ## -----------------------------------------------------------------------------------------
-        #vim-replace(){
-        #    $oldtext="$0"
-        #    $newtext="$1"
-        #    if command -v rg &> /dev/null ; then
-        #        rg -l "$oldtext" && $EDITOR -c "bufdo %s/$oldtext/$newtext/gc" $(rg -l "$oldtext")
-        #    elif command -v ag &> /dev/null ; then
-        #        ag -l "$oldtext" && $EDITOR -c "bufdo %s/$oldtext/$newtext/gc" $(ag -l "$oldtext")
-        #    fi
-        #}
+    # -----------------------------------------------------------------------------------------
+    # Usage: ea <keyword> | edit all file contain <keyword>
+    # -----------------------------------------------------------------------------------------
+    ea() {
+        if [[ "$#" -lt 1 ]]; then echo "Supply string to search for!"; return 1; fi
+        printf -v search "%q" "$*"
+        rg_command='rg --ignore-case --no-ignore --hidden --follow --files-with-matches'
+        result=$(eval $rg_command $search)
+        [[ -n "$result" ]] && ${EDITOR:-vim} $(echo $result | xargs)
+    }
 
+    if [ "$EDITOR" = "nvim" ] || [ "$EDITOR" = "vim" ] ; then
         # -----------------------------------------------------------------------------------------
         # Usage: vimf | list subdirectories recursively with preview
         # -----------------------------------------------------------------------------------------
