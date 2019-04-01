@@ -354,30 +354,6 @@ nnoremap <silent> <Leader>ss :syntax sync fromstart<CR>
 nnoremap <silent>  ;=  :AlignAssignments<CR>
 
 " -------------------------------------------------------------------------------
-" easymotion
-" -------------------------------------------------------------------------------
-" Extend hjkl
-map ;h <Plug>(easymotion-linebackward)
-map ;j <Plug>(easymotion-j)
-map ;k <Plug>(easymotion-k)
-map ;l <Plug>(easymotion-lineforward)
-
-" Extened word motion
-map  ;w  <Plug>(easymotion-bd-wl)
-map  ;e  <Plug>(easymotion-bd-el)
-omap ;b  <Plug>(easymotion-bl)
-"omap ;ge <Plug>(easymotion-gel)
-map ;ge <Plug>(easymotion-gel)
-
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-
-" Move to word
-map  <Leader>W <Plug>(easymotion-bd-w)
-nmap <Leader>W <Plug>(easymotion-overwin-w)
-
-" -------------------------------------------------------------------------------
 " prettier
 " -------------------------------------------------------------------------------
 if executable("prettier")

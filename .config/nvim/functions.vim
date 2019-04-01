@@ -73,6 +73,33 @@ fu! GruvboxDark()
 endfu
 command! GruvboxDark call GruvboxDark()
 
+" -------------------------------------------------------------------------------
+"  goyo
+" -------------------------------------------------------------------------------
+function! Goyo_enter()
+    set nonu
+    Limelight
+    if has('gui_running')
+        set fullscreen
+        set background=light
+        set linespace=7
+    elseif exists('$TMUX')
+        silent !tmux set status off
+    endif
+endfunction
+
+function! Goyo_leave()
+    set nu
+    Limelight!
+    if has('gui_running')
+        set nofullscreen
+        set background=dark
+        set linespace=0
+    elseif exists('$TMUX')
+        silent !tmux set status on
+    endif
+endfunction
+
 fu! Osc52Yank()
     let buffer=system('base64 -w0', @0)
     let buffer=substitute(buffer, "\n$", "", "")
@@ -432,32 +459,32 @@ command! EX if !empty(expand('%'))
          \|   echohl None
          \| endif
 
-" -------------------------------------------------------------------------------
-" tmux_compile_and_run | <Leader>tcr
-" -------------------------------------------------------------------------------
-fu! Tmux_Compile_and_Run()
-    exe 'w'
-    if &filetype == 'c'
-        call VimuxRunCommand('time gcc -O3 -Wall -Wextra '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
-    elseif &filetype == 'cpp'
-        call VimuxRunCommand('time g++ -O3 -Wall -Wextra -std=c++11 '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
-    elseif &filetype == 'java'
-        exe 'cd %:p:h'
-        call VimuxRunCommand('time javac '.expand('%').' && time java '.expand('%<'))
-    elseif &filetype == 'sh'
-        call VimuxRunCommand('time bash '.expand('%'))
-    elseif &filetype == 'php'
-        call VimuxRunCommand('time php '.expand('%'))
-    elseif &filetype == 'python'
-        call VimuxRunCommand('time python3 '.expand('%'))
-    elseif &filetype == 'go'
-        call VimuxRunCommand('time go run '.expand('%'))
-    endif
-endfu
-command! TmuxCompileandRun call Tmux_Compile_and_Run()
+"" -------------------------------------------------------------------------------
+"" tmux_compile_and_run | <Leader>tcr
+"" -------------------------------------------------------------------------------
+"fu! Tmux_Compile_and_Run()
+"    exe 'w'
+"    if &filetype == 'c'
+"        call VimuxRunCommand('time gcc -O3 -Wall -Wextra '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
+"    elseif &filetype == 'cpp'
+"        call VimuxRunCommand('time g++ -O3 -Wall -Wextra -std=c++11 '.expand('%').' -o '.expand('%<').' && time '.expand('%:p:r'))
+"    elseif &filetype == 'java'
+"        exe 'cd %:p:h'
+"        call VimuxRunCommand('time javac '.expand('%').' && time java '.expand('%<'))
+"    elseif &filetype == 'sh'
+"        call VimuxRunCommand('time bash '.expand('%'))
+"    elseif &filetype == 'php'
+"        call VimuxRunCommand('time php '.expand('%'))
+"    elseif &filetype == 'python'
+"        call VimuxRunCommand('time python3 '.expand('%'))
+"    elseif &filetype == 'go'
+"        call VimuxRunCommand('time go run '.expand('%'))
+"    endif
+"endfu
+"command! TmuxCompileandRun call Tmux_Compile_and_Run()
 
 " -------------------------------------------------------------------------------
-" compile_and_run | <Leader>tcr
+" compile_and_run | <Leader>cr
 " -------------------------------------------------------------------------------
 fu! Compile_and_Run()
     exe 'w'

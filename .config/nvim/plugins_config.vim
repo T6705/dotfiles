@@ -3,9 +3,22 @@
 """ === Plugin Config === {{{
 
 " -------------------------------------------------------------------------------
+" vim-hexokinase
+" -------------------------------------------------------------------------------
+"let g:Hexokinase_ftAutoload    = ['']                            " Default is to not auto-enable for any filetype
+"let g:Hexokinase_ftAutoload    = ['*']                           " Enable for all filetypes
+"let g:Hexokinase_highlighters  = ['sign_column']                 " Default for Vim
+"let g:Hexokinase_refreshEvents = ['BufWritePost']                " Default event to trigger and update
+"let g:Hexokinase_virtualText   = '██████'                        " This can also be nice
+let g:Hexokinase_ftAutoload    = ['css', 'xml']                  " Enable for css and xml
+let g:Hexokinase_highlighters  = ['virtual']                     " Default for Neovim
+let g:Hexokinase_refreshEvents = ['TextChanged', 'TextChangedI'] " This may cause some lag if there are a lot of colours in the file
+let g:Hexokinase_signIcon      = '■'                             " Default sign column icon
+let g:Hexokinase_virtualText   = '■'                             " Default virtual text
+
+" -------------------------------------------------------------------------------
 " vwm.vim
 " -------------------------------------------------------------------------------
-
 let s:py = {
     \    'name': 'py',
     \    'bot':
@@ -68,30 +81,6 @@ let g:vimtex_latexmk_background  = 1
 let g:vimtex_latexmk_continuous  = 1
 let g:vimtex_latexmk_options     = '-pdfdvi'
 let g:vimtex_view_general_viewer = 'zathura'
-
-" Inspect runner pane
-nnoremap <silent> <Leader>vi :VimuxInspectRunner<CR>
-
-" Run last command executed by VimuxRunCommand
-nnoremap <silent> <Leader>vl :VimuxRunLastCommand<CR>
-
-" Prompt for a command to run
-nnoremap <silent> <Leader>vp :VimuxPromptCommand<CR>
-
-" Close vim tmux runner opened by VimuxRunCommand
-nnoremap <silent> <Leader>vq :VimuxCloseRunner<CR>
-
-" Interrupt any command running in the runner pane
-nnoremap <silent> <Leader>vx :VimuxInterruptRunner<CR>
-
-" Zoom the runner pane (use <bind-key> z to restore runner pane)
-nnoremap <silent> <Leader>vz :call VimuxZoomRunner()<CR>
-
-" compile and run
-noremap <silent> <Leader>tcr :TmuxCompileandRun<CR>
-
-" compile pdf
-nnoremap <silent> <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
 " -------------------------------------------------------------------------------
 " Nerd Commenter
@@ -214,11 +203,34 @@ let g:WebDevIconsUnicodeDecorateFolderNodes          = 1   " enable folder/direc
 let g:WebDevIconsUnicodeGlyphDoubleWidth             = 1   " use double-width(1) or single-width(0) glyphs
 let g:webdevicons_conceal_nerdtree_brackets          = 0   " whether or not to show the nerdtree brackets around flags
 
-" -------------------------------------------------------------------------------
-" vimux
-" -------------------------------------------------------------------------------
-let g:VimuxOrientation = "h"
-let g:VimuxHeight      = "50"
+"" -------------------------------------------------------------------------------
+"" vimux
+"" -------------------------------------------------------------------------------
+"let g:VimuxOrientation = "h"
+"let g:VimuxHeight      = "50"
+"" Inspect runner pane
+"nnoremap <silent> <Leader>vi :VimuxInspectRunner<CR>
+"
+"" Run last command executed by VimuxRunCommand
+"nnoremap <silent> <Leader>vl :VimuxRunLastCommand<CR>
+"
+"" Prompt for a command to run
+"nnoremap <silent> <Leader>vp :VimuxPromptCommand<CR>
+"
+"" Close vim tmux runner opened by VimuxRunCommand
+"nnoremap <silent> <Leader>vq :VimuxCloseRunner<CR>
+"
+"" Interrupt any command running in the runner pane
+"nnoremap <silent> <Leader>vx :VimuxInterruptRunner<CR>
+"
+"" Zoom the runner pane (use <bind-key> z to restore runner pane)
+"nnoremap <silent> <Leader>vz :call VimuxZoomRunner()<CR>
+"
+"" compile and run
+"noremap <silent> <Leader>tcr :TmuxCompileandRun<CR>
+"
+"" compile pdf
+"nnoremap <silent> <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 
 " -------------------------------------------------------------------------------
 " indentline
@@ -226,6 +238,30 @@ let g:VimuxHeight      = "50"
 let g:indentLine_char      = '▸'
 let g:indentLine_enabled   = 1 "enable by default
 let g:indentLine_setColors = 1 "overwrite 'conceal' color
+
+"" -------------------------------------------------------------------------------
+"" easymotion
+"" -------------------------------------------------------------------------------
+"" Extend hjkl
+"map ;h <Plug>(easymotion-linebackward)
+"map ;j <Plug>(easymotion-j)
+"map ;k <Plug>(easymotion-k)
+"map ;l <Plug>(easymotion-lineforward)
+"
+"" Extened word motion
+"map  ;w  <Plug>(easymotion-bd-wl)
+"map  ;e  <Plug>(easymotion-bd-el)
+"omap ;b  <Plug>(easymotion-bl)
+""omap ;ge <Plug>(easymotion-gel)
+"map ;ge <Plug>(easymotion-gel)
+"
+"" Move to line
+"map <Leader>L <Plug>(easymotion-bd-jk)
+"nmap <Leader>L <Plug>(easymotion-overwin-line)
+"
+"" Move to word
+"map  <Leader>W <Plug>(easymotion-bd-w)
+"nmap <Leader>W <Plug>(easymotion-overwin-w)
 
 " -------------------------------------------------------------------------------
 " neosnippet.vim
@@ -456,6 +492,12 @@ if has('python3')
     " Use tern_for_vim.
     let g:tern#command = ["tern"]
     let g:tern#arguments = ["--persistent"]
+
+    " -------------------------------------------------
+    " https://github.com/autozimu/LanguageClient-neovim
+    " -------------------------------------------------
+    let g:LanguageClient_serverCommands = {}
+    let g:LanguageClient_serverCommands['go'] = ['$HOME/go/bin/gopls']
 endif
 
 " -------------------------------------------------------------------------------
@@ -499,7 +541,7 @@ let g:ale_linters                              = {}
 "let g:ale_linters['go']                        = ['gometalinter']
 let g:ale_linters['javascript']                = ['eslint', 'tsserver']
 let g:ale_linters['php']                       = ['phpcs', 'php', 'phpmd']
-let g:ale_linters['python']                    = ['flake8', 'pep8', 'vulture']
+let g:ale_linters['python']                    = ['flake8', 'mypy', 'pep8', 'vulture']
 
 let g:ale_fix_on_save                          = 0
 let g:ale_javascript_prettier_use_local_config = 1
@@ -630,17 +672,10 @@ if has('nvim') || has('gui_running')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
 endif
 
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-
-" [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
-
-" [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+let g:fzf_buffers_jump        = 1                                                                        " [Buffers] Jump to the existing window if possible
+let g:fzf_commands_expect     = 'alt-enter,ctrl-x'                                                       " [Commands] --expect expression for directly executing the command
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"' " [[B]Commits] Customize the options used by 'git log':
+let g:fzf_tags_command        = 'ctags -R'                                                               " [Tags] Command to generate tags file
 
 " File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
 let g:fzf_files_options =

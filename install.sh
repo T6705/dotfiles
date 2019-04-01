@@ -145,6 +145,16 @@ install_dots() {
         https://gitlab.com/T6705/dotfiles/raw/master/.zsh/functions.zsh
 
     echo ""
+    echo "====================================="
+    echo "== Download mpd and ncmpcpp config =="
+    echo "====================================="
+    echo ""
+    curl -fLo ~/.config/mpd/mpd.conf \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/mpd/mpd.conf
+    curl -fLo ~/.config/ncmpcpp/config \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/ncmpcpp/config
+
+    echo ""
     echo "========================="
     echo "== Download gtk config =="
     echo "========================="
@@ -279,10 +289,32 @@ install_draw() {
     fi
 }
 
-install_music() {
+install_audio() {
     if command -v pacman &> /dev/null; then
         sudo pacman -S --needed --noconfirm ardour audacity lmms mixxx non-sequencer qtractor rosegarden
     fi
+}
+
+install_music() {
+    echo ""
+    echo "===================================="
+    echo "== install mpd and ncmpcpp config =="
+    echo "===================================="
+    echo ""
+    if command -v pacman &> /dev/null; then
+        sudo pacman -S --needed --noconfirm mpd ncmpcpp
+    fi
+
+    echo ""
+    echo "====================================="
+    echo "== Download mpd and ncmpcpp config =="
+    echo "====================================="
+    echo ""
+    curl -fLo ~/.config/mpd/mpd.conf \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/mpd/mpd.conf
+    curl -fLo ~/.config/ncmpcpp/config \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/ncmpcpp/config
+
 }
 
 install_i3() {
@@ -850,6 +882,7 @@ install_de() {
 install_term() {
     install_editor
     install_file_manager
+    install_music
     install_st
     install_tmux
     install_zsh
@@ -865,7 +898,7 @@ install_all() {
     install_dots
     install_games
     install_draw
-    install_music
+    install_audio
     install_de
 }
 
@@ -879,17 +912,18 @@ main() {
     fi
 
     case $user_input in
+        "audio")        install_audio;;
         "de")           install_de;;
         "dependencies") install_dependencies;;
         "dots")         install_dots;;
+        "draw")         install_draw;;
         "dunst")        install_dunst;;
         "editor")       install_editor;;
         "file_manager") install_file_manager;;
         "games")        install_games;;
-        "draw")         install_draw;;
-        "music")        install_music;;
         "i3")           install_i3;;
         "ibus")         install_ibus;;
+        "music")        install_music;;
         "spacemacs")    install_spacemacs;;
         "st")           install_st;;
         "term")         install_term;;
@@ -901,17 +935,18 @@ main() {
             echo "bash install.sh <options>/all"
             echo "options:"
             echo "all"
+            echo "├─ audio"
             echo "├─ dependencies"
             echo "├─ dots"
-            echo "├─ games"
             echo "├─ draw"
-            echo "├─ music"
+            echo "├─ games"
             echo "└─ de"
             echo "   ├─ dunst"
             echo "   ├─ i3"
             echo "   ├─ ibus"
             echo "   └─ term"
             echo "      ├─ file_manager"
+            echo "      ├─ music"
             echo "      ├─ st"
             echo "      ├─ tmux"
             echo "      ├─ zsh"

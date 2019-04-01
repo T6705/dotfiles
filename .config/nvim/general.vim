@@ -152,6 +152,20 @@ if !&sidescrolloff
     set sidescrolloff=5
 endif
 
+" Tweak autocompletion behavior for <C-n>/<C-p> in insert mode
+" Default is ".,w,b,u,t,i" without "i", where:
+" . - scan current buffer. Same to invoking <C-x><C-n> individually
+" w - buffers in other windows
+" b - loaded buffers in buffer list
+" u - unloaded buffers in buffer list
+" t - tags. Same to invoking <C-x><C-]> individually
+" i - included files. We don't need this.
+" kspell, when spell check is active, use words from spellfiles
+set complete-=i
+set complete+=kspell
+
+set ofu=syntaxcomplete#Complete " Set omni-completion method
+
 if has('nvim')
     set completeopt=longest,menuone
 else
@@ -348,11 +362,8 @@ set tags=./tags;/
 set splitbelow
 set splitright
 
-" Completion for spellings
 "set spell
 set spelllang=en_us,nl
-set complete+=kspell
-set ofu=syntaxcomplete#Complete " Set omni-completion method
 
 " Use persistent history, Keep undo history across sessions by storing it in a file
 if has('persistent_undo')

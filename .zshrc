@@ -77,12 +77,17 @@ plugins=(
     docker
     docker-compose
     docker-machine
+    fd
+    fzf
     git
+    gitignore
     golang
     history
+    httpie
     k
     pip
     python
+    ripgrep
     systemd
     themes
     tmux
@@ -104,6 +109,7 @@ fi
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 [ -d $HOME/.gem/ruby/2.6.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
+[ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -d $HOME/go ] && export GOPATH="$HOME/go"
 [ -d $HOME/go/bin ] && export GOBIN="$GOPATH/bin" && export PATH="$PATH:$GOPATH/bin"
 [ -d /usr/games ] && export PATH="$PATH:/usr/games"

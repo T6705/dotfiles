@@ -11,6 +11,9 @@ augroup configgroup
     " Open NERDTree automatically when vim starts up on opening a directory
     au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | wincmd h |endif
 
+    au! User GoyoEnter nested call Goyo_enter()
+    au! User GoyoLeave nested call Goyo_leave()
+
     if has('nvim')
         au BufWinEnter,WinEnter term://* startinser
     endif
@@ -26,6 +29,7 @@ augroup configgroup
     au BufWritePost .vimrc.local source %
     au FileType * RainbowParentheses
     au FileType json setlocal equalprg=python\ -m\ json.tool
+    au FileType json syntax match Comment +\/\/.\+$+
     au FileType markdown syntax sync fromstart
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out

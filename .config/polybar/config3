@@ -53,7 +53,7 @@ module-margin-left  = 0
 
 modules-left   = i3split i3tab i3stack i3
 modules-center = date
-modules-right  = spotify previous playpause next volume lock
+modules-right  = mpd spotify previous playpause next alsa lock
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -159,7 +159,7 @@ module-margin-left  = 0
 
 modules-left   = i3split i3tab i3stack i3
 modules-center = date
-modules-right  = spotify previous playpause next volume lock
+modules-right  = mpd spotify previous playpause next alas lock
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -254,6 +254,84 @@ interval          = 1.5
 click-left        = rofi -show drun -modi drun -location 7 -yoffset -50 -xoffset 15 -line-padding 4 -columns 1 -width 25 -padding 25 -hide-scrollbar -show-icons
 click-right       = rofi -show drun -modi run,drun,window -location 7 -yoffset -50 -xoffset 15 -line-padding 4 -columns 3 -line 10 -width 55 -padding 25 -hide-scrollbar -show-icons
 
+[module/mpd]
+type = internal/mpd
+host = 127.0.0.1
+port = 6600
+interval = 0.5
+
+; Available tags:
+;   <label-song> (default)
+;   <label-time>
+;   <bar-progress>
+;   <toggle> - gets replaced with <icon-(pause|play)>
+;   <toggle-stop> - gets replaced with <icon-(stop|play)>
+;   <icon-random>
+;   <icon-repeat>
+;   <icon-repeatone> (deprecated)
+;   <icon-single> - Toggle playing only a single song. Replaces <icon-repeatone>
+;   <icon-consume>
+;   <icon-prev>
+;   <icon-stop>
+;   <icon-play>
+;   <icon-pause>
+;   <icon-next>
+;   <icon-seekb>
+;   <icon-seekf>
+format-playing = ${self.format-online}
+format-paused = ${self.format-online}
+format-stopped = ${self.format-online}
+format-online =  %{F#ff69b4}<label-song> %{F#6ff}<icon-prev> <toggle> <icon-next>
+format-offline =
+label-connected = %{F#ff69b4}%essid% %{F#6ff}%local_ip%%{F-} %downspeed%
+
+; Available tags:
+;   <label-offline>
+;format-offline = <label-offline>
+
+; Available tokens:
+;   %artist%
+;   %album-artist%
+;   %album%
+;   %date%
+;   %title%
+; Default: %artist% - %title%
+label-song = %artist% - %title%
+
+; Available tokens:
+;   %elapsed%
+;   %total%
+; Default: %elapsed% / %total%
+;label-time = %elapsed% / %total%
+
+; Available tokens:
+;   None
+
+; Only applies if <icon-X> is used
+icon-play = 
+icon-pause = 
+;icon-stop = stop
+icon-prev = 
+icon-next = 
+;icon-seekb = seekb
+;icon-seekf = seekf
+;icon-random = random
+;icon-repeat = repeat
+;icon-repeatone = repeatone
+;icon-single = single
+;icon-consume = consume
+
+; Used to display the state of random/repeat/repeatone/single
+; Only applies if <icon-[random|repeat|repeatone|single]> is used
+toggle-on-foreground = #ff
+toggle-off-foreground = #55
+
+; Only applies if <bar-progress> is used
+bar-progress-width = 10
+bar-progress-indicator = >
+bar-progress-fill = =
+bar-progress-empty = ─
+
 [module/spotify]
 type              = custom/script
 exec              = bash ~/.config/polybar/spotify_p.sh
@@ -263,7 +341,8 @@ format            = <label>
 format-foreground = ${colors.foreground}
 format-padding    = 1
 interval          = 1.5
-label             = %{F#ff69b4}%{T1}%output%%{T-}%{F-}
+;label             = %{F#ff69b4}%{T1}%output%%{T-}%{F-}
+label             = %{F#ff69b4}%{T1}%output%%{T-}%{F-}
 click-left        = i3 workspace number 8
 
 [module/playpause]
@@ -296,8 +375,8 @@ format-padding    = 1
 interval          = 1.5
 click-left        = playerctl previous
 
-[module/volume]
-type                  = internal/volume
+[module/alsa]
+type                  = internal/alsa
 format-muted          = <label-muted>
 format-muted-padding  = 1
 format-volume         = <label-volume>
@@ -550,5 +629,5 @@ format              = <label>
 format-padding      = 1.8
 format-warn         = <label-warn>
 format-warn-padding = 1.8
-label                 =  %temperature%
-label-warn            =  %{F#f00}%temperature%%{F-}
+label                 =  %temperature-c%
+label-warn            =  %{F#f00}%temperature-c%%{F-}
