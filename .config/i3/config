@@ -271,7 +271,7 @@ exec --no-startup-id dropbox-cli start
 exec --no-startup-id wicd -gtk -t
 exec --no-startup-id xset r rate 200 120
 exec --no-startup-id ibus-daemon -drx
-exec --no-startup-id bash ~/.config/polybar/launch.sh
+exec --no-startup-id bash ~/.config/polybar/scripts/launch.sh
 exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/frame.jpg
 exec_always compton -Cf --config ~/.config/i3/compton.conf
 exec_always dunst -config ~/.config/dunst/dunstrc &

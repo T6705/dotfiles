@@ -159,7 +159,7 @@ module-margin-left  = 0
 
 modules-left   = i3split i3tab i3stack i3
 modules-center = date
-modules-right  = mpd spotify previous playpause next alas lock
+modules-right  = mpd spotify previous playpause next alsa lock
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -245,7 +245,7 @@ font-10  = "KnackNerdFont:size=13;2"
 
 [module/drun]
 type = custom/script
-exec              = bash ~/.config/polybar/logo.sh &
+exec              = bash ~/.config/polybar/scripts/logo.sh &
 tail              = true
 format            = <label>
 format-foreground = ${colors.foreground}
@@ -334,7 +334,7 @@ bar-progress-empty = ─
 
 [module/spotify]
 type              = custom/script
-exec              = bash ~/.config/polybar/spotify_p.sh
+exec              = bash ~/.config/polybar/scripts/spotify_p.sh
 exec-if           = pgrep -x spotify
 tail              = true
 format            = <label>
@@ -347,7 +347,7 @@ click-left        = i3 workspace number 8
 
 [module/playpause]
 type              = custom/script
-exec              = bash ~/.config/polybar/playpause.sh
+exec              = bash ~/.config/polybar/scripts/playpause.sh
 exec-if           = pgrep -x spotify
 format            = <label>
 format-foreground = #6ff
@@ -357,7 +357,7 @@ click-left        = playerctl play-pause
 
 [module/next]
 type              = custom/script
-exec              = bash ~/.config/polybar/next.sh
+exec              = bash ~/.config/polybar/scripts/next.sh
 exec-if           = pgrep -x spotify
 format            = <label>
 format-foreground = #6ff
@@ -367,7 +367,7 @@ click-left        = playerctl next
 
 [module/previous]
 type              = custom/script
-exec              = bash ~/.config/polybar/previous.sh
+exec              = bash ~/.config/polybar/scripts/previous.sh
 exec-if           = pgrep -x spotify
 format            = <label>
 format-foreground = #6ff
@@ -395,7 +395,7 @@ content = 
 content-foreground = ${colors.orange}
 content-background = ${colors.background}
 content-padding    = 1
-click-left = ~/.config/i3/i3lock.sh &
+click-left = ~/.config/i3/scripts/i3lock.sh &
 
 [module/vim]
 type = custom/text
@@ -540,7 +540,7 @@ type           = custom/script
 interval       = 1.5
 format         = "<label>"
 format-padding = 1
-exec           = bash ~/.config/polybar/tor.sh
+exec           = bash ~/.config/polybar/scripts/tor.sh
 
 [module/wlan]
 type      = internal/network
