@@ -25,6 +25,8 @@ alias notes="$EDITOR ~/.notes"
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 
+alias feh='feh -. -Z -B black'
+
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
 alias choregraphe='/opt/Softbank\ Robotics/Choregraphe\ Suite\ 2.5/bin/choregraphe-bin'
@@ -36,6 +38,12 @@ fi
 if command -v exa &> /dev/null ; then
     alias ls="exa"
     alias la="exa -lahgimuU"
+fi
+
+if command -v firejail &> /dev/null ; then
+    if command -v virtualbox &> /dev/null ; then alias virtualbox='firejail Virtualbox' ; fi
+    if command -v mpv &> /dev/null ; then alias mpv='firejail mpv' ; fi
+    if command -v vlc &> /dev/null ; then alias vlc='firejail vlc' ; fi
 fi
 
 if command -v python3 &> /dev/null ; then

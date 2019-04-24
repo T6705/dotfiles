@@ -72,27 +72,13 @@ COMPLETION_WAITING_DOTS="false"
 plugins=(
     alias-tips
     archlinux
-    catimg
-    django
     docker
-    docker-compose
-    docker-machine
-    fd
     fzf
     git
     gitignore
     golang
-    history
-    httpie
-    k
-    pip
-    python
-    ripgrep
     systemd
-    themes
     tmux
-    vi-mode
-    web-search
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
@@ -229,3 +215,7 @@ fi
 #fi
 
 banner
+
+# tabtab source for electron-forge package
+# uninstall by removing these lines or running `tabtab uninstall electron-forge`
+[[ -f /home/chris/git/hub/gb-studio/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /home/chris/git/hub/gb-studio/node_modules/tabtab/.completions/electron-forge.zsh

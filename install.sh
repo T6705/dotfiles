@@ -232,7 +232,7 @@ install_dependencies() {
         sudo apt-get install -y libmpdclient-dev     # Enables the internal mpd module
         sudo apt-get install -y libxcb-xrm-dev       # Enables support for getting values from the X resource db
     elif command -v pacman &> /dev/null; then
-        sudo pacman-mirrors -f 0 && sudo pacman -Syy && sudo pacman-optimize && sync
+        sudo pacman-mirrors -f 0 && sudo pacman -Syy && sync
         sudo pacman -Syyu --noconfirm
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel

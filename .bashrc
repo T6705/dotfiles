@@ -190,6 +190,8 @@ alias notes="$EDITOR ~/.notes"
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 
+alias feh='feh -. -Z -B black'
+
 if command -v tmux &> /dev/null ; then
     alias ta='tmux attach -t'
     alias tad='tmux attach -d -t'
@@ -210,6 +212,12 @@ fi
 if command -v exa &> /dev/null ; then
     alias ls="exa"
     alias la="exa -lahgimuU"
+fi
+
+if command -v firejail &> /dev/null ; then
+    if command -v virtualbox &> /dev/null ; then alias virtualbox='firejail Virtualbox' ; fi
+    if command -v mpv &> /dev/null ; then alias mpv='firejail mpv' ; fi
+    if command -v vlc &> /dev/null ; then alias vlc='firejail vlc' ; fi
 fi
 
 if command -v python3 &> /dev/null ; then
@@ -692,6 +700,36 @@ banner() {
 
     $W  CPU.........: $W`cat /proc/cpuinfo | grep "model name" | cut -d ' ' -f3- | awk {'print $0'} | head -1`
     $W  Memory......: $G$USED$W used, $G$FREE$W free, $G$TOTAL$W in total$W"
+
+    mountpoints=('/')
+    barWidth=50
+    maxDiscUsage=90
+    clear="\e[39m\e[0m"
+    dim="\e[2m"
+    barclear=""
+    echo
+
+    for point in "${mountpoints[@]}"; do
+        line=$(df -h "${point}")
+        usagePercent=$(echo "$line"|tail -n1|awk '{print $5;}'|sed 's/%//')
+        usedBarWidth=$((($usagePercent*$barWidth)/100))
+        barContent=""
+        color="\e[32m"
+        if [ "${usagePercent}" -ge "${maxDiscUsage}" ]; then
+            color="\e[31m"
+        fi
+        barContent="${color}"
+        for sep in $(seq 1 $usedBarWidth); do
+            barContent="${barContent}|"
+        done
+        barContent="${barContent}${clear}${dim}"
+        for sep in $(seq 1 $(($barWidth-$usedBarWidth))); do
+            barContent="${barContent}-"
+        done
+        bar="[${barContent}${clear}]"
+        echo "${line}" | awk  '{if ($1 != "Filesystem") printf("%-30s%+3s used out of %+5s\n", $1, $3, $2); }' | sed -e 's/^/  /'
+        echo -e "${bar}" | sed -e 's/^/  /'
+    done
 
     echo ""
 }
