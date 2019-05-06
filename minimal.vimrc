@@ -184,7 +184,7 @@ endif
 set diffopt=
 set diffopt+=hiddenoff
 set diffopt+=internal
-set diffopt+=iwhiteall
+"set diffopt+=iwhiteall
 set diffopt+=algorithm:patience
 
 " -------------------------------------------------------------------------------

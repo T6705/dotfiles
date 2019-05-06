@@ -152,9 +152,9 @@ screenshot() {
 banner() {
     if command -v figlet &> /dev/null ; then
         if command -v lolcat &> /dev/null ; then
-            figlet "$(hostname)" | lolcat -f
+            figlet " $(hostname)" | lolcat -f
         else
-            figlet "$(hostname)"
+            figlet " $(hostname)"
         fi
     fi
 
@@ -209,8 +209,8 @@ banner() {
             barContent="${barContent}-"
         done
         bar="[${barContent}${clear}]"
-        echo "${line}" | awk  '{if ($1 != "Filesystem") printf("%-30s%+3s used out of %+5s\n", $1, $3, $2); }' | sed -e 's/^/  /'
-        echo -e "${bar}" | sed -e 's/^/  /'
+        echo "  ${line}" | awk  '{if ($1 != "Filesystem") printf("%-30s%+3s used out of %+5s\n", $1, $3, $2); }' | sed -e 's/^/      /'
+        echo -e "  ${bar}" | sed -e 's/^/    /'
     done
 
     echo ""
