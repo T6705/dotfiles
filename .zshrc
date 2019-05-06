@@ -165,9 +165,9 @@ fi
 ####################################
 ## https://github.com/pypa/pipenv ##
 ####################################
-if command -v pipenv &> /dev/null; then
-    eval "$(pipenv --completion)"
-fi
+#if command -v pipenv &> /dev/null; then
+#    eval "$(pipenv --completion)"
+#fi
 
 ##################################################
 ## https://github.com/milkbikis/powerline-shell ##

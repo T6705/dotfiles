@@ -64,6 +64,12 @@ if !has('nvim') && v:version > 704 || (v:version == 704 && has('patch401'))
     setlocal cryptmethod=blowfish2  " medium strong method
 endif
 
+set diffopt=
+set diffopt+=hiddenoff
+set diffopt+=internal
+set diffopt+=iwhiteall
+set diffopt+=algorithm:patience
+
 " -------------------------------------------------------------------------------
 " Encoding
 " -------------------------------------------------------------------------------

@@ -431,6 +431,11 @@ random_chiptune() {
 }
 
 ramdisk_on() {
+    if ! [[ -n "$1" ]]; then
+        echo "ramdisk_on '<size>'"
+        return
+    fi
+
     if ! [[ -d "/mnt/ramdisk" ]]; then
         size=$1
         echo " * create mount point '/mnt/ramdisk'"
@@ -690,16 +695,16 @@ banner() {
     G="\e[1;32m"
 
     echo -e "
-    ${W}system info:
-    $W  Distro......: $W`cat /etc/*release | grep "PRETTY_NAME" | cut -d "=" -f 2- | sed 's/"//g'`
-    $W  Kernel......: $W`uname -sr`
+  system info:
+      Distro......: $W`cat /etc/*release | grep "PRETTY_NAME" | cut -d "=" -f 2- | sed 's/"//g'`
+      Kernel......: $W`uname -sr`
 
-    $W  Uptime......: $W`uptime -p`
-    $W  Load........: $G$LOAD1$W (1m), $G$LOAD5$W (5m), $G$LOAD15$W (15m)
-    $W  Processes...:$W $G$PROCESS_ROOT$W (root), $G$PROCESS_USER$W (user) | $G$PROCESS_ALL$W (total)
+      Uptime......: $W`uptime -p`
+      Load........: $G$LOAD1$W (1m), $G$LOAD5$W (5m), $G$LOAD15$W (15m)
+      Processes...:$W $G$PROCESS_ROOT$W (root), $G$PROCESS_USER$W (user) | $G$PROCESS_ALL$W (total)
 
-    $W  CPU.........: $W`cat /proc/cpuinfo | grep "model name" | cut -d ' ' -f3- | awk {'print $0'} | head -1`
-    $W  Memory......: $G$USED$W used, $G$FREE$W free, $G$TOTAL$W in total$W"
+      CPU.........: $W`cat /proc/cpuinfo | grep "model name" | cut -d ' ' -f3- | awk {'print $0'} | head -1`
+      Memory......: $G$USED$W used, $G$FREE$W free, $G$TOTAL$W in total$W"
 
     mountpoints=('/')
     barWidth=50
