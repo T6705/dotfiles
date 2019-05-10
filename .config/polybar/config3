@@ -104,7 +104,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left  = 0
 
-modules-left   = drun tor wlan eth
+modules-left   = drun tor bluetooth wlan eth
 modules-center =
 modules-right  = cpu memory battery temperature
 
@@ -210,7 +210,7 @@ padding-right = 2
 module-margin-right = 0
 module-margin-left  = 0
 
-modules-left   = drun tor wlan eth
+modules-left   = drun tor bluetooth wlan eth
 modules-center =
 modules-right  = cpu memory battery temperature
 
@@ -541,6 +541,13 @@ interval       = 1.5
 format         = "<label>"
 format-padding = 1
 exec           = bash ~/.config/polybar/scripts/tor.sh
+
+[module/bluetooth]
+type           = custom/script
+interval       = 1.5
+format         = "<label>"
+format-padding = 1
+exec           = bash ~/.config/polybar/scripts/bluetooth.sh
 
 [module/wlan]
 type      = internal/network

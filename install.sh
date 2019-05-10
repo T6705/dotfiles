@@ -30,6 +30,7 @@ install_dots() {
     curl -fLo ~/.config/polybar/config --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config
     curl -fLo ~/.config/polybar/config2 --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config2
     curl -fLo ~/.config/polybar/config3 --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/config3
+    curl -fLo ~/.config/polybar/scripts/bluetooth.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/scripts/bluetooth.sh
     curl -fLo ~/.config/polybar/scripts/launch.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/scripts/launch.sh
     curl -fLo ~/.config/polybar/scripts/logo.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/scripts/logo.sh
     curl -fLo ~/.config/polybar/scripts/next.sh --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/polybar/scripts/next.sh

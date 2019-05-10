@@ -65,6 +65,7 @@ if !has('nvim') && v:version > 704 || (v:version == 704 && has('patch401'))
 endif
 
 set diffopt=
+set diffopt+=filler
 set diffopt+=hiddenoff
 set diffopt+=internal
 "set diffopt+=iwhiteall

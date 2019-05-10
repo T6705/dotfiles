@@ -119,9 +119,9 @@ fi
 ####################################
 ## https://github.com/pypa/pipenv ##
 ####################################
-if command -v pipenv &> /dev/null; then
-    eval "$(pipenv --completion)"
-fi
+#if command -v pipenv &> /dev/null; then
+#    eval "$(pipenv --completion)"
+#fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
