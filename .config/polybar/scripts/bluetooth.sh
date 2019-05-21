@@ -5,7 +5,7 @@ if command -v bluetoothctl &> /dev/null ; then
     if [[ -n "$connectedDevice" ]]; then
         echo "  $connectedDevice"
     else
-        echo "  not connected device"
+        echo "  no connected device"
     fi
 else
     echo ""

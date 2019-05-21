@@ -31,6 +31,8 @@ augroup configgroup
     au FileType json setlocal equalprg=python\ -m\ json.tool
     au FileType json syntax match Comment +\/\/.\+$+
     au FileType markdown syntax sync fromstart
+    au FileType vim setlocal foldmethod=marker
+    au FileType vim setlocal foldlevelstart=0
     au FocusGained *: redraw!     " Redraw screen every time when focus gained
     au FocusLost *: wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste

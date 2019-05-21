@@ -43,12 +43,9 @@ else
 endif
 
 """ === Load plugins === {{{
-
 silent! if plug#begin('~/.config/nvim/plugged')
 
-" -------------------------------------------------------------------------------
-" ColorScheme
-" -------------------------------------------------------------------------------
+" === ColorScheme === {{{
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'flazz/vim-colorschemes'
@@ -57,85 +54,75 @@ Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
 Plug 'roosta/vim-srcery'
 Plug 'tomasr/molokai'
+" }}}
 
-" -------------------------------------------------------------------------------
-" Interface
-" -------------------------------------------------------------------------------
+" === Interface === {{{
+if has('nvim')
+    Plug 'ncm2/float-preview.nvim'    " Less annoying completion preview window based on neovim's floating window
+endif
 Plug 'Yggdroot/indentLine'            " A vim plugin to display the indention levels with thin vertical lines
 Plug 'paroxayte/vwm.vim'              " A highly extensible window manager for nvim/vim!
 Plug 'vim-airline/vim-airline'        " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
-if has('nvim')
-    Plug 'ncm2/float-preview.nvim'    " Less annoying completion preview window based on neovim's floating window
-endif
+" }}}
 
-"" -------------------------------------------------------------------------------
-"" latex
-"" -------------------------------------------------------------------------------
+" ===" latex === {{{
 "Plug 'donRaphaco/neotex', Cond(has('nvim'), { 'do': function('DoRemote'), 'for': 'tex' })
 "Plug 'lervag/vimtex', { 'for': 'tex' }
+" }}}
 
-" -------------------------------------------------------------------------------
-" markdown
-" -------------------------------------------------------------------------------
+" === markdown === {{{
 "Plug 'plasticboy/vim-markdown', { 'for': 'markdown', 'on': [] }
 Plug 'junegunn/goyo.vim' ", { 'for' : ['markdown', 'txt'] }
 Plug 'junegunn/limelight.vim' ", { 'for' : ['markdown', 'txt'] }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
+" }}}
 
-" -------------------------------------------------------------------------------
-" golang
-" -------------------------------------------------------------------------------
+" === golang === {{{
 if executable("go")
     Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
 endif
+" }}}
 
-" -------------------------------------------------------------------------------
-" dart
-" -------------------------------------------------------------------------------
+" === dart === {{{
 if executable("dart")
     Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 endif
+" }}}
 
-
-" -------------------------------------------------------------------------------
-" html
-" -------------------------------------------------------------------------------
+" === html === {{{
 Plug 'mattn/emmet-vim', { 'for': ['*html', '*css', '*jsx', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
+" }}}
 
-" -------------------------------------------------------------------------------
-" javascript
-" -------------------------------------------------------------------------------
+" === javascript === {{{
 " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
 Plug 'burnettk/vim-angular', { 'for': 'javascript' }                                         " AngularJS with Vim
 Plug 'moll/vim-node', { 'for': 'javascript' }                                                " Tools and environment to make Vim superb for developing with Node.js
 Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }                              " React JSX syntax highlighting and indenting for vim.
 Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }                " Yet Another JavaScript Syntax for Vim
 Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' } " Tern plugin for Vim
+" }}}
 
-" -------------------------------------------------------------------------------
-" git
-" -------------------------------------------------------------------------------
+" === git === {{{
 if executable("git")
     Plug 'Xuyuanp/nerdtree-git-plugin'                               " git status
+    Plug 'airblade/vim-gitgutter'                                    " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
     Plug 'rbong/vim-flog', { 'on': ['Flog', 'Flogsplit', 'Flogit'] } " A lightweight and powerful git branch viewer for vim.
     Plug 'rhysd/git-messenger.vim', { 'on' : 'GitMessenger' }        " Vim plugin to show the last commit message under the cursor
     Plug 'tpope/vim-fugitive'                                        " fugitive.vim: a Git wrapper so awesome, it should be illegal
 endif
+" }}}
 
-" -------------------------------------------------------------------------------
-" lint & autoformat
-" -------------------------------------------------------------------------------
+" === lint & autoformat === {{{
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
 Plug 'ambv/black', { 'for': 'python' }         " The uncompromising Python code formatter
 Plug 'w0rp/ale'                                " Asynchronous Lint Engine
+" }}}
 
-" -------------------------------------------------------------------------------
-" Auto Completion
-" -------------------------------------------------------------------------------
+" === Auto Completion === {{{
 if has('python3')
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -160,30 +147,27 @@ endif
 "    Plug 'prabirshrestha/asyncomplete.vim'
 "    Plug 'wellle/tmux-complete.vim' " Vim plugin for insert mode completion of words in adjacent tmux panes
 "endif
+" }}}
 
-" -------------------------------------------------------------------------------
-" Snippet
-" -------------------------------------------------------------------------------
-Plug 'Shougo/neosnippet'          " snippets support
-Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnippet
+" === Snippet === {{{
 if v:version >= 704
     Plug 'SirVer/ultisnips'       " The ultimate snippet solution for Vim.
 endif
+Plug 'Shougo/neosnippet'          " snippets support
+Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnippet
 Plug 'honza/vim-snippets'         " vim-snipmate default snippets
+" }}}
 
-" -------------------------------------------------------------------------------
-" textobj
-" -------------------------------------------------------------------------------
+" === textobj === {{{
 Plug 'kana/vim-textobj-user'                    " Create your own textobj
 Plug 'akiyan/vim-textobj-php', { 'for': 'php' } " aP/iP for a range between the PHP delimiters such as <?php and ?>
 Plug 'deris/vim-textobj-ipmac'                  " aA/iA for ipv4, ipv6, MAC Address
 Plug 'kana/vim-textobj-datetime'                " ada/ida and others for date and time such as 2013-03-13, 19:51:45, 2013-03-13T19:51:50
 Plug 'kana/vim-textobj-indent'                  " ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
 Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
+" }}}
 
-" -------------------------------------------------------------------------------
-" utilities
-" -------------------------------------------------------------------------------
+" === utilities === {{{
 "Plug 'VincentCordobes/vim-translate', { 'on': 'Translate' }       " A tiny translate-shell wrapper for Vim.
 "Plug 'benmills/vimux'                                             " vim plugin to interact with tmux
 "Plug 'dbeniamine/cheat.sh-vim'                                    " A vim plugin to access cheat.sh sheets
@@ -191,12 +175,18 @@ Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 "Plug 'itchyny/vim-cursorword'                                     " Underlines the word under the cursor
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 "Plug 'unblevable/quick-scope'                                     " Lightning fast left-right movement in Vim
+if has('python3')
+    Plug 'brianrodri/vim-sort-folds' " Sort vim folds based on their first line.
+endif
+if v:version >= 703
+    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays tags in a window, ordered by scope
+endif
+if v:version >= 800
+    Plug 'TaDaa/vimade' " An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
+endif
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' } " perform diffs on blocks of code
 Plug 'RRethy/vim-hexokinase'                          " displaying the colours in the file
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }           " Interactive command execution in Vim.
-if v:version >= 800
-    Plug 'TaDaa/vimade'                                           " An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
-endif
 Plug 'andymass/matchup.vim'                                       " vim match-up: matchit replacement and more
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'chrisbra/vim-diff-enhanced'                                 " Better Diff options for Vim
@@ -211,10 +201,6 @@ Plug 'junegunn/vim-slash'                                                    " E
 Plug 'kana/vim-operator-user'                                                " Vim plugin: Define your own operator easily
 Plug 'kshenoy/vim-signature'                                                 " Plugin to toggle, display and navigate marks
 Plug 'ludovicchabant/vim-gutentags'                                          " A Vim plugin that manages your tag files
-if v:version >= 703
-    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' } " Vim plugin that displays tags in a window, ordered by scope
-    Plug 'mhinz/vim-signify'                           " Show a diff using Vim its sign column.
-endif
 Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }       " highlighting columns in csv/tsv files and executing SELECT and UPDATE queries in SQL-like language
 Plug 'ryanoasis/vim-devicons'                          " Adds file type glyphs/icons to popular Vim plugins
 Plug 'scrooloose/nerdcommenter'                        " Vim plugin for intensely orgasmic commenting
@@ -229,5 +215,6 @@ Plug 'wellle/targets.vim'                              " Vim plugin that provide
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }        " Vim plugin to diff two directories
 call plug#end()
 endif
+" }}}
 
 """ }}}

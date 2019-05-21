@@ -179,6 +179,9 @@ nnoremap <silent> <Leader>sc :set hlsearch! hlsearch?<CR>
 " vim-slash Places the current match at the center of the window.
 noremap <plug>(slash-after) zz
 
+" Press <Leader>bg in order to toggle light/dark background
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+
 " automatically insert a \v before any search string, so search uses normal regexes
 nnoremap / /\v
 vnoremap / /\v

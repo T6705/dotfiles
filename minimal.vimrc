@@ -263,7 +263,7 @@ set hidden            " current buffer can be put into background
 set laststatus=2      " Status bar always on
 set lazyredraw        " Don't redraw while executing macros (good performance config)
 set number            " show line numbers
-"set relativenumber   " show relative line numbers
+set relativenumber    " show relative line numbers
 set ruler             " Always show current position
 set shortmess=a       " use every short text trick
 set shortmess+=O      " file read message overwrites subsequent
