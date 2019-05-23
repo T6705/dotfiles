@@ -238,7 +238,7 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel
         sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt yay
-        sudo pacman -S --needed --noconfirm bat curl fd fontconfig git neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge termite tig time tmux vim xclip xsel zsh
+        sudo pacman -S --needed --noconfirm bat curl exa fd fontconfig git lsd neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge termite tig time tmux vim xclip xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"

@@ -287,8 +287,6 @@ vnoremap <silent> <Leader>, :s/, */, /g<CR>
 "    nnoremap <silent> <Leader>E :Explore<CR>
 "endif
 
-nnoremap <silent> <Leader>bp Oimport pdb; pdb.set_trace()  # BREAKPOINT<C-c>
-
 " Completetion
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
@@ -361,8 +359,10 @@ nnoremap <silent>  ;=  :AlignAssignments<CR>
 " -------------------------------------------------------------------------------
 if executable("prettier")
     nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
+    nnoremap <silent> <Leader>pta mm:bufdo silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
 else
     nnoremap <Leader>pt :echo "prettier is not installed"<CR>
+    nnoremap <Leader>pta :echo "prettier is not installed"<CR>
 endif
 
 " -------------------------------------------------------------------------------

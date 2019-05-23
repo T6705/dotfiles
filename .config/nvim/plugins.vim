@@ -93,6 +93,10 @@ endif
 " === html === {{{
 Plug 'mattn/emmet-vim', { 'for': ['*html', '*css', '*jsx', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
 " }}}
+"
+" === json === {{{
+Plug 'elzr/vim-json' " A better JSON for Vim
+" }}}
 
 " === javascript === {{{
 " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }

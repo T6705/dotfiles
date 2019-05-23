@@ -35,9 +35,17 @@ if command -v gem &> /dev/null ; then
     alias gemup="gem update --system && gem update && gem cleanup"
 fi
 
-if command -v exa &> /dev/null ; then
+if command -v lsd &> /dev/null ; then
+    alias ls="lsd"
+    alias la="ls -lah"
+    alias lt='ls --tree'
+elif command -v exa &> /dev/null ; then
     alias ls="exa"
     alias la="exa -lahgimuU"
+else
+    alias ll='ls -alF'
+    alias la='ls -A'
+    alias l='ls -CF'
 fi
 
 if command -v firejail &> /dev/null ; then

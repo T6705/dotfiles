@@ -1414,8 +1414,10 @@ fu! PythonConfig()
     " -------------------------------------------------------------------------------
     if executable("isort")
         nnoremap <silent> <Leader>is :%!isort -<CR>
+        nnoremap <silent> <Leader>isa :bufdo %!isort -<CR>
     else
         nnoremap <Leader>is :echo "isort is not installed"<CR>
+        nnoremap <Leader>isa :echo "isort is not installed"<CR>
     endif
 
     " -------------------------------------------------------------------------------
@@ -1423,10 +1425,13 @@ fu! PythonConfig()
     " -------------------------------------------------------------------------------
     if executable("yapf")
         nnoremap <Leader>fx :0,$!yapf<CR>
+        nnoremap <Leader>fxa :bufdo 0,$!yapf -p<CR>
     else
         nnoremap <Leader>fx :echo "yapf is not installed"<CR>
+        nnoremap <Leader>fxa :echo "yapf is not installed"<CR>
     endif
 
+    nnoremap <silent> <Leader>bp Oimport pdb; pdb.set_trace()  # BREAKPOINT<C-c>
 endfu
 
 fu! CompleteTags()
@@ -1878,8 +1883,10 @@ nnoremap <silent> ga :<c-u>call <sid>align_around_delimiter()<CR>
 " -------------------------------------------------------------------------------
 if executable("prettier")
     nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
+    nnoremap <silent> <Leader>pta mm:bufdo silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
 else
     nnoremap <Leader>pt :echo "prettier is not installed"<CR>
+    nnoremap <Leader>pta :echo "prettier is not installed"<CR>
 endif
 
 " -------------------------------------------------------------------------------
