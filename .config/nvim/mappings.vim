@@ -217,17 +217,6 @@ nnoremap <silent> <Leader>wz :wincmd _ \|wincmd \| \| normal 0 <CR>
 " Quickly edit your macros
 nnoremap <silent> <Leader>m  :<C-u><C-r><C-r>='let @'. v:register .' = '. string(getreg(v:register))<CR><C-f><left>
 
-" Git
-nnoremap <silent> <Leader>gb  :Gblame<CR>
-nnoremap <silent> <Leader>gc  :Gcommit<CR>
-nnoremap <silent> <Leader>gd  :Gvdiff<CR>
-nnoremap <silent> <Leader>gps :Gpush<CR>
-nnoremap <silent> <Leader>gpu :Gpull<CR>
-nnoremap <silent> <Leader>gr  :Gremove<CR>
-nnoremap <silent> <Leader>gs  :Gstatus<CR>
-nnoremap <silent> <Leader>gw  :Gwrite<CR>
-nnoremap <silent> <Leader>gm  :GitMessenger<CR>
-
 "" For conceal markers.
 "if has('conceal')
 "  set conceallevel=2 concealcursor=niv
@@ -329,7 +318,7 @@ nnoremap <silent> <Leader>3 m`^i### <Esc>``4l
 nnoremap <silent> <Leader>4 m`^i#### <Esc>``5l
 nnoremap <silent> <Leader>5 m`^i##### <Esc>``6l
 
-"nnoremap <silent> <Leader>apdf :w<CR> :!pandoc % --latex-engine=pdflatex -o %<.pdf<CR>
+"nnoremap <silent> <Leader>pdf :w<CR> :!pandoc % --pdf-engine=pdflatex -o %<.pdf<CR>
 "nnoremap <silent> <Leader>pdf :w<CR> :NeoTex<CR>
 
 " Make check spelling on or off
@@ -368,48 +357,6 @@ endif
 " -------------------------------------------------------------------------------
 " Surround
 " -------------------------------------------------------------------------------
-" Maps ss to surround word
-nmap ss ysiw
-
-" Maps sl to surround line
-nmap sl yss
-
-"" Surround Visual selection
-"vmap s S
-
-" <Leader>` Surround a word with "backticks"
-nmap     <silent> <Leader>` ysiw`
-vnoremap <silent> <Leader>` c`<C-R>"`<Esc>
-
-" <Leader>" Surround a word with "quotes"
-nmap     <silent> <Leader>" ysiw"
-vnoremap <silent> <Leader>" c"<C-R>""<Esc>
-
-" <Leader>' Surround a word with 'single quotes'
-nmap     <silent> <Leader>' ysiw'
-vnoremap <silent> <Leader>' c'<C-R>"'<Esc>
-
-" <Leader>( Surround a word with ( brackets )
-" <Leader>) Surround a word with (brackets)
-nmap     <silent> <Leader>( ysiw(
-nmap     <silent> <Leader>) ysiw)
-vnoremap <silent> <Leader>( c( <C-R>" )<Esc>
-vnoremap <silent> <Leader>) c(<C-R>")<Esc>
-
-" <Leader>[ Surround a word with [ brackets ]
-" <Leader>] Surround a word with [brackets]
-nmap     <silent> <Leader>] ysiw]
-nmap     <silent> <Leader>[ ysiw[
-vnoremap <silent> <Leader>[ c[ <C-R>" ]<Esc>
-vnoremap <silent> <Leader>] c[<C-R>"]<Esc>
-
-" <Leader>{ Surround a word with { braces }
-" <Leader>} Surround a word with {braces}
-nmap     <silent> <Leader>} ysiw}
-nmap     <silent> <Leader>{ ysiw{
-vnoremap <silent> <Leader>} c{ <C-R>" }<Esc>
-vnoremap <silent> <Leader>{ c{<C-R>"}<Esc>
-
 nnoremap cs({ m1F(m2%r}`2r{`1
 nnoremap cs{( m1F{m2%r)`2r(`1
 nnoremap cs([ m1F(m2%r]`2r[`1

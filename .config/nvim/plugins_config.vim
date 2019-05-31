@@ -67,10 +67,25 @@ if executable("git")
     nmap <silent> ]c :call NextHunkAllBuffers()<CR>
     nmap <silent> [c :call PrevHunkAllBuffers()<CR>set updatetime=250
     " }}}
+
+    " === tpope/vim-fugitive === {{{
+    nnoremap <silent> <Leader>gb  :Gblame<CR>
+    nnoremap <silent> <Leader>gc  :Gcommit<CR>
+    nnoremap <silent> <Leader>gd  :Gvdiff<CR>
+    nnoremap <silent> <Leader>gps :Gpush<CR>
+    nnoremap <silent> <Leader>gpu :Gpull<CR>
+    nnoremap <silent> <Leader>gr  :Gremove<CR>
+    nnoremap <silent> <Leader>gs  :Gstatus<CR>
+    nnoremap <silent> <Leader>gw  :Gwrite<CR>
+    " }}}
+
+    " === rhysd/git-messenger.vim === {{{
+    nnoremap <silent> <Leader>gm  :GitMessenger<CR>
+    " }}}
 endif
 
 if executable("go")
-    " === vim-go === {{{
+    " === fatih/vim-go === {{{
     let g:go_fmt_options = {
                 \ 'goimports': '-local do/',
                 \ }
@@ -151,8 +166,13 @@ if executable("go")
 " }}}
 endif
 
+" === rust-lang/rust.vim === {{{
+let g:rustfmt_autosave  = 1
+let g:rust_clip_command = 'xclip -selection clipboard'
+" }}}
+
 if has('python3')
-    " === jedi-vim === {{{
+    " === davidhalter/jedi-vim === {{{
     let g:jedi#auto_initialization      = 1
     let g:jedi#auto_vim_configuration   = 1
     let g:jedi#completions_command      = "<C-Space>"
@@ -172,7 +192,7 @@ if has('python3')
 
     " === Shougo deoplete/neocomplete === {{{
     let g:deoplete#enable_at_startup = 1
-    "call deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer', 'member']})
+    "call deoplete#custom#option('ignore_sources', {'_': ['ale', 'around', 'buffer', 'member']})
     call deoplete#custom#var('around', {
     \   'range_above': 15,
     \   'range_below': 15,
@@ -182,23 +202,23 @@ if has('python3')
     \})
     " }}}
 
-    " === https://github.com/zchee/deoplete-clang === {{{
+    " === zchee/deoplete-clang === {{{
     let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
     let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang'
     " }}}
 
-    " === https://github.com/zchee/deoplete-go === {{{
+    " === zchee/deoplete-go === {{{
     let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
     let g:deoplete#sources#go#package_dot   = 1
     let g:deoplete#sources#go#pointer       = 1
     let g:deoplete#sources#go#sort_class    = ['package', 'func', 'type', 'var', 'const']
     " }}}
 
-    " === https://github.com/zchee/deoplete-jedi === {{{
+    " === zchee/deoplete-jedi === {{{
     let g:deoplete#sources#jedi#show_docstring = 1
     " }}}
 
-    " === https://github.com/carlitux/deoplete-ternjs === {{{
+    " === carlitux/deoplete-ternjs === {{{
     " Set bin if you have many instalations
     let g:deoplete#sources#ternjs#tern_bin = '/usr/bin/tern'
     let g:deoplete#sources#ternjs#timeout = 1
@@ -262,13 +282,57 @@ if has('python3')
     let g:tern#arguments = ["--persistent"]
     " }}}
 
-    " === https://github.com/autozimu/LanguageClient-neovim === {{{
+    " === autozimu/LanguageClient-neovim === {{{
     let g:LanguageClient_serverCommands = {}
     let g:LanguageClient_serverCommands['go'] = ['$HOME/go/bin/gopls']
     " }}}
 endif
 
-" === vim-hexokinase === {{{
+" === tpope/vim-surround === {{{
+" Maps ss to surround word
+nmap ss ysiw
+
+" Maps sl to surround line
+nmap sl yss
+
+"" Surround Visual selection
+"vmap s S
+
+" <Leader>` Surround a word with "backticks"
+nmap     <silent> <Leader>` ysiw`
+vnoremap <silent> <Leader>` c`<C-R>"`<Esc>
+
+" <Leader>" Surround a word with "quotes"
+nmap     <silent> <Leader>" ysiw"
+vnoremap <silent> <Leader>" c"<C-R>""<Esc>
+
+" <Leader>' Surround a word with 'single quotes'
+nmap     <silent> <Leader>' ysiw'
+vnoremap <silent> <Leader>' c'<C-R>"'<Esc>
+
+" <Leader>( Surround a word with ( brackets )
+" <Leader>) Surround a word with (brackets)
+nmap     <silent> <Leader>( ysiw(
+nmap     <silent> <Leader>) ysiw)
+vnoremap <silent> <Leader>( c( <C-R>" )<Esc>
+vnoremap <silent> <Leader>) c(<C-R>")<Esc>
+
+" <Leader>[ Surround a word with [ brackets ]
+" <Leader>] Surround a word with [brackets]
+nmap     <silent> <Leader>] ysiw]
+nmap     <silent> <Leader>[ ysiw[
+vnoremap <silent> <Leader>[ c[ <C-R>" ]<Esc>
+vnoremap <silent> <Leader>] c[<C-R>"]<Esc>
+
+" <Leader>{ Surround a word with { braces }
+" <Leader>} Surround a word with {braces}
+nmap     <silent> <Leader>} ysiw}
+nmap     <silent> <Leader>{ ysiw{
+vnoremap <silent> <Leader>} c{ <C-R>" }<Esc>
+vnoremap <silent> <Leader>{ c{<C-R>"}<Esc>
+" }}}
+
+" === RRethy/vim-hexokinase === {{{
 "let g:Hexokinase_ftAutoload    = ['']                            " Default is to not auto-enable for any filetype
 "let g:Hexokinase_ftAutoload    = ['*']                           " Enable for all filetypes
 "let g:Hexokinase_highlighters  = ['sign_column']                 " Default for Vim
@@ -281,7 +345,7 @@ let g:Hexokinase_signIcon      = '■'                             " Default sig
 let g:Hexokinase_virtualText   = '■'                             " Default virtual text
 " }}}
 
-" === vwm.vim === {{{
+" === paroxayte/vwm.vim === {{{
 let s:py = {
     \    'name': 'py',
     \    'bot':
@@ -310,12 +374,12 @@ command Oterm :VwmOpen term
 command Cterm :VwmClose term
 " }}}
 
-" === Colorizer === {{{
+" === chrisbra/Colorizer === {{{
 let g:colorizer_syntax   = 1
 let g:colorizer_auto_map = 1
 " }}}
 
-" === table-mode === {{{
+" === dhruvasagar/vim-table-mode === {{{
 let g:table_mode_corner = "|"
 "let g:table_mode_corner_corner="+"
 "let g:table_mode_header_fillchar="="
@@ -323,12 +387,12 @@ let g:table_mode_corner = "|"
 nnoremap <silent> <Leader>tm :TableModeToggle<CR>
 " }}}
 
-" === RainbowParentheses === {{{
+" === junegunn/rainbow_parentheses.vim === {{{
 let g:rainbow#max_level = 32
 let g:rainbow#pairs     = [['(', ')'], ['[', ']'], ['{','}']]
 " }}}
 
-" === vimtex === {{{
+" === lervag/vimtex === {{{
 "let g:vimtex_latexmk_options = '-pdf'
 "let g:vimtex_latexmk_options = '-pdfps'
 "let g:vimtex_view_general_options = '--unique @pdf\#src:@line@tex'
@@ -342,7 +406,7 @@ let g:vimtex_latexmk_options     = '-pdfdvi'
 let g:vimtex_view_general_viewer = 'zathura'
 " }}}
 
-" === Nerd Commenter === {{{
+" === scrooloose/nerdcommenter === {{{
 let g:NERDAltDelims_java         = 1      " Set a language to use its alternate delimiters by default
 let g:NERDCommentEmptyLines      = 1      " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCompactSexyComs        = 1      " Use compact syntax for prettified multi-line comments
@@ -351,13 +415,13 @@ let g:NERDSpaceDelims            = 1      " Add spaces after comment delimiters 
 let g:NERDTrimTrailingWhitespace = 1      " Enable trimming of trailing whitespace when uncommenting
 " }}}
 
-" === Gundo.vim === {{{
+" === sjl/gundo.vim === {{{
 let g:gundo_prefer_python3 = 1
 
 nnoremap <silent> <Leader>ut :GundoToggle<CR>
 " }}}
 
-" === NERDTree === {{{
+" === scrooloose/nerdtree === {{{
 "let g:NERDTreeWinPos = "right"
 let NERDTreeAutoDeleteBuffer       = 1
 let NERDTreeDirArrows              = 1
@@ -406,7 +470,7 @@ let g:netrw_sizestyle   = "H"                    " Human-readable file sizes
 let g:netrw_winsize     = 30
 " }}}
 
-" === Airline.vim === {{{
+" === vim-airline/vim-airline === {{{
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -439,7 +503,7 @@ let g:airline_skip_empty_sections = 1
 let g:airline_theme = "wombat"
 " }}}
 
-" === vim-devicons === {{{
+" === ryanoasis/vim-devicons === {{{
 let g:webdevicons_enable                             = 1   " loading the plugin
 let g:webdevicons_enable_airline_statusline          = 1   " adding to vim-airline's statusline
 let g:webdevicons_enable_airline_tabline             = 1   " adding to vim-airline's tabline
@@ -456,7 +520,7 @@ let g:WebDevIconsUnicodeGlyphDoubleWidth             = 1   " use double-width(1)
 let g:webdevicons_conceal_nerdtree_brackets          = 0   " whether or not to show the nerdtree brackets around flags
 " }}}
 
-" ===" vimux === {{{
+" === benmills/vimux === {{{
 "let g:VimuxOrientation = "h"
 "let g:VimuxHeight      = "50"
 "" Inspect runner pane
@@ -484,13 +548,13 @@ let g:webdevicons_conceal_nerdtree_brackets          = 0   " whether or not to s
 "nnoremap <silent> <Leader>pdf :w<CR> :VimtexCompile<CR>:NeoTexOn<CR>
 " }}}
 
-" === indentline === {{{
+" === Yggdroot/indentLine === {{{
 let g:indentLine_char      = '▸'
 let g:indentLine_enabled   = 1 "enable by default
 let g:indentLine_setColors = 1 "overwrite 'conceal' color
 " }}}
 
-" ===" easymotion === {{{
+" === easymotion/vim-easymotion === {{{
 "" Extend hjkl
 "map ;h <Plug>(easymotion-linebackward)
 "map ;j <Plug>(easymotion-j)
@@ -513,7 +577,7 @@ let g:indentLine_setColors = 1 "overwrite 'conceal' color
 "nmap <Leader>W <Plug>(easymotion-overwin-w)
 " }}}
 
-" === neosnippet.vim === {{{
+" === Shougo/neosnippet.vim === {{{
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.config/nvim/plugged/vim-snippets/snippets'
 
@@ -526,7 +590,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 " }}}
 
-" === Ultsnips === {{{
+" === SirVer/ultisnips === {{{
 let g:UltiSnipsExpandTrigger       = "<TAB>"
 let g:UltiSnipsJumpBackwardTrigger = "<C-p>"
 let g:UltiSnipsJumpForwardTrigger  = "<C-n>"
@@ -534,11 +598,11 @@ let g:UltiSnipsEditSplit           = "vertical" " If you want :UltiSnipsEdit to 
 let g:UltiSnipsSnippetsDir         = "~/.vim/UltiSnips"
 " }}}
 
-" === SuperTab === {{{
+" === ervandew/supertab === {{{
 let g:SuperTabDefaultCompletionType = "<C-n>"
 " }}}
 
-" === YouCompleteMe === {{{
+" === Valloric/YouCompleteMe === {{{
 if empty(glob('~/.config/nvim/.ycm_extra_conf.py'))
   silent !curl -fLo ~/.config/nvim/.ycm_extra_conf.py --create-dirs
     \ https://raw.githubusercontent.com/Valloric/ycmd/master/examples/.ycm_extra_conf.py
@@ -588,7 +652,7 @@ let g:ycm_filetype_blacklist = {
       \}
 " }}}
 
-" === instant_markdown === {{{
+" === suan/vim-instant-markdown === {{{
 let g:instant_markdown_allow_external_content = 1 " allow content like images, stylesheets...
 let g:instant_markdown_allow_unsafe_content   = 0 " block scripts
 let g:instant_markdown_autostart              = 0 " start markdown preview with :InstantMarkdownPreview
@@ -596,7 +660,7 @@ let g:instant_markdown_open_to_the_world      = 0 " listens on localhost
 let g:instant_markdown_slow                   = 0 " realtime preview
 " }}}
 
-" === tagbar === {{{
+" === majutsushi/tagbar === {{{
 if v:version >= 703
     let g:tagbar_sort      = 0
     let g:tagbar_autofocus = 1
@@ -604,7 +668,7 @@ if v:version >= 703
 endif
 " }}}
 
-" ===" vim-gutentags === {{{
+" === ludovicchabant/vim-gutentags === {{{
 let gutentags_dir = expand('~/.cache/tags')
 if !isdirectory(gutentags_dir)
     call mkdir(gutentags_dir, "", 0700)
@@ -616,7 +680,7 @@ let g:gutentags_cache_dir             = expand('~/.cache/tags')   " generate dat
 let g:gutentags_auto_add_gtags_cscope = 0                         " forbid gutentags adding gtags databases
 " }}}
 
-" === emmet-vim === {{{
+" === mattn/emmet-vim === {{{
 "let g:user_emmet_leader_key='<C-H>'
 "let g:user_emmet_mode='inv'  "enable all functions, which is equal to
 "let g:user_emmet_mode='n'    "only enable normal mode functions.
@@ -624,7 +688,7 @@ let g:user_emmet_install_global = 0
 let g:user_emmet_mode           = 'a'    "enable all function in all mode.
 " }}}
 
-" === Codi.vim === {{{
+" === metakirby5/Codi.vim === {{{
 let g:codi#interpreters = {
                    \ 'python': {
                        \ 'bin': 'python3',
@@ -636,7 +700,7 @@ inoremap <silent> <F5> <Esc>:Codi!!<CR>
 nnoremap <silent> <F5> :Codi!!<CR>
 " }}}
 
-" === vimade === {{{
+" === TaDaa/vimade === {{{
 let g:vimade = {
   \ "normalid": '',
   \ "normalncid": '',
@@ -653,14 +717,14 @@ let g:vimade = {
   \}
 " }}}
 
-" === Black === {{{
+" === ambv/black === {{{
 let g:black_fast                      = 0   " (defaults to 0)
 let g:black_linelength                = 88  " (defaults to 88)
 let g:black_skip_string_normalization = 0   " (defaults to 0)
 "let g:black_virtualenv               = ~/.vim/black " (defaults to ~/.vim/black)
 " }}}
 
-" === Asynchronous Lint Engine === {{{
+" === w0rp/alw === {{{
 let g:ale_fixers                               = {}
 let g:ale_fixers['c']                          = ['clang-format', 'remove_trailing_lines', 'trim_whitespace', 'uncrustify']
 let g:ale_fixers['cpp']                        = ['clang-format', 'remove_trailing_lines', 'trim_whitespace', 'uncrustify']
@@ -680,18 +744,23 @@ let g:ale_linters['javascript']                = ['eslint', 'tsserver']
 let g:ale_linters['php']                       = ['phpcs', 'php', 'phpmd']
 let g:ale_linters['python']                    = ['flake8', 'mypy', 'pep8', 'vulture']
 
+let g:ale_completion_enabled                   = 1
 let g:ale_fix_on_save                          = 0
 let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_lint_on_insert_leave                 = 1
+let g:ale_lint_on_text_changed                 = 'normal'
 let g:ale_python_flake8_executable             = 'python3'
 let g:ale_python_flake8_options                = '-m flake8 --ignore=E221,E265,E266,E501'
 let g:ale_python_pep8_options                  = '--max-line-length=100 --ignore=E221,E265,E266,E501'
 let g:ale_set_loclist                          = 1
 let g:ale_set_quickfix                         = 0
+let g:ale_sign_column_always                   = 1
 
+"set omnifunc=ale#completion#OmniFunc
 nnoremap <silent> <Leader>alfx :ALEFix<CR>
 " }}}
 
-" === dart-vim-plugin === {{{
+" === dart-lang/dart-vim-plugin === {{{
 if executable("dart")
     let dart_html_in_string=v:true
     let dart_corelib_highlight=v:true
@@ -700,7 +769,21 @@ if executable("dart")
 endif
 " }}}
 
-" === fzf === {{{
+" === mhinz/vim-grepper === {{{
+let g:grepper = {}
+let g:grepper.tools = []
+for tool in ['rg', 'ag', 'git', 'grep']
+    if executable(tool)
+        call add(g:grepper.tools, tool)
+    endif
+endfor
+
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+nnoremap ;G :Grepper -cword<Cr>
+" }}}
+
+" === junegunn/fzf === {{{
 if has('nvim') || has('gui_running')
   let $FZF_DEFAULT_OPTS .= ' --inline-info'
 endif
@@ -784,7 +867,7 @@ nnoremap <silent> <Leader>bs :Buffers<CR>
 nnoremap <silent> <Leader>bls :Lines<CR>
 " }}}
 
-" === vim-easy-align === {{{
+" === junegunn/vim-easy-align === {{{
 let g:easy_align_delimiters = {
 \ '>': { 'pattern': '>>\|=>\|>' },
 \ '\': { 'pattern': '\\' },
@@ -826,13 +909,13 @@ nmap gaa ga_
 " inoremap <silent> => =><Esc>mzvip:EasyAlign/=>/<CR>`z$a<Space>
 " }}}
 
-" === vim-slash === {{{
+" === junegunn/vim-slash === {{{
 if has('timers') && !has('nvim')
   noremap <expr> <plug>(slash-after) slash#blink(2, 50)
 endif
 " }}}
 
-" === peekaboo === {{{
+" === junegunn/peekaboo === {{{
 let g:peekaboo_compact = 0                         " Compact display; do not display the names of the register groups
 let g:peekaboo_delay   = 0                         " Delay opening of peekaboo window (in ms. default: 0)
 let g:peekaboo_window  = 'vertical botright 30new' " Default peekaboo window

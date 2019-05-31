@@ -118,7 +118,7 @@ augroup vimrc_active_options
     au WinLeave,BufLeave * setlocal nonu
 augroup END
 
-augroup auto_quickfix_window
+augroup auto_open_quickfix_window
     au!
     au QuickFixCmdPost [^l]* cwindow
     au QuickFixCmdPost l*    lwindow
