@@ -781,6 +781,7 @@ fu! PythonConfig()
     if executable("isort")
         nnoremap <silent> <Leader>is :%!isort -<CR>
         nnoremap <silent> <Leader>isa :bufdo %!isort -<CR>
+        command! -range=% Isort :<line1>,<line2>! isort -
     else
         nnoremap <Leader>is :echo "isort is not installed"<CR>
         nnoremap <Leader>isa :echo "isort is not installed"<CR>

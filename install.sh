@@ -42,6 +42,13 @@ install_dots() {
     find ~/.config/polybar -type f -iname '*.sh' -exec chmod +x {} ;
 
     echo ""
+    echo "================================"
+    echo "== Download flashfocus config =="
+    echo "================================"
+    echo ""
+    curl -fLo ~/.config/flashfocus/flashfocus.yml --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/flashfocus/flashfocus.yml
+
+    echo ""
     echo "============================"
     echo "== Download ranger config =="
     echo "============================"
@@ -243,6 +250,7 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq papirus)"
+        sudo pacman -S --needed --noconfirm "$(pacman -Ssq Matcha | grep theme)"
         if command -v yaourt &> /dev/null; then
             yaourt -S cava dropbox dropbox-cli gitkraken hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
         fi
@@ -399,6 +407,12 @@ install_i3() {
         #cd ~/git/hub/polybar-git
         #makepkg -si
 
+        echo ""
+        echo "========================="
+        echo "== Download flashfocus =="
+        echo "========================="
+        echo ""
+        yay -Syyu --overwrite "*" flashfocus-git
     fi
 
     echo ""
@@ -750,11 +764,11 @@ install_zsh() {
     echo ""
     if [ -d ~/git/hub/nerd-fonts ]; then
         time cd ~/git/hub/nerd-fonts && time git pull
-        time ./install.sh
+        time ./install.sh Hack
     else
         time mkdir -p ~/git/hub
         time git clone https://github.com/ryanoasis/nerd-fonts ~/git/hub/nerd-fonts
-        time ~/git/hub/nerd-fonts/install.sh
+        time ~/git/hub/nerd-fonts/install.sh Hack
     fi
 
     echo ""

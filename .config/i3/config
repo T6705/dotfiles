@@ -247,12 +247,13 @@ set $urgent-bg-color     #fb4934
 #bindsym $mod+u exec scrot
 #bindsym $mod+z exec xrdb ~/.Xresources
 
+#bindsym $mod+S exec bash ~/.scripts/screenshot.sh                          # screenshot
 bindsym $mod+g exec export XDG_CURRENT_DESKTOP=GNOME&&gnome-control-center # start gnome-control-center
+bindsym $mod+n exec --no-startup-id flash_window                           # flashfocus
 bindsym $mod+p exec rofi -show drun &                                      # start rofi (a program launcher)
 bindsym $mod+shift+Return exec bash ~/.config/i3/scripts/i3lock.sh         # lock screen
 bindsym $mod+shift+v exec ~/.vim-anywhere/bin/run                          # https://github.com/cknadler/vim-anywhere
 bindsym $mod+w exec bash ~/.config/i3/scripts/random_wallpaper.sh          # change wallpaper randomly
-#bindsym $mod+S exec bash ~/.scripts/screenshot.sh                          # screenshot
 
 #bindsym $mod+Shift+Left move left
 #bindsym $mod+Shift+Right move right
@@ -266,12 +267,13 @@ bindsym $mod+Up exec playerctl play-pause
 # Start up
 #exec --no-startup-id pulseaudio --start
 #exec --no-startup-id setxkbmap -option ctrl:swapcaps
+exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/frame.jpg
+exec --no-startup-id bash ~/.config/polybar/scripts/launch.sh
+exec --no-startup-id wicd -gtk -t
 exec --no-startup-id dropbox start
 exec --no-startup-id dropbox-cli start
-exec --no-startup-id wicd -gtk -t
 exec --no-startup-id xset r rate 200 120
 exec --no-startup-id ibus-daemon -drx
-exec --no-startup-id bash ~/.config/polybar/scripts/launch.sh
-exec --no-startup-id feh --bg-fill ~/Dropbox/useful/config/wallpaper/frame.jpg
 exec_always compton -Cf --config ~/.config/i3/compton.conf
 exec_always dunst -config ~/.config/dunst/dunstrc &
+exec_always --no-startup-id flashfocus
