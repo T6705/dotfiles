@@ -1563,11 +1563,11 @@ command! AlignAssignments call AlignAssignments()
 
 """ === Mappings === {{{
 
-" :W sudo saves the file
+" :W (sudo saves the file)
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
 
-" :J json prettify
+" :J (json prettify)
 command! J :%!python -m json.tool
 
 command! Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
@@ -1722,6 +1722,9 @@ nnoremap <silent> <Leader>l guiw
 
 " clear highlighted search
 nnoremap <silent> <Leader>sc :set hlsearch! hlsearch?<CR>
+
+" Press <Leader>bg in order to toggle light/dark background
+map <Leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
 " automatically insert a \v before any search string, so search uses normal regexes
 nnoremap / /\v

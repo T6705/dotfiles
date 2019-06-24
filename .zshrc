@@ -70,7 +70,6 @@ COMPLETION_WAITING_DOTS="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    alias-tips
     archlinux
     docker
     fzf
@@ -83,6 +82,7 @@ plugins=(
     zsh-completions
     zsh-syntax-highlighting
 )
+    #alias-tips
 autoload -U compinit && compinit
 
 # User configuration

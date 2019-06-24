@@ -251,6 +251,8 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq papirus)"
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq Matcha | grep theme)"
+        sudo pacman -S --needed --noconfirm gnome-themes-maia maia-cursor-theme maia-icon-theme
+
         if command -v yaourt &> /dev/null; then
             yaourt -S cava dropbox dropbox-cli gitkraken hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
         fi

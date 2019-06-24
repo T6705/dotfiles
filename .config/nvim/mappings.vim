@@ -2,11 +2,11 @@
 
 """ === Mappings === {{{
 
-" :W sudo saves the file
+" :W (sudo saves the file)
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
 
-" :J json prettify
+" :J (json prettify)
 command! J :%!python -m json.tool
 
 command! Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))

@@ -149,6 +149,7 @@ if has('python3')
 else
     Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'java', 'python'], 'do': function('BuildYCM') }
 endif
+"Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 "if executable("tmux")
 "    Plug 'prabirshrestha/async.vim'
@@ -195,16 +196,16 @@ endif
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }                        " perform diffs on blocks of code
 Plug 'RRethy/vim-hexokinase'                                                 " displaying the colours in the file
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                  " Interactive command execution in Vim.
-Plug 'andymass/matchup.vim'                                                  " vim match-up: matchit replacement and more
+Plug 'andymass/vim-matchup'                                                  " vim match-up: matchit replacement and more
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                           " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'chrisbra/vim-diff-enhanced'                                            " Better Diff options for Vim
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }               " VIM Table Mode for instant table creation.
 Plug 'ekalinin/Dockerfile.vim'                                               " Vim syntax file & snippets for Docker's Dockerfile
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/fzf.vim'                                                      " use fzf on Vim
+Plug 'junegunn/rainbow_parentheses.vim'                                      " Simpler Rainbow Parentheses
 Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " A Vim alignment plugin
-Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-peekaboo'                                                 " show you the contents of the registers
 Plug 'junegunn/vim-slash'                                                    " Enhancing in-buffer search experience
 Plug 'kana/vim-operator-user'                                                " Vim plugin: Define your own operator easily
 Plug 'kshenoy/vim-signature'                                                 " Plugin to toggle, display and navigate marks

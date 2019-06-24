@@ -143,6 +143,7 @@ set lazyredraw        " Don't redraw while executing macros (good performance co
 set number            " show line numbers
 set relativenumber    " show relative line numbers
 set ruler             " Always show current position
+set signcolumn=yes    " always show signcolumns
 set shortmess=a       " use every short text trick
 set shortmess+=O      " file read message overwrites subsequent
 set shortmess+=s      " no search hit bottom crap
