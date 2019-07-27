@@ -244,8 +244,8 @@ install_dependencies() {
         sudo pacman -Syyu --noconfirm
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel
-        sudo pacman -S --needed --noconfirm cower pacaur pacli yaourt yay
-        sudo pacman -S --needed --noconfirm bat curl exa fd fontconfig git hub lsd neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge termite tig time tmux vim xclip xsel zsh
+        sudo pacman -S --needed --noconfirm cower pacaur yay
+        sudo pacman -S --needed --noconfirm bat code curl exa fd fontconfig git hub iotop lsd meld neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge termite tig time tmux vim wmctrl wmctrl xclip xdotool xorg-xkill xorg-xkill xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"
@@ -253,8 +253,8 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq Matcha | grep theme)"
         sudo pacman -S --needed --noconfirm gnome-themes-maia maia-cursor-theme maia-icon-theme
 
-        if command -v yaourt &> /dev/null; then
-            yaourt -S cava dropbox dropbox-cli gitkraken hyperfine neofetch panopticon-git plasma-git python-pywal-git secure-delete spotify
+        if command -v yay &> /dev/null; then
+            yay -S cava dropbox dropbox-cli gitkraken hyperfine neofetch panopticon-git plasma-git secure-delete spotify
         fi
         if command -v pip2 &> /dev/null; then
             sudo pip2 install -U neovim
@@ -287,9 +287,9 @@ install_games() {
             sudo apt-get install -y "$i"
         done
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm yaourt angband asciiportal cataclysm-dda dwarffortress glhack nethack rogue stone-soup
-        if command -v yaourt &> /dev/null; then
-            yaourt -S tome4
+        sudo pacman -S --needed --noconfirm yay angband asciiportal cataclysm-dda dwarffortress glhack nethack rogue stone-soup
+        if command -v yay &> /dev/null; then
+            yay -S tome4
         fi
     fi
 }
@@ -400,9 +400,6 @@ install_i3() {
         if command -v yay &> /dev/null; then
             yay -Syyu
             yay -S polybar-git
-        elif command -v yaourt &> /dev/null; then
-            yaourt -Syyu
-            yaourt -S polybar-git
         fi
         #time mkdir -p ~/git/hub
         #time git clone https://aur.archlinux.org/polybar-git.git ~/git/hub/polybar-git

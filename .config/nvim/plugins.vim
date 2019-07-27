@@ -193,37 +193,38 @@ endif
 if v:version >= 800
     Plug 'TaDaa/vimade'                                " An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
 endif
-Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }                        " perform diffs on blocks of code
-Plug 'RRethy/vim-hexokinase'                                                 " displaying the colours in the file
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                  " Interactive command execution in Vim.
-Plug 'andymass/vim-matchup'                                                  " vim match-up: matchit replacement and more
-Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                           " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
-Plug 'chrisbra/vim-diff-enhanced'                                            " Better Diff options for Vim
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }               " VIM Table Mode for instant table creation.
-Plug 'ekalinin/Dockerfile.vim'                                               " Vim syntax file & snippets for Docker's Dockerfile
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder
-Plug 'junegunn/fzf.vim'                                                      " use fzf on Vim
-Plug 'junegunn/rainbow_parentheses.vim'                                      " Simpler Rainbow Parentheses
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " A Vim alignment plugin
-Plug 'junegunn/vim-peekaboo'                                                 " show you the contents of the registers
-Plug 'junegunn/vim-slash'                                                    " Enhancing in-buffer search experience
-Plug 'kana/vim-operator-user'                                                " Vim plugin: Define your own operator easily
-Plug 'kshenoy/vim-signature'                                                 " Plugin to toggle, display and navigate marks
-Plug 'ludovicchabant/vim-gutentags'                                          " A Vim plugin that manages your tag files
-Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }                             " highlighting columns in csv/tsv files and executing SELECT and UPDATE queries in SQL-like language
-Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }   " Helps you win at grep
-Plug 'romainl/vim-qf'                                                        " Tame the quickfix window
-Plug 'ryanoasis/vim-devicons'                                                " Adds file type glyphs/icons to popular Vim plugins
-Plug 'scrooloose/nerdcommenter'                                              " Vim plugin for intensely orgasmic commenting
-Plug 'scrooloose/nerdtree'                                                   " file tree
-Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }                                " Visualize your undo tree.
-Plug 'skywind3000/gutentags_plus'                                            " The right way to use gtags with gutentags
-Plug 'terryma/vim-multiple-cursors'                                          " True Sublime Text style multiple selections for Vim
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                               " Extra syntax and highlight for nerdtree files
-Plug 'tpope/vim-repeat'                                                      " enables repeating other supported plugins with the . command
-Plug 'tpope/vim-surround'                                                    " surround.vim: quoting/parenthesizing made simple
-Plug 'wellle/targets.vim'                                                    " Vim plugin that provides additional text objects
-Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }                              " Vim plugin to diff two directories
+Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }                                                             " perform diffs on blocks of code
+Plug 'RRethy/vim-hexokinase'                                                                                      " displaying the colours in the file
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                                                       " Interactive command execution in Vim.
+Plug 'andymass/vim-matchup'                                                                                       " vim match-up: matchit replacement and more
+Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                                                                " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
+Plug 'chrisbra/vim-diff-enhanced'                                                                                 " Better Diff options for Vim
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }                                                    " VIM Table Mode for instant table creation.
+Plug 'ekalinin/Dockerfile.vim'                                                                                    " Vim syntax file & snippets for Docker's Dockerfile
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                                                 " A command-line fuzzy finder
+Plug 'junegunn/fzf.vim'                                                                                           " use fzf on Vim
+Plug 'junegunn/rainbow_parentheses.vim'                                                                           " Simpler Rainbow Parentheses
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }                                      " A Vim alignment plugin
+Plug 'junegunn/vim-peekaboo'                                                                                      " show you the contents of the registers
+Plug 'junegunn/vim-slash'                                                                                         " Enhancing in-buffer search experience
+Plug 'kana/vim-operator-user'                                                                                     " Vim plugin: Define your own operator easily
+Plug 'kshenoy/vim-signature'                                                                                      " Plugin to toggle, display and navigate marks
+Plug 'ludovicchabant/vim-gutentags'                                                                               " A Vim plugin that manages your tag files
+Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }                                                                  " highlighting columns in csv/tsv files and executing SELECT and UPDATE queries in SQL-like language
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }                                        " Helps you win at grep
+Plug 'romainl/vim-qf'                                                                                             " Tame the quickfix window
+Plug 'ryanoasis/vim-devicons'                                                                                     " Adds file type glyphs/icons to popular Vim plugins
+Plug 'scrooloose/nerdcommenter'                                                                                   " Vim plugin for intensely orgasmic commenting
+Plug 'scrooloose/nerdtree'                                                                                        " file tree
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }                                                                     " Visualize your undo tree.
+Plug 'skywind3000/gutentags_plus'                                                                                 " The right way to use gtags with gutentags
+Plug 'terryma/vim-multiple-cursors'                                                                               " True Sublime Text style multiple selections for Vim
+Plug 'thiagoalessio/rainbow_levels.vim', { 'on': ['RainbowLevelsOn', 'RainbowLevelsOff', 'RainbowLevelsToggle'] } " A different approach to code highlighting
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                                                                    " Extra syntax and highlight for nerdtree files
+Plug 'tpope/vim-repeat'                                                                                           " enables repeating other supported plugins with the . command
+Plug 'tpope/vim-surround'                                                                                         " surround.vim: quoting/parenthesizing made simple
+Plug 'wellle/targets.vim'                                                                                         " Vim plugin that provides additional text objects
+Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }                                                                   " Vim plugin to diff two directories
 call plug#end()
 endif
 " }}}

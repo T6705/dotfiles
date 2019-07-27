@@ -69,7 +69,6 @@ tray-offset-y    = 0
 tray-padding     = 0
 tray-position    = right
 tray-scale       = 1.0
-tray-transparent = true
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
@@ -122,7 +121,6 @@ tray-offset-y    = 0
 tray-padding     = 2
 tray-position    = right
 tray-scale       = 1.0
-tray-transparent = true
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
@@ -176,7 +174,6 @@ tray-offset-y    = 0
 tray-padding     = 0
 tray-position    = right
 tray-scale       = 1.0
-tray-transparent = true
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
@@ -229,7 +226,6 @@ tray-offset-y    = 0
 tray-padding     = 0
 tray-position    = right
 tray-scale       = 1.0
-tray-transparent = true
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"

@@ -841,6 +841,7 @@ let g:ale_fixers['c']                          = ['clang-format', 'remove_traili
 let g:ale_fixers['cpp']                        = ['clang-format', 'remove_trailing_lines', 'trim_whitespace', 'uncrustify']
 let g:ale_fixers['css']                        = ['prettier']
 let g:ale_fixers['dart']                       = ['dartfmt', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers['go']                         = [ 'gofmt', 'goimports', 'remove_trailing_lines', 'trim_whitespace']
 let g:ale_fixers['java']                       = ['google_java_format', 'uncrustify', 'remove_trailing_lines', 'trim_whitespace']
 let g:ale_fixers['javascript']                 = ['prettier']
 let g:ale_fixers['json']                       = ['prettier']
@@ -851,6 +852,7 @@ let g:ale_fixers['ruby']                       = ['rubocop', 'rufo', 'standardrb
 let g:ale_fixers['typescript']                 = ['prettier', 'tslint']
 
 let g:ale_linters                              = {}
+let g:ale_linters['go']                        = ['gofmt', 'golint', 'govet', 'golangci-lint']
 let g:ale_linters['javascript']                = ['eslint', 'tsserver']
 let g:ale_linters['php']                       = ['phpcs', 'php', 'phpmd']
 let g:ale_linters['python']                    = ['flake8', 'mypy', 'pep8', 'vulture']
