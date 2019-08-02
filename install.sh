@@ -325,7 +325,6 @@ install_music() {
         https://gitlab.com/T6705/dotfiles/raw/master/.config/mpd/mpd.conf
     curl -fLo ~/.config/ncmpcpp/config \
         https://gitlab.com/T6705/dotfiles/raw/master/.config/ncmpcpp/config
-
 }
 
 install_i3() {
@@ -517,7 +516,6 @@ install_tmux() {
 }
 
 install_vim() {
-
     echo ""
     echo "=================="
     echo "== build neovim =="
@@ -539,7 +537,7 @@ install_vim() {
     fi
 
     time cd ~/git/hub/neovim
-    time make CMAKE_BUILD_TYPE=Release
+    time make CMAKE_BUILD_TYPE=RelWithDebInfo
     time sudo make install
     time nvim -v
 
@@ -596,12 +594,46 @@ install_vim() {
         nvim +PlugUpdate
     fi
 
-    #if command -v oni &> /dev/null; then # language servers
-    #    if command -v gem &> /dev/null; then gem install language_server fi
-    #    if command -v go &> /dev/null; then go get -u github.com/sourcegraph/go-langserver fi
-    #    if command -v npm &> /dev/null; then npm i -g bash-language-server fi
-    #    if command -v pip3 &> /dev/null; then pip3 install -U autopep8 flake8 isort mccabe pep8 pycodestyle pydocstyle pyflakes python-language-server vulture yapf fi
-    #fi
+    echo ""
+    echo "============================="
+    echo "== install Language server =="
+    echo "============================="
+    echo ""
+
+    if command -v pacman &> /dev/null; then
+        # for bash
+        sudo pacman -S --needed --noconfirm bash-language-server
+
+        # for go
+        rm -rf ~/git/hub/tools
+        cd ~/git/hub/
+        git clone -b bingo https://github.com/saibing/tools.git
+        cd tools/gopls
+        go install
+    fi
+
+    nvim -c 'CocInstall -sync coc-angular|q'
+    nvim -c 'CocInstall -sync coc-css|q'
+    nvim -c 'CocInstall -sync coc-emmet|q'
+    nvim -c 'CocInstall -sync coc-eslint|q'
+    nvim -c 'CocInstall -sync coc-git|q'
+    nvim -c 'CocInstall -sync coc-highlight|q'
+    nvim -c 'CocInstall -sync coc-html|q'
+    nvim -c 'CocInstall -sync coc-java|q'
+    nvim -c 'CocInstall -sync coc-json|q'
+    nvim -c 'CocInstall -sync coc-lists|q'
+    nvim -c 'CocInstall -sync coc-phpls|q'
+    nvim -c 'CocInstall -sync coc-prettier|q'
+    nvim -c 'CocInstall -sync coc-python|q'
+    nvim -c 'CocInstall -sync coc-snippets|q'
+    nvim -c 'CocInstall -sync coc-svg|q'
+    nvim -c 'CocInstall -sync coc-texlab|q'
+    nvim -c 'CocInstall -sync coc-tsserver|q'
+    nvim -c 'CocInstall -sync coc-vetur|q'
+    nvim -c 'CocInstall -sync coc-vimlsp|q'
+    nvim -c 'CocInstall -sync coc-xml|q'
+    nvim -c 'CocInstall -sync coc-yaml|q'
+    nvim -c 'CocInstall -sync coc-yank|q'
 
     reset
 }

@@ -80,7 +80,9 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPre
 
 " === golang === {{{
 if executable("go")
-    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+    "Plug 'jodosha/vim-godebug', { 'for': 'go' }                      " Go debugging for Vim
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' } " Go development plugin for Vim
+    Plug 'sebdah/vim-delve', { 'for': 'go' }                         " Neovim / Vim integration for Delve
 endif
 " }}}
 
@@ -125,31 +127,34 @@ endif
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
-Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
 Plug 'ambv/black', { 'for': 'python' }         " The uncompromising Python code formatter
-Plug 'w0rp/ale'                                " Asynchronous Lint Engine
+Plug 'dense-analysis/ale'                      " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
+Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
 " }}}
 
 " === Auto Completion === {{{
-if has('python3')
-    if has('nvim')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    elseif v:version >= 800
-        Plug 'Shougo/deoplete.nvim' " Dark powered asynchronous completion framework for neovim/Vim8
-        Plug 'roxma/nvim-yarp'      " Yet Another Remote Plugin Framework for Neovim
-        Plug 'roxma/vim-hug-neovim-rpc'
-    endif
-    "Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
-    Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-    Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
-    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol for vim and neovim
+"if has('python3')
+"    if has('nvim')
+"        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"    elseif v:version >= 800
+"        Plug 'Shougo/deoplete.nvim' " Dark powered asynchronous completion framework for neovim/Vim8
+"        Plug 'roxma/nvim-yarp'      " Yet Another Remote Plugin Framework for Neovim
+"        Plug 'roxma/vim-hug-neovim-rpc'
+"    endif
+"    "Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
+"    Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }
+"    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+"    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+"    Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
+"    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+"    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol for vim and neovim
+"endif
+
+if executable('node')
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 else
     Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'java', 'python'], 'do': function('BuildYCM') }
 endif
-"Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 "if executable("tmux")
 "    Plug 'prabirshrestha/async.vim'

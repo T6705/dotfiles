@@ -173,6 +173,7 @@ set complete-=i
 set complete+=kspell
 
 set ofu=syntaxcomplete#Complete " Set omni-completion method
+"set ofu=ale#completion#OmniFunc " Set omni-completion method
 
 if has('nvim')
     set completeopt=longest,menuone

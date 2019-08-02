@@ -95,23 +95,23 @@ if executable("go")
                 \ 'stack': 'botright 10new',
                 \ }
 
-    let g:go_addtags_transform          = "snakecase"  " Set whether the JSON tags should be snakecase or camelcase.
-    let g:go_auto_sameids               = 1
-    let g:go_auto_type_info             = 1
+    let g:go_addtags_transform          = "snakecase" " Set whether the JSON tags should be snakecase or camelcase.
+    let g:go_auto_sameids               = 1           " Highlight variable uses
+    let g:go_auto_type_info             = 1           " Show type information
     let g:go_autodetect_gopath          = 1
     let g:go_def_mode                   = "guru"
-    let g:go_echo_command_info          = 1            " Show the progress when running :GoCoverage
-    let g:go_fmt_command                = "goimports"  " Run goimports when running gofmt
+    let g:go_echo_command_info          = 1           " Show the progress when running :GoCoverage
+    let g:go_fmt_command                = "goimports" " Run goimports when running gofmt
     let g:go_fmt_fail_silently          = 0
     let g:go_fold_enable                = []
     let g:go_gocode_autobuild           = 1
     let g:go_gocode_unimported_packages = 1
     let g:go_info_mode                  = "guru"
-    let g:go_list_type                  = "quickfix"   " Fix for location list when vim-go is used together with Syntastic
+    let g:go_list_type                  = "quickfix"  " Fix for location list when vim-go is used together with Syntastic
     let g:go_modifytags_transform       = 'snakecase'
     let g:go_sameid_search_enabled      = 1
-    let g:go_snippet_engine             = "automatic"  " Automatically detect a snippet engine.
-    let g:go_test_show_name             = 1            " Add the failing test name to the output of :GoTest
+    let g:go_snippet_engine             = "automatic" " Automatically detect a snippet engine.
+    let g:go_test_show_name             = 1           " Add the failing test name to the output of :GoTest
 
     " Enable syntax highlighting
     let g:go_highlight_array_whitespace_error    = 1
@@ -133,19 +133,42 @@ if executable("go")
         au!
         au FileType go imap <silent> <C-g> <Esc>:<C-u>GoDecls<CR>
         au FileType go nmap <silent> <C-g> :GoDecls<CR>
-        au FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
-        au FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
-        au FileType go nmap <silent> <Leader>db <Plug>(go-doc-browser)
-        au FileType go nmap <silent> <Leader>i <Plug>(go-info)
-        au FileType go nmap <silent> <Leader>ml <Plug>(go-metalinter)
-        au FileType go nmap <silent> <Leader>s <Plug>(go-def-split)
-        au FileType go nmap <silent> <Leader>v <Plug>(go-def-vertical)
-        au FileType go nmap <silent> <Leader>x <Plug>(go-doc-vertical)
         au FileType go nmap <silent> <Leader>b <Plug>(go-build)
+        au FileType go nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+        au FileType go nmap <silent> <Leader>i <Plug>(go-info)
         au FileType go nmap <silent> <Leader>in  <Plug>(go-install)
+        au FileType go nmap <silent> <Leader>ml <Plug>(go-metalinter)
         au FileType go nmap <silent> <Leader>r  <Plug>(go-run)
         au FileType go nmap <silent> <Leader>rb :<C-u>call <SID>build_go_files()<CR>
         au FileType go nmap <silent> <Leader>t  <Plug>(go-test)
+
+        " def
+        au FileType go nmap <silent> <Leader>d <Plug>(go-def-tab)
+        au FileType go nmap <silent> <Leader>ds <Plug>(go-def-split)
+        au FileType go nmap <silent> <Leader>dv <Plug>(go-def-vertical)
+
+        " doc
+        au FileType go nmap <silent> <Leader>doc <Plug>(go-doc-browser)
+        au FileType go nmap <silent> <Leader>docv <Plug>(go-doc-vertical)
+
+        "" vim-go debug
+        "au FileType go nmap <silent> <Leader>db :GoDebugStart<CR>
+        "au FileType go nmap <silent> <Leader>bp <Plug>(go-debug-breakpoint)
+        "au FileType go nmap <silent> \c <Plug>(go-debug-continue)
+        "au FileType go nmap <silent> \n <Plug>(go-debug-next)
+        "au FileType go nmap <silent> \p <Plug>(go-debug-print)
+        "au FileType go nmap <silent> \s <Plug>(go-debug-step)
+
+        "" vim-godebug
+        "au FileType go nmap <silent> <Leader>db :call GoDebug()
+        "au FileType go nmap <silent> <Leader>bp :call GoToggleBreakpoint()
+
+        " vim-delve
+        au FileType go nmap <silent> <Leader>db :DlvDebug<CR>
+        au FileType go nmap <silent> <Leader>bp :DlvAddBreakpoint<CR>
+        au FileType go nmap <silent> <Leader>tp :DlvAddTracepoint<CR>
+        au FileType go nmap <silent> <Leader>dca :DlvClearAll<CR>
+
         au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
         au Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
         au Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
@@ -171,233 +194,240 @@ let g:rustfmt_autosave  = 1
 let g:rust_clip_command = 'xclip -selection clipboard'
 " }}}
 
-if has('python3')
-    " === davidhalter/jedi-vim === {{{
-    let g:jedi#auto_initialization      = 1
-    let g:jedi#auto_vim_configuration   = 1
-    let g:jedi#completions_command      = "<C-Space>"
-    let g:jedi#completions_enabled      = 1
-    let g:jedi#documentation_command    = "K"
-    let g:jedi#goto_assignments_command = "<Leader>g"
-    let g:jedi#goto_command             = "<Leader>d"
-    let g:jedi#goto_definitions_command = "<TAB>"
-    let g:jedi#popup_on_dot             = 1
-    let g:jedi#popup_select_first       = 1
-    let g:jedi#rename_command           = "<Leader>r"
-    let g:jedi#show_call_signatures     = "1"
-    let g:jedi#usages_command           = "<Leader>n"
-    let g:jedi#use_splits_not_buffers   = "right"
-    let g:jedi#use_tabs_not_buffers     = 0
-    " }}}
-
-    " === Shougo deoplete/neocomplete === {{{
-    let g:deoplete#enable_at_startup = 1
-    "call deoplete#custom#option('ignore_sources', {'_': ['ale', 'around', 'buffer', 'member']})
-    call deoplete#custom#var('around', {
-    \   'range_above': 15,
-    \   'range_below': 15,
-    \   'mark_above': '[↑]',
-    \   'mark_below': '[↓]',
-    \   'mark_changes': '[*]',
-    \})
-    " }}}
-
-    " === zchee/deoplete-clang === {{{
-    let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-    let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang'
-    " }}}
-
-    " === zchee/deoplete-go === {{{
-    let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-    let g:deoplete#sources#go#package_dot   = 1
-    let g:deoplete#sources#go#pointer       = 1
-    let g:deoplete#sources#go#sort_class    = ['package', 'func', 'type', 'var', 'const']
-    " }}}
-
-    " === zchee/deoplete-jedi === {{{
-    let g:deoplete#sources#jedi#show_docstring = 1
-    " }}}
-
-    " === carlitux/deoplete-ternjs === {{{
-    " Set bin if you have many instalations
-    let g:deoplete#sources#ternjs#tern_bin = '/usr/bin/tern'
-    let g:deoplete#sources#ternjs#timeout = 1
-
-    " Whether to include the types of the completions in the result data. Default: 0
-    let g:deoplete#sources#ternjs#types = 1
-
-    " Whether to include the distance (in scopes for variables, in prototypes for
-    " properties) between the completions and the origin position in the result
-    " data. Default: 0
-    let g:deoplete#sources#ternjs#depths = 1
-
-    " Whether to include documentation strings (if found) in the result data.
-    " Default: 0
-    let g:deoplete#sources#ternjs#docs = 1
-
-    " When on, only completions that match the current word at the given point will
-    " be returned. Turn this off to get all results, so that you can filter on the
-    " client side. Default: 1
-    let g:deoplete#sources#ternjs#filter = 0
-
-    " Whether to use a case-insensitive compare between the current word and
-    " potential completions. Default 0
-    let g:deoplete#sources#ternjs#case_insensitive = 1
-
-    " When completing a property and no completions are found, Tern will use some
-    " heuristics to try and return some properties anyway. Set this to 0 to
-    " turn that off. Default: 1
-    let g:deoplete#sources#ternjs#guess = 0
-
-    " Determines whether the result set will be sorted. Default: 1
-    let g:deoplete#sources#ternjs#sort = 0
-
-    " When disabled, only the text before the given position is considered part of
-    " the word. When enabled (the default), the whole variable name that the cursor
-    " is on will be included. Default: 1
-    let g:deoplete#sources#ternjs#expand_word_forward = 0
-
-    " Whether to ignore the properties of Object.prototype unless they have been
-    " spelled out by at least two characters. Default: 1
-    let g:deoplete#sources#ternjs#omit_object_prototype = 0
-
-    " Whether to include JavaScript keywords when completing something that is not
-    " a property. Default: 0
-    let g:deoplete#sources#ternjs#include_keywords = 1
-
-    " If completions should be returned when inside a literal. Default: 1
-    let g:deoplete#sources#ternjs#in_literal = 0
-
-
-    "Add extra filetypes
-    let g:deoplete#sources#ternjs#filetypes = [
-                    \ 'jsx',
-                    \ 'javascript.jsx',
-                    \ 'vue',
-                    \ '...'
-                    \ ]
-
-    " Use tern_for_vim.
-    let g:tern#command = ["tern"]
-    let g:tern#arguments = ["--persistent"]
-    " }}}
-
-    " === autozimu/LanguageClient-neovim === {{{
-    let g:LanguageClient_serverCommands = {}
-    let g:LanguageClient_serverCommands['go'] = ['$HOME/go/bin/gopls']
-    " }}}
-endif
-
-"" === neoclide/coc.nvim === {{{
-"" Use tab for trigger completion with characters ahead and navigate.
-"" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-"inoremap <silent><expr> <TAB>
-"      \ pumvisible() ? "\<C-n>" :
-"      \ <SID>check_back_space() ? "\<TAB>" :
-"      \ coc#refresh()
-"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"if has('python3')
+"    " === davidhalter/jedi-vim === {{{
+"    let g:jedi#auto_initialization      = 1
+"    let g:jedi#auto_vim_configuration   = 1
+"    let g:jedi#completions_command      = "<C-Space>"
+"    let g:jedi#completions_enabled      = 1
+"    let g:jedi#documentation_command    = "K"
+"    let g:jedi#goto_assignments_command = "<Leader>g"
+"    let g:jedi#goto_command             = "<Leader>d"
+"    let g:jedi#goto_definitions_command = "<TAB>"
+"    let g:jedi#popup_on_dot             = 1
+"    let g:jedi#popup_select_first       = 1
+"    let g:jedi#rename_command           = "<Leader>r"
+"    let g:jedi#show_call_signatures     = "1"
+"    let g:jedi#usages_command           = "<Leader>n"
+"    let g:jedi#use_splits_not_buffers   = "right"
+"    let g:jedi#use_tabs_not_buffers     = 0
+"    " }}}
 "
-"function! s:check_back_space() abort
-"  let col = col('.') - 1
-"  return !col || getline('.')[col - 1]  =~# '\s'
-"endfunction
+"    " === Shougo deoplete/neocomplete === {{{
+"    let g:deoplete#enable_at_startup = 1
+"    "call deoplete#custom#option('ignore_sources', {'_': ['ale', 'around', 'buffer', 'member']})
+"    call deoplete#custom#var('around', {
+"    \   'range_above': 15,
+"    \   'range_below': 15,
+"    \   'mark_above': '[↑]',
+"    \   'mark_below': '[↓]',
+"    \   'mark_changes': '[*]',
+"    \})
 "
-"" Use <c-space> to trigger completion.
-"inoremap <silent><expr> <c-space> coc#refresh()
+"    " Use auto delimiter feature
+"    call deoplete#custom#source('_', 'converters', ['converter_auto_delimiter', 'remove_overlap'])
+"    " }}}
 "
-"" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-"" Coc only does snippet and additional edit on confirm.
-"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"    " === zchee/deoplete-clang === {{{
+"    let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+"    let g:deoplete#sources#clang#clang_header  = '/usr/lib/clang'
+"    " }}}
 "
-"" Use `[c` and `]c` to navigate diagnostics
-"nmap <silent> [c <Plug>(coc-diagnostic-prev)
-"nmap <silent> ]c <Plug>(coc-diagnostic-next)
+"    " === zchee/deoplete-go === {{{
+"    let g:deoplete#sources#go#builtin_objects     = 1
+"    let g:deoplete#sources#go#cgo                 = 1
+"    let g:deoplete#sources#go#gocode_binary       = $GOPATH.'/bin/gocode'
+"    let g:deoplete#sources#go#package_dot         = 1
+"    let g:deoplete#sources#go#pointer             = 1
+"    let g:deoplete#sources#go#sort_class          = ['package', 'func', 'type', 'var', 'const']
+"    let g:deoplete#sources#go#source_importer     = 1
+"    let g:deoplete#sources#go#unimported_packages = 1
+"    " }}}
 "
-"" Remap keys for gotos
-"nmap <silent> gd <Plug>(coc-definition)
-"nmap <silent> gy <Plug>(coc-type-definition)
-"nmap <silent> gi <Plug>(coc-implementation)
-"nmap <silent> gr <Plug>(coc-references)
+"    " === zchee/deoplete-jedi === {{{
+"    let g:deoplete#sources#jedi#show_docstring = 1
+"    " }}}
 "
-"" Use K to show documentation in preview window
-"nnoremap <silent> K :call <SID>show_documentation()<CR>
+"    " === carlitux/deoplete-ternjs === {{{
+"    " Set bin if you have many instalations
+"    let g:deoplete#sources#ternjs#tern_bin = '/usr/bin/tern'
+"    let g:deoplete#sources#ternjs#timeout = 1
 "
-"function! s:show_documentation()
-"  if (index(['vim','help'], &filetype) >= 0)
-"    execute 'h '.expand('<cword>')
-"  else
-"    call CocAction('doHover')
-"  endif
-"endfunction
+"    " Whether to include the types of the completions in the result data. Default: 0
+"    let g:deoplete#sources#ternjs#types = 1
 "
-"" Highlight symbol under cursor on CursorHold
-"autocmd CursorHold * silent call CocActionAsync('highlight')
+"    " Whether to include the distance (in scopes for variables, in prototypes for
+"    " properties) between the completions and the origin position in the result
+"    " data. Default: 0
+"    let g:deoplete#sources#ternjs#depths = 1
 "
-"" Remap for rename current word
-"nmap <leader>rn <Plug>(coc-rename)
+"    " Whether to include documentation strings (if found) in the result data.
+"    " Default: 0
+"    let g:deoplete#sources#ternjs#docs = 1
 "
-"" Remap for format selected region
-"xmap <leader>f  <Plug>(coc-format-selected)
-"nmap <leader>f  <Plug>(coc-format-selected)
+"    " When on, only completions that match the current word at the given point will
+"    " be returned. Turn this off to get all results, so that you can filter on the
+"    " client side. Default: 1
+"    let g:deoplete#sources#ternjs#filter = 0
 "
-"augroup mygroup
-"  autocmd!
-"  " Setup formatexpr specified filetype(s).
-"  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-"  " Update signature help on jump placeholder
-"  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-"augroup end
+"    " Whether to use a case-insensitive compare between the current word and
+"    " potential completions. Default 0
+"    let g:deoplete#sources#ternjs#case_insensitive = 1
 "
-"" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-"xmap <leader>a  <Plug>(coc-codeaction-selected)
-"nmap <leader>a  <Plug>(coc-codeaction-selected)
+"    " When completing a property and no completions are found, Tern will use some
+"    " heuristics to try and return some properties anyway. Set this to 0 to
+"    " turn that off. Default: 1
+"    let g:deoplete#sources#ternjs#guess = 0
 "
-"" Remap for do codeAction of current line
-"nmap <leader>ac  <Plug>(coc-codeaction)
-"" Fix autofix problem of current line
-"nmap <leader>qf  <Plug>(coc-fix-current)
+"    " Determines whether the result set will be sorted. Default: 1
+"    let g:deoplete#sources#ternjs#sort = 0
 "
-"" Use `:Format` to format current buffer
-"command! -nargs=0 Format :call CocAction('format')
+"    " When disabled, only the text before the given position is considered part of
+"    " the word. When enabled (the default), the whole variable name that the cursor
+"    " is on will be included. Default: 1
+"    let g:deoplete#sources#ternjs#expand_word_forward = 0
 "
-"" Use `:Fold` to fold current buffer
-"command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+"    " Whether to ignore the properties of Object.prototype unless they have been
+"    " spelled out by at least two characters. Default: 1
+"    let g:deoplete#sources#ternjs#omit_object_prototype = 0
 "
-"" use `:OR` for organize import of current buffer
-"command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+"    " Whether to include JavaScript keywords when completing something that is not
+"    " a property. Default: 0
+"    let g:deoplete#sources#ternjs#include_keywords = 1
 "
-"" Add diagnostic info for https://github.com/itchyny/lightline.vim
-"let g:lightline = {
-"      \ 'colorscheme': 'wombat',
-"      \ 'active': {
-"      \   'left': [ [ 'mode', 'paste' ],
-"      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-"      \ },
-"      \ 'component_function': {
-"      \   'cocstatus': 'coc#status'
-"      \ },
-"      \ }
+"    " If completions should be returned when inside a literal. Default: 1
+"    let g:deoplete#sources#ternjs#in_literal = 0
 "
 "
+"    "Add extra filetypes
+"    let g:deoplete#sources#ternjs#filetypes = [
+"                    \ 'jsx',
+"                    \ 'javascript.jsx',
+"                    \ 'vue',
+"                    \ '...'
+"                    \ ]
 "
-"" Using CocList
-"" Show all diagnostics
-"nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-"" Manage extensions
-"nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-"" Show commands
-"nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-"" Find symbol of current document
-"nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-"" Search workspace symbols
-"nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-"" Do default action for next item.
-"nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-"" Do default action for previous item.
-"nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-"" Resume latest coc list
-"nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-"" }}}
+"    " Use tern_for_vim.
+"    let g:tern#command = ["tern"]
+"    let g:tern#arguments = ["--persistent"]
+"    " }}}
+"
+"    " === autozimu/LanguageClient-neovim === {{{
+"    let g:LanguageClient_serverCommands = {}
+"    let g:LanguageClient_serverCommands['go'] = ['$HOME/go/bin/gopls']
+"    " }}}
+"endif
+
+" === neoclide/coc.nvim === {{{
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> <Leader>d <Plug>(coc-definition)
+nmap <silent> <Leader>td <Plug>(coc-type-definition)
+nmap <silent> <Leader>i <Plug>(coc-implementation)
+nmap <silent> <Leader>r <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <Leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <Leader>fm  <Plug>(coc-format-selected)
+nmap <Leader>fm  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<Leader>aap` for current paragraph
+xmap <Leader>a  <Plug>(coc-codeaction-selected)
+nmap <Leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <Leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <Leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add diagnostic info for https://github.com/itchyny/lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+
+
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>cld  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>cle  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>clc  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>clo  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>cls  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>cln  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>clp  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>clr  :<C-u>CocListResume<CR>
+" }}}
 
 " === tpope/vim-surround === {{{
 " Maps ss to surround word
@@ -590,6 +620,7 @@ endif
 "let g:airline_theme="papercolor"
 let g:airline#extensions#ale#enabled          = 1
 let g:airline#extensions#branch#enabled       = 1
+let g:airline#extensions#coc#enabled          = 1
 let g:airline#extensions#fugitiveline#enabled = 1
 let g:airline#extensions#gutentags#enabled    = 1
 let g:airline#extensions#tabline#enabled      = 1
@@ -868,6 +899,13 @@ let g:ale_python_pep8_options                  = '--max-line-length=100 --ignore
 let g:ale_set_loclist                          = 1
 let g:ale_set_quickfix                         = 0
 let g:ale_sign_column_always                   = 1
+
+let g:ale_sign_error = '⤫'
+let g:ale_sign_warning = '⚠'
+
+" remove background color for warnings and errors in the sign gutter
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
 
 "set omnifunc=ale#completion#OmniFunc
 nnoremap <silent> <Leader>alfx :ALEFix<CR>

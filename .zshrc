@@ -98,9 +98,10 @@ fi
 [ -d $HOME/.gem/ruby/2.6.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-[ -d /usr/games ] && export PATH="$PATH:/usr/games"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
+[ -d /usr/games ] && export PATH="$PATH:/usr/games"
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
+[ -d /usr/lib/jvm/default ] && export JAVA_HOME=/usr/lib/jvm/default
 
 source $ZSH/oh-my-zsh.sh
 
