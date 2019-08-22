@@ -867,26 +867,27 @@ let g:black_skip_string_normalization = 0   " (defaults to 0)
 " }}}
 
 " === w0rp/alw === {{{
-let g:ale_fixers                               = {}
-let g:ale_fixers['c']                          = ['clang-format', 'remove_trailing_lines', 'trim_whitespace', 'uncrustify']
-let g:ale_fixers['cpp']                        = ['clang-format', 'remove_trailing_lines', 'trim_whitespace', 'uncrustify']
-let g:ale_fixers['css']                        = ['prettier']
-let g:ale_fixers['dart']                       = ['dartfmt', 'remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers['go']                         = [ 'gofmt', 'goimports', 'remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers['java']                       = ['google_java_format', 'uncrustify', 'remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers['javascript']                 = ['prettier']
-let g:ale_fixers['json']                       = ['prettier']
-let g:ale_fixers['perl']                       = ['perltidy', 'remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers['php']                        = ['php_cs_fixer', 'phpcbf', 'remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers['python']                     = ['add_blank_lines_for_python_control_statements', 'autopep8', 'black', 'isort', 'yapf', 'remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers['ruby']                       = ['rubocop', 'rufo', 'standardrb', 'remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers['typescript']                 = ['prettier', 'tslint']
+let g:ale_fixers               = {}
+let g:ale_fixers['c']          = ['clang-format', 'remove_trailing_lines', 'trim_whitespace', 'uncrustify']
+let g:ale_fixers['cpp']        = ['clang-format', 'remove_trailing_lines', 'trim_whitespace', 'uncrustify']
+let g:ale_fixers['css']        = ['prettier']
+let g:ale_fixers['dart']       = ['dartfmt', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers['go']         = [ 'gofmt', 'goimports', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers['java']       = ['google_java_format', 'uncrustify', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['json']       = ['prettier']
+let g:ale_fixers['perl']       = ['perltidy', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers['php']        = ['php_cs_fixer', 'phpcbf', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers['python']     = ['add_blank_lines_for_python_control_statements', 'autopep8', 'black', 'isort', 'yapf', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers['ruby']       = ['rubocop', 'rufo', 'standardrb', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers['sh']         = ['remove_trailing_lines', 'shfmt', 'trim_whitespace']
+let g:ale_fixers['typescript'] = ['prettier', 'tslint']
 
-let g:ale_linters                              = {}
-let g:ale_linters['go']                        = ['gofmt', 'golint', 'govet', 'golangci-lint']
-let g:ale_linters['javascript']                = ['eslint', 'tsserver']
-let g:ale_linters['php']                       = ['phpcs', 'php', 'phpmd']
-let g:ale_linters['python']                    = ['flake8', 'mypy', 'pep8', 'vulture']
+let g:ale_linters               = {}
+let g:ale_linters['go']         = ['gofmt', 'golint', 'govet', 'golangci-lint', 'revive']
+let g:ale_linters['javascript'] = ['eslint', 'tsserver']
+let g:ale_linters['php']        = ['phpcs', 'php', 'phpmd']
+let g:ale_linters['python']     = ['flake8', 'mypy', 'pep8', 'vulture']
 
 let g:ale_completion_enabled                   = 1
 let g:ale_fix_on_save                          = 0
@@ -900,7 +901,7 @@ let g:ale_set_loclist                          = 1
 let g:ale_set_quickfix                         = 0
 let g:ale_sign_column_always                   = 1
 
-let g:ale_sign_error = '⤫'
+let g:ale_sign_error   = '⤫'
 let g:ale_sign_warning = '⚠'
 
 " remove background color for warnings and errors in the sign gutter

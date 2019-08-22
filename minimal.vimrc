@@ -184,12 +184,14 @@ if !has('nvim') && v:version > 704 || (v:version == 704 && has('patch401'))
     setlocal cryptmethod=blowfish2  " medium strong method
 endif
 
-set diffopt=
-set diffopt+=filler
-set diffopt+=hiddenoff
-set diffopt+=internal
-"set diffopt+=iwhiteall
-set diffopt+=algorithm:patience
+if has('nvim-0.3.2') || has("patch-8.1.0360")
+    "set diffopt=
+    "set diffopt+=filler
+    "set diffopt+=hiddenoff
+    "set diffopt+=internal
+    "set diffopt+=algorithm:patience
+    set diffopt=filler,internal,algorithm:histogram,indent-heuristic
+endif
 
 " -------------------------------------------------------------------------------
 " Encoding
@@ -268,6 +270,7 @@ set lazyredraw        " Don't redraw while executing macros (good performance co
 set number            " show line numbers
 set relativenumber    " show relative line numbers
 set ruler             " Always show current position
+set signcolumn=yes    " always show signcolumns
 set shortmess=a       " use every short text trick
 set shortmess+=O      " file read message overwrites subsequent
 set shortmess+=s      " no search hit bottom crap
@@ -1418,6 +1421,7 @@ fu! PythonConfig()
     if executable("isort")
         nnoremap <silent> <Leader>is :%!isort -<CR>
         nnoremap <silent> <Leader>isa :bufdo %!isort -<CR>
+        command! -range=% Isort :<line1>,<line2>! isort -
     else
         nnoremap <Leader>is :echo "isort is not installed"<CR>
         nnoremap <Leader>isa :echo "isort is not installed"<CR>

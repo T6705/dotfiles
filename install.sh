@@ -118,6 +118,10 @@ install_dots() {
         https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins.vim
     curl -fLo ~/.config/nvim/plugins_config.vim --create-dirs \
         https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins_config.vim
+    curl -fLo ~/.config/nvim/coc-settings.json --create-dirs \
+        https://gitlab.com/T6705/dotifles/raw/master/.config/nvim/coc-settings.json
+    curl -fLo ~/.config/nvim/.ycm --create-dirs \
+        https://gitlab.com/T6705/dotifles/raw/master/.config/nvim/.ycm_extra_conf.py
 
     ### vim
     curl https://gitlab.com/T6705/dotfiles/raw/master/.vimrc > ~/.vimrc
@@ -525,7 +529,7 @@ install_vim() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y autoconf automake cmake g++ gettext libtool libtool-bin ninja-build pkg-config python-pip python3-pip unzip
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm base-devel cmake unzip ninja
+        sudo pacman -S --needed --noconfirm base-devel cmake go ninja npm unzip yay
     fi
 
     if [ -d ~/git/hub/neovim ]; then
@@ -604,6 +608,9 @@ install_vim() {
         # for bash
         sudo pacman -S --needed --noconfirm bash-language-server
 
+        # for c
+        yay -S cquery
+
         # for go
         rm -rf ~/git/hub/tools
         cd ~/git/hub/
@@ -612,28 +619,28 @@ install_vim() {
         go install
     fi
 
-    nvim -c 'CocInstall -sync coc-angular|q'
-    nvim -c 'CocInstall -sync coc-css|q'
-    nvim -c 'CocInstall -sync coc-emmet|q'
-    nvim -c 'CocInstall -sync coc-eslint|q'
-    nvim -c 'CocInstall -sync coc-git|q'
-    nvim -c 'CocInstall -sync coc-highlight|q'
-    nvim -c 'CocInstall -sync coc-html|q'
-    nvim -c 'CocInstall -sync coc-java|q'
-    nvim -c 'CocInstall -sync coc-json|q'
-    nvim -c 'CocInstall -sync coc-lists|q'
-    nvim -c 'CocInstall -sync coc-phpls|q'
-    nvim -c 'CocInstall -sync coc-prettier|q'
-    nvim -c 'CocInstall -sync coc-python|q'
-    nvim -c 'CocInstall -sync coc-snippets|q'
-    nvim -c 'CocInstall -sync coc-svg|q'
-    nvim -c 'CocInstall -sync coc-texlab|q'
-    nvim -c 'CocInstall -sync coc-tsserver|q'
-    nvim -c 'CocInstall -sync coc-vetur|q'
-    nvim -c 'CocInstall -sync coc-vimlsp|q'
-    nvim -c 'CocInstall -sync coc-xml|q'
-    nvim -c 'CocInstall -sync coc-yaml|q'
-    nvim -c 'CocInstall -sync coc-yank|q'
+    time nvim -c 'CocInstall -sync coc-angular|q'
+    time nvim -c 'CocInstall -sync coc-css|q'
+    time nvim -c 'CocInstall -sync coc-emmet|q'
+    time nvim -c 'CocInstall -sync coc-eslint|q'
+    time nvim -c 'CocInstall -sync coc-git|q'
+    time nvim -c 'CocInstall -sync coc-highlight|q'
+    time nvim -c 'CocInstall -sync coc-html|q'
+    time nvim -c 'CocInstall -sync coc-java|q'
+    time nvim -c 'CocInstall -sync coc-json|q'
+    time nvim -c 'CocInstall -sync coc-lists|q'
+    time nvim -c 'CocInstall -sync coc-phpls|q'
+    time nvim -c 'CocInstall -sync coc-prettier|q'
+    time nvim -c 'CocInstall -sync coc-python|q'
+    time nvim -c 'CocInstall -sync coc-snippets|q'
+    time nvim -c 'CocInstall -sync coc-svg|q'
+    time nvim -c 'CocInstall -sync coc-texlab|q'
+    time nvim -c 'CocInstall -sync coc-tsserver|q'
+    time nvim -c 'CocInstall -sync coc-vetur|q'
+    time nvim -c 'CocInstall -sync coc-vimlsp|q'
+    time nvim -c 'CocInstall -sync coc-xml|q'
+    time nvim -c 'CocInstall -sync coc-yaml|q'
+    time nvim -c 'CocInstall -sync coc-yank|q'
 
     reset
 }

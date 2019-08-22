@@ -13,10 +13,11 @@ export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
 export LC_ALL=
 
+export BETTER_EXCEPTIONS=1
+
 # improved less option
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
 
-export BETTER_EXCEPTIONS=1
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
@@ -97,16 +98,19 @@ PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0
 if command -v go &> /dev/null; then
     [ ! -d $HOME/go ] && mkdir -p $HOME/go
     [ ! -d $HOME/go/bin ] && mkdir -p $HOME/go/bin
+    [ -d $HOME/go ] && export GOPATH="$HOME/go"
+    [ -d $HOME/go/bin ] && export GOBIN="$GOPATH/bin" && export PATH="$PATH:$GOPATH/bin"
 fi
 
+# export MANPATH="/usr/local/man:$MANPATH"
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
-[ -d $HOME/.gem/ruby/2.5.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.5.0/bin"
+[ -d $HOME/.gem/ruby/2.6.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
-[ -d $HOME/go ] && export GOPATH="$HOME/go"
-[ -d $HOME/go/bin ] && export GOBIN="$GOPATH/bin" && export PATH="$PATH:$GOPATH/bin"
-[ -d /usr/games ] && export PATH="$PATH:/usr/games"
+[ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
+[ -d /usr/games ] && export PATH="$PATH:/usr/games"
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
+[ -d /usr/lib/jvm/default ] && export JAVA_HOME=/usr/lib/jvm/default
 
 ####################################
 ## https://github.com/pyenv/pyenv ##

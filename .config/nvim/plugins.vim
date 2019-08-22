@@ -81,6 +81,7 @@ Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPre
 " === golang === {{{
 if executable("go")
     "Plug 'jodosha/vim-godebug', { 'for': 'go' }                      " Go debugging for Vim
+    Plug 'buoto/gotests-vim', { 'for': 'go' }                        " Generate Go tests from your source code.
     Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' } " Go development plugin for Vim
     Plug 'sebdah/vim-delve', { 'for': 'go' }                         " Neovim / Vim integration for Delve
 endif
