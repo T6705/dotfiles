@@ -26,6 +26,8 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="spaceship"
+SPACESHIP_EXIT_CODE_SHOW=true
+SPACESHIP_TIME_SHOW=true
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -70,19 +72,29 @@ COMPLETION_WAITING_DOTS="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    alias-finder
     archlinux
+    command-not-found
     docker
     fzf
     git
     gitignore
     golang
+    pipenv
+    pyenv
+    python
+    ripgrep
+    rsync
     systemd
     tmux
+    vscode
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
 )
-    #alias-tips
+
+ZSH_ALIAS_FINDER_AUTOMATIC=true
+
 autoload -U compinit && compinit
 
 # User configuration

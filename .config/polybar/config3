@@ -72,15 +72,6 @@ tray-scale       = 1.0
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
-font-2  = "FontAwesome:size=13;2"
-font-3  = "NotoSans-Regular:size=13;-1"
-font-4  = "Termsynu:size=13;0"
-font-5  = "Unifont:size=13;0"
-font-6  = "fixed:pixelsize=13;0"
-font-7  = "monospace:size=13;2"
-font-8  = "siji:pixelsize=13;0"
-font-9 = "unifont:size=13:heavy:fontformat=truetype;-2"
-font-10  = "KnackNerdFont:size=13;2"
 
 [bar/bottom]
 bottom            = true
@@ -124,15 +115,6 @@ tray-scale       = 1.0
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
-font-2  = "FontAwesome:size=13;2"
-font-3  = "NotoSans-Regular:size=13;-1"
-font-4  = "Termsynu:size=13;0"
-font-5  = "Unifont:size=13;0"
-font-6  = "fixed:pixelsize=13;0"
-font-7  = "monospace:size=13;2"
-font-8  = "siji:pixelsize=13;0"
-font-9 = "unifont:size=13:heavy:fontformat=truetype;-2"
-font-10  = "KnackNerdFont:size=13;2"
 
 ;-------------------------------------------------------------------------------
 
@@ -177,15 +159,6 @@ tray-scale       = 1.0
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
-font-2  = "FontAwesome:size=13;2"
-font-3  = "NotoSans-Regular:size=13;-1"
-font-4  = "Termsynu:size=13;0"
-font-5  = "Unifont:size=13;0"
-font-6  = "fixed:pixelsize=13;0"
-font-7  = "monospace:size=13;2"
-font-8  = "siji:pixelsize=13;0"
-font-9 = "unifont:size=13:heavy:fontformat=truetype;-2"
-font-10  = "KnackNerdFont:size=13;2"
 
 [bar/external_bottom]
 bottom            = true
@@ -229,15 +202,6 @@ tray-scale       = 1.0
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
-font-2  = "FontAwesome:size=13;2"
-font-3  = "NotoSans-Regular:size=13;-1"
-font-4  = "Termsynu:size=13;0"
-font-5  = "Unifont:size=13;0"
-font-6  = "fixed:pixelsize=13;0"
-font-7  = "monospace:size=13;2"
-font-8  = "siji:pixelsize=13;0"
-font-9 = "unifont:size=13:heavy:fontformat=truetype;-2"
-font-10  = "KnackNerdFont:size=13;2"
 
 ;-------------------------------------------------------------------------------
 

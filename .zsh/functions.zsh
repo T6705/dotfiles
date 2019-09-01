@@ -237,11 +237,12 @@ banner() {
 }
 
 weather() {
-    if [[ -n "$1" ]]; then
-        curl wttr.in
-    else
-        curl wttr.in | tac | tac | head -n 7
-    fi
+    #if [[ -n "$1" ]]; then
+    #    curl wttr.in
+    #else
+    #    curl wttr.in | tac | tac | head -n 7
+    #fi
+    curl http://v2.wttr.in/$1
 }
 
 if command -v chromium &> /dev/null ; then

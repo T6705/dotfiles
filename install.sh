@@ -86,6 +86,14 @@ install_dots() {
         https://gitlab.com/T6705/dotfiles/raw/master/.config/alacritty/alacritty.yml
 
     echo ""
+    echo "==========================="
+    echo "== Download kitty config =="
+    echo "==========================="
+    echo ""
+    curl -fLo ~/.config/kitty/kitty.conf --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/kitty/kitty.conf
+
+    echo ""
     echo "============================="
     echo "== Download termite config =="
     echo "============================="
@@ -249,7 +257,8 @@ install_dependencies() {
         sudo pacman -S --needed --noconfirm base
         sudo pacman -S --needed --noconfirm base-devel
         sudo pacman -S --needed --noconfirm cower pacaur yay
-        sudo pacman -S --needed --noconfirm bat code curl exa fd fontconfig git hub iotop lsd meld neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge termite tig time tmux vim wmctrl wmctrl xclip xdotool xorg-xkill xorg-xkill xsel zsh
+        sudo pacman -S --needed --noconfirm alacritty alacritty-terminfo kitty termite termite-terminfo
+        sudo pacman -S --needed --noconfirm bat code curl exa fd fontconfig git hub iotop lsd meld neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge tig time tmux vim wmctrl wmctrl xclip xdotool xorg-xkill xorg-xkill xsel zsh
         sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"
@@ -803,10 +812,12 @@ install_zsh() {
     if [ -d ~/git/hub/nerd-fonts ]; then
         time cd ~/git/hub/nerd-fonts && time git pull
         time ./install.sh Hack
+        time ./install.sh FiraCode
     else
         time mkdir -p ~/git/hub
         time git clone https://github.com/ryanoasis/nerd-fonts ~/git/hub/nerd-fonts
         time ~/git/hub/nerd-fonts/install.sh Hack
+        time ~/git/hub/nerd-fonts/install.sh FiraCode
     fi
 
     echo ""

@@ -767,11 +767,12 @@ banner() {
 }
 
 weather() {
-    if [[ -n "$1" ]]; then
-        curl wttr.in
-    else
-        curl wttr.in | tac | tac | head -n 7
-    fi
+    #if [[ -n "$1" ]]; then
+    #    curl wttr.in
+    #else
+    #    curl wttr.in | tac | tac | head -n 7
+    #fi
+    curl http://v2.wttr.in/$1
 }
 
 if command -v chromium &> /dev/null ; then
@@ -1040,6 +1041,19 @@ extract_frame() {
     else
         echo "'$1' is not a valid file"
     fi
+}
+
+# -----------------------------------------------------------------------------------------
+# Usage: mp3towav <filename>
+# -----------------------------------------------------------------------------------------
+mp3towav(){
+	[[ $# -eq 0 ]] && { echo "mp3wav mp3file"; exit 1; }
+	for i in "$@"
+	do
+		# create .wav file name
+		local out="${i%/*}.wav"
+		[[ -f "$i" ]] && { echo -n "Processing ${i}..."; mpg123 -w "${out}" "$i" &>/dev/null  && echo "done." || echo "failed."; }
+	done
 }
 
 # -----------------------------------------------------------------------------------------
