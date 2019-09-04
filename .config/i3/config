@@ -110,7 +110,7 @@ bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
 
 assign [class="Chromium-browser|Chromium|Firefox|qutebrowser"] $workspace0
-assign [class="Alacritty|Emacs|Gnome-terminal|Gnome-terminal-server|Gvim|Termite|URxvt|Vim|code-oss|oni|jetbrains-studio|st-256color"] $workspace1
+assign [class="Alacritty|Emacs|Gnome-terminal|Gnome-terminal-server|Gvim|Termite|URxvt|Vim|code-oss|jetbrains-studio|kitty|oni|st-256color"] $workspace1
 assign [class="TelegramDesktop"] $workspace2
 assign [class="Nautilus|Nemo"] $workspace3
 assign [class="VirtualBox"] $workspace4

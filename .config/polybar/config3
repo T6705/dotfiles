@@ -1,10 +1,15 @@
+# vim:fileencoding=utf-8:ft=conf:foldmethod=marker
+
 ; monitor = HDMI1 / HDMI-1
 ; laptop = LVDS1
 
+# settings {{{
 [settings]
 screenchange-reload = true
 pseudo-transparency = true
+#}}}
 
+# colors {{{
 [colors]
 black    = #282828
 blue     = #076678
@@ -28,9 +33,9 @@ foreground     = #ffffff
 foreground-alt = #4e4e4e
 primary        = #1f222d
 secondary      = #FF6200
+#}}}
 
-;-------------------------------------------------------------------------------
-
+# top {{{
 [bar/top]
 height            = 26
 radius            = 5.0
@@ -72,7 +77,9 @@ tray-scale       = 1.0
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
+#}}}
 
+# bottom {{{
 [bar/bottom]
 bottom            = true
 height            = 26
@@ -115,9 +122,9 @@ tray-scale       = 1.0
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
+#}}}
 
-;-------------------------------------------------------------------------------
-
+# external_top {{{
 [bar/external_top]
 height            = 26
 radius            = 5.0
@@ -159,7 +166,9 @@ tray-scale       = 1.0
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
+#}}}
 
+# external_bottom {{{
 [bar/external_bottom]
 bottom            = true
 height            = 26
@@ -202,9 +211,9 @@ tray-scale       = 1.0
 
 font-0  = "HackNerdFontMono:size=13;3"
 font-1  = "NotoSansMonoCJKtc-Regular:size=13;2"
+#}}}
 
-;-------------------------------------------------------------------------------
-
+# drun {{{
 [module/drun]
 type = custom/script
 exec              = bash ~/.config/polybar/scripts/logo.sh &
@@ -215,7 +224,9 @@ format-padding    = 1
 interval          = 1.5
 click-left        = rofi -show drun -modi drun -location 7 -yoffset -50 -xoffset 15 -line-padding 4 -columns 1 -width 25 -padding 25 -hide-scrollbar -show-icons
 click-right       = rofi -show drun -modi run,drun,window -location 7 -yoffset -50 -xoffset 15 -line-padding 4 -columns 3 -line 10 -width 55 -padding 25 -hide-scrollbar -show-icons
+#}}}
 
+# mpd {{{
 [module/mpd]
 type = internal/mpd
 host = 127.0.0.1
@@ -293,7 +304,9 @@ bar-progress-width = 10
 bar-progress-indicator = >
 bar-progress-fill = =
 bar-progress-empty = ─
+#}}}
 
+# spotify {{{
 [module/spotify]
 type              = custom/script
 exec              = bash ~/.config/polybar/scripts/spotify_p.sh
@@ -306,7 +319,9 @@ interval          = 1.5
 ;label             = %{F#ff69b4}%{T1}%output%%{T-}%{F-}
 label             = %{F#ff69b4}%{T1}%output%%{T-}%{F-}
 click-left        = i3 workspace number 8
+#}}}
 
+# playpause {{{
 [module/playpause]
 type              = custom/script
 exec              = bash ~/.config/polybar/scripts/playpause.sh
@@ -316,7 +331,9 @@ format-foreground = #6ff
 format-padding    = 1
 interval          = 1.5
 click-left        = playerctl play-pause
+#}}}
 
+# next {{{
 [module/next]
 type              = custom/script
 exec              = bash ~/.config/polybar/scripts/next.sh
@@ -326,7 +343,9 @@ format-foreground = #6ff
 format-padding    = 1
 interval          = 1.5
 click-left        = playerctl next
+#}}}
 
+# previous {{{
 [module/previous]
 type              = custom/script
 exec              = bash ~/.config/polybar/scripts/previous.sh
@@ -336,7 +355,9 @@ format-foreground = #6ff
 format-padding    = 1
 interval          = 1.5
 click-left        = playerctl previous
+#}}}
 
+# alsa {{{
 [module/alsa]
 type                  = internal/alsa
 format-muted          = <label-muted>
@@ -350,7 +371,9 @@ ramp-headphones-1 = 
 ramp-volume-0 = 🔈
 ramp-volume-1 = 🔉
 ramp-volume-2 = 🔊
+#}}}
 
+# lock {{{
 [module/lock]
 type = custom/text
 content = 
@@ -358,7 +381,9 @@ content-foreground = ${colors.orange}
 content-background = ${colors.background}
 content-padding    = 0
 click-left = ~/.config/i3/scripts/i3lock.sh &
+#}}}
 
+# vim {{{
 [module/vim]
 type = custom/text
 ;content = 
@@ -367,12 +392,16 @@ content-foreground = #689d6a
 content-background = ${colors.background}
 content-padding    = 1
 click-left = ~/.vim-anywhere/bin/run
+#}}}
 
+# separator {{{
 [module/separator]
 type = custom/text
 content = " | "
 content-foreground = #fffff
+#}}}
 
+# i3split {{{
 [module/i3split]
 type = custom/text
 ;content = ﱖ
@@ -382,7 +411,9 @@ content-foreground = #6ff
 content-background = ${colors.background}
 content-padding    = 1
 click-left = i3 layout toggle split
+#}}}
 
+# i3stack {{{
 [module/i3stack]
 type = custom/text
 ;content = 
@@ -394,7 +425,9 @@ content-foreground = #6ff
 content-background = ${colors.background}
 content-padding    = 1
 click-left = i3 layout stacking
+#}}}
 
+# i3tab {{{
 [module/i3tab]
 type = custom/text
 ;content = ﴵ
@@ -404,7 +437,9 @@ content-foreground = #6ff
 content-background = ${colors.background}
 content-padding    = 1
 click-left = i3 layout tabbed
+#}}}
 
+# i3 {{{
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
@@ -441,7 +476,9 @@ label-empty-padding    = 2
 label-visible            = %name%
 label-visible-background = ${colors.background}
 label-visible-padding    = ${self.label-focused-padding}
+#}}}
 
+# date {{{
 [module/date]
 type           = internal/date
 interval       = 1.0
@@ -453,7 +490,9 @@ label          = %{F#689d6a} %date%%{F-}%{F#b16286}  %time%%{F-}
 ;format         =  <label>
 format         = <label>
 format-padding = 1
+#}}}
 
+# cpu {{{
 [module/cpu]
 
 type = internal/cpu
@@ -487,7 +526,9 @@ ramp-coreload-6-foreground = #ff5555
 ramp-coreload-7            = █
 ramp-coreload-7-font       = 7
 ramp-coreload-7-foreground = #ff5555
+#}}}
 
+# memory {{{
 [module/memory]
 type             = internal/memory
 interval         = 1.5
@@ -496,21 +537,27 @@ format-padding   = 1.8
 label            = %{F#6ff}%{F-} %percentage_used%%
 label-font       = 0
 label-foreground = #99
+#}}}
 
+# tor {{{
 [module/tor]
 type           = custom/script
 interval       = 1.5
 format         = "<label>"
 format-padding = 1
 exec           = bash ~/.config/polybar/scripts/tor.sh
+#}}}
 
+# bluetooth {{{
 [module/bluetooth]
 type           = custom/script
 interval       = 1.5
 format         = "<label>"
 format-padding = 1
 exec           = bash ~/.config/polybar/scripts/bluetooth.sh
+#}}}
 
+# wlan {{{
 [module/wlan]
 type      = internal/network
 interface = wlan0
@@ -531,7 +578,9 @@ format-packetloss-padding   = 1.8
 ;   %downspeed% [wireless+wired]
 ;   %linkspeed% [wired]
 label-connected = %{F#ff69b4}%essid% %{F#6ff}%local_ip%%{F-} %downspeed%
+#}}}
 
+# eth {{{
 [module/eth]
 type      = internal/network
 interface = eth0
@@ -551,7 +600,9 @@ format-packetloss-padding   = 1.8
 ;   %downspeed% [wireless+wired]
 ;   %linkspeed% [wired]
 label-connected = %{F#6ff}%local_ip%%{F-} %downspeed%
+#}}}
 
+# battery {{{
 [module/battery]
 type        = internal/battery
 battery     = BAT1
@@ -589,7 +640,9 @@ ramp-capacity-3      = 
 ramp-capacity-3-font = 0
 ramp-capacity-4      = 
 ramp-capacity-4-font = 0
+#}}}
 
+# temperature {{{
 [module/temperature]
 type             = internal/temperature
 thermal-zone     = 0
@@ -600,3 +653,4 @@ format-warn         = <label-warn>
 format-warn-padding = 1.8
 label                 =  %temperature-c%
 label-warn            =  %{F#f00}%temperature-c%%{F-}
+#}}}
