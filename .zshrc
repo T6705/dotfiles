@@ -111,6 +111,7 @@ fi
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
+[ -d $HOME/flutter/bin ] && export PATH="$HOME/flutter/bin:$PATH"
 [ -d /usr/games ] && export PATH="$PATH:/usr/games"
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
 [ -d /usr/lib/jvm/default ] && export JAVA_HOME=/usr/lib/jvm/default
@@ -231,4 +232,4 @@ banner
 
 # tabtab source for electron-forge package
 # uninstall by removing these lines or running `tabtab uninstall electron-forge`
-[[ -f /home/chris/git/hub/gb-studio/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /home/chris/git/hub/gb-studio/node_modules/tabtab/.completions/electron-forge.zsh
+[[ -f $HOME/git/hub/gb-studio/node_modules/tabtab/.completions/electron-forge.zsh ]] && . $HOME/git/hub/gb-studio/node_modules/tabtab/.completions/electron-forge.zsh

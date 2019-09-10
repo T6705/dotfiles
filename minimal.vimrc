@@ -1211,14 +1211,6 @@ fu! SetTitle()
     if expand("%:e") == 'sh'
         call setline(1,"\#!/bin/bash")
         call append(line("."), "")
-    elseif expand("%:e") == 'py'
-        call setline(1,"#!/usr/bin/env python")
-        call append(line("."),"# -*- coding: utf-8 -*-")
-        call append(line(".")+1, "")
-    elseif expand("%:e") == 'rb'
-        call setline(1,"#!/usr/bin/env ruby")
-        call append(line("."),"# encoding: utf-8")
-        call append(line(".")+1, "")
     elseif expand("%:e") == 'cpp'
         call setline(1, "#include <iostream>")
         call append(line("."), "using namespace std;")
