@@ -200,7 +200,7 @@ if v:version >= 800
     Plug 'TaDaa/vimade'                                " An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
 endif
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }                                                             " perform diffs on blocks of code
-Plug 'RRethy/vim-hexokinase'                                                                                      " displaying the colours in the file
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }                                                         " displaying the colours in the file
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                                                       " Interactive command execution in Vim.
 Plug 'andymass/vim-matchup'                                                                                       " vim match-up: matchit replacement and more
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                                                                " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
