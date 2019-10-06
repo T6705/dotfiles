@@ -816,10 +816,67 @@ if !isdirectory(gutentags_dir)
     call mkdir(gutentags_dir, "", 0700)
 endif
 
-let g:gutentags_modules               = ['ctags', 'gtags_cscope'] " enable gtags module
-let g:gutentags_project_root          = ['.root']                 " config project root markers.
-let g:gutentags_cache_dir             = expand('~/.cache/tags')   " generate datebases in my cache directory, prevent gtags files polluting my project
-let g:gutentags_auto_add_gtags_cscope = 0                         " forbid gutentags adding gtags databases
+command! -nargs=0 GutentagsClearCache call system('rm ' . g:gutentags_cache_dir . '/*')
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_auto_add_gtags_cscope     = 0                         " forbid gutentags adding gtags databases
+let g:gutentags_cache_dir                 = expand('~/.cache/tags')   " generate datebases in my cache directory, prevent gtags files polluting my project
+let g:gutentags_generate_on_empty_buffer  = 0
+let g:gutentags_generate_on_missing       = 1
+let g:gutentags_generate_on_new           = 1
+let g:gutentags_generate_on_write         = 1
+let g:gutentags_modules                   = ['ctags', 'gtags_cscope'] " enable gtags module
+let g:gutentags_project_root              = ['package.json', '.git']  " config project root markers.
+let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+ailmnS',
+      \ ]
+let g:gutentags_ctags_exclude    = [
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ 'build',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ 'bower_components',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.bak',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.sln',
+      \ '*.Master',
+      \ '*.csproj',
+      \ '*.tmp',
+      \ '*.csproj.user',
+      \ '*.cache',
+      \ '*.pdb',
+      \ 'tags*',
+      \ 'cscope.*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
 " }}}
 
 " === mattn/emmet-vim === {{{

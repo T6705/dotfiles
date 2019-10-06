@@ -1,6 +1,248 @@
 #!/bin/bash
 
-install_dots() {
+#install_games() {
+#    if command -v apt-get &> /dev/null; then
+#        for i in $(apt-cache search dungeon | grep -iE "dungeon|game|rogue" | awk '{print $1}'); do
+#            echo "============================================="
+#            echo "$i"
+#            sudo apt-get install -y "$i"
+#        done
+#        for i in $(apt-cache search rogue | grep -iE "dungeon|game|rogue" | awk '{print $1}');do
+#            echo "============================================="
+#            echo "$i"
+#            sudo apt-get install -y "$i"
+#        done
+#    elif command -v pacman &> /dev/null; then
+#        sudo pacman -S --needed --overwrite "*" --noconfirm yay angband asciiportal cataclysm-dda dwarffortress glhack nethack rogue stone-soup
+#        if command -v yay &> /dev/null; then
+#            yay -Syyu --needed --overwrite "*" tome4
+#        fi
+#    fi
+#}
+
+#install_draw() {
+#    if command -v pacman &> /dev/null; then
+#        sudo pacman -S --needed --overwrite "*" --noconfirm gimp inkscape krita
+#    fi
+#}
+#
+#install_audio() {
+#    if command -v pacman &> /dev/null; then
+#        sudo pacman -S --needed --overwrite "*" --noconfirm ardour audacity lmms mixxx non-sequencer qtractor rosegarden
+#    fi
+#}
+
+#install_music() {
+#    echo ""
+#    echo "===================================="
+#    echo "== install mpd and ncmpcpp config =="
+#    echo "===================================="
+#    echo ""
+#    if command -v pacman &> /dev/null; then
+#        sudo pacman -S --needed --overwrite "*" --noconfirm mpd ncmpcpp
+#    fi
+#
+#    echo ""
+#    echo "====================================="
+#    echo "== Download mpd and ncmpcpp config =="
+#    echo "====================================="
+#    echo ""
+#    curl -fLo ~/.config/mpd/mpd.conf --create-dirs \
+#        https://gitlab.com/T6705/dotfiles/raw/master/.config/mpd/mpd.conf
+#    curl -fLo ~/.config/ncmpcpp/config --create-dirs \
+#        https://gitlab.com/T6705/dotfiles/raw/master/.config/ncmpcpp/config
+#}
+install_dependencies() {
+    if command -v apt-get &> /dev/null; then
+        sudo apt-get update
+        sudo apt-get upgrade -y
+        sudo apt-get dist-upgrade -y
+        sudo apt-get autoremove -y
+        sudo apt-get clean
+        sudo apt-get install -y curl figlet fontconfig git glances htop lolcat npm ntp ntpdate ranger ruby-rouge time tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
+
+        curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" > /usr/bin/diff-so-fancy
+        chmod +x /usr/bin/diff-so-fancy
+    elif command -v pacman &> /dev/null; then
+        sudo pacman-mirrors -f 0 && sudo pacman -Syy && sync
+        sudo pacman -Syyu --noconfirm
+        sudo pacman -S --needed --overwrite "*" --noconfirm base
+        sudo pacman -S --needed --overwrite "*" --noconfirm base-devel
+        sudo pacman -S --needed --overwrite "*" --noconfirm cower pacaur yay
+        sudo pacman -S --needed --overwrite "*" --noconfirm bat code curl exa fd fontconfig git hub iotop lsd meld npm ntp python-pip python2-pip ranger ripgrep ruby-rouge tig time tmux vim wmctrl wmctrl xclip xdotool xorg-xkill xorg-xkill xsel zsh
+        sudo pacman -S --needed --overwrite "*" --noconfirm autoconf automake cmake libtool pkg-config unzip
+        sudo pacman -S --needed --overwrite "*" --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
+        sudo pacman -S --needed --overwrite "*" --noconfirm "$(pacman -Ssq numix) | grep -v gtk-theme-numix-solarized"
+        sudo pacman -S --needed --overwrite "*" --noconfirm "$(pacman -Ssq papirus)"
+        sudo pacman -S --needed --overwrite "*" --noconfirm "$(pacman -Ssq Matcha | grep theme)"
+        sudo pacman -S --needed --overwrite "*" --noconfirm gnome-themes-maia maia-cursor-theme maia-icon-theme
+
+        if command -v yay &> /dev/null; then
+            yay -Syyu --needed --overwrite "*" cava dropbox dropbox-cli gitkraken hyperfine neofetch  secure-delete spotify
+        fi
+        if command -v pip2 &> /dev/null; then
+            sudo pip2 install -U neovim
+        fi
+    fi
+
+    if command -v pip3 &> /dev/null; then
+        sudo pip3 install -U neovim
+    fi
+
+    if command -v diff-so-fancy &> /dev/null; then
+        git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+    fi
+
+    if command -v npm &> /dev/null && ! command -v pacman &> /dev/null; then
+        sudo npm install npm@latest -g
+    fi
+
+    echo ""
+    echo "========================="
+    echo "== Download gtk config =="
+    echo "========================="
+    echo ""
+    curl -fLo ~/.config/gtk-3.0/settings.ini --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/gtk-3.0/settings.ini
+}
+
+install_gnome() {
+    echo ""
+    echo "==================="
+    echo "== install gnome =="
+    echo "==================="
+    echo ""
+    if command -v apt-get &> /dev/null; then
+        sudo apt-get install -y $(apt-cache search dconf | awk '{print $1}' | grep -E "^dconf")
+        sudo apt-get install -y curl gnome
+    elif command -v pacman &> /dev/null; then
+        sudo pacman -S --needed --overwrite "*" --noconfirm curl dconf gnome
+    fi
+
+    echo ""
+    echo "==========================="
+    echo "== download gnome config =="
+    echo "==========================="
+    echo ""
+    curl https://gitlab.com/T6705/dotfiles/raw/master/gnome.dconf > /tmp/gnome.dconf
+
+    echo ""
+    echo "======================="
+    echo "== load gnome config =="
+    echo "======================="
+    echo ""
+    if command -v dconf &> /dev/null; then
+        dconf load / < /tmp/gnome.dconf
+    fi
+}
+
+install_i3() {
+    if command -v apt-get &> /dev/null; then
+        sudo apt-get install -y compton feh i3 i3 i3-wm i3-wm-dbg i3blocks i3lock i3lock-fancy i3status maim mpv playerctl rofi scrot snapd vlc
+
+        sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
+
+        echo ""
+        echo "====================="
+        echo "== install i3-gaps =="
+        echo "====================="
+        echo ""
+        time mkdir -p ~/git/hub
+        cd ~/git/hub
+        rm -rf i3-gaps
+
+        # clone the repository
+        time git clone https://www.github.com/Airblader/i3 i3-gaps
+        cd i3-gaps
+
+        # compile & install
+        autoreconf --force --install
+        rm -rf build/
+        time mkdir -p build && cd build/
+
+        # Disabling sanitizers is important for release versions!
+        # The prefix and sysconfdir are, obviously, dependent on the distribution.
+        ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+        time make
+        time sudo make install
+
+        echo ""
+        echo "====================="
+        echo "== install polybar =="
+        echo "====================="
+        echo ""
+        sudo apt-get install -y build-essential git cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev
+
+        time mkdir -p ~/git/hub
+        cd ~/git/hub
+        rm -rf polybar
+        time git clone --recursive https://github.com/jaagr/polybar
+        cd polybar
+        time ./build.sh
+
+        echo ""
+        echo "==========================="
+        echo "== Download i3lock-fancy =="
+        echo "==========================="
+        echo ""
+        time mkdir -p ~/git/hub
+        cd ~/git/hub
+        rm -rf i3lock-fancy
+        time git clone "https://github.com/meskarune/i3lock-fancy"
+        cd ~/git/hub/i3lock-fancy
+        sudo cp -v lock /usr/local/bin/
+        sudo cp -r -v icons /usr/local/bin/
+
+    elif command -v pacman &> /dev/null; then
+        sudo pacman -S --needed --overwrite "*" --noconfirm compton feh maim mpv playerctl qutebrowser rofi vlc
+
+        echo ""
+        echo "====================="
+        echo "== install i3-gaps =="
+        echo "====================="
+        echo ""
+        sudo pacman -S --needed --overwrite "*" --noconfirm i3-gaps i3lock i3-scrot
+
+        echo ""
+        echo "====================="
+        echo "== install polybar =="
+        echo "====================="
+        echo ""
+        sudo pacman -S --needed --overwrite "*" --noconfirm base-devel libmpdclient wireless_tools
+        sudo pacman -S --needed --overwrite "*" --noconfirm "$(pacman -Ssq alsa | grep alsa)"
+        if command -v yay &> /dev/null; then
+            yay -Syyu
+            yay -Syyu --needed --overwrite "*" polybar-git
+        fi
+        #time mkdir -p ~/git/hub
+        #time git clone https://aur.archlinux.org/polybar-git.git ~/git/hub/polybar-git
+        #cd ~/git/hub/polybar-git
+        #makepkg -si
+
+        echo ""
+        echo "========================="
+        echo "== Download flashfocus =="
+        echo "========================="
+        echo ""
+        yay -Syyu --needed --overwrite "*" flashfocus-git
+
+        echo ""
+        echo "================================"
+        echo "== Download flashfocus config =="
+        echo "================================"
+        echo ""
+        curl -fLo ~/.config/flashfocus/flashfocus.yml --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/flashfocus/flashfocus.yml
+    fi
+
+    echo ""
+    echo "========================"
+    echo "== Download corrupter =="
+    echo "========================"
+    echo ""
+    time mkdir -p ~/git/hub
+    time git clone https://github.com/r00tman/corrupter ~/git/hub/corrupter
+    time cd ~/git/hub/corrupter && time go build -o corrupter main.go
+
     echo ""
     echo "========================"
     echo "== Download i3 config =="
@@ -42,150 +284,12 @@ install_dots() {
     find ~/.config/polybar -type f -iname '*.sh' -exec chmod +x {} ;
 
     echo ""
-    echo "================================"
-    echo "== Download flashfocus config =="
-    echo "================================"
-    echo ""
-    curl -fLo ~/.config/flashfocus/flashfocus.yml --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/flashfocus/flashfocus.yml
-
-    echo ""
-    echo "============================"
-    echo "== Download ranger config =="
-    echo "============================"
-    echo ""
-    curl -fLo ~/.config/ranger/rc.conf --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/rc.conf
-    curl -fLo ~/.config/ranger/rifle.conf --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/rifle.conf
-    curl -fLo ~/.config/ranger/scope.sh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/scope.sh
-    chmod +x ~/.config/ranger/scope.sh
-
-    echo ""
     echo "================================="
     echo "== Download qutebrowser config =="
     echo "================================="
     echo ""
     curl -fLo ~/.config/qutebrowser/qutebrowser.conf --create-dirs \
         https://gitlab.com/T6705/dotfiles/raw/master/.config/qutebrowser/qutebrowser.conf
-
-
-    echo ""
-    echo "==============================="
-    echo "== Download spacemacs config =="
-    echo "==============================="
-    echo ""
-    curl https://gitlab.com/T6705/dotfiles/raw/master/.spacemacs > ~/.spacemacs
-
-    echo ""
-    echo "==============================="
-    echo "== Download alacritty config =="
-    echo "==============================="
-    echo ""
-    curl -fLo ~/.config/alacritty/alacritty.yml --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/alacritty/alacritty.yml
-
-    echo ""
-    echo "==========================="
-    echo "== Download kitty config =="
-    echo "==========================="
-    echo ""
-    curl -fLo ~/.config/kitty/kitty.conf --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/kitty/kitty.conf
-
-    echo ""
-    echo "============================="
-    echo "== Download termite config =="
-    echo "============================="
-    echo ""
-    curl -fLo ~/.config/termite/config --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/termite/config
-
-    echo ""
-    echo "=========================="
-    echo "== Download tmux config =="
-    echo "=========================="
-    echo ""
-    curl https://gitlab.com/T6705/dotfiles/raw/master/.tmux.conf > ~/.tmux.conf
-    curl https://gitlab.com/T6705/dotfiles/raw/master/.tmux.conf.local > ~/.tmux.conf.local
-
-    echo ""
-    echo "=============================="
-    echo "== Download vim/nvim config =="
-    echo "=============================="
-    echo ""
-    curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/augroups.vim
-    curl -fLo ~/.config/nvim/functions.vim --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/functions.vim
-    curl -fLo ~/.config/nvim/general.vim --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/general.vim
-    curl -fLo ~/.config/nvim/mappings.vim --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/mappings.vim
-    curl -fLo ~/.config/nvim/plugins.vim --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins.vim
-    curl -fLo ~/.config/nvim/plugins_config.vim --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins_config.vim
-    curl -fLo ~/.config/nvim/coc-settings.json --create-dirs \
-        https://gitlab.com/T6705/dotifles/raw/master/.config/nvim/coc-settings.json
-    curl -fLo ~/.config/nvim/.ycm --create-dirs \
-        https://gitlab.com/T6705/dotifles/raw/master/.config/nvim/.ycm_extra_conf.py
-
-    ### vim
-    curl https://gitlab.com/T6705/dotfiles/raw/master/.vimrc > ~/.vimrc
-
-    ### nvim
-    curl -fLo ~/.config/nvim/init.vim --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/init.vim
-
-    echo ""
-    echo "========================="
-    echo "== Download oni config =="
-    echo "========================="
-    echo ""
-    curl -fLo ~/.config/oni/config.tsx --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/oni/config.tsx
-
-    echo ""
-    echo "=========================="
-    echo "== Download bash config =="
-    echo "=========================="
-    echo ""
-    curl https://gitlab.com/T6705/dotfiles/raw/master/.bashrc > ~/.bashrc
-
-    echo ""
-    echo "========================="
-    echo "== Download zsh config =="
-    echo "========================="
-    echo ""
-    curl https://gitlab.com/T6705/dotfiles/raw/master/.zshrc > ~/.zshrc
-    curl -fLo ~/.zsh/aliases.zsh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.zsh/aliases.zsh
-    curl -fLo ~/.zsh/functions.zsh --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.zsh/functions.zsh
-
-    echo ""
-    echo "====================================="
-    echo "== Download mpd and ncmpcpp config =="
-    echo "====================================="
-    echo ""
-    curl -fLo ~/.config/mpd/mpd.conf \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/mpd/mpd.conf
-    curl -fLo ~/.config/ncmpcpp/config \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/ncmpcpp/config
-
-    echo ""
-    echo "========================="
-    echo "== Download gtk config =="
-    echo "========================="
-    echo ""
-    curl -fLo ~/.config/gtk-3.0/settings.ini --create-dirs \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/gtk-3.0/settings.ini
-
-    TEST_CURRENT_SHELL=$(expr "$SHELL" : '.*/\(.*\)')
-    if [[ "$TEST_CURRENT_SHELL" == "zsh" ]]; then
-        . ~/.zshrc
-    fi
 }
 
 install_dunst() {
@@ -197,7 +301,7 @@ install_dunst() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y dunst notify-osd
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm dunst dunstify notify-osd
+        sudo pacman -S --needed --overwrite "*" --noconfirm dunst dunstify notify-osd
     fi
 
     echo ""
@@ -205,235 +309,10 @@ install_dunst() {
     echo "== Download dunst config =="
     echo "==========================="
     echo ""
-    curl -fLo ~/.config/dunst/Reload_dunst.sh \
+    curl -fLo ~/.config/dunst/Reload_dunst.sh --create-dirs \
         https://gitlab.com/T6705/dotfiles/raw/master/.config/dunst/Reload_dunst.sh
-    curl -fLo ~/.config/dunst/dunstrc \
+    curl -fLo ~/.config/dunst/dunstrc --create-dirs \
         https://gitlab.com/T6705/dotfiles/raw/master/.config/dunst/dunstrc
-}
-
-install_dependencies() {
-    if command -v apt-get &> /dev/null; then
-        sudo apt-get update
-        sudo apt-get upgrade -y
-        sudo apt-get dist-upgrade -y
-        sudo apt-get autoremove -y
-        sudo apt-get clean
-        sudo apt-get install -y curl figlet fontconfig git glances htop lolcat npm ntp ntpdate ranger ruby-rouge time tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
-
-        curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" > /usr/bin/diff-so-fancy
-        chmod +x /usr/bin/diff-so-fancy
-
-        ### for neovim
-        sudo apt-get install -y autoconf automake cmake g++ gettext libtool libtool-bin ninja-build pkg-config python-pip python3-pip unzip
-
-        if command -v pip &> /dev/null; then
-            sudo pip install -U neovim
-        fi
-
-        if command -v pip3 &> /dev/null; then
-            sudo pip3 install -U neovim
-        fi
-
-        ### for i3-gaps (Ubuntu >= 14.04 LTS, <= 16.04)
-        sudo add-apt-repository ppa:aguignard/ppa
-        sudo apt-get update
-        sudo apt-get install -y autoconf automake libev-dev libpango1.0-dev libstartup-notification0-dev libxcb-cursor-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xinerama0-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-xrm0 libxcb1-dev libxkbcommon-dev libxkbcommon-x11-dev libyajl-dev xcb xdg-utils
-
-        ### for i3-gaps (Ubuntu >= 16.10)
-        #sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev
-
-        ### for polybar
-        apt-get install -y cmake cmake-data i3-wm libasound2-dev libcairo2-dev libcurl4-openssl-dev libjsoncpp-dev libmpdclient-dev libnl-3-dev libpulse-dev libxcb-composite0-dev libxcb-cursor-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev libxcb-xkb-dev libxcb-xrm-dev libxcb1-dev pkg-config python-xcbgen xcb-proto
-
-        sudo apt-get install -y i3-wm                # Enables the internal i3 module
-        sudo apt-get install -y libasound2-dev       # Enables the internal volume module
-        sudo apt-get install -y libcurl4-openssl-dev # Enables the internal github module
-        sudo apt-get install -y libiw-dev            # Enables the internal network module
-        sudo apt-get install -y libmpdclient-dev     # Enables the internal mpd module
-        sudo apt-get install -y libxcb-xrm-dev       # Enables support for getting values from the X resource db
-    elif command -v pacman &> /dev/null; then
-        sudo pacman-mirrors -f 0 && sudo pacman -Syy && sync
-        sudo pacman -Syyu --noconfirm
-        sudo pacman -S --needed --noconfirm base
-        sudo pacman -S --needed --noconfirm base-devel
-        sudo pacman -S --needed --noconfirm cower pacaur yay
-        sudo pacman -S --needed --noconfirm alacritty alacritty-terminfo kitty termite termite-terminfo
-        sudo pacman -S --needed --noconfirm bat code curl exa fd fontconfig git hub iotop lsd meld neovim npm ntp python-pip python2-pip ranger ripgrep ruby-rouge tig time tmux vim wmctrl wmctrl xclip xdotool xorg-xkill xorg-xkill xsel zsh
-        sudo pacman -S --needed --noconfirm autoconf automake cmake libtool pkg-config unzip
-        sudo pacman -S --needed --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
-        sudo pacman -S --needed --noconfirm "$(pacman -Ssq numix)"
-        sudo pacman -S --needed --noconfirm "$(pacman -Ssq papirus)"
-        sudo pacman -S --needed --noconfirm "$(pacman -Ssq Matcha | grep theme)"
-        sudo pacman -S --needed --noconfirm gnome-themes-maia maia-cursor-theme maia-icon-theme
-
-        if command -v yay &> /dev/null; then
-            yay -S cava dropbox dropbox-cli gitkraken hyperfine neofetch panopticon-git plasma-git secure-delete spotify
-        fi
-        if command -v pip2 &> /dev/null; then
-            sudo pip2 install -U neovim
-        fi
-    fi
-
-    if command -v pip3 &> /dev/null; then
-        sudo pip3 install -U neovim
-    fi
-
-    if command -v diff-so-fancy &> /dev/null; then
-        git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
-    fi
-
-    if command -v npm &> /dev/null && ! command -v pacman &> /dev/null; then
-        sudo npm install npm@latest -g
-    fi
-}
-
-install_games() {
-    if command -v apt-get &> /dev/null; then
-        for i in $(apt-cache search dungeon | grep -iE "dungeon|game|rogue" | awk '{print $1}'); do
-            echo "============================================="
-            echo "$i"
-            sudo apt-get install -y "$i"
-        done
-        for i in $(apt-cache search rogue | grep -iE "dungeon|game|rogue" | awk '{print $1}');do
-            echo "============================================="
-            echo "$i"
-            sudo apt-get install -y "$i"
-        done
-    elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm yay angband asciiportal cataclysm-dda dwarffortress glhack nethack rogue stone-soup
-        if command -v yay &> /dev/null; then
-            yay -S tome4
-        fi
-    fi
-}
-
-install_draw() {
-    if command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm gimp inkscape krita
-    fi
-}
-
-install_audio() {
-    if command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm ardour audacity lmms mixxx non-sequencer qtractor rosegarden
-    fi
-}
-
-install_music() {
-    echo ""
-    echo "===================================="
-    echo "== install mpd and ncmpcpp config =="
-    echo "===================================="
-    echo ""
-    if command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm mpd ncmpcpp
-    fi
-
-    echo ""
-    echo "====================================="
-    echo "== Download mpd and ncmpcpp config =="
-    echo "====================================="
-    echo ""
-    curl -fLo ~/.config/mpd/mpd.conf \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/mpd/mpd.conf
-    curl -fLo ~/.config/ncmpcpp/config \
-        https://gitlab.com/T6705/dotfiles/raw/master/.config/ncmpcpp/config
-}
-
-install_i3() {
-    if command -v apt-get &> /dev/null; then
-        sudo apt-get install -y compton feh i3 maim mpv playerctl rofi scrot snapd vlc
-        echo ""
-        echo "====================="
-        echo "== install i3-gaps =="
-        echo "====================="
-        echo ""
-        time mkdir -p ~/git/hub
-        cd ~/git/hub
-        rm -rf i3-gaps
-
-        # clone the repository
-        time git clone https://www.github.com/Airblader/i3 i3-gaps
-        cd i3-gaps
-
-        # compile & install
-        autoreconf --force --install
-        rm -rf build/
-        time mkdir -p build && cd build/
-
-        # Disabling sanitizers is important for release versions!
-        # The prefix and sysconfdir are, obviously, dependent on the distribution.
-        ../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
-        time make
-        time sudo make install
-
-        echo ""
-        echo "====================="
-        echo "== install polybar =="
-        echo "====================="
-        echo ""
-
-        time mkdir -p ~/git/hub
-        cd ~/git/hub
-        rm -rf polybar
-        time git clone --recursive https://github.com/jaagr/polybar
-        cd polybar
-        time ./build.sh
-
-        echo ""
-        echo "==========================="
-        echo "== Download i3lock-fancy =="
-        echo "==========================="
-        echo ""
-        time mkdir -p ~/git/hub
-        cd ~/git/hub
-        rm -rf i3lock-fancy
-        time git clone "https://github.com/meskarune/i3lock-fancy"
-        cd ~/git/hub/i3lock-fancy
-        sudo cp -v lock /usr/local/bin/
-        sudo cp -r -v icons /usr/local/bin/
-
-    elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm compton feh maim mpv playerctl qutebrowser rofi vlc
-        echo ""
-        echo "====================="
-        echo "== install i3-gaps =="
-        echo "====================="
-        echo ""
-        sudo pacman -S --needed --noconfirm i3-gaps i3lock i3-scrot
-
-        echo ""
-        echo "====================="
-        echo "== install polybar =="
-        echo "====================="
-        echo ""
-        sudo pacman -S --needed --noconfirm base-devel libmpdclient wireless_tools
-        sudo pacman -S --needed --noconfirm "$(pacman -Ssq alsa | grep alsa)"
-        if command -v yay &> /dev/null; then
-            yay -Syyu
-            yay -S polybar-git
-        fi
-        #time mkdir -p ~/git/hub
-        #time git clone https://aur.archlinux.org/polybar-git.git ~/git/hub/polybar-git
-        #cd ~/git/hub/polybar-git
-        #makepkg -si
-
-        echo ""
-        echo "========================="
-        echo "== Download flashfocus =="
-        echo "========================="
-        echo ""
-        yay -Syyu --overwrite "*" flashfocus-git
-    fi
-
-    echo ""
-    echo "========================"
-    echo "== Download corrupter =="
-    echo "========================"
-    echo ""
-    time mkdir -p ~/git/hub
-    time git clone https://github.com/r00tman/corrupter ~/git/hub/corrupter
-    time cd ~/git/hub/corrupter && time go build
 }
 
 install_ibus() {
@@ -443,9 +322,9 @@ install_ibus() {
     echo "=================="
     echo ""
     if command -v apt-get &> /dev/null; then
-        apt-get install -y ibus ibus-dbg ibus-gtk ibus-gtk3 ibus-input-pad ibus-qt4 ibus-rime ibus-table ibus-table-cantonese ibus-table-cantonhk ibus-table-latex ibus-table-quick ibus-table-quick-classic ibus-table-quick3 ibus-table-quick5
+        sudo apt-get install -y ibus ibus-dbg ibus-gtk ibus-gtk3 ibus-input-pad ibus-qt4 ibus-rime ibus-table ibus-table-cantonese ibus-table-cantonhk ibus-table-latex ibus-table-quick ibus-table-quick-classic ibus-table-quick3 ibus-table-quick5
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm curl ibus ibus-rime ibus-table ibus-table-chinese ibus-table-extraphrase libgusb libibus libusb libusbmuxd
+        sudo pacman -S --needed --overwrite "*" --noconfirm curl ibus ibus-rime ibus-table ibus-table-chinese ibus-table-extraphrase libgusb libibus libusb libusbmuxd
     fi
     curl -fLo ~/.config/ibus/rime/default.custom.yaml --create-dirs https://gitlab.com/T6705/dotfiles/raw/master/.config/ibus/rime/default.custom.yaml
     curl https://gitlab.com/T6705/dotfiles/raw/master/.xinitrc > ~/.xinitrc
@@ -468,23 +347,36 @@ install_file_manager() {
         sudo apt-get install -y mediainfo libimage-exiftool-perl # multimedia file details
         sudo apt-get install -y moreutils                        # batch rename, move, delete dir entries
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm ranger
+        sudo pacman -S --needed --overwrite "*" --noconfirm ranger
 
         ################################
         # https://github.com/jarun/nnn #
         ################################
-        sudo pacman -S --needed --noconfirm nnn                           # terminal file manager
-        sudo pacman -S --needed --noconfirm atool                         # create, list and extract archives
-        sudo pacman -S --needed --noconfirm mediainfo perl-image-exiftool # multimedia file details
-        sudo pacman -S --needed --noconfirm moreutils                     # batch rename, move, delete dir entries
+        sudo pacman -S --needed --overwrite "*" --noconfirm nnn                           # terminal file manager
+        sudo pacman -S --needed --overwrite "*" --noconfirm atool                         # create, list and extract archives
+        sudo pacman -S --needed --overwrite "*" --noconfirm mediainfo perl-image-exiftool # multimedia file details
+        sudo pacman -S --needed --overwrite "*" --noconfirm moreutils                     # batch rename, move, delete dir entries
     fi
+
+    echo ""
+    echo "============================"
+    echo "== Download ranger config =="
+    echo "============================"
+    echo ""
+    curl -fLo ~/.config/ranger/rc.conf --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/rc.conf
+    curl -fLo ~/.config/ranger/rifle.conf --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/rifle.conf
+    curl -fLo ~/.config/ranger/scope.sh --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/scope.sh
+    chmod +x ~/.config/ranger/scope.sh
 }
 
 install_spacemacs() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y emacs exuberant-ctags global pandoc python-pygments
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm ctags emacs pandoc python-pygments
+        sudo pacman -S --needed --overwrite "*" --noconfirm ctags emacs pandoc python-pygments
     fi
 
     if command -v npm &> /dev/null; then
@@ -509,13 +401,20 @@ install_spacemacs() {
     else
         time git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
     fi
+
+    echo ""
+    echo "==============================="
+    echo "== Download spacemacs config =="
+    echo "==============================="
+    echo ""
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.spacemacs > ~/.spacemacs
 }
 
 install_tmux() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y tmux
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm tmux
+        sudo pacman -S --needed --overwrite "*" --noconfirm tmux
     fi
 
     echo ""
@@ -526,6 +425,14 @@ install_tmux() {
 
     sudo rm -rf ~/.tmux
     time git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+    echo ""
+    echo "=========================="
+    echo "== Download tmux config =="
+    echo "=========================="
+    echo ""
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.tmux.conf > ~/.tmux.conf
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.tmux.conf.local > ~/.tmux.conf.local
 }
 
 install_vim() {
@@ -538,7 +445,7 @@ install_vim() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y autoconf automake cmake g++ gettext libtool libtool-bin ninja-build pkg-config python-pip python3-pip unzip
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm base-devel cmake go ninja npm unzip yay
+        sudo pacman -S --needed --overwrite "*" --noconfirm base-devel cmake go ninja npm unzip yay
     fi
 
     if [ -d ~/git/hub/neovim ]; then
@@ -554,6 +461,14 @@ install_vim() {
     time sudo make install
     time nvim -v
 
+    if command -v pip &> /dev/null; then
+        sudo pip install -U neovim
+    fi
+
+    if command -v pip3 &> /dev/null; then
+        sudo pip3 install -U neovim
+    fi
+
     echo ""
     echo "============================================================="
     echo "== vim-anywhere (https://github.com/cknadler/vim-anywhere) =="
@@ -564,8 +479,7 @@ install_vim() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y vim
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm ctags prettier python-neovim python2-neovim
-        sudo pacman -S --needed --noconfirm "$(pacman -Ssq pep8)"
+        sudo pacman -S --needed --overwrite "*" --noconfirm ctags prettier python-neovim
         sudo pip install -U vulture
     fi
 
@@ -615,10 +529,10 @@ install_vim() {
 
     if command -v pacman &> /dev/null; then
         # for bash
-        sudo pacman -S --needed --noconfirm bash-language-server
+        sudo pacman -S --needed --overwrite "*" --noconfirm bash-language-server
 
         # for c
-        yay -S cquery
+        yay -Syyu --needed --overwrite "*" cquery
 
         # for go
         rm -rf ~/git/hub/tools
@@ -650,6 +564,35 @@ install_vim() {
     time nvim -c 'CocInstall -sync coc-xml|q'
     time nvim -c 'CocInstall -sync coc-yaml|q'
     time nvim -c 'CocInstall -sync coc-yank|q'
+
+    echo ""
+    echo "=============================="
+    echo "== Download vim/nvim config =="
+    echo "=============================="
+    echo ""
+    curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/augroups.vim
+    curl -fLo ~/.config/nvim/functions.vim --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/functions.vim
+    curl -fLo ~/.config/nvim/general.vim --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/general.vim
+    curl -fLo ~/.config/nvim/mappings.vim --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/mappings.vim
+    curl -fLo ~/.config/nvim/plugins.vim --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins.vim
+    curl -fLo ~/.config/nvim/plugins_config.vim --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins_config.vim
+    curl -fLo ~/.config/nvim/coc-settings.json --create-dirs \
+        https://gitlab.com/T6705/dotifles/raw/master/.config/nvim/coc-settings.json
+    curl -fLo ~/.config/nvim/.ycm --create-dirs \
+        https://gitlab.com/T6705/dotifles/raw/master/.config/nvim/.ycm_extra_conf.py
+
+    ### vim
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.vimrc > ~/.vimrc
+
+    ### nvim
+    curl -fLo ~/.config/nvim/init.vim --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/init.vim
 
     reset
 }
@@ -685,12 +628,65 @@ install_st() {
     make && sudo make install
 }
 
-install_zsh() {
-    if command -v apt-get &> /dev/null; then
-        sudo apt-get install -y zsh
-    elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm zsh
+install_terminal() {
+    install_st
+    if command -v pacman &> /dev/null; then
+        echo ""
+        echo "======================="
+        echo "== install alacritty =="
+        echo "======================="
+        echo ""
+        sudo pacman -S --needed --overwrite "*" --noconfirm alacritty alacritty-terminfo
+
+        echo ""
+        echo "==============================="
+        echo "== Download alacritty config =="
+        echo "==============================="
+        echo ""
+        curl -fLo ~/.config/alacritty/alacritty.yml --create-dirs \
+            https://gitlab.com/T6705/dotfiles/raw/master/.config/alacritty/alacritty.yml
+
+        echo ""
+        echo "======================="
+        echo "== install kitty =="
+        echo "======================="
+        echo ""
+        sudo pacman -S --needed --overwrite "*" --noconfirm kitty
+
+        echo ""
+        echo "==========================="
+        echo "== Download kitty config =="
+        echo "==========================="
+        echo ""
+        curl -fLo ~/.config/kitty/kitty.conf --create-dirs \
+            https://gitlab.com/T6705/dotfiles/raw/master/.config/kitty/kitty.conf
     fi
+}
+
+install_shell() {
+    if command -v apt-get &> /dev/null; then
+        sudo apt-get install -y curl zsh
+    elif command -v pacman &> /dev/null; then
+        sudo pacman -S --needed --overwrite "*" --noconfirm curl zsh
+    fi
+
+    echo ""
+    echo "=========================="
+    echo "== Download bash config =="
+    echo "=========================="
+    echo ""
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.bashrc > ~/.bashrc
+
+    echo ""
+    echo "========================="
+    echo "== Download zsh config =="
+    echo "========================="
+    echo ""
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.zshrc > ~/.zshrc
+    curl -fLo ~/.zsh/aliases.zsh --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.zsh/aliases.zsh
+    curl -fLo ~/.zsh/functions.zsh --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.zsh/functions.zsh
 
     echo ""
     echo "====================================="
@@ -754,7 +750,7 @@ install_zsh() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y fonts-hack-otf fonts-hack-ttf fonts-hack-web
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm ttf-hack
+        sudo pacman -S --needed --overwrite "*" --noconfirm ttf-hack
     fi
 
     echo ""
@@ -763,7 +759,7 @@ install_zsh() {
     echo "========================"
     echo ""
     if command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm $(pacman -Ssq fira)
+        sudo pacman -S --needed --overwrite "*" --noconfirm $(pacman -Ssq fira)
     fi
 
     echo ""
@@ -801,7 +797,7 @@ install_zsh() {
         sudo cp -v ./*.ttf /usr/share/fonts/opentype/noto
         sudo fc-cache -f -v # optional
     elif command -v pacman &> /dev/null; then
-        for i in $(pacman -Ssq noto | grep -E ^noto); do sudo pacman -S --needed --noconfirm $i ; done
+        for i in $(pacman -Ssq noto | grep -E ^noto); do sudo pacman -S --needed --overwrite "*" --noconfirm $i ; done
     fi
 
     echo ""
@@ -842,7 +838,7 @@ install_zsh() {
 
         sudo pip install -U powerline-shell
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm fontforge powerline powerline-fonts
+        sudo pacman -S --needed --overwrite "*" --noconfirm fontforge powerline powerline-fonts
     fi
 
     echo ""
@@ -872,7 +868,7 @@ install_zsh() {
     echo "================================================="
     echo ""
     if command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm hub
+        sudo pacman -S --needed --overwrite "*" --noconfirm hub
     elif command -v apt-get &> /dev/null; then
         sudo apt-get install -y hub
     fi
@@ -883,7 +879,7 @@ install_zsh() {
     echo "====================================================="
     echo ""
     if command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --noconfirm go
+        sudo pacman -S --needed --overwrite "*" --noconfirm go
     elif command -v apt-get &> /dev/null; then
         sudo apt-get install -y golang
     fi
@@ -937,33 +933,23 @@ install_zsh() {
 }
 
 install_de() {
-    install_dunst
-    install_i3
-    install_ibus
-    install_term
-}
-
-install_term() {
-    install_editor
-    install_file_manager
-    install_music
-    install_st
-    install_tmux
-    install_zsh
-}
-
-install_editor() {
-    install_spacemacs
-    install_vim
-}
-
-install_all() {
+    de=$1
     install_dependencies
-    install_dots
-    install_games
-    install_draw
-    install_audio
-    install_de
+
+    if [ $de == "i3" ]; then
+        install_i3
+    elif [ $de == "gnome" ]; then
+        install_gnome
+    fi
+
+    install_terminal
+    install_tmux
+    install_vim
+    install_shell
+    install_dunst
+    install_ibus
+    install_file_manager
+    install_spacemacs
 }
 
 main() {
@@ -976,49 +962,9 @@ main() {
     fi
 
     case $user_input in
-        "audio")        install_audio;;
-        "de")           install_de;;
-        "dependencies") install_dependencies;;
-        "dots")         install_dots;;
-        "draw")         install_draw;;
-        "dunst")        install_dunst;;
-        "editor")       install_editor;;
-        "file_manager") install_file_manager;;
-        "games")        install_games;;
-        "i3")           install_i3;;
-        "ibus")         install_ibus;;
-        "music")        install_music;;
-        "spacemacs")    install_spacemacs;;
-        "st")           install_st;;
-        "term")         install_term;;
-        "tmux")         install_tmux;;
-        "vim")          install_vim;;
-        "zsh")          install_zsh;;
-        "all")          install_all;;
-        "None")
-            echo "bash install.sh <options>/all"
-            echo "options:"
-            echo "all"
-            echo "├─ audio"
-            echo "├─ dependencies"
-            echo "├─ dots"
-            echo "├─ draw"
-            echo "├─ games"
-            echo "└─ de"
-            echo "   ├─ dunst"
-            echo "   ├─ i3"
-            echo "   ├─ ibus"
-            echo "   └─ term"
-            echo "      ├─ file_manager"
-            echo "      ├─ music"
-            echo "      ├─ st"
-            echo "      ├─ tmux"
-            echo "      ├─ zsh"
-            echo "      └─ editor"
-            echo "         ├─ spacemacs"
-            echo "         └─ vim"
-            ;;
-        *) echo "unknown option $user_input"
+        "gnome") install_de gnome;;
+        "i3")    install_de i3;;
+        "None") echo "bash install.sh gnome/i3"
     esac
 }
 
