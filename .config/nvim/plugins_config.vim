@@ -1129,4 +1129,15 @@ let g:peekaboo_compact = 0                         " Compact display; do not dis
 let g:peekaboo_delay   = 0                         " Delay opening of peekaboo window (in ms. default: 0)
 let g:peekaboo_window  = 'vertical botright 30new' " Default peekaboo window
 " }}}
+
+" === voldikss/vim-floaterm === {{{
+let g:floaterm_position = "center" " Available: 'auto', 'topleft', 'topright', 'bottomleft', 'bottomright', 'center'
+let g:floaterm_width = winwidth(0) * 8 / 10
+let g:floaterm_height = winheight(0) * 8 / 10
+let g:floaterm_winblend = 50
+
+noremap  <silent> <Leader>ft :FloatermToggle<CR>i
+noremap! <silent> <Leader>ft <Esc>:FloatermToggle<CR>i
+tnoremap <silent> <Leader>ft <C-\><C-n>:FloatermToggle<CR>
+" }}}
 """ }}}

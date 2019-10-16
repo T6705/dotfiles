@@ -52,6 +52,45 @@
 #    curl -fLo ~/.config/ncmpcpp/config --create-dirs \
 #        https://gitlab.com/T6705/dotfiles/raw/master/.config/ncmpcpp/config
 #}
+
+#install_spacemacs() {
+#    if command -v apt-get &> /dev/null; then
+#        sudo apt-get install -y emacs exuberant-ctags global pandoc python-pygments
+#    elif command -v pacman &> /dev/null; then
+#        sudo pacman -S --needed --overwrite "*" --noconfirm ctags emacs pandoc python-pygments
+#    fi
+#
+#    if command -v npm &> /dev/null; then
+#        npm install -g eslint js-beautify vmd
+#    fi
+#
+#    if command -v go &> /dev/null; then
+#        go get -u -v github.com/nsf/gocode
+#        go get -u -v github.com/rogpeppe/godef
+#        go get -u -v golang.org/x/tools/cmd/oracle
+#        go get -u -v golang.org/x/tools/cmd/gorename
+#        go get -u -v golang.org/x/tools/cmd/goimports
+#    fi
+#
+#    echo ""
+#    echo "======================="
+#    echo "== install spacemacs =="
+#    echo "======================="
+#    echo ""
+#    if [[ -d ~/.emacs.d ]]; then
+#        cd ~/.emacs.d && time git pull
+#    else
+#        time git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+#    fi
+#
+#    echo ""
+#    echo "==============================="
+#    echo "== Download spacemacs config =="
+#    echo "==============================="
+#    echo ""
+#    curl https://gitlab.com/T6705/dotfiles/raw/master/.spacemacs > ~/.spacemacs
+#}
+
 install_dependencies() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get update
@@ -61,8 +100,8 @@ install_dependencies() {
         sudo apt-get clean
         sudo apt-get install -y curl figlet fontconfig git glances htop lolcat npm ntp ntpdate ranger ruby-rouge time tmux vim vim-athena vim-gnome vim-gtk vim-nox xclip xsel zsh
 
-        curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" > /usr/bin/diff-so-fancy
-        chmod +x /usr/bin/diff-so-fancy
+        sudo curl "https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy" > /usr/bin/diff-so-fancy
+        sudo chmod +x /usr/bin/diff-so-fancy
     elif command -v pacman &> /dev/null; then
         sudo pacman-mirrors -f 0 && sudo pacman -Syy && sync
         sudo pacman -Syyu --noconfirm
@@ -138,7 +177,7 @@ install_gnome() {
 
 install_i3() {
     if command -v apt-get &> /dev/null; then
-        sudo apt-get install -y compton feh i3 i3 i3-wm i3-wm-dbg i3blocks i3lock i3lock-fancy i3status maim mpv playerctl rofi scrot snapd vlc
+        sudo apt-get install -y compton feh i3 i3 i3-wm i3-wm-dbg i3blocks i3lock i3lock-fancy i3status maim mpv rofi scrot snapd vlc
 
         sudo apt-get install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev
 
@@ -322,7 +361,7 @@ install_ibus() {
     echo "=================="
     echo ""
     if command -v apt-get &> /dev/null; then
-        sudo apt-get install -y ibus ibus-dbg ibus-gtk ibus-gtk3 ibus-input-pad ibus-qt4 ibus-rime ibus-table ibus-table-cantonese ibus-table-cantonhk ibus-table-latex ibus-table-quick ibus-table-quick-classic ibus-table-quick3 ibus-table-quick5
+        sudo apt-get install -y ibus ibus-gtk ibus-gtk3 ibus-input-pad ibus-qt4 ibus-rime ibus-table ibus-table-cantonese ibus-table-cantonhk ibus-table-latex ibus-table-quick ibus-table-quick-classic ibus-table-quick3 ibus-table-quick5
     elif command -v pacman &> /dev/null; then
         sudo pacman -S --needed --overwrite "*" --noconfirm curl ibus ibus-rime ibus-table ibus-table-chinese ibus-table-extraphrase libgusb libibus libusb libusbmuxd
     fi
@@ -370,44 +409,6 @@ install_file_manager() {
     curl -fLo ~/.config/ranger/scope.sh --create-dirs \
         https://gitlab.com/T6705/dotfiles/raw/master/.config/ranger/scope.sh
     chmod +x ~/.config/ranger/scope.sh
-}
-
-install_spacemacs() {
-    if command -v apt-get &> /dev/null; then
-        sudo apt-get install -y emacs exuberant-ctags global pandoc python-pygments
-    elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --overwrite "*" --noconfirm ctags emacs pandoc python-pygments
-    fi
-
-    if command -v npm &> /dev/null; then
-        npm install -g eslint js-beautify vmd
-    fi
-
-    if command -v go &> /dev/null; then
-        go get -u -v github.com/nsf/gocode
-        go get -u -v github.com/rogpeppe/godef
-        go get -u -v golang.org/x/tools/cmd/oracle
-        go get -u -v golang.org/x/tools/cmd/gorename
-        go get -u -v golang.org/x/tools/cmd/goimports
-    fi
-
-    echo ""
-    echo "======================="
-    echo "== install spacemacs =="
-    echo "======================="
-    echo ""
-    if [[ -d ~/.emacs.d ]]; then
-        cd ~/.emacs.d && time git pull
-    else
-        time git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
-    fi
-
-    echo ""
-    echo "==============================="
-    echo "== Download spacemacs config =="
-    echo "==============================="
-    echo ""
-    curl https://gitlab.com/T6705/dotfiles/raw/master/.spacemacs > ~/.spacemacs
 }
 
 install_tmux() {
@@ -869,8 +870,8 @@ install_shell() {
     echo ""
     if command -v pacman &> /dev/null; then
         sudo pacman -S --needed --overwrite "*" --noconfirm hub
-    elif command -v apt-get &> /dev/null; then
-        sudo apt-get install -y hub
+    elif command -v snap &> /dev/null; then
+        snap install hub --classic
     fi
 
     echo ""
@@ -949,7 +950,6 @@ install_de() {
     install_dunst
     install_ibus
     install_file_manager
-    install_spacemacs
 }
 
 main() {

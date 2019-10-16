@@ -229,6 +229,7 @@ Plug 'thiagoalessio/rainbow_levels.vim', { 'on': ['RainbowLevelsOn', 'RainbowLev
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                                                                    " Extra syntax and highlight for nerdtree files
 Plug 'tpope/vim-repeat'                                                                                           " enables repeating other supported plugins with the . command
 Plug 'tpope/vim-surround'                                                                                         " surround.vim: quoting/parenthesizing made simple
+Plug 'voldikss/vim-floaterm', Cond(has('nvim'),  { 'on': 'FloatermToggle' })                                      " Open the terminal in the floating window and toggle it quickly
 Plug 'wellle/targets.vim'                                                                                         " Vim plugin that provides additional text objects
 Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }                                                                   " Vim plugin to diff two directories
 call plug#end()
