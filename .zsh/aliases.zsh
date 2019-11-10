@@ -143,6 +143,8 @@ if command -v git &> /dev/null ; then
         #nvdc - Edit all files that were altered in the last commit
         alias nvdc="nvim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
     fi
+
+    alias gdst="git diff --stat"
 fi
 
 # ------------------------------------

@@ -108,7 +108,7 @@ install_dependencies() {
         sudo pacman -S --needed --overwrite "*" --noconfirm base
         sudo pacman -S --needed --overwrite "*" --noconfirm base-devel
         sudo pacman -S --needed --overwrite "*" --noconfirm cower pacaur yay
-        sudo pacman -S --needed --overwrite "*" --noconfirm bat code curl exa fd fontconfig git hub iotop lsd meld npm ntp python-pip python2-pip ranger ripgrep ruby-rouge tig time tmux vim wmctrl wmctrl xclip xdotool xorg-xkill xorg-xkill xsel zsh
+        sudo pacman -S --needed --overwrite "*" --noconfirm bat code curl exa fd fontconfig git httpie hub iotop lsd meld npm ntp python-pip python2-pip ranger ripgrep ruby-rouge tig time tmux vim wmctrl wmctrl xclip xdotool xorg-xkill xorg-xkill xsel zsh
         sudo pacman -S --needed --overwrite "*" --noconfirm autoconf automake cmake libtool pkg-config unzip
         sudo pacman -S --needed --overwrite "*" --noconfirm compton diff-so-fancy figlet glances htop lolcat net-tools nnn screenfetch veracrypt xdg-utils
         sudo pacman -S --needed --overwrite "*" --noconfirm "$(pacman -Ssq numix) | grep -v gtk-theme-numix-solarized"
@@ -558,6 +558,7 @@ install_vim() {
     time nvim -c 'CocInstall -sync coc-python|q'
     time nvim -c 'CocInstall -sync coc-snippets|q'
     time nvim -c 'CocInstall -sync coc-svg|q'
+    time nvim -c 'CocInstall -sync coc-tabnine|q'
     time nvim -c 'CocInstall -sync coc-texlab|q'
     time nvim -c 'CocInstall -sync coc-tsserver|q'
     time nvim -c 'CocInstall -sync coc-vetur|q'

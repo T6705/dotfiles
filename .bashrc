@@ -316,6 +316,8 @@ if command -v git &> /dev/null ; then
         #nvdc - Edit all files that were altered in the last commit
         alias nvdc="nvim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
     fi
+
+    alias gdst="git diff --stat"
 fi
 
 # sshlf 1234:127.0.0.1:4321 name@127.0.0.1
@@ -630,6 +632,9 @@ man() {
         LESS_TERMCAP_ue=$(printf "\e[0m") \
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
         man "$@"
+    if command -v bat &> /dev/null; then
+        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+    fi
 }
 
 screenshot() {
@@ -775,12 +780,25 @@ weather() {
     curl http://v2.wttr.in/$1
 }
 
+if command -v google-chrome-stable &> /dev/null ; then
+    proxy_chrome() {
+        #ssh -CNTvD port user@host
+        if [[ -n "$1" ]]; then
+            port=$1
+            google-chrome-stable --user-data-dir="$HOME/proxy-profile" --proxy-server="socks://localhost:$port" &
+            exit
+        else
+            echo "proxy_chrome <port>"
+        fi
+    }
+fi
+
 if command -v chromium &> /dev/null ; then
     proxy_chromium() {
         #ssh -CNTvD port user@host
         if [[ -n "$1" ]]; then
             port=$1
-            chromium --proxy-server="socks://localhost:$port" &
+            chromium --user-data-dir="$HOME/proxy-profile" --proxy-server="socks://localhost:$port" &
             exit
         else
             echo "proxy_chromium <port>"

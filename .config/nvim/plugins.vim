@@ -143,18 +143,20 @@ Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for 
 "        Plug 'roxma/vim-hug-neovim-rpc'
 "    endif
 "    "Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
+"    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol for vim and neovim
 "    Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }
 "    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 "    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+"    Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 "    Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
 "    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-"    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol for vim and neovim
 "endif
 
 if executable('node')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 else
-    Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'java', 'python'], 'do': function('BuildYCM') }
+    Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'java', 'python'], 'do': function('BuildYCM') } " A code-completion engine for Vim
+    Plug 'zxqfl/tabnine-vim' " Vim client for TabNine
 endif
 
 "if executable("tmux")
