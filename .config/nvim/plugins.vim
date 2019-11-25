@@ -220,6 +220,7 @@ Plug 'kshenoy/vim-signature'                                                    
 Plug 'ludovicchabant/vim-gutentags'                                                                               " A Vim plugin that manages your tag files
 Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }                                                                  " highlighting columns in csv/tsv files and executing SELECT and UPDATE queries in SQL-like language
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }                                        " Helps you win at grep
+Plug 'psliwka/vim-smoothie'                                                                                       " Smooth scrolling for Vim done right
 Plug 'romainl/vim-qf'                                                                                             " Tame the quickfix window
 Plug 'ryanoasis/vim-devicons'                                                                                     " Adds file type glyphs/icons to popular Vim plugins
 Plug 'scrooloose/nerdcommenter'                                                                                   " Vim plugin for intensely orgasmic commenting

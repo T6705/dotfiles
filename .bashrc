@@ -458,6 +458,29 @@ ramdisk_on() {
     df -h | grep ramdisk
 }
 
+
+zram() {
+    cores=$(nproc --all)
+    echo "cores: $cores"
+    sudo modprobe zram num_devices=$cores
+
+    sudo swapoff -av
+
+    totalmem=`free | grep -e "^Mem:" | awk '{print $2}'`
+    mem=$(( ($totalmem / $cores)* 1024 ))
+
+    echo "totalmem: $totalmem"
+    echo "mem: $mem"
+
+    core=0
+    while [ $core -lt $cores ]; do
+        echo $mem > /sys/block/zram$core/disksize
+        sudo mkswap /dev/zram$core
+        sudo swapon -p 5 /dev/zram$core
+        let core=core+1
+    done
+}
+
 get_swap() {
     # Get current swap usage for all running processes
     # Erik Ljungstrom 27/05/2011
@@ -990,7 +1013,8 @@ mirrordisplay() {
 # -----------------------------------------------------------------------------------------
 ipv4_in() {
     if [[ -n "$1" ]]; then
-        regex='([0-9]{1,3}\.){3}[0-9]{1,3}'
+        #regex='([0-9]{1,3}\.){3}[0-9]{1,3}'
+        regex="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
         grep -oE "$regex" $1
     else
         echo "'$1' is not a valid file"

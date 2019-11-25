@@ -328,6 +328,9 @@ nnoremap <silent> <Leader>csoff :set nospell<CR>
 " Correcting spelling mistakes
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
+"moves to the last incorrectly spelled word and changes it to the top spell suggestion
+nnoremap <Leader>z [s1z=
+
 " search and replace
 nnoremap <Leader>sr  :'{,'}s/\<<C-r>=expand('<cword>')<CR>\>/
 nnoremap <Leader>sra :%s/\<<C-r>=expand('<cword>')<CR>\>/
