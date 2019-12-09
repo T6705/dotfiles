@@ -381,7 +381,7 @@ fu! GitInfo()
         return ''.fugitive#head()
     else
         return ''
-    endfi
+    endif
 endfu
 
 set statusline=

@@ -116,16 +116,9 @@ nmap <Leader>l :set list!<CR>
 " -------------------------------------------------------------------------------
 " UI
 " -------------------------------------------------------------------------------
-if empty(glob('~/.config/nvim/colors/molokai.vim'))
-    if !executable("curl")
-        echoerr "You have to install curl or install molokai.vim yourself!"
-    else
-        echo "Installing molokai.vim"
-        echo ""
-        silent !curl -fLo ~/.config/nvim/colors/molokai.vim --create-dirs https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
-    endif
-endif
-colorscheme molokai
+let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark="hard"
+colorscheme gruvbox
 
 if has('nvim')
     set pumblend=30
@@ -257,7 +250,7 @@ fu! GitInfo()
         return ''.fugitive#head()
     else
         return ''
-    endfi
+    endif
 endfu
 
 set statusline=

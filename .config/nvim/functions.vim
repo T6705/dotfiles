@@ -63,7 +63,7 @@ command! GruvboxLight call GruvboxLight()
 " -------------------------------------------------------------------------------
 fu! GruvboxDark()
     let g:gruvbox_italic=1
-    let g:gruvbox_contrast_dark="soft"
+    let g:gruvbox_contrast_dark="hard"
     set background=dark
     colorscheme gruvbox
     AirlineTheme gruvbox
