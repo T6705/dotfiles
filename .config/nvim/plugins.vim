@@ -45,6 +45,46 @@ endif
 """ === Load plugins === {{{
 silent! if plug#begin('~/.config/nvim/plugged')
 
+" === Auto Completion === {{{
+"if has('python3')
+"    if has('nvim')
+"        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"    elseif v:version >= 800
+"        Plug 'Shougo/deoplete.nvim' " Dark powered asynchronous completion framework for neovim/Vim8
+"        Plug 'roxma/nvim-yarp'      " Yet Another Remote Plugin Framework for Neovim
+"        Plug 'roxma/vim-hug-neovim-rpc'
+"    endif
+"    "Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
+"    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol for vim and neovim
+"    Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }
+"    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+"    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+"    Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+"    Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
+"    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
+"endif
+
+"if executable("tmux")
+"    Plug 'prabirshrestha/async.vim'
+"    Plug 'prabirshrestha/asyncomplete.vim'
+"    Plug 'wellle/tmux-complete.vim' " Vim plugin for insert mode completion of words in adjacent tmux panes
+"endif
+" }}}
+
+" === textobj === {{{
+"Plug 'kana/vim-textobj-user'                    " Create your own textobj
+"Plug 'akiyan/vim-textobj-php', { 'for': 'php' } " aP/iP for a range between the PHP delimiters such as <?php and ?>
+"Plug 'deris/vim-textobj-ipmac'                  " aA/iA for ipv4, ipv6, MAC Address
+"Plug 'kana/vim-textobj-datetime'                " ada/ida and others for date and time such as 2013-03-13, 19:51:45, 2013-03-13T19:51:50
+"Plug 'kana/vim-textobj-indent'                  " ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
+"Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
+" }}}
+
+" === latex === {{{
+"Plug 'donRaphaco/neotex', Cond(has('nvim'), { 'do': function('DoRemote'), 'for': 'tex' })
+"Plug 'lervag/vimtex', { 'for': 'tex' }
+" }}}
+
 " === ColorScheme === {{{
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -61,14 +101,8 @@ if has('nvim')
     Plug 'ncm2/float-preview.nvim'    " Less annoying completion preview window based on neovim's floating window
 endif
 Plug 'Yggdroot/indentLine'            " A vim plugin to display the indention levels with thin vertical lines
-Plug 'paroxayte/vwm.vim'              " A highly extensible window manager for nvim/vim!
 Plug 'vim-airline/vim-airline'        " lean & mean status/tabline for vim that's light as air
 Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
-" }}}
-
-" ===" latex === {{{
-"Plug 'donRaphaco/neotex', Cond(has('nvim'), { 'do': function('DoRemote'), 'for': 'tex' })
-"Plug 'lervag/vimtex', { 'for': 'tex' }
 " }}}
 
 " === markdown === {{{
@@ -133,38 +167,12 @@ Plug 'dense-analysis/ale'                      " Check syntax in Vim asynchronou
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
 " }}}
 
-" === Auto Completion === {{{
-"if has('python3')
-"    if has('nvim')
-"        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"    elseif v:version >= 800
-"        Plug 'Shougo/deoplete.nvim' " Dark powered asynchronous completion framework for neovim/Vim8
-"        Plug 'roxma/nvim-yarp'      " Yet Another Remote Plugin Framework for Neovim
-"        Plug 'roxma/vim-hug-neovim-rpc'
-"    endif
-"    "Plug 'zchee/deoplete-jedi', { 'for' : 'python' }
-"    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol for vim and neovim
-"    Plug 'carlitux/deoplete-ternjs', { 'for': 'javascript', 'do': 'npm install -g tern' }
-"    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-"    Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-"    Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-"    Plug 'zchee/deoplete-clang', { 'for': ['c', 'cpp'] }
-"    Plug 'zchee/deoplete-go', { 'for': 'go', 'do': 'make'}
-"endif
-
 if executable('node')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 else
     Plug 'Valloric/YouCompleteMe', { 'for': ['c', 'cpp', 'go', 'java', 'python'], 'do': function('BuildYCM') } " A code-completion engine for Vim
     Plug 'zxqfl/tabnine-vim' " Vim client for TabNine
 endif
-
-"if executable("tmux")
-"    Plug 'prabirshrestha/async.vim'
-"    Plug 'prabirshrestha/asyncomplete.vim'
-"    Plug 'wellle/tmux-complete.vim' " Vim plugin for insert mode completion of words in adjacent tmux panes
-"endif
-" }}}
 
 " === Snippet === {{{
 if v:version >= 704
@@ -173,15 +181,6 @@ endif
 Plug 'Shougo/neosnippet'          " snippets support
 Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnippet
 Plug 'honza/vim-snippets'         " vim-snipmate default snippets
-" }}}
-
-" === textobj === {{{
-Plug 'kana/vim-textobj-user'                    " Create your own textobj
-Plug 'akiyan/vim-textobj-php', { 'for': 'php' } " aP/iP for a range between the PHP delimiters such as <?php and ?>
-Plug 'deris/vim-textobj-ipmac'                  " aA/iA for ipv4, ipv6, MAC Address
-Plug 'kana/vim-textobj-datetime'                " ada/ida and others for date and time such as 2013-03-13, 19:51:45, 2013-03-13T19:51:50
-Plug 'kana/vim-textobj-indent'                  " ai/ii for a block of similarly indented lines / aI/iI for a block of lines with the same indentation
-Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 " }}}
 
 " === utilities === {{{
@@ -193,6 +192,8 @@ Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 "Plug 'easymotion/vim-easymotion'                                                                                  " Vim motions on speed!
 "Plug 'ekalinin/Dockerfile.vim'                                                                                    " Vim syntax file & snippets for Docker's Dockerfile
 "Plug 'itchyny/vim-cursorword'                                                                                     " Underlines the word under the cursor
+"Plug 'paroxayte/vwm.vim'                                                                                          " A highly extensible window manager for nvim/vim!
+"Plug 'kana/vim-operator-user'                                                                                     " Vim plugin: Define your own operator easily
 "Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }                                        " Helps you win at grep
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 "Plug 'thiagoalessio/rainbow_levels.vim', { 'on': ['RainbowLevelsOn', 'RainbowLevelsOff', 'RainbowLevelsToggle'] } " A different approach to code highlighting
@@ -207,34 +208,33 @@ endif
 if v:version >= 800
     Plug 'TaDaa/vimade'                                " An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
 endif
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }                                                         " displaying the colours in the file
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                                                       " Interactive command execution in Vim.
-Plug 'andymass/vim-matchup'                                                                                       " vim match-up: matchit replacement and more
-Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                                                                " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }                                                    " VIM Table Mode for instant table creation.
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }                                                 " A command-line fuzzy finder
-Plug 'junegunn/fzf.vim'                                                                                           " use fzf on Vim
-Plug 'junegunn/rainbow_parentheses.vim'                                                                           " Simpler Rainbow Parentheses
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] }                                      " A Vim alignment plugin
-Plug 'junegunn/vim-peekaboo'                                                                                      " show you the contents of the registers
-Plug 'junegunn/vim-slash'                                                                                         " Enhancing in-buffer search experience
-Plug 'kana/vim-operator-user'                                                                                     " Vim plugin: Define your own operator easily
-Plug 'kshenoy/vim-signature'                                                                                      " Plugin to toggle, display and navigate marks
-Plug 'ludovicchabant/vim-gutentags'                                                                               " A Vim plugin that manages your tag files
-Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }                                                                  " highlighting columns in csv/tsv files and executing SELECT and UPDATE queries in SQL-like language
-Plug 'psliwka/vim-smoothie'                                                                                       " Smooth scrolling for Vim done right
-Plug 'romainl/vim-qf'                                                                                             " Tame the quickfix window
-Plug 'ryanoasis/vim-devicons'                                                                                     " Adds file type glyphs/icons to popular Vim plugins
-Plug 'scrooloose/nerdcommenter'                                                                                   " Vim plugin for intensely orgasmic commenting
-Plug 'scrooloose/nerdtree'                                                                                        " file tree
-Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }                                                                     " Visualize your undo tree.
-Plug 'skywind3000/gutentags_plus'                                                                                 " The right way to use gtags with gutentags
-Plug 'terryma/vim-multiple-cursors'                                                                               " True Sublime Text style multiple selections for Vim
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                                                                    " Extra syntax and highlight for nerdtree files
-Plug 'tpope/vim-repeat'                                                                                           " enables repeating other supported plugins with the . command
-Plug 'tpope/vim-surround'                                                                                         " surround.vim: quoting/parenthesizing made simple
-Plug 'voldikss/vim-floaterm', Cond(has('nvim'),  { 'on': 'FloatermToggle' })                                      " Open the terminal in the floating window and toggle it quickly
-Plug 'wellle/targets.vim'                                                                                         " Vim plugin that provides additional text objects
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }                    " displaying the colours in the file
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                  " Interactive command execution in Vim.
+Plug 'andymass/vim-matchup'                                                  " vim match-up: matchit replacement and more
+Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                           " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }               " VIM Table Mode for instant table creation.
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder
+Plug 'junegunn/fzf.vim'                                                      " use fzf on Vim
+Plug 'junegunn/rainbow_parentheses.vim'                                      " Simpler Rainbow Parentheses
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " A Vim alignment plugin
+Plug 'junegunn/vim-peekaboo'                                                 " show you the contents of the registers
+Plug 'junegunn/vim-slash'                                                    " Enhancing in-buffer search experience
+Plug 'kshenoy/vim-signature'                                                 " Plugin to toggle, display and navigate marks
+Plug 'ludovicchabant/vim-gutentags'                                          " A Vim plugin that manages your tag files
+Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }                             " highlighting columns in csv/tsv files and executing SELECT and UPDATE queries in SQL-like language
+Plug 'psliwka/vim-smoothie'                                                  " Smooth scrolling for Vim done right
+Plug 'romainl/vim-qf'                                                        " Tame the quickfix window
+Plug 'ryanoasis/vim-devicons'                                                " Adds file type glyphs/icons to popular Vim plugins
+Plug 'scrooloose/nerdcommenter'                                              " Vim plugin for intensely orgasmic commenting
+Plug 'scrooloose/nerdtree'                                                   " file tree
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }                                " Visualize your undo tree.
+Plug 'skywind3000/gutentags_plus'                                            " The right way to use gtags with gutentags
+Plug 'terryma/vim-multiple-cursors'                                          " True Sublime Text style multiple selections for Vim
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                               " Extra syntax and highlight for nerdtree files
+Plug 'tpope/vim-repeat'                                                      " enables repeating other supported plugins with the . command
+Plug 'tpope/vim-surround'                                                    " surround.vim: quoting/parenthesizing made simple
+Plug 'voldikss/vim-floaterm', Cond(has('nvim'),  { 'on': 'FloatermToggle' }) " Open the terminal in the floating window and toggle it quickly
+Plug 'wellle/targets.vim'                                                    " Vim plugin that provides additional text objects
 call plug#end()
 endif
 " }}}

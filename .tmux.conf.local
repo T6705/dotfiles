@@ -1,5 +1,5 @@
 # https://github.com/gpakosz/.tmux
-# (‑●‑●)> released under the WTFPL v2 license, by Gregory Pakosz (@gpakosz)
+# (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
@@ -173,7 +173,8 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{prefix}
 #     - #{root}
 #     - #{synchronized}
-#     - #{uptime_d}
+#     - #{uptime_y}
+#     - #{uptime_d} (modulo 365 when #{uptime_y} is used)
 #     - #{uptime_h}
 #     - #{uptime_m}
 #     - #{uptime_s}
