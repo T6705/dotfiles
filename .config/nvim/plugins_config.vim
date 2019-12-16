@@ -810,6 +810,11 @@ if v:version >= 703
 endif
 " }}}
 
+" === liuchengxu/vista.vim === {{{
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista#renderer#enable_icon = 1
+" }}}
+
 " === ludovicchabant/vim-gutentags === {{{
 let gutentags_dir = expand('~/.cache/tags')
 if !isdirectory(gutentags_dir)
@@ -929,7 +934,7 @@ let g:ale_fixers['c']          = ['clang-format', 'remove_trailing_lines', 'trim
 let g:ale_fixers['cpp']        = ['clang-format', 'remove_trailing_lines', 'trim_whitespace', 'uncrustify']
 let g:ale_fixers['css']        = ['prettier']
 let g:ale_fixers['dart']       = ['dartfmt', 'remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers['go']         = [ 'gofmt', 'goimports', 'remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers['go']         = ['gofmt', 'goimports', 'remove_trailing_lines', 'trim_whitespace']
 let g:ale_fixers['java']       = ['google_java_format', 'uncrustify', 'remove_trailing_lines', 'trim_whitespace']
 let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['json']       = ['prettier']
@@ -944,7 +949,7 @@ let g:ale_linters               = {}
 let g:ale_linters['go']         = ['gofmt', 'golint', 'govet', 'golangci-lint', 'revive']
 let g:ale_linters['javascript'] = ['eslint', 'tsserver']
 let g:ale_linters['php']        = ['phpcs', 'php', 'phpmd']
-let g:ale_linters['python']     = ['flake8', 'mypy', 'pep8', 'vulture']
+let g:ale_linters['python']     = ['flake8', 'mypy', 'pep8', 'pylint', 'vulture']
 
 let g:ale_completion_enabled                   = 1
 let g:ale_fix_on_save                          = 0
@@ -1136,8 +1141,8 @@ let g:floaterm_width = winwidth(0) * 8 / 10
 let g:floaterm_height = winheight(0) * 8 / 10
 let g:floaterm_winblend = 50
 
-noremap  <silent> <Leader>ft :FloatermToggle<CR>i
-noremap! <silent> <Leader>ft <Esc>:FloatermToggle<CR>i
+noremap  <silent> <Leader>ft :FloatermToggle<CR>
+noremap! <silent> <Leader>ft <Esc>:FloatermToggle<CR>
 tnoremap <silent> <Leader>ft <C-\><C-n>:FloatermToggle<CR>
 " }}}
 """ }}}

@@ -107,8 +107,8 @@ Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
 
 " === markdown === {{{
 "Plug 'plasticboy/vim-markdown', { 'for': 'markdown', 'on': [] }
-Plug 'junegunn/goyo.vim' ", { 'for' : ['markdown', 'txt'] }
-Plug 'junegunn/limelight.vim' ", { 'for' : ['markdown', 'txt'] }
+Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
+Plug 'junegunn/limelight.vim', { 'on' : 'Goyo' }
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
 " }}}
 
@@ -208,7 +208,6 @@ endif
 if v:version >= 800
     Plug 'TaDaa/vimade'                                " An eye friendly plugin that fades your inactive buffers and preserves your syntax highlighting!
 endif
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }                    " displaying the colours in the file
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                  " Interactive command execution in Vim.
 Plug 'andymass/vim-matchup'                                                  " vim match-up: matchit replacement and more
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                           " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
@@ -220,10 +219,12 @@ Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)', 'EasyAlign'] } " A
 Plug 'junegunn/vim-peekaboo'                                                 " show you the contents of the registers
 Plug 'junegunn/vim-slash'                                                    " Enhancing in-buffer search experience
 Plug 'kshenoy/vim-signature'                                                 " Plugin to toggle, display and navigate marks
+Plug 'liuchengxu/vista.vim'                                                  " Viewer & Finder for LSP symbols and tags
 Plug 'ludovicchabant/vim-gutentags'                                          " A Vim plugin that manages your tag files
 Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }                             " highlighting columns in csv/tsv files and executing SELECT and UPDATE queries in SQL-like language
 Plug 'psliwka/vim-smoothie'                                                  " Smooth scrolling for Vim done right
 Plug 'romainl/vim-qf'                                                        " Tame the quickfix window
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }                    " displaying the colours in the file
 Plug 'ryanoasis/vim-devicons'                                                " Adds file type glyphs/icons to popular Vim plugins
 Plug 'scrooloose/nerdcommenter'                                              " Vim plugin for intensely orgasmic commenting
 Plug 'scrooloose/nerdtree'                                                   " file tree

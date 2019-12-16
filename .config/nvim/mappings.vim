@@ -9,7 +9,11 @@ command! W w !sudo tee % > /dev/null
 " :J (json prettify)
 command! J :%!python -m json.tool
 
+" sort words on the same line
 command! Sortw :call setline(line('.'),join(sort(split(getline('.'))), ' '))
+
+" sort folds
+command! SortF :call sortfolds#SortFolds()
 
 command! PU PlugUpdate | PlugUpgrade
 
