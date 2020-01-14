@@ -6,18 +6,19 @@ augroup configgroup
     au!
 
     au StdinReadPre * let s:std_in=1
-    " Open NERDTree automatically when vim starts up if no files were specified
-    "au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    " Open NERDTree automatically when vim starts up on opening a directory
-    au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | wincmd h |endif
 
     au! User GoyoEnter nested call Goyo_enter()
     au! User GoyoLeave nested call Goyo_leave()
 
     if has('nvim')
-        au BufWinEnter,WinEnter term://* startinser
+        " When term starts, auto go into insert mode
+        "au BufWinEnter,WinEnter term://* startinser
+        au TermOpen * startinsert
+
+        " Turn off line numbers etc
+        autocmd TermOpen * setlocal listchars= nonumber norelativenumber
     endif
-    au BufEnter * call NERDTreeRefresh() "
+
     au BufRead * call ChangeEncoding()
     au BufNewFile * call SetTitle()
     au BufNewFile * normal G
@@ -148,13 +149,4 @@ augroup END
 "    " Alternative: au FileType python AutoFormatBuffer autopep8
 "augroup END
 
-augroup nerd_loader
-    au!
-    au VimEnter * silent! au! FileExplorer
-    au BufEnter,BufNew *
-                \  if isdirectory(expand('<amatch>'))
-                \|   call plug#load('nerdtree')
-                \|   exe 'au! nerd_loader'
-                \| endif
-augroup END
 """ }}}

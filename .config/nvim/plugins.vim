@@ -150,7 +150,6 @@ Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'np
 
 " === git === {{{
 if executable("git")
-    Plug 'Xuyuanp/nerdtree-git-plugin'                               " git status
     Plug 'airblade/vim-gitgutter'                                    " A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
     Plug 'rbong/vim-flog', { 'on': ['Flog', 'Flogsplit', 'Flogit'] } " A lightweight and powerful git branch viewer for vim.
     Plug 'rhysd/git-messenger.vim', { 'on' : 'GitMessenger' }        " Vim plugin to show the last commit message under the cursor
@@ -177,10 +176,25 @@ endif
 " === Snippet === {{{
 if v:version >= 704
     Plug 'SirVer/ultisnips'       " The ultimate snippet solution for Vim.
+    Plug 'honza/vim-snippets'         " vim-snipmate default snippets
 endif
-Plug 'Shougo/neosnippet'          " snippets support
-Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnippet
-Plug 'honza/vim-snippets'         " vim-snipmate default snippets
+"Plug 'Shougo/neosnippet'          " snippets support
+"Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnippet
+" }}}
+
+" === file explorer === {{{
+"Plug 'scrooloose/nerdtree'                     " file tree
+"Plug 'tiagofumo/vim-nerdtree-syntax-highlight' " Extra syntax and highlight for nerdtree files
+"Plug 'Xuyuanp/nerdtree-git-plugin'             " git status
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' } " The dark powered file explorer implementation
+  Plug 'kristijanhusak/defx-git'
+  Plug 'kristijanhusak/defx-icons'
+else
+  Plug 'Shougo/defx.nvim'     " The dark powered file explorer implementation
+  Plug 'roxma/nvim-yarp'      " Yet Another Remote Plugin Framework for Neovim
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 " }}}
 
 " === utilities === {{{
@@ -192,9 +206,10 @@ Plug 'honza/vim-snippets'         " vim-snipmate default snippets
 "Plug 'easymotion/vim-easymotion'                                                                                  " Vim motions on speed!
 "Plug 'ekalinin/Dockerfile.vim'                                                                                    " Vim syntax file & snippets for Docker's Dockerfile
 "Plug 'itchyny/vim-cursorword'                                                                                     " Underlines the word under the cursor
-"Plug 'paroxayte/vwm.vim'                                                                                          " A highly extensible window manager for nvim/vim!
 "Plug 'kana/vim-operator-user'                                                                                     " Vim plugin: Define your own operator easily
+"Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }                                           " Modern generic interactive finder and dispatcher for Vim and NeoVim
 "Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }                                        " Helps you win at grep
+"Plug 'paroxayte/vwm.vim'                                                                                          " A highly extensible window manager for nvim/vim!
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 "Plug 'thiagoalessio/rainbow_levels.vim', { 'on': ['RainbowLevelsOn', 'RainbowLevelsOff', 'RainbowLevelsToggle'] } " A different approach to code highlighting
 "Plug 'unblevable/quick-scope'                                                                                     " Lightning fast left-right movement in Vim
@@ -227,11 +242,9 @@ Plug 'romainl/vim-qf'                                                        " T
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }                    " displaying the colours in the file
 Plug 'ryanoasis/vim-devicons'                                                " Adds file type glyphs/icons to popular Vim plugins
 Plug 'scrooloose/nerdcommenter'                                              " Vim plugin for intensely orgasmic commenting
-Plug 'scrooloose/nerdtree'                                                   " file tree
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }                                " Visualize your undo tree.
 Plug 'skywind3000/gutentags_plus'                                            " The right way to use gtags with gutentags
 Plug 'terryma/vim-multiple-cursors'                                          " True Sublime Text style multiple selections for Vim
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'                               " Extra syntax and highlight for nerdtree files
 Plug 'tpope/vim-repeat'                                                      " enables repeating other supported plugins with the . command
 Plug 'tpope/vim-surround'                                                    " surround.vim: quoting/parenthesizing made simple
 Plug 'voldikss/vim-floaterm', Cond(has('nvim'),  { 'on': 'FloatermToggle' }) " Open the terminal in the floating window and toggle it quickly

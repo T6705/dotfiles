@@ -378,6 +378,8 @@ install_file_manager() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y ranger
 
+        sudo apt-get install -y vifm
+
         ################################
         # https://github.com/jarun/nnn #
         ################################
@@ -385,8 +387,15 @@ install_file_manager() {
         sudo apt-get install -y atool patool                     # create, list and extract archives
         sudo apt-get install -y mediainfo libimage-exiftool-perl # multimedia file details
         sudo apt-get install -y moreutils                        # batch rename, move, delete dir entries
+
+        ###########################
+        # install all nnn plugins #
+        ###########################
+        curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --overwrite "*" --noconfirm ranger
+        sudo pacman -S --needed --overwrite "*" --noconfirm elinks ffmpegthumbnailer lynx odt2txt ranger w3m
+
+        sudo pacman -S --needed --overwrite "*" --noconfirm vifm
 
         ################################
         # https://github.com/jarun/nnn #
@@ -395,6 +404,11 @@ install_file_manager() {
         sudo pacman -S --needed --overwrite "*" --noconfirm atool                         # create, list and extract archives
         sudo pacman -S --needed --overwrite "*" --noconfirm mediainfo perl-image-exiftool # multimedia file details
         sudo pacman -S --needed --overwrite "*" --noconfirm moreutils                     # batch rename, move, delete dir entries
+
+        ###########################
+        # install all nnn plugins #
+        ###########################
+        curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
     fi
 
     echo ""
@@ -480,7 +494,7 @@ install_vim() {
     if command -v apt-get &> /dev/null; then
         sudo apt-get install -y vim
     elif command -v pacman &> /dev/null; then
-        sudo pacman -S --needed --overwrite "*" --noconfirm ctags prettier python-neovim
+        sudo pacman -S --needed --overwrite "*" --noconfirm cscope ctags prettier python-neovim
         sudo pip install -U vulture
     fi
 
@@ -542,30 +556,6 @@ install_vim() {
         cd tools/gopls
         go install
     fi
-
-    time nvim -c 'CocInstall -sync coc-angular|q'
-    time nvim -c 'CocInstall -sync coc-css|q'
-    time nvim -c 'CocInstall -sync coc-emmet|q'
-    time nvim -c 'CocInstall -sync coc-eslint|q'
-    time nvim -c 'CocInstall -sync coc-git|q'
-    time nvim -c 'CocInstall -sync coc-highlight|q'
-    time nvim -c 'CocInstall -sync coc-html|q'
-    time nvim -c 'CocInstall -sync coc-java|q'
-    time nvim -c 'CocInstall -sync coc-json|q'
-    time nvim -c 'CocInstall -sync coc-lists|q'
-    time nvim -c 'CocInstall -sync coc-phpls|q'
-    time nvim -c 'CocInstall -sync coc-prettier|q'
-    time nvim -c 'CocInstall -sync coc-python|q'
-    time nvim -c 'CocInstall -sync coc-snippets|q'
-    time nvim -c 'CocInstall -sync coc-svg|q'
-    time nvim -c 'CocInstall -sync coc-tabnine|q'
-    time nvim -c 'CocInstall -sync coc-texlab|q'
-    time nvim -c 'CocInstall -sync coc-tsserver|q'
-    time nvim -c 'CocInstall -sync coc-vetur|q'
-    time nvim -c 'CocInstall -sync coc-vimlsp|q'
-    time nvim -c 'CocInstall -sync coc-xml|q'
-    time nvim -c 'CocInstall -sync coc-yaml|q'
-    time nvim -c 'CocInstall -sync coc-yank|q'
 
     echo ""
     echo "=============================="

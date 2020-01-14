@@ -1,4 +1,12 @@
 {
+  "suggest.enablePreview": true,
+  "suggest.maxPreviewWidth": 100,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.maxWindowHeight": 20,
+  "diagnostic.errorSign": "✖",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "●",
+  "diagnostic.hintSign": "○",
   "languageserver": {
     "bash": {
       "command": "bash-language-server",

@@ -1,6 +1,55 @@
 " vim:foldmethod=marker:foldlevel=0
 
 """ === Functions === {{{
+
+if has('nvim')
+    fu! CreateCenteredFloatingWindow()
+        let width = float2nr(&columns * 0.8)
+        let height = float2nr(&lines * 0.8)
+        let top = ((&lines - height) / 2)
+        let left = (&columns - width) / 2
+        let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
+
+        let top = "╭" . repeat("─", width - 2) . "╮"
+        let mid = "│" . repeat(" ", width - 2) . "│"
+        let bot = "╰" . repeat("─", width - 2) . "╯"
+        let lines = [top] + repeat([mid], height - 2) + [bot]
+        let s:buf = nvim_create_buf(v:false, v:true)
+        call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+        call nvim_open_win(s:buf, v:true, opts)
+        set winhl=Normal:Floating
+        let opts.row += 1
+        let opts.height -= 2
+        let opts.col += 2
+        let opts.width -= 4
+        call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+        au BufWipeout <buffer> exe 'bw '.s:buf
+    endfu
+
+    fu! OpenTerm(cmd)
+        call CreateCenteredFloatingWindow()
+        call termopen(a:cmd, { 'on_exit': function('OnTermExit') })
+    endfu
+
+    if executable('lazygit')
+        let s:lazygit_open = 0
+        fu! ToggleLazyGit()
+            if s:lazygit_open
+                bd!
+                let s:lazygit_open = 0
+            else
+                call OpenTerm('lazygit')
+                let s:lazygit_open = 1
+            endif
+        endfu
+
+        fu! OnTermExit(job_id, code, event) dict
+            if a:code == 0
+                bd!
+            endif
+        endfu
+    endif
+endif
 " -------------------------------------------------------------------------------
 " :LightTheme (PaperColor)
 " -------------------------------------------------------------------------------
@@ -76,7 +125,7 @@ command! GruvboxDark call GruvboxDark()
 " -------------------------------------------------------------------------------
 "  goyo
 " -------------------------------------------------------------------------------
-function! Goyo_enter()
+fu! Goyo_enter()
     set nonu
     Limelight
     if has('gui_running')
@@ -86,9 +135,9 @@ function! Goyo_enter()
     elseif exists('$TMUX')
         silent !tmux set status off
     endif
-endfunction
+endfu
 
-function! Goyo_leave()
+fu! Goyo_leave()
     set nu
     Limelight!
     if has('gui_running')
@@ -98,7 +147,7 @@ function! Goyo_leave()
     elseif exists('$TMUX')
         silent !tmux set status on
     endif
-endfunction
+endfu
 
 fu! Osc52Yank()
     let buffer=system('base64 -w0', @0)

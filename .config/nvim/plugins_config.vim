@@ -12,6 +12,7 @@ if executable("git")
     let g:gitgutter_sign_modified_removed = ''
 
     let g:gitgutter_override_sign_column_highlight = 1
+    let g:gitgutter_preview_win_floating = 1
     "highlight SignColumn guibg=bg
     "highlight SignColumn ctermbg=bg
     highlight GitGutterAdd    guifg=#009900 guibg=#272822
@@ -22,7 +23,7 @@ if executable("git")
     set updatetime=250
 
     " Update sign column every quarter second
-    function! NextHunkAllBuffers()
+    fu! NextHunkAllBuffers()
       let line = line('.')
       GitGutterNextHunk
       if line('.') != line
@@ -41,9 +42,9 @@ if executable("git")
           return
         endif
       endwhile
-    endfunction
+    endfu
 
-    function! PrevHunkAllBuffers()
+    fu! PrevHunkAllBuffers()
       let line = line('.')
       GitGutterPrevHunk
       if line('.') != line
@@ -62,7 +63,7 @@ if executable("git")
           return
         endif
       endwhile
-    endfunction
+    endfu
 
     nmap <silent> ]c :call NextHunkAllBuffers()<CR>
     nmap <silent> [c :call PrevHunkAllBuffers()<CR>set updatetime=250
@@ -319,6 +320,16 @@ let g:rust_clip_command = 'xclip -selection clipboard'
 "endif
 
 " === neoclide/coc.nvim === {{{
+
+" coc extensions
+let g:coc_global_extensions = [
+  \ 'coc-css',
+  \ 'coc-json',
+  \ 'coc-python',
+  \ 'coc-snippets',
+  \ 'coc-ultisnips',
+\ ]
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -327,10 +338,10 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
+fu! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+endfu
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -352,13 +363,13 @@ nmap <silent> <Leader>r <Plug>(coc-references)
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
+fu! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
   endif
-endfunction
+endfu
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -562,38 +573,151 @@ let g:gundo_prefer_python3 = 1
 nnoremap <silent> <Leader>ut :GundoToggle<CR>
 " }}}
 
-" === scrooloose/nerdtree === {{{
-"let g:NERDTreeWinPos = "right"
-let NERDTreeAutoDeleteBuffer       = 1
-let NERDTreeDirArrows              = 1
-let NERDTreeHijackNetrw            = 1
-let NERDTreeIgnore                 = ['\.pyc$', '__pycache__']
-let NERDTreeMinimalUI              = 1
-let NERDTreeQuitOnOpen             = 1
-let NERDTreeShowHidden             = 1
-let g:NERDCustomDelimiters         = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
-let g:NERDTreeChDirMode            = 2
-let g:NERDTreeIgnore               = ['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeMapOpenInTabSilent   = '<RightMouse>'
-let g:NERDTreeShowBookmarks        = 1
-let g:NERDTreeSortOrder            = ['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeWinSize              = 35
-let g:nerdtree_tabs_focus_on_files = 1
-let g:NERDTreeIndicatorMapCustom   = {
-\ "Modified"  : "✹",
-\ "Staged"    : "✚",
-\ "Untracked" : "✭",
-\ "Renamed"   : "➜",
-\ "Unmerged"  : "═",
-\ "Deleted"   : "✖",
-\ "Dirty"     : "✗",
-\ "Clean"     : "✔︎",
-\ "Unknown"   : "?"
-\ }
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+"" === scrooloose/nerdtree === {{{
+""let g:NERDTreeWinPos = "right"
+"let NERDTreeAutoDeleteBuffer       = 1
+"let NERDTreeDirArrows              = 1
+"let NERDTreeHijackNetrw            = 1
+"let NERDTreeIgnore                 = ['\.pyc$', '__pycache__']
+"let NERDTreeMinimalUI              = 1
+"let NERDTreeQuitOnOpen             = 1
+"let NERDTreeShowHidden             = 1
+"let g:NERDCustomDelimiters         = { 'racket': { 'left': ';', 'leftAlt': '#|', 'rightAlt': '|#' } }
+"let g:NERDTreeChDirMode            = 2
+"let g:NERDTreeIgnore               = ['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+"let g:NERDTreeMapOpenInTabSilent   = '<RightMouse>'
+"let g:NERDTreeShowBookmarks        = 1
+"let g:NERDTreeSortOrder            = ['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+"let g:NERDTreeWinSize              = 35
+"let g:nerdtree_tabs_focus_on_files = 1
+"let g:NERDTreeIndicatorMapCustom   = {
+"\ "Modified"  : "✹",
+"\ "Staged"    : "✚",
+"\ "Untracked" : "✭",
+"\ "Renamed"   : "➜",
+"\ "Unmerged"  : "═",
+"\ "Deleted"   : "✖",
+"\ "Dirty"     : "✗",
+"\ "Clean"     : "✔︎",
+"\ "Unknown"   : "?"
+"\ }
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+"
+"" Open NERDTree automatically when vim starts up if no files were specified
+""au VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"" Open NERDTree automatically when vim starts up on opening a directory
+"au VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | wincmd h |endif
+"
+"au BufEnter * call NERDTreeRefresh() "
+"
+"augroup nerd_loader
+"    au!
+"    au VimEnter * silent! au! FileExplorer
+"    au BufEnter,BufNew *
+"                \  if isdirectory(expand('<amatch>'))
+"                \|   call plug#load('nerdtree')
+"                \|   exe 'au! nerd_loader'
+"                \| endif
+"augroup END
+"
+"nnoremap <silent> <Leader>E :NERDTreeToggle<CR>
+"nnoremap <silent> <Leader>EF :NERDTreeFind<CR>
+"" }}}
 
-nnoremap <silent> <Leader>E :NERDTreeToggle<CR>
-nnoremap <silent> <Leader>EF :NERDTreeFind<CR>
+" === Shougo/defx.nvim === {{{
+silent! call defx#custom#option('_', {
+	\ 'columns': 'indent:icons:filename',
+	\ 'winwidth': 35,
+	\ 'split': 'vertical',
+	\ 'direction': 'topleft',
+	\ 'ignored_files': '',
+	\ 'show_ignored_files': v:true,
+	\ 'toggle': v:true,
+	\ 'buffer_name': 'explorer'
+\ })
+
+augroup defxsettings
+	autocmd!
+
+	" Set common settings.
+	autocmd FileType defx setlocal statusline=defx
+
+	" Set mappings.
+	autocmd FileType defx call s:defxmappings()
+
+	fu! s:defxmappings() abort
+		" Navigation
+		nnoremap <buffer><silent><expr> l
+			\ defx#is_directory()
+				\ ? defx#do_action('open_or_close_tree')
+				\ : defx#do_action('drop')
+		nnoremap <buffer><silent><expr> <2-LeftMouse>
+			\ defx#is_directory()
+				\ ? defx#do_action('open_or_close_tree')
+				\ : defx#do_action('drop')
+		nnoremap <buffer><silent><expr> h defx#do_action('close_tree')
+		nnoremap <buffer><silent><expr> L defx#do_action('cd', defx#get_candidate().action__path)
+		nnoremap <buffer><silent><expr> H defx#do_action('cd', ['..'])
+		nnoremap <buffer><silent><expr> gh defx#do_action('cd', getcwd())
+		nnoremap <buffer><silent><expr> ~ defx#do_action('open_tree_recursive')
+
+		" Selection
+		nnoremap <buffer><silent><expr> a defx#do_action('toggle_select') . 'j'
+		xnoremap <buffer><silent><expr> a defx#do_action('toggle_select_visual')
+		nnoremap <buffer><silent><expr> uv defx#do_action('clear_select_all')
+
+		" Operations
+		nnoremap <buffer><silent><expr> yy defx#do_action('copy')
+		xnoremap <buffer><silent><expr> yy defx#do_action('copy')
+		nnoremap <buffer><silent><expr> dd defx#do_action('move')
+		nnoremap <buffer><silent><expr> dD defx#do_action('remove_trash')
+		nnoremap <buffer><silent><expr> p defx#do_action('paste')
+		nnoremap <buffer><silent><expr> r defx#do_action('rename')
+		nnoremap <buffer><silent><expr><nowait> c defx#do_action('new_multiple_files')
+
+		" Other
+		nnoremap <buffer><silent><expr> <C-r> defx#do_action('redraw')
+		nnoremap <buffer><silent><expr> <C-g> defx#do_action('print')
+		nnoremap <buffer><silent><expr> zh defx#do_action('toggle_ignored_files')
+		nnoremap <buffer><silent><expr> ypf defx#do_action('yank_path')
+	endfu
+augroup end
+
+" kristijanhusak/defx-icons
+let g:defx_icons_enable_syntax_highlight = 1
+let g:defx_icons_column_length = 2
+let g:defx_icons_directory_icon = ''
+let g:defx_icons_mark_icon = '*'
+let g:defx_icons_parent_icon = ''
+let g:defx_icons_default_icon = ''
+let g:defx_icons_directory_symlink_icon = ''
+" Options below are applicable only when using "tree" feature
+let g:defx_icons_root_opened_tree_icon = ''
+let g:defx_icons_nested_opened_tree_icon = ''
+let g:defx_icons_nested_closed_tree_icon = ''
+
+" kristijanhusak/defx-git
+call defx#custom#column('git', 'indicators', {
+  \ 'Modified'  : '✹',
+  \ 'Staged'    : '✚',
+  \ 'Untracked' : '✭',
+  \ 'Renamed'   : '➜',
+  \ 'Unmerged'  : '═',
+  \ 'Ignored'   : '☒',
+  \ 'Deleted'   : '✖',
+  \ 'Unknown'   : '?'
+  \ })
+
+"nnoremap <silent> <Leader>E :Defx -columns=git:mark:filename:type<CR>
+"nnoremap <silent> <Leader>E :Defx -columns=icons:indent:filename:type<CR>
+nnoremap <silent> <Leader>E :Defx -columns=git:mark:icons:indent:filename:type<CR>
+"nnoremap <silent> <Leader>E :Defx<CR>
+
+nnoremap <buffer><silent> ]g <Plug>(defx-git-next)     " Goes to the next file that has a git status
+nnoremap <buffer><silent> [g <Plug>(defx-git-prev)     " Goes to the previous file that has a git status
+"nnoremap <buffer><silent> <Plug>(defx-git-stage)    " Stages the file/directory under cursor
+"nnoremap <buffer><silent> <Plug>(defx-git-reset)    " Unstages the file/directory under cursor
+"nnoremap <buffer><silent> <Plug>(defx-git-discard)  " Discards all changes to file/directory under cursor
 " }}}
 
 " === netrw === {{{
@@ -829,7 +953,8 @@ let g:gutentags_generate_on_empty_buffer  = 0
 let g:gutentags_generate_on_missing       = 1
 let g:gutentags_generate_on_new           = 1
 let g:gutentags_generate_on_write         = 1
-let g:gutentags_modules                   = ['ctags', 'gtags_cscope'] " enable gtags module
+"let g:gutentags_modules                   = ['ctags', 'gtags_cscope'] " enable gtags module
+let g:gutentags_modules                   = ['ctags'] " enable gtags module
 let g:gutentags_project_root              = ['package.json', '.git']  " config project root markers.
 let g:gutentags_ctags_extra_args = [
       \ '--tag-relative=yes',
@@ -1006,6 +1131,10 @@ let g:fzf_buffers_jump        = 1                                               
 let g:fzf_commands_expect     = 'alt-enter,ctrl-x'                                                       " [Commands] --expect expression for directly executing the command
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"' " [[B]Commits] Customize the options used by 'git log':
 let g:fzf_tags_command        = 'ctags -R --exclude=@.gitignore --exclude=.mypy_cache'                   " [Tags] Command to generate tags file
+
+if has('nvim')
+    let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+endif
 
 " File preview using Highlight (http://www.andre-simon.de/doku/highlight/en/highlight.php)
 let g:fzf_files_options =

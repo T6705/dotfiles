@@ -32,6 +32,9 @@ sensor-update-interval=2
 slog-enabled=false
 slog-interval=300
 
+[com/github/maoschanz/DynamicWallpaperEditor]
+display-mode='list'
+
 [com/github/wwmm/pulseeffects]
 last-used-preset='Presets'
 use-dark-theme=true
@@ -452,6 +455,14 @@ use-custom-font=true
 [desktop/ibus/panel/emoji]
 font='FiraCode Nerd Font 16'
 
+[io/elementary/code/folder-manager]
+opened-folders=@as []
+
+[io/elementary/code/settings]
+opened-files-view1=@as []
+opened-files-view2=@as []
+plugins-enabled=['detect-indent', 'editorconfig', 'outline']
+
 [io/elementary/terminal/saved-state]
 focused-tab=0
 opening-x=40
@@ -534,7 +545,7 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=@as []
 
 [org/gnome/desktop/notifications]
-application-children=['firefox', 'org-gnome-tweaks', 'steam', 'kitty', 'org-manjaro-pamac-manager', 'org-gnome-nautilus', 'spotify', 'org-gnome-terminal', 'gnome-control-center', 'veracrypt', 'wine', 'pavucontrol', 'psensor', 'org-gnome-software', 'chromium', 'dropbox', 'filezilla']
+application-children=['firefox', 'org-gnome-tweaks', 'steam', 'kitty', 'org-manjaro-pamac-manager', 'org-gnome-nautilus', 'spotify', 'org-gnome-terminal', 'gnome-control-center', 'veracrypt', 'wine', 'pavucontrol', 'psensor', 'org-gnome-software', 'chromium', 'indicator-sysmonitor', 'org-gnome-gthumb', 'transmission-gtk', 'gnome-network-panel', 'google-chrome', 'gnome-mplayer', 'easytag', 'telegramdesktop', 'pamac-manager']
 
 [org/gnome/desktop/notifications/application/chromium]
 application-id='chromium.desktop'
@@ -697,7 +708,6 @@ active-plugins=['filebrowser', 'time', 'modelines', 'docinfo', 'spell']
 [org/gnome/gedit/plugins/filebrowser]
 root='file:///'
 tree-view=false
-virtual-root='file:///mnt/veracrypt1/game%20(2)/%E3%83%8D%E3%82%B3%E3%83%AD%E3%83%8E%E3%83%9F%E3%82%B3%E3%83%B3%EF%BC%88%E8%A3%BD%E5%93%81%E7%89%88%EF%BC%89v5_0/save'
 
 [org/gnome/gedit/preferences/ui]
 show-tabs-mode='auto'
@@ -765,8 +775,6 @@ sidebar-sections=['GthFileProperties:expanded', 'GthFileComment:expanded', 'GthF
 sidebar-visible=true
 sort-inverse=false
 sort-type='file::mtime'
-startup-current-file='file:///run/media/tom/0E9E978275E82D1C/.tmp/psp/ig/blackruby_/stories_69170708_687253618437625_7695857384208751327_n.jpg'
-startup-location='file:///run/media/tom/0E9E978275E82D1C/.tmp/psp/ig/blackruby_'
 statusbar-visible=true
 thumbnail-caption='comment::note,comment::time,standard::display-name,gth::file::display-size,gth::file::display-mtime,standard::fast-content-type'
 thumbnail-list-visible=false
@@ -798,6 +806,9 @@ volume=100
 font-name='Hack Nerd Font 12'
 footer-font-name='Hack Nerd Font 8'
 header-font-name='Hack Nerd Font Bold 12'
+
+[org/gnome/gthumb/image-viewer]
+histogram-scale='linear'
 
 [org/gnome/gthumb/pixbuf-savers/jpeg]
 default-ext='jpeg'
@@ -1094,6 +1105,11 @@ position-max-right=3
 top-panel-original-background-color='rgba(19, 25, 28, 255)'
 tray-button-icon='/usr/share/gnome-shell/extensions/TaskBar@zpydr/images/bottom-panel-tray-button.svg'
 
+[org/gnome/shell/extensions/arc-menu]
+enable-custom-arc-menu=false
+enable-custom-arc-menu-layout=false
+pinned-app-list=['Firefox', 'firefox', 'firefox.desktop', 'Terminal', 'utilities-terminal', 'org.gnome.Terminal.desktop', 'Arc Menu Settings', 'emblem-system-symbolic', 'gnome-shell-extension-prefs arc-menu@linxgem33.com']
+
 [org/gnome/shell/extensions/auto-move-windows]
 application-list=['firefox.desktop:10', 'kitty.desktop:1', 'org.gnome.Nautilus.desktop:3', 'steam.desktop:9', 'chromium.desktop:10', 'google-chrome.desktop:10', 'alacritty.desktop:1', 'org.gnome.Terminal.desktop:1', 'vim.desktop:1', 'nvim.desktop:1', 'code-oss.desktop:1', 'spotify.desktop:8', 'vlc.desktop:6', 'gnome-mplayer.desktop:6', 'wireshark.desktop:5', 'mpv.desktop:6']
 
@@ -1167,12 +1183,14 @@ date-format='regular'
 location-mode='path-bar'
 show-hidden=true
 show-size-column=true
+show-type-column=true
 sidebar-width=202
 sort-column='name'
 sort-directories-first=true
-sort-order='ascending'
-window-position=(359, 68)
-window-size=(1203, 902)
+sort-order='descending'
+type-format='category'
+window-position=(359, 81)
+window-size=(1203, 900)
 
 [org/gtkhash/plugin]
 hash-functions=['MD5', 'SHA1', 'SHA256', 'CRC32']

@@ -761,7 +761,7 @@ banner() {
       CPU.........: $W`cat /proc/cpuinfo | grep "model name" | cut -d ' ' -f3- | awk {'print $0'} | head -1`
       Memory......: $G$USED$W used, $G$FREE$W free, $G$TOTAL$W in total$W"
 
-    mountpoints=('/')
+    mountpoints=('/' '/tmp')
     barWidth=50
     maxDiscUsage=90
     clear="\e[39m\e[0m"
@@ -1471,5 +1471,8 @@ if command -v docker &> /dev/null ; then
             quay.io/vektorlab/ctop:latest
     }
 fi
+
+# Vi mode in Bash
+set -o vi
 
 banner

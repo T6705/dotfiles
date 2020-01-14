@@ -442,6 +442,9 @@ if has('nvim') || has('terminal')
     "tnoremap <a-b> <Esc>b
     "tnoremap <a-d> <Esc>d
     "tnoremap <a-f> <Esc>f
+
+    " Open lazygit
+    nnoremap <silent> <Leader>lg :call ToggleLazyGit()<CR>
 endif
 
 """ }}}

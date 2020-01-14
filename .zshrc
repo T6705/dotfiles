@@ -87,6 +87,7 @@ plugins=(
     rsync
     systemd
     tmux
+    vi-mode
     vscode
     zsh-autosuggestions
     zsh-completions
