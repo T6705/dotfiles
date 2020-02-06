@@ -799,13 +799,15 @@ install_shell() {
     echo ""
     if [ -d ~/git/hub/nerd-fonts ]; then
         time cd ~/git/hub/nerd-fonts && time git pull
-        time ./install.sh Hack
         time ./install.sh FiraCode
+        time ./install.sh Hack
+        time ./install.sh JetBrainsMono
     else
         time mkdir -p ~/git/hub
         time git clone https://github.com/ryanoasis/nerd-fonts ~/git/hub/nerd-fonts
-        time ~/git/hub/nerd-fonts/install.sh Hack
         time ~/git/hub/nerd-fonts/install.sh FiraCode
+        time ~/git/hub/nerd-fonts/install.sh Hack
+        time ~/git/hub/nerd-fonts/install.sh JetBrainsMono
     fi
 
     echo ""

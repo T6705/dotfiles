@@ -207,7 +207,7 @@ endif
 "Plug 'ekalinin/Dockerfile.vim'                                                                                    " Vim syntax file & snippets for Docker's Dockerfile
 "Plug 'itchyny/vim-cursorword'                                                                                     " Underlines the word under the cursor
 "Plug 'kana/vim-operator-user'                                                                                     " Vim plugin: Define your own operator easily
-"Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }                                           " Modern generic interactive finder and dispatcher for Vim and NeoVim
+"Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }                                                     " Modern performant generic finder and dispatcher for Vim and NeoVim
 "Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }                                        " Helps you win at grep
 "Plug 'paroxayte/vwm.vim'                                                                                          " A highly extensible window manager for nvim/vim!
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
@@ -227,6 +227,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                  " I
 Plug 'andymass/vim-matchup'                                                  " vim match-up: matchit replacement and more
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                           " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }               " VIM Table Mode for instant table creation.
+Plug 'dstein64/vim-startuptime', { 'on': 'StartupTime' }                     " A Vim plugin for profiling Vim's startup time
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                                                      " use fzf on Vim
 Plug 'junegunn/rainbow_parentheses.vim'                                      " Simpler Rainbow Parentheses

@@ -334,6 +334,19 @@ if command -v fzf &> /dev/null ; then
     elif command -v ag &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
     fi
+    # -----------------------------------------------------------------------------------------
+    # git log browser with FZF
+    # -----------------------------------------------------------------------------------------
+    fglog() {
+      git log --graph --color=always \
+          --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+      fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+          --bind "ctrl-m:execute:
+                    (grep -o '[a-f0-9]\{7\}' | head -1 |
+                    xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                    {}
+    FZF-EOF"
+    }
 
     # -----------------------------------------------------------------------------------------
     # Usage: kp | kill Process
@@ -367,7 +380,6 @@ if command -v fzf &> /dev/null ; then
     # `tm` will allow you to select your tmux session via fzf.
     # `tm irc` will attach to the irc session (if it exists), else it will create it.
     # -----------------------------------------------------------------------------------------
-
     tm() {
         [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
         if [ $1 ]; then
@@ -539,19 +551,44 @@ ram() {
     fi
 }
 
-# -----------------------------------------------------------------------------------------
-# Usage: extract_frame <filename>
-# -----------------------------------------------------------------------------------------
-extract_frame() {
-    echo "Extracting frame from $1 ..."
-    if [[ -f $1 ]]; then
-        mkdir -p frame
-        time ffmpeg -i $1 frame/frame%09d.bmp
-        cd frame
-    else
-        echo "'$1' is not a valid file"
-    fi
-}
+if command -v ffmpeg &> /dev/null ; then
+    # -----------------------------------------------------------------------------------------
+    # Usage: extract_frame <filename>
+    # -----------------------------------------------------------------------------------------
+    extract_frame() {
+        echo "Extracting frame from $1 ..."
+        if [[ -f $1 ]]; then
+            mkdir -p frame
+            time ffmpeg -i $1 frame/frame%09d.bmp
+            cd frame
+        else
+            echo "'$1' is not a valid file"
+        fi
+    }
+
+    # -----------------------------------------------------------------------------------------
+    # Usage: remove_audio <filename>
+    # -----------------------------------------------------------------------------------------
+    remove_audio() {
+        echo "remove audio track from $1 ..."
+        if [[ -f $1 ]]; then
+            ffmpeg -i $1 -c copy -an no_audio_$1
+        else
+            echo "'$1' is not a valid file"
+        fi
+    }
+
+    # -----------------------------------------------------------------------------------------
+    # Usage: video_resolution <filename>
+    # -----------------------------------------------------------------------------------------
+    video_resolution() {
+        if [[ -f $1 ]]; then
+            ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0 $1
+        else
+            echo "'$1' is not a valid file"
+        fi
+    }
+fi
 
 # -----------------------------------------------------------------------------------------
 # Usage: mp3towav <filename>
