@@ -225,7 +225,10 @@ if v:version >= 800
 endif
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                  " Interactive command execution in Vim.
 Plug 'andymass/vim-matchup'                                                  " vim match-up: matchit replacement and more
+Plug 'camspiers/animate.vim'                                                 " A Vim Window Animation Library
+Plug 'camspiers/lens.vim'                                                    " A Vim Automatic Window Resizing Plugin
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                           " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
+Plug 'cometsong/CommentFrame.vim'                                            " generate fancy-looking comments/section dividers with centered titles and append them at the current cursor position.
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }               " VIM Table Mode for instant table creation.
 Plug 'dstein64/vim-startuptime', { 'on': 'StartupTime' }                     " A Vim plugin for profiling Vim's startup time
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder

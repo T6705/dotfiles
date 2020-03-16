@@ -89,10 +89,14 @@ cnoremap <C-l>  <right>
 "cnoremap <C-e> <end>
 
 " Map arrow keys to window resize commands.
-nnoremap <Right> 2<C-W>>
-nnoremap <Left> 2<C-W><
-nnoremap <Up> 2<C-W>+
-nnoremap <Down> 2<C-W>-
+"nnoremap <Right> 2<C-W>>
+"nnoremap <Left> 2<C-W><
+"nnoremap <Up> 2<C-W>+
+"nnoremap <Down> 2<C-W>-
+nnoremap <silent> <Up>    :call animate#window_delta_height(5)<CR>
+nnoremap <silent> <Down>  :call animate#window_delta_height(-5)<CR>
+nnoremap <silent> <Left>  :call animate#window_delta_width(5)<CR>
+nnoremap <silent> <Right> :call animate#window_delta_width(-5)<CR>
 
 " moving up and down work as you would expect
 "nnoremap <silent> j gj

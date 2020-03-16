@@ -814,7 +814,7 @@ endfu
 
 fu! PythonConfig()
     inorea <buffer> ifmain if __name__ == "__main__":<CR>main()<Esc>
-    inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print("{} >>> {}, {}, {}".format(now, fname, type(e), str(e)))<CR>
+    inorea <buffer> try: try:<CR>pass<CR>except Exception as e:<CR>tb    = sys.exc_info()[-1]<CR>stk   = traceback.extract_tb(tb, 1)<CR>fname = stk[0][2]<CR>now   = time.ctime()<CR>print(f"{now} >>> {fname}, {type(e)}, {str(e)}")<CR>
 
     " -------------------------------------------------------------------------------
     " isort
