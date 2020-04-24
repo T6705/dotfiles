@@ -752,7 +752,7 @@ let g:airline#extensions#tagbar#enabled       = 1
 let g:airline#extensions#virtualenv#enabled   = 1
 let g:airline#extensions#whitespace#enabled   = 1
 let g:airline#extensions#wordcount#enabled    = 1
-let g:airline#extensions#ycm#enabled          = 1
+"let g:airline#extensions#ycm#enabled          = 1
 
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show   = 1

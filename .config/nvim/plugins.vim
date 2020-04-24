@@ -161,9 +161,9 @@ endif
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
-Plug 'ambv/black', { 'for': 'python' }         " The uncompromising Python code formatter
-Plug 'dense-analysis/ale'                      " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
-Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' } " The interactive scratchpad for hackers.
+Plug 'dense-analysis/ale'                                " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
+Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }           " The interactive scratchpad for hackers.
+Plug 'psf/black', { 'branch': 'stable', 'for': 'python'} " The uncompromising Python code formatter
 " }}}
 
 if executable('node')
