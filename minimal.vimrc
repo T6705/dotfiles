@@ -51,7 +51,7 @@ augroup END
 
 augroup html_js_css
     au!
-    au BufRead,BufNewFile *.{css,html,js} setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+    au BufRead,BufNewFile *.{css,html,js} setlocal formatprg=prettier\ --single-quote\ --trailing-comma
     au BufRead,BufNewFile *.{html,js,xml} CompleteTags
 augroup END
 
@@ -1884,8 +1884,8 @@ nnoremap <silent> ga :<c-u>call <sid>align_around_delimiter()<CR>
 " prettier
 " -------------------------------------------------------------------------------
 if executable("prettier")
-    nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
-    nnoremap <silent> <Leader>pta mm:bufdo silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
+    nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
+    nnoremap <silent> <Leader>pta mm:bufdo silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
 else
     nnoremap <Leader>pt :echo "prettier is not installed"<CR>
     nnoremap <Leader>pta :echo "prettier is not installed"<CR>

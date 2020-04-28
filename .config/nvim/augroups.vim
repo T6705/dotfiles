@@ -63,7 +63,7 @@ augroup END
 
 augroup html_js_css
     au!
-    au BufRead,BufNewFile *.{css,html,js} setlocal formatprg=prettier\ --stdin\ --single-quote\ --trailing-comma
+    au BufRead,BufNewFile *.{css,html,js} setlocal formatprg=prettier\ --single-quote\ --trailing-comma
     au BufRead,BufNewFile *.{html,js,xml} CompleteTags
 augroup END
 

@@ -358,8 +358,8 @@ nnoremap <silent>  ;=  :AlignAssignments<CR>
 " prettier
 " -------------------------------------------------------------------------------
 if executable("prettier")
-    nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
-    nnoremap <silent> <Leader>pta mm:bufdo silent %!prettier --stdin --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
+    nnoremap <silent> <Leader>pt mm:silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
+    nnoremap <silent> <Leader>pta mm:bufdo silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz
 else
     nnoremap <Leader>pt :echo "prettier is not installed"<CR>
     nnoremap <Leader>pta :echo "prettier is not installed"<CR>
