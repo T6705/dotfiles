@@ -80,6 +80,16 @@ silent! if plug#begin('~/.config/nvim/plugged')
 "Plug 'mattn/vim-textobj-url'                    " au/iu for a URL
 " }}}
 
+" === javascript / typescript === {{{
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
+"Plug 'burnettk/vim-angular', { 'for': '*js' }                                                " AngularJS with Vim
+"Plug 'leafgarland/typescript-vim', { 'for': ['*ts', '*tsx'] }                                " Typescript syntax files for Vim
+"Plug 'moll/vim-node', { 'for': '*js' }                                                       " Tools and environment to make Vim superb for developing with Node.js
+"Plug 'mxw/vim-jsx', { 'for': ['*js', '*jsx'] }                                               " React JSX syntax highlighting and indenting for vim.
+"Plug 'othree/yajs.vim', { 'for': ['*js', '*jsx', '*html'] }                                  " Yet Another JavaScript Syntax for Vim
+"Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' } " Tern plugin for Vim
+" }}}
+
 " === latex === {{{
 "Plug 'donRaphaco/neotex', Cond(has('nvim'), { 'do': function('DoRemote'), 'for': 'tex' })
 "Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -109,7 +119,7 @@ Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
 "Plug 'plasticboy/vim-markdown', { 'for': 'markdown', 'on': [] }
 Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on' : 'Goyo' }
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown', 'on': 'InstantMarkdownPreview' }
+Plug 'suan/vim-instant-markdown', { 'on': 'InstantMarkdownPreview' }
 " }}}
 
 " === golang === {{{
@@ -128,7 +138,7 @@ endif
 " }}}
 
 " === html === {{{
-Plug 'mattn/emmet-vim', { 'for': ['*html', '*css', '*jsx', 'php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
+Plug 'mattn/emmet-vim', { 'for': ['*html', '*css', '*jsx', '*php'] } " emmet support for vim - easily create markdup wth CSS-like syntax
 " }}}
 
 " === json === {{{
@@ -137,15 +147,6 @@ Plug 'mattn/emmet-vim', { 'for': ['*html', '*css', '*jsx', 'php'] } " emmet supp
 
 " === rust === {{{
 Plug 'rust-lang/rust.vim', { 'for': 'rust' } " Vim configuration for Rust.
-" }}}
-
-" === javascript === {{{
-" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
-Plug 'burnettk/vim-angular', { 'for': 'javascript' }                                         " AngularJS with Vim
-Plug 'moll/vim-node', { 'for': 'javascript' }                                                " Tools and environment to make Vim superb for developing with Node.js
-Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] }                              " React JSX syntax highlighting and indenting for vim.
-Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }                " Yet Another JavaScript Syntax for Vim
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' } " Tern plugin for Vim
 " }}}
 
 " === git === {{{
@@ -201,6 +202,8 @@ endif
 "Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }                                                             " perform diffs on blocks of code
 "Plug 'VincentCordobes/vim-translate', { 'on': 'Translate' }                                                       " A tiny translate-shell wrapper for Vim.
 "Plug 'benmills/vimux'                                                                                             " vim plugin to interact with tmux
+"Plug 'camspiers/animate.vim'                                                                                      " A Vim Window Animation Library
+"Plug 'camspiers/lens.vim'                                                                                         " A Vim Automatic Window Resizing Plugin
 "Plug 'chrisbra/vim-diff-enhanced'                                                                                 " Better Diff options for Vim
 "Plug 'dbeniamine/cheat.sh-vim'                                                                                    " A vim plugin to access cheat.sh sheets
 "Plug 'easymotion/vim-easymotion'                                                                                  " Vim motions on speed!
@@ -211,6 +214,7 @@ endif
 "Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }                                        " Helps you win at grep
 "Plug 'paroxayte/vwm.vim'                                                                                          " A highly extensible window manager for nvim/vim!
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
+"Plug 'ryanoasis/vim-devicons'                                                                                     " Adds file type glyphs/icons to popular Vim plugins
 "Plug 'thiagoalessio/rainbow_levels.vim', { 'on': ['RainbowLevelsOn', 'RainbowLevelsOff', 'RainbowLevelsToggle'] } " A different approach to code highlighting
 "Plug 'unblevable/quick-scope'                                                                                     " Lightning fast left-right movement in Vim
 "Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }                                                                   " Vim plugin to diff two directories
@@ -225,8 +229,6 @@ if v:version >= 800
 endif
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                  " Interactive command execution in Vim.
 Plug 'andymass/vim-matchup'                                                  " vim match-up: matchit replacement and more
-Plug 'camspiers/animate.vim'                                                 " A Vim Window Animation Library
-Plug 'camspiers/lens.vim'                                                    " A Vim Automatic Window Resizing Plugin
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                           " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'cometsong/CommentFrame.vim'                                            " generate fancy-looking comments/section dividers with centered titles and append them at the current cursor position.
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }               " VIM Table Mode for instant table creation.
@@ -244,7 +246,6 @@ Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }                             " h
 Plug 'psliwka/vim-smoothie'                                                  " Smooth scrolling for Vim done right
 Plug 'romainl/vim-qf'                                                        " Tame the quickfix window
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }                    " displaying the colours in the file
-Plug 'ryanoasis/vim-devicons'                                                " Adds file type glyphs/icons to popular Vim plugins
 Plug 'scrooloose/nerdcommenter'                                              " Vim plugin for intensely orgasmic commenting
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }                                " Visualize your undo tree.
 Plug 'skywind3000/gutentags_plus'                                            " The right way to use gtags with gutentags
