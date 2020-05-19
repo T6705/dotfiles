@@ -481,18 +481,161 @@ shared-path=''
 custom-command='/bin/sh'
 default-show-terminal=true
 min-terminal-height=uint32 5
+terminal-bottom=false
 use-custom-command=false
 
 [org/freedesktop/ibus/engine/table/quick5]
+endeffullwidthletter=false
+endeffullwidthpunct=false
 lookuptablepagesize=10
 spacekeybehavior=true
+tabdeffullwidthpunct=false
+
+[org/gnome/GWeather]
+temperature-unit='centigrade'
 
 [org/gnome/Totem]
 active-plugins=['screensaver', 'movie-properties', 'save-file', 'screenshot', 'vimeo', 'apple-trailers', 'skipto', 'rotation', 'variable-rate', 'autoload-subtitles', 'recent', 'media_player_keys']
 subtitle-encoding='UTF-8'
 
+[org/gnome/baobab/ui]
+active-chart='treemap'
+window-size=(960, 600)
+window-state=87168
+
+[org/gnome/boxes]
+view='icon-view'
+window-maximized=true
+
+[org/gnome/builder/editor/language/automake]
+insert-spaces-instead-of-tabs=false
+insert-trailing-newline=true
+tab-width=8
+
+[org/gnome/builder/editor/language/c-sharp]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=false
+overwrite-braces=true
+spaces-style=['before-left-paren']
+tab-width=8
+
+[org/gnome/builder/editor/language/c]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+spaces-style=['before-left-paren']
+tab-width=2
+
+[org/gnome/builder/editor/language/chdr]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+spaces-style=['before-left-paren']
+tab-width=2
+
+[org/gnome/builder/editor/language/cpp]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=4
+
+[org/gnome/builder/editor/language/css]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/gradle]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/html]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/java]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/js]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/makefile]
+insert-spaces-instead-of-tabs=false
+insert-trailing-newline=true
+tab-width=8
+
+[org/gnome/builder/editor/language/markdown]
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+tab-width=4
+trim-trailing-whitespace=false
+
+[org/gnome/builder/editor/language/python]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=4
+
+[org/gnome/builder/editor/language/python3]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=4
+
+[org/gnome/builder/editor/language/ruby]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
+[org/gnome/builder/editor/language/rust]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+right-margin-position=100
+tab-width=4
+
+[org/gnome/builder/editor/language/vala]
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=4
+
+[org/gnome/builder/editor/language/xml]
+auto-indent=true
+insert-matching-brace=true
+insert-spaces-instead-of-tabs=true
+insert-trailing-newline=true
+overwrite-braces=true
+tab-width=2
+
 [org/gnome/control-center]
-last-panel='applications'
+last-panel='sound'
 
 [org/gnome/desktop/app-folders]
 folder-children=['Utilities', 'YaST']
@@ -511,7 +654,7 @@ translate=true
 [org/gnome/desktop/background]
 color-shading-type='solid'
 picture-options='zoom'
-picture-uri='file:///home/chris/.wallpaper/alena-aenami-endless.jpg'
+picture-uri='file:///home/tom/Pictures/Wallpapers/alena-aenami-From_This_Moment.jpg'
 primary-color='#000000'
 secondary-color='#000000'
 
@@ -520,7 +663,7 @@ show-weekdate=true
 
 [org/gnome/desktop/input-sources]
 current=uint32 0
-mru-sources=[('ibus', 'table:quick5'), ('xkb', 'us')]
+mru-sources=[('xkb', 'us'), ('ibus', 'table:quick5')]
 show-all-sources=true
 sources=[('xkb', 'us'), ('ibus', 'table:quick5')]
 xkb-options=@as []
@@ -529,13 +672,13 @@ xkb-options=@as []
 clock-show-date=true
 clock-show-seconds=true
 clock-show-weekday=true
-cursor-theme='xcursor-breeze-snow'
+cursor-theme='xcursor-breeze'
 document-font-name='FiraCode Nerd Font 11'
 font-name='FiraCode Nerd Font 11'
 gtk-color-scheme=''
 gtk-im-module='ibus'
-gtk-theme='Matcha-dark-azul'
-icon-theme='Papirus-Dark'
+gtk-theme='Maia-Dark'
+icon-theme='Papirus-Adapta-Nokto-Maia'
 monospace-font-name='FiraCode Nerd Font 11'
 show-battery-percentage=true
 
@@ -545,28 +688,68 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=@as []
 
 [org/gnome/desktop/notifications]
-application-children=['firefox', 'org-gnome-tweaks', 'steam', 'kitty', 'org-manjaro-pamac-manager', 'org-gnome-nautilus', 'spotify', 'org-gnome-terminal', 'gnome-control-center', 'veracrypt', 'wine', 'pavucontrol', 'psensor', 'org-gnome-software', 'chromium', 'indicator-sysmonitor', 'org-gnome-gthumb', 'transmission-gtk', 'gnome-network-panel', 'google-chrome', 'gnome-mplayer', 'easytag', 'telegramdesktop', 'pamac-manager']
+application-children=['firefox', 'org-gnome-tweaks', 'steam', 'kitty', 'org-manjaro-pamac-manager', 'org-gnome-nautilus', 'spotify', 'org-gnome-terminal', 'gnome-control-center', 'veracrypt', 'wine', 'pavucontrol', 'psensor', 'org-gnome-software', 'chromium', 'indicator-sysmonitor', 'org-gnome-gthumb', 'transmission-gtk', 'gnome-network-panel', 'google-chrome', 'gnome-mplayer', 'easytag', 'telegramdesktop', 'pamac-manager', 'gimp', 'vlc', 'org-gnome-fileroller', 'wireshark', 'gnome-layouts', 'liteide', 'eclipse', 'discord', 'code-oss', 'viewnior', 'org-gnome-baobab', 'org-gnome-extensions-desktop']
+show-banners=true
 
 [org/gnome/desktop/notifications/application/chromium]
 application-id='chromium.desktop'
 
-[org/gnome/desktop/notifications/application/dropbox]
-application-id='dropbox.desktop'
+[org/gnome/desktop/notifications/application/code-oss]
+application-id='code-oss.desktop'
 
-[org/gnome/desktop/notifications/application/filezilla]
-application-id='filezilla.desktop'
+[org/gnome/desktop/notifications/application/discord]
+application-id='discord.desktop'
+
+[org/gnome/desktop/notifications/application/easytag]
+application-id='easytag.desktop'
+
+[org/gnome/desktop/notifications/application/eclipse]
+application-id='eclipse.desktop'
 
 [org/gnome/desktop/notifications/application/firefox]
 application-id='firefox.desktop'
 
+[org/gnome/desktop/notifications/application/gimp]
+application-id='gimp.desktop'
+
 [org/gnome/desktop/notifications/application/gnome-control-center]
 application-id='gnome-control-center.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-layouts]
+application-id='gnome-layouts.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-mplayer]
+application-id='gnome-mplayer.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-network-panel]
+application-id='gnome-network-panel.desktop'
 
 [org/gnome/desktop/notifications/application/gnome-power-panel]
 application-id='gnome-power-panel.desktop'
 
+[org/gnome/desktop/notifications/application/google-chrome]
+application-id='google-chrome.desktop'
+
+[org/gnome/desktop/notifications/application/indicator-sysmonitor]
+application-id='indicator-sysmonitor.desktop'
+
 [org/gnome/desktop/notifications/application/kitty]
 application-id='kitty.desktop'
+
+[org/gnome/desktop/notifications/application/liteide]
+application-id='liteide.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-baobab]
+application-id='org.gnome.baobab.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-extensions-desktop]
+application-id='org.gnome.Extensions.desktop.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-fileroller]
+application-id='org.gnome.FileRoller.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-gthumb]
+application-id='org.gnome.gThumb.desktop'
 
 [org/gnome/desktop/notifications/application/org-gnome-nautilus]
 application-id='org.gnome.Nautilus.desktop'
@@ -583,6 +766,9 @@ application-id='org.gnome.tweaks.desktop'
 [org/gnome/desktop/notifications/application/org-manjaro-pamac-manager]
 application-id='org.manjaro.pamac.manager.desktop'
 
+[org/gnome/desktop/notifications/application/pamac-manager]
+application-id='pamac-manager.desktop'
+
 [org/gnome/desktop/notifications/application/pavucontrol]
 application-id='pavucontrol.desktop'
 
@@ -595,15 +781,28 @@ application-id='spotify.desktop'
 [org/gnome/desktop/notifications/application/steam]
 application-id='steam.desktop'
 
+[org/gnome/desktop/notifications/application/telegramdesktop]
+application-id='telegramdesktop.desktop'
+
+[org/gnome/desktop/notifications/application/transmission-gtk]
+application-id='transmission-gtk.desktop'
+
 [org/gnome/desktop/notifications/application/veracrypt]
 application-id='veracrypt.desktop'
+
+[org/gnome/desktop/notifications/application/viewnior]
+application-id='viewnior.desktop'
+
+[org/gnome/desktop/notifications/application/vlc]
+application-id='vlc.desktop'
 
 [org/gnome/desktop/notifications/application/wine]
 application-id='wine.desktop'
 
+[org/gnome/desktop/notifications/application/wireshark]
+application-id='wireshark.desktop'
+
 [org/gnome/desktop/peripherals/touchpad]
-edge-scrolling-enabled=false
-tap-to-click=true
 two-finger-scrolling-enabled=true
 
 [org/gnome/desktop/privacy]
@@ -670,15 +869,6 @@ titlebar-font='FiraCode Nerd Font 11'
 default-path=b'/home/tom/Music'
 sort-mode='ascending-filename'
 
-[org/gnome/eog/view]
-background-color='rgb(0,0,0)'
-use-background-color=true
-
-[org/gnome/epiphany/state]
-is-maximized=false
-window-position=(0, 25)
-window-size=(1920, 985)
-
 [org/gnome/evince/default]
 window-ratio=(3.0924369747899161, 1.1163895486935866)
 
@@ -694,20 +884,21 @@ skip-newer=false
 list-mode='as-folder'
 name-column-width=250
 show-path=false
-sort-method='name'
+sort-method='type'
 sort-type='ascending'
 
 [org/gnome/file-roller/ui]
 sidebar-width=200
-window-height=940
-window-width=1840
+window-height=1014
+window-width=1920
 
 [org/gnome/gedit/plugins]
 active-plugins=['filebrowser', 'time', 'modelines', 'docinfo', 'spell']
 
 [org/gnome/gedit/plugins/filebrowser]
 root='file:///'
-tree-view=false
+tree-view=true
+virtual-root='file:///home/tom/Downloads/Cowboy%20Bebop%20(FLAC)/Nutcracker_Suite'
 
 [org/gnome/gedit/preferences/ui]
 show-tabs-mode='auto'
@@ -719,12 +910,9 @@ side-panel-size=200
 size=(1338, 872)
 state=87168
 
-[org/gnome/gnome-screenshot]
-border-effect='none'
-delay=0
-include-border=true
-include-pointer=false
-last-save-directory='file:///home/chris/Pictures'
+[org/gnome/ghex]
+font='FiraCode Nerd Font 12'
+offset-format='0x%X'
 
 [org/gnome/gnome-system-monitor]
 cpu-stacked-area-chart=false
@@ -763,7 +951,7 @@ col-6-visible=true
 col-9-visible=true
 
 [org/gnome/gthumb/browser]
-browser-sidebar-width=285
+browser-sidebar-width=282
 fast-file-type=false
 fullscreen-sidebar='hidden'
 fullscreen-thumbnails-visible=false
@@ -773,13 +961,15 @@ properties-visible=false
 show-hidden-files=true
 sidebar-sections=['GthFileProperties:expanded', 'GthFileComment:expanded', 'GthFileDetails:expanded', 'GthImageHistogram:expanded', 'GthMapView:expanded']
 sidebar-visible=true
-sort-inverse=false
+sort-inverse=true
 sort-type='file::mtime'
+startup-current-file='file:///home/tom/Downloads/tumblr_ocnfpbMczB1u5ejulo6_400.png'
+startup-location='file:///home/tom/Downloads'
 statusbar-visible=true
 thumbnail-caption='comment::note,comment::time,standard::display-name,gth::file::display-size,gth::file::display-mtime,standard::fast-content-type'
 thumbnail-list-visible=false
 use-startup-location=false
-viewer-sidebar='hidden'
+viewer-sidebar='properties'
 window-height=940
 window-width=1840
 
@@ -849,7 +1039,7 @@ transition='random'
 wrap-around=true
 
 [org/gnome/meld]
-folder-status-filters=['normal', 'normal', 'new', 'modified']
+folder-status-filters=['new', 'modified']
 
 [org/gnome/meld/window-state]
 height=983
@@ -859,6 +1049,7 @@ width=1842
 [org/gnome/mutter]
 dynamic-workspaces=false
 edge-tiling=true
+overlay-key='Super_L'
 workspaces-only-on-primary=true
 
 [org/gnome/mutter/keybindings]
@@ -873,24 +1064,28 @@ default-zoom-level='large'
 
 [org/gnome/nautilus/list-view]
 default-column-order=['name', 'size', 'type', 'owner', 'group', 'permissions', 'where', 'date_modified', 'date_modified_with_time', 'date_accessed', 'recency', 'starred', 'detailed_type']
-default-visible-columns=['name', 'size', 'date_modified', 'starred']
+default-visible-columns=['name', 'size', 'type', 'date_modified', 'starred']
 use-tree-view=false
 
 [org/gnome/nautilus/preferences]
 default-folder-viewer='icon-view'
 search-filter-time-type='last_modified'
-search-view='icon-view'
+search-view='list-view'
 show-create-link=true
 
 [org/gnome/nautilus/window-state]
-initial-size=(936, 744)
+initial-size=(960, 1000)
 maximized=true
-sidebar-width=356
+sidebar-width=211
 
 [org/gnome/nm-applet]
 disable-connected-notifications=true
 
 [org/gnome/nm-applet/eap/093e21ee-52e1-474d-8ae6-634759eacfd1]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
+[org/gnome/nm-applet/eap/134b9889-dd90-45b8-a218-20bfe5cc2586]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
@@ -930,6 +1125,10 @@ ignore-phase2-ca-cert=false
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
+[org/gnome/nm-applet/eap/5d3bc11a-5751-46ba-8f91-cddd38040b0a]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
 [org/gnome/nm-applet/eap/73407bc1-1619-4370-9a3b-da55e1cf788d]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
@@ -943,10 +1142,6 @@ ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
 [org/gnome/nm-applet/eap/90ffab9d-8d46-37a0-a972-bd0d8eb0101d]
-ignore-ca-cert=false
-ignore-phase2-ca-cert=false
-
-[org/gnome/nm-applet/eap/97241992-303a-4805-8745-84bf6ca3eec3]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
@@ -970,11 +1165,19 @@ ignore-phase2-ca-cert=false
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
+[org/gnome/nm-applet/eap/d39ae570-7e2a-4e23-bed0-5996507f626c]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
 [org/gnome/nm-applet/eap/da844ccb-1d41-442d-ad65-d6f4bd16ee75]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
 [org/gnome/nm-applet/eap/dfca0322-d51a-3392-9793-42e9db0b090e]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
+[org/gnome/nm-applet/eap/e2a802bc-56e0-4324-9610-6c9e1a1eae14]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
@@ -1046,7 +1249,7 @@ browser-views='artists-albums'
 visible-columns=['post-time', 'duration', 'track-number', 'album', 'genre', 'artist']
 
 [org/gnome/settings-daemon/peripherals/keyboard]
-numlock-state='off'
+numlock-state='on'
 
 [org/gnome/settings-daemon/peripherals/mouse]
 locate-pointer=true
@@ -1055,35 +1258,22 @@ locate-pointer=true
 night-light-enabled=false
 
 [org/gnome/settings-daemon/plugins/media-keys]
-control-center='<Shift><Alt>g'
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
-decrease-text-size='<Shift><Alt>percent'
-increase-text-size=''
-magnifier='<Shift><Alt>parenright'
-magnifier-zoom-in='<Shift><Alt>ampersand'
-next='<Alt>Right'
-on-screen-keyboard='<Shift><Alt>asterisk'
-pause=''
-play='<Alt>Up'
-previous='<Alt>Left'
-screenreader='<Shift><Alt>parenleft'
-search='<Alt>p'
-toggle-contrast='<Shift><Alt>asciicircum'
-volume-down='<Shift><Alt>Down'
-volume-up='<Shift><Alt>Up'
-
-[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
-binding='<Alt>Return'
-command='bash /home/chris/.config/i3/scripts/start-term.sh'
-name='Terminal'
-
-[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
-binding='<Shift><Alt>Return'
-command='bash /home/chris/.config/i3/scripts/i3lock.sh'
-name='i3-lock'
+control-center=['<Shift><Alt>g']
+decrease-text-size=['<Shift><Alt>percent']
+magnifier=['<Shift><Alt>parenright']
+magnifier-zoom-in=['<Shift><Alt>ampersand']
+next=['<Alt>Right']
+on-screen-keyboard=['<Shift><Alt>asterisk']
+play=['<Alt>Up']
+previous=['<Alt>Left']
+screenreader=['<Shift><Alt>parenleft']
+screensaver=['<Shift><Alt>Return']
+search=['<Alt>p']
+toggle-contrast=['<Shift><Alt>asciicircum']
+volume-down=['<Shift><Alt>Down']
+volume-up=['<Shift><Alt>Up']
 
 [org/gnome/settings-daemon/plugins/power]
-idle-dim=true
 sleep-inactive-ac-type='nothing'
 sleep-inactive-battery-type='nothing'
 
@@ -1092,8 +1282,8 @@ antialiasing='grayscale'
 hinting='slight'
 
 [org/gnome/shell]
-app-picker-view=uint32 1
-enabled-extensions=['gnomenu@panacier.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com', 'pamac-updates@manjaro.org', 'arc-menu@linxgem33.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appfolders-manager@maestroschan.fr', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'auto-move-windows@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'gnome-shell-trash-extension', 'systemMonitor@gnome-shell-extensions.gcampax.github.com', 'xrandr-indicator@gnome-shell-extensions.gcampax.github.com', 'extension-reloader@nls1729', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com']
+app-picker-view=uint32 0
+enabled-extensions=['gnomenu@panacier.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com', 'pamac-updates@manjaro.org', 'arc-menu@linxgem33.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appfolders-manager@maestroschan.fr', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'auto-move-windows@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'gnome-shell-trash-extension', 'systemMonitor@gnome-shell-extensions.gcampax.github.com', 'xrandr-indicator@gnome-shell-extensions.gcampax.github.com', 'extension-reloader@nls1729', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'nightshellswitcher@romainvigier.fr', 'nightthemeswitcher@romainvigier.fr', 'gamemode@christian.kellner.me']
 favorite-apps=['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', 'pamac-manager.desktop', 'org.gnome.Screenshot.desktop', 'code-oss.desktop']
 
 [org/gnome/shell/extensions/TaskBar]
@@ -1106,6 +1296,7 @@ top-panel-original-background-color='rgba(19, 25, 28, 255)'
 tray-button-icon='/usr/share/gnome-shell/extensions/TaskBar@zpydr/images/bottom-panel-tray-button.svg'
 
 [org/gnome/shell/extensions/arc-menu]
+dtp-dtd-state=[false, false]
 enable-custom-arc-menu=false
 enable-custom-arc-menu-layout=false
 pinned-app-list=['Firefox', 'firefox', 'firefox.desktop', 'Terminal', 'utilities-terminal', 'org.gnome.Terminal.desktop', 'Arc Menu Settings', 'emblem-system-symbolic', 'gnome-shell-extension-prefs arc-menu@linxgem33.com']
@@ -1120,11 +1311,31 @@ multi-monitor=false
 [org/gnome/shell/extensions/extension-reloader]
 panel-icon-center=true
 
+[org/gnome/shell/extensions/gamemode]
+active-color='rgb(115,210,22)'
+active-tint=true
+always-show-icon=true
+
+[org/gnome/shell/extensions/nightshellswitcher]
+theme-day='EvoPop'
+theme-night='EvoPop-dark'
+theme-original='EvoPop'
+
+[org/gnome/shell/extensions/nightthemeswitcher]
+theme-day='Maia-Dark'
+theme-night='Maia-Dark-dark'
+theme-original='Maia-Dark'
+
 [org/gnome/shell/extensions/user-theme]
-name='Adapta-Nokto-Eta-Maia'
+name='EvoPop'
+
+[org/gnome/shell/weather]
+automatic-location=true
+locations=@av []
 
 [org/gnome/software]
-check-timestamp=int64 1570313739
+check-timestamp=int64 1589842350
+online-updates-timestamp=int64 1589755988
 
 [org/gnome/system/location]
 enabled=false
@@ -1176,7 +1387,7 @@ use-transparent-background=false
 
 [org/gtk/settings/color-chooser]
 custom-colors=[(1.0, 0.89803921568627454, 0.0, 1.0), (1.0, 0.30980392156862746, 0.0, 1.0)]
-selected-color=(true, 0.44705882352941179, 0.62352941176470589, 0.81176470588235294, 1.0)
+selected-color=(true, 1.0, 1.0, 1.0, 1.0)
 
 [org/gtk/settings/file-chooser]
 date-format='regular'
@@ -1187,9 +1398,9 @@ show-type-column=true
 sidebar-width=202
 sort-column='name'
 sort-directories-first=true
-sort-order='descending'
+sort-order='ascending'
 type-format='category'
-window-position=(359, 81)
+window-position=(359, 84)
 window-size=(1203, 900)
 
 [org/gtkhash/plugin]
@@ -1207,8 +1418,8 @@ sort-type='ascending'
 
 [org/mate/engrampa/ui]
 sidebar-width=200
-window-height=982
-window-width=1840
+window-height=1020
+window-width=1920
 
 [org/nemo/window-state]
 geometry='1840x1000+1960+40'
@@ -1241,5 +1452,5 @@ menubar-visible=true
 [org/xfce/mousepad/state/window]
 fullscreen=false
 height=982
-maximized=true
+maximized=false
 width=1840

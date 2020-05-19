@@ -100,6 +100,7 @@ if executable("go")
     let g:go_auto_sameids               = 1           " Highlight variable uses
     let g:go_auto_type_info             = 1           " Show type information
     let g:go_autodetect_gopath          = 1
+    let g:go_code_completion_enabled    = 0
     let g:go_debug                      = ['gopls']
     let g:go_def_mode                   = "gopls"
     let g:go_echo_command_info          = 1           " Show the progress when running :GoCoverage
@@ -327,7 +328,6 @@ let g:rust_clip_command = 'xclip -selection clipboard'
 let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-go',
-  \ 'coc-jedi',
   \ 'coc-json',
   \ 'coc-python',
   \ 'coc-snippets',
@@ -1081,7 +1081,7 @@ let g:ale_linters['javascript'] = ['eslint', 'tsserver']
 let g:ale_linters['php']        = ['phpcs', 'php', 'phpmd']
 let g:ale_linters['python']     = ['flake8', 'mypy', 'pep8', 'pylint', 'vulture']
 
-let g:ale_completion_enabled                   = 1
+let g:ale_completion_enabled                   = 0
 let g:ale_fix_on_save                          = 0
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_lint_on_insert_leave                 = 1
