@@ -123,6 +123,30 @@ endfu
 command! GruvboxDark call GruvboxDark()
 
 " -------------------------------------------------------------------------------
+" :Todo
+" -------------------------------------------------------------------------------
+fu! Todo()
+    if exists("b:current_syntax")
+        finish
+    endif
+
+    " Custom conceal
+    syntax match todoCheckbox "\[\ \]" conceal cchar=
+    syntax match todoCheckbox "\[x\]" conceal cchar=
+
+    let b:current_syntax = "todo"
+
+    hi def link todoCheckbox Todo
+    hi Conceal guibg=NONE
+
+    setlocal cole=1
+
+    command! Check :s/\(\s*\)\[ \]/\1\[x\]/
+    command! Uncheck :s/\(\s*\)\[x\]/\1\[ \]/
+endfu
+command! Todo call Todo()
+
+" -------------------------------------------------------------------------------
 "  goyo
 " -------------------------------------------------------------------------------
 fu! Goyo_enter()

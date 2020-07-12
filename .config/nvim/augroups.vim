@@ -26,6 +26,7 @@ augroup configgroup
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
     au BufWinEnter *.{doc,docx,epub,odp,odt,pdf,rtf} call HandleSpecialFile()
+    au BufWinEnter *.todo call Todo()
     au BufWritePost .vimrc,.vimrc.local,init.vim source %
     au BufWritePost .vimrc.local source %
     au FileType * RainbowParentheses

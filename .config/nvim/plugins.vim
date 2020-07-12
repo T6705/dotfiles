@@ -199,6 +199,7 @@ endif
 " }}}
 
 " === utilities === {{{
+"Plug 'AlphaMycelium/pathfinder.vim'                                                                               " Vim plugin which gives suggestions to improve your movements
 "Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }                                                             " perform diffs on blocks of code
 "Plug 'VincentCordobes/vim-translate', { 'on': 'Translate' }                                                       " A tiny translate-shell wrapper for Vim.
 "Plug 'benmills/vimux'                                                                                             " vim plugin to interact with tmux
@@ -231,6 +232,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }                                  " I
 Plug 'andymass/vim-matchup'                                                  " vim match-up: matchit replacement and more
 Plug 'chrisbra/Colorizer', { 'on': 'ColorToggle' }                           " A Vim plugin to colorize all text in the form #rrggbb or #rgb.
 Plug 'cometsong/CommentFrame.vim'                                            " generate fancy-looking comments/section dividers with centered titles and append them at the current cursor position.
+Plug 'danilamihailov/beacon.nvim'                                            " see your cursor jump
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }               " VIM Table Mode for instant table creation.
 Plug 'dstein64/vim-startuptime', { 'on': 'StartupTime' }                     " A Vim plugin for profiling Vim's startup time
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }            " A command-line fuzzy finder

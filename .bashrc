@@ -104,7 +104,7 @@ fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
-[ -d $HOME/.gem/ruby/2.6.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
+[ -d $HOME/.gem/ruby/2.7.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"

@@ -74,17 +74,22 @@ COMPLETION_WAITING_DOTS="false"
 plugins=(
     alias-finder
     archlinux
+    brew
     command-not-found
     docker
     fzf
     git
     gitignore
     golang
+    httpie
+    kubectl
+    osx
     pipenv
     pyenv
     python
     ripgrep
     rsync
+    systemadmin
     systemd
     tmux
     vi-mode
@@ -108,11 +113,10 @@ fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
-[ -d $HOME/.gem/ruby/2.6.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.6.0/bin"
+[ -d $HOME/.gem/ruby/2.7.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
-[ -d $HOME/flutter/bin ] && export PATH="$HOME/flutter/bin:$PATH"
 [ -d /usr/games ] && export PATH="$PATH:/usr/games"
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
 [ -d /usr/lib/jvm/default ] && export JAVA_HOME=/usr/lib/jvm/default
