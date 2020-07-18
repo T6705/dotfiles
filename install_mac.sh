@@ -12,14 +12,15 @@ fi
 ########################
 ### Install packages ###
 ########################
-brew update
-brew install ack aircrack-ng automake awk bash bat clamav cmake cscope ctags curl emacs exa exploitdb feh ffmpeg fish fzf gcc gettext git go hashcat hping htop httpie hydra libtool llvm neovim nikto nim ninja nmap node pkg-config prettier pypy3 qemu radare2 ranger rclone ripgrep rust sqlmap sshfs tcpdump tmux vim wget
+time brew update
+time brew install ack aircrack-ng automake awk bash bat clamav cmake cscope ctags curl dc3dd dcfldd diff-so-fancy emacs exa exploitdb feh ffmpeg foremost fzf gcc gettext git gnupg go grep hashcat hping htop httpie hydra libtool llvm lsd md5sha1sum mpv neofetch nikto nim ninja nmap node ntfs-3g pkg-config prettier pypy3 qemu radare2 ranger rclone ripgrep rust screenfetch shellcheck sqlmap sshfs tcpdump tmux unrar vim watch wget
+time brew cask install chromedriver chromium macvim visual-studio-code
 
 #########################
 ### Install nerd font ###
 #########################
-brew tap homebrew/cask-fonts
-brew cask install font-fira-code-nerd-font font-hack-nerd-font
+time brew tap homebrew/cask-fonts
+time brew cask install font-fira-code-nerd-font font-hack-nerd-font
 
 ########################################################
 ### install useful key bindings and fuzzy completion ###
@@ -144,3 +145,9 @@ curl -fLo ~/.config/nvim/init.vim --create-dirs \
 ############################
 curl https://gitlab.com/T6705/dotfiles/raw/master/.tmux.conf > ~/.tmux.conf
 curl https://gitlab.com/T6705/dotfiles/raw/master/.tmux.conf.local > ~/.tmux.conf.local
+
+if command -v diff-so-fancy &> /dev/null; then
+    git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+fi
+
+go get -u github.com/jingweno/ccat

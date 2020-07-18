@@ -196,6 +196,15 @@ screenshot() {
 }
 
 banner() {
+    if [[ -n $(uname -a | grep -i "darwin") ]]; then
+        if command -v neofetch &> /dev/null ; then
+            neofetch
+        elif command -v screenfetch &> /dev/null ; then
+            screenfetch
+        fi
+        return
+    fi
+
     if command -v figlet &> /dev/null ; then
         if command -v lolcat &> /dev/null ; then
             figlet " $(hostname)" | lolcat -f
@@ -716,15 +725,27 @@ sshrf() {
 }
 
 # -----------------------------------------------------------------------------------------
-# Usage: base64key <keyname> <keysize>
+# Usage: random_password <length>
 # -----------------------------------------------------------------------------------------
-base64key() {
-    if [[ ( -n $1 && -n $2 ) ]]; then
-        keyname=$1
-        size=$2
-        time openssl rand -base64 -out $keyname $size
+random_password() {
+    if [[  -n $1 ]]; then
+        length=$1
+        echo "random base64:"
+        openssl rand -base64 $length
+
+        echo "random letters and digits:"
+        tr -dc '[:alnum:]' < /dev/urandom | fold -w $length | head -n 1
+
+        echo "random lowercase letters:"
+        tr -dc '[:lower:]' < /dev/urandom | fold -w $length | head -n 1
+
+        echo "random uppercase letters:"
+        tr -dc '[:upper:]' < /dev/urandom | fold -w $length | head -n 1
+
+        echo "random visible characters:"
+        tr -dc '[:graph:]' < /dev/urandom | fold -w $length | head -n 1
     else
-        echo "Usage: base64key <keyname> <keysize>"
+        echo "random_password <length>"
     fi
 }
 
