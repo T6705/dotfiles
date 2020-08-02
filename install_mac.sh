@@ -13,14 +13,14 @@ fi
 ### Install packages ###
 ########################
 time brew update
-time brew install ack aircrack-ng automake awk bash bat clamav cmake cscope ctags curl dc3dd dcfldd diff-so-fancy emacs exa exploitdb feh ffmpeg foremost fzf gcc gettext git gnupg go grep hashcat hping htop httpie hydra libtool llvm lsd md5sha1sum mpv neofetch nikto nim ninja nmap node ntfs-3g pkg-config prettier pypy3 qemu radare2 ranger rclone ripgrep rust screenfetch shellcheck sqlmap sshfs tcpdump tmux unrar vim watch wget
-time brew cask install chromedriver chromium macvim visual-studio-code
+time brew install ack aircrack-ng automake awk bash bat bfg binutils binwalk cifer clamav cmake coreutils cquery cscope ctags curl dc3dd dcfldd dex2jar diff-so-fancy dns2tcp easy-tag emacs exa exploitdb fcrackzip feh ffmpeg findutils fish foremost fx fzf gcc gettext git gnu-sed gnupg go grep hashcat hashpump hping htop httpie hydra john jq knock kompose libtool llvm lsd minikube moreutils mpv neofetch netpbm nikto nim ninja nmap node ntfs-3g openvpn p7zip pkg-config pngcheck prettier proxychains-ng pypy3 qemu radare2 ranger rclone ripgrep rust screenfetch shellcheck socat sqlmap sshfs tcpdump tcpflow tcpreplay tcptrace tmux ucspi-tcp unrar vim watch wget xz
+time brew cask install chromedriver chromium firefox gimp iterm2 kitematic kitty krita macvim meld tiles veracrypt visual-studio-code
 
 #########################
 ### Install nerd font ###
 #########################
 time brew tap homebrew/cask-fonts
-time brew cask install font-fira-code-nerd-font font-hack-nerd-font
+time brew cask install font-fira-code-nerd-font font-hack-nerd-font font-jetbrainsmono-nerd-font
 
 ########################################################
 ### install useful key bindings and fuzzy completion ###
@@ -31,6 +31,11 @@ $(brew --prefix)/opt/fzf/install
 ### download gruvbox color scheme ###
 #####################################
 cd ~/Downloads && wget "https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Gruvbox%20Dark.itermcolors"
+
+############################
+### Download curl config ###
+############################
+curl https://gitlab.com/T6705/dotfiles/raw/master/.curlrc > ~/.curlrc
 
 ############################
 ### Download bash config ###

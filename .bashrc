@@ -1248,15 +1248,27 @@ compress() {
 #}
 
 # -----------------------------------------------------------------------------------------
-# Usage: base64key <keyname> <keysize>
+# Usage: random_password <length>
 # -----------------------------------------------------------------------------------------
-base64key() {
-    if [[ ( -n $1 && -n $2 ) ]]; then
-        keyname=$1
-        size=$2
-        time openssl rand -base64 -out $keyname $size
+random_password() {
+    if [[  -n $1 ]]; then
+        length=$1
+        echo "random base64:"
+        openssl rand -base64 $length
+
+        echo "random letters and digits:"
+        LC_ALL=C tr -dc '[:alnum:]' < /dev/urandom | fold -w $length | head -n 1
+
+        echo "random lowercase letters:"
+        LC_ALL=C tr -dc '[:lower:]' < /dev/urandom | fold -w $length | head -n 1
+
+        echo "random uppercase letters:"
+        LC_ALL=C tr -dc '[:upper:]' < /dev/urandom | fold -w $length | head -n 1
+
+        echo "random visible characters:"
+        LC_ALL=C tr -dc '[:graph:]' < /dev/urandom | fold -w $length | head -n 1
     else
-        echo "Usage: base64key <keyname> <keysize>"
+        echo "random_password <length>"
     fi
 }
 

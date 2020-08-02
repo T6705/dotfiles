@@ -22,6 +22,9 @@ chflags nohidden ~/Library
 echo "Show the /Volumes folder"
 sudo chflags nohidden /Volumes
 
+echo "Show All File Extensions"
+defaults write -g AppleShowAllExtensions -bool true
+
 echo "Show Path bar in Finder"
 defaults write com.apple.finder ShowPathbar -bool true
 
@@ -83,6 +86,20 @@ defaults write com.apple.terminal StringEncodings -array 4
 echo "Enable subpixel font rendering on non-Apple LCDs"
 defaults write NSGlobalDomain AppleFontSmoothing -int 2
 
+###############
+### desktop ###
+###############
+echo "Show External Media"
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+
+echo "Show Internal Media"
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+
+echo "Show Removable Media"
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
+echo "Show Network Volumes"
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 
 for app in "Activity Monitor" \
     "Finder" \

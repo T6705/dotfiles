@@ -734,16 +734,16 @@ random_password() {
         openssl rand -base64 $length
 
         echo "random letters and digits:"
-        tr -dc '[:alnum:]' < /dev/urandom | fold -w $length | head -n 1
+        LC_ALL=C tr -dc '[:alnum:]' < /dev/urandom | fold -w $length | head -n 1
 
         echo "random lowercase letters:"
-        tr -dc '[:lower:]' < /dev/urandom | fold -w $length | head -n 1
+        LC_ALL=C tr -dc '[:lower:]' < /dev/urandom | fold -w $length | head -n 1
 
         echo "random uppercase letters:"
-        tr -dc '[:upper:]' < /dev/urandom | fold -w $length | head -n 1
+        LC_ALL=C tr -dc '[:upper:]' < /dev/urandom | fold -w $length | head -n 1
 
         echo "random visible characters:"
-        tr -dc '[:graph:]' < /dev/urandom | fold -w $length | head -n 1
+        LC_ALL=C tr -dc '[:graph:]' < /dev/urandom | fold -w $length | head -n 1
     else
         echo "random_password <length>"
     fi

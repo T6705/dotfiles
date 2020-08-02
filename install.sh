@@ -664,6 +664,13 @@ install_shell() {
 
     echo ""
     echo "=========================="
+    echo "== Download curl config =="
+    echo "=========================="
+    echo ""
+    curl https://gitlab.com/T6705/dotfiles/raw/master/.curlrc > ~/.curlrc
+
+    echo ""
+    echo "=========================="
     echo "== Download bash config =="
     echo "=========================="
     echo ""
