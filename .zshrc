@@ -75,6 +75,7 @@ plugins=(
     alias-finder
     archlinux
     brew
+    catimg
     command-not-found
     docker
     fzf
@@ -83,6 +84,7 @@ plugins=(
     golang
     httpie
     kubectl
+    microk8s
     osx
     pipenv
     pyenv
@@ -238,3 +240,6 @@ banner
 # tabtab source for electron-forge package
 # uninstall by removing these lines or running `tabtab uninstall electron-forge`
 [[ -f $HOME/git/hub/gb-studio/node_modules/tabtab/.completions/electron-forge.zsh ]] && . $HOME/git/hub/gb-studio/node_modules/tabtab/.completions/electron-forge.zsh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

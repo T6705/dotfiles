@@ -48,6 +48,17 @@ else
     alias l='ls -CF'
 fi
 
+if command -v shasum &> /dev/null ; then
+    alias sha1sum="shasum -a 1"
+    alias sha1sum="shasum -a 1"
+    alias sha224sum="shasum -a 224"
+    alias sha256sum="shasum -a 256"
+    alias sha384sum="shasum -a 384"
+    alias sha512sum="shasum -a 512"
+    alias sha512224sum="shasum -a 512224"
+    alias sha512256sum="shasum -a 512256"
+fi
+
 if command -v firejail &> /dev/null ; then
     if command -v virtualbox &> /dev/null ; then alias virtualbox='firejail Virtualbox' ; fi
     if command -v mpv &> /dev/null ; then alias mpv='firejail mpv' ; fi

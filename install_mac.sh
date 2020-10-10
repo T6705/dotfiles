@@ -13,8 +13,9 @@ fi
 ### Install packages ###
 ########################
 time brew update
-time brew install ack aircrack-ng automake awk bash bat bfg binutils binwalk cifer clamav cmake coreutils cquery cscope ctags curl dc3dd dcfldd dex2jar diff-so-fancy dns2tcp easy-tag emacs exa exploitdb fcrackzip feh ffmpeg findutils fish foremost fx fzf gcc gettext git gnu-sed gnupg go grep hashcat hashpump hping htop httpie hydra john jq knock kompose libtool llvm lsd minikube moreutils mpv neofetch netpbm nikto nim ninja nmap node ntfs-3g openvpn p7zip pkg-config pngcheck prettier proxychains-ng pypy3 qemu radare2 ranger rclone ripgrep rust screenfetch shellcheck socat sqlmap sshfs tcpdump tcpflow tcpreplay tcptrace tmux ucspi-tcp unrar vim watch wget xz
-time brew cask install chromedriver chromium firefox gimp iterm2 kitematic kitty krita macvim meld tiles veracrypt visual-studio-code
+time brew install ack aircrack-ng automake awk bash bat bfg binutils binwalk cifer clamav cmake coreutils cquery cscope ctags curl dc3dd dcfldd dex2jar diff-so-fancy dns2tcp docker-compose docker-compose-completion easy-tag emacs exa exploitdb ext4fuse fcrackzip feh ffmpeg findutils fish foremost fx fzf gcc gettext git git-delta gnu-sed gnupg go grep hashcat hashpump hping htop httpie hydra iperf3 john jq knock kompose libtool llvm lsd macs-fan-control minikube mitmproxy moreutils mpv muesli/homebrew-tap/duf neofetch netpbm nikto nim ninja nmap node ntfs-3g openvpn p7zip pkg-config pngcheck prettier proxychains-ng pypy3 qemu radare2 ranger rclone ripgrep rust screenfetch shellcheck socat sqlmap sshfs tcpdump tcpflow tcpreplay tcptrace telnet tmux ucspi-tcp unrar vim watch wget xz
+
+time brew cask install burp-suite chromedriver chromium clipy cyberduck discord firefox gimp google-chrome iterm2 kitematic kitty krita macvim meld postman tiles vagrant vagrant-manager veracrypt virtualbox visual-studio-code
 
 #########################
 ### Install nerd font ###

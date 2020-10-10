@@ -962,7 +962,7 @@ if command -v docker &> /dev/null ; then
     #open-source lightweight management UI for Docker hosts or Swarm clusters
     portainer() {
         docker volume create portainer_data
-        docker run -d --name=portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+        docker run -d --name=portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:alpine
 
         if command -v firefox &> /dev/null; then
             firefox "http://127.0.0.1:9000"

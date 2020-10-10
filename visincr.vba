@@ -24,16 +24,16 @@ set cpo&vim
 
 " ---------------------------------------------------------------------
 "  Methods: {{{1
-let s:I      = 0 
-let s:II     = 1 
-let s:IMOD   = 2 
-let s:IREP   = 3 
-let s:IMDY   = 4 
-let s:IYMD   = 5 
-let s:IDMY   = 6 
-let s:ID     = 7 
-let s:IM     = 8 
-let s:IA     = 9 
+let s:I      = 0
+let s:II     = 1
+let s:IMOD   = 2
+let s:IREP   = 3
+let s:IMDY   = 4
+let s:IYMD   = 5
+let s:IDMY   = 6
+let s:ID     = 7
+let s:IM     = 8
+let s:IA     = 9
 let s:IX     = 10
 let s:IIX    = 11
 let s:IB     = 12
@@ -201,16 +201,16 @@ set cpo&vim
 
 " ---------------------------------------------------------------------
 "  Methods: {{{1
-let s:I      = 0 
-let s:II     = 1 
-let s:IMOD   = 2 
-let s:IREP   = 3 
-let s:IMDY   = 4 
-let s:IYMD   = 5 
-let s:IDMY   = 6 
-let s:ID     = 7 
-let s:IM     = 8 
-let s:IA     = 9 
+let s:I      = 0
+let s:II     = 1
+let s:IMOD   = 2
+let s:IREP   = 3
+let s:IMDY   = 4
+let s:IYMD   = 5
+let s:IDMY   = 6
+let s:ID     = 7
+let s:IM     = 8
+let s:IA     = 9
 let s:IX     = 10
 let s:IIX    = 11
 let s:IB     = 12
@@ -322,13 +322,13 @@ fun! visincr#VisBlockIncr(method,...)
 
   elseif a:method == s:RIMDY
    let restrict= '\%'.col(".").'c\d\{1,2}'.g:visincr_datedivset.'\d\{1,2}'.g:visincr_datedivset.'\d\{2,4}'
-"   call Decho(":IMDY restricted<".restrict.">")       
-                                                       
-  elseif a:method == s:RIYMD                           
+"   call Decho(":IMDY restricted<".restrict.">")
+
+  elseif a:method == s:RIYMD
    let restrict= '\%'.col(".").'c\d\{2,4}'.g:visincr_datedivset.'\d\{1,2}'.g:visincr_datedivset.'\d\{1,2}'
-"   call Decho(":IYMD restricted<".restrict.">")       
-                                                       
-  elseif a:method == s:RIDMY                           
+"   call Decho(":IYMD restricted<".restrict.">")
+
+  elseif a:method == s:RIDMY
    let restrict= '\%'.col(".").'c\d\{1,2}'.g:visincr_datedivset.'\d\{1,2}'.g:visincr_datedivset.'\d\{2,4}'
 "   call Decho(":IDMY restricted<".restrict.">")
 
