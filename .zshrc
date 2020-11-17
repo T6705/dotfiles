@@ -243,3 +243,9 @@ banner
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+#########################
+## https://starship.rs ##
+#########################
+if command -v starship &> /dev/null; then
+    eval "$(starship init bash)"
+fi

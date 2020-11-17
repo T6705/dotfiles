@@ -196,37 +196,33 @@ screenshot() {
 }
 
 banner() {
-    if [[ -n $(uname -a | grep -i "darwin") ]]; then
-        if command -v neofetch &> /dev/null ; then
-            neofetch
-        elif command -v screenfetch &> /dev/null ; then
-            screenfetch
+    if command -v neofetch &> /dev/null ; then
+        neofetch
+    elif command -v screenfetch &> /dev/null ; then
+        screenfetch
+    else
+        if command -v figlet &> /dev/null ; then
+            if command -v lolcat &> /dev/null ; then
+                figlet " $(hostname)" | lolcat -f
+            else
+                figlet " $(hostname)"
+            fi
         fi
-        return
-    fi
 
-    if command -v figlet &> /dev/null ; then
-        if command -v lolcat &> /dev/null ; then
-            figlet " $(hostname)" | lolcat -f
-        else
-            figlet " $(hostname)"
-        fi
-    fi
+        # get load averages
+        IFS=" " read LOAD1 LOAD5 LOAD15 <<<$(/bin/cat /proc/loadavg | awk '{ print $1,$2,$3 }')
+        # get free memory
+        IFS=" " read USED FREE TOTAL <<<$(free -htm | grep "Mem" | awk {'print $3,$4,$2'})
+        # get processes
+        PROCESS=`ps -eo user=|sort|uniq -c | awk '{ print $2 " " $1 }'`
+        PROCESS_ALL=`echo "$PROCESS"| awk {'print $2'} | awk '{ SUM += $1} END { print SUM }'`
+        PROCESS_ROOT=`echo "$PROCESS"| grep root | awk {'print $2'}`
+        PROCESS_USER=`echo "$PROCESS"| grep -v root | awk {'print $2'} | awk '{ SUM += $1} END { print SUM }'`
 
-    # get load averages
-    IFS=" " read LOAD1 LOAD5 LOAD15 <<<$(/bin/cat /proc/loadavg | awk '{ print $1,$2,$3 }')
-    # get free memory
-    IFS=" " read USED FREE TOTAL <<<$(free -htm | grep "Mem" | awk {'print $3,$4,$2'})
-    # get processes
-    PROCESS=`ps -eo user=|sort|uniq -c | awk '{ print $2 " " $1 }'`
-    PROCESS_ALL=`echo "$PROCESS"| awk {'print $2'} | awk '{ SUM += $1} END { print SUM }'`
-    PROCESS_ROOT=`echo "$PROCESS"| grep root | awk {'print $2'}`
-    PROCESS_USER=`echo "$PROCESS"| grep -v root | awk {'print $2'} | awk '{ SUM += $1} END { print SUM }'`
+        W="\e[0;39m"
+        G="\e[1;32m"
 
-    W="\e[0;39m"
-    G="\e[1;32m"
-
-    echo -e "
+        echo -e "
   system info:
       Distro......: $W`cat /etc/*release | grep "PRETTY_NAME" | cut -d "=" -f 2- | sed 's/"//g'`
       Kernel......: $W`uname -sr`
@@ -238,37 +234,38 @@ banner() {
       CPU.........: $W`cat /proc/cpuinfo | grep "model name" | cut -d ' ' -f3- | awk {'print $0'} | head -1`
       Memory......: $G$USED$W used, $G$FREE$W free, $G$TOTAL$W in total$W"
 
-    mountpoints=('/' '/tmp')
-    barWidth=50
-    maxDiscUsage=90
-    clear="\e[39m\e[0m"
-    dim="\e[2m"
-    barclear=""
-    echo
+        mountpoints=('/' '/tmp')
+        barWidth=50
+        maxDiscUsage=90
+        clear="\e[39m\e[0m"
+        dim="\e[2m"
+        barclear=""
+        echo
 
-    for point in "${mountpoints[@]}"; do
-        line=$(df -h "${point}")
-        usagePercent=$(echo "$line"|tail -n1|awk '{print $5;}'|sed 's/%//')
-        usedBarWidth=$((($usagePercent*$barWidth)/100))
-        barContent=""
-        color="\e[32m"
-        if [ "${usagePercent}" -ge "${maxDiscUsage}" ]; then
-            color="\e[31m"
-        fi
-        barContent="${color}"
-        for sep in $(seq 1 $usedBarWidth); do
-            barContent="${barContent}|"
+        for point in "${mountpoints[@]}"; do
+            line=$(df -h "${point}")
+            usagePercent=$(echo "$line"|tail -n1|awk '{print $5;}'|sed 's/%//')
+            usedBarWidth=$((($usagePercent*$barWidth)/100))
+            barContent=""
+            color="\e[32m"
+            if [ "${usagePercent}" -ge "${maxDiscUsage}" ]; then
+                color="\e[31m"
+            fi
+            barContent="${color}"
+            for sep in $(seq 1 $usedBarWidth); do
+                barContent="${barContent}|"
+            done
+            barContent="${barContent}${clear}${dim}"
+            for sep in $(seq 1 $(($barWidth-$usedBarWidth))); do
+                barContent="${barContent}-"
+            done
+            bar="[${barContent}${clear}]"
+            echo "  ${line}" | awk  '{if ($1 != "Filesystem") printf("%-30s%+3s used out of %+5s\n", $1, $3, $2); }' | sed -e 's/^/      /'
+            echo -e "  ${bar}" | sed -e 's/^/    /'
         done
-        barContent="${barContent}${clear}${dim}"
-        for sep in $(seq 1 $(($barWidth-$usedBarWidth))); do
-            barContent="${barContent}-"
-        done
-        bar="[${barContent}${clear}]"
-        echo "  ${line}" | awk  '{if ($1 != "Filesystem") printf("%-30s%+3s used out of %+5s\n", $1, $3, $2); }' | sed -e 's/^/      /'
-        echo -e "  ${bar}" | sed -e 's/^/    /'
-    done
 
-    echo ""
+        echo ""
+    fi
 }
 
 weather() {

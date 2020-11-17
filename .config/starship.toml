@@ -1,0 +1,89 @@
+format = """
+$time\
+$username\
+$directory\
+$hostname\
+$shlvl\
+$kubernetes\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$dart\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$purescript\
+$python\
+$ruby\
+$rust\
+$swift\
+$terraform\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$env_var\
+$crystal\
+$cmd_duration\
+$custom\
+$line_break\
+$lua\
+$jobs\
+$battery\
+$status\
+$character
+"""
+
+add_newline = true
+
+[character]
+use_symbol_for_status = true
+#symbol = "➜"
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+vicmd_symbol = "[V](bold green) "
+
+[directory]
+truncation_length = 3
+#truncation_symbol = "…/"
+#truncation_symbol = ""
+format = "in [$path]($style)[$read_only]($read_only_style) "
+
+[docker_context]
+disabled = false
+only_with_files = true
+
+[hostname]
+format = "at [$hostname](bold green) "
+
+[status]
+symbol = "X "
+format = '[\[$symbol$status\]]($style) '
+disabled = false
+
+[time]
+disabled = false
+format = "[$time]($style) "
+
+[username]
+format = "with [$user]($style) "
+disabled = false
+show_always = true

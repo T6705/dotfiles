@@ -688,6 +688,14 @@ install_shell() {
         https://gitlab.com/T6705/dotfiles/raw/master/.zsh/functions.zsh
 
     echo ""
+    echo "=============================="
+    echo "== Download starship config =="
+    echo "=============================="
+    echo ""
+    curl -fLo ~/.config/starship.toml --create-dirs \
+        https://gitlab.com/T6705/dotfiles/raw/master/.config/starship.toml
+
+    echo ""
     echo "====================================="
     echo "== Download zsh plugins and themes =="
     echo "====================================="
@@ -739,6 +747,10 @@ install_shell() {
     else
         time git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt
         ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+    fi
+
+    if command -v cargo &> /dev/null; then
+        cargo install starship
     fi
 
     echo ""
