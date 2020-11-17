@@ -75,7 +75,7 @@ only_with_files = true
 format = "at [$hostname](bold green) "
 
 [status]
-symbol = "X "
+symbol = "✖ "
 format = '[\[$symbol$status\]]($style) '
 disabled = false
 
@@ -86,4 +86,4 @@ format = "[$time]($style) "
 [username]
 format = "with [$user]($style) "
 disabled = false
-show_always = true
+show_always = false

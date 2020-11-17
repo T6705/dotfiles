@@ -247,5 +247,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 ## https://starship.rs ##
 #########################
 if command -v starship &> /dev/null; then
-    eval "$(starship init bash)"
+    eval "$(starship init zsh)"
 fi
