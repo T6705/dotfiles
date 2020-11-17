@@ -747,10 +747,12 @@ screenshot() {
 }
 
 banner() {
-    if command -v neofetch &> /dev/null ; then
-        neofetch
-    elif command -v screenfetch &> /dev/null ; then
-        screenfetch
+    if [[ -n $(uname -a | grep -i "darwin") ]]; then
+        if command -v neofetch &> /dev/null ; then
+            neofetch
+        elif command -v screenfetch &> /dev/null ; then
+            screenfetch
+        fi
     else
         if command -v figlet &> /dev/null ; then
             if command -v lolcat &> /dev/null ; then
