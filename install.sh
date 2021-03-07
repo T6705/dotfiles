@@ -188,7 +188,7 @@ install_i3() {
         echo ""
         time mkdir -p ~/git/hub
         cd ~/git/hub
-        rm -rf i3-gaps
+        rm -vrf i3-gaps
 
         # clone the repository
         time git clone https://www.github.com/Airblader/i3 i3-gaps
@@ -196,7 +196,7 @@ install_i3() {
 
         # compile & install
         autoreconf --force --install
-        rm -rf build/
+        rm -vrf build/
         time mkdir -p build && cd build/
 
         # Disabling sanitizers is important for release versions!
@@ -214,7 +214,7 @@ install_i3() {
 
         time mkdir -p ~/git/hub
         cd ~/git/hub
-        rm -rf polybar
+        rm -vrf polybar
         time git clone --recursive https://github.com/jaagr/polybar
         cd polybar
         time ./build.sh
@@ -226,7 +226,7 @@ install_i3() {
         echo ""
         time mkdir -p ~/git/hub
         cd ~/git/hub
-        rm -rf i3lock-fancy
+        rm -vrf i3lock-fancy
         time git clone "https://github.com/meskarune/i3lock-fancy"
         cd ~/git/hub/i3lock-fancy
         sudo cp -v lock /usr/local/bin/
@@ -438,7 +438,7 @@ install_tmux() {
     echo "=================================="
     echo ""
 
-    sudo rm -rf ~/.tmux
+    sudo rm -vrf ~/.tmux
     time git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
     echo ""
@@ -550,7 +550,7 @@ install_vim() {
         yay -Syyu --needed --overwrite "*" cquery
 
         # for go
-        rm -rf ~/git/hub/tools
+        rm -vrf ~/git/hub/tools
         cd ~/git/hub/
         git clone -b bingo https://github.com/saibing/tools.git
         cd tools/gopls
@@ -841,7 +841,7 @@ install_shell() {
         #https://github.com/milkbikis/powerline-shell
         #https://github.com/banga/powerline-shell
 
-        #rm -rf ~/powerline-shell
+        #rm -vrf ~/powerline-shell
         #time git clone https://github.com/milkbikis/powerline-shell ~/powerline-shell
         #cd ~/powerline-shell
         #cp -v config.py.dist config.py

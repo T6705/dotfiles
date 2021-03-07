@@ -39,7 +39,6 @@ values."
      better-defaults
      chinese
      chrome
-     djanjo
      docker
      emacs-lisp
      emoji
@@ -64,7 +63,6 @@ values."
      theming
      tmux
      version-control
-     vim-powerline
      vimscript
      xkcd
      (auto-completion :variables

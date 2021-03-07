@@ -78,6 +78,8 @@ plugins=(
     catimg
     command-not-found
     docker
+    encode64
+    fd
     fzf
     git
     gitignore
@@ -120,8 +122,9 @@ fi
 [ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
 [ -d /usr/games ] && export PATH="$PATH:/usr/games"
-[ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
 [ -d /usr/lib/jvm/default ] && export JAVA_HOME=/usr/lib/jvm/default
+[ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
+[ -d /usr/local/opt/openjdk/bin ] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 

@@ -255,6 +255,14 @@ fu! GitInfo()
     endif
 endfu
 
+fu! Scrollbar()
+    let width = 10
+    let perc = (line('.') - 1.0) / (max([line('$'), 2]) - 1.0)
+    let before = float2nr(round(perc * (width - 3)))
+    let after = width - 3 - before
+    return '[' . repeat(' ',  before) . '=' . repeat(' ', after) . ']'
+endfu
+
 set statusline=
 set statusline+=%{ChangeStatuslineColor()}              " changing the statusline color
 set statusline+=%0*\ %{toupper(g:currentmode[mode()])}  " current mode
@@ -269,7 +277,8 @@ set statusline+=%2*\ [%b][0x%b]\                        " ascii and byte code un
 set statusline+=%5*\ row:%l/%L\                         " rownumber/total
 set statusline+=%6*\ col:%03c\                          " colnr
 set statusline+=%4*\ %-3(%{FileSize()}%)                " file size
-set statusline+=%0*\ \ %P\ \                            " modified? readonly? top/bot.
+set statusline+=%0*\ %{Scrollbar()}                     " Scrollbar
+set statusline+=%0*\ %P\ \                              " modified? readonly? top/bot.
 
 hi User1 ctermfg=red ctermbg=black
 hi User2 ctermfg=blue ctermbg=black
@@ -399,17 +408,9 @@ if has('gui_running')
 
     " Set font according to system
     if has("mac") || has("macunix")
-        set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
-    elseif has("win16") || has("win32")
-        set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-    elseif has("gui_gtk2")
-        set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-    elseif has("linux")
-        set gfn=Hack\ 10,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-    elseif has("unix")
-        set gfn=Hack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+        set gfn=FiraCode\ Nerd\ Font:h16
     else
-        set gfn=Hack\ Nerd\ Font\ Mono\ 10,Hack\ 10
+        set gfn=Fira\ Code\ Nerd\ Font:h16
     endif
 
     if &encoding ==# 'latin1'

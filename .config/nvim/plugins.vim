@@ -162,6 +162,7 @@ endif
 "Plug 'google/vim-codefmt', { 'on': ['FormatLines', 'FormatCode']}
 "Plug 'google/vim-glaive'
 "Plug 'google/vim-maktaba'
+"Plug 'skywind3000/vim-rt-format', { 'do': 'pip3 install autopep8' } " Prettify Current Line on Enter
 Plug 'dense-analysis/ale'                                " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'metakirby5/codi.vim', { 'on': 'Codi!!' }           " The interactive scratchpad for hackers.
 Plug 'psf/black', { 'branch': 'stable', 'for': 'python'} " The uncompromising Python code formatter

@@ -15,23 +15,31 @@ polybar bottom -c ~/.config/polybar/config3 &
 #FC_DEBUG=1 polybar top -c ~/.config/polybar/config3 &
 #FC_DEBUG=1 polybar bottom -c ~/.config/polybar/config3 &
 
-if [[ -n $(xrandr | grep "HDMI1 connected") ]]; then
-    echo "HDMI1 connected"
-    polybar external_top -c ~/.config/polybar/config3 &
-    polybar external_bottom -c ~/.config/polybar/config3 &
-    #FC_DEBUG=1 polybar external_top -c ~/.config/polybar/config3 &
-    #FC_DEBUG=1 polybar external_bottom -c ~/.config/polybar/config3 &
+if [[ -n $(xrandr | grep "DP1 connected") ]]; then
+    echo "DP1 connected"
+    polybar external_top_right -c ~/.config/polybar/config3 &
+    polybar external_bottom_right -c ~/.config/polybar/config3 &
 
-    main="LVDS1"
-    second="HDMI1"
+    main="eDP1"
+    second="DP1"
     xrandr --output $main --auto --primary --output $second --auto --right-of $main
+fi
+
+if [[ -n $(xrandr | grep "DP3 connected") ]]; then
+    echo "DP3 connected"
+    polybar external_top_left -c ~/.config/polybar/config3 &
+    polybar external_bottom_left -c ~/.config/polybar/config3 &
+
+    main="eDP1"
+    second="DP3"
+    xrandr --output $main --auto --primary --output $second --auto --left-of $main
 fi
 
 #if [[ -n $(xrandr | grep "VGA1 connected") ]]; then
 #    echo "HDMI1 connected"
 #    FC_DEBUG=1 polybar external_top -c ~/.config/polybar/config3 &
 #    FC_DEBUG=1 polybar external_bottom -c ~/.config/polybar/config3 &
-#    main="LVDS1"
+#    main="eDP1"
 #    second="VGA1"
 #    xrandr --output $main --auto --primary --output $second --auto --right-of $main
 #fi

@@ -27,11 +27,11 @@ ramdisk_on() {
     fi
 
     if ! [[ -d "/mnt/ramdisk" ]]; then
-        size=$1
         echo " * create mount point '/mnt/ramdisk'"
         sudo mkdir -p /mnt/ramdisk
     fi
 
+    size=$1
     echo "create ramdisk with size: $size"
     sudo mount -t tmpfs tmpfs /mnt/ramdisk -o size=$size
 
@@ -113,20 +113,21 @@ repeat_cmd() {
     done
 }
 
-man() {
-    env \
-        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-        LESS_TERMCAP_md=$(printf "\e[1;31m") \
-        LESS_TERMCAP_me=$(printf "\e[0m") \
-        LESS_TERMCAP_se=$(printf "\e[0m") \
-        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m") \
-        LESS_TERMCAP_us=$(printf "\e[1;32m") \
-        man "$@"
-    if command -v bat &> /dev/null; then
-        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-    fi
-}
+if command -v bat &> /dev/null; then
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+else
+    man() {
+        env \
+            LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+            LESS_TERMCAP_md=$(printf "\e[1;31m") \
+            LESS_TERMCAP_me=$(printf "\e[0m") \
+            LESS_TERMCAP_se=$(printf "\e[0m") \
+            LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+            LESS_TERMCAP_ue=$(printf "\e[0m") \
+            LESS_TERMCAP_us=$(printf "\e[1;32m") \
+            man "$@"
+    }
+fi
 
 screenshot() {
     if ! command -v maim &> /dev/null; then
@@ -478,6 +479,29 @@ brightness() {
                 xrandr --output $main --auto --primary --output $second --auto --right-of $main
 }
 
+3display() {
+    # display screen information
+    #xrandr
+    # LVDS1 as primary monitor, HDMI1 right of LVDS1
+    #xrandr --output LVDS1 --auto --primary --output HDMI1 --auto --right-of LVDS1
+    connected_displays=$(xrandr | grep " connected" | awk '{print $1}')
+    echo $connected_displays
+
+    vared -p "main display : " -c main
+    vared -p "second display : " -c second
+    vared -p "third display : " -c third
+
+    [[ $connected_displays =~ "$main" ]] &&
+        [[ $connected_displays =~ "$second" ]] &&
+            [[ "$main" != "$second" ]] &&
+                xrandr --output $main --auto --primary --output $second --auto --left-of $main
+
+    [[ $connected_displays =~ "$main" ]] &&
+        [[ $connected_displays =~ "$third" ]] &&
+            [[ "$main" != "$third" ]] &&
+                xrandr --output $main --auto --primary --output $third --auto --right-of $main
+}
+
 mirrordisplay() {
     connected_displays=$(xrandr | grep " connected" | awk '{print $1}')
 
@@ -748,6 +772,10 @@ random_password() {
     fi
 }
 
+check_cert() {
+    openssl x509 -text -noout -in $1
+}
+
 rsa() {
     if [[ $1 == "keygen" ]]; then
         if [[ ( -n $2 && -n $3 ) ]]; then
@@ -993,5 +1021,15 @@ if command -v docker &> /dev/null ; then
             --name=ctop \
             -v /var/run/docker.sock:/var/run/docker.sock \
             quay.io/vektorlab/ctop:latest
+    }
+
+    ctf_ubuntu() {
+        docker run --rm -v $PWD:/pwd --cap-add=SYS_PTRACE --cap-add=NET_ADMIN --security-opt seccomp=unconfined -d --name ctf_ubuntu -i ctf:ubuntu
+        docker exec -it ctf_ubuntu /bin/zsh
+    }
+
+    ctf_kali() {
+        docker run --rm -v $PWD:/pwd --cap-add=SYS_PTRACE --cap-add=NET_ADMIN --security-opt seccomp=unconfined -d --name ctf_kali -i ctf:kali
+        docker exec -it ctf_kali /bin/zsh
     }
 fi
