@@ -866,17 +866,17 @@ fu! PythonConfig()
     nnoremap <silent> <Leader>bp Oimport pdb; pdb.set_trace()  # BREAKPOINT<C-c>
 endfu
 
-fu! CompleteTags()
-    if has('nvim')
-        inoremap <buffer> > ></<C-x><C-o><C-n><Cr><Esc>:startinsert!<CR><C-O>?</<CR>
-        inoremap <buffer> ><CR> ></<C-x><C-o><C-n><Cr><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
-    else
-        inoremap <buffer> > ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR>
-        inoremap <buffer> ><CR> ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
-    endif
-    inoremap <buffer> ><Leader> >
-endfu
-command! CompleteTags call CompleteTags()
+"fu! CompleteTags()
+"    if has('nvim')
+"        inoremap <buffer> > ></<C-x><C-o><C-n><Cr><Esc>:startinsert!<CR><C-O>?</<CR>
+"        inoremap <buffer> ><CR> ></<C-x><C-o><C-n><Cr><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
+"    else
+"        inoremap <buffer> > ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR>
+"        inoremap <buffer> ><CR> ></<C-x><C-o><Esc>:startinsert!<CR><C-O>?</<CR><CR><Tab><CR><Up><C-O>$
+"    endif
+"    inoremap <buffer> ><Leader> >
+"endfu
+"command! CompleteTags call CompleteTags()
 
 " -------------------------------------------------------------------------------
 " make list-like commands more intuitive

@@ -119,7 +119,8 @@ Plug 'vim-airline/vim-airline-themes' " A collection of themes for vim-airline
 "Plug 'plasticboy/vim-markdown', { 'for': 'markdown', 'on': [] }
 Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on' : 'Goyo' }
-Plug 'suan/vim-instant-markdown', { 'on': 'InstantMarkdownPreview' }
+"Plug 'suan/vim-instant-markdown', { 'on': 'InstantMarkdownPreview' }
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 " }}}
 
 " === golang === {{{
@@ -217,6 +218,7 @@ endif
 "Plug 'paroxayte/vwm.vim'                                                                                          " A highly extensible window manager for nvim/vim!
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
 "Plug 'ryanoasis/vim-devicons'                                                                                     " Adds file type glyphs/icons to popular Vim plugins
+"Plug 'simrat39/symbols-outline.nvim'                                                                              " A tree like view for symbols
 "Plug 'thiagoalessio/rainbow_levels.vim', { 'on': ['RainbowLevelsOn', 'RainbowLevelsOff', 'RainbowLevelsToggle'] } " A different approach to code highlighting
 "Plug 'unblevable/quick-scope'                                                                                     " Lightning fast left-right movement in Vim
 "Plug 'will133/vim-dirdiff', { 'on': 'DirDiff' }                                                                   " Vim plugin to diff two directories
@@ -246,6 +248,7 @@ Plug 'kshenoy/vim-signature'                                                 " P
 Plug 'liuchengxu/vista.vim'                                                  " Viewer & Finder for LSP symbols and tags
 Plug 'ludovicchabant/vim-gutentags'                                          " A Vim plugin that manages your tag files
 Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }                             " highlighting columns in csv/tsv files and executing SELECT and UPDATE queries in SQL-like language
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}                  " Nvim Treesitter configurations and abstraction layer
 Plug 'psliwka/vim-smoothie'                                                  " Smooth scrolling for Vim done right
 Plug 'romainl/vim-qf'                                                        " Tame the quickfix window
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }                    " displaying the colours in the file

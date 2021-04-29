@@ -84,6 +84,7 @@ plugins=(
     git
     gitignore
     golang
+    heroku
     httpie
     kubectl
     microk8s
@@ -124,6 +125,7 @@ fi
 [ -d /usr/games ] && export PATH="$PATH:/usr/games"
 [ -d /usr/lib/jvm/default ] && export JAVA_HOME=/usr/lib/jvm/default
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
+[ -d /usr/local/opt/heroku-node/bin ] && export PATH="/usr/local/opt/heroku-node/bin:$PATH"
 [ -d /usr/local/opt/openjdk/bin ] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh

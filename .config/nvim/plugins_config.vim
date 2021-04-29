@@ -761,10 +761,15 @@ let g:airline#extensions#wordcount#enabled    = 1
 
 let g:airline#extensions#tabline#buffer_nr_format = '%s '
 let g:airline#extensions#tabline#buffer_nr_show   = 1
-let g:airline#extensions#tabline#fnamecollapse    = 0
+let g:airline#extensions#tabline#exclude_preview  = 1
+let g:airline#extensions#tabline#fnamecollapse    = 1
 let g:airline#extensions#tabline#fnamemod         = ':t'
+let g:airline#extensions#tabline#formatter        = 'unique_tail_improved'
 let g:airline#extensions#tabline#left_alt_sep     = '|'
 let g:airline#extensions#tabline#left_sep         = ' '
+let g:airline#extensions#tabline#show_splits      = 1
+let g:airline#extensions#tabline#show_tab_count   = 1
+let g:airline#extensions#tabline#show_tabs        = 1
 
 let g:airline_left_sep            = ''
 let g:airline_powerline_fonts     = 1
@@ -1135,6 +1140,7 @@ endif
 let g:fzf_buffers_jump        = 1                                                                        " [Buffers] Jump to the existing window if possible
 let g:fzf_commands_expect     = 'alt-enter,ctrl-x'                                                       " [Commands] --expect expression for directly executing the command
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"' " [[B]Commits] Customize the options used by 'git log':
+let g:fzf_preview_window      = ['right:50%', 'ctrl-/']
 let g:fzf_tags_command        = 'ctags -R --exclude=@.gitignore --exclude=.mypy_cache'                   " [Tags] Command to generate tags file
 
 if has('nvim')
@@ -1187,8 +1193,8 @@ if isdirectory(".git")
     " if in a git project, use :GFiles
     nnoremap <silent> <Leader>e :GFiles<CR>
 else
-    " otherwise, use :FZF
-    nnoremap <silent> <Leader>e :FZF<CR>
+    " otherwise, use :Files
+    nnoremap <silent> <Leader>e :Files<CR>
 endif
 
 nmap <Leader><TAB> <plug>(fzf-maps-n)
@@ -1279,4 +1285,31 @@ noremap  <silent> <Leader>ft :FloatermToggle<CR>
 noremap! <silent> <Leader>ft <Esc>:FloatermToggle<CR>
 tnoremap <silent> <Leader>ft <C-\><C-n>:FloatermToggle<CR>
 " }}}
+
+" === nvim-treesitter/nvim-treesitter === {{{
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = "maintained",
+    highlight = {
+        enable = true,
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
+    },
+    indent = {
+        enable = true
+    },
+    matchup = {
+        enable = true
+    },
+}
+EOF
+" }}}
+
 """ }}}
