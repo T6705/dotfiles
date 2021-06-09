@@ -3,12 +3,10 @@
 """ === General Setting === {{{
 
 if executable('python2')
-    let g:python_host_prog = '/usr/bin/python2'
-    "let g:python_host_prog = '/usr/bin/python'
+    let g:python_host_prog = '/usr/bin/python'
 endif
 if executable('python3')
     let g:python3_host_prog = '/usr/bin/python3'
-    "let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 
 let mapleader=' '
@@ -382,11 +380,11 @@ set spelllang=en_us,nl
 
 " Use persistent history, Keep undo history across sessions by storing it in a file
 if has('persistent_undo')
-    let undo_dir = expand('~/.cache/vim-undo-dir')
+    let undo_dir = expand('~/.cache/nvim-undo-dir')
     if !isdirectory(undo_dir)
-        call mkdir(undo_dir, "", 0700)
+        call mkdir(undo_dir, "p", 0700)
     endif
-    set undodir=~/.cache/vim-undo-dir
+    set undodir=~/.cache/nvim-undo-dir
     set undofile
 endif
 

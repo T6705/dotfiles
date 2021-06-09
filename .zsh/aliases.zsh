@@ -37,6 +37,7 @@ fi
 
 if command -v lsd &> /dev/null ; then
     alias ls="lsd"
+    alias l="ls -lah"
     alias la="ls -lah"
     alias lt='ls --tree'
 elif command -v exa &> /dev/null ; then

@@ -89,14 +89,10 @@ cnoremap <C-l>  <right>
 "cnoremap <C-e> <end>
 
 " Map arrow keys to window resize commands.
-"nnoremap <Right> 2<C-W>>
-"nnoremap <Left> 2<C-W><
-"nnoremap <Up> 2<C-W>+
-"nnoremap <Down> 2<C-W>-
-nnoremap <silent> <Up>    :call animate#window_delta_height(5)<CR>
-nnoremap <silent> <Down>  :call animate#window_delta_height(-5)<CR>
-nnoremap <silent> <Left>  :call animate#window_delta_width(5)<CR>
-nnoremap <silent> <Right> :call animate#window_delta_width(-5)<CR>
+nnoremap <Right> 2<C-W>>
+nnoremap <Left> 2<C-W><
+nnoremap <Up> 2<C-W>+
+nnoremap <Down> 2<C-W>-
 
 " moving up and down work as you would expect
 "nnoremap <silent> j gj
@@ -151,12 +147,8 @@ noremap <C-k> 2<C-y>
 
 nnoremap <silent> <Leader>ffo :!firefox %<CR>
 
-"inoremap <silent> <F2> <Esc>:NERDTreeFind<CR>
-"inoremap <silent> <F3> <Esc>:NERDTreeToggle<CR>
 "inoremap <silent> <F4> <Esc>:GundoToggle<CR>
 "inoremap <silent> <F6> <Esc>:TagbarToggle<CR>
-"nnoremap <silent> <F2> :NERDTreeFind<CR>
-"nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "nnoremap <silent> <F4> :GundoToggle<CR>
 "nnoremap <silent> <F6> :TagbarToggle<CR>
 
@@ -382,31 +374,6 @@ vnoremap S' "zdi'<C-R>z'<Esc>
 vnoremap S( "zdi(<C-R>z)<Esc>
 vnoremap S{ "zdi{<C-R>z}<Esc>
 vnoremap S[ "zdi[<C-R>z]<Esc>
-
-" -------------------------------------------------------------------------------
-" text object
-" -------------------------------------------------------------------------------
-" "in line" (entire line sans white-space; cursor at beginning--ie, ^)
-xnoremap <silent> il :<C-u>normal! g_v^<CR>
-onoremap <silent> il :<C-u>normal! g_v^<CR>
-" "around line" (entire line sans trailing newline; cursor at beginning--ie, 0)
-xnoremap <silent> al :<C-u>normal! $v0<CR>
-onoremap <silent> al :<C-u>normal! $v0<CR>
-" "in document" (from first line to last; cursor at top--ie, gg)
-xnoremap <silent> id :<C-u>normal! G$Vgg0<CR>
-onoremap <silent> id :<C-u>normal! GVgg<CR>
-" "in number" (next number after cursor on current line)
-xnoremap <silent> in :<C-u>call <sid>inNumber()<CR>
-onoremap <silent> in :<C-u>call <sid>inNumber()<CR>
-" "around number" (next number on line and possible surrounding white-space)
-xnoremap <silent> an :<C-u>call <sid>aroundNumber()<CR>
-onoremap <silent> an :<C-u>call <sid>aroundNumber()<CR>
-" "in indentation" (indentation level sans any surrounding empty lines)
-xnoremap <silent> ii :<C-u>call <sid>inIndentation()<CR>
-onoremap <silent> ii :<C-u>call <sid>inIndentation()<CR>
-" "around indentation" (indentation level and any surrounding empty lines)
-xnoremap <silent> ai :<C-u>call <sid>aroundIndentation()<CR>
-onoremap <silent> ai :<C-u>call <sid>aroundIndentation()<CR>
 
 " -------------------------------------------------------------------------------
 " Search in project

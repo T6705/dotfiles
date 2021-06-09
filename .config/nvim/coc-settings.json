@@ -10,19 +10,5 @@
   "diagnostic.infoSign": "●",
   "diagnostic.hintSign": "○",
   "languageserver": {
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh"],
-      "ignoredRootPaths": ["~"]
-    },
-    "cquery": {
-      "command": "cquery",
-      "args": ["--log-file=/tmp/cq.log"],
-      "filetypes": ["c", "cpp"],
-      "initializationOptions": {
-        "cacheDirectory": "/tmp/cquery"
-      }
-    }
   }
 }

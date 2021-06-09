@@ -167,6 +167,9 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+#############
+## aliases ##
+#############
 alias zshconfig="$EDITOR ~/.zshrc ~/.zsh/*"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
@@ -467,11 +470,11 @@ ramdisk_on() {
     fi
 
     if ! [[ -d "/mnt/ramdisk" ]]; then
-        size=$1
         echo " * create mount point '/mnt/ramdisk'"
         sudo mkdir -p /mnt/ramdisk
     fi
 
+    size=$1
     echo "create ramdisk with size: $size"
     sudo mount -t tmpfs tmpfs /mnt/ramdisk -o size=$size
 
@@ -666,20 +669,21 @@ repeat_cmd() {
     done
 }
 
-man() {
-    env \
-        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-        LESS_TERMCAP_md=$(printf "\e[1;31m") \
-        LESS_TERMCAP_me=$(printf "\e[0m") \
-        LESS_TERMCAP_se=$(printf "\e[0m") \
-        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m") \
-        LESS_TERMCAP_us=$(printf "\e[1;32m") \
-        man "$@"
-    if command -v bat &> /dev/null; then
-        export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-    fi
-}
+if command -v bat &> /dev/null; then
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+else
+    man() {
+        env \
+            LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+            LESS_TERMCAP_md=$(printf "\e[1;31m") \
+            LESS_TERMCAP_me=$(printf "\e[0m") \
+            LESS_TERMCAP_se=$(printf "\e[0m") \
+            LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+            LESS_TERMCAP_ue=$(printf "\e[0m") \
+            LESS_TERMCAP_us=$(printf "\e[1;32m") \
+            man "$@"
+    }
+fi
 
 screenshot() {
     if ! command -v maim &> /dev/null; then
@@ -888,6 +892,8 @@ fi
 # fzf
 # -----------------------------------------------------------------------------------------
 if command -v fzf &> /dev/null ; then
+    export FZF_DEFAULT_OPTS="--height=50% --info=inline --border --margin=1 --padding=1 --bind up:preview-up,down:preview-down"
+
     if command -v rg &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
     elif command -v fd &> /dev/null; then
@@ -895,19 +901,84 @@ if command -v fzf &> /dev/null ; then
     elif command -v ag &> /dev/null ; then
         export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
     fi
-    # -----------------------------------------------------------------------------------------
-    # git log browser with FZF
-    # -----------------------------------------------------------------------------------------
-    fglog() {
-      git log --graph --color=always \
-          --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-      fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-          --bind "ctrl-m:execute:
-                    (grep -o '[a-f0-9]\{7\}' | head -1 |
-                    xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-                    {}
-    FZF-EOF"
-    }
+
+    if command -v brew &> /dev/null ; then
+        bu() {
+            local upd=$(brew leaves | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:update]'")
+                if [[ $upd ]]; then
+                  for prog in $(echo $upd)
+                  do brew upgrade $prog
+                  done
+                fi
+        }
+
+        br() {
+            local uninst=$(brew leaves | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:uninstall]'")
+
+            if [[ $uninst ]]; then
+              for prog in $(echo $uninst)
+              do brew uninstall $prog
+              done
+            fi
+        }
+    fi
+
+    if command -v git &> /dev/null ; then
+        is_in_git_repo() {
+          git rev-parse HEAD > /dev/null 2>&1
+        }
+
+        fzf-down() {
+          fzf --height 70% --min-height 20 --border --bind ctrl-/:toggle-preview "$@"
+        }
+
+        fgd() {
+          is_in_git_repo || return
+          git -c color.status=always status --short |
+          fzf-down -m --ansi --nth 2..,.. \
+            --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
+          cut -c4- | sed 's/.* -> //'
+        }
+
+        fgb() {
+          is_in_git_repo || return
+          git branch -a --color=always | grep -v '/HEAD\s' | sort |
+          fzf-down --ansi --multi --tac --preview-window right:70% \
+            --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
+          sed 's/^..//' | cut -d' ' -f1 |
+          sed 's#^remotes/##'
+        }
+
+        fgt() {
+          is_in_git_repo || return
+          git tag --sort -version:refname |
+          fzf-down --multi --preview-window right:70% \
+            --preview 'git show --color=always {}'
+        }
+
+        fglog() {
+          is_in_git_repo || return
+          git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+          fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+            --header 'Press CTRL-S to toggle sort' \
+            --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
+          grep -o "[a-f0-9]\{7,\}"
+        }
+
+        fgrv() {
+          is_in_git_repo || return
+          git remote -v | awk '{print $1 "\t" $2}' | uniq |
+          fzf-down --tac \
+            --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' |
+          cut -d$'\t' -f1
+        }
+
+        _gs() {
+          is_in_git_repo || return
+          git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
+          cut -d: -f1
+        }
+    fi
 
     # -----------------------------------------------------------------------------------------
     # Usage: kp | kill Process
@@ -1299,6 +1370,10 @@ random_password() {
     else
         echo "random_password <length>"
     fi
+}
+
+check_cert() {
+    openssl x509 -text -noout -in $1
 }
 
 rsa() {

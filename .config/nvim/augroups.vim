@@ -25,7 +25,6 @@ augroup configgroup
     au BufRead,BufNewFile *.{md,notes,todo,txt} setlocal spell " automtically turn on spell-checking
     au BufReadPost quickfix nnoremap <buffer> <Left> :Qolder<CR>
     au BufReadPost quickfix nnoremap <buffer> <Right> :Qnewer<CR>
-    au BufWinEnter *.{doc,docx,epub,odp,odt,pdf,rtf} call HandleSpecialFile()
     au BufWinEnter *.todo call Todo()
     au BufWritePost .vimrc,.vimrc.local,init.vim source %
     au BufWritePost .vimrc.local source %
@@ -68,12 +67,6 @@ augroup html_js_css
     "au BufRead,BufNewFile *.{html,js,xml} CompleteTags
 augroup END
 
-" Close vim if the only window left open is a NERDTree or quickfix
-augroup finalcountdown
-    au!
-    au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) || &buftype == 'quickfix' | q | endif
-augroup END
-
 " close preview on completion complete
 augroup completionhide
     au!
@@ -96,9 +89,6 @@ augroup vimrc-restore-cursor-position
 augroup END
 
 augroup LangConfig
-    au FileType java call JavaConfig()
-    au FileType cpp call CppConfig()
-    au BufRead,BufNewFile *.{tmpl,htm,js} call JavascriptConfig()
     au BufRead,BufNewFile *.py call PythonConfig()
 augroup END
 
@@ -135,19 +125,6 @@ augroup END
 "augroup Yanks
 "    autocmd!
 "    au TextYankPost * if v:event.operator ==# 'y' | call Osc52Yank() | endif
-"augroup END
-
-""google/vim-codefmt
-"augroup autoformat_settings
-"    au FileType bzl AutoFormatBuffer buildifier
-"    au FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-"    au FileType dart AutoFormatBuffer dartfmt
-"    au FileType go AutoFormatBuffer gofmt
-"    au FileType gn AutoFormatBuffer gn
-"    au FileType html,css,json AutoFormatBuffer js-beautify
-"    au FileType java AutoFormatBuffer google-java-format
-"    au FileType python AutoFormatBuffer yapf
-"    " Alternative: au FileType python AutoFormatBuffer autopep8
 "augroup END
 
 """ }}}

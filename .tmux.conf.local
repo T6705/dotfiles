@@ -42,7 +42,7 @@ tmux_conf_new_session_prompt=false
 # RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
 #  - false (default)
-tmux_conf_theme_24b_colour=false
+tmux_conf_24b_colour=false
 
 # window style
 tmux_conf_theme_window_fg='default'
@@ -96,6 +96,8 @@ tmux_conf_theme_status_attr='none'
 #     - #{circled_session_name}
 #     - #{hostname}
 #     - #{hostname_ssh}
+#     - #{hostname_full}
+#     - #{hostname_full_ssh}
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_terminal_title='#h ❐ #S ● #I #W'
@@ -106,6 +108,8 @@ tmux_conf_theme_terminal_title='#h ❐ #S ● #I #W'
 #     - #{circled_session_name}
 #     - #{hostname}
 #     - #{hostname_ssh}
+#     - #{hostname_full}
+#     - #{hostname_full_ssh}
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_window_status_fg='#8a8a8a'
@@ -121,6 +125,8 @@ tmux_conf_theme_window_status_format='#I:#W#F'
 #     - #{circled_session_name}
 #     - #{hostname}
 #     - #{hostname_ssh}
+#     - #{hostname_full}
+#     - #{hostname_full_ssh}
 #     - #{username}
 #     - #{username_ssh}
 #tmux_conf_theme_window_status_current_fg='#8f3f71'
@@ -168,7 +174,10 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{circled_session_name}
 #     - #{hostname_ssh}
 #     - #{hostname}
+#     - #{hostname_full}
+#     - #{hostname_full_ssh}
 #     - #{loadavg}
+#     - #{mouse}
 #     - #{pairing}
 #     - #{prefix}
 #     - #{root}
@@ -182,18 +191,7 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{username_ssh}
 #tmux_conf_theme_status_left='#[bg=#8ec07c] #[bg=#1d2021] #[bg=#1d2021] #[bg=#1d2021]#[fg=#d79921] #h #[bg=#1d2021] '
 
-if-shell "if which ifconfig &> /dev/null; then true; else false; fi" \
-        "tmux_conf_theme_status_left=' #[fg=#d79921]#{hostname} , \
-#[fg=#d79921]#S , \
-#[fg=#d79921]#(ifconfig eno1 | grep -oE \"inet ([0-9]{1,3}.){1,3}[0-9]*\" | tr -d \"inet \") \
-#(ifconfig wlo1 | grep -oE \"inet ([0-9]{1,3}.){1,3}[0-9]*\" | tr -d \"inet \") ,'"
-
-#if-shell "if which ip &> /dev/null; then true; else false; fi" \
-#        "tmux_conf_theme_status_left=' #[fg=#d79921]#{hostname} , \
-##[fg=#d79921]#S , \
-##[fg=#d79921]#(ip addr show eno1 | grep -oE \"([0-9]{1,3}\.){1,3}[0-9]{1,3}\/\" | tr -d \"/\") \
-##(ip addr show wlo1 | grep -oE \"([0-9]{1,3}\.){1,3}[0-9]{1,3}\/\" | tr -d \"/\") ,'"
-
+tmux_conf_theme_status_left=' #[fg=#d79921]#{hostname} , #[fg=#d79921]#S ,'
 tmux_conf_theme_status_right='#{prefix}\
 #{pairing}\
 #{?battery_status, #{battery_status},}\
@@ -237,6 +235,12 @@ tmux_conf_theme_prefix='⌨ '            # U+2328
 tmux_conf_theme_prefix_fg='none'
 tmux_conf_theme_prefix_bg='none'
 tmux_conf_theme_prefix_attr='none'
+
+# mouse indicator
+tmux_conf_theme_mouse="↗"                   # U+2197
+tmux_conf_theme_mouse_fg="none"
+tmux_conf_theme_mouse_bg="none"
+tmux_conf_theme_mouse_attr="none"
 
 # root indicator
 tmux_conf_theme_root='!'
@@ -328,3 +332,61 @@ tmux_conf_copy_to_os_clipboard=false
 
 # move status line to top
 #set -g status-position top
+
+# -- tpm -----------------------------------------------------------------------
+
+# while I don't use tpm myself, many people requested official support so here
+# is a seamless integration that automatically installs plugins in parallel
+
+# whenever a plugin introduces a variable to be used in 'status-left' or
+# 'status-right', you can use it in 'tmux_conf_theme_status_left' and
+# 'tmux_conf_theme_status_right' variables.
+
+# by default, launching tmux will update tpm and all plugins
+#   - true (default)
+#   - false
+tmux_conf_update_plugins_on_launch=true
+
+# by default, reloading the configuration will update tpm and all plugins
+#   - true (default)
+#   - false
+tmux_conf_update_plugins_on_reload=true
+
+# /!\ do not add set -g @plugin 'tmux-plugins/tpm'
+# /!\ do not add run '~/.tmux/plugins/tpm/tpm'
+
+# to enable a plugin, use the 'set -g @plugin' syntax:
+# visit https://github.com/tmux-plugins for available plugins
+#set -g @plugin 'tmux-plugins/tmux-copycat'
+#set -g @plugin 'tmux-plugins/tmux-cpu'
+#set -g @plugin 'tmux-plugins/tmux-resurrect'
+#set -g @plugin 'tmux-plugins/tmux-continuum'
+#set -g @continuum-restore 'on'
+
+
+# -- custom variables ----------------------------------------------------------
+
+# to define a custom #{foo} variable, define a POSIX shell function between the
+# '# EOF' and the '# "$@"' lines. Please note that the opening brace { character
+# must be on the same line as the function name otherwise the parse won't detect
+# it.
+#
+# then, use #{foo} in e.g. the 'tmux_conf_theme_status_left' or the
+# 'tmux_conf_theme_status_right' variables.
+
+# # /!\ do not remove the following line
+# EOF
+#
+# # /!\ do not "uncomment" the functions: the leading "# " characters are needed
+#
+# weather() {
+#   curl -m 1 wttr.in?format=3 2>/dev/null
+#   sleep 900 # sleep for 15 minutes, throttle network requests whatever the value of status-interval
+# }
+#
+# online() {
+#   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
+# }
+#
+# "$@"
+# # /!\ do not remove the previous line

@@ -88,7 +88,9 @@ plugins=(
     httpie
     kubectl
     microk8s
+    npm
     osx
+    pip
     pipenv
     pyenv
     python
