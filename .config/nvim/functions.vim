@@ -50,6 +50,7 @@ if has('nvim')
         endfu
     endif
 endif
+
 " -------------------------------------------------------------------------------
 " :LightTheme (PaperColor)
 " -------------------------------------------------------------------------------
@@ -339,6 +340,10 @@ endfu
 command! AutoFoldsEnable  call <sid>open_folds('enable')
 command! AutoFoldsDisable call <sid>open_folds('disable')
 command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
+
+function! CustomFold()
+    return printf('   %6d%s', v:foldend - v:foldstart + 1, getline(v:foldstart))
+endfunction
 
 " -------------------------------------------------------------------------------
 " Window movement shortcuts

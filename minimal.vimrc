@@ -112,10 +112,10 @@ augroup END
 """ === General Setting === {{{
 
 if executable('python2')
-    let g:python_host_prog = '/usr/bin/python2'
+    let g:python_host_prog = '/usr/bin/python'
 endif
 if executable('python3')
-    let g:python3_host_prog = '/usr/bin/python3'
+    let g:python3_host_prog = '/usr/local/bin/python3'
 endif
 
 let mapleader=' '
@@ -176,12 +176,16 @@ if !has('nvim') && v:version > 704 || (v:version == 704 && has('patch401'))
 endif
 
 if has('nvim-0.3.2') || has("patch-8.1.0360")
-    "set diffopt=
-    "set diffopt+=filler
-    "set diffopt+=hiddenoff
-    "set diffopt+=internal
-    "set diffopt+=algorithm:patience
-    set diffopt=filler,internal,algorithm:histogram,indent-heuristic
+    " Turn off whitespaces compare and folding in vimdiff
+    set diffopt+=iwhite
+    set diffopt+=vertical
+
+    " Show filler lines, to keep the text synchronized with a window that has inserted lines at the same position
+    set diffopt+=filler
+
+    set diffopt+=internal,algorithm:patience
+    set diffopt+=indent-heuristic
+    set diffopt+=algorithm:histogram
 endif
 
 " -------------------------------------------------------------------------------
@@ -450,6 +454,7 @@ set smartcase  " case-sensitive if expresson contains a capital letter
 set foldmethod=indent
 set foldlevel=99
 set nofoldenable  " don't fold by default
+set foldtext=CustomFold()
 
 " autochange dir
 set autochdir
@@ -954,6 +959,10 @@ endfu
 command! AutoFoldsEnable  call <sid>open_folds('enable')
 command! AutoFoldsDisable call <sid>open_folds('disable')
 command! AutoFoldsToggle  call <sid>open_folds(<sid>open_folds('is_active') ? 'disable' : 'enable')
+
+function! CustomFold()
+    return printf('   %6d%s', v:foldend - v:foldstart + 1, getline(v:foldstart))
+endfunction
 
 fu! PythonConfig()
     inorea <buffer> ifmain if __name__ == "__main__":<CR>main()<Esc>
