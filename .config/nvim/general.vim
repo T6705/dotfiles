@@ -3,10 +3,10 @@
 """ === General Setting === {{{
 
 if executable('python2')
-    let g:python_host_prog = '/usr/bin/python'
+    let g:python_host_prog = system('which python2')
 endif
 if executable('python3')
-    let g:python3_host_prog = '/usr/bin/python3'
+    let g:python3_host_prog = system('which python3')
 endif
 
 let mapleader=' '
@@ -65,9 +65,9 @@ if !has('nvim') && v:version > 704 || (v:version == 704 && has('patch401'))
 endif
 
 if has('nvim-0.3.2') || has("patch-8.1.0360")
-    " Turn off whitespaces compare and folding in vimdiff
-    set diffopt+=iwhite
-    set diffopt+=vertical
+    "" Turn off whitespaces compare and folding in vimdiff
+    "set diffopt+=iwhite
+    "set diffopt+=vertical
 
     " Show filler lines, to keep the text synchronized with a window that has inserted lines at the same position
     set diffopt+=filler

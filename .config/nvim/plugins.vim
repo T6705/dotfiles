@@ -123,7 +123,6 @@ endif
 "Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }                                        " Helps you win at grep
 "Plug 'paroxayte/vwm.vim'                                                                                          " A highly extensible window manager for nvim/vim!
 "Plug 'ryanoasis/nerd-fonts', { 'do': './install.sh' }
-"Plug 'ryanoasis/vim-devicons'                                                                                     " Adds file type glyphs/icons to popular Vim plugins
 "Plug 'simrat39/symbols-outline.nvim'                                                                              " A tree like view for symbols
 "Plug 'thiagoalessio/rainbow_levels.vim', { 'on': ['RainbowLevelsOn', 'RainbowLevelsOff', 'RainbowLevelsToggle'] } " A different approach to code highlighting
 "Plug 'unblevable/quick-scope'                                                                                     " Lightning fast left-right movement in Vim
@@ -143,6 +142,7 @@ Plug 'cometsong/CommentFrame.vim'                                            " g
 Plug 'danilamihailov/beacon.nvim'                                            " see your cursor jump
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }               " VIM Table Mode for instant table creation.
 Plug 'dstein64/vim-startuptime', { 'on': 'StartupTime' }                     " A Vim plugin for profiling Vim's startup time
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }                  " A more adventurous wildmenu
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }                          " A command-line fuzzy finder
 Plug 'junegunn/fzf.vim'                                                      " use fzf on Vim
 Plug 'junegunn/rainbow_parentheses.vim'                                      " Simpler Rainbow Parentheses
@@ -156,6 +156,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}                  " N
 Plug 'psliwka/vim-smoothie'                                                  " Smooth scrolling for Vim done right
 Plug 'romainl/vim-qf'                                                        " Tame the quickfix window
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }                    " displaying the colours in the file
+Plug 'ryanoasis/vim-devicons'                                                " Adds file type glyphs/icons to popular Vim plugins
 Plug 'scrooloose/nerdcommenter'                                              " Vim plugin for intensely orgasmic commenting
 Plug 'simrat39/symbols-outline.nvim'                                         " A tree like view for symbols
 Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }                                " Visualize your undo tree.

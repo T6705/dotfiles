@@ -78,6 +78,7 @@ plugins=(
     catimg
     command-not-found
     docker
+    docker-compose
     encode64
     fd
     fzf

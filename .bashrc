@@ -482,6 +482,8 @@ ramdisk_on() {
     df -h | grep ramdisk
 }
 
+# Display csv files in the console
+csvview() { column -s, -t < "$1" | less -#2 -N -S; }
 
 zram() {
     cores=$(nproc --all)
@@ -1590,13 +1592,7 @@ if command -v docker &> /dev/null ; then
     #open-source lightweight management UI for Docker hosts or Swarm clusters
     portainer() {
         docker volume create portainer_data
-        docker run -d --name=portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:alpine
-
-        if command -v firefox &> /dev/null; then
-            firefox "http://127.0.0.1:9000"
-        else
-            echo "http://127.0.0.1:9000"
-        fi
+        docker run -d --restart=always --name=portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:alpine
     }
 
     # A visualizer for Docker Swarm Mode using the Docker Remote API, Node.JS, and D3

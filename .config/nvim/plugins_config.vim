@@ -808,4 +808,54 @@ let g:symbols_outline = {
 \ }
 " }}}
 
+" === gelguy/wilder.nvim === {{{
+call wilder#setup({
+      \ 'modes': [':', '/', '?'],
+      \ 'next_key': '<C-N>',
+      \ 'previous_key': '<C-P>',
+      \ 'accept_key': '<Down>',
+      \ 'reject_key': '<Up>',
+      \ })
+
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     wilder#python_file_finder_pipeline({
+      "\       'file_command': ['find', '.', '-type', 'f', '-printf', '%P\n'],
+      "\       'file_command': ['fd', '-tf'],
+      \       'file_command': ['rg', '--files'],
+      \       'dir_command': ['fd', '-td'],
+      "\       'dir_command': ['find', '.', '-type', 'd', '-printf', '%P\n'],
+      \       'filters': ['fuzzy_filter', 'difflib_sorter'],
+      \     }),
+      \     wilder#cmdline_pipeline({
+      \       'fuzzy': 1,
+      \       'set_pcre2_pattern': has('nvim'),
+      \     }),
+      \     wilder#python_search_pipeline({
+      \       'pattern': 'fuzzy',
+      \     }),
+      \   ),
+      \ ])
+
+let s:highlighters = [
+        \ wilder#pcre2_highlighter(),
+        \ wilder#basic_highlighter(),
+        \ ]
+
+call wilder#set_option('renderer', wilder#renderer_mux({
+      \ ':': wilder#popupmenu_renderer({
+      \   'highlighter': s:highlighters,
+      \ 'left': [
+      \   wilder#popupmenu_devicons(),
+      \ ],
+      \ }),
+      \ '/': wilder#wildmenu_renderer({
+      \   'highlighter': s:highlighters,
+      \ 'left': [
+      \   wilder#popupmenu_devicons(),
+      \ ],
+      \ }),
+      \ }))
+" }}}
+
 """ }}}
