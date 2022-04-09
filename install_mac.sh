@@ -15,7 +15,7 @@ fi
 time brew update
 time brew install ack aircrack-ng automake awk bash bat bfg binutils binwalk cifer clamav cmake coreutils cquery cscope ctags curl dc3dd dcfldd dex2jar diff-so-fancy dns2tcp docker-compose docker-compose-completion dust easy-tag emacs exa exploitdb ext4fuse fcrackzip feh ffmpeg findutils fish foremost fx fzf gcc gettext git git-delta gnu-sed gnupg go grep hashcat hashpump hping htop httpie hydra iperf3 john jq knock kompose lens libtool llvm lsd macs-fan-control minikube mitmproxy moreutils mpv muesli/homebrew-tap/duf neofetch netpbm nikto nim ninja nmap node ntfs-3g openvpn p7zip pkg-config pngcheck prettier proxychains-ng pycharm-ce pypy3 qemu radare2 ranger rclone ripgrep rust screenfetch sd shellcheck socat sqlmap sshuttle starship stunnel tcpdump tcpflow tcpreplay tcptrace telnet tmux ucspi-tcp unrar vim watch wget xz
 
-time brew install --cask another-redis-desktop-manager burp-suite chromedriver chromium clipy cyberduck discord firefox font-noto-serif-cjk ghidra gimp gitahead google-chrome iterm2 krita macvim meld postman tiles veracrypt virtualbox visual-studio-code
+time brew install --cask alacritty another-redis-desktop-manager apenngrace/vulkan/vulkan-sdk burp-suite chromedriver chromium clipy cyberduck discord eul filezilla firefox font-noto-serif-cjk ghidra gimp gitahead gitup goneovim google-chrome iterm2 joplin joplin-cli krita macvim meld ngrok openvpn-connect postman sourcetrail stats tiles typora veracrypt virtualbox visual-studio-code vnc-viewer wine-stable
 
 #########################
 ### Install nerd font ###

@@ -18,8 +18,8 @@ alias :qall!="exit"
 alias :qall="exit"
 alias fucking="sudo"
 
-alias todo="$EDITOR ~/.todo"
-alias notes="$EDITOR ~/.notes"
+alias todo="$EDITOR ~/.todo.md"
+alias notes="$EDITOR ~/.notes.md"
 
 # Improve od for hexdump
 alias od='od -Ax -tx1z'

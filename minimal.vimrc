@@ -1226,8 +1226,8 @@ xnoremap < <gv
 xnoremap > >gv
 
 " Move visual block
-xnoremap J :m '>+1<CR>gv=gv
-xnoremap K :m '<-2<CR>gv=gv
+xnoremap J :m '>+1<CR>gv=gvzz
+xnoremap K :m '<-2<CR>gv=gvzz
 
 " Scrolling
 noremap <C-j> 2<C-e>

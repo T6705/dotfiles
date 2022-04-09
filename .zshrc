@@ -88,9 +88,9 @@ plugins=(
     heroku
     httpie
     kubectl
+    macos
     microk8s
     npm
-    osx
     pip
     pipenv
     pyenv

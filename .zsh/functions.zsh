@@ -845,6 +845,12 @@ check_cert() {
     openssl x509 -text -noout -in $1
 }
 
+dump_website() {
+    if command -v wget &> /dev/null ; then
+        wget --mirror --convert-links --adjust-extension --page-requisites --no-parent $1
+    fi
+}
+
 rsa() {
     if [[ $1 == "keygen" ]]; then
         if [[ ( -n $2 && -n $3 ) ]]; then
@@ -1058,7 +1064,11 @@ if command -v docker &> /dev/null ; then
     #open-source lightweight management UI for Docker hosts or Swarm clusters
     portainer() {
         docker volume create portainer_data
-        docker run -d --restart=always --name=portainer -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:alpine
+        docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
+        --restart=always \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v portainer_data:/data \
+        portainer/portainer-ce:alpine
     }
 
     # A visualizer for Docker Swarm Mode using the Docker Remote API, Node.JS, and D3
