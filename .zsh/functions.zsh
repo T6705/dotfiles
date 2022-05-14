@@ -660,7 +660,7 @@ if command -v ffmpeg &> /dev/null ; then
         echo "Extracting frame from $1 ..."
         if [[ -f $1 ]]; then
             mkdir -p frame
-            time ffmpeg -i $1 frame/frame%09d.bmp
+            time ffmpeg -i $1 frame/frame%09d.png
             cd frame
         else
             echo "'$1' is not a valid file"

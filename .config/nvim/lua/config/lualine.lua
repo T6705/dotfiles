@@ -22,7 +22,7 @@ local function lsp_name()
   for _, client in ipairs(clients) do
     local filetypes = client.config.filetypes
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      return '  '..client.name
+      return '  ' .. client.name
     end
   end
   return msg
@@ -43,38 +43,38 @@ local function mixed_indent()
   end
   if not mixed then return '' end
   if mixed_same_line ~= nil and mixed_same_line > 0 then
-    return 'MI:'..mixed_same_line
+    return 'MI:' .. mixed_same_line
   end
-  local space_indent_cnt = vim.fn.searchcount({pattern=space_pat, max_count=1e3}).total
-  local tab_indent_cnt =  vim.fn.searchcount({pattern=tab_pat, max_count=1e3}).total
+  local space_indent_cnt = vim.fn.searchcount({ pattern = space_pat, max_count = 1e3 }).total
+  local tab_indent_cnt = vim.fn.searchcount({ pattern = tab_pat, max_count = 1e3 }).total
   if space_indent_cnt > tab_indent_cnt then
-    return 'MI:'..tab_indent
+    return 'MI:' .. tab_indent
   else
-    return 'MI:'..space_indent
+    return 'MI:' .. space_indent
   end
 end
 
-require'lualine'.setup {
+require 'lualine'.setup {
   options = {
-    theme  = 'gruvbox_dark',
+    theme                = 'gruvbox_dark',
     -- theme  = 'wombat',
-    icons_enabled = true,
+    icons_enabled        = true,
     -- component_separators = { left = '', right = ''},
     -- section_separators = { left = '', right = ''},
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {},
+    component_separators = { left = '', right = '' },
+    section_separators   = { left = '', right = '' },
+    disabled_filetypes   = {},
     always_divide_middle = true,
   },
   sections = {
     lualine_a = {
       -- { 'mode', separator = { left = '' }, right_padding = 2 },
-      {'mode'},
+      { 'mode' },
     },
     lualine_b = {
       'branch',
       'diff',
-      {'diagnostics', sources={'nvim_diagnostic'}}
+      { 'diagnostics', sources = { 'nvim_diagnostic' } }
     },
     lualine_c = {
       'filename',
@@ -83,19 +83,19 @@ require'lualine'.setup {
       'lsp_progress',
       { gps.get_location, cond = gps.is_available },
     },
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
+    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_y = { 'progress' },
     lualine_z = {
       mixed_indent,
       -- { 'location', separator = { right = '' }, left_padding = 2 },
-      {'location'},
+      { 'location' },
     }
   },
   inactive_sections = {
     lualine_a = {},
     lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
     lualine_y = {},
     lualine_z = {}
   },

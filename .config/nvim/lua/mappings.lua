@@ -1,4 +1,4 @@
-local cmd = vim.cmd                     -- execute Vim commands
+local cmd = vim.cmd -- execute Vim commands
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
@@ -24,8 +24,8 @@ local opts = { noremap = true, silent = true }
 map('n', 'Y', 'y$', opts)
 
 -- change word under cursor and dot repeat
-map('n', 'c*',  '*Ncgn', opts)
-map('n', 'c#',  '#NcgN', opts)
+map('n', 'c*', '*Ncgn', opts)
+map('n', 'c#', '#NcgN', opts)
 
 map('n', '<leader>p', '"+gP', opts)
 map('n', '<leader>x', '"+x', opts)
@@ -63,12 +63,13 @@ map('v', 'k', 'gk', opts)
 map('v', '$', 'g$', opts)
 
 -- move to beginning/end of line
-map('n', 'H',  'g^', opts)
-map('n', 'L',  'g$', opts)
-map('v', 'H',  'g^', opts)
-map('v', 'L',  'g$', opts)
+map('n', 'H', 'g^', opts)
+map('n', 'L', 'g$', opts)
+map('v', 'H', 'g^', opts)
+map('v', 'L', 'g$', opts)
 
-map('n', 'N', 'Nzzzv', opts)
+-- map('n', 'N', 'Nzzzv', opts)
+-- map('n', 'n', 'nzzzv', opts)
 map('n', '[[', '[[zz', opts)
 map('n', '[]', '[]zz', opts)
 map('n', '][', '][zz', opts)
@@ -77,7 +78,6 @@ map('n', 'gg', ':norm! ggzz<CR>', opts)
 map('n', 'G', ':norm! Gzz<CR>', opts)
 map('n', 'g=', 'mmgg=G`m', opts)
 map('n', 'gQ', 'mmgggqG`m', opts)
-map('n', 'n', 'nzzzv', opts)
 map('n', '{', '{zz', opts)
 map('n', '}', '}zz', opts)
 
@@ -108,7 +108,7 @@ map('n', 'Q', '@q', opts)
 --xnoremap Q :'<,'>:normal @q<CR>
 
 -- Switch to the directory of opened buffer
-map('n', '<leader>cd',  ':lcd %:p:h<CR>:pwd<CR>', opts)
+map('n', '<leader>cd', ':lcd %:p:h<CR>:pwd<CR>', opts)
 
 -- Change current word to uppercase
 map('n', '<leader>u', 'gUiw', opts)
@@ -155,9 +155,9 @@ map('n', '[l', ':lprev<CR>zz', opts)
 map('n', ']L', ':llast<CR>zz', opts)
 map('n', ']l', ':lnext<CR>zz', opts)
 
-map('n', '<leader>qc',  ':cclose<CR>', opts)
-map('n', '<leader>qo',  ':copen<CR>', opts)
-map('n', '<leader>qw',  ':cwindow<CR>', opts)
+map('n', '<leader>qc', ':cclose<CR>', opts)
+map('n', '<leader>qo', ':copen<CR>', opts)
+map('n', '<leader>qw', ':cwindow<CR>', opts)
 map('n', '[Q', ':cfirst<CR>zz', opts)
 map('n', '[q', ':cprev<CR>zz', opts)
 map('n', ']Q', ':clast<CR>zz', opts)

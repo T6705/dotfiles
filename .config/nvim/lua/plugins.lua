@@ -8,19 +8,19 @@ end
 vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
 
 return require('packer').startup(function()
-  use {'wbthomason/packer.nvim', event = 'VimEnter'}
+  use { 'wbthomason/packer.nvim', event = 'VimEnter' }
 
   --------------------------------------------------------------------------------
   -- Colorscheme
   --------------------------------------------------------------------------------
-  use {'NLKNguyen/papercolor-theme'}
-  use {'chriskempson/vim-tomorrow-theme'}
-  use {'flazz/vim-colorschemes'}
-  use {'google/vim-colorscheme-primary'}
-  use {'morhetz/gruvbox'}
-  use {'rakr/vim-one'}
-  use {'roosta/vim-srcery'}
-  use {'tomasr/molokai'}
+  use { 'NLKNguyen/papercolor-theme' }
+  use { 'chriskempson/vim-tomorrow-theme' }
+  use { 'flazz/vim-colorschemes' }
+  use { 'google/vim-colorscheme-primary' }
+  use { 'morhetz/gruvbox' }
+  use { 'rakr/vim-one' }
+  use { 'roosta/vim-srcery' }
+  use { 'tomasr/molokai' }
 
   --------------------------------------------------------------------------------
   -- Interface
@@ -30,7 +30,7 @@ return require('packer').startup(function()
     'lukas-reineke/indent-blankline.nvim',
     -- event = 'BufRead',
     config = function()
-      require('indent_blankline').setup{
+      require('indent_blankline').setup {
         space_char_blankline = ' ',
         show_end_of_line = true,
         strict_tabs = true,
@@ -44,9 +44,10 @@ return require('packer').startup(function()
 
   use {
     'akinsho/bufferline.nvim',
-    requires = {'kyazdani42/nvim-web-devicons'},
+    tag = "*",
+    requires = { 'kyazdani42/nvim-web-devicons' },
     config = function()
-      require("bufferline").setup{
+      require("bufferline").setup {
         options = {
           numbers = "none",
           close_command = "bdelete! %d",
@@ -96,13 +97,13 @@ return require('packer').startup(function()
   use {
     'nvim-lualine/lualine.nvim',
     requires = {
-      {'kyazdani42/nvim-web-devicons', opt = true},
-      {'arkav/lualine-lsp-progress'}
+      { 'kyazdani42/nvim-web-devicons', opt = true },
+      { 'arkav/lualine-lsp-progress' }
     },
     config = function() require 'config.lualine' end,
   }
 
-   use {
+  use {
     'SmiteshP/nvim-gps',
     requires = 'nvim-treesitter/nvim-treesitter',
     config = function()
@@ -112,9 +113,7 @@ return require('packer').startup(function()
 
   use {
     'kevinhwang91/nvim-hlslens',
-    config = function()
-      require("hlslens").setup()
-    end
+    config = function() require 'config.hlslens' end,
   }
 
   --------------------------------------------------------------------------------
@@ -126,8 +125,8 @@ return require('packer').startup(function()
     config = function() require('gitsigns').setup() end
   }
 
-  use {'rbong/vim-flog'}
-  use {'rhysd/git-messenger.vim'}
+  use { 'rbong/vim-flog' }
+  use { 'rhysd/git-messenger.vim' }
 
   use {
     'tpope/vim-fugitive',
@@ -155,8 +154,8 @@ return require('packer').startup(function()
     -- event = 'BufRead',
     run = ':TSUpdateSync',
     config = function()
-      require'nvim-treesitter.configs'.setup{
-        ensure_installed = 'maintained',
+      require 'nvim-treesitter.configs'.setup {
+        ensure_installed = 'all',
         highlight = {
           enable = true,
         },
@@ -224,20 +223,20 @@ return require('packer').startup(function()
         query_linter = {
           enable = true,
           use_virtual_text = true,
-          lint_events = {"BufWrite", "CursorHold"},
+          lint_events = { "BufWrite", "CursorHold" },
         },
       }
     end,
   }
 
-  use {'neovim/nvim-lspconfig'}
+  use { 'neovim/nvim-lspconfig' }
 
   use {
     'williamboman/nvim-lsp-installer',
     config = function() require 'config.lspinstall' end,
   }
 
-  use {'kosayoda/nvim-lightbulb'}
+  use { 'kosayoda/nvim-lightbulb' }
 
   use {
     'onsails/lspkind-nvim',
@@ -248,14 +247,16 @@ return require('packer').startup(function()
   use {
     'hrsh7th/nvim-cmp',
     requires = {
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-calc'},
-      {'hrsh7th/cmp-cmdline'},
-      {'hrsh7th/cmp-emoji'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
-      {'hrsh7th/cmp-path'},
-      {'lukas-reineke/cmp-rg'},
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-calc' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'hrsh7th/cmp-emoji' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
+      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+      { 'hrsh7th/cmp-nvim-lua' },
+      { 'hrsh7th/cmp-path' },
+      { 'lukas-reineke/cmp-rg' },
     },
     config = function() require 'config.nvim-cmp' end,
   }
@@ -263,7 +264,7 @@ return require('packer').startup(function()
   use {
     'quangnguyen30192/cmp-nvim-ultisnips',
     config = function()
-      require('cmp_nvim_ultisnips').setup{}
+      require('cmp_nvim_ultisnips').setup {}
     end
   }
 
@@ -272,7 +273,7 @@ return require('packer').startup(function()
   --------------------------------------------------------------------------------
   use {
     'SirVer/ultisnips',
-    requires = {{'honza/vim-snippets', rtp = '.'}},
+    requires = { { 'honza/vim-snippets', rtp = '.' } },
     config = function()
       vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
       vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
@@ -285,14 +286,14 @@ return require('packer').startup(function()
   --------------------------------------------------------------------------------
   -- go
   --------------------------------------------------------------------------------
-  use {'buoto/gotests-vim', ft={'go'}}
-  use {'fatih/vim-go', ft={'go'}, run=':GoInstallBinaries'}
-  use {'sebdah/vim-delve', ft={'go'}}
+  use { 'buoto/gotests-vim', ft = { 'go' } }
+  use { 'fatih/vim-go', ft = { 'go' }, run = ':GoInstallBinaries' }
+  use { 'sebdah/vim-delve', ft = { 'go' } }
 
   --------------------------------------------------------------------------------
   -- python
   --------------------------------------------------------------------------------
-  use {'psf/black', ft={'python'}}
+  use { 'psf/black', ft = { 'python' } }
 
   --------------------------------------------------------------------------------
   -- other
@@ -319,29 +320,26 @@ return require('packer').startup(function()
     config = function()
       vim.opt.cursorline = true
       require('modes').setup({
-      colors = {
-        copy = "#51AFEF",
-        delete = "#C678DD",
-        insert = "#98BE65",
-        visual = "#FF8800",
-      },
+        colors = {
+          copy = "#51AFEF",
+          delete = "#C678DD",
+          insert = "#98BE65",
+          visual = "#FF8800",
+        },
 
-      -- Cursorline highlight opacity
-      line_opacity = 0.1,
+        -- Cursorline highlight opacity
+        line_opacity = 0.1,
 
-      -- Highlight cursor
-      set_cursor = true,
-
-      -- Highlight in active window only
-      focus_only = true,
-    })
+        -- Highlight cursor
+        set_cursor = true,
+      })
     end
   })
 
   use {
     'kyazdani42/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'nvim-tree'.setup{} end,
+    config = function() require 'nvim-tree'.setup {} end,
     setup = [[require('config.nvim-tree')]]
   }
 
@@ -362,10 +360,10 @@ return require('packer').startup(function()
   -- use {'voldikss/vim-floaterm'}
   -- use {'w0rp/ale'}
 
-  use{
-    'anuvyklack/pretty-fold.nvim',
+  use { 'anuvyklack/pretty-fold.nvim',
+    requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
     config = function()
-      require('pretty-fold').setup{
+      require('pretty-fold').setup {
         keep_indentation = false,
         fill_char = '━',
         sections = {
@@ -377,7 +375,7 @@ return require('packer').startup(function()
           }
         }
       }
-      require('pretty-fold.preview').setup_keybinding()
+      require('pretty-fold.preview').setup()
     end
   }
 
@@ -391,7 +389,7 @@ return require('packer').startup(function()
   use {
     'akinsho/toggleterm.nvim',
     config = function()
-      require("toggleterm").setup{
+      require("toggleterm").setup {
         open_mapping = [[<leader>ft]],
         direction = 'float',
         float_opts = {
@@ -404,27 +402,28 @@ return require('packer').startup(function()
   use {
     'karb94/neoscroll.nvim',
     config = function() require('neoscroll').setup({
-      -- All these keys will be mapped to their corresponding default scrolling animation
-      mappings = {
-        '<C-u>',
-        '<C-d>',
-        '<C-b>',
-        '<C-f>',
-        '<C-y>',
-        '<C-e>',
-        'zt',
-        'zz',
-        'zb'
-      },
-      hide_cursor = true,          -- Hide cursor while scrolling
-      stop_eof = false,             -- Stop at <EOF> when scrolling downwards
-      use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-      respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-      cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-      easing_function = nil,        -- Default easing function
-      pre_hook = nil,              -- Function to run before the scrolling animation starts
-      post_hook = nil,              -- Function to run after the scrolling animation ends
-    }) end
+        -- All these keys will be mapped to their corresponding default scrolling animation
+        mappings = {
+          '<C-u>',
+          '<C-d>',
+          '<C-b>',
+          '<C-f>',
+          '<C-y>',
+          '<C-e>',
+          'zt',
+          'zz',
+          'zb'
+        },
+        hide_cursor = true, -- Hide cursor while scrolling
+        stop_eof = false, -- Stop at <EOF> when scrolling downwards
+        use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
+        respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+        cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+        easing_function = nil, -- Default easing function
+        pre_hook = nil, -- Function to run before the scrolling animation starts
+        post_hook = nil, -- Function to run after the scrolling animation ends
+      })
+    end
   }
 
   use {
@@ -432,11 +431,12 @@ return require('packer').startup(function()
     setup = [[require('config.vim-easy-align')]],
   }
 
+  use { 'folke/lsp-colors.nvim' }
   use {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
-      require('trouble').setup{}
+      require('trouble').setup {}
     end,
     setup = [[require('config.trouble')]],
   }
@@ -444,27 +444,27 @@ return require('packer').startup(function()
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
-      {'nvim-lua/plenary.nvim'},
-      {'nvim-lua/popup.nvim'},
-      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-      {'nvim-telescope/telescope-media-files.nvim'}
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-lua/popup.nvim' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+      { 'nvim-telescope/telescope-media-files.nvim' }
     },
     config = function() require 'config.telescope' end,
   }
 
-  use {'andymass/vim-matchup', event = 'User ActuallyEditing'}
-  use {'dhruvasagar/vim-table-mode'}
-  use {'dstein64/vim-startuptime'}
-  use {'ggandor/lightspeed.nvim'}
-  use {'junegunn/fzf'}
-  use {'junegunn/fzf.vim', setup = [[require('config.fzf')]] }
-  use {'junegunn/vim-peekaboo'}
-  use {'lpinilla/vim-codepainter'}
-  use {'luukvbaal/stabilize.nvim', config = function() require('stabilize').setup() end }
-  use {'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
-  use {'simrat39/symbols-outline.nvim', setup = [[require('config.symbols-outline')]]}
-  use {'tpope/vim-repeat'}
-  use {'tpope/vim-surround'}
-  use {'wellle/targets.vim'}
-  use {'yamatsum/nvim-cursorline'}
+  use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
+  use { 'dhruvasagar/vim-table-mode' }
+  use { 'dstein64/vim-startuptime' }
+  use { 'ggandor/lightspeed.nvim' }
+  use { 'junegunn/fzf' }
+  use { 'junegunn/fzf.vim', setup = [[require('config.fzf')]] }
+  use { 'junegunn/vim-peekaboo' }
+  use { 'lpinilla/vim-codepainter' }
+  use { 'luukvbaal/stabilize.nvim', config = function() require('stabilize').setup() end }
+  use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
+  use { 'simrat39/symbols-outline.nvim', setup = [[require('config.symbols-outline')]] }
+  use { 'tpope/vim-repeat' }
+  use { 'tpope/vim-surround' }
+  use { 'wellle/targets.vim' }
+  use { 'yamatsum/nvim-cursorline' }
 end)

@@ -1,16 +1,16 @@
-local cmd = vim.cmd                     -- execute Vim commands
-local exec = vim.api.nvim_exec                             -- execute Vimscript
-local fn = vim.fn                       -- call Vim functions
-local g = vim.g                         -- global variables
-local o = vim.o                         -- global options
-local b = vim.bo                        -- buffer-scoped options
-local w = vim.wo                        -- windows-scoped options
+local cmd = vim.cmd -- execute Vim commands
+local exec = vim.api.nvim_exec -- execute Vimscript
+local fn = vim.fn -- call Vim functions
+local g = vim.g -- global variables
+local o = vim.o -- global options
+local b = vim.bo -- buffer-scoped options
+local w = vim.wo -- windows-scoped options
 
 -- cmd [[
 -- let g:python_host_prog = system('which python2')
 -- let g:python3_host_prog = system('which python3')
 -- ]]
-g.python3_host_prog='/usr/local/bin/python3'
+g.python3_host_prog = '/usr/local/bin/python3'
 
 g.mapleader = ' '
 
@@ -24,12 +24,12 @@ cmd 'packadd shellmenu'
 cmd 'packadd swapmouse'
 cmd 'packadd vimball'
 
-o.mouse = 'a'               -- enable mouse support
+o.mouse = 'a' -- enable mouse support
 
 o.ttimeout = true
 o.ttimeoutlen = 100
 
-cmd [[set formatoptions=q]]  -- allow gq to work on comment
+cmd [[set formatoptions=q]] -- allow gq to work on comment
 cmd [[set formatoptions+=j]] -- Delete comment character when joining commented lines
 cmd [[set formatoptions+=r]] -- enter extends comments
 cmd [[set formatoptions+=n]] -- format numbered lists using 'formatlistpat'
@@ -46,8 +46,8 @@ cmd [[set diffopt+=algorithm:histogram]]
 ----------------------------------------------------------------------------------
 o.binary = true
 o.bomb = true
-o.encoding='utf-8'
-o.fileencoding='utf-8'
+o.encoding = 'utf-8'
+o.fileencoding = 'utf-8'
 -- set ffs=unix,dos,mac " Use Unix as the standard file type
 -- set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
 
@@ -57,11 +57,11 @@ cmd [[set backspace=indent,eol,start]] -- make backspace behave in a sane manner
 ----------------------------------------------------------------------------------
 -- Tabs
 ----------------------------------------------------------------------------------
-b.expandtab = true      -- use spaces instead of tabs
-b.shiftwidth = 4        -- number of spaces to use for indent and unindent (1 tab == 4 spaces)
-b.tabstop = 4           -- the visible width of tabs
-b.smartindent = true    -- autoindent new lines
-b.softtabstop = 4       -- edit as if the tabs are 4 characters wide
+b.expandtab = true -- use spaces instead of tabs
+b.shiftwidth = 4 -- number of spaces to use for indent and unindent (1 tab == 4 spaces)
+b.tabstop = 4 -- the visible width of tabs
+b.smartindent = true -- autoindent new lines
+b.softtabstop = 4 -- edit as if the tabs are 4 characters wide
 
 -- toggle invisible characters
 o.list = true
@@ -76,7 +76,7 @@ o.breakindentopt = "sbr"
 ----------------------------------------------------------------------------------
 -- UI
 ----------------------------------------------------------------------------------
-o.termguicolors = true          -- enable 24-bit RGB colors
+o.termguicolors = true -- enable 24-bit RGB colors
 g.gruvbox_italic = 1
 g.gruvbox_contrast_dark = "hard"
 cmd([[colorscheme gruvbox]])
@@ -87,26 +87,26 @@ o.pumblend = 30
 -- filetype indent on    " load filetype-specific indent files
 -- filetype plugin on
 o.filetype = 'on'
-b.autoindent = true       -- Copy indent from last line when starting new line
+b.autoindent = true -- Copy indent from last line when starting new line
 o.background = 'dark'
 b.cindent = true
-w.cursorline = true       -- highlight current line
+w.cursorline = true -- highlight current line
 -- set display+=lastline
-o.hidden = true           -- current buffer can be put into background
+o.hidden = true -- current buffer can be put into background
 
-o.laststatus = 2          -- Status bar always on
-o.lazyredraw = true       -- Don't redraw while executing macros (good performance config)
-w.number = true           -- show line number
-w.relativenumber = true   -- show relative line numbers
-o.ruler = true            -- Always show current position
-w.signcolumn = 'yes'      -- always show signcolumns
-cmd [[set shortmess=a]]   -- use every short text trick
-cmd [[set shortmess+=O]]  -- file read message overwrites subsequent
-cmd [[set shortmess+=s]]  -- no search hit bottom crap
-cmd [[set shortmess+=t]]  -- truncate file message
-cmd [[set shortmess+=T]]  -- truncate messages in the middle
-cmd [[set shortmess+=I]]  -- no intro message
-cmd [[set shortmess+=c]]  -- no ins-completion messages
+o.laststatus = 2 -- Status bar always on
+o.lazyredraw = true -- Don't redraw while executing macros (good performance config)
+w.number = true -- show line number
+w.relativenumber = true -- show relative line numbers
+o.ruler = true -- Always show current position
+w.signcolumn = 'yes' -- always show signcolumns
+cmd [[set shortmess=a]] -- use every short text trick
+cmd [[set shortmess+=O]] -- file read message overwrites subsequent
+cmd [[set shortmess+=s]] -- no search hit bottom crap
+cmd [[set shortmess+=t]] -- truncate file message
+cmd [[set shortmess+=T]] -- truncate messages in the middle
+cmd [[set shortmess+=I]] -- no intro message
+cmd [[set shortmess+=c]] -- no ins-completion messages
 -- if !&scrolloff
 --     set scrolloff=3   " 3 lines above/below cursor when scrolling
 -- endif
@@ -130,15 +130,15 @@ cmd [[set complete+=kspell]]
 -- "set ofu=ale#completion#OmniFunc " Set omni-completion method
 
 o.completeopt = 'longest,menuone' -- completion options
-o.showcmd = true                  -- show incomplete commands
-w.so=7                            -- Set 7 lines to the cursor - when moving vertically using j/k
-w.t_Co="256"                      -- Explicitly tell vim that the terminal supports 256 colors
+o.showcmd = true -- show incomplete commands
+w.so = 7 -- Set 7 lines to the cursor - when moving vertically using j/k
+w.t_Co = "256" -- Explicitly tell vim that the terminal supports 256 colors
 o.title = true
-o.titleold="Terminal"
-o.titlestring='%F'
-o.ttyfast = true                  -- faster redrawing
-o.syntax = 'on'                   -- switch syntax highlighting on
-b.synmaxcol = 1024                -- only syntax highlighting the first 200 characters of each line
+o.titleold = "Terminal"
+o.titlestring = '%F'
+o.ttyfast = true -- faster redrawing
+o.syntax = 'on' -- switch syntax highlighting on
+b.synmaxcol = 1024 -- only syntax highlighting the first 200 characters of each line
 
 ----------------------------------------------------------------------------------
 -- Wildmenu
@@ -160,13 +160,13 @@ set wildignore+=.hg,.git,.svn                       " Version Controls"
 ----------------------------------------------------------------------------------
 -- Searching
 ----------------------------------------------------------------------------------
-o.hlsearch = true     -- highlight search results
-o.ignorecase = true   -- Ignore case when searching
+o.hlsearch = true -- highlight search results
+o.ignorecase = true -- Ignore case when searching
 o.inccommand = 'split'
-o.incsearch = true    -- Makes search act like search in modern browsers
-o.magic = true        -- For regular expressions turn magic on
-o.showmatch = true    -- Show matching brackets when text indicator is over them
-o.smartcase = true    -- case-sensitive if expresson contains a capital letter
+o.incsearch = true -- Makes search act like search in modern browsers
+o.magic = true -- For regular expressions turn magic on
+o.showmatch = true -- Show matching brackets when text indicator is over them
+o.smartcase = true -- case-sensitive if expresson contains a capital letter
 
 -- Folding
 -- w.foldmethod = 'marker'
@@ -181,7 +181,7 @@ o.autochdir = true
 -- error bells
 o.errorbells = false
 -- set t_vb=
-o.tm=500
+o.tm = 500
 o.visualbell = true
 
 -- Directories for swp files
@@ -190,8 +190,8 @@ o.backup = false
 b.swapfile = false
 
 -- Disable the vlinking cursor
-o.gcr='a:blinkon0'
-o.scrolloff=3
+o.gcr = 'a:blinkon0'
+o.scrolloff = 3
 
 -- Use modeline overrides
 g.modeline = true
@@ -226,26 +226,75 @@ if has('persistent_undo')
 endif
 ]]
 
--- augroups
-cmd[[
-  augroup vimrc-restore-cursor-position
-      au!
-      au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-  augroup END
+-- autocmd
+vim.api.nvim_create_augroup('bufcheck', { clear = true })
 
-  augroup highlight_yank
-      au!
-      au TextYankPost * silent! lua vim.highlight.on_yank { timeout=300 }
-  augroup END
+-- Enable spell checking for certain file types
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  group    = 'bufcheck',
+  pattern  = { "*.txt", "*.md", "*.tex" },
+  callback = function()
+    vim.opt_local.spell = true
+  end,
+})
 
-  au BufWritePre * :%s/\s\+$//e " Automatically removing all trailing whitespace
-  au FileType json setlocal equalprg=python3\ -m\ json.tool
-  au FocusGained *: redraw!     " Redraw screen every time when focus gained
-  au FocusLost *: wa            " Set vim to save the file on focus out
-  au InsertLeave * silent! set nopaste
-  au FileType xml,html,xhtml,css,scss,javascript,lua,yaml setlocal shiftwidth=2 tabstop=2
-  au BufEnter * set fo-=c fo-=r fo-=o " don't auto commenting new lines
+-- highlight yanks
+vim.api.nvim_create_autocmd('TextYankPost', {
+  group    = 'bufcheck',
+  pattern  = '*',
+  callback = function() vim.highlight.on_yank { timeout = 500 } end
+})
 
-  " shows a lightbulb in the sign column whenever a textDocument/codeAction is available at the current cursor position.
-  au CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-]]
+-- Return to last edit position when opening files
+vim.api.nvim_create_autocmd('BufReadPost', {
+  group    = 'bufcheck',
+  pattern  = '*',
+  callback = function()
+    if fn.line("'\"") > 1 and fn.line("'\"") <= fn.line("$") then
+      fn.setpos('.', fn.getpos("'\""))
+      cmd('normal zz')
+      cmd('silent! foldopen')
+    end
+  end
+})
+
+-- Check if any buffers were changed outside of Vim
+vim.api.nvim_create_autocmd('CursorHold', {
+  group   = 'bufcheck',
+  pattern = '*',
+  command = 'silent! checktime'
+})
+
+-- relativenumber on current Buf/Win
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, { group = 'bufcheck', pattern = '*', command = 'setlocal nu' })
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, { group = 'bufcheck', pattern = '*', command = 'setlocal rnu' })
+vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, { group = 'bufcheck', pattern = '*', command = 'setlocal nornu' })
+
+-- Automatically removing all trailing whitespace
+vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "%s/\\s\\+$//e" })
+
+-- Redraw screen every time when focus gained
+vim.api.nvim_create_autocmd('FocusGained', { pattern = '*', command = 'silent! redraw!' })
+
+-- Set vim to save the file on focus out
+vim.api.nvim_create_autocmd('FocusLost', { pattern = '*', command = 'silent! wa' })
+
+-- auto leave paste mode
+vim.api.nvim_create_autocmd('InsertLeave', { pattern = '*', command = 'silent! set nopaste' })
+
+-- shows a lightbulb in the sign column whenever a textDocument/codeAction is available at the current cursor position.
+vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+  pattern = '*',
+  callback = function()
+    require 'nvim-lightbulb'.update_lightbulb()
+  end
+})
+
+-- don't auto commenting new lines
+vim.api.nvim_create_autocmd('BufEnter', { pattern = '*', command = 'set fo-=c fo-=r fo-=o' })
+
+-- Make all windows (almost) equally high and wide
+vim.api.nvim_create_autocmd('VimResized', { pattern = '*', command = 'wincmd =' })
+
+-- tabs
+vim.api.nvim_create_autocmd('FileType', { pattern = 'xml,html,xhtml,css,scss,javascript,lua,yaml', command = 'setlocal expandtab smarttab shiftwidth=2 softtabstop=2 tabstop=2' })

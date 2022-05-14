@@ -22,8 +22,8 @@ augroup configgroup
     au FileType markdown syntax sync fromstart
     au FileType vim setlocal foldmethod=marker
     au FileType vim setlocal foldlevelstart=0
-    au FocusGained *: redraw!     " Redraw screen every time when focus gained
-    au FocusLost *: wa            " Set vim to save the file on focus out
+    au FocusGained * :redraw!     " Redraw screen every time when focus gained
+    au FocusLost * :wa            " Set vim to save the file on focus out
     au InsertLeave * silent! set nopaste
     au VimResized * wincmd =
     au! BufWritePre * %s/\s\+$//e " Automatically removing all trailing whitespace

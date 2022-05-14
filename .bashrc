@@ -207,10 +207,20 @@ fi
 
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
-alias choregraphe='/opt/Softbank\ Robotics/Choregraphe\ Suite\ 2.5/bin/choregraphe-bin'
-
 if command -v gem &> /dev/null ; then
     alias gemup="gem update --system && gem update && gem cleanup"
+fi
+
+if command -v bat &> /dev/null ; then
+    alias cat='bat'
+fi
+
+if command -v dog &> /dev/null ; then
+    alias dig='dog'
+fi
+
+if command -v gping &> /dev/null ; then
+    alias ping='gping'
 fi
 
 if command -v lsd &> /dev/null ; then
@@ -275,13 +285,6 @@ fi
 
 if command -v rkhunter &> /dev/null ; then
     alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
-fi
-
-if command -v bat &> /dev/null ; then
-    alias cat='bat'
-elif command -v ccat &> /dev/null ; then
-    #Colorizing "cat" https://github.com/jingweno/ccat
-    alias cat='ccat --bg=dark'
 fi
 
 if command -v vim &> /dev/null ; then
@@ -1193,7 +1196,7 @@ if command -v ffmpeg &> /dev/null ; then
         echo "Extracting frame from $1 ..."
         if [[ -f $1 ]]; then
             mkdir -p frame
-            time ffmpeg -i $1 frame/frame%09d.bmp
+            time ffmpeg -i $1 frame/frame%09d.png
             cd frame
         else
             echo "'$1' is not a valid file"
