@@ -1,13 +1,13 @@
 -- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+local fn = vim.fn
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
-vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
+-- vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
 
-return require('packer').startup(function()
+return require('packer').startup({ function(use)
   use { 'wbthomason/packer.nvim', event = 'VimEnter' }
 
   --------------------------------------------------------------------------------
@@ -467,4 +467,22 @@ return require('packer').startup(function()
   use { 'tpope/vim-surround' }
   use { 'wellle/targets.vim' }
   use { 'yamatsum/nvim-cursorline' }
-end)
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+end,
+config = {
+  max_jobs = 8, -- Limit the number of simultaneous jobs. nil means no limit
+  display = {
+    open_fn = function()
+      return require('packer.util').float({ border = 'single' })
+    end
+  },
+  profile = {
+    enable = true,
+    threshold = 1, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+  },
+} })
