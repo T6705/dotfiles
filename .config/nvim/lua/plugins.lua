@@ -452,6 +452,25 @@ return require('packer').startup({ function(use)
     config = function() require 'config.telescope' end,
   }
 
+  use({
+    "ghillb/cybu.nvim",
+    branch = "main",
+    requires = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+      require('cybu').setup({
+        style = {
+          highlights = {
+            current_buffer = "Cursorline",
+            adjacent_buffers = "LineNr",
+            background = "Normal",
+          },
+        },
+      })
+      vim.keymap.set("n", "[b", "<Plug>(CybuPrev)")
+      vim.keymap.set("n", "]b", "<Plug>(CybuNext)")
+    end,
+  })
+
   use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
   use { 'dhruvasagar/vim-table-mode' }
   use { 'dstein64/vim-startuptime' }

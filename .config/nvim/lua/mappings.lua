@@ -169,8 +169,8 @@ map('n', '[t', 'gT', opts)
 map('n', '<leader>tn', ':tabnew<CR>', opts)
 
 -- Buffer nav
-map('n', '[b', ':bp<CR>', opts)
-map('n', ']b', ':bn<CR>', opts)
+-- map('n', '[b', ':bp<CR>', opts)
+-- map('n', ']b', ':bn<CR>', opts)
 map('n', '<leader>q', ':bd!<CR>', opts)
 map('n', '<leader>bn', ':enew<CR>', opts)
 map('n', '<bs>', '<C-^>', opts)

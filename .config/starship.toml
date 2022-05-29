@@ -349,6 +349,7 @@ detect_extensions = ['go']
 detect_files = [
     'go.mod',
     'go.sum',
+    'go.work',
     'glide.yaml',
     'Gopkg.yml',
     'Gopkg.lock',
@@ -396,8 +397,9 @@ disabled = true
 
 [hostname]
 ssh_only = true
+ssh_symbol = '🌐 '
 trim_at = '.'
-format = '[$hostname]($style) in '
+format = '[$ssh_symbol$hostname]($style) in '
 style = 'green dimmed bold'
 disabled = false
 

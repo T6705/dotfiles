@@ -238,6 +238,16 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd('BufNewFile', {
+  group    = 'bufcheck',
+  pattern  = '*.sh',
+  callback = function()
+    vim.api.nvim_put({ "#!/bin/bash" }, "", true, true)
+    vim.fn.append(1, '')
+    vim.fn.cursor(2, 0)
+  end
+})
+
 -- highlight yanks
 vim.api.nvim_create_autocmd('TextYankPost', {
   group    = 'bufcheck',
@@ -272,6 +282,9 @@ vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, { group = 'bufcheck', pa
 
 -- Automatically removing all trailing whitespace
 vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "%s/\\s\\+$//e" })
+
+-- Automatically formatting on save
+vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "lua vim.lsp.buf.format()" })
 
 -- Redraw screen every time when focus gained
 vim.api.nvim_create_autocmd('FocusGained', { pattern = '*', command = 'silent! redraw!' })
