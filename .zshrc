@@ -129,6 +129,7 @@ fi
 [ -d /usr/local/sbin ] && export PATH="/usr/local/sbin:$PATH"
 [ -d /usr/local/opt/heroku-node/bin ] && export PATH="/usr/local/opt/heroku-node/bin:$PATH"
 [ -d /usr/local/opt/openjdk/bin ] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
+[ -d /usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin ] && export PATH="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 

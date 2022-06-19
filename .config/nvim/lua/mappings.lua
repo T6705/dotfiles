@@ -222,8 +222,10 @@ map('n', '<leader>ss', ':syntax sync fromstart<CR>', opts)
 ---------------------------------------------------------------------------------
 -- prettier
 ---------------------------------------------------------------------------------
-map('n', '<leader>pt', 'mm:silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz', opts)
-map('n', '<leader>pta', 'mm:bufdo silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz', opts)
+map('n', '<leader>pt',
+  'mm:silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz', opts)
+map('n', '<leader>pta',
+  'mm:bufdo silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz', opts)
 
 ---------------------------------------------------------------------------------
 -- tpope/vim-surround

@@ -37,15 +37,22 @@ cmp.setup {
     expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end
   },
   sources = {
-    { name = 'buffer' },
+    { name = 'path', priority_weight = 110 },
+    { name = 'nvim_lsp', priority_weight = 100 },
+    { name = 'nvim_lua', priority_weight = 90 },
+    { name = 'ultisnips', priority_weight = 80 },
+    { name = 'buffer', priority_weight = 70, max_item_count = 5, },
+    { name = 'rg',
+      priority_weight = 60,
+      keyword_length = 5,
+      max_item_count = 5,
+      option = {
+        additional_arguments = "--smart-case --hidden",
+      },
+    },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'calc' },
     { name = 'emoji' },
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lsp_signature_help' },
-    { name = 'nvim_lua' },
-    { name = 'path' },
-    { name = 'rg' },
-    { name = 'ultisnips' },
   },
   formatting = {
     format = function(entry, vim_item)
@@ -58,6 +65,7 @@ cmp.setup {
         luasnip = "[LuaSnip]",
         nvim_lua = "[Lua]",
         latex_symbols = "[LaTeX]",
+        rg = "[RG]",
       })[entry.source.name]
       return vim_item
     end
@@ -149,6 +157,13 @@ cmp.setup {
         end
       end
     }),
+  },
+  window = {
+    documentation = cmp.config.window.bordered(),
+    completion = cmp.config.window.bordered(),
+  },
+  view = {
+    entries = cmp.EntriesConfig,
   }
 }
 
@@ -156,7 +171,7 @@ cmp.setup {
 cmp.setup.cmdline('/', {
   completion = { autocomplete = false },
   sources = {
-    -- { name = 'buffer' }
+    { name = 'nvim_lsp_document_symbol' },
     { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
   }
 })

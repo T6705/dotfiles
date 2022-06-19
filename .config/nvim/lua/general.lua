@@ -1,4 +1,5 @@
 local cmd = vim.cmd -- execute Vim commands
+local opt = vim.opt
 local exec = vim.api.nvim_exec -- execute Vimscript
 local fn = vim.fn -- call Vim functions
 local g = vim.g -- global variables
@@ -77,9 +78,11 @@ o.breakindentopt = "sbr"
 -- UI
 ----------------------------------------------------------------------------------
 o.termguicolors = true -- enable 24-bit RGB colors
-g.gruvbox_italic = 1
-g.gruvbox_contrast_dark = "hard"
-cmd([[colorscheme gruvbox]])
+g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+cmd [[colorscheme catppuccin]]
+-- g.gruvbox_italic = 1
+-- g.gruvbox_contrast_dark = "hard"
+-- cmd([[colorscheme gruvbox]])
 
 o.pumblend = 30
 
@@ -170,7 +173,9 @@ o.smartcase = true -- case-sensitive if expresson contains a capital letter
 
 -- Folding
 -- w.foldmethod = 'marker'
-w.foldmethod = 'indent'
+-- w.foldmethod = 'indent'
+opt.foldmethod = 'expr'
+opt.foldexpr = 'nvim_treesitter#foldexpr()'
 -- set foldlevel=99
 w.foldenable = false -- don't fold by default
 -- set foldtext=CustomFold()
@@ -280,11 +285,22 @@ vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, { group = 'bufcheck', pa
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, { group = 'bufcheck', pattern = '*', command = 'setlocal rnu' })
 vim.api.nvim_create_autocmd({ 'WinLeave', 'BufLeave' }, { group = 'bufcheck', pattern = '*', command = 'setlocal nornu' })
 
--- Automatically removing all trailing whitespace
+-- Automatically deletes all trailing whitespace and newlines at end of file
 vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "%s/\\s\\+$//e" })
+vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "%s/\\n\\+\\%$//e" })
 
 -- Automatically formatting on save
 vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "lua vim.lsp.buf.format()" })
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.py",
+  callback = function()
+    -- cmd("%!isort -")
+    cmd("Black")
+  end
+})
+
+-- open all folds in that file
+vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, { pattern = "*", command = "normal zR" })
 
 -- Redraw screen every time when focus gained
 vim.api.nvim_create_autocmd('FocusGained', { pattern = '*', command = 'silent! redraw!' })
@@ -310,4 +326,6 @@ vim.api.nvim_create_autocmd('BufEnter', { pattern = '*', command = 'set fo-=c fo
 vim.api.nvim_create_autocmd('VimResized', { pattern = '*', command = 'wincmd =' })
 
 -- tabs
-vim.api.nvim_create_autocmd('FileType', { pattern = 'xml,html,xhtml,css,scss,javascript,lua,yaml', command = 'setlocal expandtab smarttab shiftwidth=2 softtabstop=2 tabstop=2' })
+vim.api.nvim_create_autocmd('FileType',
+  { pattern = 'xml,html,xhtml,css,scss,javascript,lua,yaml',
+    command = 'setlocal expandtab smarttab shiftwidth=2 softtabstop=2 tabstop=2' })

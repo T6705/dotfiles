@@ -2,7 +2,8 @@
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+    install_path })
 end
 
 -- vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
@@ -14,13 +15,82 @@ return require('packer').startup({ function(use)
   -- Colorscheme
   --------------------------------------------------------------------------------
   use { 'NLKNguyen/papercolor-theme' }
-  use { 'chriskempson/vim-tomorrow-theme' }
-  use { 'flazz/vim-colorschemes' }
-  use { 'google/vim-colorscheme-primary' }
   use { 'morhetz/gruvbox' }
-  use { 'rakr/vim-one' }
-  use { 'roosta/vim-srcery' }
   use { 'tomasr/molokai' }
+  use { 'catppuccin/nvim', as = 'catppuccin',
+    config = function()
+      require("catppuccin").setup {
+        transparent_background = true,
+        term_colors = true,
+        styles = {
+          comments = "italic",
+          conditionals = "italic",
+          loops = "NONE",
+          functions = "NONE",
+          keywords = "NONE",
+          strings = "NONE",
+          variables = "NONE",
+          numbers = "NONE",
+          booleans = "NONE",
+          properties = "NONE",
+          types = "NONE",
+          operators = "NONE",
+        },
+        integrations = {
+          bufferline = true,
+          cmp = true,
+          gitsigns = true,
+          lightspeed = true,
+          lsp_trouble = true,
+          markdown = true,
+          symbols_outline = true,
+          telescope = true,
+          treesitter = true,
+          ts_rainbow = true,
+          native_lsp = {
+            enabled = true,
+            virtual_text = {
+              errors = "italic",
+              hints = "italic",
+              warnings = "italic",
+              information = "italic",
+            },
+            underlines = {
+              errors = "underline",
+              hints = "underline",
+              warnings = "underline",
+              information = "underline",
+            },
+          },
+          nvimtree = {
+            enabled = true,
+            show_root = true,
+            transparent_panel = true,
+          },
+          indent_blankline = {
+            enabled = true,
+            colored_indent_levels = true,
+          },
+          barbar = false,
+          dashboard = false,
+          fern = false,
+          gitgutter = false,
+          hop = false,
+          lsp_saga = false,
+          neogit = false,
+          notify = false,
+          telekasten = false,
+          vim_sneak = false,
+          which_key = false,
+          neotree = {
+            enabled = false,
+            show_root = false,
+            transparent_panel = false,
+          },
+        }
+      }
+    end
+  }
 
   --------------------------------------------------------------------------------
   -- Interface
@@ -130,7 +200,16 @@ return require('packer').startup({ function(use)
 
   use {
     'tpope/vim-fugitive',
-    setup = [[require('config.vim-fugitive')]],
+    config = function()
+      vim.keymap.set('n', '<leader>gb', ':Git blame<CR>')
+      vim.keymap.set('n', '<leader>gc', ':Git commit<CR>')
+      vim.keymap.set('n', '<leader>gd', ':Gvdiff<CR>')
+      vim.keymap.set('n', '<leader>gps', ':Git push<CR>')
+      vim.keymap.set('n', '<leader>gpu', ':Git pull<CR>')
+      vim.keymap.set('n', '<leader>gr', ':GRemove<CR>')
+      vim.keymap.set('n', '<leader>gs', ':Git<CR>')
+      vim.keymap.set('n', '<leader>gw', ':Gwrite<CR>')
+    end
   }
 
   --------------------------------------------------------------------------------
@@ -143,10 +222,18 @@ return require('packer').startup({ function(use)
   --     require "lsp_signature".setup()
   --   end
   -- }
+  -- use {
+  --   'smjonas/inc-rename.nvim',
+  --   config = function()
+  --     require("inc_rename").setup()
+  --     vim.keymap.set("n", "<leader>rn", ":IncRename ")
+  --   end }
 
   use {
     'nvim-treesitter/nvim-treesitter',
     requires = {
+      'nvim-treesitter/nvim-treesitter-context',
+      'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
       'nvim-treesitter/playground',
       'p00f/nvim-ts-rainbow'
@@ -156,16 +243,17 @@ return require('packer').startup({ function(use)
     config = function()
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = 'all',
+        sync_install = true,
         highlight = {
           enable = true,
         },
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = 'gnn',
-            node_incremental = 'grn',
-            scope_incremental = 'grc',
-            node_decremental = 'grm',
+            init_selection = '<CR>',
+            scope_incremental = '<CR>',
+            node_incremental = '<TAB>',
+            node_decremental = '<S-TAB>',
           },
         },
         indent = {
@@ -225,18 +313,33 @@ return require('packer').startup({ function(use)
           use_virtual_text = true,
           lint_events = { "BufWrite", "CursorHold" },
         },
+        refactor = {
+          highlight_definitions = {
+            -- Highlights definition and usages of the current symbol under the cursor.
+            enable = true,
+            -- Set to false if you have an `updatetime` of ~100.
+            clear_on_cursor_move = true,
+          },
+          highlight_current_scope = {
+            -- Highlights the block from the current scope where the cursor is.
+            enable = false
+          },
+          smart_rename = {
+            --Renames the symbol under the cursor within the current scope (and current file).
+            enable = true,
+            keymaps = {
+              smart_rename = "grr",
+            },
+          },
+        },
       }
     end,
   }
-
-  use { 'neovim/nvim-lspconfig' }
 
   use {
     'williamboman/nvim-lsp-installer',
     config = function() require 'config.lspinstall' end,
   }
-
-  use { 'kosayoda/nvim-lightbulb' }
 
   use {
     'onsails/lspkind-nvim',
@@ -267,6 +370,11 @@ return require('packer').startup({ function(use)
       require('cmp_nvim_ultisnips').setup {}
     end
   }
+
+  use { 'folke/lsp-colors.nvim' }
+  use { 'kosayoda/nvim-lightbulb' }
+  use { 'neovim/nvim-lspconfig' }
+
 
   --------------------------------------------------------------------------------
   -- snippets
@@ -313,26 +421,6 @@ return require('packer').startup({ function(use)
         -- Expand lines larger than the window
         -- Requires >= 0.7
         expand_lines = vim.fn.has("nvim-0.7"),
-        sidebar = {
-          -- You can change the order of elements in the sidebar
-          elements = {
-            -- Provide as ID strings or tables with "id" and "size" keys
-            {
-              id = "scopes",
-              size = 0.25, -- Can be float or integer > 1
-            },
-            { id = "breakpoints", size = 0.25 },
-            { id = "stacks", size = 0.25 },
-            { id = "watches", size = 00.25 },
-          },
-          size = 40,
-          position = "left", -- Can be "left", "right", "top", "bottom"
-        },
-        tray = {
-          elements = { "repl" },
-          size = 10,
-          position = "bottom", -- Can be "left", "right", "top", "bottom"
-        },
         floating = {
           max_height = nil, -- These can be integers or a float between 0 and 1.
           max_width = nil, -- Floats will be treated as percentage of your screen.
@@ -387,51 +475,6 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- other
   --------------------------------------------------------------------------------
-  -- use {
-  -- 'folke/which-key.nvim',
-  -- config = function()
-  --   require('which-key').setup{
-  --     -- your configuration comes here
-  --     -- or leave it empty to use the default settings
-  --     -- refer to the configuration section below
-  --   }
-  -- end
-  -- }
-
-  -- Exposed highlight groups, useful for themes
-  vim.cmd('hi ModesCopy guibg=#51AFEF')
-  vim.cmd('hi ModesDelete guibg=#C678DD')
-  vim.cmd('hi ModesInsert guibg=#98BE65')
-  vim.cmd('hi ModesVisual guibg=#FF8800')
-
-  use({
-    'mvllow/modes.nvim',
-    config = function()
-      vim.opt.cursorline = true
-      require('modes').setup({
-        colors = {
-          copy = "#51AFEF",
-          delete = "#C678DD",
-          insert = "#98BE65",
-          visual = "#FF8800",
-        },
-
-        -- Cursorline highlight opacity
-        line_opacity = 0.1,
-
-        -- Highlight cursor
-        set_cursor = true,
-      })
-    end
-  })
-
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require 'nvim-tree'.setup {} end,
-    setup = [[require('config.nvim-tree')]]
-  }
-
   -- use {'brianrodri/vim-sort-folds'}
   -- use {'cometsong/CommentFrame.vim'}
   -- use {'junegunn/rainbow_parentheses.vim'}
@@ -448,6 +491,225 @@ return require('packer').startup({ function(use)
   -- use {'terryma/vim-multiple-cursors'}
   -- use {'voldikss/vim-floaterm'}
   -- use {'w0rp/ale'}
+
+  -- use {
+  -- 'folke/which-key.nvim',
+  -- config = function()
+  --   require('which-key').setup{
+  --     -- your configuration comes here
+  --     -- or leave it empty to use the default settings
+  --     -- refer to the configuration section below
+  --   }
+  -- end
+  -- }
+
+  --   -- Exposed highlight groups, useful for themes
+  --   vim.cmd('hi ModesCopy guibg=#51AFEF')
+  --   vim.cmd('hi ModesDelete guibg=#C678DD')
+  --   vim.cmd('hi ModesInsert guibg=#98BE65')
+  --   vim.cmd('hi ModesVisual guibg=#FF8800')
+
+  -- use({
+  --   'mvllow/modes.nvim',
+  --   config = function()
+  --     vim.opt.cursorline = true
+  --     require('modes').setup({
+  --       colors = {
+  --         copy = "#51AFEF",
+  --         delete = "#C678DD",
+  --         insert = "#98BE65",
+  --         visual = "#FF8800",
+  --       },
+
+  --       -- Cursorline highlight opacity
+  --       line_opacity = 0.1,
+
+  --       -- Highlight cursor
+  --       set_cursor = true,
+
+  --       -- Enable cursorline initially, and disable cursorline for inactive windows
+  --       -- or ignored filetypes
+  --       set_cursorline = true,
+
+  --       -- Enable line number highlights to match cursorline
+  --       set_number = true,
+  --     })
+  --   end
+  -- })
+
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function()
+      require 'nvim-tree'.setup {
+        auto_reload_on_write = true,
+        create_in_closed_folder = false,
+        disable_netrw = false,
+        hijack_cursor = false,
+        hijack_netrw = true,
+        hijack_unnamed_buffer_when_opening = false,
+        ignore_buffer_on_setup = false,
+        open_on_setup = false,
+        open_on_setup_file = false,
+        open_on_tab = false,
+        sort_by = "name",
+        update_cwd = true,
+        reload_on_bufenter = true,
+        respect_buf_cwd = true,
+        view = {
+          adaptive_size = true,
+          width = 35,
+          height = 30,
+          hide_root_folder = false,
+          side = "left",
+          preserve_window_proportions = true,
+          number = false,
+          relativenumber = false,
+          signcolumn = "yes",
+          mappings = {
+            custom_only = false,
+            list = {
+              -- user mappings go here
+            },
+          },
+        },
+        renderer = {
+          add_trailing = true,
+          group_empty = true,
+          highlight_git = true,
+          highlight_opened_files = "none",
+          root_folder_modifier = ":~",
+          indent_markers = {
+            enable = true,
+            icons = {
+              corner = "└ ",
+              edge = "│ ",
+              none = "  ",
+            },
+          },
+          icons = {
+            webdev_colors = true,
+            git_placement = "before",
+            padding = " ",
+            symlink_arrow = " ➛ ",
+            show = {
+              file = true,
+              folder = true,
+              folder_arrow = true,
+              git = true,
+            },
+            glyphs = {
+              default = "",
+              symlink = "",
+              folder = {
+                arrow_closed = "",
+                arrow_open = "",
+                default = "",
+                open = "",
+                empty = "",
+                empty_open = "",
+                symlink = "",
+                symlink_open = "",
+              },
+              git = {
+                unstaged = "✗",
+                staged = "✓",
+                unmerged = "",
+                renamed = "➜",
+                untracked = "★",
+                deleted = "",
+                ignored = "◌",
+              },
+            },
+          },
+          special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
+        },
+        hijack_directories = {
+          enable = true,
+          auto_open = true,
+        },
+        update_focused_file = {
+          enable = true,
+          update_cwd = true,
+          ignore_list = {},
+        },
+        ignore_ft_on_setup = {},
+        system_open = {
+          cmd = "",
+          args = {},
+        },
+        diagnostics = {
+          enable = false,
+          show_on_dirs = false,
+          icons = {
+            hint = "",
+            info = "",
+            warning = "",
+            error = "",
+          },
+        },
+        filters = {
+          dotfiles = false,
+          custom = {},
+          exclude = {},
+        },
+        git = {
+          enable = true,
+          ignore = true,
+          timeout = 400,
+        },
+        actions = {
+          use_system_clipboard = true,
+          change_dir = {
+            enable = true,
+            global = false,
+            restrict_above_cwd = false,
+          },
+          expand_all = {
+            max_folder_discovery = 300,
+          },
+          open_file = {
+            quit_on_open = false,
+            resize_window = true,
+            window_picker = {
+              enable = true,
+              chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+              exclude = {
+                filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+                buftype = { "nofile", "terminal", "help" },
+              },
+            },
+          },
+          remove_file = {
+            close_window = true,
+          },
+        },
+        trash = {
+          cmd = "trash",
+          require_confirm = true,
+        },
+        live_filter = {
+          prefix = "[FILTER]: ",
+          always_show_folders = true,
+        },
+        log = {
+          enable = false,
+          truncate = false,
+          types = {
+            all = false,
+            config = false,
+            copy_paste = false,
+            diagnostics = false,
+            git = false,
+            profile = false,
+          },
+        },
+      }
+      vim.keymap.set('n', '<leader>E', ':NvimTreeToggle<CR>')
+      vim.keymap.set('n', '<leader>R', ':NvimTreeRefresh<CR>')
+      vim.keymap.set('n', '<leader>F', ':NvimTreeFindFile<CR>')
+    end,
+  }
 
   use { 'anuvyklack/pretty-fold.nvim',
     requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
@@ -517,17 +779,62 @@ return require('packer').startup({ function(use)
 
   use {
     'junegunn/vim-easy-align',
-    setup = [[require('config.vim-easy-align')]],
+    config = function()
+      vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)')
+      vim.keymap.set('x', 'ga', '<Plug>(EasyAlign)')
+    end
   }
 
-  use { 'folke/lsp-colors.nvim' }
   use {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function()
-      require('trouble').setup {}
+      require('trouble').setup {
+        position = "bottom", -- position of the list can be: bottom, top, left, right
+        height = 10, -- height of the trouble list when position is top or bottom
+        width = 50, -- width of the list when position is left or right
+        icons = true, -- use devicons for filenames
+        mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
+        fold_open = "", -- icon used for open folds
+        fold_closed = "", -- icon used for closed folds
+        group = true, -- group results by file
+        padding = true, -- add an extra new line on top of the list
+        action_keys = { -- key mappings for actions in the trouble list
+          -- map to {} to remove a mapping, for example:
+          -- close = {},
+          close = "q", -- close the list
+          cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
+          refresh = "r", -- manually refresh
+          jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
+          open_split = { "<c-x>" }, -- open buffer in new split
+          open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
+          open_tab = { "<c-t>" }, -- open buffer in new tab
+          jump_close = { "o" }, -- jump to the diagnostic and close the list
+          toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
+          toggle_preview = "P", -- toggle auto_preview
+          hover = "K", -- opens a small popup with the full multiline message
+          preview = "p", -- preview the diagnostic location
+          close_folds = { "zM", "zm" }, -- close all folds
+          open_folds = { "zR", "zr" }, -- open all folds
+          toggle_fold = { "zA", "za" }, -- toggle fold of current file
+          previous = "k", -- preview item
+          next = "j" -- next item
+        },
+        indent_lines = true, -- add an indent guide below the fold icons
+        auto_open = false, -- automatically open the list when you have diagnostics
+        auto_close = true, -- automatically close the list when you have no diagnostics
+        auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
+        auto_fold = false, -- automatically fold a file trouble list at creation
+        auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
+        use_diagnostic_signs = true -- enabling this will use the signs defined in your lsp client
+      }
+      vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
+      vim.keymap.set("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>")
+      vim.keymap.set("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>")
+      vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<cr>")
+      vim.keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix<cr>")
+      vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<cr>")
     end,
-    setup = [[require('config.trouble')]],
   }
 
   use {
@@ -571,21 +878,47 @@ return require('packer').startup({ function(use)
     end
   }
 
+  use {
+    'ggandor/lightspeed.nvim',
+    config = function()
+      require 'lightspeed'.setup {
+        jump_to_unique_chars = { safety_timeout = 400 },
+        match_only_the_start_of_same_char_seqs = true,
+        limit_ft_matches = 5,
+      }
+    end
+  }
+
+  use { 'yamatsum/nvim-cursorline',
+    config = function()
+      require('nvim-cursorline').setup {
+        cursorline = {
+          enable = true,
+          timeout = 1000,
+          number = true,
+        },
+        cursorword = {
+          enable = true,
+          min_length = 3,
+          hl = { underline = true },
+        }
+      }
+    end
+  }
+
   use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
   use { 'dhruvasagar/vim-table-mode' }
   use { 'dstein64/vim-startuptime' }
-  use { 'ggandor/lightspeed.nvim' }
   use { 'junegunn/fzf' }
   use { 'junegunn/fzf.vim', setup = [[require('config.fzf')]] }
   use { 'junegunn/vim-peekaboo' }
-  use { 'lpinilla/vim-codepainter' }
   use { 'luukvbaal/stabilize.nvim', config = function() require('stabilize').setup() end }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
+  use { 'rcarriga/nvim-notify', config = function() vim.notify = require("notify") end }
   use { 'simrat39/symbols-outline.nvim', setup = [[require('config.symbols-outline')]] }
   use { 'tpope/vim-repeat' }
   use { 'tpope/vim-surround' }
   use { 'wellle/targets.vim' }
-  use { 'yamatsum/nvim-cursorline' }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -593,15 +926,15 @@ return require('packer').startup({ function(use)
     require('packer').sync()
   end
 end,
-config = {
-  max_jobs = 8, -- Limit the number of simultaneous jobs. nil means no limit
-  display = {
-    open_fn = function()
-      return require('packer.util').float({ border = 'single' })
-    end
-  },
-  profile = {
-    enable = true,
-    threshold = 1, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
-  },
-} })
+  config = {
+    max_jobs = 8, -- Limit the number of simultaneous jobs. nil means no limit
+    display = {
+      open_fn = function()
+        return require('packer.util').float({ border = 'single' })
+      end
+    },
+    profile = {
+      enable = true,
+      threshold = 1, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+    },
+  } })

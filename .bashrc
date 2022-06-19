@@ -104,15 +104,17 @@ fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
-[ -d $HOME/.gem/ruby/2.7.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
+[ -d $HOME/.gem/ruby/3.0.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/3.0.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
 [ -d /usr/games ] && export PATH="$PATH:/usr/games"
 [ -d /usr/lib/jvm/default ] && export JAVA_HOME=/usr/lib/jvm/default
 [ -d /usr/local/bin ] && export PATH="/usr/local/bin:$PATH"
+[ -d /usr/local/sbin ] && export PATH="/usr/local/sbin:$PATH"
 [ -d /usr/local/opt/heroku-node/bin ] && export PATH="/usr/local/opt/heroku-node/bin:$PATH"
 [ -d /usr/local/opt/openjdk/bin ] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
+[ -d /usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin ] && export PATH="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin:$PATH"
 
 ####################################
 ## https://github.com/pyenv/pyenv ##
@@ -1631,6 +1633,17 @@ if command -v docker &> /dev/null ; then
             --name=ctop \
             -v /var/run/docker.sock:/var/run/docker.sock \
             quay.io/vektorlab/ctop:latest
+    }
+
+    pull_limit(){
+        TOKEN=$(curl "https://auth.docker.io/token?service=registry.docker.io&scope=repository:ratelimitpreview/test:pull" | jq -r .token)
+        if command -v https &> /dev/null; then
+            https --head -A bearer -a $TOKEN registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
+        elif command -v curl &> /dev/null; then
+            curl --head -H "Authorization: Bearer $TOKEN" https://registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
+        elif command -v wget &> /dev/null; then
+            wget -qSo- --header="Authorization: Bearer $TOKEN" https://registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
+        fi
     }
 fi
 

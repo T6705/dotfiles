@@ -1095,4 +1095,15 @@ if command -v docker &> /dev/null ; then
             -v /var/run/docker.sock:/var/run/docker.sock \
             quay.io/vektorlab/ctop:latest
     }
+
+    pull_limit(){
+        TOKEN=$(curl "https://auth.docker.io/token?service=registry.docker.io&scope=repository:ratelimitpreview/test:pull" | jq -r .token)
+        if command -v https &> /dev/null; then
+            https --head -A bearer -a $TOKEN registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
+        elif command -v curl &> /dev/null; then
+            curl --head -H "Authorization: Bearer $TOKEN" https://registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
+        elif command -v wget &> /dev/null; then
+            wget -qSo- --header="Authorization: Bearer $TOKEN" https://registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
+        fi
+    }
 fi
