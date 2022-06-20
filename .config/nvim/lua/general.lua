@@ -174,11 +174,11 @@ o.smartcase = true -- case-sensitive if expresson contains a capital letter
 -- Folding
 -- w.foldmethod = 'marker'
 -- w.foldmethod = 'indent'
-opt.foldmethod = 'expr'
-opt.foldexpr = 'nvim_treesitter#foldexpr()'
--- set foldlevel=99
-w.foldenable = false -- don't fold by default
--- set foldtext=CustomFold()
+w.foldmethod = 'expr'
+w.foldexpr = 'nvim_treesitter#foldexpr()'
+w.foldcolumn = '1'
+w.foldenable = true -- fold by default
+w.foldlevel = 99
 
 -- autochange dir
 o.autochdir = true
@@ -300,7 +300,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- open all folds in that file
-vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, { pattern = "*", command = "normal zR" })
+vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "FileReadPost" }, { pattern = "*", command = "normal zR" })
 
 -- Redraw screen every time when focus gained
 vim.api.nvim_create_autocmd('FocusGained', { pattern = '*', command = 'silent! redraw!' })

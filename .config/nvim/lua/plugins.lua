@@ -711,24 +711,32 @@ return require('packer').startup({ function(use)
     end,
   }
 
-  use { 'anuvyklack/pretty-fold.nvim',
-    requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
+  use {
+    'kevinhwang91/nvim-ufo',
+    requires = 'kevinhwang91/promise-async',
     config = function()
-      require('pretty-fold').setup {
-        keep_indentation = false,
-        fill_char = '━',
-        sections = {
-          left = {
-            '━ ', function() return string.rep('*', vim.v.foldlevel) end, ' ━┫', 'content', '┣'
-          },
-          right = {
-            '┫ ', 'number_of_folded_lines', ': ', 'percentage', ' ┣━━',
-          }
-        }
-      }
-      require('pretty-fold.preview').setup()
+      require('ufo').setup()
     end
   }
+
+  -- use { 'anuvyklack/pretty-fold.nvim',
+  --   requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
+  --   config = function()
+  --     require('pretty-fold').setup {
+  --       keep_indentation = false,
+  --       fill_char = '━',
+  --       sections = {
+  --         left = {
+  --           '━ ', function() return string.rep('*', vim.v.foldlevel) end, ' ━┫', 'content', '┣'
+  --         },
+  --         right = {
+  --           '┫ ', 'number_of_folded_lines', ': ', 'percentage', ' ┣━━',
+  --         }
+  --       }
+  --     }
+  --     require('pretty-fold.preview').setup()
+  --   end
+  -- }
 
   use {
     'numToStr/Comment.nvim',

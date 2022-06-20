@@ -90,6 +90,10 @@ local function make_config()
       'additionalTextEdits',
     }
   }
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+  }
   return {
     -- enable snippet support
     capabilities = capabilities,
