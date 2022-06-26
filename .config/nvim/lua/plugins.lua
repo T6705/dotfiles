@@ -181,10 +181,7 @@ return require('packer').startup({ function(use)
     end
   }
 
-  use {
-    'kevinhwang91/nvim-hlslens',
-    config = function() require 'config.hlslens' end,
-  }
+  use { 'kevinhwang91/nvim-hlslens', config = function() require 'config.hlslens' end, }
 
   --------------------------------------------------------------------------------
   -- git
@@ -337,17 +334,6 @@ return require('packer').startup({ function(use)
   }
 
   use {
-    'williamboman/nvim-lsp-installer',
-    config = function() require 'config.lspinstall' end,
-  }
-
-  use {
-    'onsails/lspkind-nvim',
-    event = 'BufEnter',
-    config = function() require('lspkind').init() end
-  }
-
-  use {
     'hrsh7th/nvim-cmp',
     requires = {
       { 'hrsh7th/cmp-buffer' },
@@ -374,7 +360,8 @@ return require('packer').startup({ function(use)
   use { 'folke/lsp-colors.nvim' }
   use { 'kosayoda/nvim-lightbulb' }
   use { 'neovim/nvim-lspconfig' }
-
+  use { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end }
+  use { 'williamboman/nvim-lsp-installer', config = function() require 'config.lspinstall' end, }
 
   --------------------------------------------------------------------------------
   -- snippets
@@ -394,70 +381,46 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- debugging
   --------------------------------------------------------------------------------
-  use {
-    'leoluz/nvim-dap-go',
-    config = function()
-      require('dap-go').setup()
-    end
-  }
-
-  use { 'mfussenegger/nvim-dap' }
-
-  use {
-    "rcarriga/nvim-dap-ui",
-    requires = { "mfussenegger/nvim-dap" },
-    config = function()
-      require("dapui").setup({
-        icons = { expanded = "▾", collapsed = "▸" },
-        mappings = {
-          -- Use a table to apply multiple mappings
-          expand = { "<CR>", "<2-LeftMouse>" },
-          open = "o",
-          remove = "d",
-          edit = "e",
-          repl = "r",
-          toggle = "t",
-        },
-        -- Expand lines larger than the window
-        -- Requires >= 0.7
-        expand_lines = vim.fn.has("nvim-0.7"),
-        floating = {
-          max_height = nil, -- These can be integers or a float between 0 and 1.
-          max_width = nil, -- Floats will be treated as percentage of your screen.
-          border = "single", -- Border style. Can be "single", "double" or "rounded"
-          mappings = {
-            close = { "q", "<Esc>" },
-          },
-        },
-        windows = { indent = 1 },
-        render = {
-          max_type_length = nil, -- Can be integer or nil.
-        }
-      })
-    end
-  }
-
-  use {
-    'theHamsta/nvim-dap-virtual-text',
-    config = function()
-      require("nvim-dap-virtual-text").setup {
-        enabled = true, -- enable this plugin (the default)
-        enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
-        highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
-        highlight_new_as_changed = false, -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
-        show_stop_reason = true, -- show stop reason when stopped for exceptions
-        commented = false, -- prefix virtual text with comment string
-        only_first_definition = true, -- only show virtual text at first definition (if there are multiple)
-        all_references = false, -- show virtual text on all all references of the variable (not only definitions)
-        filter_references_pattern = '<module', -- filter references (not definitions) pattern when all_references is activated (Lua gmatch pattern, default filters out Python modules)
-        -- experimental features:
-        virt_text_pos = 'eol', -- position of virtual text, see `:h nvim_buf_set_extmark()`
-        all_frames = false, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
-        virt_lines = false, -- show virtual lines instead of virtual text (will flicker!)
-        virt_text_win_col = nil -- position the virtual text at a fixed window column (starting from the first text column) ,
-        -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
+  use { "mfussenegger/nvim-dap",
+    requires = {
+      {
+        'rcarriga/nvim-dap-ui',
+        config = function()
+          local dap, dapui = require("dap"), require("dapui")
+          dapui.setup()
+          dap.listeners.after.event_initialized["dapui_config"] = function()
+            dapui.open()
+          end
+          dap.listeners.before.event_terminated["dapui_config"] = function()
+            dapui.close()
+          end
+          dap.listeners.before.event_exited["dapui_config"] = function()
+            dapui.close()
+          end
+        end
+      },
+      {
+        'theHamsta/nvim-dap-virtual-text',
+        config = function()
+          require("nvim-dap-virtual-text").setup({
+            enabled = true,
+            all_references = true,
+            all_frames = true,
+          })
+        end
+      },
+      {
+        'mfussenegger/nvim-dap-python',
+        run = "mkdir ~/.virtualenvs && cd ~/.virtualenvs && python3 -m venv debugpy && debugpy/bin/python -m pip install -U debugpy",
+        config = function() require('dap-python').setup('~/.virtualenvs/debugpy/bin/python') end
+      },
+      {
+        'leoluz/nvim-dap-go',
+        -- run = "go install github.com/go-delve/delve/cmd/dlv@latest",
+        run = "git clone https://github.com/go-delve/delve /tmp/delve && cd /tmp/delve && go install github.com/go-delve/delve/cmd/dlv && rm -rf /tmp/delve",
+        config = function() require('dap-go').setup() end
       }
-    end
+    }
   }
 
   --------------------------------------------------------------------------------
@@ -536,6 +499,53 @@ return require('packer').startup({ function(use)
   --     })
   --   end
   -- })
+
+
+
+  use { 'anuvyklack/hydra.nvim',
+    requires = 'anuvyklack/keymap-layer.nvim',
+    config = function()
+      local Hydra = require('hydra')
+      local dap = require 'dap'
+
+      local hint = [[
+ _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
+ _i_: step into   _x_: Quit             ^ ^                 ^ ^
+ _o_: step out    _X_: Stop             ^ ^
+ _c_: to cursor   _C_: Close UI
+ ^
+ ^ ^              _q_: exit
+]]
+
+      local dap_hydra = Hydra({
+        hint = hint,
+        config = {
+          color = 'pink',
+          invoke_on_body = true,
+          hint = {
+            position = 'bottom',
+            border = 'rounded'
+          },
+        },
+        name = 'dap',
+        mode = { 'n', 'x' },
+        body = '<leader>db',
+        heads = {
+          { 'n', dap.step_over, { silent = true } },
+          { 'i', dap.step_into, { silent = true } },
+          { 'o', dap.step_out, { silent = true } },
+          { 'c', dap.run_to_cursor, { silent = true } },
+          { 's', dap.continue, { silent = true } },
+          { 'x', ":lua require'dap'.disconnect({ terminateDebuggee = false })<CR>", { exit = true, silent = true } },
+          { 'X', dap.close, { silent = true } },
+          { 'C', ":lua require('dapui').close()<cr>:DapVirtualTextForceRefresh<CR>", { silent = true } },
+          { 'b', dap.toggle_breakpoint, { silent = true } },
+          { 'K', ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
+          { 'q', nil, { exit = true, nowait = true } },
+        }
+      })
+    end
+  }
 
   use {
     'kyazdani42/nvim-tree.lua',
@@ -738,12 +748,6 @@ return require('packer').startup({ function(use)
   --   end
   -- }
 
-  use {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end
-  }
 
   use {
     'akinsho/toggleterm.nvim',
@@ -758,32 +762,6 @@ return require('packer').startup({ function(use)
     end
   }
 
-  use {
-    'karb94/neoscroll.nvim',
-    config = function() require('neoscroll').setup({
-        -- All these keys will be mapped to their corresponding default scrolling animation
-        mappings = {
-          '<C-u>',
-          '<C-d>',
-          '<C-b>',
-          '<C-f>',
-          '<C-y>',
-          '<C-e>',
-          'zt',
-          'zz',
-          'zb'
-        },
-        hide_cursor = true, -- Hide cursor while scrolling
-        stop_eof = false, -- Stop at <EOF> when scrolling downwards
-        use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-        respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-        cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-        easing_function = nil, -- Default easing function
-        pre_hook = nil, -- Function to run before the scrolling animation starts
-        post_hook = nil, -- Function to run after the scrolling animation ends
-      })
-    end
-  }
 
   use {
     'junegunn/vim-easy-align',
@@ -920,8 +898,10 @@ return require('packer').startup({ function(use)
   use { 'junegunn/fzf' }
   use { 'junegunn/fzf.vim', setup = [[require('config.fzf')]] }
   use { 'junegunn/vim-peekaboo' }
+  use { 'lewis6991/impatient.nvim' }
   use { 'luukvbaal/stabilize.nvim', config = function() require('stabilize').setup() end }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
+  use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
   use { 'rcarriga/nvim-notify', config = function() vim.notify = require("notify") end }
   use { 'simrat39/symbols-outline.nvim', setup = [[require('config.symbols-outline')]] }
   use { 'tpope/vim-repeat' }

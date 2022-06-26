@@ -136,6 +136,10 @@ map('n', '<leader>/', '"fyiw :/<C-r>f<CR>', opts)
 --map('n', '<leader>wj :call functions#WinMove('j')<CR>
 --map('n', '<leader>wk :call functions#WinMove('k')<CR>
 --map('n', '<leader>wl :call functions#WinMove('l')<CR>
+map('n', '<leader>wh', '<C-W>h', opts)
+map('n', '<leader>wj', '<C-W>j', opts)
+map('n', '<leader>wk', '<C-W>k', opts)
+map('n', '<leader>wl', '<C-W>l', opts)
 map('n', '<leader>wx', '<C-W>x', opts)
 map('n', '<leader>wH', '<C-W>H', opts)
 map('n', '<leader>wJ', '<C-W>J', opts)
