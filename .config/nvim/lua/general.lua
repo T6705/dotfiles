@@ -17,6 +17,8 @@ g.mapleader = ' '
 
 o.updatetime = 200
 
+opt.guifont = { "FiraCode Nerd Font Mono", ":h14" }
+
 -- o.clipboard = 'unnamedplus' -- copy/paste to system clipboard
 -- o.clipboard = 'unnamed'
 
