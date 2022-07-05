@@ -82,7 +82,10 @@ commands = [
 format = '$symbol '
 success_symbol = '[❯](bold green)'
 error_symbol = '[❯](bold red)'
-vicmd_symbol = '[❮](bold green)'
+vimcmd_symbol = '[❮](bold green)'
+vimcmd_visual_symbol = '[❮](bold yellow)'
+vimcmd_replace_symbol = '[❮](bold purple)'
+vimcmd_replace_one_symbol = '[❮](bold purple)'
 disabled = false
 
 [cmake]
@@ -144,6 +147,16 @@ style = 'bold red'
 disabled = false
 detect_extensions = ['cr']
 detect_files = ['shard.yml']
+detect_folders = []
+
+[daml]
+symbol = 'Λ '
+format = 'via [$symbol($version )]($style)'
+version_format = 'v${raw}'
+style = 'bold cyan'
+disabled = false
+detect_extensions = []
+detect_files = ['daml.yaml']
 detect_folders = []
 
 [dart]
@@ -472,6 +485,8 @@ disabled = true
 
 [kubernetes.context_aliases]
 
+[kubernetes.user_aliases]
+
 [line_break]
 disabled = false
 
@@ -659,6 +674,22 @@ detect_files = [
     'setup.py',
     '__init__.py',
 ]
+detect_folders = []
+
+[raku]
+format = 'via [$symbol($version-$vm_version )]($style)'
+version_format = '${raw}'
+symbol = '🦋 '
+style = '149 bold'
+disabled = false
+detect_extensions = [
+    'p6',
+    'pm6',
+    'pod6',
+    'raku',
+    'rakumod',
+]
+detect_files = ['META6.json']
 detect_folders = []
 
 [red]
