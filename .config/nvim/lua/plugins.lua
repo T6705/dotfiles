@@ -20,8 +20,9 @@ return require('packer').startup({ function(use)
   use { 'catppuccin/nvim', as = 'catppuccin',
     config = function()
       require("catppuccin").setup {
-        transparent_background = true,
+        dim_inactive = true,
         term_colors = true,
+        transparent_background = true,
         styles = {
           comments = "italic",
           conditionals = "italic",
@@ -47,6 +48,7 @@ return require('packer').startup({ function(use)
           telescope = true,
           treesitter = true,
           ts_rainbow = true,
+          notify = true,
           native_lsp = {
             enabled = true,
             virtual_text = {
@@ -78,7 +80,6 @@ return require('packer').startup({ function(use)
           hop = false,
           lsp_saga = false,
           neogit = false,
-          notify = false,
           telekasten = false,
           vim_sneak = false,
           which_key = false,
@@ -422,9 +423,9 @@ return require('packer').startup({ function(use)
       }
     },
     config = function()
-      vim.highlight.create('DapBreakpoint', { ctermbg = 0, guifg = '#993939', guibg = '#31353f' }, false)
-      vim.highlight.create('DapLogPoint', { ctermbg = 0, guifg = '#61afef', guibg = '#31353f' }, false)
-      vim.highlight.create('DapStopped', { ctermbg = 0, guifg = '#98c379', guibg = '#31353f' }, false)
+      -- vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939', bg = '#31353f' })
+      -- vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#31353f' })
+      -- vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379', bg = '#31353f' })
 
       vim.fn.sign_define('DapBreakpoint', {
         text = '',
@@ -756,7 +757,25 @@ return require('packer').startup({ function(use)
     'kevinhwang91/nvim-ufo',
     requires = 'kevinhwang91/promise-async',
     config = function()
-      require('ufo').setup()
+      require('ufo').setup({
+        open_fold_hl_timeout = 150,
+        preview = {
+          win_config = {
+            border = { '', '─', '', '', '', '─', '', '' },
+            winhighlight = 'Normal:Folded',
+            winblend = 0
+          },
+          mappings = {
+            scrollU = '<C-u>',
+            scrollD = '<C-d>'
+          }
+        },
+        provider_selector = function(bufnr, filetype)
+          return { 'treesitter', 'indent' }
+        end
+      })
+      vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
     end
   }
 

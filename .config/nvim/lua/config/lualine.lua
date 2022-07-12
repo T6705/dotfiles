@@ -56,9 +56,9 @@ end
 
 require 'lualine'.setup {
   options = {
-    theme = 'gruvbox_dark',
-    theme = "catppuccin",
+    -- theme = 'gruvbox_dark',
     -- theme = 'wombat',
+    theme = "catppuccin",
     icons_enabled = true,
     -- component_separators = { left = '', right = ''},
     -- section_separators = { left = '', right = ''},
