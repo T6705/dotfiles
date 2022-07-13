@@ -423,9 +423,9 @@ return require('packer').startup({ function(use)
       }
     },
     config = function()
-      -- vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939', bg = '#31353f' })
-      -- vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#31353f' })
-      -- vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379', bg = '#31353f' })
+      vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939', bg = '#31353f' })
+      vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#31353f' })
+      vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379', bg = '#31353f' })
 
       vim.fn.sign_define('DapBreakpoint', {
         text = '',
@@ -942,6 +942,13 @@ return require('packer').startup({ function(use)
     end
   }
 
+  use({
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup()
+    end
+  })
+
   use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
   use { 'dhruvasagar/vim-table-mode' }
   use { 'dstein64/vim-startuptime' }
@@ -955,7 +962,6 @@ return require('packer').startup({ function(use)
   use { 'rcarriga/nvim-notify', config = function() vim.notify = require("notify") end }
   use { 'simrat39/symbols-outline.nvim', setup = [[require('config.symbols-outline')]] }
   use { 'tpope/vim-repeat' }
-  use { 'tpope/vim-surround' }
   use { 'wellle/targets.vim' }
 
   -- Automatically set up your configuration after cloning packer.nvim
