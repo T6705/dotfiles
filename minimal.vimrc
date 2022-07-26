@@ -435,6 +435,9 @@ if has("win16") || has("win32")
 else
     set wildignore+=.hg,.git,.svn                " Version Controls"
 endif
+set wildoptions+=fuzzy
+set wildoptions+=pum
+set wildoptions+=tagfile
 
 " -------------------------------------------------------------------------------
 " Searching
