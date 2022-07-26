@@ -66,6 +66,12 @@ require 'lualine'.setup {
     section_separators = { left = '', right = '' },
     disabled_filetypes = {},
     always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 500,
+      tabline = 500,
+      winbar = 500,
+    }
   },
   sections = {
     lualine_a = {
@@ -75,7 +81,11 @@ require 'lualine'.setup {
     lualine_b = {
       'branch',
       'diff',
-      { 'diagnostics', sources = { 'nvim_diagnostic' } }
+      { 'diagnostics', sources = { 'nvim_diagnostic' },
+        colored = true,
+        update_in_insert = true,
+        always_visible = false,
+      }
     },
     lualine_c = {
       'filename',
@@ -93,20 +103,36 @@ require 'lualine'.setup {
     }
   },
   inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { 'filename' },
+    lualine_a = { 'filetype' },
+    lualine_b = {
+      {
+        'filename',
+        file_status = true,
+        path = 3
+      }
+    },
+    lualine_c = {
+      'branch',
+      'diff',
+      { 'diagnostics', sources = { 'nvim_diagnostic' },
+        colored = true,
+        update_in_insert = true,
+        always_visible = false,
+      }
+    },
     lualine_x = { 'location' },
     lualine_y = {},
     lualine_z = {}
   },
   tabline = {},
+  winbar = {},
+  inactive_winbar = {},
   extensions = {
     'fugitive',
     'fzf',
+    'nvim-dap-ui',
     'nvim-tree',
     'quickfix',
     'symbols-outline',
-    'toggleterm',
   },
 }
