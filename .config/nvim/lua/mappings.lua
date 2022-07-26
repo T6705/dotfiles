@@ -36,6 +36,17 @@ map('v', '<leader>y', '"+y', opts)
 -- select the current line without indentation
 map('n', 'vv', '^vg_', opts)
 
+local function smart_dd()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return "\"_dd"
+  else
+    return "dd"
+  end
+end
+
+-- It solves the issue, where you want to delete empty line, but dd will override you last yank. Code above will check if u are deleting empty line, if so - use black hole register.
+vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
+
 -- No arrow keys in insert mode
 -- ino <down> <Nop>
 -- ino <left> <Nop>
