@@ -17,25 +17,34 @@ return require('packer').startup({ function(use)
   use { 'NLKNguyen/papercolor-theme' }
   use { 'morhetz/gruvbox' }
   use { 'tomasr/molokai' }
-  use { 'catppuccin/nvim', as = 'catppuccin',
+  use { 'catppuccin/nvim', as = 'catppuccin', run = ":CatppuccinCompile",
     config = function()
       require("catppuccin").setup {
-        dim_inactive = true,
+        compile = {
+          enabled = true,
+          path = vim.fn.stdpath "cache" .. "/catppuccin",
+          suffix = "_compiled"
+        },
+        dim_inactive = {
+          enabled = true,
+          shade = "dark",
+          percentage = 0.15,
+        },
         term_colors = true,
         transparent_background = true,
         styles = {
-          comments = "italic",
-          conditionals = "italic",
-          loops = "NONE",
-          functions = "NONE",
-          keywords = "NONE",
-          strings = "NONE",
-          variables = "NONE",
-          numbers = "NONE",
-          booleans = "NONE",
-          properties = "NONE",
-          types = "NONE",
-          operators = "NONE",
+          comments = { "italic" },
+          conditionals = { "italic" },
+          loops = {},
+          functions = {},
+          keywords = {},
+          strings = {},
+          variables = {},
+          numbers = {},
+          booleans = {},
+          properties = {},
+          types = {},
+          operators = {},
         },
         integrations = {
           bufferline = true,
@@ -49,19 +58,23 @@ return require('packer').startup({ function(use)
           treesitter = true,
           ts_rainbow = true,
           notify = true,
+          dap = {
+            enabled = true,
+            enable_ui = true,
+          },
           native_lsp = {
             enabled = true,
             virtual_text = {
-              errors = "italic",
-              hints = "italic",
-              warnings = "italic",
-              information = "italic",
+              errors = { "italic" },
+              hints = { "italic" },
+              warnings = { "italic" },
+              information = { "italic" },
             },
             underlines = {
-              errors = "underline",
-              hints = "underline",
-              warnings = "underline",
-              information = "underline",
+              errors = { "underline" },
+              hints = { "underline" },
+              warnings = { "underline" },
+              information = { "underline" },
             },
           },
           nvimtree = {
@@ -135,7 +148,7 @@ return require('packer').startup({ function(use)
           max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
           tab_size = 18,
           diagnostics = "nvim_lsp",
-          diagnostics_update_in_insert = false,
+          diagnostics_update_in_insert = true,
           diagnostics_indicator = function(count, level, diagnostics_dict, context)
             -- local icon = level:match("error") and " " or " "
             local icon = level:match("error") and " " or " "
@@ -182,7 +195,49 @@ return require('packer').startup({ function(use)
     end
   }
 
-  use { 'kevinhwang91/nvim-hlslens', config = function() require 'config.hlslens' end, }
+  use {
+    'kevinhwang91/nvim-hlslens',
+    config = function()
+      require('hlslens').setup({
+        override_lens = function(render, posList, nearest, idx, relIdx)
+          local sfw = vim.v.searchforward == 1
+          local indicator, text, chunks
+          local absRelIdx = math.abs(relIdx)
+          if absRelIdx > 1 then
+            indicator = ('%d%s'):format(absRelIdx, sfw ~= (relIdx > 1) and '▲' or '▼')
+          elseif absRelIdx == 1 then
+            indicator = sfw ~= (relIdx == 1) and '▲' or '▼'
+          else
+            indicator = ''
+          end
+
+          local lnum, col = unpack(posList[idx])
+          if nearest then
+            local cnt = #posList
+            if indicator ~= '' then
+              text = ('[%s %d/%d]'):format(indicator, idx, cnt)
+            else
+              text = ('[%d/%d]'):format(idx, cnt)
+            end
+            chunks = { { ' ', 'Ignore' }, { text, 'HlSearchLensNear' } }
+          else
+            text = ('[%s %d]'):format(indicator, idx)
+            chunks = { { ' ', 'Ignore' }, { text, 'HlSearchLens' } }
+          end
+          render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
+        end
+      })
+
+      local map = vim.api.nvim_set_keymap
+      local opts = { noremap = true, silent = true }
+      map('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]], opts)
+      map('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]], opts)
+      map('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], opts)
+      map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], opts)
+      map('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], opts)
+      map('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], opts)
+    end
+  }
 
   --------------------------------------------------------------------------------
   -- git
@@ -190,10 +245,20 @@ return require('packer').startup({ function(use)
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
-    config = function() require('gitsigns').setup() end
+    config = function()
+      require('gitsigns').setup({
+        current_line_blame = true,
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+          delay = 250,
+          ignore_whitespace = false,
+        },
+        current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+      })
+    end
   }
 
-  use { 'rbong/vim-flog' }
   use { 'rhysd/git-messenger.vim' }
 
   use {
@@ -358,6 +423,19 @@ return require('packer').startup({ function(use)
     end
   }
 
+  use({
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      require("lsp_lines").setup()
+      -- Disable virtual_text since it's redundant due to lsp_lines.
+      vim.diagnostic.config({
+        virtual_text = false,
+        update_in_insert = true,
+      })
+      vim.keymap.set("", "<Leader>lt", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
+    end,
+  })
+
   use { 'folke/lsp-colors.nvim' }
   use { 'kosayoda/nvim-lightbulb' }
   use { 'neovim/nvim-lspconfig' }
@@ -423,35 +501,42 @@ return require('packer').startup({ function(use)
       }
     },
     config = function()
-      vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939', bg = '#31353f' })
-      vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#31353f' })
-      vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379', bg = '#31353f' })
+      local sign = vim.fn.sign_define
 
-      vim.fn.sign_define('DapBreakpoint', {
+      -- vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939', bg = '#31353f' })
+      -- vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#31353f' })
+      -- vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379', bg = '#31353f' })
+
+      sign('DapBreakpoint', {
         text = '',
         texthl = 'DapBreakpoint',
         linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint' })
-      vim.fn.sign_define('DapBreakpointCondition', {
+        numhl = 'DapBreakpoint'
+      })
+      sign('DapBreakpointCondition', {
         text = 'ﳁ',
         texthl = 'DapBreakpoint',
         linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint' })
-      vim.fn.sign_define('DapBreakpointRejected', {
+        numhl = 'DapBreakpoint'
+      })
+      sign('DapBreakpointRejected', {
         text = '',
         texthl = 'DapBreakpoint',
         linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint' })
-      vim.fn.sign_define('DapLogPoint', {
+        numhl = 'DapBreakpoint'
+      })
+      sign('DapLogPoint', {
         text = '',
         texthl = 'DapLogPoint',
         linehl = 'DapLogPoint',
-        numhl = 'DapLogPoint' })
-      vim.fn.sign_define('DapStopped', {
+        numhl = 'DapLogPoint'
+      })
+      sign('DapStopped', {
         text = '',
         texthl = 'DapStopped',
         linehl = 'DapStopped',
-        numhl = 'DapStopped' })
+        numhl = 'DapStopped'
+      })
     end
   }
 
@@ -540,7 +625,7 @@ return require('packer').startup({ function(use)
       local Hydra = require('hydra')
       local dap = require 'dap'
 
-      local hint = [[
+      local dap_hint = [[
  _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
  _i_: step into   _x_: Quit             ^ ^                 ^ ^
  _o_: step out    _X_: Stop             ^ ^
@@ -550,7 +635,7 @@ return require('packer').startup({ function(use)
 ]]
 
       local dap_hydra = Hydra({
-        hint = hint,
+        hint = dap_hint,
         config = {
           color = 'pink',
           invoke_on_body = true,
@@ -798,7 +883,6 @@ return require('packer').startup({ function(use)
   --   end
   -- }
 
-
   use {
     'akinsho/toggleterm.nvim',
     config = function()
@@ -811,7 +895,6 @@ return require('packer').startup({ function(use)
       }
     end
   }
-
 
   use {
     'junegunn/vim-easy-align',
@@ -958,11 +1041,8 @@ return require('packer').startup({ function(use)
   use { 'lewis6991/impatient.nvim' }
   use { 'luukvbaal/stabilize.nvim', config = function() require('stabilize').setup() end }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
-  use { 'numToStr/Comment.nvim', config = function() require('Comment').setup() end }
   use { 'rcarriga/nvim-notify', config = function() vim.notify = require("notify") end }
   use { 'simrat39/symbols-outline.nvim', setup = [[require('config.symbols-outline')]] }
-  use { 'tpope/vim-repeat' }
-  use { 'wellle/targets.vim' }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
@@ -972,6 +1052,7 @@ return require('packer').startup({ function(use)
 end,
   config = {
     max_jobs = 8, -- Limit the number of simultaneous jobs. nil means no limit
+    auto_reload_compiled = true,
     display = {
       open_fn = function()
         return require('packer.util').float({ border = 'single' })
