@@ -32,11 +32,11 @@ o.mouse = 'a' -- enable mouse support
 o.ttimeout = true
 o.ttimeoutlen = 100
 
-cmd [[set formatoptions=q]] -- allow gq to work on comment
-cmd [[set formatoptions+=j]] -- Delete comment character when joining commented lines
-cmd [[set formatoptions+=r]] -- enter extends comments
-cmd [[set formatoptions+=n]] -- format numbered lists using 'formatlistpat'
-cmd [[set formatoptions+=1]] -- don't break after one letter word
+o.formatoptions = "q"
+o.formatoptions = o.formatoptions .. "j" -- Delete comment character when joining commented lines
+o.formatoptions = o.formatoptions .. "r" -- enter extends comments
+o.formatoptions = o.formatoptions .. "n" -- format numbered lists using 'formatlistpat'
+o.formatoptions = o.formatoptions .. "1" -- don't break after one letter word
 
 -- Show filler lines, to keep the text synchronized with a window that has inserted lines at the same position
 cmd [[set diffopt+=filler]]
@@ -55,7 +55,7 @@ o.fileencoding = 'utf-8'
 -- set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
 
 -- Fix backspace indent
-cmd [[set backspace=indent,eol,start]] -- make backspace behave in a sane manner
+o.backspace = "indent,eol,start" -- make backspace behave in a sane manner
 
 ----------------------------------------------------------------------------------
 -- Tabs
@@ -68,9 +68,8 @@ b.softtabstop = 4 -- edit as if the tabs are 4 characters wide
 
 -- toggle invisible characters
 o.list = true
--- vim.opt.listchars:append("eol:¬")
--- vim.opt.listchars:append("trail:⋅")
-cmd [[set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮]]
+vim.opt.listchars = { tab = '▸ ', eol = "¬", trail = "⋅", extends = "❯", precedes = "❮" }
+
 -- highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 o.showbreak = "↪"
 o.breakindent = true
@@ -81,10 +80,10 @@ o.breakindentopt = "sbr"
 ----------------------------------------------------------------------------------
 o.termguicolors = true -- enable 24-bit RGB colors
 g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
-cmd [[colorscheme catppuccin]]
+cmd.colorscheme("catppuccin")
 -- g.gruvbox_italic = 1
 -- g.gruvbox_contrast_dark = "hard"
--- cmd([[colorscheme gruvbox]])
+-- cmd.colorscheme("gruvbox")
 
 o.pumblend = 30
 
@@ -105,13 +104,13 @@ w.number = true -- show line number
 w.relativenumber = true -- show relative line numbers
 o.ruler = true -- Always show current position
 w.signcolumn = 'yes' -- always show signcolumns
-cmd [[set shortmess=a]] -- use every short text trick
-cmd [[set shortmess+=O]] -- file read message overwrites subsequent
-cmd [[set shortmess+=s]] -- no search hit bottom crap
-cmd [[set shortmess+=t]] -- truncate file message
-cmd [[set shortmess+=T]] -- truncate messages in the middle
-cmd [[set shortmess+=I]] -- no intro message
-cmd [[set shortmess+=c]] -- no ins-completion messages
+o.shortmess = "a" -- use every short text trick
+o.shortmess = o.shortmess .. "O" -- file read message overwrites subsequent
+o.shortmess = o.shortmess .. "s" -- no search hit bottom crap
+o.shortmess = o.shortmess .. "t" -- truncate file message
+o.shortmess = o.shortmess .. "T" -- truncate messages in the middle
+o.shortmess = o.shortmess .. "I" -- no intro message
+o.shortmess = o.shortmess .. "c" -- no ins-completion messages
 -- if !&scrolloff
 --     set scrolloff=3   " 3 lines above/below cursor when scrolling
 -- endif
@@ -148,19 +147,17 @@ b.synmaxcol = 1024 -- only syntax highlighting the first 200 characters of each 
 ----------------------------------------------------------------------------------
 -- Wildmenu
 ----------------------------------------------------------------------------------
-cmd [[
-set wildmenu                                        " Turn on the WiLd menu
-set wildmode=list:longest                           " complete files like a shell
-set wildignore=*.a,*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
-set wildignore+=*.DS_Store                          " OSX bullshit
-set wildignore+=*.aux,*.out,*.toc                   " LaTeX intermediate files
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg      " binary images
-set wildignore+=*.luac                              " Lua byte code
-set wildignore+=*.orig,*.rej                        " Merge resolution files
-set wildignore+=*.pdf,*.zip,*.so                    " binaries
-set wildignore+=*.pyc,*.pyo                         " Python byte code
-set wildignore+=.hg,.git,.svn                       " Version Controls"
-]]
+o.wildmenu = true -- Turn on the WiLd menu
+o.wildmode = "list:longest" -- complete files like a shell
+o.wildignore = "*.a,*.o,*.obj,*.exe,*.dll,*.manifest" -- compiled object files
+o.wildignore = o.wildignore .. "*.DS_Store" --OSX bullshit
+o.wildignore = o.wildignore .. "*.aux,*.out,*.toc" --LaTeX intermediate files
+o.wildignore = o.wildignore .. "*.jpg,*.bmp,*.gif,*.png,*.jpeg" --binary images
+o.wildignore = o.wildignore .. "*.luac" --Lua byte code
+o.wildignore = o.wildignore .. "*.orig,*.rej" --Merge resolution files
+o.wildignore = o.wildignore .. "*.pdf,*.zip,*.so" --binaries
+o.wildignore = o.wildignore .. "*.pyc,*.pyo" --Python byte code
+o.wildignore = o.wildignore .. ".hg,.git,.svn" --Version Controls"
 
 ----------------------------------------------------------------------------------
 -- Searching

@@ -192,7 +192,7 @@ map('n', '<bs>', '<C-^>', opts)
 
 -- Completetion
 -- cmd [[
--- inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+-- inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<CR>" : "\<CR>")
 --
 -- " Use <Tab> and <S-Tab> for navigate completion list:
 -- inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"

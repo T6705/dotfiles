@@ -367,7 +367,7 @@ return require('packer').startup({ function(use)
             focus_language = 'f',
             unfocus_language = 'F',
             update = 'R',
-            goto_node = '<cr>',
+            goto_node = '<CR>',
             show_help = '?',
           },
         },
@@ -436,11 +436,40 @@ return require('packer').startup({ function(use)
     end,
   })
 
+  use { 'b0o/SchemaStore.nvim' }
   use { 'folke/lsp-colors.nvim' }
   use { 'kosayoda/nvim-lightbulb' }
-  use { 'neovim/nvim-lspconfig' }
   use { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end }
-  use { 'williamboman/nvim-lsp-installer', config = function() require 'config.lspinstall' end, }
+  use { 'neovim/nvim-lspconfig', config = function() require 'config.lspinstall' end }
+  use { "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup({
+        ui = {
+          border = "rounded",
+          icons = {
+            package_installed = "✓",
+            fpackage_pending = "➜",
+            package_uninstalled = "✗"
+          }
+        }
+      })
+    end }
+  use { "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "clangd",
+          "dockerls",
+          "gopls",
+          "jsonls",
+          "pyright",
+          "sumneko_lua",
+          "tsserver",
+          "yamlls",
+        },
+        automatic_installation = true,
+      })
+    end }
 
   --------------------------------------------------------------------------------
   -- snippets
@@ -655,7 +684,7 @@ return require('packer').startup({ function(use)
           { 's', dap.continue, { silent = true } },
           { 'x', ":lua require'dap'.disconnect({ terminateDebuggee = false })<CR>", { exit = true, silent = true } },
           { 'X', dap.close, { silent = true } },
-          { 'C', ":lua require('dapui').close()<cr>:DapVirtualTextForceRefresh<CR>", { silent = true } },
+          { 'C', ":lua require('dapui').close()<CR>:DapVirtualTextForceRefresh<CR>", { silent = true } },
           { 'b', dap.toggle_breakpoint, { silent = true } },
           { 'K', ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
           { 'q', nil, { exit = true, nowait = true } },
@@ -884,19 +913,6 @@ return require('packer').startup({ function(use)
   -- }
 
   use {
-    'akinsho/toggleterm.nvim',
-    config = function()
-      require("toggleterm").setup {
-        open_mapping = [[<leader>ft]],
-        direction = 'float',
-        float_opts = {
-          border = 'curved'
-        }
-      }
-    end
-  }
-
-  use {
     'junegunn/vim-easy-align',
     config = function()
       vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)')
@@ -924,7 +940,7 @@ return require('packer').startup({ function(use)
           close = "q", -- close the list
           cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
           refresh = "r", -- manually refresh
-          jump = { "<cr>", "<tab>" }, -- jump to the diagnostic or open / close folds
+          jump = { "<CR>", "<tab>" }, -- jump to the diagnostic or open / close folds
           open_split = { "<c-x>" }, -- open buffer in new split
           open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
           open_tab = { "<c-t>" }, -- open buffer in new tab
@@ -947,12 +963,12 @@ return require('packer').startup({ function(use)
         auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
         use_diagnostic_signs = true -- enabling this will use the signs defined in your lsp client
       }
-      vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
-      vim.keymap.set("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>")
-      vim.keymap.set("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>")
-      vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<cr>")
-      vim.keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix<cr>")
-      vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<cr>")
+      vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<CR>")
+      vim.keymap.set("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<CR>")
+      vim.keymap.set("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<CR>")
+      vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<CR>")
+      vim.keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix<CR>")
+      vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<CR>")
     end,
   }
 
