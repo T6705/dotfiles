@@ -109,7 +109,6 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- Interface
   --------------------------------------------------------------------------------
-  -- use {'ncm2/float-preview.nvim'}
   use {
     'lukas-reineke/indent-blankline.nvim',
     -- event = 'BufRead',
@@ -276,22 +275,49 @@ return require('packer').startup({ function(use)
   }
 
   --------------------------------------------------------------------------------
+  -- completions
+  --------------------------------------------------------------------------------
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = {
+      -- { 'hrsh7th/cmp-calc' },
+      -- { 'hrsh7th/cmp-emoji' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
+      { 'hrsh7th/cmp-nvim-lua' },
+      { 'hrsh7th/cmp-path' },
+      { 'lukas-reineke/cmp-rg' },
+    },
+    config = function() require 'config.nvim-cmp' end,
+  }
+
+  use { 'L3MON4D3/LuaSnip' }
+  use { 'saadparwaiz1/cmp_luasnip' }
+  use { 'rafamadriz/friendly-snippets' }
+
+  --use {
+  --  'quangnguyen30192/cmp-nvim-ultisnips',
+  --  config = function()
+  --    require('cmp_nvim_ultisnips').setup {}
+  --  end
+  --}
+  --use {
+  --  'SirVer/ultisnips',
+  --  requires = { { 'honza/vim-snippets', rtp = '.' } },
+  --  config = function()
+  --    vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
+  --    vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
+  --    vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
+  --    vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
+  --    vim.g.UltiSnipsRemoveSelectModeMappings = 0
+  --  end
+  --}
+
+  --------------------------------------------------------------------------------
   -- lsp
   --------------------------------------------------------------------------------
-
-  -- use {
-  --   "ray-x/lsp_signature.nvim",
-  --   config = function()
-  --     require "lsp_signature".setup()
-  --   end
-  -- }
-  -- use {
-  --   'smjonas/inc-rename.nvim',
-  --   config = function()
-  --     require("inc_rename").setup()
-  --     vim.keymap.set("n", "<leader>rn", ":IncRename ")
-  --   end }
-
   use {
     'nvim-treesitter/nvim-treesitter',
     requires = {
@@ -399,30 +425,6 @@ return require('packer').startup({ function(use)
     end,
   }
 
-  use {
-    'hrsh7th/nvim-cmp',
-    requires = {
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-calc' },
-      { 'hrsh7th/cmp-cmdline' },
-      { 'hrsh7th/cmp-emoji' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lsp-document-symbol' },
-      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-      { 'hrsh7th/cmp-nvim-lua' },
-      { 'hrsh7th/cmp-path' },
-      { 'lukas-reineke/cmp-rg' },
-    },
-    config = function() require 'config.nvim-cmp' end,
-  }
-
-  use {
-    'quangnguyen30192/cmp-nvim-ultisnips',
-    config = function()
-      require('cmp_nvim_ultisnips').setup {}
-    end
-  }
-
   use({
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     config = function()
@@ -471,20 +473,6 @@ return require('packer').startup({ function(use)
       })
     end }
 
-  --------------------------------------------------------------------------------
-  -- snippets
-  --------------------------------------------------------------------------------
-  use {
-    'SirVer/ultisnips',
-    requires = { { 'honza/vim-snippets', rtp = '.' } },
-    config = function()
-      vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
-      vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-      vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
-      vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
-      vim.g.UltiSnipsRemoveSelectModeMappings = 0
-    end
-  }
 
   --------------------------------------------------------------------------------
   -- debugging
@@ -572,9 +560,9 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- go
   --------------------------------------------------------------------------------
-  use { 'buoto/gotests-vim', ft = { 'go' } }
-  use { 'fatih/vim-go', ft = { 'go' }, run = ':GoInstallBinaries' }
-  use { 'sebdah/vim-delve', ft = { 'go' } }
+  -- use { 'buoto/gotests-vim', ft = { 'go' } }
+  -- use { 'fatih/vim-go', ft = { 'go' }, run = ':GoInstallBinaries' }
+  -- use { 'sebdah/vim-delve', ft = { 'go' } }
 
   --------------------------------------------------------------------------------
   -- python
@@ -584,70 +572,6 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- other
   --------------------------------------------------------------------------------
-  -- use {'brianrodri/vim-sort-folds'}
-  -- use {'cometsong/CommentFrame.vim'}
-  -- use {'junegunn/rainbow_parentheses.vim'}
-  -- use {'kshenoy/vim-signature'}
-  -- use {'liuchengxu/vista.vim'}
-  -- use {'ludovicchabant/vim-gutentags'}
-  -- use {'majutsushi/tagbar'}
-  -- use {'psliwka/vim-smoothie'}
-  -- use {'romainl/vim-qf'}
-  -- use {'rrethy/vim-hexokinase'}
-  -- use {'scrooloose/nerdcommenter'}
-  -- use {'sjl/gundo.vim'}
-  -- use {'skywind3000/gutentags_plus'}
-  -- use {'terryma/vim-multiple-cursors'}
-  -- use {'voldikss/vim-floaterm'}
-  -- use {'w0rp/ale'}
-
-  -- use {
-  -- 'folke/which-key.nvim',
-  -- config = function()
-  --   require('which-key').setup{
-  --     -- your configuration comes here
-  --     -- or leave it empty to use the default settings
-  --     -- refer to the configuration section below
-  --   }
-  -- end
-  -- }
-
-  --   -- Exposed highlight groups, useful for themes
-  --   vim.cmd('hi ModesCopy guibg=#51AFEF')
-  --   vim.cmd('hi ModesDelete guibg=#C678DD')
-  --   vim.cmd('hi ModesInsert guibg=#98BE65')
-  --   vim.cmd('hi ModesVisual guibg=#FF8800')
-
-  -- use({
-  --   'mvllow/modes.nvim',
-  --   config = function()
-  --     vim.opt.cursorline = true
-  --     require('modes').setup({
-  --       colors = {
-  --         copy = "#51AFEF",
-  --         delete = "#C678DD",
-  --         insert = "#98BE65",
-  --         visual = "#FF8800",
-  --       },
-
-  --       -- Cursorline highlight opacity
-  --       line_opacity = 0.1,
-
-  --       -- Highlight cursor
-  --       set_cursor = true,
-
-  --       -- Enable cursorline initially, and disable cursorline for inactive windows
-  --       -- or ignored filetypes
-  --       set_cursorline = true,
-
-  --       -- Enable line number highlights to match cursorline
-  --       set_number = true,
-  --     })
-  --   end
-  -- })
-
-
-
   use { 'anuvyklack/hydra.nvim',
     requires = 'anuvyklack/keymap-layer.nvim',
     config = function()
@@ -893,25 +817,6 @@ return require('packer').startup({ function(use)
     end
   }
 
-  -- use { 'anuvyklack/pretty-fold.nvim',
-  --   requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
-  --   config = function()
-  --     require('pretty-fold').setup {
-  --       keep_indentation = false,
-  --       fill_char = '━',
-  --       sections = {
-  --         left = {
-  --           '━ ', function() return string.rep('*', vim.v.foldlevel) end, ' ━┫', 'content', '┣'
-  --         },
-  --         right = {
-  --           '┫ ', 'number_of_folded_lines', ': ', 'percentage', ' ┣━━',
-  --         }
-  --       }
-  --     }
-  --     require('pretty-fold.preview').setup()
-  --   end
-  -- }
-
   use {
     'junegunn/vim-easy-align',
     config = function()
@@ -1024,23 +929,6 @@ return require('packer').startup({ function(use)
     end
   }
 
-  use { 'yamatsum/nvim-cursorline',
-    config = function()
-      require('nvim-cursorline').setup {
-        cursorline = {
-          enable = true,
-          timeout = 1000,
-          number = true,
-        },
-        cursorword = {
-          enable = true,
-          min_length = 3,
-          hl = { underline = true },
-        }
-      }
-    end
-  }
-
   use({
     "kylechui/nvim-surround",
     config = function()
@@ -1048,12 +936,10 @@ return require('packer').startup({ function(use)
     end
   })
 
-  use { 'andymass/vim-matchup', event = 'User ActuallyEditing' }
   use { 'dhruvasagar/vim-table-mode' }
   use { 'dstein64/vim-startuptime' }
   use { 'junegunn/fzf' }
   use { 'junegunn/fzf.vim', setup = [[require('config.fzf')]] }
-  use { 'junegunn/vim-peekaboo' }
   use { 'lewis6991/impatient.nvim' }
   use { 'luukvbaal/stabilize.nvim', config = function() require('stabilize').setup() end }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
