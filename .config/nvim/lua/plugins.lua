@@ -563,6 +563,27 @@ return require('packer').startup({ function(use)
   -- use { 'buoto/gotests-vim', ft = { 'go' } }
   -- use { 'fatih/vim-go', ft = { 'go' }, run = ':GoInstallBinaries' }
   -- use { 'sebdah/vim-delve', ft = { 'go' } }
+  use { 'ray-x/go.nvim',
+    ft = { 'go' },
+    requires = 'ray-x/guihua.lua',
+    config = function()
+      require('go').setup({
+        lsp_cfg = false,
+        lsp_gofumpt = true,
+        trouble = true,
+        luasnip = true,
+      })
+      -- autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
+      -- vim.api.nvim_create_autocmd('BufWritePre', { pattern = '*.go', command = "GoFmt" })
+      -- vim.api.nvim_create_autocmd('BufWritePre', { pattern = '*.go', command = "GoImport" })
+      vim.api.nvim_create_autocmd('BufWritePre',
+        { pattern = '*.go', command = "silent! lua require('go.format').goimport()" })
+      vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufEnter' },
+        { pattern = '*.go', command = "setlocal noexpandtab tabstop=4 shiftwidth=4" })
+
+    end
+
+  }
 
   --------------------------------------------------------------------------------
   -- python
