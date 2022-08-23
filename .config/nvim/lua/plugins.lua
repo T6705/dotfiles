@@ -14,9 +14,7 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- Colorscheme
   --------------------------------------------------------------------------------
-  use { 'NLKNguyen/papercolor-theme' }
   use { 'morhetz/gruvbox' }
-  use { 'tomasr/molokai' }
   use { 'catppuccin/nvim', as = 'catppuccin', run = ":CatppuccinCompile",
     config = function()
       require("catppuccin").setup {
@@ -127,7 +125,7 @@ return require('packer').startup({ function(use)
 
   use {
     'akinsho/bufferline.nvim',
-    tag = "*",
+    tag = "v2.*",
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = function()
       require("bufferline").setup {
@@ -184,14 +182,6 @@ return require('packer').startup({ function(use)
       { 'arkav/lualine-lsp-progress' }
     },
     config = function() require 'config.lualine' end,
-  }
-
-  use {
-    'SmiteshP/nvim-gps',
-    requires = 'nvim-treesitter/nvim-treesitter',
-    config = function()
-      require("nvim-gps").setup()
-    end
   }
 
   use {
@@ -434,13 +424,11 @@ return require('packer').startup({ function(use)
         virtual_text = false,
         update_in_insert = true,
       })
-      vim.keymap.set("", "<Leader>lt", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
+      vim.keymap.set("", "<leader>lt", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
     end,
   })
 
   use { 'b0o/SchemaStore.nvim' }
-  use { 'folke/lsp-colors.nvim' }
-  use { 'kosayoda/nvim-lightbulb' }
   use { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end }
   use { 'neovim/nvim-lspconfig', config = function() require 'config.lspinstall' end }
   use { "williamboman/mason.nvim",
@@ -588,7 +576,12 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- python
   --------------------------------------------------------------------------------
-  use { 'psf/black', ft = { 'python' } }
+  use { 'psf/black',
+    ft = { 'python' },
+    config = function()
+      vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*.py", command = "Black" })
+    end
+  }
 
   --------------------------------------------------------------------------------
   -- other
@@ -818,6 +811,7 @@ return require('packer').startup({ function(use)
     config = function()
       require('ufo').setup({
         open_fold_hl_timeout = 150,
+        close_fold_kinds = { 'imports', 'comment' },
         preview = {
           win_config = {
             border = { '', '─', '', '', '', '─', '', '' },
@@ -829,12 +823,20 @@ return require('packer').startup({ function(use)
             scrollD = '<C-d>'
           }
         },
-        provider_selector = function(bufnr, filetype)
+        provider_selector = function(bufnr, filetype, buftype)
           return { 'treesitter', 'indent' }
         end
       })
       vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
       vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+      vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+      vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+      vim.keymap.set('n', '<leader>pv', function()
+        local winid = require('ufo').peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end)
     end
   }
 
@@ -962,7 +964,6 @@ return require('packer').startup({ function(use)
   use { 'junegunn/fzf' }
   use { 'junegunn/fzf.vim', setup = [[require('config.fzf')]] }
   use { 'lewis6991/impatient.nvim' }
-  use { 'luukvbaal/stabilize.nvim', config = function() require('stabilize').setup() end }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
   use { 'rcarriga/nvim-notify', config = function() vim.notify = require("notify") end }
   use { 'simrat39/symbols-outline.nvim', setup = [[require('config.symbols-outline')]] }

@@ -171,13 +171,14 @@ o.showmatch = true -- Show matching brackets when text indicator is over them
 o.smartcase = true -- case-sensitive if expresson contains a capital letter
 
 -- Folding
--- w.foldmethod = 'marker'
--- w.foldmethod = 'indent'
-w.foldmethod = 'expr'
-w.foldexpr = 'nvim_treesitter#foldexpr()'
-w.foldcolumn = '1'
-w.foldenable = true -- fold by default
-w.foldlevel = 99
+-- o.foldmethod = 'marker'
+-- o.foldmethod = 'indent'
+o.foldmethod = 'expr'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldcolumn = '1'
+o.foldenable = true -- fold by default
+o.foldlevel = 99
+o.foldlevelstart = 99
 
 -- autochange dir
 o.autochdir = true
@@ -290,16 +291,9 @@ vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "%s/\\n\\+
 
 -- Automatically formatting on save
 vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "lua vim.lsp.buf.format()" })
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.py",
-  callback = function()
-    -- cmd("%!isort -")
-    cmd("Black")
-  end
-})
 
--- open all folds in that file
-vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "FileReadPost" }, { pattern = "*", command = "normal zR" })
+-- -- open all folds in that file
+-- vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "FileReadPost" }, { pattern = "*", command = "normal zR" })
 
 -- Redraw screen every time when focus gained
 vim.api.nvim_create_autocmd('FocusGained', { pattern = '*', command = 'silent! redraw!' })
@@ -309,14 +303,6 @@ vim.api.nvim_create_autocmd('FocusLost', { pattern = '*', command = 'silent! wa'
 
 -- auto leave paste mode
 vim.api.nvim_create_autocmd('InsertLeave', { pattern = '*', command = 'silent! set nopaste' })
-
--- shows a lightbulb in the sign column whenever a textDocument/codeAction is available at the current cursor position.
-vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-  pattern = '*',
-  callback = function()
-    require 'nvim-lightbulb'.update_lightbulb()
-  end
-})
 
 -- don't auto commenting new lines
 vim.api.nvim_create_autocmd('BufEnter', { pattern = '*', command = 'set fo-=c fo-=r fo-=o' })

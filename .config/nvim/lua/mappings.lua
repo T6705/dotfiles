@@ -245,12 +245,12 @@ map('n', '<leader>pta',
 ---------------------------------------------------------------------------------
 -- tpope/vim-surround
 ---------------------------------------------------------------------------------
-map('n', '<Leader>`', 'ysiw`', { noremap = false, silent = true })
-map('n', '<Leader>"', 'ysiw"', { noremap = false, silent = true })
-map('n', "<Leader>'", "ysiw'", { noremap = false, silent = true })
-map('n', '<Leader>(', 'ysiw(', { noremap = false, silent = true })
-map('n', '<Leader>)', 'ysiw)', { noremap = false, silent = true })
-map('n', '<Leader>]', 'ysiw]', { noremap = false, silent = true })
-map('n', '<Leader>[', 'ysiw[', { noremap = false, silent = true })
-map('n', '<Leader>}', 'ysiw}', { noremap = false, silent = true })
-map('n', '<Leader>{', 'ysiw{', { noremap = false, silent = true })
+map('n', '<leader>`', 'ysiw`', { noremap = false, silent = true })
+map('n', '<leader>"', 'ysiw"', { noremap = false, silent = true })
+map('n', "<leader>'", "ysiw'", { noremap = false, silent = true })
+map('n', '<leader>(', 'ysiw(', { noremap = false, silent = true })
+map('n', '<leader>)', 'ysiw)', { noremap = false, silent = true })
+map('n', '<leader>]', 'ysiw]', { noremap = false, silent = true })
+map('n', '<leader>[', 'ysiw[', { noremap = false, silent = true })
+map('n', '<leader>}', 'ysiw}', { noremap = false, silent = true })
+map('n', '<leader>{', 'ysiw{', { noremap = false, silent = true })

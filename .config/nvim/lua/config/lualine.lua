@@ -1,5 +1,3 @@
-local gps = require("nvim-gps")
-
 -- Color for highlights
 local colors = {
   yellow = '#ECBE7B',
@@ -92,7 +90,6 @@ require 'lualine'.setup {
       'filesize',
       lsp_name,
       'lsp_progress',
-      { gps.get_location, cond = gps.is_available },
     },
     lualine_x = { 'encoding', 'fileformat', 'filetype' },
     lualine_y = { 'progress' },
