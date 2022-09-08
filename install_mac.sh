@@ -17,15 +17,19 @@ time brew update
 # morden unix command
 time brew install bat broot dog duf dust exa fx fzf git-delta gping httpie jq lsd procs ripgrep sd
 
+## latex
+#time brew install basictex mactex texlive
+#time brew install --cask texmaker
+
 time brew install ack aircrack-ng automake awk bash bfg binutils binwalk cifer clamav cmake coreutils cquery cscope ctags curl dc3dd dcfldd dex2jar diff-so-fancy dns2tcp docker-compose docker-compose-completion easy-tag emacs exploitdb ext4fuse fcrackzip feh ffmpeg findutils fish foremost gcc gettext git gnu-sed gnupg go grep hashcat hashpump hping htop hydra iperf3 john knock kompose lens libtool llvm macs-fan-control minikube mitmproxy moreutils mpv neofetch netpbm nikto nim ninja nmap node ntfs-3g openvpn p7zip pkg-config pngcheck prettier proxychains-ng pycharm-ce pypy3 qemu radare2 ranger rclone rust screenfetch shellcheck socat sqlmap sshuttle starship stunnel tcpdump tcpflow tcpreplay tcptrace telnet tmux ucspi-tcp unrar vim watch wget xz
 
-time brew install --cask alacritty another-redis-desktop-manager apenngrace/vulkan/vulkan-sdk burp-suite chromedriver chromium clipy cyberduck discord eul filezilla firefox font-noto-serif-cjk ghidra gimp gitahead gitup goneovim google-chrome iterm2 joplin joplin-cli krita macvim meld ngrok openvpn-connect postman stats tiles veracrypt virtualbox visual-studio-code vnc-viewer wine-stable
+time brew install --cask alacritty another-redis-desktop-manager apenngrace/vulkan/vulkan-sdk burp-suite chromedriver chromium clipy cyberduck discord eul filezilla firefox font-noto-serif-cjk ghidra gimp gitahead gitup goneovim google-chrome iterm2 joplin joplin-cli krita macvim meld neovide ngrok openvpn-connect postman stats tiles veracrypt virtualbox visual-studio-code vnc-viewer wine-stable
 
 #########################
 ### Install nerd font ###
 #########################
 time brew tap homebrew/cask-fonts
-time brew cask install font-fira-code-nerd-font font-hack-nerd-font font-jetbrainsmono-nerd-font
+time brew install --cask font-fira-code-nerd-font font-hack-nerd-font font-jetbrainsmono-nerd-font
 
 ########################################################
 ### install useful key bindings and fuzzy completion ###
