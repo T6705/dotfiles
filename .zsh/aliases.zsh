@@ -221,3 +221,29 @@ if command -v docker &> /dev/null ; then
     # Execute interactive container, e.g., $dex base /bin/bash
     alias dex="docker exec -i -t"
 fi
+
+# ------------------------------------
+# golang alias
+# ------------------------------------
+if command -v go &> /dev/null ; then
+    alias go-up='go get -u ./... && go mod tidy'
+
+    alias go-clean='go clean -modcache'
+
+    alias go-build="CGO_ENABLED=0 go build -trimpath -ldflags=\"-extldflags='-static' -w -s\""
+
+    if command -v goimports &> /dev/null ; then
+        # go install golang.org/x/tools/cmd/goimports@latest
+        alias go-imports='goimports -d $(go list -f {{.Dir}} ./...) && goimports -w $(go list -f {{.Dir}} ./...)'
+    fi
+
+    if command -v gofumpt &> /dev/null ; then
+        # go install mvdan.cc/gofumpt@latest
+        alias go-fmt='gofumpt -d $(go list -f {{.Dir}} ./...) && gofumpt -w $(go list -f {{.Dir}} ./...)'
+    fi
+
+    if command -v golangci-lint &> /dev/null ; then
+        # go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+        alias go-lint='golangci-lint -v run --enable-all --deadline=15m'
+    fi
+fi
