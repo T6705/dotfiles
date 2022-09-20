@@ -226,11 +226,11 @@ fi
 # golang alias
 # ------------------------------------
 if command -v go &> /dev/null ; then
-    alias go-up='go get -u ./... && go mod tidy'
+    alias go-up='go get -u ./... && go mod tidy && go mod verify'
 
     alias go-clean='go clean -modcache'
 
-    alias go-build="CGO_ENABLED=0 go build -trimpath -ldflags=\"-extldflags='-static' -w -s\""
+    alias go-build="CGO_ENABLED=0 go build -v -trimpath -ldflags=\"-extldflags='-static' -w -s\""
 
     if command -v goimports &> /dev/null ; then
         # go install golang.org/x/tools/cmd/goimports@latest
@@ -244,6 +244,6 @@ if command -v go &> /dev/null ; then
 
     if command -v golangci-lint &> /dev/null ; then
         # go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-        alias go-lint='golangci-lint -v run --enable-all --deadline=15m'
+        alias go-lint='golangci-lint -v run --enable-all -D varnamelen -D lll -D funlen --deadline=15m'
     fi
 fi

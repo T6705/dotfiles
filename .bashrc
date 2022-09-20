@@ -407,6 +407,32 @@ if command -v docker &> /dev/null ; then
     alias dex="docker exec -i -t"
 fi
 
+# ------------------------------------
+# golang alias
+# ------------------------------------
+if command -v go &> /dev/null ; then
+    alias go-up='go get -u ./... && go mod tidy && go mod verify'
+
+    alias go-clean='go clean -modcache'
+
+    alias go-build="CGO_ENABLED=0 go build -v -trimpath -ldflags=\"-extldflags='-static' -w -s\""
+
+    if command -v goimports &> /dev/null ; then
+        # go install golang.org/x/tools/cmd/goimports@latest
+        alias go-imports='goimports -d $(go list -f {{.Dir}} ./...) && goimports -w $(go list -f {{.Dir}} ./...)'
+    fi
+
+    if command -v gofumpt &> /dev/null ; then
+        # go install mvdan.cc/gofumpt@latest
+        alias go-fmt='gofumpt -d $(go list -f {{.Dir}} ./...) && gofumpt -w $(go list -f {{.Dir}} ./...)'
+    fi
+
+    if command -v golangci-lint &> /dev/null ; then
+        # go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+        alias go-lint='golangci-lint -v run --enable-all -D varnamelen -D lll -D funlen --deadline=15m'
+    fi
+fi
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -1381,6 +1407,10 @@ random_password() {
 
 check_cert() {
     openssl x509 -text -noout -in $1
+}
+
+check_key() {
+    openssl rsa -text -noout -in $1
 }
 
 dump_website() {

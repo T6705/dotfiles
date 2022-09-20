@@ -845,6 +845,10 @@ check_cert() {
     openssl x509 -text -noout -in $1
 }
 
+check_key() {
+    openssl rsa -text -noout -in $1
+}
+
 dump_website() {
     if command -v wget &> /dev/null ; then
         wget --mirror --convert-links --adjust-extension --page-requisites --no-parent $1
