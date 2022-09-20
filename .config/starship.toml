@@ -51,6 +51,19 @@ detect_files = [
 ]
 detect_folders = []
 
+[bun]
+format = 'via [$symbol($version )]($style)'
+version_format = 'v${raw}'
+symbol = '🍞 '
+style = 'bold red'
+disabled = false
+detect_extensions = []
+detect_files = [
+    'bun.lockb',
+    'bunfig.toml',
+]
+detect_folders = []
+
 [c]
 format = 'via [$symbol($version(-$name) )]($style)'
 version_format = 'v${raw}'
@@ -315,6 +328,7 @@ only_detached = true
 disabled = false
 tag_symbol = ' 🏷  '
 tag_disabled = true
+tag_max_candidates = 0
 
 [git_metrics]
 added_style = 'bold green'
@@ -482,6 +496,9 @@ symbol = '☸ '
 format = '[$symbol$context( \($namespace\))]($style) in '
 style = 'cyan bold'
 disabled = true
+detect_extensions = []
+detect_files = []
+detect_folders = []
 
 [kubernetes.context_aliases]
 
@@ -640,6 +657,7 @@ version_format = 'v${raw}'
 symbol = ' '
 style = 'bold 5'
 disabled = false
+search_upwards = true
 
 [purescript]
 format = 'via [$symbol($version )]($style)'
@@ -905,4 +923,3 @@ detect_files = []
 detect_folders = []
 
 [custom]
-
