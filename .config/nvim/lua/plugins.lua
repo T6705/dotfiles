@@ -595,6 +595,28 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- other
   --------------------------------------------------------------------------------
+  use { "anuvyklack/windows.nvim",
+    requires = {
+      "anuvyklack/middleclass",
+      "anuvyklack/animation.nvim"
+    },
+    config = function()
+      vim.o.winwidth = 10
+      vim.o.winminwidth = 10
+      vim.o.equalalways = false
+
+      local function cmd(command)
+        return table.concat({ '<Cmd>', command, '<CR>' })
+      end
+
+      vim.keymap.set('n', '<leader>wz', cmd 'WindowsMaximize')
+      vim.keymap.set('n', '<leader>w-', cmd 'WindowsMaximizeVertically')
+      vim.keymap.set('n', '<leader>w|', cmd 'WindowsMaximizeHorizontally')
+      vim.keymap.set('n', '<leader>we', cmd 'WindowsEqualize')
+      require('windows').setup()
+    end
+  }
+
   use { 'anuvyklack/hydra.nvim',
     requires = 'anuvyklack/keymap-layer.nvim',
     config = function()

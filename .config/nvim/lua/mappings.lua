@@ -157,8 +157,8 @@ map('n', '<leader>wJ', '<C-W>J', opts)
 map('n', '<leader>wK', '<C-W>K', opts)
 map('n', '<leader>wL', '<C-W>L', opts)
 -- Make splits the same width
-map('n', '<leader>we', '<C-w>=', opts)
-map('n', '<leader>wz', ':wincmd _ |wincmd | | normal 0 <CR>', opts)
+-- map('n', '<leader>we', '<C-w>=', opts)
+-- map('n', '<leader>wz', ':wincmd _ |wincmd | | normal 0 <CR>', opts)
 
 -- quickfix
 --let g:quickfix_height = 50
