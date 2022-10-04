@@ -97,7 +97,7 @@ b.cindent = true
 w.cursorline = true -- highlight current line
 -- set display+=lastline
 o.hidden = true -- current buffer can be put into background
-
+-- o.cmdheight = 0
 o.laststatus = 2 -- Status bar always on
 o.lazyredraw = true -- Don't redraw while executing macros (good performance config)
 w.number = true -- show line number
@@ -136,7 +136,7 @@ cmd [[set complete+=kspell]]
 o.completeopt = 'longest,menuone' -- completion options
 o.showcmd = true -- show incomplete commands
 w.so = 7 -- Set 7 lines to the cursor - when moving vertically using j/k
-w.t_Co = "256" -- Explicitly tell vim that the terminal supports 256 colors
+o.t_Co = "256" -- Explicitly tell vim that the terminal supports 256 colors
 o.title = true
 o.titleold = "Terminal"
 o.titlestring = '%F'
@@ -214,10 +214,11 @@ o.history = 1000
 -- set tags=./tags;/
 
 o.splitright = true -- vertical split to the right
-o.splitbelow = true -- orizontal split to the bottom
+o.splitbelow = true -- horizontal split to the bottom
 
--- "set spell
--- set spelllang=en_us,nl
+-- set spell
+o.spell = true
+o.spelllang = 'en_us,nl'
 
 -- Use persistent history, Keep undo history across sessions by storing it in a file
 cmd [[
