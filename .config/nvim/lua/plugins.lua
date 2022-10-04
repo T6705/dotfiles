@@ -252,13 +252,19 @@ return require('packer').startup({ function(use)
   }
 
   use { 'rhysd/git-messenger.vim' }
+  use { 'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    config = function()
+      vim.keymap.set('n', '<leader>gd', ':DiffviewOpen<CR>')
+    end
+  }
 
   use {
     'tpope/vim-fugitive',
     config = function()
+      -- vim.keymap.set('n', '<leader>gd', ':Gvdiff<CR>')
       vim.keymap.set('n', '<leader>gb', ':Git blame<CR>')
       vim.keymap.set('n', '<leader>gc', ':Git commit<CR>')
-      vim.keymap.set('n', '<leader>gd', ':Gvdiff<CR>')
       vim.keymap.set('n', '<leader>gps', ':Git push<CR>')
       vim.keymap.set('n', '<leader>gpu', ':Git pull<CR>')
       vim.keymap.set('n', '<leader>gr', ':GRemove<CR>')
