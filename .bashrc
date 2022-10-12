@@ -104,6 +104,7 @@ fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
+[ -d $HOME/.cargo/env ] && export PATH="$HOME/.cargo/env:$PATH"
 [ -d $HOME/.gem/ruby/3.0.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/3.0.0/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -415,7 +416,7 @@ if command -v go &> /dev/null ; then
 
     alias go-clean='go clean -modcache'
 
-    alias go-build="CGO_ENABLED=0 go build -v -trimpath -ldflags=\"-extldflags='-static' -w -s\""
+    alias go-build="CGO_ENABLED=0 go build -v -trimpath -ldflags=\"-extldflags='-static' -w -s\" -gcflags=\"-m -m\""
 
     if command -v goimports &> /dev/null ; then
         # go install golang.org/x/tools/cmd/goimports@latest

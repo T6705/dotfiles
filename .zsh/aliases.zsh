@@ -230,7 +230,7 @@ if command -v go &> /dev/null ; then
 
     alias go-clean='go clean -modcache'
 
-    alias go-build="CGO_ENABLED=0 go build -v -trimpath -ldflags=\"-extldflags='-static' -w -s\""
+    alias go-build="CGO_ENABLED=0 go build -v -trimpath -ldflags=\"-extldflags='-static' -w -s\" -gcflags=\"-m -m\""
 
     if command -v goimports &> /dev/null ; then
         # go install golang.org/x/tools/cmd/goimports@latest
