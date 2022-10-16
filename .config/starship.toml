@@ -6,6 +6,8 @@ scan_timeout = 30
 command_timeout = 500
 add_newline = false
 
+[palettes]
+
 [aws]
 format = 'on [$symbol($profile )(\($region\) )(\[$duration\] )]($style)'
 symbol = '☁️  '
@@ -38,9 +40,9 @@ threshold = 10
 style = 'red bold'
 
 [buf]
-format = 'with [$symbol ($version)]($style)'
+format = 'with [$symbol($version )]($style)'
 version_format = 'v${raw}'
-symbol = ''
+symbol = '🦬 '
 style = 'bold blue'
 disabled = false
 detect_extensions = []
@@ -531,6 +533,14 @@ style = 'white bold dimmed'
 symbol = '🐏 '
 disabled = false
 
+[meson]
+truncation_length = 4294967295
+truncation_symbol = '…'
+format = 'via [$symbol$project]($style) '
+symbol = '⬢ '
+style = 'blue bold'
+disabled = false
+
 [nim]
 format = 'via [$symbol($version )]($style)'
 version_format = 'v${raw}'
@@ -923,3 +933,4 @@ detect_files = []
 detect_folders = []
 
 [custom]
+
