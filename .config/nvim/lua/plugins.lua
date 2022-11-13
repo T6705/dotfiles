@@ -14,8 +14,9 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- Colorscheme
   --------------------------------------------------------------------------------
-  use { 'morhetz/gruvbox' }
-  use { 'catppuccin/nvim', as = 'catppuccin', run = ":CatppuccinCompile",
+  -- use { 'morhetz/gruvbox' }
+  use {
+    'catppuccin/nvim', as = 'catppuccin',
     config = function()
       require("catppuccin").setup {
         compile = {
@@ -48,14 +49,13 @@ return require('packer').startup({ function(use)
           bufferline = true,
           cmp = true,
           gitsigns = true,
-          lightspeed = true,
           lsp_trouble = true,
           markdown = true,
+          notify = true,
           symbols_outline = true,
           telescope = true,
           treesitter = true,
           ts_rainbow = true,
-          notify = true,
           dap = {
             enabled = true,
             enable_ui = true,
@@ -89,6 +89,7 @@ return require('packer').startup({ function(use)
           fern = false,
           gitgutter = false,
           hop = false,
+          lightspeed = false,
           lsp_saga = false,
           neogit = false,
           telekasten = false,
@@ -101,6 +102,8 @@ return require('packer').startup({ function(use)
           },
         }
       }
+      vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
+      vim.api.nvim_command "colorscheme catppuccin"
     end
   }
 
@@ -126,9 +129,10 @@ return require('packer').startup({ function(use)
   use {
     'akinsho/bufferline.nvim',
     tag = "v2.*",
-    requires = { 'kyazdani42/nvim-web-devicons' },
+    requires = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require("bufferline").setup {
+        highlights = require("catppuccin.groups.integrations.bufferline").get(),
         options = {
           numbers = "none",
           close_command = "bdelete! %d",
@@ -181,7 +185,7 @@ return require('packer').startup({ function(use)
   use {
     'nvim-lualine/lualine.nvim',
     requires = {
-      { 'kyazdani42/nvim-web-devicons', opt = true },
+      { 'nvim-tree/nvim-web-devicons', opt = true },
       { 'arkav/lualine-lsp-progress' }
     },
     config = function() require 'config.lualine' end,
@@ -222,8 +226,11 @@ return require('packer').startup({ function(use)
 
       local map = vim.api.nvim_set_keymap
       local opts = { noremap = true, silent = true }
-      map('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]], opts)
-      map('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]], opts)
+
+      -- map('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]], opts)
+      -- map('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]], opts)
+      map('n', 'n', [[<Cmd>lua require('hlslens').nNPeekWithUFO('n')<CR>zzzv]], opts)
+      map('n', 'N', [[<Cmd>lua require('hlslens').nNPeekWithUFO('N')<CR>zzzv]], opts)
       map('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], opts)
       map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], opts)
       map('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], opts)
@@ -234,6 +241,20 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- git
   --------------------------------------------------------------------------------
+  -- use { 'rhysd/git-messenger.vim' }
+  -- use {
+  --   'tpope/vim-fugitive',
+  --   config = function()
+  --     -- vim.keymap.set('n', '<leader>gd', ':Gvdiff<CR>')
+  --     vim.keymap.set('n', '<leader>gb', ':Git blame<CR>')
+  --     vim.keymap.set('n', '<leader>gc', ':Git commit<CR>')
+  --     vim.keymap.set('n', '<leader>gps', ':Git push<CR>')
+  --     vim.keymap.set('n', '<leader>gpu', ':Git pull<CR>')
+  --     vim.keymap.set('n', '<leader>gr', ':GRemove<CR>')
+  --     vim.keymap.set('n', '<leader>gs', ':Git<CR>')
+  --     vim.keymap.set('n', '<leader>gw', ':Gwrite<CR>')
+  --   end
+  -- }
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
@@ -251,27 +272,14 @@ return require('packer').startup({ function(use)
     end
   }
 
-  use { 'rhysd/git-messenger.vim' }
-  use { 'sindrets/diffview.nvim',
+  use {
+    'sindrets/diffview.nvim',
     requires = 'nvim-lua/plenary.nvim',
     config = function()
       vim.keymap.set('n', '<leader>gd', ':DiffviewOpen<CR>')
     end
   }
 
-  use {
-    'tpope/vim-fugitive',
-    config = function()
-      -- vim.keymap.set('n', '<leader>gd', ':Gvdiff<CR>')
-      vim.keymap.set('n', '<leader>gb', ':Git blame<CR>')
-      vim.keymap.set('n', '<leader>gc', ':Git commit<CR>')
-      vim.keymap.set('n', '<leader>gps', ':Git push<CR>')
-      vim.keymap.set('n', '<leader>gpu', ':Git pull<CR>')
-      vim.keymap.set('n', '<leader>gr', ':GRemove<CR>')
-      vim.keymap.set('n', '<leader>gs', ':Git<CR>')
-      vim.keymap.set('n', '<leader>gw', ':Gwrite<CR>')
-    end
-  }
 
   --------------------------------------------------------------------------------
   -- completions
@@ -287,7 +295,6 @@ return require('packer').startup({ function(use)
       { 'hrsh7th/cmp-nvim-lsp-signature-help' },
       { 'hrsh7th/cmp-nvim-lua' },
       { 'hrsh7th/cmp-path' },
-      { 'lukas-reineke/cmp-rg' },
     },
     config = function() require 'config.nvim-cmp' end,
   }
@@ -424,23 +431,24 @@ return require('packer').startup({ function(use)
     end,
   }
 
-  use({
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    config = function()
-      require("lsp_lines").setup()
-      -- Disable virtual_text since it's redundant due to lsp_lines.
-      vim.diagnostic.config({
-        virtual_text = false,
-        update_in_insert = true,
-      })
-      vim.keymap.set("", "<leader>lt", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
-    end,
-  })
+  -- use({
+  --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+  --   config = function()
+  --     require("lsp_lines").setup()
+  --     -- Disable virtual_text since it's redundant due to lsp_lines.
+  --     vim.diagnostic.config({
+  --       virtual_text = false,
+  --       update_in_insert = true,
+  --     })
+  --     vim.keymap.set("", "<leader>lt", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
+  --   end,
+  -- })
 
   use { 'b0o/SchemaStore.nvim' }
   use { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end }
   use { 'neovim/nvim-lspconfig', config = function() require 'config.lspinstall' end }
-  use { "williamboman/mason.nvim",
+  use {
+    "williamboman/mason.nvim",
     config = function()
       require("mason").setup({
         ui = {
@@ -452,8 +460,10 @@ return require('packer').startup({ function(use)
           }
         }
       })
-    end }
-  use { "williamboman/mason-lspconfig.nvim",
+    end
+  }
+  use {
+    "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = {
@@ -468,13 +478,14 @@ return require('packer').startup({ function(use)
         },
         automatic_installation = true,
       })
-    end }
-
+    end
+  }
 
   --------------------------------------------------------------------------------
   -- debugging
   --------------------------------------------------------------------------------
-  use { "mfussenegger/nvim-dap",
+  use {
+    "mfussenegger/nvim-dap",
     requires = {
       {
         'rcarriga/nvim-dap-ui',
@@ -560,7 +571,8 @@ return require('packer').startup({ function(use)
   -- use { 'buoto/gotests-vim', ft = { 'go' } }
   -- use { 'fatih/vim-go', ft = { 'go' }, run = ':GoInstallBinaries' }
   -- use { 'sebdah/vim-delve', ft = { 'go' } }
-  use { 'ray-x/go.nvim',
+  use {
+    'ray-x/go.nvim',
     ft = { 'go' },
     requires = 'ray-x/guihua.lua',
     config = function()
@@ -579,13 +591,13 @@ return require('packer').startup({ function(use)
         { pattern = '*.go', command = "setlocal noexpandtab tabstop=4 shiftwidth=4" })
 
     end
-
   }
 
   --------------------------------------------------------------------------------
   -- python
   --------------------------------------------------------------------------------
-  use { 'psf/black',
+  use {
+    'psf/black',
     ft = { 'python' },
     config = function()
       vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*.py", command = "Black" })
@@ -595,29 +607,30 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- other
   --------------------------------------------------------------------------------
-  use { "anuvyklack/windows.nvim",
-    requires = {
-      "anuvyklack/middleclass",
-      "anuvyklack/animation.nvim"
-    },
-    config = function()
-      vim.o.winwidth = 10
-      vim.o.winminwidth = 10
-      vim.o.equalalways = false
+  --use { "anuvyklack/windows.nvim",
+  --  requires = {
+  --    "anuvyklack/middleclass",
+  --    "anuvyklack/animation.nvim"
+  --  },
+  --  config = function()
+  --    vim.o.winwidth = 10
+  --    vim.o.winminwidth = 10
+  --    vim.o.equalalways = false
 
-      local function cmd(command)
-        return table.concat({ '<Cmd>', command, '<CR>' })
-      end
+  --    local function cmd(command)
+  --      return table.concat({ '<Cmd>', command, '<CR>' })
+  --    end
 
-      vim.keymap.set('n', '<leader>wz', cmd 'WindowsMaximize')
-      vim.keymap.set('n', '<leader>w-', cmd 'WindowsMaximizeVertically')
-      vim.keymap.set('n', '<leader>w|', cmd 'WindowsMaximizeHorizontally')
-      vim.keymap.set('n', '<leader>we', cmd 'WindowsEqualize')
-      require('windows').setup()
-    end
-  }
+  --    vim.keymap.set('n', '<leader>wz', cmd 'WindowsMaximize')
+  --    vim.keymap.set('n', '<leader>w-', cmd 'WindowsMaximizeVertically')
+  --    vim.keymap.set('n', '<leader>w|', cmd 'WindowsMaximizeHorizontally')
+  --    vim.keymap.set('n', '<leader>we', cmd 'WindowsEqualize')
+  --    require('windows').setup()
+  --  end
+  --}
 
-  use { 'anuvyklack/hydra.nvim',
+  use {
+    'anuvyklack/hydra.nvim',
     requires = 'anuvyklack/keymap-layer.nvim',
     config = function()
       local Hydra = require('hydra')
@@ -663,38 +676,23 @@ return require('packer').startup({ function(use)
   }
 
   use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
+    'nvim-tree/nvim-tree.lua',
+    requires = 'nvim-tree/nvim-web-devicons',
     config = function()
       require 'nvim-tree'.setup {
-        auto_reload_on_write = true,
-        create_in_closed_folder = false,
-        disable_netrw = false,
-        hijack_cursor = false,
-        hijack_netrw = true,
-        hijack_unnamed_buffer_when_opening = false,
-        ignore_buffer_on_setup = false,
-        open_on_setup = false,
-        open_on_setup_file = false,
-        open_on_tab = false,
-        sort_by = "name",
-        update_cwd = true,
         reload_on_bufenter = true,
         respect_buf_cwd = true,
         view = {
           adaptive_size = true,
           width = 35,
-          height = 30,
-          hide_root_folder = false,
-          side = "left",
           preserve_window_proportions = true,
-          number = false,
-          relativenumber = false,
-          signcolumn = "yes",
           mappings = {
-            custom_only = false,
             list = {
-              -- user mappings go here
+              { key = "e", action = "create" },
+              { key = "p", action = "paste" },
+              { key = "x", action = "cut" },
+              { key = "y", action = "copy" },
+              { key = "K", action = "toggle_file_info" },
             },
           },
         },
@@ -702,132 +700,23 @@ return require('packer').startup({ function(use)
           add_trailing = true,
           group_empty = true,
           highlight_git = true,
-          highlight_opened_files = "none",
-          root_folder_modifier = ":~",
           indent_markers = {
             enable = true,
-            icons = {
-              corner = "└ ",
-              edge = "│ ",
-              none = "  ",
-            },
           },
-          icons = {
-            webdev_colors = true,
-            git_placement = "before",
-            padding = " ",
-            symlink_arrow = " ➛ ",
-            show = {
-              file = true,
-              folder = true,
-              folder_arrow = true,
-              git = true,
-            },
-            glyphs = {
-              default = "",
-              symlink = "",
-              folder = {
-                arrow_closed = "",
-                arrow_open = "",
-                default = "",
-                open = "",
-                empty = "",
-                empty_open = "",
-                symlink = "",
-                symlink_open = "",
-              },
-              git = {
-                unstaged = "✗",
-                staged = "✓",
-                unmerged = "",
-                renamed = "➜",
-                untracked = "★",
-                deleted = "",
-                ignored = "◌",
-              },
-            },
-          },
-          special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
         },
-        hijack_directories = {
-          enable = true,
-          auto_open = true,
+        diagnostics = {
+          enable = false,
+          icons = {
+            hint = " ",
+            info = " ",
+            warning = " ",
+            error = " ",
+          },
         },
         update_focused_file = {
           enable = true,
           update_cwd = true,
           ignore_list = {},
-        },
-        ignore_ft_on_setup = {},
-        system_open = {
-          cmd = "",
-          args = {},
-        },
-        diagnostics = {
-          enable = false,
-          show_on_dirs = false,
-          icons = {
-            hint = "",
-            info = "",
-            warning = "",
-            error = "",
-          },
-        },
-        filters = {
-          dotfiles = false,
-          custom = {},
-          exclude = {},
-        },
-        git = {
-          enable = true,
-          ignore = true,
-          timeout = 400,
-        },
-        actions = {
-          use_system_clipboard = true,
-          change_dir = {
-            enable = true,
-            global = false,
-            restrict_above_cwd = false,
-          },
-          expand_all = {
-            max_folder_discovery = 300,
-          },
-          open_file = {
-            quit_on_open = false,
-            resize_window = true,
-            window_picker = {
-              enable = true,
-              chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-              exclude = {
-                filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
-                buftype = { "nofile", "terminal", "help" },
-              },
-            },
-          },
-          remove_file = {
-            close_window = true,
-          },
-        },
-        trash = {
-          cmd = "trash",
-          require_confirm = true,
-        },
-        live_filter = {
-          prefix = "[FILTER]: ",
-          always_show_folders = true,
-        },
-        log = {
-          enable = false,
-          truncate = false,
-          types = {
-            all = false,
-            config = false,
-            copy_paste = false,
-            diagnostics = false,
-            git = false,
-            profile = false,
-          },
         },
       }
       vim.keymap.set('n', '<leader>E', ':NvimTreeToggle<CR>')
@@ -881,7 +770,7 @@ return require('packer').startup({ function(use)
 
   use {
     'folke/trouble.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
+    requires = 'nvim-tree/nvim-web-devicons',
     config = function()
       require('trouble').setup {
         position = "bottom", -- position of the list can be: bottom, top, left, right
@@ -945,7 +834,7 @@ return require('packer').startup({ function(use)
   use({
     "ghillb/cybu.nvim",
     branch = "main",
-    requires = { "kyazdani42/nvim-web-devicons" },
+    requires = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require('cybu').setup({
         style = {
@@ -972,16 +861,16 @@ return require('packer').startup({ function(use)
     end
   }
 
-  use {
-    'ggandor/lightspeed.nvim',
-    config = function()
-      require 'lightspeed'.setup {
-        jump_to_unique_chars = { safety_timeout = 400 },
-        match_only_the_start_of_same_char_seqs = true,
-        limit_ft_matches = 5,
-      }
-    end
-  }
+  --use {
+  --  'ggandor/lightspeed.nvim',
+  --  config = function()
+  --    require 'lightspeed'.setup {
+  --      jump_to_unique_chars = { safety_timeout = 400 },
+  --      match_only_the_start_of_same_char_seqs = true,
+  --      limit_ft_matches = 5,
+  --    }
+  --  end
+  --}
 
   use({
     "kylechui/nvim-surround",
@@ -996,8 +885,32 @@ return require('packer').startup({ function(use)
   use { 'junegunn/fzf.vim', setup = [[require('config.fzf')]] }
   use { 'lewis6991/impatient.nvim' }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
-  use { 'rcarriga/nvim-notify', config = function() vim.notify = require("notify") end }
-  use { 'simrat39/symbols-outline.nvim', setup = [[require('config.symbols-outline')]] }
+  use {
+    'rcarriga/nvim-notify',
+    config = function()
+      require("notify").setup({
+        background_color = "#000000",
+        fps = 60,
+        icons = {
+          DEBUG = "",
+          ERROR = " ",
+          INFO = " ",
+          TRACE = "✎",
+          WARN = " ",
+        },
+      })
+      vim.notify = require("notify")
+    end
+  }
+  use {
+    'simrat39/symbols-outline.nvim',
+    config = function()
+      require("symbols-outline").setup()
+      local map = vim.api.nvim_set_keymap
+      local opts = { noremap = true, silent = true }
+      map('n', '<leader>so', ':SymbolsOutline<CR>', opts)
+    end
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

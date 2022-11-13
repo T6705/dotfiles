@@ -59,7 +59,7 @@ end
 local function make_config()
   -- use LSP snippet
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+  capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
   capabilities.textDocument.completion.completionItem = {
     commitCharactersSupport = true,
@@ -102,20 +102,16 @@ for type, icon in pairs(signs) do
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  -- virtual_text = {
-  --   prefix = "",
-  --   spacing = 0,
-  -- },
-  virtual_text = false,
+  virtual_text = true,
   float = { border = "single" },
   signs = true,
   underline = true,
   -- set this to true if you want diagnostics to show in insert mode
   update_in_insert = true,
 })
--- Show line diagnostics automatically in hover window
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
-vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]]
+---- Show line diagnostics automatically in hover window
+--vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+--vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 local lspconfig = require('lspconfig')
 require("mason-lspconfig").setup_handlers({

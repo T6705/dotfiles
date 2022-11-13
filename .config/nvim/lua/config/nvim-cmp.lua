@@ -53,14 +53,6 @@ cmp.setup {
     -- { name = 'ultisnips', priority_weight = 80 },
     { name = 'luasnip', priority_weight = 80 },
     { name = 'buffer', priority_weight = 70, max_item_count = 5, },
-    { name = 'rg',
-      priority_weight = 60,
-      keyword_length = 5,
-      max_item_count = 5,
-      option = {
-        additional_arguments = "--smart-case --hidden",
-      },
-    },
     { name = 'calc' },
     { name = 'emoji' },
   },
@@ -75,7 +67,6 @@ cmp.setup {
         luasnip = "[LuaSnip]",
         nvim_lua = "[Lua]",
         latex_symbols = "[LaTeX]",
-        rg = "[RG]",
       })[entry.source.name]
       return vim_item
     end
