@@ -79,8 +79,6 @@ o.breakindentopt = "sbr"
 -- UI
 ----------------------------------------------------------------------------------
 o.termguicolors = true -- enable 24-bit RGB colors
-g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
-cmd.colorscheme("catppuccin")
 -- g.gruvbox_italic = 1
 -- g.gruvbox_contrast_dark = "hard"
 -- cmd.colorscheme("gruvbox")
@@ -215,6 +213,7 @@ o.history = 1000
 
 o.splitright = true -- vertical split to the right
 o.splitbelow = true -- horizontal split to the bottom
+o.splitkeep = "topline"
 
 -- set spell
 o.spell = true
@@ -258,7 +257,9 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 vim.api.nvim_create_autocmd('TextYankPost', {
   group    = 'bufcheck',
   pattern  = '*',
-  callback = function() vim.highlight.on_yank { timeout = 500 } end
+  callback = function()
+    vim.highlight.on_yank { higroup = 'IncSearch', timeout = 500 }
+  end
 })
 
 -- Return to last edit position when opening files

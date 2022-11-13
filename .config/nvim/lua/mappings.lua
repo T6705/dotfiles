@@ -27,6 +27,10 @@ map('n', 'Y', 'y$', opts)
 map('n', 'c*', '*Ncgn', opts)
 map('n', 'c#', '#NcgN', opts)
 
+-- native multi-cursor in vim
+map('n', 'cn', '*``cgn', opts)
+map('n', 'cN', '*``cgN', opts)
+
 map('n', '<leader>p', '"+gP', opts)
 map('n', '<leader>x', '"+x', opts)
 map('n', '<leader>y', 'mm:Osc52CopyYank<CR>`m:delmarks m<CR>zz', opts)
@@ -157,8 +161,8 @@ map('n', '<leader>wJ', '<C-W>J', opts)
 map('n', '<leader>wK', '<C-W>K', opts)
 map('n', '<leader>wL', '<C-W>L', opts)
 -- Make splits the same width
--- map('n', '<leader>we', '<C-w>=', opts)
--- map('n', '<leader>wz', ':wincmd _ |wincmd | | normal 0 <CR>', opts)
+map('n', '<leader>we', '<C-w>=', opts)
+map('n', '<leader>wz', ':wincmd _ |wincmd | | normal 0 <CR>', opts)
 
 -- quickfix
 --let g:quickfix_height = 50
