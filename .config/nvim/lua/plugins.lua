@@ -574,7 +574,7 @@ return require('packer').startup({ function(use)
   use {
     'ray-x/go.nvim',
     ft = { 'go' },
-    requires = 'ray-x/guihua.lua',
+    requires = { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
     config = function()
       require('go').setup({
         lsp_cfg = false,
