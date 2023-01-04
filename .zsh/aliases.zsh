@@ -160,6 +160,7 @@ if command -v git &> /dev/null ; then
     fi
 
     alias gdst="git diff --stat"
+    alias gdsm="git diff --submodule=diff"
 fi
 
 # ------------------------------------
