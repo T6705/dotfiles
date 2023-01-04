@@ -114,6 +114,8 @@ map('x', 'K', ":m '<-2<CR>gv=gvzz", opts)
 -- Scrolling
 map('n', '<C-j>', '2<C-e>', opts)
 map('n', '<C-k>', '2<C-y>', opts)
+map('n', '<C-d>', '<C-d>zz', opts)
+map('n', '<C-u>', '<C-u>zz', opts)
 
 --inoremap <F8> <Esc>:Hexmode<CR>
 --noremap <F8> :Hexmode<CR>
