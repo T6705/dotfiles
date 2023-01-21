@@ -19,6 +19,11 @@ return require('packer').startup({ function(use)
     'catppuccin/nvim', as = 'catppuccin',
     config = function()
       require("catppuccin").setup {
+        flavour = "mocha", -- latte, frappe, macchiato, mocha
+        background = { -- :h background
+          light = "latte",
+          dark = "mocha",
+        },
         compile = {
           enabled = true,
           path = vim.fn.stdpath "cache" .. "/catppuccin",
@@ -29,8 +34,11 @@ return require('packer').startup({ function(use)
           shade = "dark",
           percentage = 0.15,
         },
+        no_italic = false, -- Force no italic
+        no_bold = false, -- Force no bold
         term_colors = true,
         transparent_background = true,
+        show_end_of_buffer = true, -- show the '~' characters after the end of buffers
         styles = {
           comments = { "italic" },
           conditionals = { "italic" },
@@ -82,7 +90,7 @@ return require('packer').startup({ function(use)
           },
           indent_blankline = {
             enabled = true,
-            colored_indent_levels = true,
+            colored_indent_levels = false,
           },
           barbar = false,
           dashboard = false,
@@ -103,7 +111,7 @@ return require('packer').startup({ function(use)
         }
       }
       vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
-      vim.api.nvim_command "colorscheme catppuccin"
+      vim.cmd.colorscheme "catppuccin"
     end
   }
 
@@ -130,6 +138,7 @@ return require('packer').startup({ function(use)
     'akinsho/bufferline.nvim',
     tag = "v2.*",
     requires = { 'nvim-tree/nvim-web-devicons' },
+    after = "catppuccin",
     config = function()
       require("bufferline").setup {
         highlights = require("catppuccin.groups.integrations.bufferline").get(),
@@ -887,9 +896,10 @@ return require('packer').startup({ function(use)
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
   use {
     'rcarriga/nvim-notify',
+    after = "catppuccin",
     config = function()
       require("notify").setup({
-        background_color = "#000000",
+        background_colour = "#1E1E2E",
         fps = 60,
         icons = {
           DEBUG = "",
