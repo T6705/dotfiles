@@ -68,7 +68,7 @@ b.softtabstop = 4 -- edit as if the tabs are 4 characters wide
 
 -- toggle invisible characters
 o.list = true
-vim.opt.listchars = { tab = '▸ ', eol = "¬", trail = "⋅", extends = "❯", precedes = "❮" }
+opt.listchars = { tab = '▸ ', eol = "¬", trail = "⋅", extends = "❯", precedes = "❮" }
 
 -- highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 o.showbreak = "↪"
