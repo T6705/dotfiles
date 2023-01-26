@@ -276,7 +276,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 })
 
 -- Check if any buffers were changed outside of Vim
-vim.api.nvim_create_autocmd('CursorHold', {
+vim.api.nvim_create_autocmd({ "CursorHold", "FocusGained", "TermClose", "TermLeave" }, {
   group   = 'bufcheck',
   pattern = '*',
   command = 'silent! checktime'
@@ -316,3 +316,11 @@ vim.api.nvim_create_autocmd('VimResized', { pattern = '*', command = 'wincmd =' 
 vim.api.nvim_create_autocmd('FileType',
   { pattern = 'xml,html,xhtml,css,scss,javascript,lua,yaml',
     command = 'setlocal expandtab smarttab shiftwidth=2 softtabstop=2 tabstop=2' })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
