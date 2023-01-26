@@ -85,6 +85,9 @@ o.termguicolors = true -- enable 24-bit RGB colors
 
 o.pumblend = 30
 
+opt.numberwidth = 3
+opt.statuscolumn = '%s%=%l %C%#Yellow#%{v:relnum == 0 ? ">" : ""}%#IndentBlankLineChar#%{v:relnum == 0 ? "" : "│"} '
+
 -- "filetype on
 -- filetype indent on    " load filetype-specific indent files
 -- filetype plugin on
