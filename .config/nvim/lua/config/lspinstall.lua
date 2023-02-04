@@ -46,6 +46,10 @@ local on_attach = function(client, bufnr)
      ]], false)
   end
 
+  if client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
+  end
+
   -- -- lsp_signature.nvim
   -- require "lsp_signature".on_attach({
   --   bind = true, -- This is mandatory, otherwise border config won't get registered.

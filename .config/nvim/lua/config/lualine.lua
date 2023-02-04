@@ -52,6 +52,8 @@ local function mixed_indent()
   end
 end
 
+local navic = require("nvim-navic")
+
 require 'lualine'.setup {
   options = {
     -- theme = 'gruvbox_dark',
@@ -86,12 +88,18 @@ require 'lualine'.setup {
       }
     },
     lualine_c = {
-      'filename',
+      {
+        'filename',
+        path = 1
+      },
       'filesize',
       lsp_name,
       'lsp_progress',
     },
-    lualine_x = { 'encoding', 'fileformat', 'filetype' },
+    lualine_x = {
+      { navic.get_location, cond = navic.is_available },
+      'encoding', 'fileformat', 'filetype'
+    },
     lualine_y = { 'progress' },
     lualine_z = {
       mixed_indent,
@@ -104,8 +112,7 @@ require 'lualine'.setup {
     lualine_b = {
       {
         'filename',
-        file_status = true,
-        path = 3
+        path = 1
       }
     },
     lualine_c = {

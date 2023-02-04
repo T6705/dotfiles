@@ -275,6 +275,13 @@ require("lazy").setup({
 
   { "nvim-zh/colorful-winsep.nvim", config = true, event = "VeryLazy", },
 
+  {
+    "SmiteshP/nvim-navic",
+    lazy = true,
+    dependencies = "neovim/nvim-lspconfig",
+    opts = { separator = " ", highlight = true, depth_limit = 5 },
+  },
+
   --------------------------------------------------------------------------------
   -- git
   --------------------------------------------------------------------------------
