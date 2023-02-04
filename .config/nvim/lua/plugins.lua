@@ -390,7 +390,7 @@ require("lazy").setup({
       'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
       { 'nvim-treesitter/playground', cmd = "TSPlaygroundToggle" },
-      'p00f/nvim-ts-rainbow'
+      'mrjones2014/nvim-ts-rainbow'
     },
     build = ':TSUpdateSync',
     config = function()
@@ -441,7 +441,33 @@ require("lazy").setup({
             swap_previous = {
               ["<leader>A"] = "@parameter.inner"
             }
-          }
+          },
+          move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = { query = "@class.outer", desc = "Next class start" },
+            },
+            goto_next_end = {
+              ["]M"] = "@function.outer",
+              ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[M"] = "@function.outer",
+              ["[]"] = "@class.outer",
+            },
+            goto_next = {
+              ["]d"] = "@conditional.outer",
+            },
+            goto_previous = {
+              ["[d"] = "@conditional.outer",
+            }
+          },
         },
         playground = {
           enable = true,
