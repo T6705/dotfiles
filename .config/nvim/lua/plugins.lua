@@ -1,22 +1,26 @@
--- Install packer
-local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
-    install_path })
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
--- vim.cmd 'autocmd BufWritePost plugins.lua PackerCompile' -- Auto compile when there are changes in plugins.lua
+vim.o.termguicolors = true -- enable 24-bit RGB colors
+vim.g.mapleader = " " -- make sure to set `mapleader` before lazy so your mappings are correct
 
-return require('packer').startup({ function(use)
-  use { 'wbthomason/packer.nvim', event = 'VimEnter' }
-
+require("lazy").setup({
   --------------------------------------------------------------------------------
   -- Colorscheme
   --------------------------------------------------------------------------------
   -- use { 'morhetz/gruvbox' }
-  use {
-    'catppuccin/nvim', as = 'catppuccin',
+  {
+    'catppuccin/nvim', name = 'catppuccin',
     config = function()
       require("catppuccin").setup {
         flavour = "mocha", -- latte, frappe, macchiato, mocha
@@ -113,14 +117,31 @@ return require('packer').startup({ function(use)
       vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
       vim.cmd.colorscheme "catppuccin"
     end
-  }
+  },
 
   --------------------------------------------------------------------------------
   -- Interface
   --------------------------------------------------------------------------------
-  use {
+  {
+    "stevearc/dressing.nvim",
+    lazy = true,
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.input(...)
+      end
+    end,
+  },
+
+  {
     'lukas-reineke/indent-blankline.nvim',
-    -- event = 'BufRead',
+    event = "BufReadPost",
     config = function()
       require('indent_blankline').setup {
         space_char_blankline = ' ',
@@ -132,13 +153,16 @@ return require('packer').startup({ function(use)
         show_current_context_start = true,
       }
     end,
-  }
+  },
 
-  use {
+  {
     'akinsho/bufferline.nvim',
-    tag = "v2.*",
-    requires = { 'nvim-tree/nvim-web-devicons' },
-    after = "catppuccin",
+    version = "v2.*",
+    event = "VeryLazy",
+    dependencies = {
+      { 'nvim-tree/nvim-web-devicons', lazy = true },
+      { "catppuccin" },
+    },
     config = function()
       require("bufferline").setup {
         highlights = require("catppuccin.groups.integrations.bufferline").get(),
@@ -189,19 +213,21 @@ return require('packer').startup({ function(use)
 
       }
     end,
-  }
+  },
 
-  use {
+  {
     'nvim-lualine/lualine.nvim',
-    requires = {
-      { 'nvim-tree/nvim-web-devicons', opt = true },
+    event = "VeryLazy",
+    dependencies = {
+      { 'nvim-tree/nvim-web-devicons', lazy = true },
       { 'arkav/lualine-lsp-progress' }
     },
     config = function() require 'config.lualine' end,
-  }
+  },
 
-  use {
+  {
     'kevinhwang91/nvim-hlslens',
+    event = "VeryLazy",
     config = function()
       require('hlslens').setup({
         override_lens = function(render, posList, nearest, idx, relIdx)
@@ -245,7 +271,9 @@ return require('packer').startup({ function(use)
       map('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], opts)
       map('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], opts)
     end
-  }
+  },
+
+  { "nvim-zh/colorful-winsep.nvim", config = true, event = "VeryLazy", },
 
   --------------------------------------------------------------------------------
   -- git
@@ -264,9 +292,10 @@ return require('packer').startup({ function(use)
   --     vim.keymap.set('n', '<leader>gw', ':Gwrite<CR>')
   --   end
   -- }
-  use {
+  {
     'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
+    event = "VeryLazy",
+    dependencies = { "nvim-lua/plenary.nvim", lazy = true },
     config = function()
       require('gitsigns').setup({
         current_line_blame = true,
@@ -279,23 +308,24 @@ return require('packer').startup({ function(use)
         current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
       })
     end
-  }
+  },
 
-  use {
+  {
     'sindrets/diffview.nvim',
-    requires = 'nvim-lua/plenary.nvim',
-    config = function()
-      vim.keymap.set('n', '<leader>gd', ':DiffviewOpen<CR>')
-    end
-  }
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+    config = true,
+    dependencies = { "nvim-lua/plenary.nvim", lazy = true },
+    keys = { { "<leader>gd", "<Cmd>DiffviewOpen<CR>", desc = "DiffView" } },
+  },
 
 
   --------------------------------------------------------------------------------
   -- completions
   --------------------------------------------------------------------------------
-  use {
+  {
     'hrsh7th/nvim-cmp',
-    requires = {
+    event = "InsertEnter",
+    dependencies = {
       -- { 'hrsh7th/cmp-calc' },
       -- { 'hrsh7th/cmp-emoji' },
       { 'hrsh7th/cmp-buffer' },
@@ -306,11 +336,23 @@ return require('packer').startup({ function(use)
       { 'hrsh7th/cmp-path' },
     },
     config = function() require 'config.nvim-cmp' end,
-  }
+  },
 
-  use { 'L3MON4D3/LuaSnip' }
-  use { 'saadparwaiz1/cmp_luasnip' }
-  use { 'rafamadriz/friendly-snippets' }
+  {
+    'L3MON4D3/LuaSnip',
+    event = "VeryLazy",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
+    },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+  },
+  { 'saadparwaiz1/cmp_luasnip', event = "VeryLazy" },
 
   --use {
   --  'quangnguyen30192/cmp-nvim-ultisnips',
@@ -320,7 +362,7 @@ return require('packer').startup({ function(use)
   --}
   --use {
   --  'SirVer/ultisnips',
-  --  requires = { { 'honza/vim-snippets', rtp = '.' } },
+  --  dependencies = { { 'honza/vim-snippets', rtp = '.' } },
   --  config = function()
   --    vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
   --    vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
@@ -333,17 +375,17 @@ return require('packer').startup({ function(use)
   --------------------------------------------------------------------------------
   -- lsp
   --------------------------------------------------------------------------------
-  use {
+  {
     'nvim-treesitter/nvim-treesitter',
-    requires = {
-      'nvim-treesitter/nvim-treesitter-context',
+    event = "BufReadPost",
+    dependencies = {
+      { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", config = true },
       'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
-      'nvim-treesitter/playground',
+      { 'nvim-treesitter/playground', cmd = "TSPlaygroundToggle" },
       'p00f/nvim-ts-rainbow'
     },
-    -- event = 'BufRead',
-    run = ':TSUpdateSync',
+    build = ':TSUpdateSync',
     config = function()
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = 'all',
@@ -438,7 +480,7 @@ return require('packer').startup({ function(use)
         },
       }
     end,
-  }
+  },
 
   -- use({
   --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -453,11 +495,12 @@ return require('packer').startup({ function(use)
   --   end,
   -- })
 
-  use { 'b0o/SchemaStore.nvim' }
-  use { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end }
-  use { 'neovim/nvim-lspconfig', config = function() require 'config.lspinstall' end }
-  use {
+  { 'b0o/SchemaStore.nvim', event = "VeryLazy" },
+  { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end },
+  { 'neovim/nvim-lspconfig', event = "VeryLazy", config = function() require 'config.lspinstall' end },
+  {
     "williamboman/mason.nvim",
+    event = 'VeryLazy',
     config = function()
       require("mason").setup({
         ui = {
@@ -470,8 +513,8 @@ return require('packer').startup({ function(use)
         }
       })
     end
-  }
-  use {
+  },
+  {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup({
@@ -488,14 +531,15 @@ return require('packer').startup({ function(use)
         automatic_installation = true,
       })
     end
-  }
+  },
 
   --------------------------------------------------------------------------------
   -- debugging
   --------------------------------------------------------------------------------
-  use {
+  {
     "mfussenegger/nvim-dap",
-    requires = {
+    event = "VeryLazy",
+    dependencies = {
       {
         'rcarriga/nvim-dap-ui',
         config = function()
@@ -524,14 +568,16 @@ return require('packer').startup({ function(use)
       },
       {
         'mfussenegger/nvim-dap-python',
-        run = "mkdir ~/.virtualenvs && cd ~/.virtualenvs && python3 -m venv debugpy && debugpy/bin/python -m pip install -U debugpy",
+        ft = { "python" },
+        build = "mkdir ~/.virtualenvs && cd ~/.virtualenvs && python3 -m venv debugpy && debugpy/bin/python -m pip install -U debugpy",
         config = function() require('dap-python').setup('~/.virtualenvs/debugpy/bin/python') end
       },
       {
         'leoluz/nvim-dap-go',
-        -- run = "go install github.com/go-delve/delve/cmd/dlv@latest",
-        run = "git clone https://github.com/go-delve/delve /tmp/delve && cd /tmp/delve && go install github.com/go-delve/delve/cmd/dlv && rm -rf /tmp/delve",
-        config = function() require('dap-go').setup() end
+        ft = { "go" },
+        -- build = "go install github.com/go-delve/delve/cmd/dlv@latest",
+        build = "git clone https://github.com/go-delve/delve /tmp/delve && cd /tmp/delve && go install github.com/go-delve/delve/cmd/dlv && rm -rf /tmp/delve",
+        config = true
       }
     },
     config = function()
@@ -572,18 +618,22 @@ return require('packer').startup({ function(use)
         numhl = 'DapStopped'
       })
     end
-  }
+  },
 
   --------------------------------------------------------------------------------
   -- go
   --------------------------------------------------------------------------------
   -- use { 'buoto/gotests-vim', ft = { 'go' } }
-  -- use { 'fatih/vim-go', ft = { 'go' }, run = ':GoInstallBinaries' }
+  -- use { 'fatih/vim-go', ft = { 'go' }, build = ':GoInstallBinaries' }
   -- use { 'sebdah/vim-delve', ft = { 'go' } }
-  use {
+  {
     'ray-x/go.nvim',
     ft = { 'go' },
-    requires = { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
+    dependencies = {
+      { 'ray-x/guihua.lua', build = 'cd lua/fzy && make' },
+      'folke/trouble.nvim',
+      'L3MON4D3/LuaSnip',
+    },
     config = function()
       require('go').setup({
         lsp_cfg = false,
@@ -600,24 +650,24 @@ return require('packer').startup({ function(use)
         { pattern = '*.go', command = "setlocal noexpandtab tabstop=4 shiftwidth=4" })
 
     end
-  }
+  },
 
   --------------------------------------------------------------------------------
   -- python
   --------------------------------------------------------------------------------
-  use {
+  {
     'psf/black',
     ft = { 'python' },
     config = function()
       vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*.py", command = "Black" })
     end
-  }
+  },
 
   --------------------------------------------------------------------------------
   -- other
   --------------------------------------------------------------------------------
   --use { "anuvyklack/windows.nvim",
-  --  requires = {
+  --  dependencies = {
   --    "anuvyklack/middleclass",
   --    "anuvyklack/animation.nvim"
   --  },
@@ -638,9 +688,10 @@ return require('packer').startup({ function(use)
   --  end
   --}
 
-  use {
+  {
     'anuvyklack/hydra.nvim',
-    requires = 'anuvyklack/keymap-layer.nvim',
+    event = "VeryLazy",
+    dependencies = 'anuvyklack/keymap-layer.nvim',
     config = function()
       local Hydra = require('hydra')
       local dap = require 'dap'
@@ -682,11 +733,17 @@ return require('packer').startup({ function(use)
         }
       })
     end
-  }
+  },
 
-  use {
+  {
     'nvim-tree/nvim-tree.lua',
-    requires = 'nvim-tree/nvim-web-devicons',
+    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
+    cmd = { "NvimTreeToggle", "NvimTreeRefresh", "NvimTreeFindFile" },
+    keys = {
+      { '<leader>E', ':NvimTreeToggle<CR>' },
+      { '<leader>R', ':NvimTreeRefresh<CR>' },
+      { '<leader>F', ':NvimTreeFindFile<CR>' },
+    },
     config = function()
       require 'nvim-tree'.setup {
         reload_on_bufenter = true,
@@ -728,15 +785,13 @@ return require('packer').startup({ function(use)
           ignore_list = {},
         },
       }
-      vim.keymap.set('n', '<leader>E', ':NvimTreeToggle<CR>')
-      vim.keymap.set('n', '<leader>R', ':NvimTreeRefresh<CR>')
-      vim.keymap.set('n', '<leader>F', ':NvimTreeFindFile<CR>')
     end,
-  }
+  },
 
-  use {
+  {
     'kevinhwang91/nvim-ufo',
-    requires = 'kevinhwang91/promise-async',
+    event = "BufReadPost",
+    dependencies = 'kevinhwang91/promise-async',
     config = function()
       require('ufo').setup({
         open_fold_hl_timeout = 150,
@@ -767,19 +822,29 @@ return require('packer').startup({ function(use)
         end
       end)
     end
-  }
+  },
 
-  use {
+  {
     'junegunn/vim-easy-align',
+    event = "VeryLazy",
     config = function()
       vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)')
       vim.keymap.set('x', 'ga', '<Plug>(EasyAlign)')
     end
-  }
+  },
 
-  use {
+  {
     'folke/trouble.nvim',
-    requires = 'nvim-tree/nvim-web-devicons',
+    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
+    cmd = { "TroubleToggle", "Trouble" },
+    keys = {
+      { "<leader>xx", "<Cmd>TroubleToggle<CR>" },
+      { "<leader>xw", "<Cmd>Trouble lsp_workspace_diagnostics<CR>" },
+      { "<leader>xd", "<Cmd>Trouble lsp_document_diagnostics<CR>" },
+      { "<leader>xl", "<Cmd>Trouble loclist<CR>" },
+      { "<leader>xq", "<Cmd>Trouble quickfix<CR>" },
+      { "gR", "<Cmd>Trouble lsp_references<CR>" },
+    },
     config = function()
       require('trouble').setup {
         position = "bottom", -- position of the list can be: bottom, top, left, right
@@ -820,30 +885,73 @@ return require('packer').startup({ function(use)
         auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
         use_diagnostic_signs = true -- enabling this will use the signs defined in your lsp client
       }
-      vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<CR>")
-      vim.keymap.set("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<CR>")
-      vim.keymap.set("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<CR>")
-      vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<CR>")
-      vim.keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix<CR>")
-      vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<CR>")
     end,
-  }
+  },
 
-  use {
+  {
     'nvim-telescope/telescope.nvim',
-    requires = {
-      { 'nvim-lua/plenary.nvim' },
+    version = false, -- telescope did only one release, so use HEAD for now
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true },
       { 'nvim-lua/popup.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-      { 'nvim-telescope/telescope-media-files.nvim' }
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      -- { 'nvim-telescope/telescope-media-files.nvim', lazy = false }
     },
-    config = function() require 'config.telescope' end,
-  }
+    config = function()
+      require('telescope').setup({
+        defaults = {
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--trim'
+          }
+        },
+        extensions = {
+          fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+          },
+          -- media_files = {
+          --   -- filetypes whitelist
+          --   -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+          --   filetypes = { "png", "webp", "jpg", "jpeg" },
+          --   find_cmd = "rg" -- find command (defaults to `fd`)
+          -- }
+        }
+      })
 
-  use({
+      require('telescope').load_extension('fzf')
+      -- require('telescope').load_extension('media_files')
+    end,
+    cmd = { "Telescope" },
+    keys = {
+      { '<leader>bf', '<Cmd>Telescope buffers<CR>' },
+      { '<leader>ms', '<Cmd>Telescope marks<CR>' },
+      { '<leader>rg', '<Cmd>Telescope live_grep<CR>' },
+      { '<leader>ts', '<Cmd>Telescope tags<CR>' },
+      { '<leader>bs', "<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>" },
+      { '<leader>e', "<Cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>" },
+      { '<leader>ca', '<Cmd>Telescope lsp_code_actions<CR>' },
+      { '<leader>d', '<Cmd>Telescope lsp_definitions<CR>zzzv' },
+      { '<leader>i', '<Cmd>Telescope lsp_implementations<CR>zzzv' },
+      { '<leader>r', '<Cmd>Telescope lsp_references<CR>zzzv' },
+      { '<leader>td', '<Cmd>Telescope lsp_type_definitions<CR>' },
+    },
+  },
+
+  {
     "ghillb/cybu.nvim",
+    event = "VeryLazy",
     branch = "main",
-    requires = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     config = function()
       require('cybu').setup({
         style = {
@@ -857,10 +965,29 @@ return require('packer').startup({ function(use)
       vim.keymap.set("n", "[b", "<Plug>(CybuPrev)")
       vim.keymap.set("n", "]b", "<Plug>(CybuNext)")
     end,
-  })
+  },
 
-  use {
+  {
     'windwp/nvim-ts-autotag',
+    ft = {
+      'glimmer',
+      'handlebars',
+      'hbs',
+      'html',
+      'javascript',
+      'javascriptreact',
+      'jsx',
+      'markdown',
+      'php',
+      'rescript',
+      'svelte',
+      'tsx',
+      'typescript',
+      'typescriptreact',
+      'vue',
+      'xml',
+    },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require 'nvim-treesitter.configs'.setup {
         autotag = {
@@ -868,7 +995,7 @@ return require('packer').startup({ function(use)
         }
       }
     end
-  }
+  },
 
   --use {
   --  'ggandor/lightspeed.nvim',
@@ -881,22 +1008,50 @@ return require('packer').startup({ function(use)
   --  end
   --}
 
-  use({
-    "kylechui/nvim-surround",
+  { "kylechui/nvim-surround", event = "VeryLazy", config = true },
+  {
+    'dhruvasagar/vim-table-mode',
+    -- ft = { 'markdown' },
+    cmd = { "TableModeToggle" },
+    keys = { { "<leader>tm", "<Cmd>TableModeToggle<CR>", desc = "TableModeToggle" } },
+  },
+  {
+    'dstein64/vim-startuptime',
+    cmd = { "StartupTime" }
+  },
+  {
+    'junegunn/fzf.vim',
+    dependencies = 'junegunn/fzf',
+    cmd = { "Lines", "Maps" },
+    keys = { { "<leader>bls", "<Cmd>Lines<CR>" } },
     config = function()
-      require("nvim-surround").setup()
+      vim.g.fzf_buffers_jump        = 1 -- [Buffers] Jump to the existing window if possible
+      vim.g.fzf_commands_expect     = 'alt-enter,ctrl-x' -- [Commands] --expect expression for directly executing the command
+      vim.g.fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"' -- [[B]Commits] Customize the options used by 'git log':
+      vim.g.fzf_preview_window      = { 'right:50%', 'ctrl-/' }
+      vim.g.fzf_tags_command        = 'ctags -R --exclude=@.gitignore --exclude=.mypy_cache' -- [Tags] Command to generate tags file
     end
-  })
-
-  use { 'dhruvasagar/vim-table-mode' }
-  use { 'dstein64/vim-startuptime' }
-  use { 'junegunn/fzf' }
-  use { 'junegunn/fzf.vim', setup = [[require('config.fzf')]] }
-  use { 'lewis6991/impatient.nvim' }
-  use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
-  use {
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    event = "VeryLazy",
+    config = function()
+      require("colorizer").setup({ '*' }, {
+        RGB = true,
+        RRGGBB = true,
+        names = true,
+        RRGGBBAA = true,
+        rgb_fn = true,
+        hsl_fn = true,
+        css = true,
+        css_fn = true
+      })
+    end
+  },
+  {
     'rcarriga/nvim-notify',
-    after = "catppuccin",
+    dependencies = "catppuccin",
+    event = "VeryLazy",
     config = function()
       require("notify").setup({
         background_colour = "#1E1E2E",
@@ -911,33 +1066,11 @@ return require('packer').startup({ function(use)
       })
       vim.notify = require("notify")
     end
-  }
-  use {
+  },
+  {
     'simrat39/symbols-outline.nvim',
-    config = function()
-      require("symbols-outline").setup()
-      local map = vim.api.nvim_set_keymap
-      local opts = { noremap = true, silent = true }
-      map('n', '<leader>so', ':SymbolsOutline<CR>', opts)
-    end
-  }
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end,
-  config = {
-    max_jobs = 8, -- Limit the number of simultaneous jobs. nil means no limit
-    auto_reload_compiled = true,
-    display = {
-      open_fn = function()
-        return require('packer.util').float({ border = 'single' })
-      end
-    },
-    profile = {
-      enable = true,
-      threshold = 1, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
-    },
-  } })
+    cmd = { "SymbolsOutline" },
+    config = true,
+    keys = { { "<leader>so", "<Cmd>SymbolsOutline<CR>", desc = "SymbolsOutline" } },
+  },
+})
