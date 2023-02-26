@@ -5,36 +5,30 @@
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
 
-# -- navigation ----------------------------------------------------------------
-
-# if you're running tmux within iTerm2
-#   - and tmux is 1.9 or 1.9a
-#   - and iTerm2 is configured to let option key act as +Esc
-#   - and iTerm2 is configured to send [1;9A -> [1;9D for option + arrow keys
-# then uncomment the following line to make Meta + arrow keys mapping work
-#set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT3=\e[1;9D"
-
-
 # -- windows & pane creation ---------------------------------------------------
 
 # new window retains current path, possible values are:
 #   - true
 #   - false (default)
+#   - disabled (do not modify new-window bindings)
 tmux_conf_new_window_retain_current_path=false
 
 # new pane retains current path, possible values are:
 #   - true (default)
 #   - false
+#   - disabled (do not modify split-window bindings)
 tmux_conf_new_pane_retain_current_path=true
 
-# new pane tries to reconnect ssh sessions (experimental), possible values are:
+# new pane tries to reconnect ssh sessions, possible values are:
 #   - true
 #   - false (default)
+#   - disabled (do not modify split-window bindings)
 tmux_conf_new_pane_reconnect_ssh=false
 
 # prompt for session name when creating a new session, possible values are:
 #   - true
 #   - false (default)
+#   - disabled (do not modify new-session bindings)
 tmux_conf_new_session_prompt=false
 
 
@@ -49,7 +43,7 @@ tmux_conf_24b_colour=false
 tmux_conf_theme_window_fg="default"
 tmux_conf_theme_window_bg="default"
 
-# highlight focused pane (tmux >= 2.1), possible values are:
+# highlight focused pane, possible values are:
 #   - true
 #   - false (default)
 tmux_conf_theme_highlight_focused_pane=false
@@ -304,8 +298,9 @@ tmux_conf_theme_clock_style="24"
 # in copy mode, copying selection also copies to the OS clipboard
 #   - true
 #   - false (default)
+#   - disabled
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
-# on Linux, this requires xsel or xclip
+# on Linux, this requires xsel, xclip or wl-copy
 tmux_conf_copy_to_os_clipboard=false
 
 
@@ -329,6 +324,9 @@ tmux_conf_copy_to_os_clipboard=false
 # unbind C-b
 # set -g prefix C-a
 # bind C-a send-prefix
+
+# if you don't want Oh my tmux! to alter a binding, use #!important
+# bind v new-window -c #{pane_current_path} #!important
 
 # move status line to top
 #set -g status-position top
@@ -391,9 +389,9 @@ tmux_conf_uninstall_plugins_on_reload=true
 #
 # # /!\ do not "uncomment" the functions: the leading "# " characters are needed
 #
-# weather() {
-#   curl -m 1 wttr.in?format=3 2>/dev/null
-#   sleep 900 # sleep for 15 minutes, throttle network requests whatever the value of status-interval
+# weather() {                                         # see https://github.com/chubin/wttr.in#one-line-output
+#   curl -f -s -m 2 'wttr.in?format=3' || printf '\n' # /!\ make sure curl is installed
+#   sleep 900                                         # sleep for 15 minutes, throttle network requests whatever the value of status-interval
 # }
 #
 # online() {
