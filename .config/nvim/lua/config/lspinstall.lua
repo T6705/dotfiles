@@ -160,7 +160,7 @@ require("mason-lspconfig").setup_handlers({
     }
     lspconfig.jsonls.setup(config)
   end,
-  ["sumneko_lua"] = function()
+  ["lua_ls"] = function()
     local config = make_config()
     config["settings"] = {
       Lua = {
@@ -183,7 +183,7 @@ require("mason-lspconfig").setup_handlers({
         },
       },
     }
-    lspconfig.sumneko_lua.setup(config)
+    lspconfig.lua_ls.setup(config)
   end,
   ["tsserver"] = function()
     local config = make_config()

@@ -557,7 +557,7 @@ require("lazy").setup({
           "gopls",
           "jsonls",
           "pyright",
-          "sumneko_lua",
+          "lua_ls",
           "tsserver",
           "yamlls",
         },
