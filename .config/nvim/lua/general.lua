@@ -143,7 +143,7 @@ o.titleold = "Terminal"
 o.titlestring = '%F'
 o.ttyfast = true -- faster redrawing
 o.syntax = 'on' -- switch syntax highlighting on
-b.synmaxcol = 1024 -- only syntax highlighting the first 200 characters of each line
+b.synmaxcol = 200 -- only syntax highlighting the first 200 characters of each line
 
 ----------------------------------------------------------------------------------
 -- Wildmenu
@@ -317,8 +317,10 @@ vim.api.nvim_create_autocmd('VimResized', { pattern = '*', command = 'wincmd =' 
 
 -- tabs
 vim.api.nvim_create_autocmd('FileType',
-  { pattern = 'xml,html,xhtml,css,scss,javascript,lua,yaml',
-    command = 'setlocal expandtab smarttab shiftwidth=2 softtabstop=2 tabstop=2' })
+  {
+    pattern = 'xml,html,xhtml,css,scss,javascript,lua,yaml',
+    command = 'setlocal expandtab smarttab shiftwidth=2 softtabstop=2 tabstop=2'
+  })
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "gitcommit", "markdown" },

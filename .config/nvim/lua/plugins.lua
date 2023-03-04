@@ -193,7 +193,7 @@ require("lazy").setup({
           end,
           offsets = {
             { filetype = "NvimTree", text = "NvimTree", text_align = "center" },
-            { filetype = "Outline", text = "Outline", text_align = "center" }
+            { filetype = "Outline",  text = "Outline",  text_align = "center" }
           },
           show_buffer_icons = true, -- disable filetype icons for buffers
           show_buffer_close_icons = false,
@@ -273,7 +273,7 @@ require("lazy").setup({
     end
   },
 
-  { "nvim-zh/colorful-winsep.nvim", config = true, event = "VeryLazy", },
+  { "nvim-zh/colorful-winsep.nvim", config = true,     event = "VeryLazy", },
 
   {
     "SmiteshP/nvim-navic",
@@ -359,7 +359,7 @@ require("lazy").setup({
       delete_check_events = "TextChanged",
     },
   },
-  { 'saadparwaiz1/cmp_luasnip', event = "VeryLazy" },
+  { 'saadparwaiz1/cmp_luasnip',     event = "VeryLazy" },
 
   --use {
   --  'quangnguyen30192/cmp-nvim-ultisnips',
@@ -386,10 +386,10 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter',
     event = "BufReadPost",
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", config = true },
+      { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre",      config = true },
       'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
-      { 'nvim-treesitter/playground', cmd = "TSPlaygroundToggle" },
+      { 'nvim-treesitter/playground',              cmd = "TSPlaygroundToggle" },
       'mrjones2014/nvim-ts-rainbow'
     },
     build = ':TSUpdateSync',
@@ -528,8 +528,8 @@ require("lazy").setup({
   --   end,
   -- })
 
-  { 'b0o/SchemaStore.nvim', event = "VeryLazy" },
-  { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end },
+  { 'b0o/SchemaStore.nvim',  event = "VeryLazy" },
+  { 'onsails/lspkind-nvim',  event = 'BufEnter', config = function() require('lspkind').init() end },
   { 'neovim/nvim-lspconfig', event = "VeryLazy", config = function() require 'config.lspinstall' end },
   {
     "williamboman/mason.nvim",
@@ -681,7 +681,6 @@ require("lazy").setup({
         { pattern = '*.go', command = "silent! lua require('go.format').goimport()" })
       vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufEnter' },
         { pattern = '*.go', command = "setlocal noexpandtab tabstop=4 shiftwidth=4" })
-
     end
   },
 
@@ -752,17 +751,17 @@ require("lazy").setup({
         mode = { 'n', 'x' },
         body = '<leader>db',
         heads = {
-          { 'n', dap.step_over, { silent = true } },
-          { 'i', dap.step_into, { silent = true } },
-          { 'o', dap.step_out, { silent = true } },
-          { 'c', dap.run_to_cursor, { silent = true } },
-          { 's', dap.continue, { silent = true } },
-          { 'x', ":lua require'dap'.disconnect({ terminateDebuggee = false })<CR>", { exit = true, silent = true } },
-          { 'X', dap.close, { silent = true } },
+          { 'n', dap.step_over,                                                      { silent = true } },
+          { 'i', dap.step_into,                                                      { silent = true } },
+          { 'o', dap.step_out,                                                       { silent = true } },
+          { 'c', dap.run_to_cursor,                                                  { silent = true } },
+          { 's', dap.continue,                                                       { silent = true } },
+          { 'x', ":lua require'dap'.disconnect({ terminateDebuggee = false })<CR>",  { exit = true, silent = true } },
+          { 'X', dap.close,                                                          { silent = true } },
           { 'C', ":lua require('dapui').close()<CR>:DapVirtualTextForceRefresh<CR>", { silent = true } },
-          { 'b', dap.toggle_breakpoint, { silent = true } },
-          { 'K', ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
-          { 'q', nil, { exit = true, nowait = true } },
+          { 'b', dap.toggle_breakpoint,                                              { silent = true } },
+          { 'K', ":lua require('dap.ui.widgets').hover()<CR>",                       { silent = true } },
+          { 'q', nil,                                                                { exit = true, nowait = true } },
         }
       })
     end
@@ -876,7 +875,7 @@ require("lazy").setup({
       { "<leader>xd", "<Cmd>Trouble lsp_document_diagnostics<CR>" },
       { "<leader>xl", "<Cmd>Trouble loclist<CR>" },
       { "<leader>xq", "<Cmd>Trouble quickfix<CR>" },
-      { "gR", "<Cmd>Trouble lsp_references<CR>" },
+      { "gR",         "<Cmd>Trouble lsp_references<CR>" },
     },
     config = function()
       require('trouble').setup {
@@ -925,7 +924,7 @@ require("lazy").setup({
     'nvim-telescope/telescope.nvim',
     version = false, -- telescope did only one release, so use HEAD for now
     dependencies = {
-      { "nvim-lua/plenary.nvim", lazy = true },
+      { "nvim-lua/plenary.nvim",                    lazy = true },
       { 'nvim-lua/popup.nvim' },
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       -- { 'nvim-telescope/telescope-media-files.nvim', lazy = false }
@@ -971,11 +970,11 @@ require("lazy").setup({
       { '<leader>rg', '<Cmd>Telescope live_grep<CR>' },
       { '<leader>ts', '<Cmd>Telescope tags<CR>' },
       { '<leader>bs', "<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>" },
-      { '<leader>e', "<Cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>" },
+      { '<leader>e',  "<Cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>" },
       { '<leader>ca', '<Cmd>Telescope lsp_code_actions<CR>' },
-      { '<leader>d', '<Cmd>Telescope lsp_definitions<CR>zzzv' },
-      { '<leader>i', '<Cmd>Telescope lsp_implementations<CR>zzzv' },
-      { '<leader>r', '<Cmd>Telescope lsp_references<CR>zzzv' },
+      { '<leader>d',  '<Cmd>Telescope lsp_definitions<CR>zzzv' },
+      { '<leader>i',  '<Cmd>Telescope lsp_implementations<CR>zzzv' },
+      { '<leader>r',  '<Cmd>Telescope lsp_references<CR>zzzv' },
       { '<leader>td', '<Cmd>Telescope lsp_type_definitions<CR>' },
     },
   },
@@ -1060,9 +1059,11 @@ require("lazy").setup({
     config = function()
       vim.g.fzf_buffers_jump        = 1 -- [Buffers] Jump to the existing window if possible
       vim.g.fzf_commands_expect     = 'alt-enter,ctrl-x' -- [Commands] --expect expression for directly executing the command
-      vim.g.fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"' -- [[B]Commits] Customize the options used by 'git log':
+      vim.g.fzf_commits_log_options =
+      '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"' -- [[B]Commits] Customize the options used by 'git log':
       vim.g.fzf_preview_window      = { 'right:50%', 'ctrl-/' }
-      vim.g.fzf_tags_command        = 'ctags -R --exclude=@.gitignore --exclude=.mypy_cache' -- [Tags] Command to generate tags file
+      vim.g.fzf_tags_command        =
+      'ctags -R --exclude=@.gitignore --exclude=.mypy_cache' -- [Tags] Command to generate tags file
     end
   },
   {

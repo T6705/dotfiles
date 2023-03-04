@@ -46,13 +46,13 @@ cmp.setup {
     end
   },
   sources = {
-    { name = 'path', priority_weight = 110 },
-    { name = 'nvim_lsp', priority_weight = 100 },
+    { name = 'path',                    priority_weight = 110 },
+    { name = 'nvim_lsp',                priority_weight = 100 },
     { name = 'nvim_lsp_signature_help', priority_weight = 95 },
-    { name = 'nvim_lua', priority_weight = 90 },
+    { name = 'nvim_lua',                priority_weight = 90 },
     -- { name = 'ultisnips', priority_weight = 80 },
-    { name = 'luasnip', priority_weight = 80 },
-    { name = 'buffer', priority_weight = 70, max_item_count = 5, },
+    { name = 'luasnip',                 priority_weight = 80 },
+    { name = 'buffer',                  priority_weight = 70, max_item_count = 5, },
     { name = 'calc' },
     { name = 'emoji' },
   },
@@ -62,12 +62,12 @@ cmp.setup {
       vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       -- Source
       vim_item.menu = ({
-        buffer = "[Buffer]",
-        nvim_lsp = "[LSP]",
-        luasnip = "[LuaSnip]",
-        nvim_lua = "[Lua]",
-        latex_symbols = "[LaTeX]",
-      })[entry.source.name]
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[LuaSnip]",
+            nvim_lua = "[Lua]",
+            latex_symbols = "[LaTeX]",
+          })[entry.source.name]
       return vim_item
     end
   },
@@ -127,8 +127,8 @@ cmp.setup {
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+      elseif luasnip.jumpable( -1) then
+        luasnip.jump( -1)
       else
         fallback()
       end
@@ -165,7 +165,7 @@ cmp.setup {
         end
       end
     }),
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs( -4), { 'i', 'c' }),
     ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     -- ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-e>'] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
@@ -180,17 +180,17 @@ cmp.setup {
   }
 }
 
--- Use buffer source for `/`.
-cmp.setup.cmdline('/', {
-  completion = { autocomplete = false },
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
+    { name = 'buffer' }
   }
 })
 
--- Use cmdline & path source for ':'.
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-  completion = { autocomplete = false },
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = 'path' }
   }, {
