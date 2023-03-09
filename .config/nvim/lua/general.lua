@@ -1,11 +1,11 @@
-local cmd = vim.cmd -- execute Vim commands
+local cmd = vim.cmd            -- execute Vim commands
 local opt = vim.opt
 local exec = vim.api.nvim_exec -- execute Vimscript
-local fn = vim.fn -- call Vim functions
-local g = vim.g -- global variables
-local o = vim.o -- global options
-local b = vim.bo -- buffer-scoped options
-local w = vim.wo -- windows-scoped options
+local fn = vim.fn              -- call Vim functions
+local g = vim.g                -- global variables
+local o = vim.o                -- global options
+local b = vim.bo               -- buffer-scoped options
+local w = vim.wo               -- windows-scoped options
 
 -- cmd [[
 -- let g:python_host_prog = system('which python2')
@@ -60,11 +60,11 @@ o.backspace = "indent,eol,start" -- make backspace behave in a sane manner
 ----------------------------------------------------------------------------------
 -- Tabs
 ----------------------------------------------------------------------------------
-b.expandtab = true -- use spaces instead of tabs
-b.shiftwidth = 4 -- number of spaces to use for indent and unindent (1 tab == 4 spaces)
-b.tabstop = 4 -- the visible width of tabs
+b.expandtab = true   -- use spaces instead of tabs
+b.shiftwidth = 4     -- number of spaces to use for indent and unindent (1 tab == 4 spaces)
+b.tabstop = 4        -- the visible width of tabs
 b.smartindent = true -- autoindent new lines
-b.softtabstop = 4 -- edit as if the tabs are 4 characters wide
+b.softtabstop = 4    -- edit as if the tabs are 4 characters wide
 
 -- toggle invisible characters
 o.list = true
@@ -95,17 +95,17 @@ o.filetype = 'on'
 b.autoindent = true -- Copy indent from last line when starting new line
 o.background = 'dark'
 b.cindent = true
-w.cursorline = true -- highlight current line
+w.cursorline = true              -- highlight current line
 -- set display+=lastline
-o.hidden = true -- current buffer can be put into background
+o.hidden = true                  -- current buffer can be put into background
 -- o.cmdheight = 0
-o.laststatus = 2 -- Status bar always on
-o.lazyredraw = true -- Don't redraw while executing macros (good performance config)
-w.number = true -- show line number
-w.relativenumber = true -- show relative line numbers
-o.ruler = true -- Always show current position
-w.signcolumn = 'yes' -- always show signcolumns
-o.shortmess = "a" -- use every short text trick
+o.laststatus = 2                 -- Status bar always on
+o.lazyredraw = true              -- Don't redraw while executing macros (good performance config)
+w.number = true                  -- show line number
+w.relativenumber = true          -- show relative line numbers
+o.ruler = true                   -- Always show current position
+w.signcolumn = 'yes'             -- always show signcolumns
+o.shortmess = "a"                -- use every short text trick
 o.shortmess = o.shortmess .. "O" -- file read message overwrites subsequent
 o.shortmess = o.shortmess .. "s" -- no search hit bottom crap
 o.shortmess = o.shortmess .. "t" -- truncate file message
@@ -135,41 +135,41 @@ cmd [[set complete+=kspell]]
 -- "set ofu=ale#completion#OmniFunc " Set omni-completion method
 
 o.completeopt = 'longest,menuone' -- completion options
-o.showcmd = true -- show incomplete commands
-w.so = 7 -- Set 7 lines to the cursor - when moving vertically using j/k
-o.t_Co = "256" -- Explicitly tell vim that the terminal supports 256 colors
+o.showcmd = true                  -- show incomplete commands
+w.so = 7                          -- Set 7 lines to the cursor - when moving vertically using j/k
+o.t_Co = "256"                    -- Explicitly tell vim that the terminal supports 256 colors
 o.title = true
 o.titleold = "Terminal"
 o.titlestring = '%F'
-o.ttyfast = true -- faster redrawing
-o.syntax = 'on' -- switch syntax highlighting on
+o.ttyfast = true  -- faster redrawing
+o.syntax = 'on'   -- switch syntax highlighting on
 b.synmaxcol = 200 -- only syntax highlighting the first 200 characters of each line
 
 ----------------------------------------------------------------------------------
 -- Wildmenu
 ----------------------------------------------------------------------------------
-o.wildmenu = true -- Turn on the WiLd menu
-o.wildmode = "list:longest" -- complete files like a shell
-o.wildignore = "*.a,*.o,*.obj,*.exe,*.dll,*.manifest" -- compiled object files
-o.wildignore = o.wildignore .. "*.DS_Store" --OSX bullshit
-o.wildignore = o.wildignore .. "*.aux,*.out,*.toc" --LaTeX intermediate files
+o.wildmenu = true                                               -- Turn on the WiLd menu
+o.wildmode = "list:longest"                                     -- complete files like a shell
+o.wildignore = "*.a,*.o,*.obj,*.exe,*.dll,*.manifest"           -- compiled object files
+o.wildignore = o.wildignore .. "*.DS_Store"                     --OSX bullshit
+o.wildignore = o.wildignore .. "*.aux,*.out,*.toc"              --LaTeX intermediate files
 o.wildignore = o.wildignore .. "*.jpg,*.bmp,*.gif,*.png,*.jpeg" --binary images
-o.wildignore = o.wildignore .. "*.luac" --Lua byte code
-o.wildignore = o.wildignore .. "*.orig,*.rej" --Merge resolution files
-o.wildignore = o.wildignore .. "*.pdf,*.zip,*.so" --binaries
-o.wildignore = o.wildignore .. "*.pyc,*.pyo" --Python byte code
-o.wildignore = o.wildignore .. ".hg,.git,.svn" --Version Controls"
+o.wildignore = o.wildignore .. "*.luac"                         --Lua byte code
+o.wildignore = o.wildignore .. "*.orig,*.rej"                   --Merge resolution files
+o.wildignore = o.wildignore .. "*.pdf,*.zip,*.so"               --binaries
+o.wildignore = o.wildignore .. "*.pyc,*.pyo"                    --Python byte code
+o.wildignore = o.wildignore .. ".hg,.git,.svn"                  --Version Controls"
 
 ----------------------------------------------------------------------------------
 -- Searching
 ----------------------------------------------------------------------------------
-o.hlsearch = true -- highlight search results
+o.hlsearch = true   -- highlight search results
 o.ignorecase = true -- Ignore case when searching
 o.inccommand = 'split'
-o.incsearch = true -- Makes search act like search in modern browsers
-o.magic = true -- For regular expressions turn magic on
-o.showmatch = true -- Show matching brackets when text indicator is over them
-o.smartcase = true -- case-sensitive if expresson contains a capital letter
+o.incsearch = true  -- Makes search act like search in modern browsers
+o.magic = true      -- For regular expressions turn magic on
+o.showmatch = true  -- Show matching brackets when text indicator is over them
+o.smartcase = true  -- case-sensitive if expresson contains a capital letter
 
 -- Folding
 -- o.foldmethod = 'marker'

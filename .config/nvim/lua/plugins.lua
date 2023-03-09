@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.o.termguicolors = true -- enable 24-bit RGB colors
-vim.g.mapleader = " " -- make sure to set `mapleader` before lazy so your mappings are correct
+vim.g.mapleader = " "      -- make sure to set `mapleader` before lazy so your mappings are correct
 
 require("lazy").setup({
   --------------------------------------------------------------------------------
@@ -20,11 +20,13 @@ require("lazy").setup({
   --------------------------------------------------------------------------------
   -- use { 'morhetz/gruvbox' }
   {
-    'catppuccin/nvim', name = 'catppuccin',
+    'catppuccin/nvim',
+    name = 'catppuccin',
     config = function()
       require("catppuccin").setup {
         flavour = "mocha", -- latte, frappe, macchiato, mocha
-        background = { -- :h background
+        background = {
+          -- :h background
           light = "latte",
           dark = "mocha",
         },
@@ -39,7 +41,7 @@ require("lazy").setup({
           percentage = 0.15,
         },
         no_italic = false, -- Force no italic
-        no_bold = false, -- Force no bold
+        no_bold = false,   -- Force no bold
         term_colors = true,
         transparent_background = true,
         show_end_of_buffer = true, -- show the '~' characters after the end of buffers
@@ -273,7 +275,7 @@ require("lazy").setup({
     end
   },
 
-  { "nvim-zh/colorful-winsep.nvim", config = true,     event = "VeryLazy", },
+  { "nvim-zh/colorful-winsep.nvim", config = true,     event = "WinNew", },
 
   {
     "SmiteshP/nvim-navic",
@@ -472,7 +474,7 @@ require("lazy").setup({
         playground = {
           enable = true,
           disable = {},
-          updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+          updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
           persist_queries = false, -- Whether the query persists across vim sessions
           keybindings = {
             toggle_query_editor = 'o',
@@ -602,14 +604,16 @@ require("lazy").setup({
       {
         'mfussenegger/nvim-dap-python',
         ft = { "python" },
-        build = "mkdir ~/.virtualenvs && cd ~/.virtualenvs && python3 -m venv debugpy && debugpy/bin/python -m pip install -U debugpy",
+        build =
+        "mkdir ~/.virtualenvs && cd ~/.virtualenvs && python3 -m venv debugpy && debugpy/bin/python -m pip install -U debugpy",
         config = function() require('dap-python').setup('~/.virtualenvs/debugpy/bin/python') end
       },
       {
         'leoluz/nvim-dap-go',
         ft = { "go" },
         -- build = "go install github.com/go-delve/delve/cmd/dlv@latest",
-        build = "git clone https://github.com/go-delve/delve /tmp/delve && cd /tmp/delve && go install github.com/go-delve/delve/cmd/dlv && rm -rf /tmp/delve",
+        build =
+        "git clone https://github.com/go-delve/delve /tmp/delve && cd /tmp/delve && go install github.com/go-delve/delve/cmd/dlv && rm -rf /tmp/delve",
         config = true
       }
     },
@@ -879,43 +883,44 @@ require("lazy").setup({
     },
     config = function()
       require('trouble').setup {
-        position = "bottom", -- position of the list can be: bottom, top, left, right
-        height = 10, -- height of the trouble list when position is top or bottom
-        width = 50, -- width of the list when position is left or right
-        icons = true, -- use devicons for filenames
+        position = "bottom",           -- position of the list can be: bottom, top, left, right
+        height = 10,                   -- height of the trouble list when position is top or bottom
+        width = 50,                    -- width of the list when position is left or right
+        icons = true,                  -- use devicons for filenames
         mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
-        fold_open = "", -- icon used for open folds
-        fold_closed = "", -- icon used for closed folds
-        group = true, -- group results by file
-        padding = true, -- add an extra new line on top of the list
-        action_keys = { -- key mappings for actions in the trouble list
+        fold_open = "",             -- icon used for open folds
+        fold_closed = "",           -- icon used for closed folds
+        group = true,                  -- group results by file
+        padding = true,                -- add an extra new line on top of the list
+        action_keys = {
+          -- key mappings for actions in the trouble list
           -- map to {} to remove a mapping, for example:
           -- close = {},
-          close = "q", -- close the list
-          cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
-          refresh = "r", -- manually refresh
-          jump = { "<CR>", "<tab>" }, -- jump to the diagnostic or open / close folds
-          open_split = { "<c-x>" }, -- open buffer in new split
-          open_vsplit = { "<c-v>" }, -- open buffer in new vsplit
-          open_tab = { "<c-t>" }, -- open buffer in new tab
-          jump_close = { "o" }, -- jump to the diagnostic and close the list
-          toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
-          toggle_preview = "P", -- toggle auto_preview
-          hover = "K", -- opens a small popup with the full multiline message
-          preview = "p", -- preview the diagnostic location
-          close_folds = { "zM", "zm" }, -- close all folds
-          open_folds = { "zR", "zr" }, -- open all folds
-          toggle_fold = { "zA", "za" }, -- toggle fold of current file
-          previous = "k", -- preview item
-          next = "j" -- next item
+          close = "q",                     -- close the list
+          cancel = "<esc>",                -- cancel the preview and get back to your last window / buffer / cursor
+          refresh = "r",                   -- manually refresh
+          jump = { "<CR>", "<tab>" },      -- jump to the diagnostic or open / close folds
+          open_split = { "<c-x>" },        -- open buffer in new split
+          open_vsplit = { "<c-v>" },       -- open buffer in new vsplit
+          open_tab = { "<c-t>" },          -- open buffer in new tab
+          jump_close = { "o" },            -- jump to the diagnostic and close the list
+          toggle_mode = "m",               -- toggle between "workspace" and "document" diagnostics mode
+          toggle_preview = "P",            -- toggle auto_preview
+          hover = "K",                     -- opens a small popup with the full multiline message
+          preview = "p",                   -- preview the diagnostic location
+          close_folds = { "zM", "zm" },    -- close all folds
+          open_folds = { "zR", "zr" },     -- open all folds
+          toggle_fold = { "zA", "za" },    -- toggle fold of current file
+          previous = "k",                  -- preview item
+          next = "j"                       -- next item
         },
-        indent_lines = true, -- add an indent guide below the fold icons
-        auto_open = false, -- automatically open the list when you have diagnostics
-        auto_close = true, -- automatically close the list when you have no diagnostics
-        auto_preview = true, -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
-        auto_fold = false, -- automatically fold a file trouble list at creation
+        indent_lines = true,               -- add an indent guide below the fold icons
+        auto_open = false,                 -- automatically open the list when you have diagnostics
+        auto_close = true,                 -- automatically close the list when you have no diagnostics
+        auto_preview = true,               -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
+        auto_fold = false,                 -- automatically fold a file trouble list at creation
         auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
-        use_diagnostic_signs = true -- enabling this will use the signs defined in your lsp client
+        use_diagnostic_signs = true        -- enabling this will use the signs defined in your lsp client
       }
     end,
   },
@@ -945,10 +950,10 @@ require("lazy").setup({
         },
         extensions = {
           fzf = {
-            fuzzy = true, -- false will only do exact matching
+            fuzzy = true,                   -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true, -- override the file sorter
-            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
             -- the default case_mode is "smart_case"
           },
           -- media_files = {
@@ -1057,8 +1062,9 @@ require("lazy").setup({
     cmd = { "Lines", "Maps" },
     keys = { { "<leader>bls", "<Cmd>Lines<CR>" } },
     config = function()
-      vim.g.fzf_buffers_jump        = 1 -- [Buffers] Jump to the existing window if possible
-      vim.g.fzf_commands_expect     = 'alt-enter,ctrl-x' -- [Commands] --expect expression for directly executing the command
+      vim.g.fzf_buffers_jump        = 1                                        -- [Buffers] Jump to the existing window if possible
+      vim.g.fzf_commands_expect     =
+      'alt-enter,ctrl-x'                                                       -- [Commands] --expect expression for directly executing the command
       vim.g.fzf_commits_log_options =
       '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"' -- [[B]Commits] Customize the options used by 'git log':
       vim.g.fzf_preview_window      = { 'right:50%', 'ctrl-/' }

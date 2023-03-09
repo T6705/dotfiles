@@ -81,7 +81,9 @@ require 'lualine'.setup {
     lualine_b = {
       'branch',
       'diff',
-      { 'diagnostics', sources = { 'nvim_diagnostic' },
+      {
+        'diagnostics',
+        sources = { 'nvim_diagnostic' },
         colored = true,
         update_in_insert = true,
         always_visible = false,
@@ -118,7 +120,9 @@ require 'lualine'.setup {
     lualine_c = {
       'branch',
       'diff',
-      { 'diagnostics', sources = { 'nvim_diagnostic' },
+      {
+        'diagnostics',
+        sources = { 'nvim_diagnostic' },
         colored = true,
         update_in_insert = true,
         always_visible = false,
