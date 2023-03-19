@@ -340,7 +340,10 @@ if command -v git &> /dev/null ; then
         alias nvdc="nvim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
     fi
 
+    alias gdsm="git diff --submodule=diff"
     alias gdst="git diff --stat"
+    alias gitc="git clone -v --progress"
+    alias gitp="git pull -v --progress"
 fi
 
 # sshlf 1234:127.0.0.1:4321 name@127.0.0.1
@@ -1665,6 +1668,27 @@ if command -v docker &> /dev/null ; then
             -v /var/run/docker.sock:/var/run/docker.sock \
             quay.io/vektorlab/ctop:latest
     }
+
+    if ! command -v dive &> /dev/null ; then
+        dive() {
+            docker run --rm -it \
+                --name=dive \
+                -v /var/run/docker.sock:/var/run/docker.sock \
+                wagoodman/dive:latest $1
+        }
+
+        dive-ci() {
+            docker run --rm -it \
+                --name=dive \
+                -v /var/run/docker.sock:/var/run/docker.sock \
+                --env CI=true \
+                wagoodman/dive:latest $1
+        }
+    else
+        dive-ci() {
+            CI=true dive $1
+        }
+    fi
 
     pull_limit(){
         TOKEN=$(curl "https://auth.docker.io/token?service=registry.docker.io&scope=repository:ratelimitpreview/test:pull" | jq -r .token)

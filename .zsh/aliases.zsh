@@ -159,8 +159,10 @@ if command -v git &> /dev/null ; then
         alias nvdc="nvim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
     fi
 
-    alias gdst="git diff --stat"
     alias gdsm="git diff --submodule=diff"
+    alias gdst="git diff --stat"
+    alias gitc="git clone -v --progress"
+    alias gitp="git pull -v --progress"
 fi
 
 # ------------------------------------
