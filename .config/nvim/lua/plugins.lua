@@ -224,7 +224,6 @@ require("lazy").setup({
       { 'nvim-tree/nvim-web-devicons', lazy = true },
       { 'arkav/lualine-lsp-progress' }
     },
-    config = function() require 'config.lualine' end,
   },
 
   {
@@ -344,7 +343,6 @@ require("lazy").setup({
       { 'hrsh7th/cmp-nvim-lua' },
       { 'hrsh7th/cmp-path' },
     },
-    config = function() require 'config.nvim-cmp' end,
   },
 
   {
@@ -532,7 +530,7 @@ require("lazy").setup({
 
   { 'b0o/SchemaStore.nvim',  event = "VeryLazy" },
   { 'onsails/lspkind-nvim',  event = 'BufEnter', config = function() require('lspkind').init() end },
-  { 'neovim/nvim-lspconfig', event = "VeryLazy", config = function() require 'config.lspinstall' end },
+  { 'neovim/nvim-lspconfig', event = "VeryLazy" },
   {
     "williamboman/mason.nvim",
     event = 'VeryLazy',
