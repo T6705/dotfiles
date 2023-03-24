@@ -274,7 +274,7 @@ require("lazy").setup({
     end
   },
 
-  { "nvim-zh/colorful-winsep.nvim", config = true,     event = "WinNew", },
+  { "nvim-zh/colorful-winsep.nvim", config = true,      event = "WinNew", },
 
   {
     "SmiteshP/nvim-navic",
@@ -326,62 +326,34 @@ require("lazy").setup({
     keys = { { "<leader>gd", "<Cmd>DiffviewOpen<CR>", desc = "DiffView" } },
   },
 
-
-  --------------------------------------------------------------------------------
-  -- completions
-  --------------------------------------------------------------------------------
-  {
-    'hrsh7th/nvim-cmp',
-    event = "InsertEnter",
-    dependencies = {
-      -- { 'hrsh7th/cmp-calc' },
-      -- { 'hrsh7th/cmp-emoji' },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-cmdline' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-      { 'hrsh7th/cmp-nvim-lua' },
-      { 'hrsh7th/cmp-path' },
-    },
-  },
-
-  {
-    'L3MON4D3/LuaSnip',
-    event = "VeryLazy",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
-    },
-    opts = {
-      history = true,
-      delete_check_events = "TextChanged",
-    },
-  },
-  { 'saadparwaiz1/cmp_luasnip',     event = "VeryLazy" },
-
-  --use {
-  --  'quangnguyen30192/cmp-nvim-ultisnips',
-  --  config = function()
-  --    require('cmp_nvim_ultisnips').setup {}
-  --  end
-  --}
-  --use {
-  --  'SirVer/ultisnips',
-  --  dependencies = { { 'honza/vim-snippets', rtp = '.' } },
-  --  config = function()
-  --    vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
-  --    vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-  --    vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
-  --    vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
-  --    vim.g.UltiSnipsRemoveSelectModeMappings = 0
-  --  end
-  --}
-
   --------------------------------------------------------------------------------
   -- lsp
   --------------------------------------------------------------------------------
+  {
+    'VonHeikemen/lsp-zero.nvim',
+    dependencies = {
+      -- LSP Support
+      { 'neovim/nvim-lspconfig' },             -- Required
+      { 'williamboman/mason.nvim' },           -- Optional
+      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+
+      -- Autocompletion
+      { 'hrsh7th/nvim-cmp' },                    -- Required
+      { 'hrsh7th/cmp-nvim-lsp' },                -- Required
+      { 'hrsh7th/cmp-buffer' },                  -- Optional
+      { 'hrsh7th/cmp-cmdline' },                 --Optional
+      { 'hrsh7th/cmp-nvim-lsp-signature-help' }, --Optional
+      { 'hrsh7th/cmp-nvim-lua' },                -- Optional
+      { 'hrsh7th/cmp-path' },                    -- Optional
+      { 'saadparwaiz1/cmp_luasnip' },            -- Optional
+
+      -- Snippets
+      { 'L3MON4D3/LuaSnip' },             -- Required
+      { 'rafamadriz/friendly-snippets' }, -- Optional
+      { 'saadparwaiz1/cmp_luasnip' },
+    }
+  },
+
   {
     'nvim-treesitter/nvim-treesitter',
     event = "BufReadPost",
@@ -528,43 +500,8 @@ require("lazy").setup({
   --   end,
   -- })
 
-  { 'b0o/SchemaStore.nvim',  event = "VeryLazy" },
-  { 'onsails/lspkind-nvim',  event = 'BufEnter', config = function() require('lspkind').init() end },
-  { 'neovim/nvim-lspconfig', event = "VeryLazy" },
-  {
-    "williamboman/mason.nvim",
-    event = 'VeryLazy',
-    config = function()
-      require("mason").setup({
-        ui = {
-          border = "rounded",
-          icons = {
-            package_installed = "✓",
-            fpackage_pending = "➜",
-            package_uninstalled = "✗"
-          }
-        }
-      })
-    end
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "clangd",
-          "dockerls",
-          "gopls",
-          "jsonls",
-          "pyright",
-          "lua_ls",
-          "tsserver",
-          "yamlls",
-        },
-        automatic_installation = true,
-      })
-    end
-  },
+  { 'b0o/SchemaStore.nvim',         event = "VeryLazy" },
+  { 'onsails/lspkind-nvim',         event = 'BufEnter', config = function() require('lspkind').init() end },
 
   --------------------------------------------------------------------------------
   -- debugging
