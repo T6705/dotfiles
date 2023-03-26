@@ -21,9 +21,9 @@ time brew install bat broot dog duf dust exa fx fzf git-delta gping httpie jq ls
 #time brew install basictex mactex texlive
 #time brew install --cask texmaker
 
-time brew install ack aircrack-ng automake awk bash bfg binutils binwalk cifer clamav cmake coreutils cquery cscope ctags curl dc3dd dcfldd dex2jar diff-so-fancy dns2tcp docker-compose docker-compose-completion easy-tag emacs exploitdb ext4fuse fcrackzip feh ffmpeg findutils fish foremost gcc gettext git gnu-sed gnupg go grep hashcat hashpump hping htop hydra iperf3 john knock kompose lens libtool llvm macs-fan-control minikube mitmproxy moreutils mpv neofetch netpbm nikto nim ninja nmap node ntfs-3g openvpn p7zip pkg-config pngcheck prettier proxychains-ng pycharm-ce pypy3 qemu radare2 ranger rclone rust screenfetch shellcheck socat sqlmap sshuttle starship stunnel tcpdump tcpflow tcpreplay tcptrace telnet tmux ucspi-tcp unrar vim watch wget xz
+time brew install ack aircrack-ng automake awk bash binutils binwalk clamav cmake coreutils cquery cscope ctags curl dc3dd dcfldd diff-so-fancy dns2tcp easy-tag exploitdb ext4fuse fcrackzip feh ffmpeg findutils fish foremost gcc gettext git gnu-sed gnupg go grep hashcat hashpump hping htop hydra iperf3 john knock libtool llvm macs-fan-control mitmproxy moreutils mpv neofetch netpbm nikto ninja nmap node ntfs-3g openvpn p7zip pkg-config prettier proxychains-ng pypy3 qemu radare2 ranger rclone rust screenfetch shellcheck socat sqlmap sshuttle starship stunnel tcpdump tcpflow tcpreplay tcptrace telnet tmux ucspi-tcp unrar vim watch wget xz
 
-time brew install --cask alacritty another-redis-desktop-manager apenngrace/vulkan/vulkan-sdk burp-suite chromedriver chromium clipy cyberduck discord eul filezilla firefox font-noto-serif-cjk ghidra gimp gitahead gitup goneovim google-chrome iterm2 joplin joplin-cli krita macvim meld neovide ngrok openvpn-connect postman stats tiles veracrypt virtualbox visual-studio-code vnc-viewer wine-stable
+time brew install --cask alacritty another-redis-desktop-manager apenngrace/vulkan/vulkan-sdk burp-suite chromedriver chromium clipy cyberduck discord firefox font-noto-serif-cjk ghidra gimp google-chrome iterm2 kitty macvim meld neovide openvpn-connect postman stats tiles veracrypt virtualbox visual-studio-code vnc-viewer wine-stable
 
 #########################
 ### Install nerd font ###
@@ -44,7 +44,7 @@ cd ~/Downloads && wget "https://raw.githubusercontent.com/mbadolato/iTerm2-Color
 ############################
 ### Download curl config ###
 ############################
-curl https://gitlab.com/T6705/dotfiles/raw/master/.curlrc > ~/.curlrc
+#curl https://gitlab.com/T6705/dotfiles/raw/master/.curlrc > ~/.curlrc
 
 ############################
 ### Download bash config ###
@@ -70,88 +70,81 @@ https://gitlab.com/T6705/dotfiles/raw/master/.config/starship.toml
 ### install zsh ###
 ###################
 if [[ -d ~/.oh-my-zsh ]]; then
-    time cd ~/.oh-my-zsh && time git pull
+    time cd ~/.oh-my-zsh && time git pull -v --progress
 else
-    time git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    time git clone -v --progress git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 fi
 
 time mkdir -p ~/.oh-my-zsh/custom/plugins
 
 if [[ -d ~/.oh-my-zsh/custom/plugins/alias-tips ]]; then
-    time cd ~/.oh-my-zsh/custom/plugins/alias-tips && time git pull
+    time cd ~/.oh-my-zsh/custom/plugins/alias-tips && time git pull -v --progress
 else
-    time git clone https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
+    time git clone -v --progress https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
 fi
 
 if [[ -d ~/.oh-my-zsh/custom/plugins/k ]]; then
-    time cd ~/.oh-my-zsh/custom/plugins/k && time git pull
+    time cd ~/.oh-my-zsh/custom/plugins/k && time git pull -v --progress
 else
-    time git clone https://github.com/supercrabtree/k ~/.oh-my-zsh/custom/plugins/k
+    time git clone -v --progress https://github.com/supercrabtree/k ~/.oh-my-zsh/custom/plugins/k
 fi
 
 if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
-    time cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && time git pull
+    time cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && time git pull -v --progress
 else
-    time git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    time git clone -v --progress https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 fi
 
 if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-completions ]]; then
-    time cd ~/.oh-my-zsh/custom/plugins/zsh-completions && time git pull
+    time cd ~/.oh-my-zsh/custom/plugins/zsh-completions && time git pull -v --progress
 else
-    time git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+    time git clone -v --progress https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 fi
 
 if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]]; then
-    time cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && time git pull
+    time cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && time git pull -v --progress
 else
-    time git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    time git clone -v --progress https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 fi
 
-if [[ -d ~/.oh-my-zsh/custom/themes/spaceship-prompt ]]; then
-    time cd ~/.oh-my-zsh/custom/themes/spaceship-prompt && time git pull
-    if [[ ! -h ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme ]]; then
-        ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
-    fi
-else
-    time git clone https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt
-    ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
-fi
+#if [[ -d ~/.oh-my-zsh/custom/themes/spaceship-prompt ]]; then
+#    time cd ~/.oh-my-zsh/custom/themes/spaceship-prompt && time git pull -v --progress
+#    if [[ ! -h ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme ]]; then
+#        ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+#    fi
+#else
+#    time git clone -v --progress https://github.com/denysdovhan/spaceship-prompt.git ~/.oh-my-zsh/custom/themes/spaceship-prompt
+#    ln -s ~/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme ~/.oh-my-zsh/custom/themes/spaceship.zsh-theme
+#fi
 
 ######################
 ### install neovim ###
 ######################
 if [ -d ~/git/hub/neovim ]; then
-    time cd ~/git/hub/neovim && time git pull
+    time cd ~/git/hub/neovim && time git pull -v --progress
 else
     time mkdir -p ~/git/hub
     time cd ~/git/hub
-    time git clone https://github.com/neovim/neovim
+    time git clone -v --progress https://github.com/neovim/neovim
 fi
 
 time cd ~/git/hub/neovim
-time make CMAKE_BUILD_TYPE=RelWithDebInfo
+#time make CMAKE_BUILD_TYPE=RelWithDebInfo
+make CMAKE_BUILD_TYPE=Release
 time sudo make install
 time nvim -v
 
 ################################
 ### Download vim/nvim config ###
 ################################
-curl -fLo ~/.config/nvim/augroups.vim --create-dirs \
-    https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/augroups.vim
-curl -fLo ~/.config/nvim/functions.vim --create-dirs \
-    https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/functions.vim
-curl -fLo ~/.config/nvim/general.vim --create-dirs \
-    https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/general.vim
-curl -fLo ~/.config/nvim/mappings.vim --create-dirs \
-    https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/mappings.vim
-curl -fLo ~/.config/nvim/plugins.vim --create-dirs \
-    https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins.vim
-curl -fLo ~/.config/nvim/plugins_config.vim --create-dirs \
-    https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/plugins_config.vim
-curl -fLo ~/.config/nvim/coc-settings.json --create-dirs \
-    https://gitlab.com/T6705/dotifles/raw/master/.config/nvim/coc-settings.json
-curl -fLo ~/.config/nvim/.ycm --create-dirs \
-    https://gitlab.com/T6705/dotifles/raw/master/.config/nvim/.ycm_extra_conf.py
+curl -fLo ~/.config/nvim/after/plugin/lsp.lua --create-dirs https://gitlab.com/T6705/dotfiles/-/raw/master/.config/nvim/after/plugin/lsp.lua
+curl -fLo ~/.config/nvim/after/plugin/lualine.lua --create-dirs https://gitlab.com/T6705/dotfiles/-/raw/master/.config/nvim/after/plugin/lualine.lua
+curl -fLo ~/.config/nvim/after/plugin/nvim-cmp.lua --create-dirs https://gitlab.com/T6705/dotfiles/-/raw/master/.config/nvim/after/plugin/nvim-cmp.lua
+curl -fLo ~/.config/nvim/autoload/visincr.vim --create-dirs https://gitlab.com/T6705/dotfiles/-/raw/master/.config/nvim/autoload/visincr.vim
+curl -fLo ~/.config/nvim/lua/general.lua --create-dirs https://gitlab.com/T6705/dotfiles/-/raw/master/.config/nvim/lua/general.lua
+curl -fLo ~/.config/nvim/lua/neovide.lua --create-dirs https://gitlab.com/T6705/dotfiles/-/raw/master/.config/nvim/lua/neovide.lua
+curl -fLo ~/.config/nvim/lua/plugins.lua --create-dirs https://gitlab.com/T6705/dotfiles/-/raw/master/.config/nvim/lua/plugins.lua
+curl -fLo ~/.config/nvim/lua/mappings.lua --create-dirs https://gitlab.com/T6705/dotfiles/-/raw/master/.config/nvim/lua/mappings.lua
 
 ### vim
 curl https://gitlab.com/T6705/dotfiles/-/raw/master/minimal.vimrc > ~/.vimrc
@@ -169,5 +162,3 @@ curl https://gitlab.com/T6705/dotfiles/raw/master/.tmux.conf.local > ~/.tmux.con
 if command -v diff-so-fancy &> /dev/null; then
     git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
 fi
-
-go get -u github.com/jingweno/ccat
