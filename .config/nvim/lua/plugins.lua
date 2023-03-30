@@ -283,6 +283,26 @@ require("lazy").setup({
     opts = { separator = " ", highlight = true, depth_limit = 5 },
   },
 
+  {
+    "SmiteshP/nvim-navbuddy",
+    lazy = true,
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim"
+    },
+    cmd = { "Navbuddy" },
+    keys = { { "<leader>nb", "<Cmd>Navbuddy<CR>", desc = "Navbuddy" } },
+    config = function()
+      local navbuddy = require("nvim-navbuddy")
+      navbuddy.setup {
+        window = {
+          border = "rounded",
+        }
+      }
+    end
+  },
+
   --------------------------------------------------------------------------------
   -- git
   --------------------------------------------------------------------------------
