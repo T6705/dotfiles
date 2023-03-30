@@ -258,3 +258,10 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 if command -v starship &> /dev/null; then
     eval "$(starship init zsh)"
 fi
+
+###################################
+## https://github.com/github/hub ##
+###################################
+if command -v hub &> /dev/null; then
+    eval "$(hub alias -s)"
+fi

@@ -1713,3 +1713,11 @@ banner
 if command -v starship &> /dev/null; then
     eval "$(starship init bash)"
 fi
+
+###################################
+## https://github.com/github/hub ##
+###################################
+if command -v hub &> /dev/null; then
+    eval "$(hub alias -s)"
+fi
+
