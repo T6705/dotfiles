@@ -83,12 +83,6 @@ else
     time git clone -v --progress https://github.com/djui/alias-tips.git ~/.oh-my-zsh/custom/plugins/alias-tips
 fi
 
-if [[ -d ~/.oh-my-zsh/custom/plugins/k ]]; then
-    time cd ~/.oh-my-zsh/custom/plugins/k && time git pull -v --progress
-else
-    time git clone -v --progress https://github.com/supercrabtree/k ~/.oh-my-zsh/custom/plugins/k
-fi
-
 if [[ -d ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]]; then
     time cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && time git pull -v --progress
 else
