@@ -23,13 +23,13 @@ time brew install bat broot dog duf dust exa fx fzf git-delta gping httpie jq ls
 
 time brew install ack aircrack-ng automake awk bash binutils binwalk clamav cmake coreutils cscope ctags curl dc3dd dcfldd diff-so-fancy dns2tcp easy-tag exploitdb ext4fuse fcrackzip feh ffmpeg findutils fish foremost gcc gettext git gnu-sed gnupg go grep hashcat hashpump hping htop hub hydra iperf3 john knock libtool llvm macs-fan-control mitmproxy moreutils mpv neofetch netpbm nikto ninja nmap node ntfs-3g openvpn p7zip pkg-config podman prettier proxychains-ng pypy3 qemu radare2 ranger rclone rust screenfetch shellcheck socat sqlmap sshuttle starship stunnel tcpdump tcpflow tcpreplay tcptrace telnet tmux ucspi-tcp vim watch wget xz
 
-time brew install --cask alacritty another-redis-desktop-manager apenngrace/vulkan/vulkan-sdk burp-suite chromedriver chromium clipy cyberduck discord firefox font-noto-serif-cjk ghidra gimp google-chrome iterm2 kitty macvim meld neovide openvpn-connect postman stats tiles veracrypt virtualbox visual-studio-code vnc-viewer wine-stable
+time brew install --cask alacritty another-redis-desktop-manager burp-suite chromedriver chromium clipy cyberduck discord firefox font-noto-serif-cjk ghidra gimp google-chrome iterm2 kitty meld neovide openvpn-connect postman stats tiles veracrypt virtualbox visual-studio-code vnc-viewer wine-stable
 
 #########################
 ### Install nerd font ###
 #########################
 time brew tap homebrew/cask-fonts
-time brew install --cask font-fira-code-nerd-font font-hack-nerd-font font-jetbrainsmono-nerd-font
+time brew install --cask font-fira-code-nerd-font font-hack-nerd-font
 
 ########################################################
 ### install useful key bindings and fuzzy completion ###
@@ -39,7 +39,7 @@ $(brew --prefix)/opt/fzf/install
 #####################################
 ### download gruvbox color scheme ###
 #####################################
-cd ~/Downloads && wget "https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/Gruvbox%20Dark.itermcolors"
+cd ~/Downloads && wget "https://raw.githubusercontent.com/mbadolato/iTerm2-Color-Schemes/master/schemes/GruvboxDark.itermcolors"
 
 ############################
 ### Download curl config ###
@@ -124,7 +124,7 @@ fi
 
 time cd ~/git/hub/neovim
 #time make CMAKE_BUILD_TYPE=RelWithDebInfo
-make CMAKE_BUILD_TYPE=Release
+time make CMAKE_BUILD_TYPE=Release
 time sudo make install
 time nvim -v
 
