@@ -144,8 +144,8 @@ curl -fLo ~/.config/nvim/lua/mappings.lua --create-dirs https://gitlab.com/T6705
 curl https://gitlab.com/T6705/dotfiles/-/raw/master/minimal.vimrc > ~/.vimrc
 
 ### nvim
-curl -fLo ~/.config/nvim/init.vim --create-dirs \
-    https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/init.vim
+curl -fLo ~/.config/nvim/init.lua --create-dirs \
+    https://gitlab.com/T6705/dotfiles/raw/master/.config/nvim/init.lua
 
 ############################
 ### Download tmux config ###
