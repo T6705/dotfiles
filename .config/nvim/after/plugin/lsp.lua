@@ -61,14 +61,6 @@ lsp.configure('jsonls', {
     },
   }
 })
-lsp.configure('yamlls', {
-  settings = {
-    json = {
-      schemas = require("schemastore").json.schemas(),
-      validate = { enable = true },
-    },
-  }
-})
 lsp.configure('lua_ls', {
   settings = {
     Lua = {
@@ -90,6 +82,14 @@ lsp.configure('lua_ls', {
         },
       },
     }
+  }
+})
+lsp.configure('yamlls', {
+  settings = {
+    json = {
+      schemas = require("schemastore").json.schemas(),
+      validate = { enable = true },
+    },
   }
 })
 
@@ -136,6 +136,13 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.setup()
+
+local dart_lsp = lsp.build_options('dartls', {})
+require('flutter-tools').setup({
+  lsp = {
+    capabilities = dart_lsp.capabilities
+  }
+})
 
 vim.diagnostic.config({
   virtual_text = true,

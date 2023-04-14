@@ -226,6 +226,14 @@ if command -v docker &> /dev/null ; then
 fi
 
 # ------------------------------------
+# flutter alias
+# ------------------------------------
+if command -v flutter &> /dev/null ; then
+    alias fr="flutter run -d chrome --web-renderer html"
+    alias fb="flutter build web --release"
+fi
+
+# ------------------------------------
 # golang alias
 # ------------------------------------
 if command -v go &> /dev/null ; then
