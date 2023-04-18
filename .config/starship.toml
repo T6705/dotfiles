@@ -304,7 +304,7 @@ version_format = "v${raw}"
 symbol = "🧅 "
 style = "bold green"
 disabled = true
-detect_extentions = ["fnl"]
+detect_extensions = ["fnl"]
 detect_files = []
 detect_folders = []
 
@@ -697,10 +697,12 @@ style = "bold white"
 disabled = false
 
 [os.symbols]
+Alpaquita = "🔔 "
 Alpine = "🏔️ "
 Amazon = "🙂 "
 Android = "🤖 "
 Arch = "🎗️ "
+Artix = "🎗️ "
 CentOS = "💠 "
 Debian = "🌀 "
 DragonFly = "🐉 "
@@ -713,6 +715,7 @@ Gentoo = "🗜️ "
 HardenedBSD = "🛡️ "
 Illumos = "🐦 "
 Linux = "🐧 "
+Mabox = "📦 "
 Macos = "🍎 "
 Manjaro = "🥭 "
 Mariner = "🌊 "
