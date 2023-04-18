@@ -418,6 +418,10 @@ fi
 if command -v flutter &> /dev/null ; then
     alias fr="flutter run -d chrome --web-renderer html"
     alias fb="flutter build web --release"
+    if command -v dart &> /dev/null ; then
+        alias dfa="dart fix --apply"
+        alias dfn="dart fix --dry-run"
+    fi
 fi
 
 # ------------------------------------
