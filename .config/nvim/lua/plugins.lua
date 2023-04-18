@@ -159,7 +159,7 @@ require("lazy").setup({
 
   {
     'akinsho/bufferline.nvim',
-    version = "v2.*",
+    version = "v3.*",
     event = "VeryLazy",
     dependencies = {
       { 'nvim-tree/nvim-web-devicons', lazy = true },
@@ -620,7 +620,7 @@ require("lazy").setup({
     lazy = false,
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'stevearc/dressing.nvim',   -- optional for vim.ui.select
+      'stevearc/dressing.nvim', -- optional for vim.ui.select
     },
   },
 
