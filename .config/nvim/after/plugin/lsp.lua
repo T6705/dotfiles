@@ -64,6 +64,9 @@ lsp.configure('jsonls', {
 lsp.configure('lua_ls', {
   settings = {
     Lua = {
+      hint = {
+        enable = true,
+      },
       runtime = {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = "LuaJIT",
@@ -133,6 +136,10 @@ lsp.on_attach(function(client, bufnr)
   -- vim.keymap.set('n', '<space>td', function() vim.lsp.buf.type_definition() end, opts)
 
   navbuddy.attach(client, bufnr)
+
+  if client.server_capabilities.documentSymbolProvider then
+    require('nvim-navic').attach(client, bufnr)
+  end
 end)
 
 lsp.setup()
