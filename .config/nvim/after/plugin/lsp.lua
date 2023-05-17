@@ -109,10 +109,10 @@ lsp.set_preferences({
     --info = 'I'
     --warn = " ",
     --warn = 'W',
-    error = " ",
-    hint = " ",
+    error = " ",
+    hint = "H ",
     info = " ",
-    warn = " ",
+    warn = " ",
   }
 })
 
@@ -141,6 +141,13 @@ lsp.on_attach(function(client, bufnr)
     require('nvim-navic').attach(client, bufnr)
   end
 end)
+
+lsp.set_sign_icons({
+  error = " ",
+  hint = "H ",
+  info = " ",
+  warn = " ",
+})
 
 lsp.setup()
 
