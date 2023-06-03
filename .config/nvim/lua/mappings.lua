@@ -37,6 +37,9 @@ map('n', '<leader>y', 'mm:Osc52CopyYank<CR>`m:delmarks m<CR>zz', opts)
 map('v', '<leader>x', '"+x', opts)
 map('v', '<leader>y', '"+y', opts)
 
+-- cursor does not jump back to where you started the selection.
+map("v", "y", "ygv<esc>", opts)
+
 -- select the current line without indentation
 map('n', 'vv', '^vg_', opts)
 
@@ -97,8 +100,8 @@ map('n', '{', '{zz', opts)
 map('n', '}', '}zz', opts)
 
 -- Jump to matching pairs easily, with Shift-Tab
-map('n', '<S-Tab>', '%', {})
-map('v', '<S-Tab>', '%', {})
+-- map('n', '<S-Tab>', '%', {})
+-- map('v', '<S-Tab>', '%', {})
 
 -- Keep the cursor in place while joining lines
 map('n', 'J', 'mzJ`z', opts)
@@ -108,8 +111,10 @@ map('x', '<', '<gv', opts)
 map('x', '>', '>gv', opts)
 
 -- Move visual block
-map('x', 'J', ":m '>+1<CR>gv=gvzz", opts)
-map('x', 'K', ":m '<-2<CR>gv=gvzz", opts)
+-- map('x', 'J', ":m '>+1<CR>gv=gvzz", opts)
+-- map('x', 'K', ":m '<-2<CR>gv=gvzz", opts)
+map("x", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo", { desc = "move highlighted text down" })
+map("x", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo", { desc = "move highlighted text up" })
 
 -- Scrolling
 map('n', '<C-j>', '2<C-e>', opts)
@@ -260,3 +265,5 @@ map('n', '<leader>]', 'ysiw]', { noremap = false, silent = true })
 map('n', '<leader>[', 'ysiw[', { noremap = false, silent = true })
 map('n', '<leader>}', 'ysiw}', { noremap = false, silent = true })
 map('n', '<leader>{', 'ysiw{', { noremap = false, silent = true })
+
+map("n", "<cr>", "ciw", opts)

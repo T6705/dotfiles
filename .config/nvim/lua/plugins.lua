@@ -396,10 +396,10 @@ require("lazy").setup({
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = '<CR>',
-            scope_incremental = '<CR>',
-            node_incremental = '<TAB>',
-            node_decremental = '<S-TAB>',
+            -- init_selection = '<CR>',
+            -- scope_incremental = '<CR>',
+            node_incremental = "v",
+            node_decremental = "V",
           },
         },
         indent = {
@@ -949,6 +949,7 @@ require("lazy").setup({
       { '<leader>i',  '<Cmd>Telescope lsp_implementations<CR>zzzv' },
       { '<leader>r',  '<Cmd>Telescope lsp_references<CR>zzzv' },
       { '<leader>td', '<Cmd>Telescope lsp_type_definitions<CR>' },
+      { ';',          "<cmd>lua require('telescope.builtin').resume(require('telescope.themes').get_ivy({}))<cr>" }
     },
   },
 
@@ -967,8 +968,8 @@ require("lazy").setup({
           },
         },
       })
-      vim.keymap.set("n", "[b", "<Plug>(CybuPrev)")
-      vim.keymap.set("n", "]b", "<Plug>(CybuNext)")
+      vim.keymap.set("n", "<S-Tab>", "<Plug>(CybuPrev)")
+      vim.keymap.set("n", "<Tab>", "<Plug>(CybuNext)")
     end,
   },
 
