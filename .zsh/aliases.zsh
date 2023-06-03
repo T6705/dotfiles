@@ -230,6 +230,7 @@ fi
 # ------------------------------------
 if command -v flutter &> /dev/null ; then
     alias fr="flutter run -d chrome --web-renderer html"
+    alias frd="flutter run -d chrome --web-renderer html --web-browser-flag \"--disable-web-security\""
     alias fb="flutter build web --release"
     if command -v dart &> /dev/null ; then
         alias dfa="dart fix --apply"
