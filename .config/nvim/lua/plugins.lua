@@ -159,7 +159,7 @@ require("lazy").setup({
 
   {
     'akinsho/bufferline.nvim',
-    version = "v3.*",
+    version = "*",
     event = "VeryLazy",
     dependencies = {
       { 'nvim-tree/nvim-web-devicons', lazy = true },
@@ -189,8 +189,7 @@ require("lazy").setup({
           diagnostics = "nvim_lsp",
           diagnostics_update_in_insert = true,
           diagnostics_indicator = function(count, level, diagnostics_dict, context)
-            -- local icon = level:match("error") and " " or " "
-            local icon = level:match("error") and " " or " "
+            local icon = level:match("error") and " " or " "
             return " " .. icon .. count
           end,
           offsets = {
@@ -642,10 +641,10 @@ require("lazy").setup({
         diagnostics = {
           enable = false,
           icons = {
-            hint = " ",
+            hint = "H ",
             info = " ",
-            warning = " ",
-            error = " ",
+            warning = " ",
+            error = " ",
           },
         },
         update_focused_file = {
@@ -931,10 +930,10 @@ require("lazy").setup({
         fps = 60,
         icons = {
           DEBUG = "",
-          ERROR = " ",
+          ERROR = " ",
           INFO = " ",
           TRACE = "✎",
-          WARN = " ",
+          WARN = " ",
         },
       })
       vim.notify = require("notify")
