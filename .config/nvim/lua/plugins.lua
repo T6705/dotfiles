@@ -236,7 +236,8 @@ require("lazy").setup({
           local indicator, text, chunks
           local absRelIdx = math.abs(relIdx)
           if absRelIdx > 1 then
-            indicator = ('%d%s'):format(absRelIdx, sfw ~= (relIdx > 1) and '▲' or '▼')
+            indicator = ('%d%s'):format(absRelIdx, sfw ~= (relIdx > 1) and '▲' or
+              '▼')
           elseif absRelIdx == 1 then
             indicator = sfw ~= (relIdx == 1) and '▲' or '▼'
           else
@@ -525,95 +526,6 @@ require("lazy").setup({
   { 'onsails/lspkind-nvim',         event = 'BufEnter', config = function() require('lspkind').init() end },
 
   --------------------------------------------------------------------------------
-  -- debugging
-  --------------------------------------------------------------------------------
-  {
-    "mfussenegger/nvim-dap",
-    event = "VeryLazy",
-    dependencies = {
-      {
-        'rcarriga/nvim-dap-ui',
-        config = function()
-          local dap, dapui = require("dap"), require("dapui")
-          dapui.setup()
-          dap.listeners.after.event_initialized["dapui_config"] = function()
-            dapui.open()
-          end
-          dap.listeners.before.event_terminated["dapui_config"] = function()
-            dapui.close()
-          end
-          dap.listeners.before.event_exited["dapui_config"] = function()
-            dapui.close()
-          end
-        end
-      },
-      {
-        'theHamsta/nvim-dap-virtual-text',
-        config = function()
-          require("nvim-dap-virtual-text").setup({
-            enabled = true,
-            all_references = true,
-            all_frames = true,
-          })
-        end
-      },
-      {
-        'mfussenegger/nvim-dap-python',
-        ft = { "python" },
-        build =
-        "mkdir ~/.virtualenvs && cd ~/.virtualenvs && python3 -m venv debugpy && debugpy/bin/python -m pip install -U debugpy",
-        config = function() require('dap-python').setup('~/.virtualenvs/debugpy/bin/python') end
-      },
-      {
-        'leoluz/nvim-dap-go',
-        ft = { "go" },
-        -- build = "go install github.com/go-delve/delve/cmd/dlv@latest",
-        build =
-        "git clone https://github.com/go-delve/delve /tmp/delve && cd /tmp/delve && go install github.com/go-delve/delve/cmd/dlv && rm -rf /tmp/delve",
-        config = true
-      }
-    },
-    config = function()
-      local sign = vim.fn.sign_define
-
-      -- vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg = 0, fg = '#993939', bg = '#31353f' })
-      -- vim.api.nvim_set_hl(0, 'DapLogPoint', { ctermbg = 0, fg = '#61afef', bg = '#31353f' })
-      -- vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg = 0, fg = '#98c379', bg = '#31353f' })
-
-      sign('DapBreakpoint', {
-        text = '',
-        texthl = 'DapBreakpoint',
-        linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint'
-      })
-      sign('DapBreakpointCondition', {
-        text = 'ﳁ',
-        texthl = 'DapBreakpoint',
-        linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint'
-      })
-      sign('DapBreakpointRejected', {
-        text = '',
-        texthl = 'DapBreakpoint',
-        linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint'
-      })
-      sign('DapLogPoint', {
-        text = '',
-        texthl = 'DapLogPoint',
-        linehl = 'DapLogPoint',
-        numhl = 'DapLogPoint'
-      })
-      sign('DapStopped', {
-        text = '',
-        texthl = 'DapStopped',
-        linehl = 'DapStopped',
-        numhl = 'DapStopped'
-      })
-    end
-  },
-
-  --------------------------------------------------------------------------------
   -- flutter
   --------------------------------------------------------------------------------
   {
@@ -691,53 +603,6 @@ require("lazy").setup({
   --    require('windows').setup()
   --  end
   --}
-
-  {
-    'anuvyklack/hydra.nvim',
-    event = "VeryLazy",
-    dependencies = 'anuvyklack/keymap-layer.nvim',
-    config = function()
-      local Hydra = require('hydra')
-      local dap = require 'dap'
-
-      local dap_hint = [[
- _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
- _i_: step into   _x_: Quit             ^ ^                 ^ ^
- _o_: step out    _X_: Stop             ^ ^
- _c_: to cursor   _C_: Close UI
- ^
- ^ ^              _q_: exit
-]]
-
-      local dap_hydra = Hydra({
-        hint = dap_hint,
-        config = {
-          color = 'pink',
-          invoke_on_body = true,
-          hint = {
-            position = 'bottom',
-            border = 'rounded'
-          },
-        },
-        name = 'dap',
-        mode = { 'n', 'x' },
-        body = '<leader>db',
-        heads = {
-          { 'n', dap.step_over,                                                      { silent = true } },
-          { 'i', dap.step_into,                                                      { silent = true } },
-          { 'o', dap.step_out,                                                       { silent = true } },
-          { 'c', dap.run_to_cursor,                                                  { silent = true } },
-          { 's', dap.continue,                                                       { silent = true } },
-          { 'x', ":lua require'dap'.disconnect({ terminateDebuggee = false })<CR>",  { exit = true, silent = true } },
-          { 'X', dap.close,                                                          { silent = true } },
-          { 'C', ":lua require('dapui').close()<CR>:DapVirtualTextForceRefresh<CR>", { silent = true } },
-          { 'b', dap.toggle_breakpoint,                                              { silent = true } },
-          { 'K', ":lua require('dap.ui.widgets').hover()<CR>",                       { silent = true } },
-          { 'q', nil,                                                                { exit = true, nowait = true } },
-        }
-      })
-    end
-  },
 
   {
     'nvim-tree/nvim-tree.lua',
@@ -949,7 +814,6 @@ require("lazy").setup({
       { '<leader>i',  '<Cmd>Telescope lsp_implementations<CR>zzzv' },
       { '<leader>r',  '<Cmd>Telescope lsp_references<CR>zzzv' },
       { '<leader>td', '<Cmd>Telescope lsp_type_definitions<CR>' },
-      { ';',          "<cmd>lua require('telescope.builtin').resume(require('telescope.themes').get_ivy({}))<cr>" }
     },
   },
 

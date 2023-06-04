@@ -1,5 +1,5 @@
 local cmd = vim.cmd -- execute Vim commands
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- :W (sudo saves the file)
@@ -52,7 +52,7 @@ local function smart_dd()
 end
 
 -- It solves the issue, where you want to delete empty line, but dd will override you last yank. Code above will check if u are deleting empty line, if so - use black hole register.
-vim.keymap.set("n", "dd", smart_dd, { noremap = true, expr = true })
+map("n", "dd", smart_dd, { noremap = true, expr = true })
 
 -- No arrow keys in insert mode
 -- ino <down> <Nop>

@@ -15,7 +15,6 @@ cmp.setup {
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
-      --vim.fn["UltiSnips#Anon"](args.body)
     end
   },
   sources = {
@@ -23,7 +22,6 @@ cmp.setup {
     { name = 'nvim_lsp',                priority_weight = 100 },
     { name = 'nvim_lsp_signature_help', priority_weight = 95 },
     { name = 'nvim_lua',                priority_weight = 90 },
-    -- { name = 'ultisnips', priority_weight = 80 },
     { name = 'luasnip',                 priority_weight = 80 },
     { name = 'buffer',                  priority_weight = 70, max_item_count = 5, },
     { name = 'calc' },
@@ -42,47 +40,6 @@ cmp.setup {
     }),
   },
   mapping = {
-    -- ["<Tab>"] = cmp.mapping({
-    --   c = function()
-    --     if cmp.visible() then
-    --       cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-    --     else
-    --       cmp.complete()
-    --     end
-    --   end,
-    --   i = function(fallback)
-    --     if cmp.visible() then
-    --       cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-    --     else
-    --       cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
-    --     end
-    --   end,
-    --   s = function(fallback)
-    --     cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
-    --   end
-    -- }),
-    -- ["<S-Tab>"] = cmp.mapping({
-    --   c = function()
-    --     if cmp.visible() then
-    --       cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-    --     else
-    --       cmp.complete()
-    --     end
-    --   end,
-    --   i = function(fallback)
-    --     if cmp.visible() then
-    --       cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-    --     else
-    --       cmp_ultisnips_mappings.jump_backwards(fallback)
-    --     end
-    --   end,
-    --   s = function(fallback)
-    --     cmp_ultisnips_mappings.jump_backwards(fallback)
-    --   end
-    -- }),
-    -- ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
-    -- ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
-
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()

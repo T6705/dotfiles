@@ -51,8 +51,7 @@ o.binary = true
 o.bomb = true
 o.encoding = 'utf-8'
 o.fileencoding = 'utf-8'
--- set ffs=unix,dos,mac " Use Unix as the standard file type
--- set fileencodings=utf-16le,utf-8,latin1,default,ucs-bom
+o.fileformats = 'unix,dos,mac'
 
 -- Fix backspace indent
 o.backspace = "indent,eol,start" -- make backspace behave in a sane manner
@@ -88,15 +87,11 @@ o.pumblend = 30
 -- opt.numberwidth = 3
 -- opt.statuscolumn = '%s%=%l %C%#Yellow#%{v:relnum == 0 ? ">" : ""}%#IndentBlankLineChar#%{v:relnum == 0 ? "" : "│"} '
 
--- "filetype on
--- filetype indent on    " load filetype-specific indent files
--- filetype plugin on
 o.filetype = 'on'
 b.autoindent = true -- Copy indent from last line when starting new line
 o.background = 'dark'
 b.cindent = true
 w.cursorline = true              -- highlight current line
--- set display+=lastline
 o.hidden = true                  -- current buffer can be put into background
 -- o.cmdheight = 0
 o.laststatus = 2                 -- Status bar always on
@@ -112,12 +107,7 @@ o.shortmess = o.shortmess .. "t" -- truncate file message
 o.shortmess = o.shortmess .. "T" -- truncate messages in the middle
 o.shortmess = o.shortmess .. "I" -- no intro message
 o.shortmess = o.shortmess .. "c" -- no ins-completion messages
--- if !&scrolloff
---     set scrolloff=3   " 3 lines above/below cursor when scrolling
--- endif
--- if !&sidescrolloff
---     set sidescrolloff=5
--- endif
+o.scrolloff = 3                  -- 3 lines above/below cursor when scrolling
 
 -- Tweak autocompletion behavior for <C-n>/<C-p> in insert mode
 -- Default is ".,w,b,u,t,i" without "i", where:
@@ -206,13 +196,6 @@ g.modelines = 10
 b.autoread = true -- detect when a file is changed
 -- set fileformats=unix,dos,mac
 o.history = 1000
--- if has('vim_starting')
---     set nocompatible         " not compatible with vi
--- endif
--- set path+=**
-
--- ctags
--- set tags=./tags;/
 
 o.splitright = true -- vertical split to the right
 o.splitbelow = true -- horizontal split to the bottom
@@ -320,6 +303,13 @@ vim.api.nvim_create_autocmd('FileType',
   {
     pattern = 'xml,html,xhtml,css,scss,javascript,lua,yaml',
     command = 'setlocal expandtab smarttab shiftwidth=2 softtabstop=2 tabstop=2'
+  })
+
+-- Open files with external application
+vim.api.nvim_create_autocmd('BufEnter',
+  {
+    pattern = { "*.png", "*.jpg", "*.gif", "*.pdf" },
+    command = 'execute "!open ".fnameescape(expand("%")) "&" | bwipeout'
   })
 
 vim.api.nvim_create_autocmd("FileType", {
