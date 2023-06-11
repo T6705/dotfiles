@@ -613,25 +613,30 @@ require("lazy").setup({
       { '<leader>F', ':NvimTreeFindFile<CR>' },
     },
     config = function()
-      require 'nvim-tree'.setup {
+      -- Automatically open file upon creation
+      local api = require("nvim-tree.api")
+      api.events.subscribe(api.events.Event.FileCreated, function(file)
+        vim.cmd("edit " .. file.fname)
+      end)
+
+      require("nvim-tree").setup({
+        hijack_cursor = true,
         reload_on_bufenter = true,
         respect_buf_cwd = true,
+        sync_root_with_cwd = true,
+        filters = {
+          custom = {
+            "^.git$",
+          },
+        },
         view = {
           adaptive_size = true,
           width = 35,
           preserve_window_proportions = true,
-          mappings = {
-            list = {
-              { key = "e", action = "create" },
-              { key = "p", action = "paste" },
-              { key = "x", action = "cut" },
-              { key = "y", action = "copy" },
-              { key = "K", action = "toggle_file_info" },
-            },
-          },
         },
         renderer = {
           add_trailing = true,
+          full_name = true,
           group_empty = true,
           highlight_git = true,
           indent_markers = {
@@ -639,20 +644,15 @@ require("lazy").setup({
           },
         },
         diagnostics = {
-          enable = false,
-          icons = {
-            hint = "H ",
-            info = " ",
-            warning = " ",
-            error = " ",
-          },
+          enable = true,
+          show_on_dirs = true,
         },
         update_focused_file = {
           enable = true,
           update_cwd = true,
           ignore_list = {},
         },
-      }
+      })
     end,
   },
 
