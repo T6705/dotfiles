@@ -24,16 +24,18 @@ force_display = false
 
 [azure]
 format = "on [$symbol($subscription)]($style) "
-symbol = "ﴃ "
+symbol = "󰠅 "
 style = "blue bold"
 disabled = true
 
+[azure.subscription_aliases]
+
 [battery]
-full_symbol = " "
-charging_symbol = " "
-discharging_symbol = " "
-unknown_symbol = " "
-empty_symbol = " "
+full_symbol = "󰁹 "
+charging_symbol = "󰂄 "
+discharging_symbol = "󰂃 "
+unknown_symbol = "󰁽 "
+empty_symbol = "󰂎 "
 disabled = false
 format = "[$symbol$percentage]($style) "
 
@@ -326,6 +328,7 @@ format = 'on [$symbol$account(@$domain)(\($region\))]($style) '
 symbol = "☁️  "
 style = "bold blue"
 disabled = false
+detect_env_vars = []
 
 [gcloud.region_aliases]
 
@@ -358,6 +361,7 @@ deleted_style = "bold red"
 only_nonzero_diffs = true
 format = "([+$added]($added_style) )([-$deleted]($deleted_style) )"
 disabled = true
+ignore_submodules = false
 
 [git_state]
 rebase = "REBASING"
@@ -385,6 +389,7 @@ renamed = "»"
 modified = "!"
 staged = "+"
 untracked = "?"
+typechanged = ""
 ignore_submodules = false
 disabled = false
 
@@ -394,6 +399,7 @@ version_format = "v${raw}"
 symbol = "🐹 "
 style = "bold cyan"
 disabled = false
+not_capable_style = "bold red"
 detect_extensions = ["go"]
 detect_files = [
     "go.mod",
@@ -951,6 +957,17 @@ symbol = ""
 format = '[$symbol\[$env\]]($style) '
 style = "blue bold dimmed"
 disabled = false
+
+[solidity]
+format = "via [$symbol($version)]($style)"
+version_format = "v${major}.${minor}.${patch}"
+disabled = false
+style = "bold blue"
+symbol = "S "
+compiler = ["solc"]
+detect_extensions = ["sol"]
+detect_files = []
+detect_folders = []
 
 [spack]
 truncation_length = 1
