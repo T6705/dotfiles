@@ -1056,7 +1056,6 @@ crawl-cao() {
 # ------------------------------------
 # Docker functions
 # ------------------------------------
-
 if command -v docker &> /dev/null ; then
     docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
     docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }
@@ -1132,3 +1131,29 @@ if command -v docker &> /dev/null ; then
         fi
     }
 fi
+
+# --------------------------------------------------------------------------------
+# Security
+# --------------------------------------------------------------------------------
+if command -v nmap &> /dev/null; then
+    nmap-fast() {
+        nmap --open -Pn $1 -o $1
+    }
+
+    nmap-full() {
+        sudo nmap --open -A -T4 -O -Pn -p 1-65535 $1 -o $1
+    }
+fi
+
+linpeas() {
+    if ! [[ -n "$1" ]]; then
+        PORT="8888"
+    else
+        PORT=$1
+    fi
+
+    mkdir -p /tmp/linpeas
+    wget https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh -P /tmp/linpeas
+    cd /tmp/linpeas
+    python3 -m http.server $PORT
+}
