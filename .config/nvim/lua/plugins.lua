@@ -60,20 +60,11 @@ require("lazy").setup({
           operators = {},
         },
         integrations = {
-          bufferline = true,
-          cmp = true,
-          gitsigns = true,
           lsp_trouble = true,
-          markdown = true,
+          mason = true,
           notify = true,
           symbols_outline = true,
-          telescope = true,
-          treesitter = true,
-          ts_rainbow = true,
-          dap = {
-            enabled = true,
-            enable_ui = true,
-          },
+          treesitter_context = true,
           native_lsp = {
             enabled = true,
             virtual_text = {
@@ -89,30 +80,9 @@ require("lazy").setup({
               information = { "underline" },
             },
           },
-          nvimtree = {
-            enabled = true,
-            show_root = true,
-            transparent_panel = true,
-          },
           indent_blankline = {
             enabled = true,
             colored_indent_levels = false,
-          },
-          barbar = false,
-          dashboard = false,
-          fern = false,
-          gitgutter = false,
-          hop = false,
-          lightspeed = false,
-          lsp_saga = false,
-          neogit = false,
-          telekasten = false,
-          vim_sneak = false,
-          which_key = false,
-          neotree = {
-            enabled = false,
-            show_root = false,
-            transparent_panel = false,
           },
         }
       }
@@ -161,6 +131,7 @@ require("lazy").setup({
     'akinsho/bufferline.nvim',
     version = "*",
     event = "VeryLazy",
+    after = "catppuccin",
     dependencies = {
       { 'nvim-tree/nvim-web-devicons', lazy = true },
       { "catppuccin" },
