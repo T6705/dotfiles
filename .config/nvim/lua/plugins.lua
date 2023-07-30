@@ -245,7 +245,7 @@ require("lazy").setup({
     end
   },
 
-  { "nvim-zh/colorful-winsep.nvim", config = true,      event = "WinNew", },
+  { "nvim-zh/colorful-winsep.nvim", config = true,      event = { "WinNew" }, },
 
   {
     "SmiteshP/nvim-navic",
@@ -340,8 +340,8 @@ require("lazy").setup({
       { 'saadparwaiz1/cmp_luasnip' },            -- Optional
 
       -- Snippets
-      { 'L3MON4D3/LuaSnip' },             -- Required
-      { 'rafamadriz/friendly-snippets' }, -- Optional
+      { 'L3MON4D3/LuaSnip',                   build = "make install_jsregexp" }, -- Required
+      { 'rafamadriz/friendly-snippets' },                                        -- Optional
       { 'saadparwaiz1/cmp_luasnip' },
     }
   },
@@ -354,7 +354,7 @@ require("lazy").setup({
       'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
       { 'nvim-treesitter/playground',              cmd = "TSPlaygroundToggle" },
-      'mrjones2014/nvim-ts-rainbow'
+      'HiPhish/nvim-ts-rainbow2'
     },
     build = ':TSUpdateSync',
     config = function()
@@ -381,10 +381,10 @@ require("lazy").setup({
         },
         rainbow = {
           enable = true,
-          extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-          max_file_lines = nil, -- Do not enable for files with more than n lines, int
-          -- colors = {}, -- table of hex strings
-          -- termcolors = {} -- table of colour name strings
+          -- Which query to use for finding delimiters
+          query = 'rainbow-parens',
+          -- Highlight the entire buffer all at once
+          strategy = require('ts-rainbow').strategy.global,
         },
         textobjects = {
           select = {
@@ -505,6 +505,7 @@ require("lazy").setup({
       'nvim-lua/plenary.nvim',
       'stevearc/dressing.nvim', -- optional for vim.ui.select
     },
+    config = true,
   },
 
   --------------------------------------------------------------------------------
@@ -515,7 +516,9 @@ require("lazy").setup({
   -- use { 'sebdah/vim-delve', ft = { 'go' } }
   {
     'ray-x/go.nvim',
-    ft = { 'go' },
+    ft = { "go", 'gomod' },
+    event = { "CmdlineEnter" },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     dependencies = {
       { 'ray-x/guihua.lua', build = 'cd lua/fzy && make' },
       'folke/trouble.nvim',
@@ -848,7 +851,7 @@ require("lazy").setup({
   --  end
   --}
 
-  { "kylechui/nvim-surround", event = "VeryLazy", config = true },
+  { "kylechui/nvim-surround", version = "*", event = "VeryLazy", config = true },
   {
     'dhruvasagar/vim-table-mode',
     -- ft = { 'markdown' },
