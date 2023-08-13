@@ -1,5 +1,4 @@
 local lsp = require("lsp-zero")
-local navbuddy = require("nvim-navbuddy")
 
 require('mason.settings').set({
   ui = {
@@ -134,12 +133,6 @@ lsp.on_attach(function(client, bufnr)
   -- vim.keymap.set('n', '<space>i', function() vim.lsp.buf.implementation() end, opts)
   -- vim.keymap.set('n', '<space>r', function() vim.lsp.buf.references() end, opts)
   -- vim.keymap.set('n', '<space>td', function() vim.lsp.buf.type_definition() end, opts)
-
-  navbuddy.attach(client, bufnr)
-
-  if client.server_capabilities.documentSymbolProvider then
-    require('nvim-navic').attach(client, bufnr)
-  end
 end)
 
 lsp.set_sign_icons({

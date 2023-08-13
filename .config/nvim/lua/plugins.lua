@@ -245,34 +245,8 @@ require("lazy").setup({
     end
   },
 
-  { "nvim-zh/colorful-winsep.nvim", config = true,      event = { "WinNew" }, },
-
-  {
-    "SmiteshP/nvim-navic",
-    lazy = true,
-    dependencies = "neovim/nvim-lspconfig",
-    opts = { separator = " ", highlight = true, depth_limit = 5 },
-  },
-
-  {
-    "SmiteshP/nvim-navbuddy",
-    lazy = true,
-    dependencies = {
-      "neovim/nvim-lspconfig",
-      "SmiteshP/nvim-navic",
-      "MunifTanjim/nui.nvim"
-    },
-    cmd = { "Navbuddy" },
-    keys = { { "<leader>nb", "<Cmd>Navbuddy<CR>", desc = "Navbuddy" } },
-    config = function()
-      local navbuddy = require("nvim-navbuddy")
-      navbuddy.setup {
-        window = {
-          border = "rounded",
-        }
-      }
-    end
-  },
+  { "nvim-zh/colorful-winsep.nvim", config = true,                          event = { "WinNew" }, },
+  { 'Bekaboo/dropbar.nvim',         event = { "BufReadPre", "BufNewFile" }, },
 
   --------------------------------------------------------------------------------
   -- git
@@ -492,8 +466,8 @@ require("lazy").setup({
   --   end,
   -- })
 
-  { 'b0o/SchemaStore.nvim',         event = "VeryLazy" },
-  { 'onsails/lspkind-nvim',         event = 'BufEnter', config = function() require('lspkind').init() end },
+  { 'b0o/SchemaStore.nvim', event = "VeryLazy" },
+  { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end },
 
   --------------------------------------------------------------------------------
   -- flutter
@@ -689,15 +663,15 @@ require("lazy").setup({
     },
     config = function()
       require('trouble').setup {
-        position = "bottom",           -- position of the list can be: bottom, top, left, right
-        height = 10,                   -- height of the trouble list when position is top or bottom
-        width = 50,                    -- width of the list when position is left or right
-        icons = true,                  -- use devicons for filenames
+        position = "bottom", -- position of the list can be: bottom, top, left, right
+        height = 10, -- height of the trouble list when position is top or bottom
+        width = 50, -- width of the list when position is left or right
+        icons = true, -- use devicons for filenames
         mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
-        fold_open = "",             -- icon used for open folds
-        fold_closed = "",           -- icon used for closed folds
-        group = true,                  -- group results by file
-        padding = true,                -- add an extra new line on top of the list
+        fold_open = "", -- icon used for open folds
+        fold_closed = "", -- icon used for closed folds
+        group = true, -- group results by file
+        padding = true, -- add an extra new line on top of the list
         action_keys = {
           -- key mappings for actions in the trouble list
           -- map to {} to remove a mapping, for example:
@@ -919,4 +893,10 @@ require("lazy").setup({
     config = true,
     keys = { { "<leader>so", "<Cmd>SymbolsOutline<CR>", desc = "SymbolsOutline" } },
   },
+  {
+    'nacro90/numb.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
+    config = true,
+    event = { "BufReadPre", "BufNewFile" },
+  }
 })

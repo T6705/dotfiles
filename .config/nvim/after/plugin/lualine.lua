@@ -52,7 +52,6 @@ local function mixed_indent()
   end
 end
 
-local navic = require("nvim-navic")
 
 require 'lualine'.setup {
   options = {
@@ -99,7 +98,6 @@ require 'lualine'.setup {
       'lsp_progress',
     },
     lualine_x = {
-      { navic.get_location, cond = navic.is_available },
       'encoding', 'fileformat', 'filetype'
     },
     lualine_y = { 'progress' },
