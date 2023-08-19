@@ -291,6 +291,13 @@ require("lazy").setup({
     keys = { { "<leader>gd", "<Cmd>DiffviewOpen<CR>", desc = "DiffView" } },
   },
 
+  {
+    "FabijanZulj/blame.nvim",
+    cmd = { "ToggleBlame" },
+    keys = {
+      { "<leader>gb", "<Cmd>ToggleBlame virtual<CR>", desc = "blame shown in a virtual text floated to the right" } },
+  },
+
   --------------------------------------------------------------------------------
   -- lsp
   --------------------------------------------------------------------------------
