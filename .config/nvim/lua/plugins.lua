@@ -825,6 +825,15 @@ require("lazy").setup({
   --  end
   --}
 
+  {
+    "sustech-data/wildfire.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("wildfire").setup()
+    end,
+  },
+
   { "kylechui/nvim-surround", version = "*", event = "VeryLazy", config = true },
   {
     'dhruvasagar/vim-table-mode',

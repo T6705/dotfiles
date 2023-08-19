@@ -199,7 +199,7 @@ map('n', '<leader>tn', ':tabnew<CR>', opts)
 -- map('n', ']b', ':bn<CR>', opts)
 map('n', '<leader>q', ':bd!<CR>', opts)
 map('n', '<leader>bn', ':enew<CR>', opts)
-map('n', '<bs>', '<C-^>', opts)
+-- map('n', '<bs>', '<C-^>', opts)
 
 -- Completetion
 -- cmd [[
@@ -266,4 +266,4 @@ map('n', '<leader>[', 'ysiw[', { noremap = false, silent = true })
 map('n', '<leader>}', 'ysiw}', { noremap = false, silent = true })
 map('n', '<leader>{', 'ysiw{', { noremap = false, silent = true })
 
-map("n", "<cr>", "ciw", opts)
+-- map("n", "<cr>", "ciw", opts)
