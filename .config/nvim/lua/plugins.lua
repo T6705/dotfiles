@@ -113,7 +113,7 @@ require("lazy").setup({
 
   {
     'lukas-reineke/indent-blankline.nvim',
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
       require('indent_blankline').setup {
         space_char_blankline = ' ',
@@ -267,7 +267,7 @@ require("lazy").setup({
   -- }
   {
     'lewis6991/gitsigns.nvim',
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim", lazy = true },
     config = function()
       require('gitsigns').setup({
@@ -339,7 +339,7 @@ require("lazy").setup({
 
   {
     'nvim-treesitter/nvim-treesitter',
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre",      config = true },
       'nvim-treesitter/nvim-treesitter-refactor',
@@ -493,8 +493,8 @@ require("lazy").setup({
     'akinsho/flutter-tools.nvim',
     lazy = false,
     dependencies = {
-      'nvim-lua/plenary.nvim',
-      'stevearc/dressing.nvim', -- optional for vim.ui.select
+      { "nvim-lua/plenary.nvim",  lazy = true },
+      { 'stevearc/dressing.nvim', lazy = true }, -- optional for vim.ui.select
     },
     config = true,
   },
@@ -623,7 +623,7 @@ require("lazy").setup({
 
   {
     'kevinhwang91/nvim-ufo',
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = 'kevinhwang91/promise-async',
     config = function()
       require('ufo').setup({
@@ -860,7 +860,10 @@ require("lazy").setup({
   },
   {
     'dstein64/vim-startuptime',
-    cmd = { "StartupTime" }
+    cmd = { "StartupTime" },
+    config = function()
+      vim.g.startuptime_tries = 10
+    end,
   },
   {
     'junegunn/fzf.vim',
