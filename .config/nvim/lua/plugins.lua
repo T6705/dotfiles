@@ -116,7 +116,9 @@ require("lazy").setup({
     main = "ibl",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require('ibl').setup {}
+      require('ibl').setup {
+        indent = { tab_char = "▎" },
+      }
     end,
   },
 
@@ -338,7 +340,6 @@ require("lazy").setup({
       'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
       { 'nvim-treesitter/playground',              cmd = "TSPlaygroundToggle" },
-      'HiPhish/nvim-ts-rainbow2'
     },
     build = ':TSUpdateSync',
     config = function()
@@ -362,13 +363,6 @@ require("lazy").setup({
         },
         matchup = {
           enable = true
-        },
-        rainbow = {
-          enable = true,
-          -- Which query to use for finding delimiters
-          query = 'rainbow-parens',
-          -- Highlight the entire buffer all at once
-          strategy = require('ts-rainbow').strategy.global,
         },
         textobjects = {
           select = {
