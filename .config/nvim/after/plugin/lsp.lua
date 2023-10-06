@@ -30,9 +30,22 @@ lsp.configure('gopls', {
     gopls = {
       codelenses = {
         gc_details = true,
+        generate = true,
+        regenerate_cgo = true,
+        run_govulncheck = true,
+        test = true,
         tidy = true,
         upgrade_dependency = true,
         vendor = true,
+      },
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
       },
       analyses = {
         fieldalignment = true,
@@ -43,8 +56,11 @@ lsp.configure('gopls', {
         unusedwrite = true,
         useany = true,
       },
+      completeUnimported = true,
+      directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
       experimentalPostfixCompletions = true,
       gofumpt = true,
+      semanticTokens = true,
       staticcheck = true,
       usePlaceholders = true,
     },
@@ -133,6 +149,9 @@ lsp.on_attach(function(client, bufnr)
   -- vim.keymap.set('n', '<space>i', function() vim.lsp.buf.implementation() end, opts)
   -- vim.keymap.set('n', '<space>r', function() vim.lsp.buf.references() end, opts)
   -- vim.keymap.set('n', '<space>td', function() vim.lsp.buf.type_definition() end, opts)
+
+  -- Format the current buffer using the active language servers.
+  lsp.buffer_autoformat()
 end)
 
 lsp.set_sign_icons({
