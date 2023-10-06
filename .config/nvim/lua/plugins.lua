@@ -113,17 +113,10 @@ require("lazy").setup({
 
   {
     'lukas-reineke/indent-blankline.nvim',
+    main = "ibl",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require('indent_blankline').setup {
-        space_char_blankline = ' ',
-        show_end_of_line = true,
-        strict_tabs = true,
-        debug = true,
-        max_indent_increase = 1,
-        show_current_context = true,
-        show_current_context_start = true,
-      }
+      require('ibl').setup {}
     end,
   },
 
