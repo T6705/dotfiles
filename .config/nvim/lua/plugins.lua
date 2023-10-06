@@ -351,7 +351,7 @@ require("lazy").setup({
     config = function()
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = 'all',
-        sync_install = true,
+        sync_install = false,
         highlight = {
           enable = true,
         },
