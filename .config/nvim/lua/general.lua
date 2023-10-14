@@ -206,16 +206,30 @@ o.spell = true
 o.spelllang = 'en_us,nl'
 
 -- Use persistent history, Keep undo history across sessions by storing it in a file
-cmd [[
-if has('persistent_undo')
-    let undo_dir = expand('~/.cache/nvim-undo-dir')
-    if !isdirectory(undo_dir)
-        call mkdir(undo_dir, "p", 0700)
-    endif
-    set undodir=~/.cache/nvim-undo-dir
-    set undofile
-endif
-]]
+-- cmd [[
+-- if has('persistent_undo')
+--     let undo_dir = expand('~/.cache/nvim-undo-dir')
+--     if !isdirectory(undo_dir)
+--         call mkdir(undo_dir, "p", 0700)
+--     endif
+--     set undodir=~/.cache/nvim-undo-dir
+--     set undofile
+-- endif
+-- ]]
+if vim.fn.has('persistent_undo') == 1 then
+  local undo_dir = vim.fn.expand('~/.cache/nvim-undo-dir/')
+
+  if vim.fn.isdirectory(undo_dir) == 0 then
+    vim.fn.mkdir(undo_dir, "p")
+  end
+
+  if vim.fn.getfperm(undo_dir) ~= "rwx------" then
+    vim.fn.setfperm(undo_dir, "rwx------")
+  end
+
+  opt.undodir = undo_dir
+  opt.undofile = true
+end
 
 -- autocmd
 vim.api.nvim_create_augroup('bufcheck', { clear = true })
