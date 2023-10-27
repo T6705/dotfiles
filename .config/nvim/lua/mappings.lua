@@ -54,6 +54,11 @@ end
 -- It solves the issue, where you want to delete empty line, but dd will override you last yank. Code above will check if u are deleting empty line, if so - use black hole register.
 map("n", "dd", smart_dd, { noremap = true, expr = true })
 
+-- Add undo break-points
+map("i", ",", ",<c-g>u")
+map("i", ".", ".<c-g>u")
+map("i", ";", ";<c-g>u")
+
 -- No arrow keys in insert mode
 -- ino <down> <Nop>
 -- ino <left> <Nop>
