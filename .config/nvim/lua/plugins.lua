@@ -326,8 +326,8 @@ require("lazy").setup({
       { 'saadparwaiz1/cmp_luasnip' },            -- Optional
 
       -- Snippets
-      { 'L3MON4D3/LuaSnip',                   build = "make install_jsregexp" }, -- Required
-      { 'rafamadriz/friendly-snippets' },                                        -- Optional
+      { 'L3MON4D3/LuaSnip',                   build = "make install_jsregexp", enabled = vim.fn.executable("make") == 1, }, -- Required
+      { 'rafamadriz/friendly-snippets' },                                                                                   -- Optional
       { 'saadparwaiz1/cmp_luasnip' },
     }
   },
@@ -498,7 +498,7 @@ require("lazy").setup({
     event = { "CmdlineEnter" },
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
     dependencies = {
-      { 'ray-x/guihua.lua', build = 'cd lua/fzy && make' },
+      { 'ray-x/guihua.lua', build = 'cd lua/fzy && make', enabled = vim.fn.executable("make") == 1, },
       'folke/trouble.nvim',
       'L3MON4D3/LuaSnip',
     },
@@ -715,7 +715,7 @@ require("lazy").setup({
     dependencies = {
       { "nvim-lua/plenary.nvim",                    lazy = true },
       { 'nvim-lua/popup.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', enabled = vim.fn.executable("make") == 1, },
       -- { 'nvim-telescope/telescope-media-files.nvim', lazy = false }
     },
     config = function()
