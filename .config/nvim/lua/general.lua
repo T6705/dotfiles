@@ -1,11 +1,10 @@
-local cmd = vim.cmd            -- execute Vim commands
+local cmd = vim.cmd -- execute Vim commands
 local opt = vim.opt
-local exec = vim.api.nvim_exec -- execute Vimscript
-local fn = vim.fn              -- call Vim functions
-local g = vim.g                -- global variables
-local o = vim.o                -- global options
-local b = vim.bo               -- buffer-scoped options
-local w = vim.wo               -- windows-scoped options
+local fn = vim.fn   -- call Vim functions
+local g = vim.g     -- global variables
+local o = vim.o     -- global options
+local b = vim.bo    -- buffer-scoped options
+local w = vim.wo    -- windows-scoped options
 
 -- cmd [[
 -- let g:python_host_prog = system('which python2')
@@ -15,22 +14,22 @@ g.python3_host_prog = '/usr/local/bin/python3'
 
 g.mapleader = ' '
 
-o.updatetime = 200
+opt.updatetime = 200
 
 opt.guifont = { "FiraCode Nerd Font Mono", ":h14" }
 
--- o.clipboard = 'unnamedplus' -- copy/paste to system clipboard
--- o.clipboard = 'unnamed'
+-- opt.clipboard = 'unnamedplus' -- copy/paste to system clipboard
+-- opt.clipboard = 'unnamed'
 
 cmd 'packadd justify'
 cmd 'packadd shellmenu'
 cmd 'packadd swapmouse'
 cmd 'packadd vimball'
 
-o.mouse = 'a' -- enable mouse support
+opt.mouse = 'a' -- enable mouse support
 
-o.ttimeout = true
-o.ttimeoutlen = 100
+opt.ttimeout = true
+opt.ttimeoutlen = 100
 
 o.formatoptions = "q"
 o.formatoptions = o.formatoptions .. "j" -- Delete comment character when joining commented lines
@@ -47,14 +46,14 @@ cmd [[set diffopt+=algorithm:histogram]]
 ----------------------------------------------------------------------------------
 -- Encoding
 ----------------------------------------------------------------------------------
-o.binary = true
-o.bomb = true
-o.encoding = 'utf-8'
-o.fileencoding = 'utf-8'
-o.fileformats = 'unix,dos,mac'
+opt.binary = true
+opt.bomb = true
+opt.encoding = 'utf-8'
+opt.fileencoding = 'utf-8'
+opt.fileformats = 'unix,dos,mac'
 
 -- Fix backspace indent
-o.backspace = "indent,eol,start" -- make backspace behave in a sane manner
+opt.backspace = "indent,eol,start" -- make backspace behave in a sane manner
 
 ----------------------------------------------------------------------------------
 -- Tabs
@@ -66,48 +65,52 @@ b.smartindent = true -- autoindent new lines
 b.softtabstop = 4    -- edit as if the tabs are 4 characters wide
 
 -- toggle invisible characters
-o.list = true
+opt.list = true
 opt.listchars = { tab = '▸ ', eol = "¬", trail = "⋅", extends = "❯", precedes = "❮" }
 
 -- highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
-o.showbreak = "↪"
-o.breakindent = true
-o.breakindentopt = "sbr"
+opt.showbreak = "↪"
+opt.breakindent = true
+opt.breakindentopt = "sbr"
 
 ----------------------------------------------------------------------------------
 -- UI
 ----------------------------------------------------------------------------------
-o.termguicolors = true -- enable 24-bit RGB colors
+opt.termguicolors = true -- enable 24-bit RGB colors
 -- g.gruvbox_italic = 1
 -- g.gruvbox_contrast_dark = "hard"
 -- cmd.colorscheme("gruvbox")
 
-o.pumblend = 30
+opt.pumblend = 30
 
 -- opt.numberwidth = 3
 -- opt.statuscolumn = '%s%=%l %C%#Yellow#%{v:relnum == 0 ? ">" : ""}%#IndentBlankLineChar#%{v:relnum == 0 ? "" : "│"} '
 
-o.filetype = 'on'
+opt.filetype = 'on'
 b.autoindent = true -- Copy indent from last line when starting new line
-o.background = 'dark'
+opt.background = 'dark'
 b.cindent = true
-w.cursorline = true              -- highlight current line
-o.hidden = true                  -- current buffer can be put into background
--- o.cmdheight = 0
-o.laststatus = 2                 -- Status bar always on
-o.lazyredraw = true              -- Don't redraw while executing macros (good performance config)
-w.number = true                  -- show line number
-w.relativenumber = true          -- show relative line numbers
-o.ruler = true                   -- Always show current position
-w.signcolumn = 'yes'             -- always show signcolumns
-o.shortmess = "a"                -- use every short text trick
-o.shortmess = o.shortmess .. "O" -- file read message overwrites subsequent
-o.shortmess = o.shortmess .. "s" -- no search hit bottom crap
-o.shortmess = o.shortmess .. "t" -- truncate file message
-o.shortmess = o.shortmess .. "T" -- truncate messages in the middle
-o.shortmess = o.shortmess .. "I" -- no intro message
-o.shortmess = o.shortmess .. "c" -- no ins-completion messages
-o.scrolloff = 3                  -- 3 lines above/below cursor when scrolling
+w.cursorline = true                  -- highlight current line
+opt.hidden = true                    -- current buffer can be put into background
+-- opt.cmdheight = 0
+opt.laststatus = 2                   -- Status bar always on
+opt.lazyredraw = true                -- Don't redraw while executing macros (good performance config)
+w.number = true                      -- show line number
+w.relativenumber = true              -- show relative line numbers
+opt.ruler = true                     -- Always show current position
+w.signcolumn = 'yes'                 -- always show signcolumns
+o.shortmess = "a"                    -- use every short text trick
+o.shortmess = o.shortmess .. "O"     -- file read message overwrites subsequent
+o.shortmess = o.shortmess .. "s"     -- no search hit bottom crap
+o.shortmess = o.shortmess .. "t"     -- truncate file message
+o.shortmess = o.shortmess .. "T"     -- truncate messages in the middle
+o.shortmess = o.shortmess .. "I"     -- no intro message
+o.shortmess = o.shortmess .. "c"     -- no ins-completion messages
+vim.g.markdown_recommended_stype = 0 -- fix markdown indentation settings
+opt.scrolloff = 3                    -- 3 lines above/below cursor when scrolling
+if vim.fn.has("nvim-0.10") == 1 then
+  opt.smoothscroll = true
+end
 
 -- Tweak autocompletion behavior for <C-n>/<C-p> in insert mode
 -- Default is ".,w,b,u,t,i" without "i", where:
@@ -124,22 +127,21 @@ cmd [[set complete+=kspell]]
 -- set ofu=syntaxcomplete#Complete " Set omni-completion method
 -- "set ofu=ale#completion#OmniFunc " Set omni-completion method
 
-o.completeopt = 'longest,menuone' -- completion options
-o.showcmd = true                  -- show incomplete commands
-w.so = 7                          -- Set 7 lines to the cursor - when moving vertically using j/k
-o.t_Co = "256"                    -- Explicitly tell vim that the terminal supports 256 colors
-o.title = true
-o.titleold = "Terminal"
-o.titlestring = '%F'
-o.ttyfast = true  -- faster redrawing
-o.syntax = 'on'   -- switch syntax highlighting on
-b.synmaxcol = 200 -- only syntax highlighting the first 200 characters of each line
+opt.completeopt = 'longest,menuone' -- completion options
+opt.showcmd = true                  -- show incomplete commands
+w.so = 7                            -- Set 7 lines to the cursor - when moving vertically using j/k
+opt.title = true
+opt.titleold = "Terminal"
+opt.titlestring = '%F'
+opt.ttyfast = true -- faster redrawing
+opt.syntax = 'on'  -- switch syntax highlighting on
+b.synmaxcol = 200  -- only syntax highlighting the first 200 characters of each line
 
 ----------------------------------------------------------------------------------
 -- Wildmenu
 ----------------------------------------------------------------------------------
-o.wildmenu = true                                               -- Turn on the WiLd menu
-o.wildmode = "list:longest"                                     -- complete files like a shell
+opt.wildmenu = true                                             -- Turn on the WiLd menu
+opt.wildmode = "list:longest"                                   -- complete files like a shell
 o.wildignore = "*.a,*.o,*.obj,*.exe,*.dll,*.manifest"           -- compiled object files
 o.wildignore = o.wildignore .. "*.DS_Store"                     --OSX bullshit
 o.wildignore = o.wildignore .. "*.aux,*.out,*.toc"              --LaTeX intermediate files
@@ -153,57 +155,53 @@ o.wildignore = o.wildignore .. ".hg,.git,.svn"                  --Version Contro
 ----------------------------------------------------------------------------------
 -- Searching
 ----------------------------------------------------------------------------------
-o.hlsearch = true   -- highlight search results
-o.ignorecase = true -- Ignore case when searching
-o.inccommand = 'split'
-o.incsearch = true  -- Makes search act like search in modern browsers
-o.magic = true      -- For regular expressions turn magic on
-o.showmatch = true  -- Show matching brackets when text indicator is over them
-o.smartcase = true  -- case-sensitive if expresson contains a capital letter
+opt.hlsearch = true   -- highlight search results
+opt.ignorecase = true -- Ignore case when searching
+opt.inccommand = 'split'
+opt.incsearch = true  -- Makes search act like search in modern browsers
+opt.magic = true      -- For regular expressions turn magic on
+opt.showmatch = true  -- Show matching brackets when text indicator is over them
+opt.smartcase = true  -- case-sensitive if expresson contains a capital letter
 
 -- Folding
--- o.foldmethod = 'marker'
--- o.foldmethod = 'indent'
-o.foldmethod = 'expr'
-o.foldexpr = 'nvim_treesitter#foldexpr()'
-o.foldcolumn = '1'
-o.foldenable = true -- fold by default
-o.foldlevel = 99
-o.foldlevelstart = 99
+opt.foldcolumn = '1'
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.foldenable = true -- fold by default
+opt.foldmethod = 'indent'
 
--- autochange dir
-o.autochdir = true
 
 -- error bells
-o.errorbells = false
+opt.errorbells = false
 -- set t_vb=
-o.tm = 500
-o.visualbell = true
+opt.tm = 500
+opt.visualbell = true
 
 -- Directories for swp files
-o.wb = false
-o.backup = false
+opt.wb = false
+opt.backup = false
 b.swapfile = false
 
 -- Disable the vlinking cursor
-o.gcr = 'a:blinkon0'
-o.scrolloff = 3
+opt.gcr = 'a:blinkon0'
+opt.scrolloff = 3
 
 -- Use modeline overrides
 g.modeline = true
 g.modelines = 10
 
+opt.autochdir = true
+opt.autowrite = true
 b.autoread = true -- detect when a file is changed
--- set fileformats=unix,dos,mac
-o.history = 1000
+opt.history = 1000
 
-o.splitright = true -- vertical split to the right
-o.splitbelow = true -- horizontal split to the bottom
-o.splitkeep = "topline"
+opt.splitright = true -- vertical split to the right
+opt.splitbelow = true -- horizontal split to the bottom
+opt.splitkeep = "topline"
 
 -- set spell
-o.spell = true
-o.spelllang = 'en_us,nl'
+opt.spell = true
+opt.spelllang = 'en_us,nl'
 
 -- Use persistent history, Keep undo history across sessions by storing it in a file
 -- cmd [[
@@ -295,7 +293,7 @@ vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "%s/\\n\\+
 vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*", command = "lua vim.lsp.buf.format()" })
 
 -- -- open all folds in that file
--- vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "FileReadPost" }, { pattern = "*", command = "normal zR" })
+vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "FileReadPost" }, { pattern = "*", command = "normal zR" })
 
 -- Redraw screen every time when focus gained
 vim.api.nvim_create_autocmd('FocusGained', { pattern = '*', command = 'silent! redraw!' })
@@ -326,11 +324,23 @@ vim.api.nvim_create_autocmd('BufEnter',
     command = 'execute "!open ".fnameescape(expand("%")) "&" | bwipeout'
   })
 
+-- wrap and check for spell in text filetypes
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "gitcommit", "markdown" },
   callback = function()
     vim.opt_local.wrap = true
     vim.opt_local.spell = true
+  end,
+})
+
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  callback = function(event)
+    if event.match:match("^%w%w+://") then
+      return
+    end
+    local file = vim.loop.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
 
@@ -340,6 +350,26 @@ vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
       vim.cmd "quit"
+    end
+  end
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function(event)
+    local ok, _ = pcall(vim.treesitter.get_parser, event.buf)
+    if ok then
+      vim.treesitter.start()
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("Filetype", {
+  pattern = { "*" },
+  callback = function()
+    if pcall(vim.treesitter.start) then
+      vim.wo.foldmethod = "expr"
+      vim.wo.foldexpr = "v.lua.vim.treesitter.foldexpr()"
+      vim.wo.foldtext = "v:lua.vim.treesitter.foldtext()"
     end
   end
 })
