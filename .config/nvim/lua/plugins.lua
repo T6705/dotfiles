@@ -790,6 +790,7 @@ require("lazy").setup({
 
   {
     'windwp/nvim-ts-autotag',
+    event = "InsertEnter",
     ft = {
       'glimmer',
       'handlebars',
