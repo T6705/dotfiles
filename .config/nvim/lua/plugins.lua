@@ -838,7 +838,6 @@ require("lazy").setup({
       require("wildfire").setup()
     end,
   },
-
   { "kylechui/nvim-surround", version = "*", event = "VeryLazy", config = true },
   {
     'dhruvasagar/vim-table-mode',
@@ -915,5 +914,26 @@ require("lazy").setup({
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     config = true,
     event = { "BufReadPre", "BufNewFile" },
+  },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("oil").setup({
+        columns = {
+          "icon",
+          "permissions",
+          "size",
+          "mtime",
+        },
+        view_options = {
+          show_hidden = true,
+          is_hidden_file = function(name, bufnr)
+            return vim.startswith(name, ".")
+          end,
+        },
+      })
+    end
   }
 })
