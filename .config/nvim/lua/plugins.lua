@@ -326,8 +326,8 @@ require("lazy").setup({
       { 'saadparwaiz1/cmp_luasnip' },            -- Optional
 
       -- Snippets
-      { 'L3MON4D3/LuaSnip',                   build = "make install_jsregexp", enabled = vim.fn.executable("make") == 1, }, -- Required
-      { 'rafamadriz/friendly-snippets' },                                                                                   -- Optional
+      { 'L3MON4D3/LuaSnip',                   build = "make install_jsregexp", enabled = vim.fn.executable("make") == 1, opts = { history = true, delete_check_events = "TextChanged" } }, -- Required
+      { 'rafamadriz/friendly-snippets' },                                                                                                                                                  -- Optional
       { 'saadparwaiz1/cmp_luasnip' },
     }
   },
@@ -336,18 +336,42 @@ require("lazy").setup({
     'nvim-treesitter/nvim-treesitter',
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre",      config = true },
+      { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", config = true },
       'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
-      { 'nvim-treesitter/playground',              cmd = "TSPlaygroundToggle" },
     },
     build = ':TSUpdateSync',
     config = function()
       require 'nvim-treesitter.configs'.setup {
-        ensure_installed = 'all',
+        ensure_installed = {
+          "bash",
+          "c",
+          "diff",
+          "go",
+          "html",
+          "javascript",
+          "jsdoc",
+          "json",
+          "jsonc",
+          "lua",
+          "luadoc",
+          "luap",
+          "markdown",
+          "markdown_inline",
+          "python",
+          "query",
+          "regex",
+          "toml",
+          "tsx",
+          "typescript",
+          "vim",
+          "vimdoc",
+          "yaml",
+        },
         sync_install = false,
         highlight = {
           enable = true,
+          additional_vim_regex_highlighting = false,
         },
         incremental_selection = {
           enable = true,
@@ -411,47 +435,10 @@ require("lazy").setup({
             }
           },
         },
-        playground = {
-          enable = true,
-          disable = {},
-          updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
-          persist_queries = false, -- Whether the query persists across vim sessions
-          keybindings = {
-            toggle_query_editor = 'o',
-            toggle_hl_groups = 'i',
-            toggle_injected_languages = 't',
-            toggle_anonymous_nodes = 'a',
-            toggle_language_display = 'I',
-            focus_language = 'f',
-            unfocus_language = 'F',
-            update = 'R',
-            goto_node = '<CR>',
-            show_help = '?',
-          },
-        },
         query_linter = {
           enable = true,
           use_virtual_text = true,
           lint_events = { "BufWrite", "CursorHold" },
-        },
-        refactor = {
-          highlight_definitions = {
-            -- Highlights definition and usages of the current symbol under the cursor.
-            enable = true,
-            -- Set to false if you have an `updatetime` of ~100.
-            clear_on_cursor_move = true,
-          },
-          highlight_current_scope = {
-            -- Highlights the block from the current scope where the cursor is.
-            enable = false
-          },
-          smart_rename = {
-            --Renames the symbol under the cursor within the current scope (and current file).
-            enable = true,
-            keymaps = {
-              smart_rename = "grr",
-            },
-          },
         },
       }
     end,

@@ -310,6 +310,8 @@ vim.api.nvim_create_autocmd('BufEnter', { pattern = '*', command = 'set fo-=c fo
 -- Make all windows (almost) equally high and wide
 vim.api.nvim_create_autocmd('VimResized', { pattern = '*', command = 'wincmd =' })
 
+vim.api.nvim_create_autocmd('InsertEnter', { pattern = '*', command = 'normal zz' })
+
 -- tabs
 vim.api.nvim_create_autocmd('FileType',
   {
