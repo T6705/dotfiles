@@ -5,6 +5,7 @@ continuation_prompt = "[∙](bright-black) "
 scan_timeout = 30
 command_timeout = 500
 add_newline = false
+follow_symlinks = true
 
 [palettes]
 
@@ -226,6 +227,19 @@ use_os_path_sep = true
 
 [directory.substitutions]
 
+[direnv]
+format = "[$symbol$loaded/$allowed]($style) "
+symbol = "direnv "
+style = "bold orange"
+disabled = true
+detect_extensions = []
+detect_files = [".envrc"]
+detect_folders = []
+allowed_msg = "allowed"
+denied_msg = "denied"
+loaded_msg = "loaded"
+unloaded_msg = "not loaded"
+
 [docker_context]
 symbol = "🐳 "
 style = "blue bold"
@@ -321,6 +335,13 @@ symbol = " "
 style = "bold purple"
 truncation_length = 9223372036854775807
 truncation_symbol = "…"
+disabled = true
+
+[fossil_metrics]
+format = "([+$added]($added_style) )([-$deleted]($deleted_style) )"
+added_style = "bold green"
+deleted_style = "bold red"
+only_nonzero_diffs = true
 disabled = true
 
 [gcloud]
@@ -494,6 +515,7 @@ disabled = true
 ssh_only = true
 ssh_symbol = "🌐 "
 trim_at = "."
+detect_env_vars = []
 format = "[$ssh_symbol$hostname]($style) in "
 style = "green dimmed bold"
 disabled = false
@@ -568,6 +590,7 @@ disabled = true
 detect_extensions = []
 detect_files = []
 detect_folders = []
+contexts = []
 
 [kubernetes.context_aliases]
 
@@ -881,7 +904,7 @@ detect_extensions = [
     "Rproj",
     "Rsx",
 ]
-detect_files = [".Rprofile"]
+detect_files = ["DESCRIPTION"]
 detect_folders = [".Rproj.user"]
 
 [ruby]
@@ -949,6 +972,7 @@ threshold = 2
 format = "[$symbol$shlvl]($style) "
 symbol = "↕️  "
 repeat = false
+repeat_offset = 0
 style = "bold yellow"
 disabled = true
 
@@ -1030,6 +1054,16 @@ use_12hr = false
 disabled = false
 utc_time_offset = "local"
 time_range = "-"
+
+[typst]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = "t "
+style = "bold #0093A7"
+disabled = false
+detect_extensions = ["typ"]
+detect_files = ["template.typ"]
+detect_folders = []
 
 [username]
 format = "[$user]($style) in "
