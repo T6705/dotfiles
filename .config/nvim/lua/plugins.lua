@@ -825,7 +825,23 @@ require("lazy").setup({
       require("wildfire").setup()
     end,
   },
-  { "kylechui/nvim-surround", version = "*", event = "VeryLazy", config = true },
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = true,
+    keys = {
+      { '<leader>`', ':normal ysiw`<CR>' },
+      { '<leader>"', ':normal ysiw"<CR>' },
+      { "<leader>'", ":normal ysiw'<CR>" },
+      { '<leader>(', ':normal ysiw(<CR>' },
+      { '<leader>)', ':normal ysiw)<CR>' },
+      { '<leader>]', ':normal ysiw]<CR>' },
+      { '<leader>[', ':normal ysiw[<CR>' },
+      { '<leader>}', ':normal ysiw}<CR>' },
+      { '<leader>{', ':normal ysiw{<CR>' },
+    },
+  },
   {
     'dhruvasagar/vim-table-mode',
     -- ft = { 'markdown' },
@@ -875,10 +891,16 @@ require("lazy").setup({
     'rcarriga/nvim-notify',
     dependencies = "catppuccin",
     event = "VeryLazy",
+    keys = { {
+      "<leader>un",
+      function()
+        require("notify").dismiss({ silent = true, pending = true })
+      end,
+      desc = "Dismiss all Notification"
+    } },
     config = function()
       require("notify").setup({
-        background_colour = "#1E1E2E",
-        fps = 60,
+        timeout = 3000,
         icons = {
           DEBUG = "",
           ERROR = " ",
@@ -886,6 +908,15 @@ require("lazy").setup({
           TRACE = "✎",
           WARN = " ",
         },
+        max_height = function()
+          return math.floor(vim.o.lines * 0.75)
+        end,
+        max_width = function()
+          return math.floor(vim.o.columns * 0.75)
+        end,
+        on_open = function(win)
+          vim.api.nvim_win_set_config(win, { zindex = 100 })
+        end,
       })
       vim.notify = require("notify")
     end

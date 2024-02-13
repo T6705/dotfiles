@@ -258,17 +258,4 @@ map('n', '<leader>pt',
 map('n', '<leader>pta',
   'mm:bufdo silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz', opts)
 
----------------------------------------------------------------------------------
--- tpope/vim-surround
----------------------------------------------------------------------------------
-map('n', '<leader>`', 'ysiw`', { noremap = false, silent = true })
-map('n', '<leader>"', 'ysiw"', { noremap = false, silent = true })
-map('n', "<leader>'", "ysiw'", { noremap = false, silent = true })
-map('n', '<leader>(', 'ysiw(', { noremap = false, silent = true })
-map('n', '<leader>)', 'ysiw)', { noremap = false, silent = true })
-map('n', '<leader>]', 'ysiw]', { noremap = false, silent = true })
-map('n', '<leader>[', 'ysiw[', { noremap = false, silent = true })
-map('n', '<leader>}', 'ysiw}', { noremap = false, silent = true })
-map('n', '<leader>{', 'ysiw{', { noremap = false, silent = true })
-
 -- map("n", "<cr>", "ciw", opts)
