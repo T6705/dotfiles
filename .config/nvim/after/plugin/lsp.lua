@@ -1,6 +1,6 @@
-local lsp = require("lsp-zero")
+local lsp_zero = require("lsp-zero")
 
-require('mason.settings').set({
+require('mason').setup({
   ui = {
     border = "rounded",
     icons = {
@@ -10,22 +10,26 @@ require('mason.settings').set({
     }
   }
 })
+require("mason-lspconfig").setup {
+  ensure_installed = {
+    "clangd",
+    "dockerls",
+    "gopls",
+    "jsonls",
+    "lua_ls",
+    "pyright",
+    "rust_analyzer",
+    "tsserver",
+    "yamlls",
+  },
+  handlers = {
+    lsp_zero.default_setup
+  },
+}
 
-lsp.preset("recommended")
+lsp_zero.preset("recommended")
 
-lsp.ensure_installed({
-  'clangd',
-  'dockerls',
-  'gopls',
-  'jsonls',
-  'lua_ls',
-  'pyright',
-  'rust_analyzer',
-  'tsserver',
-  'yamlls',
-})
-
-lsp.configure('gopls', {
+lsp_zero.configure('gopls', {
   settings = {
     gopls = {
       codelenses = {
@@ -66,7 +70,7 @@ lsp.configure('gopls', {
     },
   }
 })
-lsp.configure('jsonls', {
+lsp_zero.configure('jsonls', {
   settings = {
     yaml = {
       hover = true,
@@ -76,7 +80,7 @@ lsp.configure('jsonls', {
     },
   }
 })
-lsp.configure('lua_ls', {
+lsp_zero.configure('lua_ls', {
   settings = {
     Lua = {
       hint = {
@@ -102,7 +106,7 @@ lsp.configure('lua_ls', {
     }
   }
 })
-lsp.configure('yamlls', {
+lsp_zero.configure('yamlls', {
   settings = {
     json = {
       schemas = require("schemastore").json.schemas(),
@@ -111,7 +115,7 @@ lsp.configure('yamlls', {
   }
 })
 
-lsp.set_preferences({
+lsp_zero.set_preferences({
   manage_nvim_cmp = false,
   set_lsp_keymaps = false,
   suggest_lsp_servers = false,
@@ -131,7 +135,7 @@ lsp.set_preferences({
   }
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp_zero.on_attach(function(client, bufnr)
   local opts = { buffer = bufnr, silent = true, noremap = true }
 
   vim.keymap.set('n', '<leader>D', function() vim.lsp.buf.declaration() end, opts)
@@ -151,22 +155,21 @@ lsp.on_attach(function(client, bufnr)
   -- vim.keymap.set('n', '<space>td', function() vim.lsp.buf.type_definition() end, opts)
 
   -- Format the current buffer using the active language servers.
-  lsp.buffer_autoformat()
+  lsp_zero.buffer_autoformat()
 end)
 
-lsp.set_sign_icons({
+lsp_zero.set_sign_icons({
   error = " ",
   hint = "H ",
   info = " ",
   warn = " ",
 })
 
-lsp.setup()
+lsp_zero.setup()
 
-local dart_lsp = lsp.build_options('dartls', {})
 require('flutter-tools').setup({
   lsp = {
-    capabilities = dart_lsp.capabilities
+    capabilities = lsp_zero.capabilities
   }
 })
 
