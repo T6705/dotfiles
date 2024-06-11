@@ -605,7 +605,7 @@ require("lazy").setup({
     config = function()
       require('ufo').setup({
         open_fold_hl_timeout = 150,
-        close_fold_kinds = { 'imports', 'comment' },
+        close_fold_kinds_for_ft = { 'imports', 'comment' },
         preview = {
           win_config = {
             border = { '', '─', '', '', '', '─', '', '' },
@@ -701,7 +701,7 @@ require("lazy").setup({
 
   {
     'nvim-telescope/telescope.nvim',
-    version = false, -- telescope did only one release, so use HEAD for now
+    tag = '0.1.6',
     dependencies = {
       { "nvim-lua/plenary.nvim",                    lazy = true },
       { 'nvim-lua/popup.nvim' },
@@ -762,7 +762,10 @@ require("lazy").setup({
     "ghillb/cybu.nvim",
     event = "VeryLazy",
     branch = "main",
-    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
+    dependencies = {
+      { 'nvim-tree/nvim-web-devicons', lazy = true },
+      "nvim-lua/plenary.nvim",
+    },
     config = function()
       require('cybu').setup({
         style = {
