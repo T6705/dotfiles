@@ -236,6 +236,7 @@ detect_extensions = []
 detect_files = [".envrc"]
 detect_folders = []
 allowed_msg = "allowed"
+not_allowed_msg = "not allowed"
 denied_msg = "denied"
 loaded_msg = "loaded"
 unloaded_msg = "not loaded"
@@ -726,7 +727,9 @@ style = "bold white"
 disabled = false
 
 [os.symbols]
+AIX = "➿ "
 Alpaquita = "🔔 "
+AlmaLinux = "💠 "
 Alpine = "🏔️ "
 Amazon = "🙂 "
 Android = "🤖 "
@@ -743,6 +746,7 @@ Garuda = "🦅 "
 Gentoo = "🗜️ "
 HardenedBSD = "🛡️ "
 Illumos = "🐦 "
+Kali = "🐉 "
 Linux = "🐧 "
 Mabox = "📦 "
 Macos = "🍎 "
@@ -761,11 +765,14 @@ Pop = "🍭 "
 Raspbian = "🍓 "
 Redhat = "🎩 "
 RedHatEnterprise = "🎩 "
+RockyLinux = "💠 "
 Redox = "🧪 "
 Solus = "⛵ "
 SUSE = "🦎 "
 Ubuntu = "🎯 "
+Ultramarine = "🔷 "
 Unknown = "❓ "
+Void = "  "
 Windows = "🪟 "
 
 [package]
@@ -860,6 +867,16 @@ detect_files = [
     "setup.py",
     "__init__.py",
 ]
+detect_folders = []
+
+[quarto]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = "⨁ "
+style = "bold #75AADB"
+disabled = false
+detect_extensions = ["qmd"]
+detect_files = ["_quarto.yml"]
 detect_folders = []
 
 [raku]
@@ -1066,6 +1083,7 @@ detect_files = ["template.typ"]
 detect_folders = []
 
 [username]
+detect_env_vars = []
 format = "[$user]($style) in "
 style_root = "red bold"
 style_user = "yellow bold"
