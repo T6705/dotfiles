@@ -348,6 +348,9 @@ require("lazy").setup({
           "c",
           "diff",
           "go",
+          "gomod",
+          "gosum",
+          "gowork",
           "html",
           "javascript",
           "jsdoc",
@@ -479,32 +482,32 @@ require("lazy").setup({
   -- use { 'buoto/gotests-vim', ft = { 'go' } }
   -- use { 'fatih/vim-go', ft = { 'go' }, build = ':GoInstallBinaries' }
   -- use { 'sebdah/vim-delve', ft = { 'go' } }
-  {
-    'ray-x/go.nvim',
-    ft = { "go", 'gomod' },
-    event = { "CmdlineEnter" },
-    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-    dependencies = {
-      { 'ray-x/guihua.lua', build = 'cd lua/fzy && make', enabled = vim.fn.executable("make") == 1, },
-      'folke/trouble.nvim',
-      'L3MON4D3/LuaSnip',
-    },
-    config = function()
-      require('go').setup({
-        lsp_cfg = false,
-        lsp_gofumpt = true,
-        trouble = true,
-        luasnip = true,
-      })
-      -- autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
-      -- vim.api.nvim_create_autocmd('BufWritePre', { pattern = '*.go', command = "GoFmt" })
-      -- vim.api.nvim_create_autocmd('BufWritePre', { pattern = '*.go', command = "GoImport" })
-      vim.api.nvim_create_autocmd('BufWritePre',
-        { pattern = '*.go', command = "silent! lua require('go.format').goimport()" })
-      vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufEnter' },
-        { pattern = '*.go', command = "setlocal noexpandtab tabstop=4 shiftwidth=4" })
-    end
-  },
+  -- {
+  --   'ray-x/go.nvim',
+  --   ft = { "go", 'gomod' },
+  --   event = { "CmdlineEnter" },
+  --   build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+  --   dependencies = {
+  --     { 'ray-x/guihua.lua', build = 'cd lua/fzy && make', enabled = vim.fn.executable("make") == 1, },
+  --     'folke/trouble.nvim',
+  --     'L3MON4D3/LuaSnip',
+  --   },
+  --   config = function()
+  --     require('go').setup({
+  --       lsp_cfg = false,
+  --       lsp_gofumpt = true,
+  --       trouble = true,
+  --       luasnip = true,
+  --     })
+  --     -- autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
+  --     -- vim.api.nvim_create_autocmd('BufWritePre', { pattern = '*.go', command = "GoFmt" })
+  --     -- vim.api.nvim_create_autocmd('BufWritePre', { pattern = '*.go', command = "GoImport" })
+  --     vim.api.nvim_create_autocmd('BufWritePre',
+  --       { pattern = '*.go', command = "silent! lua require('go.format').goimport()" })
+  --     vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufEnter' },
+  --       { pattern = '*.go', command = "setlocal noexpandtab tabstop=4 shiftwidth=4" })
+  --   end
+  -- },
 
   --------------------------------------------------------------------------------
   -- python
