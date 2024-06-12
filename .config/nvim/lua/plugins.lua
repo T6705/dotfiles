@@ -274,8 +274,10 @@ require("lazy").setup({
             vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
           end
 
-          map("n", "]h", gs.next_hunk, "Next Hunk")
-          map("n", "[h", gs.prev_hunk, "Prev Hunk")
+          map("n", "]h", function() gs.nav_hunk("next") end, "Next Hunk")
+          map("n", "[h", function() gs.nav_hunk("prev") end, "Prev Hunk")
+          map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
+          map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
           map({ "n", "v" }, "<leader>sh", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
           map({ "n", "v" }, "<leader>rh", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
           map("n", "<leader>sb", gs.stage_buffer, "Stage Buffer")
@@ -646,57 +648,15 @@ require("lazy").setup({
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
-    cmd = { "TroubleToggle", "Trouble" },
+    opts = { use_diagnostic_signs = true, },
+    cmd = { "Trouble" },
     keys = {
-      { "<leader>xx", "<Cmd>TroubleToggle<CR>" },
-      { "<leader>xw", "<Cmd>Trouble lsp_workspace_diagnostics<CR>" },
-      { "<leader>xd", "<Cmd>Trouble lsp_document_diagnostics<CR>" },
-      { "<leader>xl", "<Cmd>Trouble loclist<CR>" },
-      { "<leader>xq", "<Cmd>Trouble quickfix<CR>" },
-      { "gR",         "<Cmd>Trouble lsp_references<CR>" },
+      { "<leader>xx", "<Cmd>Trouble diagnostics toggle<CR>",              desc = "Diagnostics (Trouble)" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+      { "<leader>xl", "<Cmd>Trouble loclist toggle<CR>",                  desc = "Location List (Trouble)" },
+      { "<leader>xq", "<Cmd>Trouble quickfix toggle<CR>",                 desc = "Quickfix List (Trouble)" },
+      { "gR",         "<Cmd>Trouble lsp_references toggle<CR>" },
     },
-    config = function()
-      require('trouble').setup {
-        position = "bottom", -- position of the list can be: bottom, top, left, right
-        height = 10, -- height of the trouble list when position is top or bottom
-        width = 50, -- width of the list when position is left or right
-        icons = true, -- use devicons for filenames
-        mode = "document_diagnostics", -- "workspace_diagnostics", "document_diagnostics", "quickfix", "lsp_references", "loclist"
-        fold_open = "", -- icon used for open folds
-        fold_closed = "", -- icon used for closed folds
-        group = true, -- group results by file
-        padding = true, -- add an extra new line on top of the list
-        action_keys = {
-          -- key mappings for actions in the trouble list
-          -- map to {} to remove a mapping, for example:
-          -- close = {},
-          close = "q",                     -- close the list
-          cancel = "<esc>",                -- cancel the preview and get back to your last window / buffer / cursor
-          refresh = "r",                   -- manually refresh
-          jump = { "<CR>", "<tab>" },      -- jump to the diagnostic or open / close folds
-          open_split = { "<c-x>" },        -- open buffer in new split
-          open_vsplit = { "<c-v>" },       -- open buffer in new vsplit
-          open_tab = { "<c-t>" },          -- open buffer in new tab
-          jump_close = { "o" },            -- jump to the diagnostic and close the list
-          toggle_mode = "m",               -- toggle between "workspace" and "document" diagnostics mode
-          toggle_preview = "P",            -- toggle auto_preview
-          hover = "K",                     -- opens a small popup with the full multiline message
-          preview = "p",                   -- preview the diagnostic location
-          close_folds = { "zM", "zm" },    -- close all folds
-          open_folds = { "zR", "zr" },     -- open all folds
-          toggle_fold = { "zA", "za" },    -- toggle fold of current file
-          previous = "k",                  -- preview item
-          next = "j"                       -- next item
-        },
-        indent_lines = true,               -- add an indent guide below the fold icons
-        auto_open = false,                 -- automatically open the list when you have diagnostics
-        auto_close = true,                 -- automatically close the list when you have no diagnostics
-        auto_preview = true,               -- automatically preview the location of the diagnostic. <esc> to close preview and go back to last window
-        auto_fold = false,                 -- automatically fold a file trouble list at creation
-        auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
-        use_diagnostic_signs = true        -- enabling this will use the signs defined in your lsp client
-      }
-    end,
   },
 
   {
