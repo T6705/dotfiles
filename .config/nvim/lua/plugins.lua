@@ -144,11 +144,6 @@ require("lazy").setup({
             icon = '▎',
             style = 'icon',
           },
-          buffer_close_icon = '',
-          modified_icon = '●',
-          close_icon = '',
-          left_trunc_marker = '',
-          right_trunc_marker = '',
           max_name_length = 18,
           max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
           tab_size = 18,
@@ -648,7 +643,19 @@ require("lazy").setup({
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
-    opts = { use_diagnostic_signs = true, },
+    opts = {
+      modes = {
+        test = {
+          mode = "diagnostics",
+          preview = {
+            type = "split",
+            relative = "win",
+            position = "right",
+            size = 0.3,
+          },
+        },
+      },
+    },
     cmd = { "Trouble" },
     keys = {
       { "<leader>xx", "<Cmd>Trouble diagnostics toggle<CR>",              desc = "Diagnostics (Trouble)" },
@@ -656,6 +663,34 @@ require("lazy").setup({
       { "<leader>xl", "<Cmd>Trouble loclist toggle<CR>",                  desc = "Location List (Trouble)" },
       { "<leader>xq", "<Cmd>Trouble quickfix toggle<CR>",                 desc = "Quickfix List (Trouble)" },
       { "gR",         "<Cmd>Trouble lsp_references toggle<CR>" },
+      {
+        "[q",
+        function()
+          if require("trouble").is_open() then
+            require("trouble").prev({ skip_groups = true, jump = true })
+          else
+            local ok, err = pcall(vim.cmd.cprev)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = "Previous Trouble/Quickfix Item",
+      },
+      {
+        "]q",
+        function()
+          if require("trouble").is_open() then
+            require("trouble").next({ skip_groups = true, jump = true })
+          else
+            local ok, err = pcall(vim.cmd.cnext)
+            if not ok then
+              vim.notify(err, vim.log.levels.ERROR)
+            end
+          end
+        end,
+        desc = "Next Trouble/Quickfix Item",
+      },
     },
   },
 
@@ -665,7 +700,14 @@ require("lazy").setup({
     dependencies = {
       { "nvim-lua/plenary.nvim",                    lazy = true },
       { 'nvim-lua/popup.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', enabled = vim.fn.executable("make") == 1, },
+      { 'nvim-telescope/telescope-ui-select.nvim' },
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build =
+        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
+        enabled =
+            vim.fn.executable("cmake") == 1,
+      },
       -- { 'nvim-telescope/telescope-media-files.nvim', lazy = false }
     },
     config = function()
@@ -683,6 +725,9 @@ require("lazy").setup({
           }
         },
         extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown()
+          },
           fzf = {
             fuzzy = true,                   -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
@@ -699,6 +744,7 @@ require("lazy").setup({
         }
       })
 
+      require("telescope").load_extension("ui-select")
       require('telescope').load_extension('fzf')
       -- require('telescope').load_extension('media_files')
     end,
@@ -710,7 +756,6 @@ require("lazy").setup({
       { '<leader>ts', '<Cmd>Telescope tags<CR>' },
       { '<leader>bs', "<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>" },
       { '<leader>e',  "<Cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>" },
-      { '<leader>ca', '<Cmd>Telescope lsp_code_actions<CR>' },
       { '<leader>d',  '<Cmd>Telescope lsp_definitions<CR>zzzv' },
       { '<leader>i',  '<Cmd>Telescope lsp_implementations<CR>zzzv' },
       { '<leader>r',  '<Cmd>Telescope lsp_references<CR>zzzv' },
@@ -818,7 +863,8 @@ require("lazy").setup({
     "OXY2DEV/markview.nvim",
     ft = { 'markdown' },
     dependencies = {
-      "nvim-tree/nvim-web-devicons", -- Used by the code bloxks
+      "nvim-tree/nvim-web-devicons",
+      "nvim-treesitter/nvim-treesitter",
     },
     config = function()
       require("markview").setup();
@@ -879,10 +925,11 @@ require("lazy").setup({
         timeout = 3000,
         icons = {
           DEBUG = "",
-          ERROR = " ",
-          INFO = " ",
           TRACE = "✎",
-          WARN = " ",
+          ERROR = '✘',
+          WARN = '▲',
+          HINT = '⚑',
+          INFO = '»'
         },
         max_height = function()
           return math.floor(vim.o.lines * 0.75)
