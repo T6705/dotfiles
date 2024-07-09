@@ -698,7 +698,7 @@ require("lazy").setup({
     'nvim-telescope/telescope.nvim',
     tag = '0.1.6',
     dependencies = {
-      { "nvim-lua/plenary.nvim",                    lazy = true },
+      { "nvim-lua/plenary.nvim",                  lazy = true },
       { 'nvim-lua/popup.nvim' },
       { 'nvim-telescope/telescope-ui-select.nvim' },
       {
@@ -761,6 +761,31 @@ require("lazy").setup({
       { '<leader>r',  '<Cmd>Telescope lsp_references<CR>zzzv' },
       { '<leader>td', '<Cmd>Telescope lsp_type_definitions<CR>' },
     },
+  },
+
+  {
+    "aznhe21/actions-preview.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<leader>ca", "<Cmd>lua require('actions-preview').code_actions()<CR>", desc = "preview LSP code actions" },
+    },
+    config = function()
+      require("actions-preview").setup {
+        telescope = {
+          sorting_strategy = "ascending",
+          layout_strategy = "vertical",
+          layout_config = {
+            width = 0.8,
+            height = 0.9,
+            prompt_position = "top",
+            preview_cutoff = 20,
+            preview_height = function(_, _, max_lines)
+              return max_lines - 15
+            end,
+          },
+        },
+      }
+    end
   },
 
   {
