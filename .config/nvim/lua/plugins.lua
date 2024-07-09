@@ -308,9 +308,10 @@ require("lazy").setup({
     branch = 'v3.x',
     dependencies = {
       -- LSP Support
-      { 'neovim/nvim-lspconfig' },                                      -- Required
-      { 'williamboman/mason.nvim',            build = ":MasonUpdate" }, -- Optional
-      { 'williamboman/mason-lspconfig.nvim' },                          -- Optional
+      { 'neovim/nvim-lspconfig' },                                            -- Required
+      { 'williamboman/mason.nvim',                  build = ":MasonUpdate" }, -- Optional
+      { 'williamboman/mason-lspconfig.nvim' },                                -- Optional
+      { 'WhoIsSethDaniel/mason-tool-installer.nvim' },                        -- Optional
 
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },                    -- Required
@@ -323,8 +324,8 @@ require("lazy").setup({
       { 'saadparwaiz1/cmp_luasnip' },            -- Optional
 
       -- Snippets
-      { 'L3MON4D3/LuaSnip',                   build = "make install_jsregexp", enabled = vim.fn.executable("make") == 1, opts = { history = true, delete_check_events = "TextChanged" } }, -- Required
-      { 'rafamadriz/friendly-snippets' },                                                                                                                                                  -- Optional
+      { 'L3MON4D3/LuaSnip',                         build = "make install_jsregexp", enabled = vim.fn.executable("make") == 1, opts = { history = true, delete_check_events = "TextChanged" } }, -- Required
+      { 'rafamadriz/friendly-snippets' },                                                                                                                                                        -- Optional
       { 'saadparwaiz1/cmp_luasnip' },
     }
   },

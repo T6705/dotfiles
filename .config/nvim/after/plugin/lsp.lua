@@ -56,6 +56,26 @@ require('mason').setup({
   }
 })
 
+require('mason-tool-installer').setup {
+  ensure_installed = {
+    "black",
+    "delve",
+    "docker_compose_language_service",
+    "gofumpt",
+    "goimports",
+    "golangci-lint",
+    "gomodifytags",
+    "gopls",
+    "html",
+    "impl",
+    "php-cs-fixer",
+    "prettier",
+    "revive",
+    "shellcheck",
+    "staticcheck",
+  }
+}
+
 require("mason-lspconfig").setup {
   ensure_installed = {
     "clangd",
