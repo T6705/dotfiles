@@ -1,140 +1,5 @@
 local lsp_zero = require("lsp-zero")
 
-require('mason').setup({
-  ui = {
-    border = "rounded",
-    icons = {
-      package_installed = "✓",
-      fpackage_pending = "➜",
-      package_uninstalled = "✗"
-    }
-  }
-})
-require("mason-lspconfig").setup {
-  ensure_installed = {
-    "clangd",
-    "dockerls",
-    "gopls",
-    "jsonls",
-    "lua_ls",
-    "pyright",
-    "rust_analyzer",
-    "tsserver",
-    "yamlls",
-  },
-  handlers = {
-    lsp_zero.default_setup
-  },
-}
-
-lsp_zero.preset("recommended")
-
-lsp_zero.configure('gopls', {
-  settings = {
-    gopls = {
-      codelenses = {
-        gc_details = true,
-        generate = true,
-        regenerate_cgo = true,
-        run_govulncheck = true,
-        test = true,
-        tidy = true,
-        upgrade_dependency = true,
-        vendor = true,
-      },
-      hints = {
-        assignVariableTypes = true,
-        compositeLiteralFields = true,
-        compositeLiteralTypes = true,
-        constantValues = true,
-        functionTypeParameters = true,
-        parameterNames = true,
-        rangeVariableTypes = true,
-      },
-      analyses = {
-        fieldalignment = true,
-        nilness = true,
-        shadow = true,
-        unusedparams = true,
-        unusedvariable = true,
-        unusedwrite = true,
-        useany = true,
-      },
-      completeUnimported = true,
-      directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-      experimentalPostfixCompletions = true,
-      gofumpt = true,
-      semanticTokens = true,
-      staticcheck = true,
-      usePlaceholders = true,
-    },
-  }
-})
-lsp_zero.configure('jsonls', {
-  settings = {
-    yaml = {
-      hover = true,
-      completion = true,
-      validate = true,
-      schemas = require("schemastore").json.schemas(),
-    },
-  }
-})
-lsp_zero.configure('lua_ls', {
-  settings = {
-    Lua = {
-      hint = {
-        enable = true,
-      },
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = "LuaJIT",
-        -- Setup your lua path
-        path = vim.split(package.path, ";"),
-      },
-      diagnostics = {
-        -- Fix Undefined global 'vim'
-        globals = { "vim" },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-        },
-      },
-    }
-  }
-})
-lsp_zero.configure('yamlls', {
-  settings = {
-    json = {
-      schemas = require("schemastore").json.schemas(),
-      validate = { enable = true },
-    },
-  }
-})
-
-lsp_zero.set_preferences({
-  manage_nvim_cmp = false,
-  set_lsp_keymaps = false,
-  suggest_lsp_servers = false,
-  sign_icons = {
-    --error = " ",
-    --error = 'E',
-    --hint = " ",
-    --hint = 'H',
-    --info = " "
-    --info = 'I'
-    --warn = " ",
-    --warn = 'W',
-    error = " ",
-    hint = "H ",
-    info = " ",
-    warn = " ",
-  }
-})
-
 lsp_zero.on_attach(function(client, bufnr)
   local opts = { buffer = bufnr, silent = true, noremap = true }
 
@@ -148,7 +13,7 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set('n', '<leader>of', function() vim.diagnostic.open_float() end, opts)
   vim.keymap.set('n', '[d', function() vim.diagnostic.goto_next() end, opts)
   vim.keymap.set('n', ']d', function() vim.diagnostic.goto_prev() end, opts)
-  -- vim.keymap.set('n', '<space>ca', function() vim.lsp.buf.code_action() end, opts)
+  vim.keymap.set('n', '<leader>ca', function() vim.lsp.buf.code_action() end, opts)
   -- vim.keymap.set('n', '<space>d', function() vim.lsp.buf.definition() end, opts)
   -- vim.keymap.set('n', '<space>i', function() vim.lsp.buf.implementation() end, opts)
   -- vim.keymap.set('n', '<space>r', function() vim.lsp.buf.references() end, opts)
@@ -157,15 +22,6 @@ lsp_zero.on_attach(function(client, bufnr)
   -- Format the current buffer using the active language servers.
   lsp_zero.buffer_autoformat()
 end)
-
-lsp_zero.set_sign_icons({
-  error = " ",
-  hint = "H ",
-  info = " ",
-  warn = " ",
-})
-
-lsp_zero.setup()
 
 require('flutter-tools').setup({
   lsp = {
@@ -181,3 +37,160 @@ vim.diagnostic.config({
   severity_sort = true,
   float = true,
 })
+
+lsp_zero.set_sign_icons({
+  error = '✘',
+  warn = '▲',
+  hint = '⚑',
+  info = '»'
+})
+
+require('mason').setup({
+  ui = {
+    border = "rounded",
+    icons = {
+      package_installed = "✓",
+      fpackage_pending = "➜",
+      package_uninstalled = "✗"
+    }
+  }
+})
+
+require("mason-lspconfig").setup {
+  ensure_installed = {
+    "clangd",
+    "dockerls",
+    "gopls",
+    "jsonls",
+    "lua_ls",
+    "pyright",
+    "rust_analyzer",
+    "tsserver",
+    "yamlls",
+  },
+
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup({})
+    end,
+
+    lua_ls = function()
+      require('lspconfig').lua_ls.setup({
+        settings = {
+          Lua = {
+            hint = {
+              enable = true,
+            },
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = "LuaJIT",
+              -- Setup your lua path
+              path = vim.split(package.path, ";"),
+            },
+            diagnostics = {
+              -- Fix Undefined global 'vim'
+              globals = { "vim" },
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = {
+                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+              },
+            },
+          }
+        },
+        on_init = function(client)
+          local uv = vim.uv or vim.loop
+          local path = client.workspace_folders[1].name
+
+          -- Don't do anything if there is a project local config
+          if uv.fs_stat(path .. '/.luarc.json')
+              or uv.fs_stat(path .. '/.luarc.jsonc')
+          then
+            return
+          end
+
+          -- Apply neovim specific settings
+          local lua_opts = lsp_zero.nvim_lua_ls()
+
+          client.config.settings.Lua = vim.tbl_deep_extend(
+            'force',
+            client.config.settings.Lua,
+            lua_opts.settings.Lua
+          )
+        end,
+      })
+    end,
+
+    gopls = function()
+      require('lspconfig').gopls.setup({
+        settings = {
+          gopls = {
+            codelenses = {
+              gc_details = true,
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
+            },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+            analyses = {
+              fieldalignment = true,
+              nilness = true,
+              shadow = true,
+              unusedparams = true,
+              unusedvariable = true,
+              unusedwrite = true,
+              useany = true,
+            },
+            completeUnimported = true,
+            directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+            experimentalPostfixCompletions = true,
+            gofumpt = true,
+            semanticTokens = true,
+            staticcheck = true,
+            usePlaceholders = true,
+          },
+        }
+      })
+    end,
+
+    jsonls = function()
+      require('lspconfig').jsonls.setup(
+        {
+          settings = {
+            yaml = {
+              hover = true,
+              completion = true,
+              validate = true,
+              schemas = require("schemastore").json.schemas(),
+            },
+          }
+        })
+    end,
+
+    yamlls = function()
+      require('lspconfig').yamlls.setup(
+        {
+          settings = {
+            json = {
+              schemas = require("schemastore").json.schemas(),
+              validate = { enable = true },
+            },
+          }
+        })
+    end
+  },
+}
