@@ -815,6 +815,16 @@ require("lazy").setup({
     keys = { { "<leader>tm", "<Cmd>TableModeToggle<CR>", desc = "TableModeToggle" } },
   },
   {
+    "OXY2DEV/markview.nvim",
+    ft = { 'markdown' },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons", -- Used by the code bloxks
+    },
+    config = function()
+      require("markview").setup();
+    end
+  },
+  {
     'dstein64/vim-startuptime',
     cmd = { "StartupTime" },
     config = function()
