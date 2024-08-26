@@ -61,7 +61,7 @@ detect_folders = []
 [bun]
 format = "via [$symbol($version )]($style)"
 version_format = "v${raw}"
-symbol = "🍞 "
+symbol = "🥟 "
 style = "bold red"
 disabled = false
 detect_extensions = []
@@ -230,7 +230,7 @@ use_os_path_sep = true
 [direnv]
 format = "[$symbol$loaded/$allowed]($style) "
 symbol = "direnv "
-style = "bold orange"
+style = "bold bright-yellow"
 disabled = true
 detect_extensions = []
 detect_files = [".envrc"]
@@ -415,6 +415,16 @@ typechanged = ""
 ignore_submodules = false
 disabled = false
 
+[gleam]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = "⭐ "
+style = "bold #FFAFF3"
+disabled = false
+detect_extensions = ["gleam"]
+detect_files = ["gleam.toml"]
+detect_folders = []
+
 [golang]
 format = "via [$symbol($version )]($style)"
 version_format = "v${raw}"
@@ -591,6 +601,7 @@ disabled = true
 detect_extensions = []
 detect_files = []
 detect_folders = []
+detect_env_vars = []
 contexts = []
 
 [kubernetes.context_aliases]
@@ -631,6 +642,12 @@ format = "via [$symbol$project]($style) "
 symbol = "⬢ "
 style = "blue bold"
 disabled = false
+
+[nats]
+format = "[$symbol($name )]($style)"
+symbol = "✉️ "
+style = "bold purple"
+disabled = true
 
 [nim]
 format = "via [$symbol($version )]($style)"
@@ -704,6 +721,16 @@ detect_folders = [
     "_opam",
     "esy.lock",
 ]
+
+[odin]
+format = "via [$symbol($version )]($style)"
+show_commit = false
+symbol = "Ø "
+style = "bold bright-blue"
+disabled = false
+detect_extensions = ["odin"]
+detect_files = []
+detect_folders = []
 
 [opa]
 format = "via [$symbol($version )]($style)"
@@ -841,7 +868,11 @@ symbol = "<=> "
 style = "bold white"
 disabled = false
 detect_extensions = ["purs"]
-detect_files = ["spago.dhall"]
+detect_files = [
+    "spago.dhall",
+    "spago.yaml",
+    "spago.lock",
+]
 detect_folders = []
 
 [python]
@@ -1089,6 +1120,8 @@ style_root = "red bold"
 style_user = "yellow bold"
 show_always = false
 disabled = false
+
+[username.aliases]
 
 [vagrant]
 format = "via [$symbol($version )]($style)"
