@@ -38,11 +38,13 @@ vim.diagnostic.config({
   float = true,
 })
 
+
+local lsp_symbols = require('lsp_symbols')
 lsp_zero.set_sign_icons({
-  error = '✘',
-  warn = '▲',
-  hint = '⚑',
-  info = '»'
+  error = lsp_symbols.ERROR,
+  warn = lsp_symbols.WARN,
+  hint = lsp_symbols.HINT,
+  info = lsp_symbols.INFO,
 })
 
 require('mason').setup({
@@ -60,27 +62,28 @@ require('mason-tool-installer').setup {
   ensure_installed = {
     "black",
     "delve",
-    "docker_compose_language_service",
     "gofumpt",
     "goimports",
     "golangci-lint",
     "gomodifytags",
-    "gopls",
-    "html",
     "impl",
     "php-cs-fixer",
     "prettier",
     "revive",
     "shellcheck",
+    "shfmt",
     "staticcheck",
   }
 }
 
 require("mason-lspconfig").setup {
   ensure_installed = {
+    "bashls",
     "clangd",
+    "docker_compose_language_service",
     "dockerls",
     "gopls",
+    "html",
     "jsonls",
     "lua_ls",
     "pyright",
@@ -187,30 +190,54 @@ require("mason-lspconfig").setup {
       })
     end,
 
-    jsonls = function()
-      require('lspconfig').jsonls.setup(
-        {
-          settings = {
-            yaml = {
-              hover = true,
-              completion = true,
-              validate = true,
-              schemas = require("schemastore").json.schemas(),
+    pyright = function()
+      require('lspconfig').pyright.setup({
+        single_file_support = true,
+        settings = {
+          pyright = {
+            disableLanguageServices = false,
+            disableOrganizeImports = false
+          },
+          python = {
+            analysis = {
+              autoImportCompletions = true,
+              autoSearchPaths = true,
+              diagnosticMode = "workspace", -- openFilesOnly, workspace
+              typeCheckingMode = "strict",  -- off, basic, strict
+              useLibraryCodeForTypes = true
             },
-          }
-        })
+          },
+        },
+      })
+    end,
+
+    jsonls = function()
+      require('lspconfig').yamlls.setup({
+        settings = {
+          json = {
+            schemas = require("schemastore").json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      })
     end,
 
     yamlls = function()
-      require('lspconfig').yamlls.setup(
-        {
-          settings = {
-            json = {
-              schemas = require("schemastore").json.schemas(),
-              validate = { enable = true },
+      require('lspconfig').jsonls.setup({
+        settings = {
+          yaml = {
+            hover = true,
+            completion = true,
+            validate = true,
+            schemas = require("schemastore").json.schemas(),
+            schemaStore = {
+              enable = true,
+              url = "https://www.schemastore.org/api/json/catalog.json",
             },
-          }
-        })
-    end
+          },
+        }
+      })
+    end,
+
   },
 }

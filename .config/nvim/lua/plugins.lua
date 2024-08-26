@@ -132,6 +132,7 @@ require("lazy").setup({
       { "catppuccin" },
     },
     config = function()
+      vim.diagnostic.config { update_in_insert = true }
       require("bufferline").setup {
         highlights = require("catppuccin.groups.integrations.bufferline").get(),
         options = {
@@ -148,7 +149,6 @@ require("lazy").setup({
           max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
           tab_size = 18,
           diagnostics = "nvim_lsp",
-          diagnostics_update_in_insert = true,
           diagnostics_indicator = function(count, level, diagnostics_dict, context)
             local icon = level:match("error") and " " or " "
             return " " .. icon .. count
@@ -559,6 +559,7 @@ require("lazy").setup({
         vim.cmd("edit " .. file.fname)
       end)
 
+      local lsp_symbols = require("lsp_symbols")
       require("nvim-tree").setup({
         hijack_cursor = true,
         reload_on_bufenter = true,
@@ -586,6 +587,12 @@ require("lazy").setup({
         diagnostics = {
           enable = true,
           show_on_dirs = true,
+          icons = {
+            hint = lsp_symbols.HINT,
+            info = lsp_symbols.INFO,
+            warning = lsp_symbols.WARN,
+            error = lsp_symbols.ERROR,
+          },
         },
         update_focused_file = {
           enable = true,
@@ -947,15 +954,16 @@ require("lazy").setup({
       desc = "Dismiss all Notification"
     } },
     config = function()
+      local lsp_symbols = require("lsp_symbols")
       require("notify").setup({
         timeout = 3000,
         icons = {
-          DEBUG = "",
-          TRACE = "✎",
-          ERROR = '✘',
-          WARN = '▲',
-          HINT = '⚑',
-          INFO = '»'
+          DEBUG = lsp_symbols.DEBUG,
+          TRACE = lsp_symbols.TRACE,
+          ERROR = lsp_symbols.ERROR,
+          WARN = lsp_symbols.WARN,
+          HINT = lsp_symbols.HINT,
+          INFO = lsp_symbols.INFO,
         },
         max_height = function()
           return math.floor(vim.o.lines * 0.75)

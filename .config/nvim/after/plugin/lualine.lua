@@ -52,6 +52,7 @@ local function mixed_indent()
   end
 end
 
+local lsp_symbols = require('lsp_symbols')
 
 require 'lualine'.setup {
   options = {
@@ -86,6 +87,12 @@ require 'lualine'.setup {
         colored = true,
         update_in_insert = true,
         always_visible = false,
+        symbols = {
+          error = lsp_symbols.ERROR,
+          warn = lsp_symbols.WARN,
+          hint = lsp_symbols.HINT,
+          info = lsp_symbols.INFO,
+        },
       }
     },
     lualine_c = {
@@ -108,14 +115,8 @@ require 'lualine'.setup {
     }
   },
   inactive_sections = {
-    lualine_a = { 'filetype' },
+    lualine_a = {},
     lualine_b = {
-      {
-        'filename',
-        path = 1
-      }
-    },
-    lualine_c = {
       'branch',
       'diff',
       {
@@ -124,7 +125,20 @@ require 'lualine'.setup {
         colored = true,
         update_in_insert = true,
         always_visible = false,
+        symbols = {
+          error = lsp_symbols.ERROR,
+          warn = lsp_symbols.WARN,
+          hint = lsp_symbols.HINT,
+          info = lsp_symbols.INFO,
+        },
       }
+    },
+    lualine_c = {
+      {
+        'filename',
+        path = 1
+      },
+      'filesize'
     },
     lualine_x = { 'location' },
     lualine_y = {},
