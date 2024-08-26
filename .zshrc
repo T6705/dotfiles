@@ -96,7 +96,6 @@ plugins=(
     docker
     docker-compose
     encode64
-    fd
     flutter
     fzf
     git
@@ -112,7 +111,6 @@ plugins=(
     pipenv
     pyenv
     python
-    ripgrep
     rsync
     systemadmin
     systemd
