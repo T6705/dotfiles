@@ -253,14 +253,14 @@ require("lazy").setup({
   -- use {
   --   'tpope/vim-fugitive',
   --   config = function()
-  --     -- vim.keymap.set('n', '<leader>gd', ':Gvdiff<CR>')
-  --     vim.keymap.set('n', '<leader>gb', ':Git blame<CR>')
-  --     vim.keymap.set('n', '<leader>gc', ':Git commit<CR>')
-  --     vim.keymap.set('n', '<leader>gps', ':Git push<CR>')
-  --     vim.keymap.set('n', '<leader>gpu', ':Git pull<CR>')
-  --     vim.keymap.set('n', '<leader>gr', ':GRemove<CR>')
-  --     vim.keymap.set('n', '<leader>gs', ':Git<CR>')
-  --     vim.keymap.set('n', '<leader>gw', ':Gwrite<CR>')
+  --     -- vim.keymap.set('n', '<leader>gd', '<Cmd>Gvdiff<CR>')
+  --     vim.keymap.set('n', '<leader>gb', '<Cmd>Git blame<CR>')
+  --     vim.keymap.set('n', '<leader>gc', '<Cmd>Git commit<CR>')
+  --     vim.keymap.set('n', '<leader>gps', '<Cmd>Git push<CR>')
+  --     vim.keymap.set('n', '<leader>gpu', '<Cmd>Git pull<CR>')
+  --     vim.keymap.set('n', '<leader>gr', '<Cmd>GRemove<CR>')
+  --     vim.keymap.set('n', '<leader>gs', '<Cmd>Git<CR>')
+  --     vim.keymap.set('n', '<leader>gw', '<Cmd>Gwrite<CR>')
   --   end
   -- }
   {
@@ -571,9 +571,9 @@ require("lazy").setup({
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     cmd = { "NvimTreeToggle", "NvimTreeRefresh", "NvimTreeFindFile" },
     keys = {
-      { '<leader>E', ':NvimTreeToggle<CR>' },
-      { '<leader>R', ':NvimTreeRefresh<CR>' },
-      { '<leader>F', ':NvimTreeFindFile<CR>' },
+      { '<leader>E', '<Cmd>NvimTreeToggle<CR>' },
+      { '<leader>R', '<Cmd>NvimTreeRefresh<CR>' },
+      { '<leader>F', '<Cmd>NvimTreeFindFile<CR>' },
     },
     config = function()
       -- Automatically open file upon creation
@@ -705,7 +705,7 @@ require("lazy").setup({
     cmd = { "Trouble" },
     keys = {
       { "<leader>xx", "<Cmd>Trouble diagnostics toggle<CR>",              desc = "Diagnostics (Trouble)" },
-      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+      { "<leader>xX", "<Cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
       { "<leader>xl", "<Cmd>Trouble loclist toggle<CR>",                  desc = "Location List (Trouble)" },
       { "<leader>xq", "<Cmd>Trouble quickfix toggle<CR>",                 desc = "Quickfix List (Trouble)" },
       { "gR",         "<Cmd>Trouble lsp_references toggle<CR>" },
@@ -913,15 +913,15 @@ require("lazy").setup({
     event = "VeryLazy",
     config = true,
     keys = {
-      { '<leader>`', ':normal ysiw`<CR>' },
-      { '<leader>"', ':normal ysiw"<CR>' },
-      { "<leader>'", ":normal ysiw'<CR>" },
-      { '<leader>(', ':normal ysiw(<CR>' },
-      { '<leader>)', ':normal ysiw)<CR>' },
-      { '<leader>]', ':normal ysiw]<CR>' },
-      { '<leader>[', ':normal ysiw[<CR>' },
-      { '<leader>}', ':normal ysiw}<CR>' },
-      { '<leader>{', ':normal ysiw{<CR>' },
+      { '<leader>`', '<Cmd>normal ysiw`<CR>' },
+      { '<leader>"', '<Cmd>normal ysiw"<CR>' },
+      { "<leader>'", "<Cmd>normal ysiw'<CR>" },
+      { '<leader>(', '<Cmd>normal ysiw(<CR>' },
+      { '<leader>)', '<Cmd>normal ysiw)<CR>' },
+      { '<leader>]', '<Cmd>normal ysiw]<CR>' },
+      { '<leader>[', '<Cmd>normal ysiw[<CR>' },
+      { '<leader>}', '<Cmd>normal ysiw}<CR>' },
+      { '<leader>{', '<Cmd>normal ysiw{<CR>' },
     },
   },
   {
