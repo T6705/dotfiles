@@ -236,6 +236,13 @@ require("lazy").setup({
     end
   },
 
+  {
+    'mcauley-penney/visual-whitespace.nvim',
+    keys = {
+      { "<leader>vw", '<Cmd>lua require("visual-whitespace").toggle()<CR>' },
+    },
+  },
+
   { "nvim-zh/colorful-winsep.nvim", config = true,                          event = { "WinNew" }, },
   { 'Bekaboo/dropbar.nvim',         event = { "BufReadPre", "BufNewFile" }, },
 
@@ -1041,6 +1048,20 @@ require("lazy").setup({
         },
       })
     end
+  },
+  {
+    "ptdewey/yankbank-nvim",
+    dependencies = "kkharji/sqlite.lua",
+    config = function()
+      require('yankbank').setup({
+        persist_type = "sqlite",
+      })
+    end,
+    keys = { { "<leader>Y", "<Cmd>YankBank<CR>" } },
+  },
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {},
   },
   {
     "folke/snacks.nvim",
