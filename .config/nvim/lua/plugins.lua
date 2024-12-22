@@ -80,10 +80,10 @@ require("lazy").setup({
               information = { "underline" },
             },
           },
-          indent_blankline = {
-            enabled = true,
-            colored_indent_levels = false,
-          },
+          --indent_blankline = {
+          --  enabled = true,
+          --  colored_indent_levels = false,
+          --},
         }
       }
       vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
@@ -111,16 +111,17 @@ require("lazy").setup({
     end,
   },
 
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require('ibl').setup {
-        indent = { tab_char = "▎" },
-      }
-    end,
-  },
+  --{
+  --  'lukas-reineke/indent-blankline.nvim',
+  --  main = "ibl",
+  --  ---@module "ibl"
+  --  ---@type ibl.config
+  --  opts = {},
+  --  event = { "BufReadPost", "BufNewFile" },
+  --  config = function()
+  --    require('ibl').setup()
+  --  end,
+  --},
 
   {
     'akinsho/bufferline.nvim',
@@ -574,6 +575,21 @@ require("lazy").setup({
         vim.cmd("edit " .. file.fname)
       end)
 
+      -- https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
+      local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "NvimTreeSetup",
+        callback = function()
+          local events = require("nvim-tree.api").events
+          events.subscribe(events.Event.NodeRenamed, function(data)
+            if prev.new_name ~= data.new_name or prev.old_name ~= data.old_name then
+              data = data
+              Snacks.rename.on_rename_file(data.old_name, data.new_name)
+            end
+          end)
+        end,
+      })
+
       local lsp_symbols = require("lsp_symbols")
       require("nvim-tree").setup({
         hijack_cursor = true,
@@ -957,42 +973,42 @@ require("lazy").setup({
       })
     end
   },
-  {
-    'rcarriga/nvim-notify',
-    dependencies = "catppuccin",
-    event = "VeryLazy",
-    keys = { {
-      "<leader>un",
-      function()
-        require("notify").dismiss({ silent = true, pending = true })
-      end,
-      desc = "Dismiss all Notification"
-    } },
-    config = function()
-      local lsp_symbols = require("lsp_symbols")
-      require("notify").setup({
-        timeout = 3000,
-        icons = {
-          DEBUG = lsp_symbols.DEBUG,
-          TRACE = lsp_symbols.TRACE,
-          ERROR = lsp_symbols.ERROR,
-          WARN = lsp_symbols.WARN,
-          HINT = lsp_symbols.HINT,
-          INFO = lsp_symbols.INFO,
-        },
-        max_height = function()
-          return math.floor(vim.o.lines * 0.75)
-        end,
-        max_width = function()
-          return math.floor(vim.o.columns * 0.75)
-        end,
-        on_open = function(win)
-          vim.api.nvim_win_set_config(win, { zindex = 100 })
-        end,
-      })
-      vim.notify = require("notify")
-    end
-  },
+  -- {
+  --   'rcarriga/nvim-notify',
+  --   dependencies = "catppuccin",
+  --   event = "VeryLazy",
+  --   keys = { {
+  --     "<leader>un",
+  --     function()
+  --       require("notify").dismiss({ silent = true, pending = true })
+  --     end,
+  --     desc = "Dismiss all Notification"
+  --   } },
+  --   config = function()
+  --     local lsp_symbols = require("lsp_symbols")
+  --     require("notify").setup({
+  --       timeout = 3000,
+  --       icons = {
+  --         DEBUG = lsp_symbols.DEBUG,
+  --         TRACE = lsp_symbols.TRACE,
+  --         ERROR = lsp_symbols.ERROR,
+  --         WARN = lsp_symbols.WARN,
+  --         HINT = lsp_symbols.HINT,
+  --         INFO = lsp_symbols.INFO,
+  --       },
+  --       max_height = function()
+  --         return math.floor(vim.o.lines * 0.75)
+  --       end,
+  --       max_width = function()
+  --         return math.floor(vim.o.columns * 0.75)
+  --       end,
+  --       on_open = function(win)
+  --         vim.api.nvim_win_set_config(win, { zindex = 100 })
+  --       end,
+  --     })
+  --     vim.notify = require("notify")
+  --   end
+  -- },
   {
     'simrat39/symbols-outline.nvim',
     cmd = { "SymbolsOutline" },
@@ -1025,5 +1041,49 @@ require("lazy").setup({
         },
       })
     end
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      bigfile      = { enabled = false },
+      bfdelete     = { enabled = false },
+      dashboard    = { enabled = false },
+      debug        = { enabled = false },
+      dim          = { enabled = false },
+      git          = { enabled = false },
+      gitbrowse    = { enabled = true },
+      indent       = { enabled = true },
+      input        = { enabled = true },
+      lazygit      = { enabled = true },
+      notifier     = { enabled = true, timeout = 3000 },
+      notify       = { enabled = true },
+      profiler     = { enabled = false },
+      quickfile    = { enabled = true },
+      rename       = { enabled = true },
+      scope        = { enabled = true },
+      scratch      = { enabled = false },
+      scroll       = { enabled = true },
+      statuscolumn = { enabled = true },
+      terminal     = { enabled = false },
+      toggle       = { enabled = false },
+      win          = { enabled = false },
+      words        = { enabled = true },
+      zen          = { enabled = false },
+    },
+    keys = {
+      { "<leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse" },
+      { "<leader>gf", function() Snacks.lazygit.log_file() end,        desc = "Lazygit Current File History" },
+      { "<leader>gg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
+      { "<leader>gl", function() Snacks.lazygit.log() end,             desc = "Lazygit Log (cwd)" },
+      { "<leader>un", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications" },
+      { "<leader>rf", function() Snacks.rename.rename_file() end,      desc = "Rename File" },
+      { "]]",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",              mode = { "n", "t" } },
+      { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",              mode = { "n", "t" } },
+    }
   }
 })
