@@ -106,6 +106,7 @@ o.shortmess = o.shortmess .. "t"     -- truncate file message
 o.shortmess = o.shortmess .. "T"     -- truncate messages in the middle
 o.shortmess = o.shortmess .. "I"     -- no intro message
 o.shortmess = o.shortmess .. "c"     -- no ins-completion messages
+o.mopt = "wait:1000,history:5000"    --  Goodbye to the "press enter" in messages
 vim.g.markdown_recommended_stype = 0 -- fix markdown indentation settings
 opt.scrolloff = 3                    -- 3 lines above/below cursor when scrolling
 if vim.fn.has("nvim-0.10") == 1 then
