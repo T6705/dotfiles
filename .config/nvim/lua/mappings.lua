@@ -144,7 +144,7 @@ map('n', '<leader>u', 'gUiw', opts)
 map('n', '<leader>l', 'guiw', opts)
 
 -- clear highlighted search
-map('n', '<leader>sc', ':set hlsearch! hlsearch?<CR>', opts)
+map('n', '<Esc>', '<cmd>nohlsearch<CR>', opts)
 
 -- Press <leader>bg in order to toggle light/dark background
 --map <leader>bg :let &background = ( &background == "dark"? "light" : "dark" )<CR>
@@ -157,6 +157,15 @@ map('n', '<leader>sc', ':set hlsearch! hlsearch?<CR>', opts)
 
 -- search for word under the cursor
 map('n', '<leader>/', '"fyiw :/<C-r>f<CR>', opts)
+
+-- Easy find and replace.
+map({ "v" }, "<leader>re", '"hy:%s/<C-r>h/<C-r>h/gc<left><left><left>',
+  { desc = "Open search and replace for currently selected text" })
+map({ "n" }, "<leader>re", ":%s/<C-r><C-w>/<C-r><C-w>/gc<Left><Left><Left>",
+  { desc = "Open search and replace for word under cursor" })
+
+-- Duplicate a line and comment out the first line
+map("n", "yc", ":norm yygccp<CR>zz", opts)
 
 -- window navigation
 --map('n', '<leader>wh :call functions#WinMove('h')<CR>
