@@ -171,7 +171,6 @@ opt.foldlevelstart = 99
 opt.foldenable = true -- fold by default
 opt.foldmethod = 'indent'
 
-
 -- error bells
 opt.errorbells = false
 -- set t_vb=
@@ -357,25 +356,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function(event)
-    local ok, _ = pcall(vim.treesitter.get_parser, event.buf)
-    if ok then
-      vim.treesitter.start()
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd("Filetype", {
-  pattern = { "*" },
-  callback = function()
-    if pcall(vim.treesitter.start) then
-      vim.wo.foldmethod = "expr"
-      vim.wo.foldexpr = "v.lua.vim.treesitter.foldexpr()"
-      vim.wo.foldtext = "v:lua.vim.treesitter.foldtext()"
-    end
-  end
-})
 
 -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#imports-and-formatting
 -- Use the following configuration to have your imports organized on save using the logic of goimports and your code formatted.
