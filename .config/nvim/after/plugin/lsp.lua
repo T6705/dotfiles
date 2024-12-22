@@ -30,7 +30,7 @@ require('flutter-tools').setup({
 })
 
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = false, -- https://github.com/rachartier/tiny-inline-diagnostic.nvim
   signs = true,
   update_in_insert = true,
   underline = true,
