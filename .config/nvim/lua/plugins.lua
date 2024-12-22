@@ -303,9 +303,12 @@ require("lazy").setup({
 
   {
     "FabijanZulj/blame.nvim",
-    cmd = { "ToggleBlame" },
+    cmd = { "BlameToggle" },
+    config = function()
+      require('blame').setup({})
+    end,
     keys = {
-      { "<leader>gb", "<Cmd>ToggleBlame virtual<CR>", desc = "blame shown in a virtual text floated to the right" } },
+      { "<leader>gb", "<Cmd>BlameToggle virtual<CR>", desc = "blame shown in a virtual text floated to the right" } },
   },
 
   --------------------------------------------------------------------------------
@@ -648,7 +651,11 @@ require("lazy").setup({
     config = function()
       require('ufo').setup({
         open_fold_hl_timeout = 150,
-        close_fold_kinds_for_ft = { 'imports', 'comment' },
+        close_fold_kinds_for_ft = {
+          default = { 'imports', 'comment' },
+          json = { 'array' },
+          c = { 'comment', 'region' }
+        },
         preview = {
           win_config = {
             border = { '', '─', '', '', '', '─', '', '' },
@@ -657,7 +664,9 @@ require("lazy").setup({
           },
           mappings = {
             scrollU = '<C-u>',
-            scrollD = '<C-d>'
+            scrollD = '<C-d>',
+            jumpTop = '[',
+            jumpBot = ']'
           }
         },
         provider_selector = function(bufnr, filetype, buftype)
