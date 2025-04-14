@@ -257,7 +257,7 @@ map('n', '<leader>4', 'm`^i#### <Esc>``5l', opts)
 map('n', '<leader>5', 'm`^i##### <Esc>``6l', opts)
 
 -- Recompute syntax highlighting
-map('n', '<leader>ss', ':syntax sync fromstart<CR>', opts)
+-- map('n', '<leader>ss', ':syntax sync fromstart<CR>', opts)
 
 ---------------------------------------------------------------------------------
 -- prettier
