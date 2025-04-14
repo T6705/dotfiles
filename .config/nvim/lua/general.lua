@@ -346,15 +346,25 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   end,
 })
 
--- close the tab/nvim when nvim-tree is the last window.
-vim.api.nvim_create_autocmd("BufEnter", {
-  nested = true,
-  callback = function()
-    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
-      vim.cmd "quit"
+-- https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
+vim.api.nvim_create_autocmd("User", {
+  pattern = "OilActionsPost",
+  callback = function(event)
+    if event.data.actions.type == "move" then
+      Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
     end
-  end
+  end,
 })
+
+-- -- close the tab/nvim when nvim-tree is the last window.
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   nested = true,
+--   callback = function()
+--     if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
+--       vim.cmd "quit"
+--     end
+--   end
+-- })
 
 
 -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#imports-and-formatting
