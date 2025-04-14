@@ -36,15 +36,16 @@ require("lazy").setup({
           suffix = "_compiled"
         },
         dim_inactive = {
-          enabled = true,
+          enabled = true,              -- dims the background color of inactive window
           shade = "dark",
-          percentage = 0.15,
+          percentage = 0.15,           -- percentage of the shade to apply to the inactive window
         },
-        no_italic = false, -- Force no italic
-        no_bold = false,   -- Force no bold
-        term_colors = true,
-        transparent_background = true,
-        show_end_of_buffer = true, -- show the '~' characters after the end of buffers
+        no_italic = false,             -- Force no italic
+        no_bold = false,               -- Force no bold
+        no_underline = false,          -- Force no underline
+        term_colors = true,            -- sets terminal colors (e.g. `g:terminal_color_0`)
+        transparent_background = true, -- disables setting the background color.
+        show_end_of_buffer = true,     -- show the '~' characters after the end of buffers
         styles = {
           comments = { "italic" },
           conditionals = { "italic" },
@@ -59,12 +60,22 @@ require("lazy").setup({
           types = {},
           operators = {},
         },
+        default_integrations = true,
         integrations = {
+          dropbar = {
+            enabled = true,
+            color_mode = true, -- enable color for kind's texts, not just kind's icons
+          },
+          gitsigns = true,
           lsp_trouble = true,
           mason = true,
-          notify = true,
+          -- notify = true,
+          nvim_surround = true,
           symbols_outline = true,
+          treesitter = true,
           treesitter_context = true,
+          ufo = true,
+          snacks = true,
           native_lsp = {
             enabled = true,
             virtual_text = {
