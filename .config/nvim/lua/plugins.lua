@@ -580,80 +580,80 @@ require("lazy").setup({
   --  end
   --}
 
-  {
-    'nvim-tree/nvim-tree.lua',
-    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
-    cmd = { "NvimTreeToggle", "NvimTreeRefresh", "NvimTreeFindFile" },
-    keys = {
-      { '<leader>E', '<Cmd>NvimTreeToggle<CR>' },
-      { '<leader>R', '<Cmd>NvimTreeRefresh<CR>' },
-      { '<leader>F', '<Cmd>NvimTreeFindFile<CR>' },
-    },
-    config = function()
-      -- Automatically open file upon creation
-      local api = require("nvim-tree.api")
-      api.events.subscribe(api.events.Event.FileCreated, function(file)
-        vim.cmd("edit " .. file.fname)
-      end)
+  -- {
+  --   'nvim-tree/nvim-tree.lua',
+  --   dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
+  --   cmd = { "NvimTreeToggle", "NvimTreeRefresh", "NvimTreeFindFile" },
+  --   keys = {
+  --     { '<leader>E', '<Cmd>NvimTreeToggle<CR>' },
+  --     { '<leader>R', '<Cmd>NvimTreeRefresh<CR>' },
+  --     { '<leader>F', '<Cmd>NvimTreeFindFile<CR>' },
+  --   },
+  --   config = function()
+  --     -- Automatically open file upon creation
+  --     local api = require("nvim-tree.api")
+  --     api.events.subscribe(api.events.Event.FileCreated, function(file)
+  --       vim.cmd("edit " .. file.fname)
+  --     end)
 
-      -- https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
-      local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "NvimTreeSetup",
-        callback = function()
-          local events = require("nvim-tree.api").events
-          events.subscribe(events.Event.NodeRenamed, function(data)
-            if prev.new_name ~= data.new_name or prev.old_name ~= data.old_name then
-              data = data
-              Snacks.rename.on_rename_file(data.old_name, data.new_name)
-            end
-          end)
-        end,
-      })
+  --     -- https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
+  --     local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
+  --     vim.api.nvim_create_autocmd("User", {
+  --       pattern = "NvimTreeSetup",
+  --       callback = function()
+  --         local events = require("nvim-tree.api").events
+  --         events.subscribe(events.Event.NodeRenamed, function(data)
+  --           if prev.new_name ~= data.new_name or prev.old_name ~= data.old_name then
+  --             data = data
+  --             Snacks.rename.on_rename_file(data.old_name, data.new_name)
+  --           end
+  --         end)
+  --       end,
+  --     })
 
-      local lsp_symbols = require("lsp_symbols")
-      require("nvim-tree").setup({
-        hijack_cursor = true,
-        reload_on_bufenter = true,
-        respect_buf_cwd = true,
-        sync_root_with_cwd = true,
-        filters = {
-          custom = {
-            "^.git$",
-          },
-        },
-        view = {
-          adaptive_size = true,
-          width = 35,
-          preserve_window_proportions = true,
-        },
-        renderer = {
-          add_trailing = true,
-          full_name = true,
-          group_empty = true,
-          highlight_git = true,
-          indent_markers = {
-            enable = true,
-          },
-        },
-        diagnostics = {
-          enable = true,
-          show_on_dirs = true,
-          icons = {
-            hint = lsp_symbols.HINT,
-            info = lsp_symbols.INFO,
-            warning = lsp_symbols.WARN,
-            error = lsp_symbols.ERROR,
-          },
-        },
-        update_focused_file = {
-          enable = true,
-          update_cwd = true,
-          ignore_list = {},
-        },
-      })
-    end,
-  },
+  --     local lsp_symbols = require("lsp_symbols")
+  --     require("nvim-tree").setup({
+  --       hijack_cursor = true,
+  --       reload_on_bufenter = true,
+  --       respect_buf_cwd = true,
+  --       sync_root_with_cwd = true,
+  --       filters = {
+  --         custom = {
+  --           "^.git$",
+  --         },
+  --       },
+  --       view = {
+  --         adaptive_size = true,
+  --         width = 35,
+  --         preserve_window_proportions = true,
+  --       },
+  --       renderer = {
+  --         add_trailing = true,
+  --         full_name = true,
+  --         group_empty = true,
+  --         highlight_git = true,
+  --         indent_markers = {
+  --           enable = true,
+  --         },
+  --       },
+  --       diagnostics = {
+  --         enable = true,
+  --         show_on_dirs = true,
+  --         icons = {
+  --           hint = lsp_symbols.HINT,
+  --           info = lsp_symbols.INFO,
+  --           warning = lsp_symbols.WARN,
+  --           error = lsp_symbols.ERROR,
+  --         },
+  --       },
+  --       update_focused_file = {
+  --         enable = true,
+  --         update_cwd = true,
+  --         ignore_list = {},
+  --       },
+  --     })
+  --   end,
+  -- },
 
   {
     'kevinhwang91/nvim-ufo',
@@ -760,74 +760,74 @@ require("lazy").setup({
     },
   },
 
-  {
-    'nvim-telescope/telescope.nvim',
-    tag = '0.1.6',
-    dependencies = {
-      { "nvim-lua/plenary.nvim",                  lazy = true },
-      { 'nvim-lua/popup.nvim' },
-      { 'nvim-telescope/telescope-ui-select.nvim' },
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build =
-        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
-        enabled =
-            vim.fn.executable("cmake") == 1,
-      },
-      -- { 'nvim-telescope/telescope-media-files.nvim', lazy = false }
-    },
-    config = function()
-      require('telescope').setup({
-        defaults = {
-          vimgrep_arguments = {
-            'rg',
-            '--color=never',
-            '--no-heading',
-            '--with-filename',
-            '--line-number',
-            '--column',
-            '--smart-case',
-            '--trim'
-          }
-        },
-        extensions = {
-          ["ui-select"] = {
-            require("telescope.themes").get_dropdown()
-          },
-          fzf = {
-            fuzzy = true,                   -- false will only do exact matching
-            override_generic_sorter = true, -- override the generic sorter
-            override_file_sorter = true,    -- override the file sorter
-            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
-            -- the default case_mode is "smart_case"
-          },
-          -- media_files = {
-          --   -- filetypes whitelist
-          --   -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-          --   filetypes = { "png", "webp", "jpg", "jpeg" },
-          --   find_cmd = "rg" -- find command (defaults to `fd`)
-          -- }
-        }
-      })
+  --{
+  --  'nvim-telescope/telescope.nvim',
+  --  tag = '0.1.6',
+  --  dependencies = {
+  --    { "nvim-lua/plenary.nvim",                  lazy = true },
+  --    { 'nvim-lua/popup.nvim' },
+  --    { 'nvim-telescope/telescope-ui-select.nvim' },
+  --    {
+  --      'nvim-telescope/telescope-fzf-native.nvim',
+  --      build =
+  --      'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
+  --      enabled =
+  --          vim.fn.executable("cmake") == 1,
+  --    },
+  --    -- { 'nvim-telescope/telescope-media-files.nvim', lazy = false }
+  --  },
+  --  config = function()
+  --    require('telescope').setup({
+  --      defaults = {
+  --        vimgrep_arguments = {
+  --          'rg',
+  --          '--color=never',
+  --          '--no-heading',
+  --          '--with-filename',
+  --          '--line-number',
+  --          '--column',
+  --          '--smart-case',
+  --          '--trim'
+  --        }
+  --      },
+  --      extensions = {
+  --        ["ui-select"] = {
+  --          require("telescope.themes").get_dropdown()
+  --        },
+  --        fzf = {
+  --          fuzzy = true,                   -- false will only do exact matching
+  --          override_generic_sorter = true, -- override the generic sorter
+  --          override_file_sorter = true,    -- override the file sorter
+  --          case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+  --          -- the default case_mode is "smart_case"
+  --        },
+  --        -- media_files = {
+  --        --   -- filetypes whitelist
+  --        --   -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+  --        --   filetypes = { "png", "webp", "jpg", "jpeg" },
+  --        --   find_cmd = "rg" -- find command (defaults to `fd`)
+  --        -- }
+  --      }
+  --    })
 
-      require("telescope").load_extension("ui-select")
-      require('telescope').load_extension('fzf')
-      -- require('telescope').load_extension('media_files')
-    end,
-    cmd = { "Telescope" },
-    keys = {
-      { '<leader>bf', '<Cmd>Telescope buffers<CR>' },
-      { '<leader>ms', '<Cmd>Telescope marks<CR>' },
-      { '<leader>rg', '<Cmd>Telescope live_grep<CR>' },
-      { '<leader>ts', '<Cmd>Telescope tags<CR>' },
-      { '<leader>bs', "<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>" },
-      { '<leader>e',  "<Cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>" },
-      { '<leader>d',  '<Cmd>Telescope lsp_definitions<CR>zzzv' },
-      { '<leader>i',  '<Cmd>Telescope lsp_implementations<CR>zzzv' },
-      { '<leader>r',  '<Cmd>Telescope lsp_references<CR>zzzv' },
-      { '<leader>td', '<Cmd>Telescope lsp_type_definitions<CR>' },
-    },
-  },
+  --    require("telescope").load_extension("ui-select")
+  --    require('telescope').load_extension('fzf')
+  --    -- require('telescope').load_extension('media_files')
+  --  end,
+  --  cmd = { "Telescope" },
+  --  keys = {
+  --    --{ '<leader>bf', '<Cmd>Telescope buffers<CR>' },
+  --    --{ '<leader>ms', '<Cmd>Telescope marks<CR>' },
+  --    --{ '<leader>rg', '<Cmd>Telescope live_grep<CR>' },
+  --    --{ '<leader>ts', '<Cmd>Telescope tags<CR>' },
+  --    --{ '<leader>bs', "<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>" },
+  --    --{ '<leader>e',  "<Cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>" },
+  --    --{ '<leader>d',  '<Cmd>Telescope lsp_definitions<CR>zzzv' },
+  --    --{ '<leader>i',  '<Cmd>Telescope lsp_implementations<CR>zzzv' },
+  --    --{ '<leader>r',  '<Cmd>Telescope lsp_references<CR>zzzv' },
+  --    --{ '<leader>td', '<Cmd>Telescope lsp_type_definitions<CR>' },
+  --  },
+  --},
 
   {
     "aznhe21/actions-preview.nvim",
@@ -1036,12 +1036,12 @@ require("lazy").setup({
   --     vim.notify = require("notify")
   --   end
   -- },
-  {
-    'simrat39/symbols-outline.nvim',
-    cmd = { "SymbolsOutline" },
-    config = true,
-    keys = { { "<leader>so", "<Cmd>SymbolsOutline<CR>", desc = "SymbolsOutline" } },
-  },
+  --{
+  --  'simrat39/symbols-outline.nvim',
+  --  cmd = { "SymbolsOutline" },
+  --  config = true,
+  --  keys = { { "<leader>so", "<Cmd>SymbolsOutline<CR>", desc = "SymbolsOutline" } },
+  --},
   {
     'nacro90/numb.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
