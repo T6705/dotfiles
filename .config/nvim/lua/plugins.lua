@@ -106,35 +106,6 @@ require("lazy").setup({
   -- Interface
   --------------------------------------------------------------------------------
   {
-    "stevearc/dressing.nvim",
-    lazy = true,
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.select(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.input(...)
-      end
-    end,
-  },
-
-  --{
-  --  'lukas-reineke/indent-blankline.nvim',
-  --  main = "ibl",
-  --  ---@module "ibl"
-  --  ---@type ibl.config
-  --  opts = {},
-  --  event = { "BufReadPost", "BufNewFile" },
-  --  config = function()
-  --    require('ibl').setup()
-  --  end,
-  --},
-
-  {
     'akinsho/bufferline.nvim',
     version = "*",
     event = "VeryLazy",
@@ -199,68 +170,12 @@ require("lazy").setup({
   },
 
   {
-    'kevinhwang91/nvim-hlslens',
-    event = "VeryLazy",
-    config = function()
-      require('hlslens').setup({
-        override_lens = function(render, posList, nearest, idx, relIdx)
-          local sfw = vim.v.searchforward == 1
-          local indicator, text, chunks
-          local absRelIdx = math.abs(relIdx)
-          if absRelIdx > 1 then
-            indicator = ('%d%s'):format(absRelIdx, sfw ~= (relIdx > 1) and '▲' or
-              '▼')
-          elseif absRelIdx == 1 then
-            indicator = sfw ~= (relIdx == 1) and '▲' or '▼'
-          else
-            indicator = ''
-          end
-
-          local lnum, col = unpack(posList[idx])
-          if nearest then
-            local cnt = #posList
-            if indicator ~= '' then
-              text = ('[%s %d/%d]'):format(indicator, idx, cnt)
-            else
-              text = ('[%d/%d]'):format(idx, cnt)
-            end
-            chunks = { { ' ', 'Ignore' }, { text, 'HlSearchLensNear' } }
-          else
-            text = ('[%s %d]'):format(indicator, idx)
-            chunks = { { ' ', 'Ignore' }, { text, 'HlSearchLens' } }
-          end
-          render.setVirt(0, lnum - 1, col - 1, chunks, nearest)
-        end
-      })
-
-      local map = vim.api.nvim_set_keymap
-      local opts = { noremap = true, silent = true }
-
-      -- map('n', 'n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]], opts)
-      -- map('n', 'N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>zzzv]], opts)
-      map('n', 'n', [[<Cmd>lua require('hlslens').nNPeekWithUFO('n')<CR>zzzv]], opts)
-      map('n', 'N', [[<Cmd>lua require('hlslens').nNPeekWithUFO('N')<CR>zzzv]], opts)
-      map('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], opts)
-      map('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], opts)
-      map('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], opts)
-      map('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], opts)
-    end
-  },
-
-  {
-    'mcauley-penney/visual-whitespace.nvim',
-    keys = {
-      { "<leader>vw", '<Cmd>lua require("visual-whitespace").toggle()<CR>' },
-    },
-  },
-
-  {
     "sphamba/smear-cursor.nvim",
     opts = {
       -- Faster smear
-      -- stiffness = 0.8,
-      -- trailing_stiffness = 0.5,
-      -- distance_stop_animating = 0.5,
+      stiffness = 0.8,
+      trailing_stiffness = 0.5,
+      distance_stop_animating = 0.5,
 
       -- FIRE HAZARD
       -- cursor_color = "#ff8800",
@@ -272,26 +187,10 @@ require("lazy").setup({
     },
   },
 
-  { "nvim-zh/colorful-winsep.nvim", config = true,                          event = { "WinNew" }, },
-  { 'Bekaboo/dropbar.nvim',         event = { "BufReadPre", "BufNewFile" }, },
 
   --------------------------------------------------------------------------------
   -- git
   --------------------------------------------------------------------------------
-  -- use { 'rhysd/git-messenger.vim' }
-  -- use {
-  --   'tpope/vim-fugitive',
-  --   config = function()
-  --     -- vim.keymap.set('n', '<leader>gd', '<Cmd>Gvdiff<CR>')
-  --     vim.keymap.set('n', '<leader>gb', '<Cmd>Git blame<CR>')
-  --     vim.keymap.set('n', '<leader>gc', '<Cmd>Git commit<CR>')
-  --     vim.keymap.set('n', '<leader>gps', '<Cmd>Git push<CR>')
-  --     vim.keymap.set('n', '<leader>gpu', '<Cmd>Git pull<CR>')
-  --     vim.keymap.set('n', '<leader>gr', '<Cmd>GRemove<CR>')
-  --     vim.keymap.set('n', '<leader>gs', '<Cmd>Git<CR>')
-  --     vim.keymap.set('n', '<leader>gw', '<Cmd>Gwrite<CR>')
-  --   end
-  -- }
   {
     'lewis6991/gitsigns.nvim',
     event = { "BufReadPre", "BufNewFile" },
@@ -312,7 +211,7 @@ require("lazy").setup({
           map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
           map({ "n", "v" }, "<leader>sh", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
           map({ "n", "v" }, "<leader>rh", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-          map("n", "<leader>sb", gs.stage_buffer, "Stage Buffer")
+          --map("n", "<leader>sb", gs.stage_buffer, "Stage Buffer")
           map("n", "<leader>ush", gs.undo_stage_hunk, "Undo Stage Hunk")
           map("n", "<leader>rb", gs.reset_buffer, "Reset Buffer")
           map("n", "<leader>ph", gs.preview_hunk, "Preview Hunk")
@@ -328,16 +227,6 @@ require("lazy").setup({
     config = true,
     dependencies = { "nvim-lua/plenary.nvim", lazy = true },
     keys = { { "<leader>gd", "<Cmd>DiffviewOpen<CR>", desc = "DiffView" } },
-  },
-
-  {
-    "FabijanZulj/blame.nvim",
-    cmd = { "BlameToggle" },
-    config = function()
-      require('blame').setup({})
-    end,
-    keys = {
-      { "<leader>gb", "<Cmd>BlameToggle virtual<CR>", desc = "blame shown in a virtual text floated to the right" } },
   },
 
   --------------------------------------------------------------------------------
@@ -369,22 +258,6 @@ require("lazy").setup({
       { 'saadparwaiz1/cmp_luasnip' },
     }
   },
-
-  {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy", -- Or `LspAttach`
-    priority = 1000,    -- needs to be loaded in first
-    config = function()
-      require('tiny-inline-diagnostic').setup({
-        options = {
-          multilines = true,
-          show_source = true,
-          use_icons_from_diagnostic = true,
-        }
-      })
-    end
-  },
-
   {
     'nvim-treesitter/nvim-treesitter',
     event = { "BufReadPost", "BufNewFile" },
@@ -500,19 +373,6 @@ require("lazy").setup({
     end,
   },
 
-  -- use({
-  --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-  --   config = function()
-  --     require("lsp_lines").setup()
-  --     -- Disable virtual_text since it's redundant due to lsp_lines.
-  --     vim.diagnostic.config({
-  --       virtual_text = false,
-  --       update_in_insert = true,
-  --     })
-  --     vim.keymap.set("", "<leader>lt", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
-  --   end,
-  -- })
-
   { 'b0o/SchemaStore.nvim', event = "VeryLazy" },
   { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end },
 
@@ -576,103 +436,6 @@ require("lazy").setup({
   --------------------------------------------------------------------------------
   -- other
   --------------------------------------------------------------------------------
-  --use { "anuvyklack/windows.nvim",
-  --  dependencies = {
-  --    "anuvyklack/middleclass",
-  --    "anuvyklack/animation.nvim"
-  --  },
-  --  config = function()
-  --    vim.o.winwidth = 10
-  --    vim.o.winminwidth = 10
-  --    vim.o.equalalways = false
-
-  --    local function cmd(command)
-  --      return table.concat({ '<Cmd>', command, '<CR>' })
-  --    end
-
-  --    vim.keymap.set('n', '<leader>wz', cmd 'WindowsMaximize')
-  --    vim.keymap.set('n', '<leader>w-', cmd 'WindowsMaximizeVertically')
-  --    vim.keymap.set('n', '<leader>w|', cmd 'WindowsMaximizeHorizontally')
-  --    vim.keymap.set('n', '<leader>we', cmd 'WindowsEqualize')
-  --    require('windows').setup()
-  --  end
-  --}
-
-  -- {
-  --   'nvim-tree/nvim-tree.lua',
-  --   dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
-  --   cmd = { "NvimTreeToggle", "NvimTreeRefresh", "NvimTreeFindFile" },
-  --   keys = {
-  --     { '<leader>E', '<Cmd>NvimTreeToggle<CR>' },
-  --     { '<leader>R', '<Cmd>NvimTreeRefresh<CR>' },
-  --     { '<leader>F', '<Cmd>NvimTreeFindFile<CR>' },
-  --   },
-  --   config = function()
-  --     -- Automatically open file upon creation
-  --     local api = require("nvim-tree.api")
-  --     api.events.subscribe(api.events.Event.FileCreated, function(file)
-  --       vim.cmd("edit " .. file.fname)
-  --     end)
-
-  --     -- https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
-  --     local prev = { new_name = "", old_name = "" } -- Prevents duplicate events
-  --     vim.api.nvim_create_autocmd("User", {
-  --       pattern = "NvimTreeSetup",
-  --       callback = function()
-  --         local events = require("nvim-tree.api").events
-  --         events.subscribe(events.Event.NodeRenamed, function(data)
-  --           if prev.new_name ~= data.new_name or prev.old_name ~= data.old_name then
-  --             data = data
-  --             Snacks.rename.on_rename_file(data.old_name, data.new_name)
-  --           end
-  --         end)
-  --       end,
-  --     })
-
-  --     local lsp_symbols = require("lsp_symbols")
-  --     require("nvim-tree").setup({
-  --       hijack_cursor = true,
-  --       reload_on_bufenter = true,
-  --       respect_buf_cwd = true,
-  --       sync_root_with_cwd = true,
-  --       filters = {
-  --         custom = {
-  --           "^.git$",
-  --         },
-  --       },
-  --       view = {
-  --         adaptive_size = true,
-  --         width = 35,
-  --         preserve_window_proportions = true,
-  --       },
-  --       renderer = {
-  --         add_trailing = true,
-  --         full_name = true,
-  --         group_empty = true,
-  --         highlight_git = true,
-  --         indent_markers = {
-  --           enable = true,
-  --         },
-  --       },
-  --       diagnostics = {
-  --         enable = true,
-  --         show_on_dirs = true,
-  --         icons = {
-  --           hint = lsp_symbols.HINT,
-  --           info = lsp_symbols.INFO,
-  --           warning = lsp_symbols.WARN,
-  --           error = lsp_symbols.ERROR,
-  --         },
-  --       },
-  --       update_focused_file = {
-  --         enable = true,
-  --         update_cwd = true,
-  --         ignore_list = {},
-  --       },
-  --     })
-  --   end,
-  -- },
-
   {
     'kevinhwang91/nvim-ufo',
     event = { "BufReadPost", "BufNewFile" },
@@ -714,16 +477,6 @@ require("lazy").setup({
       end)
     end
   },
-
-  {
-    'junegunn/vim-easy-align',
-    event = "VeryLazy",
-    config = function()
-      vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)')
-      vim.keymap.set('x', 'ga', '<Plug>(EasyAlign)')
-    end
-  },
-
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
@@ -797,76 +550,6 @@ require("lazy").setup({
       },
     },
   },
-
-  --{
-  --  'nvim-telescope/telescope.nvim',
-  --  tag = '0.1.6',
-  --  dependencies = {
-  --    { "nvim-lua/plenary.nvim",                  lazy = true },
-  --    { 'nvim-lua/popup.nvim' },
-  --    { 'nvim-telescope/telescope-ui-select.nvim' },
-  --    {
-  --      'nvim-telescope/telescope-fzf-native.nvim',
-  --      build =
-  --      'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
-  --      enabled =
-  --          vim.fn.executable("cmake") == 1,
-  --    },
-  --    -- { 'nvim-telescope/telescope-media-files.nvim', lazy = false }
-  --  },
-  --  config = function()
-  --    require('telescope').setup({
-  --      defaults = {
-  --        vimgrep_arguments = {
-  --          'rg',
-  --          '--color=never',
-  --          '--no-heading',
-  --          '--with-filename',
-  --          '--line-number',
-  --          '--column',
-  --          '--smart-case',
-  --          '--trim'
-  --        }
-  --      },
-  --      extensions = {
-  --        ["ui-select"] = {
-  --          require("telescope.themes").get_dropdown()
-  --        },
-  --        fzf = {
-  --          fuzzy = true,                   -- false will only do exact matching
-  --          override_generic_sorter = true, -- override the generic sorter
-  --          override_file_sorter = true,    -- override the file sorter
-  --          case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
-  --          -- the default case_mode is "smart_case"
-  --        },
-  --        -- media_files = {
-  --        --   -- filetypes whitelist
-  --        --   -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
-  --        --   filetypes = { "png", "webp", "jpg", "jpeg" },
-  --        --   find_cmd = "rg" -- find command (defaults to `fd`)
-  --        -- }
-  --      }
-  --    })
-
-  --    require("telescope").load_extension("ui-select")
-  --    require('telescope').load_extension('fzf')
-  --    -- require('telescope').load_extension('media_files')
-  --  end,
-  --  cmd = { "Telescope" },
-  --  keys = {
-  --    --{ '<leader>bf', '<Cmd>Telescope buffers<CR>' },
-  --    --{ '<leader>ms', '<Cmd>Telescope marks<CR>' },
-  --    --{ '<leader>rg', '<Cmd>Telescope live_grep<CR>' },
-  --    --{ '<leader>ts', '<Cmd>Telescope tags<CR>' },
-  --    --{ '<leader>bs', "<Cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<CR>" },
-  --    --{ '<leader>e',  "<Cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>" },
-  --    --{ '<leader>d',  '<Cmd>Telescope lsp_definitions<CR>zzzv' },
-  --    --{ '<leader>i',  '<Cmd>Telescope lsp_implementations<CR>zzzv' },
-  --    --{ '<leader>r',  '<Cmd>Telescope lsp_references<CR>zzzv' },
-  --    --{ '<leader>td', '<Cmd>Telescope lsp_type_definitions<CR>' },
-  --  },
-  --},
-
   {
     "aznhe21/actions-preview.nvim",
     event = "VeryLazy",
@@ -891,7 +574,6 @@ require("lazy").setup({
       }
     end
   },
-
   {
     "ghillb/cybu.nvim",
     event = "VeryLazy",
@@ -914,60 +596,9 @@ require("lazy").setup({
       vim.keymap.set("n", "<Tab>", "<Plug>(CybuNext)")
     end,
   },
-
-  {
-    'windwp/nvim-ts-autotag',
-    event = "InsertEnter",
-    ft = {
-      'glimmer',
-      'handlebars',
-      'hbs',
-      'html',
-      'javascript',
-      'javascriptreact',
-      'jsx',
-      'markdown',
-      'php',
-      'rescript',
-      'svelte',
-      'tsx',
-      'typescript',
-      'typescriptreact',
-      'vue',
-      'xml',
-    },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      require 'nvim-treesitter.configs'.setup {
-        autotag = {
-          enable = true,
-        }
-      }
-    end
-  },
-
-  --use {
-  --  'ggandor/lightspeed.nvim',
-  --  config = function()
-  --    require 'lightspeed'.setup {
-  --      jump_to_unique_chars = { safety_timeout = 400 },
-  --      match_only_the_start_of_same_char_seqs = true,
-  --      limit_ft_matches = 5,
-  --    }
-  --  end
-  --}
-
-  {
-    "sustech-data/wildfire.nvim",
-    event = "VeryLazy",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = function()
-      require("wildfire").setup()
-    end,
-  },
   {
     "kylechui/nvim-surround",
-    version = "*",
+    version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     config = true,
     keys = {
@@ -990,6 +621,7 @@ require("lazy").setup({
   },
   {
     "OXY2DEV/markview.nvim",
+    lazy = false,
     ft = { 'markdown' },
     dependencies = {
       "nvim-tree/nvim-web-devicons",
@@ -1023,67 +655,17 @@ require("lazy").setup({
     end
   },
   {
-    "norcalli/nvim-colorizer.lua",
-    event = "VeryLazy",
-    config = function()
-      require("colorizer").setup({ '*' }, {
-        RGB = true,
-        RRGGBB = true,
-        names = true,
-        RRGGBBAA = true,
-        rgb_fn = true,
-        hsl_fn = true,
-        css = true,
-        css_fn = true
-      })
-    end
-  },
-  -- {
-  --   'rcarriga/nvim-notify',
-  --   dependencies = "catppuccin",
-  --   event = "VeryLazy",
-  --   keys = { {
-  --     "<leader>un",
-  --     function()
-  --       require("notify").dismiss({ silent = true, pending = true })
-  --     end,
-  --     desc = "Dismiss all Notification"
-  --   } },
-  --   config = function()
-  --     local lsp_symbols = require("lsp_symbols")
-  --     require("notify").setup({
-  --       timeout = 3000,
-  --       icons = {
-  --         DEBUG = lsp_symbols.DEBUG,
-  --         TRACE = lsp_symbols.TRACE,
-  --         ERROR = lsp_symbols.ERROR,
-  --         WARN = lsp_symbols.WARN,
-  --         HINT = lsp_symbols.HINT,
-  --         INFO = lsp_symbols.INFO,
-  --       },
-  --       max_height = function()
-  --         return math.floor(vim.o.lines * 0.75)
-  --       end,
-  --       max_width = function()
-  --         return math.floor(vim.o.columns * 0.75)
-  --       end,
-  --       on_open = function(win)
-  --         vim.api.nvim_win_set_config(win, { zindex = 100 })
-  --       end,
-  --     })
-  --     vim.notify = require("notify")
-  --   end
-  -- },
-  --{
-  --  'simrat39/symbols-outline.nvim',
-  --  cmd = { "SymbolsOutline" },
-  --  config = true,
-  --  keys = { { "<leader>so", "<Cmd>SymbolsOutline<CR>", desc = "SymbolsOutline" } },
-  --},
-  {
     'nacro90/numb.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
-    config = true,
+    config = function()
+      require('numb').setup {
+        show_numbers = true,         -- Enable 'number' for the window while peeking
+        show_cursorline = true,      -- Enable 'cursorline' for the window while peeking
+        hide_relativenumbers = true, -- Enable turning off 'relativenumber' for the window while peeking
+        number_only = false,         -- Peek only when the command is only a number instead of when it starts with a number
+        centered_peeking = true,     -- Peeked line will be centered relative to window
+      }
+    end,
     event = { "BufReadPre", "BufNewFile" },
   },
   {
@@ -1109,11 +691,8 @@ require("lazy").setup({
   },
   {
     "ptdewey/yankbank-nvim",
-    dependencies = "kkharji/sqlite.lua",
     config = function()
-      require('yankbank').setup({
-        persist_type = "sqlite",
-      })
+      require('yankbank').setup()
     end,
     keys = { { "<leader>Y", "<Cmd>YankBank<CR>" } },
   },
