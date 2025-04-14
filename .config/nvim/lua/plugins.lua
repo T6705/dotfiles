@@ -254,6 +254,24 @@ require("lazy").setup({
     },
   },
 
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {
+      -- Faster smear
+      -- stiffness = 0.8,
+      -- trailing_stiffness = 0.5,
+      -- distance_stop_animating = 0.5,
+
+      -- FIRE HAZARD
+      -- cursor_color = "#ff8800",
+      -- stiffness = 0.3,
+      -- trailing_stiffness = 0.1,
+      -- trailing_exponent = 5,
+      -- hide_target_hack = true,
+      -- gamma = 1,
+    },
+  },
+
   { "nvim-zh/colorful-winsep.nvim", config = true,                          event = { "WinNew" }, },
   { 'Bekaboo/dropbar.nvim',         event = { "BufReadPre", "BufNewFile" }, },
 
@@ -1100,8 +1118,35 @@ require("lazy").setup({
     keys = { { "<leader>Y", "<Cmd>YankBank<CR>" } },
   },
   {
-    "sphamba/smear-cursor.nvim",
-    opts = {},
+    "bassamsdata/namu.nvim",
+    config = function()
+      require("namu").setup({
+        -- Enable the modules you want
+        namu_symbols = {
+          enable = true,
+          options = {}, -- here you can configure namu
+        },
+        -- Optional: Enable other modules if needed
+        ui_select = { enable = false }, -- vim.ui.select() wrapper
+        colorscheme = {
+          enable = false,
+          options = {
+            -- NOTE: if you activate persist, then please remove any vim.cmd("colorscheme ...") in your config, no needed anymore
+            persist = true,      -- very efficient mechanism to Remember selected colorscheme
+            write_shada = false, -- If you open multiple nvim instances, then probably you need to enable this
+          },
+        },
+      })
+      -- === Suggested Keymaps: ===
+      vim.keymap.set("n", "<leader>ss", ":Namu symbols<cr>", {
+        desc = "Jump to LSP symbol",
+        silent = true,
+      })
+      vim.keymap.set("n", "<leader>th", ":Namu colorscheme<cr>", {
+        desc = "Colorscheme Picker",
+        silent = true,
+      })
+    end,
   },
   {
     "folke/snacks.nvim",
