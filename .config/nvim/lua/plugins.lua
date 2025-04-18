@@ -62,16 +62,16 @@ require("lazy").setup({
         },
         default_integrations = true,
         integrations = {
+          blink_cmp = true,
           dropbar = {
             enabled = true,
             color_mode = true, -- enable color for kind's texts, not just kind's icons
           },
           gitsigns = true,
           lsp_trouble = true,
+          markdown = true,
           mason = true,
-          -- notify = true,
           nvim_surround = true,
-          symbols_outline = true,
           treesitter = true,
           treesitter_context = true,
           ufo = true,
@@ -83,18 +83,19 @@ require("lazy").setup({
               hints = { "italic" },
               warnings = { "italic" },
               information = { "italic" },
+              ok = { "italic" },
             },
             underlines = {
               errors = { "underline" },
               hints = { "underline" },
               warnings = { "underline" },
               information = { "underline" },
+              ok = { "underline" },
+            },
+            inlay_hints = {
+              background = true,
             },
           },
-          --indent_blankline = {
-          --  enabled = true,
-          --  colored_indent_levels = false,
-          --},
         }
       }
       vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
@@ -232,32 +233,391 @@ require("lazy").setup({
   --------------------------------------------------------------------------------
   -- lsp
   --------------------------------------------------------------------------------
-  {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v4.x',
+  { -- LSP Configuration & Plugins
+    'neovim/nvim-lspconfig',
     dependencies = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },                                            -- Required
-      { 'williamboman/mason.nvim',                  build = ":MasonUpdate" }, -- Optional
-      { 'williamboman/mason-lspconfig.nvim' },                                -- Optional
-      { 'WhoIsSethDaniel/mason-tool-installer.nvim' },                        -- Optional
+      -- Automatically install LSPs and related tools to stdpath for neovim
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      { 'folke/lazydev.nvim', ft = 'lua', opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } }, }, } },
+      {
+        "MysticalDevil/inlay-hints.nvim",
+        event = "LspAttach",
+        config = function()
+          require("inlay-hints").setup()
+        end
+      },
+      {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "VeryLazy", -- Or `LspAttach`
+        priority = 1000,    -- needs to be loaded in first
+        config = function()
+          require('tiny-inline-diagnostic').setup()
+          vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
+        end
+      },
+      {
+        'saghen/blink.cmp',
+        -- optional: provides snippets for the snippet source
+        dependencies = {
+          {
+            "saghen/blink.compat",
+            optional = true, -- make optional so it's only enabled if any extras need it
+            opts = {},
+            version = "*",
+          },
+          { "mikavilpas/blink-ripgrep.nvim" },
+          {
+            'L3MON4D3/LuaSnip',
+            version = "v2.*",
+            build = "make install_jsregexp",
+            enabled = vim.fn.executable("make") == 1,
+            opts = { history = true, delete_check_events = "TextChanged" },
+            dependencies = { "rafamadriz/friendly-snippets" },
+          },
+          { 'onsails/lspkind-nvim',         event = 'BufEnter', config = function() require('lspkind').init() end },
+        },
 
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },                    -- Required
-      { 'hrsh7th/cmp-nvim-lsp' },                -- Required
-      { 'hrsh7th/cmp-buffer' },                  -- Optional
-      { 'hrsh7th/cmp-cmdline' },                 --Optional
-      { 'hrsh7th/cmp-nvim-lsp-signature-help' }, --Optional
-      { 'hrsh7th/cmp-nvim-lua' },                -- Optional
-      { 'hrsh7th/cmp-path' },                    -- Optional
-      { 'saadparwaiz1/cmp_luasnip' },            -- Optional
+        version = '1.*',
+        --build = 'cargo build --release',
+        event = "InsertEnter",
 
-      -- Snippets
-      { 'L3MON4D3/LuaSnip',                         build = "make install_jsregexp", enabled = vim.fn.executable("make") == 1, opts = { history = true, delete_check_events = "TextChanged" } }, -- Required
-      { 'rafamadriz/friendly-snippets' },                                                                                                                                                        -- Optional
-      { 'saadparwaiz1/cmp_luasnip' },
-    }
+        ---@module 'blink.cmp'
+        ---@type blink.cmp.Config
+        opts = {
+          keymap = { preset = 'enter' },
+          appearance = { nerd_font_variant = 'mono' },
+          completion = {
+            menu = {
+              border = 'single',
+              draw = {
+                treesitter = { "lsp" },
+                columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
+                components = {
+                  kind_icon = {
+                    text = function(ctx)
+                      local lspkind = require("lspkind")
+                      local icon = ctx.kind_icon
+                      if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                        local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+                        if dev_icon then
+                          icon = dev_icon
+                        end
+                      else
+                        icon = require("lspkind").symbolic(ctx.kind, {
+                          mode = "symbol",
+                        })
+                      end
+
+                      return icon .. ctx.icon_gap
+                    end,
+
+                    -- Optionally, use the highlight groups from nvim-web-devicons
+                    -- You can also add the same function for `kind.highlight` if you want to
+                    -- keep the highlight groups in sync with the icons.
+                    highlight = function(ctx)
+                      local hl = ctx.kind_hl
+                      if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                        local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+                        if dev_icon then
+                          hl = dev_hl
+                        end
+                      end
+                      return hl
+                    end,
+                  }
+                }
+              }
+            },
+            documentation = {
+              auto_show = true,
+              auto_show_delay_ms = 500,
+              window = { border = 'single' },
+            }
+          },
+          snippets = { preset = 'luasnip' },
+          cmdline = {
+            enabled = true,
+            completion = { menu = { auto_show = true } }
+          },
+          sources = {
+            default = { "lazydev", "lsp", "path", "snippets", "buffer", "ripgrep" },
+            providers = {
+              lazydev = {
+                name = "LazyDev",
+                module = "lazydev.integrations.blink",
+                -- make lazydev completions top priority (see `:h blink.cmp`)
+                score_offset = 100,
+              },
+              path = {
+                score_offset = 110,
+                opts = { show_hidden_files_by_default = true }
+              },
+              lsp = { score_offset = 90, },
+              snippets = { score_offset = 80, },
+              buffer = { score_offset = 70, },
+              ripgrep = {
+                module = "blink-ripgrep",
+                name = "Ripgrep",
+                ---@module "blink-ripgrep"
+                ---@type blink-ripgrep.Options
+                score_offset = 70,
+                opts = {},
+              },
+            },
+          },
+          fuzzy = {
+            implementation = "prefer_rust_with_warning",
+            sorts = { 'exact' }
+          },
+          signature = {
+            enabled = true,
+            window = { border = 'single' }
+          },
+        },
+        opts_extend = {
+          "sources.completion.enabled_providers",
+          "sources.compat",
+          "sources.default",
+        }
+      },
+    },
+    config = function()
+      local lsp_symbols = require('lsp_symbols')
+      vim.diagnostic.config({
+        virtual_text = false, -- https://github.com/rachartier/tiny-inline-diagnostic.nvim
+        update_in_insert = true,
+        underline = true,
+        severity_sort = true,
+        float = true,
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = lsp_symbols.ERROR,
+            [vim.diagnostic.severity.WARN] = lsp_symbols.WARN,
+            [vim.diagnostic.severity.HINT] = lsp_symbols.HINT,
+            [vim.diagnostic.severity.INFO] = lsp_symbols.INFO,
+          }
+        }
+      })
+
+      local servers = {
+        bashls = {},
+        clangd = {},
+        docker_compose_language_service = {},
+        dockerls = {},
+        html = {},
+        rust_analyzer = {},
+        ts_ls = {},
+        lua_ls = {
+          settings = {
+            Lua = {
+              telemetry = { enable = false },
+              runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = "LuaJIT",
+                -- Setup your lua path
+                path = vim.split(package.path, ";"),
+              },
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                  [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+                },
+              },
+              codeLens = { enable = true, },
+              completion = { callSnippet = "Replace", },
+              doc = { privateName = { "^_" }, },
+              diagnostics = {
+                -- Fix Undefined global 'vim'
+                globals = { "vim" },
+                disable = { 'missing-fields' }
+              },
+              hint = {
+                enable = true,
+                setType = false,
+                paramType = true,
+                paramName = "Disable",
+                semicolon = "Disable",
+                arrayIndex = "Disable",
+              },
+            },
+          },
+        },
+        gopls = {
+          settings = {
+            gopls = {
+              codelenses = {
+                gc_details = true,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              hints = {
+                assignVariableTypes = false,
+                compositeLiteralFields = false,
+                compositeLiteralTypes = false,
+                constantValues = true,
+                functionTypeParameters = false,
+                parameterNames = true,
+                rangeVariableTypes = false,
+              },
+              analyses = {
+                appends = true,
+                asmdecl = true,
+                assign = true,
+                atomic = true,
+                atomicalign = true,
+                bools = true,
+                buildtag = true,
+                cgocall = true,
+                composites = true,
+                copylocks = true,
+                deepequalerrors = true,
+                defers = true,
+                deprecated = true,
+                directive = true,
+                embed = true,
+                errorsas = true,
+                fillreturns = true,
+                framepointer = true,
+                hostport = true,
+                httpresponse = true,
+                ifaceassert = true,
+                infertypeargs = true,
+                loopclosure = true,
+                lostcancel = true,
+                modernize = true,
+                nilfunc = true,
+                nilness = true,
+                nonewvars = true,
+                noresultvalues = true,
+                printf = true,
+                shadow = true,
+                shift = true,
+                sigchanyzer = true,
+                simplifycompositelit = true,
+                simplifyrange = true,
+                simplifyslice = true,
+                slog = true,
+                sortslice = true,
+                stdmethods = true,
+                stdversion = true,
+                stringintconv = true,
+                structtag = true,
+                testinggoroutine = true,
+                tests = true,
+                timeformat = true,
+                unmarshal = true,
+                unreachable = true,
+                unsafeptr = true,
+                unusedfunc = true,
+                unusedparams = true,
+                unusedresult = true,
+                unusedvariable = true,
+                unusedwrite = true,
+                waitgroup = true,
+                yield = true
+              },
+              completeUnimported = true,
+              directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+              experimentalPostfixCompletions = true,
+              gofumpt = true,
+              semanticTokens = true,
+              staticcheck = true,
+              usePlaceholders = true,
+            },
+          }
+        },
+        pyright = {
+          single_file_support = true,
+          settings = {
+            pyright = {
+              disableLanguageServices = false,
+              disableOrganizeImports = false
+            },
+            python = {
+              analysis = {
+                autoImportCompletions = true,
+                autoSearchPaths = true,
+                diagnosticMode = "workspace", -- openFilesOnly, workspace
+                typeCheckingMode = "strict",  -- off, basic, strict
+                useLibraryCodeForTypes = true
+              },
+            },
+          },
+        },
+        yamlls = {
+          settings = {
+            yaml = {
+              hover = true,
+              completion = true,
+              validate = true,
+              schemas = require("schemastore").json.schemas(),
+              schemaStore = {
+                enable = true,
+                url = "https://www.schemastore.org/api/json/catalog.json",
+              },
+            },
+          }
+        },
+        jsonls = {
+          settings = {
+            json = {
+              schemas = require("schemastore").json.schemas(),
+              validate = { enable = true },
+            },
+          },
+        },
+      }
+
+      local ensure_installed = vim.tbl_keys(servers or {})
+
+      require('mason').setup({
+        ui = {
+          border = "rounded",
+          icons = {
+            package_installed = "✓",
+            fpackage_pending = "➜",
+            package_uninstalled = "✗"
+          }
+        }
+      })
+      require('mason-tool-installer').setup {
+        ensure_installed = {
+          "black",
+          "delve",
+          "gofumpt",
+          "goimports",
+          "golangci-lint",
+          "gomodifytags",
+          "impl",
+          "php-cs-fixer",
+          "prettier",
+          "revive",
+          "shellcheck",
+          "shfmt",
+          "staticcheck",
+        }
+      }
+      require('mason-lspconfig').setup({
+        ensure_installed = ensure_installed
+      })
+
+      for server, settings in pairs(servers) do
+        vim.lsp.config(server, settings)
+        vim.lsp.enable(server)
+      end
+
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
   },
+
   {
     'nvim-treesitter/nvim-treesitter',
     event = { "BufReadPost", "BufNewFile" },
@@ -374,7 +734,6 @@ require("lazy").setup({
   },
 
   { 'b0o/SchemaStore.nvim', event = "VeryLazy" },
-  { 'onsails/lspkind-nvim', event = 'BufEnter', config = function() require('lspkind').init() end },
 
   --------------------------------------------------------------------------------
   -- flutter
