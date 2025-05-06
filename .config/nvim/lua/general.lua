@@ -165,11 +165,13 @@ opt.showmatch = true  -- Show matching brackets when text indicator is over them
 opt.smartcase = true  -- case-sensitive if expresson contains a capital letter
 
 -- Folding
-opt.foldcolumn = '1'
-opt.foldlevel = 99
-opt.foldlevelstart = 99
-opt.foldenable = true -- fold by default
-opt.foldmethod = 'indent'
+o.foldenable = true
+o.foldlevel = 99
+o.foldmethod = "expr"
+o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+o.foldtext = ""
+opt.foldcolumn = "0"
+opt.fillchars:append({ fold = " " })
 
 -- error bells
 opt.errorbells = false
@@ -366,6 +368,27 @@ vim.api.nvim_create_autocmd("User", {
 --   end
 -- })
 
+-- Prefer LSP folding if client supports it
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client:supports_method('textDocument/foldingRange') then
+      local win = vim.api.nvim_get_current_win()
+      vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+    end
+  end,
+})
+
+-- document_color`
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    if client:supports_method('textDocument/documentColor') then
+      vim.lsp.document_color.enable(true, args.buf, { style = "virtual" })
+    end
+  end
+})
 
 -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#imports-and-formatting
 -- Use the following configuration to have your imports organized on save using the logic of goimports and your code formatted.

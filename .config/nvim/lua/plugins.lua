@@ -222,13 +222,6 @@ require("lazy").setup({
     end
   },
 
-  {
-    'sindrets/diffview.nvim',
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
-    config = true,
-    dependencies = { "nvim-lua/plenary.nvim", lazy = true },
-    keys = { { "<leader>gd", "<Cmd>DiffviewOpen<CR>", desc = "DiffView" } },
-  },
 
   --------------------------------------------------------------------------------
   -- lsp
@@ -369,7 +362,7 @@ require("lazy").setup({
           },
           fuzzy = {
             implementation = "prefer_rust_with_warning",
-            sorts = { 'exact' }
+            sorts = { 'score' }
           },
           signature = {
             enabled = true,
@@ -402,11 +395,15 @@ require("lazy").setup({
       })
 
       local servers = {
-        bashls = {},
+        bashls = {
+          filetypes = { "sh", "zsh" },
+        },
         clangd = {},
+        cssls = {},
         docker_compose_language_service = {},
         dockerls = {},
         html = {},
+        marksman = {},
         rust_analyzer = {},
         ts_ls = {},
         lua_ls = {
@@ -557,6 +554,7 @@ require("lazy").setup({
             yaml = {
               hover = true,
               completion = true,
+              format = { enable = true },
               validate = true,
               schemas = require("schemastore").json.schemas(),
               schemaStore = {
@@ -569,6 +567,7 @@ require("lazy").setup({
         jsonls = {
           settings = {
             json = {
+              format = { enable = true },
               schemas = require("schemastore").json.schemas(),
               validate = { enable = true },
             },
@@ -615,6 +614,7 @@ require("lazy").setup({
       end
 
       require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
     end,
   },
 
@@ -796,47 +796,6 @@ require("lazy").setup({
   -- other
   --------------------------------------------------------------------------------
   {
-    'kevinhwang91/nvim-ufo',
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = 'kevinhwang91/promise-async',
-    config = function()
-      require('ufo').setup({
-        open_fold_hl_timeout = 150,
-        close_fold_kinds_for_ft = {
-          default = { 'imports', 'comment' },
-          json = { 'array' },
-          c = { 'comment', 'region' }
-        },
-        preview = {
-          win_config = {
-            border = { '', '─', '', '', '', '─', '', '' },
-            winhighlight = 'Normal:Folded',
-            winblend = 0
-          },
-          mappings = {
-            scrollU = '<C-u>',
-            scrollD = '<C-d>',
-            jumpTop = '[',
-            jumpBot = ']'
-          }
-        },
-        provider_selector = function(bufnr, filetype, buftype)
-          return { 'treesitter', 'indent' }
-        end
-      })
-      vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-      vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
-      vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
-      vim.keymap.set('n', '<leader>pv', function()
-        local winid = require('ufo').peekFoldedLinesUnderCursor()
-        if not winid then
-          vim.lsp.buf.hover()
-        end
-      end)
-    end
-  },
-  {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     specs = {
@@ -917,18 +876,10 @@ require("lazy").setup({
     },
     config = function()
       require("actions-preview").setup {
-        telescope = {
-          sorting_strategy = "ascending",
-          layout_strategy = "vertical",
-          layout_config = {
-            width = 0.8,
-            height = 0.9,
-            prompt_position = "top",
-            preview_cutoff = 20,
-            preview_height = function(_, _, max_lines)
-              return max_lines - 15
-            end,
-          },
+        --- options for snacks picker
+        ---@type snacks.picker.Config
+        snacks = {
+          layout = { preset = "default" },
         },
       }
     end
@@ -1110,6 +1061,7 @@ require("lazy").setup({
       words        = { enabled = true },
     },
     keys = {
+      { "<leader>sa",  function() Snacks.picker.smart() end,                                   desc = "Smart Find Files" },
       { "<leader>gB",  function() Snacks.gitbrowse() end,                                      desc = "Git Browse" },
       { "<leader>gf",  function() Snacks.lazygit.log_file() end,                               desc = "Lazygit Current File History" },
       { "<leader>gg",  function() Snacks.lazygit() end,                                        desc = "Lazygit" },
@@ -1132,9 +1084,10 @@ require("lazy").setup({
       ---- git
       { "<leader>gl",  function() Snacks.picker.git_log() end,                                 desc = "Git Log" },
       { "<leader>gs",  function() Snacks.picker.git_status() end,                              desc = "Git Status" },
+      { "<leader>gd",  function() Snacks.picker.git_diff() end,                                desc = "Git Diff (Hunks)" },
       ---- Grep
-      { "<leader>sb",  function() Snacks.picker.lines() end,                                   desc = "Buffer Lines" },
-      { "<leader>sB",  function() Snacks.picker.grep_buffers() end,                            desc = "Grep Open Buffers" },
+      { "<leader>sl",  function() Snacks.picker.lines() end,                                   desc = "Buffer Lines" },
+      { "<leader>sb",  function() Snacks.picker.grep_buffers() end,                            desc = "Grep Open Buffers" },
       { "<leader>sg",  function() Snacks.picker.grep() end,                                    desc = "Grep" },
       { "<leader>sw",  function() Snacks.picker.grep_word() end,                               desc = "Visual selection or word",    mode = { "n", "x" } },
       ---- search
@@ -1156,6 +1109,7 @@ require("lazy").setup({
       --{ "<leader>qp",      function() Snacks.picker.projects() end,                                desc = "Projects" },
       ---- LSP
       { "<leader>d",   function() Snacks.picker.lsp_definitions() end,                         desc = "Goto Definition" },
+      { "<leader>D",   function() Snacks.picker.lsp_declarations() end,                        desc = "Goto Declaration" },
       { "<leader>r",   function() Snacks.picker.lsp_references() end,                          nowait = true,                        desc = "References" },
       { "<leader>i",   function() Snacks.picker.lsp_implementations() end,                     desc = "Goto Implementation" },
       { "<leader>td",  function() Snacks.picker.lsp_type_definitions() end,                    desc = "Goto T[y]pe Definition" },
