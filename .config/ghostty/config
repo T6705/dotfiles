@@ -1,0 +1,7 @@
+copy-on-select = clipboard
+font-family = FiraCode Nerd Font Mono
+mouse-hide-while-typing = true
+theme = catppuccin-mocha
+window-decoration = auto
+app-notifications = no-clipboard-copy
+cursor-opacity = 0.6
