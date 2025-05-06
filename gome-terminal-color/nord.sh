@@ -49,10 +49,10 @@ path="/org/gnome/terminal/legacy/profiles:/$profileid"
 echo "profileid = $profileid"
 echo "path      = $path"
 for i in $(eval dconf list "$path"); do
-    echo "==========================================================="
-    value=$path$i
-    echo "$i:"
-    eval dconf read "$value"
+	echo "==========================================================="
+	value=$path$i
+	echo "$i:"
+	eval dconf read "$value"
 done
 
 #################

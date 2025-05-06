@@ -2,10 +2,6 @@
 
 #dconf reset -f /org/gnome/terminal/legacy/profiles:/
 
-####################################################
-## source: https://github.com/NorthernTwig/Magoon ##
-####################################################
-
 path="/org/gnome/terminal/legacy/"
 #echo "path      = $path"
 #for i in $(eval dconf list $path); do
@@ -30,20 +26,20 @@ path="/org/gnome/terminal/legacy/profiles:/$profileid"
 echo "profileid = $profileid"
 echo "path      = $path"
 for i in $(eval dconf list "$path"); do
-    echo "==========================================================="
-    value=$path$i
-    echo "$i:"
-    eval dconf read "$value"
+	echo "==========================================================="
+	value=$path$i
+	echo "$i:"
+	eval dconf read "$value"
 done
 
 #################
 ## colorscheme ##
 #################
-background_color="'rgb(35,47,57)'"
-cursor_background_color_value="'rgb(161,210,224)'"
-cursor_foreground_color_value="'rgb(35,47,57)'"
-foreground_color="'rgb(197,200,198)'"
-palette_color="['rgb(35,47,57)', 'rgb(95,171,217)', 'rgb(109,198,228)', 'rgb(157,168,171)', 'rgb(161,209,157)', 'rgb(179,182,195)', 'rgb(161,210,224)', 'rgb(227,233,232)', 'rgb(109,198,228)', 'rgb(95,171,217)', 'rgb(109,198,228)', 'rgb(157,168,171)', 'rgb(161,209,157)', 'rgb(179,182,195)', 'rgb(161,210,224)', 'rgb(227,233,232)']"
+background_color="'rgb(238,238,238)'"
+cursor_background_color_value="'rgb(0,95,135)'"
+cursor_foreground_color_value="'rgb(238,238,238)'"
+foreground_color="'rgb(68,68,68)'"
+palette_color="['rgb(238,238,238)', 'rgb(175,0,0)', 'rgb(0,135,0)', 'rgb(95,135,0)', 'rgb(0,135,175)', 'rgb(135,135,135)', 'rgb(0,95,135)', 'rgb(68,68,68)', 'rgb(188,188,188)', 'rgb(215,0,0)', 'rgb(215,0,135)', 'rgb(135,0,175)', 'rgb(215,95,0)', 'rgb(215,95,0)', 'rgb(0,95,175)', 'rgb(0,95,134)']"
 eval dconf write "$path""background-color" \"$background_color\"
 eval dconf write "$path""cursor-background-color" \"$cursor_background_color_value\"
 eval dconf write "$path""cursor-foreground-color" \"$cursor_foreground_color_value\"
