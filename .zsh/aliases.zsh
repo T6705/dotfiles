@@ -258,8 +258,8 @@ if command -v go &> /dev/null ; then
         alias go-fmt='gofumpt -d $(go list -f {{.Dir}} ./...) && gofumpt -w $(go list -f {{.Dir}} ./...)'
     fi
 
-    if command -v golangci-lint &> /dev/null ; then
-        # go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-        alias go-lint='golangci-lint -v run --enable-all -D varnamelen -D lll -D funlen --deadline=15m'
+	if command -v docker &>/dev/null; then
+		alias goci-lint='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:v2.1.6 golangci-lint run'
+		alias goci-fmt='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:v2.1.6 golangci-lint fmt'
     fi
 fi
