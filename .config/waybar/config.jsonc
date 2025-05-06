@@ -13,6 +13,7 @@
     "custom/brightness",
     "pulseaudio",
     "clock",
+    "tray",
   ],
   "hyprland/workspaces": {
     "format": " {icon} ",
