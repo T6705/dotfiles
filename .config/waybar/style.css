@@ -93,3 +93,8 @@
   margin-right: 1rem;
   border-radius: 1rem;
 }
+
+#tray menu menuitem:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
