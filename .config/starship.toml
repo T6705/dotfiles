@@ -66,6 +66,7 @@ style = "bold red"
 disabled = false
 detect_extensions = []
 detect_files = [
+    "bun.lock",
     "bun.lockb",
     "bunfig.toml",
 ]
@@ -151,6 +152,7 @@ format = "via [$symbol$environment]($style) "
 symbol = "🅒 "
 style = "green bold"
 ignore_base = true
+detect_env_vars = ["!PIXI_ENVIRONMENT_NAME"]
 disabled = false
 
 [container]
@@ -158,6 +160,40 @@ format = '[$symbol \[$name\]]($style) '
 symbol = "⬢"
 style = "red bold dimmed"
 disabled = false
+
+[cpp]
+format = "via [$symbol($version(-$name) )]($style)"
+version_format = "v${raw}"
+style = "149 bold"
+symbol = "C++ "
+disabled = true
+detect_extensions = [
+    "cpp",
+    "cc",
+    "cxx",
+    "c++",
+    "hpp",
+    "hh",
+    "hxx",
+    "h++",
+    "tcc",
+]
+detect_files = []
+detect_folders = []
+commands = [
+    [
+    "c++",
+    "--version",
+],
+    [
+    "g++",
+    "--version",
+],
+    [
+    "clang++",
+    "--version",
+],
+]
 
 [crystal]
 format = "via [$symbol($version )]($style)"
@@ -203,6 +239,7 @@ detect_extensions = []
 detect_files = [
     "deno.json",
     "deno.jsonc",
+    "deno.lock",
     "mod.ts",
     "deps.ts",
     "mod.js",
@@ -233,6 +270,7 @@ symbol = "direnv "
 style = "bold bright-yellow"
 disabled = true
 detect_extensions = []
+detect_env_vars = ["DIRENV_FILE"]
 detect_files = [".envrc"]
 detect_folders = []
 allowed_msg = "allowed"
@@ -414,6 +452,7 @@ untracked = "?"
 typechanged = ""
 ignore_submodules = false
 disabled = false
+use_git_executable = false
 
 [gleam]
 format = "via [$symbol($version )]($style)"
@@ -531,6 +570,8 @@ format = "[$ssh_symbol$hostname]($style) in "
 style = "green dimmed bold"
 disabled = false
 
+[hostname.aliases]
+
 [java]
 disabled = false
 format = "via [$symbol($version )]($style)"
@@ -643,11 +684,45 @@ symbol = "⬢ "
 style = "blue bold"
 disabled = false
 
+[mise]
+format = "[$symbol$health]($style) "
+symbol = "mise "
+style = "bold purple"
+disabled = true
+detect_extensions = []
+detect_files = [
+    "mise.toml",
+    "mise.local.toml",
+    ".mise.toml",
+    ".mise.local.toml",
+]
+detect_folders = [".mise"]
+healthy_symbol = "healthy"
+unhealthy_symbol = "unhealthy"
+
+[mojo]
+format = "with [$symbol($version )]($style)"
+symbol = "🔥 "
+style = "bold 208"
+disabled = false
+detect_extensions = [
+    "mojo",
+    "🔥",
+]
+detect_files = []
+detect_folders = []
+
 [nats]
 format = "[$symbol($name )]($style)"
 symbol = "✉️ "
 style = "bold purple"
 disabled = true
+
+[netns]
+format = '[$symbol \[$name\]]($style) '
+symbol = "🛜"
+style = "blue bold dimmed"
+disabled = false
 
 [nim]
 format = "via [$symbol($version )]($style)"
@@ -692,6 +767,9 @@ detect_files = [
     "package.json",
     ".node-version",
     ".nvmrc",
+    "!bunfig.toml",
+    "!bun.lock",
+    "!bun.lockb",
 ]
 detect_folders = ["node_modules"]
 
@@ -762,6 +840,8 @@ Amazon = "🙂 "
 Android = "🤖 "
 Arch = "🎗️ "
 Artix = "🎗️ "
+Bluefin = "🐟 "
+CachyOS = "🎗️ "
 CentOS = "💠 "
 Debian = "🌀 "
 DragonFly = "🐉 "
@@ -783,6 +863,7 @@ MidnightBSD = "🌘 "
 Mint = "🌿 "
 NetBSD = "🚩 "
 NixOS = "❄️ "
+Nobara = "🎩 "
 OpenBSD = "🐡 "
 OpenCloudOS = "☁️ "
 openEuler = "🦉 "
@@ -799,6 +880,7 @@ SUSE = "🦎 "
 Ubuntu = "🎯 "
 Ultramarine = "🔷 "
 Unknown = "❓ "
+Uos = "🐲 "
 Void = "  "
 Windows = "🪟 "
 
@@ -853,6 +935,21 @@ truncation_length = 9223372036854775807
 truncation_symbol = "…"
 disabled = true
 
+[pixi]
+pixi_binary = ["pixi"]
+show_default_environment = true
+format = 'via [$symbol($version )(\($environment\) )]($style)'
+version_format = "v${raw}"
+symbol = "🧚 "
+style = "yellow bold"
+disabled = false
+detect_extensions = []
+detect_files = [
+    "pixi.toml",
+    "pixi.lock",
+]
+detect_folders = [".pixi"]
+
 [pulumi]
 format = "via [$symbol($username@)$stack]($style) "
 version_format = "v${raw}"
@@ -879,16 +976,19 @@ detect_folders = []
 pyenv_version_name = false
 pyenv_prefix = "pyenv "
 python_binary = [
-    "python",
-    "python3",
-    "python2",
+    ["python"],
+    ["python3"],
+    ["python2"],
 ]
 format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 version_format = "v${raw}"
 style = "yellow bold"
 symbol = "🐍 "
 disabled = false
-detect_extensions = ["py"]
+detect_extensions = [
+    "py",
+    "ipynb",
+]
 detect_files = [
     "requirements.txt",
     ".python-version",
@@ -899,6 +999,7 @@ detect_files = [
     "__init__.py",
 ]
 detect_folders = []
+detect_env_vars = ["VIRTUAL_ENV"]
 
 [quarto]
 format = "via [$symbol($version )]($style)"
@@ -1061,7 +1162,7 @@ map_symbol = false
 recognize_signal_code = true
 pipestatus = false
 pipestatus_separator = "|"
-pipestatus_format = '\[$pipestatus\] => [$symbol$common_meaning$signal_name$maybe_int]($style)'
+pipestatus_format = '\[$pipestatus\] => [$symbol$common_meaning$signal_name$maybe_int]($style) '
 disabled = false
 
 [sudo]
