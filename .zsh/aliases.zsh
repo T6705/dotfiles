@@ -88,9 +88,19 @@ if command -v youtube-dl &> /dev/null ; then
     alias mp3="youtube-dl --extract-audio --audio-format mp3"
 fi
 
-if command -v xclip &> /dev/null ; then
-	alias xcopy='xclip -selection clipboard'
-	alias xpaste='xclip -selection clipboard -o'
+# Check for Wayland or X11 environment and set appropriate clipboard commands
+if [ "$XDG_SESSION_TYPE" = "wayland" ] || [ -n "$WAYLAND_DISPLAY" ]; then
+    # On Wayland (like Hyprland)
+    if command -v wl-copy &>/dev/null; then
+        alias xcopy='wl-copy'
+        alias xpaste='wl-paste'
+    fi
+else
+    # On X11
+    if command -v xclip &>/dev/null; then
+        alias xcopy='xclip -selection clipboard'
+        alias xpaste='xclip -selection clipboard -o'
+    fi
 fi
 
 if command -v tr &> /dev/null ; then
