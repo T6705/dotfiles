@@ -390,6 +390,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
+---- Show errors and warnings in a floating window
+--vim.api.nvim_create_autocmd("CursorHold", {
+--  callback = function()
+--    vim.diagnostic.open_float(nil, { focusable = false, source = "if_many" })
+--  end,
+--})
+
 -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#imports-and-formatting
 -- Use the following configuration to have your imports organized on save using the logic of goimports and your code formatted.
 vim.api.nvim_create_autocmd("BufWritePre", {

@@ -118,7 +118,7 @@ require("lazy").setup({
     config = function()
       vim.diagnostic.config { update_in_insert = true }
       require("bufferline").setup {
-        highlights = require("catppuccin.groups.integrations.bufferline").get(),
+        highlights = require("catppuccin.special.bufferline").get_theme(),
         options = {
           numbers = "none",
           close_command = "bdelete! %d",
@@ -230,8 +230,8 @@ require("lazy").setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for neovim
-      'williamboman/mason.nvim',
-      'williamboman/mason-lspconfig.nvim',
+      'mason-org/mason.nvim',
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'folke/lazydev.nvim', ft = 'lua', opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } }, }, } },
       {
@@ -796,6 +796,12 @@ require("lazy").setup({
   -- other
   --------------------------------------------------------------------------------
   {
+    "m4xshen/hardtime.nvim",
+    lazy = false,
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {},
+  },
+  {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true },
     specs = {
@@ -931,11 +937,12 @@ require("lazy").setup({
   },
   {
     "OXY2DEV/markview.nvim",
-    lazy = false,
-    ft = { 'markdown' },
+    priority = 49,
+    ft = { 'markdown', 'typst' },
     dependencies = {
       "nvim-tree/nvim-web-devicons",
       "nvim-treesitter/nvim-treesitter",
+      "saghen/blink.cmp",
     },
     config = function()
       require("markview").setup();
