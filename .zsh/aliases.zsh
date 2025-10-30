@@ -269,7 +269,7 @@ if command -v go &> /dev/null ; then
     fi
 
 	if command -v docker &>/dev/null; then
-		alias goci-lint='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:v2.1.6 golangci-lint run'
-		alias goci-fmt='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:v2.1.6 golangci-lint fmt'
+        alias goci-lint='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint run'
+        alias goci-fmt='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint fmt'
     fi
 fi

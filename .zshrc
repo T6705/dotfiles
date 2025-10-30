@@ -140,6 +140,9 @@ fi
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 [ -d $HOME/.cargo/env ] && export PATH="$HOME/.cargo/env:$PATH"
 [ -d $HOME/.gem/ruby/3.0.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/3.0.0/bin"
+[ -d $HOME/.local/share/gem/ruby/3.4.0/bin ] && export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
+[ -d $HOME/.local/share/nvim/mason/bin ] && export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+[ -d $HOME/.pub-cache/bin ] && export PATH="$PATH":"$HOME/.pub-cache/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
@@ -150,6 +153,7 @@ fi
 [ -d /usr/local/opt/heroku-node/bin ] && export PATH="/usr/local/opt/heroku-node/bin:$PATH"
 [ -d /usr/local/opt/openjdk/bin ] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
 [ -d /usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin ] && export PATH="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin:$PATH"
+[ -d /usr/local/opt/ruby@3.3/bin ] && export PATH="/usr/local/opt/ruby@3.3/bin:$PATH"
 [ -d /usr/local/sbin ] && export PATH="/usr/local/sbin:$PATH"
 
 # You may need to manually set your language environment
