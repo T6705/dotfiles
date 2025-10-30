@@ -246,8 +246,17 @@ require("lazy").setup({
         event = "VeryLazy", -- Or `LspAttach`
         priority = 1000,    -- needs to be loaded in first
         config = function()
-          require('tiny-inline-diagnostic').setup()
-          vim.diagnostic.config({ virtual_text = false }) -- Only if needed in your configuration, if you already have native LSP diagnostics
+          require("tiny-inline-diagnostic").setup({
+            options = {
+              multilines = {
+                enabled = false,
+              },
+              show_source = {
+                enabled = true,
+              },
+            },
+          })
+          vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
         end
       },
       {
@@ -531,6 +540,14 @@ require("lazy").setup({
             },
           }
         },
+        ruff = {
+          cmd_env = { RUFF_TRACE = "messages" },
+          init_options = {
+            settings = {
+              logLevel = "error",
+            },
+          },
+        },
         pyright = {
           single_file_support = true,
           settings = {
@@ -552,6 +569,7 @@ require("lazy").setup({
         yamlls = {
           settings = {
             yaml = {
+              keyOrdering = false,
               hover = true,
               completion = true,
               format = { enable = true },
@@ -565,6 +583,11 @@ require("lazy").setup({
           }
         },
         jsonls = {
+          -- lazy-load schemastore when needed
+          before_init = function(_, new_config)
+            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+          end,
           settings = {
             json = {
               format = { enable = true },
@@ -595,13 +618,19 @@ require("lazy").setup({
           "goimports",
           "golangci-lint",
           "gomodifytags",
+          "hadolint",
           "impl",
+          "markdownlint-cli2",
           "php-cs-fixer",
+          "phpcs",
           "prettier",
+          "pyright",
           "revive",
+          "ruff",
           "shellcheck",
           "shfmt",
           "staticcheck",
+          -- "stylua",
         }
       }
       require('mason-lspconfig').setup({
@@ -615,6 +644,8 @@ require("lazy").setup({
 
       require("luasnip.loaders.from_vscode").lazy_load()
       require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+
+      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
     end,
   },
 
@@ -632,7 +663,14 @@ require("lazy").setup({
         ensure_installed = {
           "bash",
           "c",
+          "cpp",
           "diff",
+          "dockerfile",
+          "git_config",
+          "git_rebase",
+          "gitattributes",
+          "gitcommit",
+          "gitignore",
           "go",
           "gomod",
           "gosum",
@@ -641,15 +679,18 @@ require("lazy").setup({
           "javascript",
           "jsdoc",
           "json",
+          "json5",
           "jsonc",
           "lua",
           "luadoc",
           "luap",
           "markdown",
           "markdown_inline",
+          "ninja",
           "python",
           "query",
           "regex",
+          "rst",
           "toml",
           "tsx",
           "typescript",
@@ -749,46 +790,53 @@ require("lazy").setup({
   },
 
   --------------------------------------------------------------------------------
-  -- go
-  --------------------------------------------------------------------------------
-  -- use { 'buoto/gotests-vim', ft = { 'go' } }
-  -- use { 'fatih/vim-go', ft = { 'go' }, build = ':GoInstallBinaries' }
-  -- use { 'sebdah/vim-delve', ft = { 'go' } }
-  -- {
-  --   'ray-x/go.nvim',
-  --   ft = { "go", 'gomod' },
-  --   event = { "CmdlineEnter" },
-  --   build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
-  --   dependencies = {
-  --     { 'ray-x/guihua.lua', build = 'cd lua/fzy && make', enabled = vim.fn.executable("make") == 1, },
-  --     'folke/trouble.nvim',
-  --     'L3MON4D3/LuaSnip',
-  --   },
-  --   config = function()
-  --     require('go').setup({
-  --       lsp_cfg = false,
-  --       lsp_gofumpt = true,
-  --       trouble = true,
-  --       luasnip = true,
-  --     })
-  --     -- autocmd BufWritePre *.go :silent! lua require('go.format').goimport()
-  --     -- vim.api.nvim_create_autocmd('BufWritePre', { pattern = '*.go', command = "GoFmt" })
-  --     -- vim.api.nvim_create_autocmd('BufWritePre', { pattern = '*.go', command = "GoImport" })
-  --     vim.api.nvim_create_autocmd('BufWritePre',
-  --       { pattern = '*.go', command = "silent! lua require('go.format').goimport()" })
-  --     vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead', 'BufEnter' },
-  --       { pattern = '*.go', command = "setlocal noexpandtab tabstop=4 shiftwidth=4" })
-  --   end
-  -- },
-
-  --------------------------------------------------------------------------------
-  -- python
+  -- lang
   --------------------------------------------------------------------------------
   {
-    'psf/black',
-    ft = { 'python' },
+    "mfussenegger/nvim-lint",
+    event = { "BufWritePost", "BufReadPost", "InsertLeave" },
     config = function()
-      vim.api.nvim_create_autocmd("BufWritePre", { pattern = "*.py", command = "Black" })
+      require('lint').linters_by_ft = {
+        dockerfile = { "hadolint" },
+        go = { "golangcilint" },
+        -- lua = { "stylua" },
+        markdown = { "markdownlint-cli2" },
+        php = { "phpcs" },
+      }
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          -- try_lint without arguments runs the linters defined in `linters_by_ft`
+          -- for the current filetype
+          require("lint").try_lint()
+        end,
+      })
+    end
+  },
+  {
+    'stevearc/conform.nvim',
+    dependencies = { "mason.nvim" },
+    lazy = true,
+    config = function()
+      require("conform").setup({
+        -- formatters = {
+        --   stylua = {
+        --     command = os.getenv("HOME") .. ".local/share/nvim/mason/bin/stylua",
+        --   },
+        -- },
+        formatters_by_ft = {
+          go = { "goimports", "gofumpt" },
+          -- lua = { "stylua" },
+          markdown = { "prettier", "markdownlint-cli2", "markdown-toc" },
+          php = { "php_cs_fixer" },
+          python = { "isort", "black" },
+        },
+      })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = "*",
+        callback = function(args)
+          require("conform").format({ bufnr = args.buf })
+        end,
+      })
     end
   },
 
@@ -1004,6 +1052,16 @@ require("lazy").setup({
           end,
         },
       })
+
+      -- https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "OilActionsPost",
+        callback = function(event)
+          if event.data.actions.type == "move" then
+            Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
+          end
+        end,
+      })
     end
   },
   {
@@ -1054,6 +1112,7 @@ require("lazy").setup({
       -- refer to the configuration section below
       explorer     = { enabled = true },
       gitbrowse    = { enabled = true },
+      image        = { enabled = true },
       indent       = { enabled = true },
       input        = { enabled = true },
       lazygit      = { enabled = true },

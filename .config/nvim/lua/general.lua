@@ -6,11 +6,7 @@ local o = vim.o     -- global options
 local b = vim.bo    -- buffer-scoped options
 local w = vim.wo    -- windows-scoped options
 
--- cmd [[
--- let g:python_host_prog = system('which python2')
--- let g:python3_host_prog = system('which python3')
--- ]]
-g.python3_host_prog = '/usr/local/bin/python3'
+g.python3_host_prog = vim.fn.system("which python3"):gsub("\n", "")
 
 g.mapleader = ' '
 
@@ -24,7 +20,7 @@ opt.guifont = { "FiraCode Nerd Font Mono", ":h14" }
 cmd 'packadd justify'
 cmd 'packadd shellmenu'
 cmd 'packadd swapmouse'
-cmd 'packadd vimball'
+-- cmd 'packadd vimball'
 
 opt.mouse = 'a' -- enable mouse support
 
@@ -38,10 +34,10 @@ o.formatoptions = o.formatoptions .. "n" -- format numbered lists using 'formatl
 o.formatoptions = o.formatoptions .. "1" -- don't break after one letter word
 
 -- Show filler lines, to keep the text synchronized with a window that has inserted lines at the same position
-cmd [[set diffopt+=filler]]
-cmd [[set diffopt+=internal,algorithm:patience]]
-cmd [[set diffopt+=indent-heuristic]]
-cmd [[set diffopt+=algorithm:histogram]]
+vim.opt.diffopt:append("filler")
+vim.opt.diffopt:append({ "internal", "algorithm:patience" })
+vim.opt.diffopt:append("indent-heuristic")
+vim.opt.diffopt:append("algorithm:histogram")
 
 ----------------------------------------------------------------------------------
 -- Encoding
@@ -122,8 +118,8 @@ end
 -- t - tags. Same to invoking <C-x><C-]> individually
 -- i - included files. We don't need this.
 -- kspell, when spell check is active, use words from spellfiles
-cmd [[set complete-=i]]
-cmd [[set complete+=kspell]]
+vim.opt.complete:remove("i")
+vim.opt.complete:append("kspell")
 
 -- set ofu=syntaxcomplete#Complete " Set omni-completion method
 -- "set ofu=ale#completion#OmniFunc " Set omni-completion method
@@ -345,16 +341,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end
     local file = vim.loop.fs_realpath(event.match) or event.match
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
-})
-
--- https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
-vim.api.nvim_create_autocmd("User", {
-  pattern = "OilActionsPost",
-  callback = function(event)
-    if event.data.actions.type == "move" then
-      Snacks.rename.on_rename_file(event.data.actions.src_url, event.data.actions.dest_url)
-    end
   end,
 })
 
