@@ -1,4 +1,4 @@
-require('plugins')
-require('general')
-require('mappings')
-require('neovide')
+require("plugins")
+require("general")
+require("mappings")
+require("neovide")
