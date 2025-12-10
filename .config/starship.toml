@@ -287,6 +287,8 @@ only_with_files = true
 disabled = false
 detect_extensions = []
 detect_files = [
+    "compose.yml",
+    "compose.yaml",
     "docker-compose.yml",
     "docker-compose.yaml",
     "Dockerfile",
@@ -368,6 +370,49 @@ style = "bold black"
 symbol = "."
 disabled = false
 
+[fortran]
+format = "via [$symbol($version(-$name) )]($style)"
+version_format = "${raw}"
+symbol = "🅵  "
+style = "bold purple"
+disabled = false
+detect_extensions = [
+    "f",
+    "F",
+    "for",
+    "FOR",
+    "ftn",
+    "FTN",
+    "f77",
+    "F77",
+    "f90",
+    "F90",
+    "f95",
+    "F95",
+    "f03",
+    "F03",
+    "f08",
+    "F08",
+    "f18",
+    "F18",
+]
+detect_files = ["fpm.toml"]
+detect_folders = []
+commands = [
+    [
+    "gfortran",
+    "--version",
+],
+    [
+    "flang",
+    "--version",
+],
+    [
+    "flang-new",
+    "--version",
+],
+]
+
 [fossil_branch]
 format = "on [$symbol$branch]($style) "
 symbol = " "
@@ -403,6 +448,7 @@ truncation_symbol = "…"
 only_attached = false
 always_show_remote = false
 ignore_branches = []
+ignore_bare_repo = false
 disabled = false
 
 [git_commit]
@@ -559,6 +605,19 @@ style = "bold purple"
 format = "on [$symbol$branch(:$topic)]($style) "
 truncation_length = 9223372036854775807
 truncation_symbol = "…"
+disabled = true
+
+[hg_state]
+merge = "MERGING"
+rebase = "REBASING"
+update = "UPDATING"
+bisect = "BISECTING"
+shelve = "SHELVING"
+graft = "GRAFTING"
+transplant = "TRANSPLANTING"
+histedit = "HISTEDITING"
+style = "bold yellow"
+format = '\([$state]($style)\) '
 disabled = true
 
 [hostname]
@@ -813,7 +872,7 @@ detect_folders = []
 [opa]
 format = "via [$symbol($version )]($style)"
 version_format = "v${raw}"
-symbol = "🪖  "
+symbol = "🪖 "
 style = "bold blue"
 disabled = false
 detect_extensions = ["rego"]
@@ -838,6 +897,7 @@ AlmaLinux = "💠 "
 Alpine = "🏔️ "
 Amazon = "🙂 "
 Android = "🤖 "
+AOSC = "🐱 "
 Arch = "🎗️ "
 Artix = "🎗️ "
 Bluefin = "🐟 "
@@ -881,7 +941,7 @@ Ubuntu = "🎯 "
 Ultramarine = "🔷 "
 Unknown = "❓ "
 Uos = "🐲 "
-Void = "  "
+Void = " "
 Windows = "🪟 "
 
 [package]
@@ -948,7 +1008,7 @@ detect_files = [
     "pixi.toml",
     "pixi.lock",
 ]
-detect_folders = [".pixi"]
+detect_folders = []
 
 [pulumi]
 format = "via [$symbol($username@)$stack]($style) "
@@ -1195,6 +1255,16 @@ detect_extensions = [
 ]
 detect_files = []
 detect_folders = [".terraform"]
+commands = [
+    [
+    "terraform",
+    "version",
+],
+    [
+    "tofu",
+    "version",
+],
+]
 
 [time]
 format = "at [$time]($style) "
@@ -1252,6 +1322,16 @@ detect_files = [
     "vpkg.json",
     ".vpkg-lock.json",
 ]
+detect_folders = []
+
+[xmake]
+format = "via [$symbol($version )]($style)"
+version_format = "v${raw}"
+symbol = "△ "
+style = "bold green"
+disabled = false
+detect_extensions = []
+detect_files = ["xmake.lua"]
 detect_folders = []
 
 [zig]
