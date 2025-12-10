@@ -261,6 +261,12 @@ require("lazy").setup({
         end
       },
       {
+        'saghen/blink.indent',
+        --- @module 'blink.indent'
+        --- @type blink.indent.Config
+        -- opts = {},
+      },
+      {
         'saghen/blink.cmp',
         -- optional: provides snippets for the snippet source
         dependencies = {
@@ -665,6 +671,7 @@ require("lazy").setup({
           "bash",
           "c",
           "cpp",
+          "css",
           "diff",
           "dockerfile",
           "git_config",
@@ -688,16 +695,21 @@ require("lazy").setup({
           "markdown",
           "markdown_inline",
           "ninja",
+          "norg",
           "printf",
           "python",
           "query",
           "regex",
           "rst",
+          "scss",
+          "svelte",
           "toml",
           "tsx",
           "typescript",
+          "typst",
           "vim",
           "vimdoc",
+          "vue",
           "xml",
           "yaml",
         },
@@ -1051,7 +1063,7 @@ require("lazy").setup({
       explorer     = { enabled = true },
       gitbrowse    = { enabled = true },
       image        = { enabled = true },
-      indent       = { enabled = true },
+      indent       = { enabled = false },
       input        = { enabled = true },
       lazygit      = { enabled = true },
       notifier     = { enabled = true, timeout = 3000 },

@@ -253,8 +253,9 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = "bufcheck",
 	pattern = "*",
+	desc = "highlight selection on yank",
 	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 500 })
+		vim.highlight.on_yank({ higroup = "IncSearch", visual = true, timeout = 500 })
 	end,
 })
 
