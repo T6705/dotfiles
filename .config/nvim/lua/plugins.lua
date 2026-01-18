@@ -285,7 +285,25 @@ require("lazy").setup({
             opts = { history = true, delete_check_events = "TextChanged" },
             dependencies = { "rafamadriz/friendly-snippets" },
           },
-          { 'onsails/lspkind-nvim',         event = 'BufEnter', config = function() require('lspkind').init() end },
+          {
+            "nvim-mini/mini.icons",
+            lazy = true,
+            opts = {
+              file = {
+                [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+                ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+              },
+              filetype = {
+                dotenv = { glyph = "", hl = "MiniIconsYellow" },
+              },
+            },
+            init = function()
+              package.preload["nvim-web-devicons"] = function()
+                require("mini.icons").mock_nvim_web_devicons()
+                return package.loaded["nvim-web-devicons"]
+              end
+            end,
+          },
         },
 
         version = '1.*',
@@ -306,33 +324,19 @@ require("lazy").setup({
                 components = {
                   kind_icon = {
                     text = function(ctx)
-                      local lspkind = require("lspkind")
-                      local icon = ctx.kind_icon
-                      if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                        local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-                        if dev_icon then
-                          icon = dev_icon
-                        end
-                      else
-                        icon = require("lspkind").symbolic(ctx.kind, {
-                          mode = "symbol",
-                        })
-                      end
-
-                      return icon .. ctx.icon_gap
+                      local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
+                      return kind_icon
                     end,
-
-                    -- Optionally, use the highlight groups from nvim-web-devicons
-                    -- You can also add the same function for `kind.highlight` if you want to
-                    -- keep the highlight groups in sync with the icons.
+                    -- (optional) use highlights from mini.icons
                     highlight = function(ctx)
-                      local hl = ctx.kind_hl
-                      if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                        local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-                        if dev_icon then
-                          hl = dev_hl
-                        end
-                      end
+                      local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
+                      return hl
+                    end,
+                  },
+                  kind = {
+                    -- (optional) use highlights from mini.icons
+                    highlight = function(ctx)
+                      local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
                       return hl
                     end,
                   }
@@ -659,14 +663,28 @@ require("lazy").setup({
   {
     'nvim-treesitter/nvim-treesitter',
     event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSUpdate", "TSUpdateSync", "TSInstall", "TSLog", "TSUninstall" },
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter-context", event = "BufReadPre", config = true },
-      'nvim-treesitter/nvim-treesitter-refactor',
-      'nvim-treesitter/nvim-treesitter-textobjects',
+      {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = "BufReadPost",
+        opts = {
+          enable = true,            -- Enable this plugin
+          max_lines = 3,            -- How many lines the window should span
+          min_window_height = 15,   -- Only show context if window is tall enough
+          line_numbers = true,
+          multiline_threshold = 20, -- Max lines to show for a single context
+          trim_scope = "outer",     -- Which context lines to discard if max_lines exceeded
+          mode = "cursor",          -- Line used to calculate context. Choices: 'cursor', 'topline'
+        },
+        keys = {
+          { "[c", function() require("treesitter-context").go_to_context() end, desc = "Jump to context" },
+        },
+      },
     },
     build = ':TSUpdateSync',
     config = function()
-      require 'nvim-treesitter.configs'.setup {
+      require 'nvim-treesitter'.setup {
         ensure_installed = {
           "bash",
           "c",
@@ -732,53 +750,6 @@ require("lazy").setup({
         },
         matchup = {
           enable = true
-        },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true, -- automatically jump forward to matching textobj
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner"
-            }
-          },
-          swap = {
-            enable = true,
-            swap_next = {
-              ["<leader>a"] = "@parameter.inner"
-            },
-            swap_previous = {
-              ["<leader>A"] = "@parameter.inner"
-            }
-          },
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              ["]m"] = "@function.outer",
-              ["]]"] = { query = "@class.outer", desc = "Next class start" },
-            },
-            goto_next_end = {
-              ["]M"] = "@function.outer",
-              ["]["] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.outer",
-            },
-            goto_previous_end = {
-              ["[M"] = "@function.outer",
-              ["[]"] = "@class.outer",
-            },
-            goto_next = {
-              ["]d"] = "@conditional.outer",
-            },
-            goto_previous = {
-              ["[d"] = "@conditional.outer",
-            }
-          },
         },
         query_linter = {
           enable = true,
