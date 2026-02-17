@@ -29,28 +29,28 @@ alias feh='feh -. -Z -B black'
 
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
-if command -v gem &> /dev/null ; then
+if command -v gem &>/dev/null; then
     alias gemup="gem update --system && gem update && gem cleanup"
 fi
 
-if command -v bat &> /dev/null ; then
+if command -v bat &>/dev/null; then
     alias cat='bat'
 fi
 
-if command -v dog &> /dev/null ; then
+if command -v dog &>/dev/null; then
     alias dig='dog'
 fi
 
-if command -v gping &> /dev/null ; then
+if command -v gping &>/dev/null; then
     alias ping='gping'
 fi
 
-if command -v lsd &> /dev/null ; then
+if command -v lsd &>/dev/null; then
     alias ls="lsd"
     alias l="ls -lah"
     alias la="ls -lah"
     alias lt='ls --tree'
-elif command -v exa &> /dev/null ; then
+elif command -v exa &>/dev/null; then
     alias ls="exa"
     alias la="exa -lahgimuU"
 else
@@ -59,7 +59,7 @@ else
     alias l='ls -CF'
 fi
 
-if command -v shasum &> /dev/null ; then
+if command -v shasum &>/dev/null; then
     alias sha1sum="shasum -a 1"
     alias sha1sum="shasum -a 1"
     alias sha224sum="shasum -a 224"
@@ -70,21 +70,21 @@ if command -v shasum &> /dev/null ; then
     alias sha512256sum="shasum -a 512256"
 fi
 
-if command -v firejail &> /dev/null ; then
-    if command -v virtualbox &> /dev/null ; then alias virtualbox='firejail Virtualbox' ; fi
-    if command -v mpv &> /dev/null ; then alias mpv='firejail mpv' ; fi
-    if command -v vlc &> /dev/null ; then alias vlc='firejail vlc' ; fi
+if command -v firejail &>/dev/null; then
+    if command -v virtualbox &>/dev/null; then alias virtualbox='firejail Virtualbox'; fi
+    if command -v mpv &>/dev/null; then alias mpv='firejail mpv'; fi
+    if command -v vlc &>/dev/null; then alias vlc='firejail vlc'; fi
 fi
 
-if command -v python3 &> /dev/null ; then
+if command -v python3 &>/dev/null; then
     alias pywebserver-cgi="python -m http.server --cgi"
     alias pywebserver-local="python3 -m http.server --bind 127.0.0.1"
     alias pywebserver="python3 -m http.server"
-elif command -v python2 &> /dev/null ; then
+elif command -v python2 &>/dev/null; then
     alias pywebserver="python -m SimpleHTTPServer"
 fi
 
-if command -v youtube-dl &> /dev/null ; then
+if command -v youtube-dl &>/dev/null; then
     alias mp3="youtube-dl --extract-audio --audio-format mp3"
 fi
 
@@ -103,24 +103,24 @@ else
     fi
 fi
 
-if command -v tr &> /dev/null ; then
+if command -v tr &>/dev/null; then
     alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 fi
 
-if command -v clamscan &> /dev/null ; then
+if command -v clamscan &>/dev/null; then
     alias checkvirus="clamscan --recursive=yes --infected ~/"
 fi
 
-if command -v freshclam &> /dev/null ; then
+if command -v freshclam &>/dev/null; then
     alias updateantivirus="sudo freshclam"
 fi
 
-if command -v rkhunter &> /dev/null ; then
+if command -v rkhunter &>/dev/null; then
     alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
 fi
 
-if command -v vim &> /dev/null ; then
-    if [ -f ~/minimal.vimrc ] ; then
+if command -v vim &>/dev/null; then
+    if [ -f ~/minimal.vimrc ]; then
         # fast Vim that doesn't load plugins
         alias vimn='vim -u ~/minimal.vimrc'
     fi
@@ -128,8 +128,8 @@ if command -v vim &> /dev/null ; then
     alias vimnn='vim -n -u NONE -i NONE -N'
 fi
 
-if command -v gvim &> /dev/null ; then
-    if [ -f ~/minimal.vimrc ] ; then
+if command -v gvim &>/dev/null; then
+    if [ -f ~/minimal.vimrc ]; then
         # fast gvim that doesn't load plugins
         alias gvimn='gvim -u ~/minimal.vimrc'
     fi
@@ -137,8 +137,8 @@ if command -v gvim &> /dev/null ; then
     alias gvimnn='gvim -n -u NONE -i NONE -N'
 fi
 
-if command -v nvim &> /dev/null ; then
-    if [ -f ~/minimal.vimrc ] ; then
+if command -v nvim &>/dev/null; then
+    if [ -f ~/minimal.vimrc ]; then
         # fast Neovim that doesn't load plugins
         alias nvimn='nvim -u ~/minimal.vimrc'
     fi
@@ -146,8 +146,8 @@ if command -v nvim &> /dev/null ; then
     alias nvimnn='nvim -u NONE -i NONE -N'
 fi
 
-if command -v git &> /dev/null ; then
-    if command -v vim &> /dev/null ; then
+if command -v git &>/dev/null; then
+    if command -v vim &>/dev/null; then
         #vd - Edit all uncommitted files that have changes since the last commit (be they staged or unstaged)
         alias vd="vim \$(git diff HEAD --name-only --diff-filter=ACMR)"
 
@@ -158,7 +158,7 @@ if command -v git &> /dev/null ; then
         alias vdc="vim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
     fi
 
-    if command -v nvim &> /dev/null ; then
+    if command -v nvim &>/dev/null; then
         #vd - Edit all uncommitted files that have changes since the last commit (be they staged or unstaged)
         alias nvd="nvim \$(git diff HEAD --name-only --diff-filter=ACMR)"
 
@@ -178,7 +178,7 @@ fi
 # ------------------------------------
 # Docker alias
 # ------------------------------------
-if command -v docker &> /dev/null ; then
+if command -v docker &>/dev/null; then
     # Stop all containers
     alias dstop='docker_alias_stop_all_containers'
 
@@ -238,11 +238,11 @@ fi
 # ------------------------------------
 # flutter alias
 # ------------------------------------
-if command -v flutter &> /dev/null ; then
+if command -v flutter &>/dev/null; then
     alias fr="flutter run -d chrome --web-renderer html"
     alias frd="flutter run -d chrome --web-renderer html --web-browser-flag \"--disable-web-security\""
     alias fb="flutter build web --release"
-    if command -v dart &> /dev/null ; then
+    if command -v dart &>/dev/null; then
         alias dfa="dart fix --apply"
         alias dfn="dart fix --dry-run"
     fi
@@ -251,24 +251,24 @@ fi
 # ------------------------------------
 # golang alias
 # ------------------------------------
-if command -v go &> /dev/null ; then
+if command -v go &>/dev/null; then
     alias go-up='go get -u ./... && go mod tidy && go mod verify'
 
     alias go-clean='go clean -modcache'
 
     alias go-build="CGO_ENABLED=0 go build -v -trimpath -ldflags=\"-extldflags='-static' -w -s\" -gcflags=\"-m -m\""
 
-    if command -v goimports &> /dev/null ; then
+    if command -v goimports &>/dev/null; then
         # go install golang.org/x/tools/cmd/goimports@latest
         alias go-imports='goimports -d $(go list -f {{.Dir}} ./...) && goimports -w $(go list -f {{.Dir}} ./...)'
     fi
 
-    if command -v gofumpt &> /dev/null ; then
+    if command -v gofumpt &>/dev/null; then
         # go install mvdan.cc/gofumpt@latest
         alias go-fmt='gofumpt -d $(go list -f {{.Dir}} ./...) && gofumpt -w $(go list -f {{.Dir}} ./...)'
     fi
 
-	if command -v docker &>/dev/null; then
+    if command -v docker &>/dev/null; then
         alias goci-lint='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint run'
         alias goci-fmt='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint fmt'
     fi

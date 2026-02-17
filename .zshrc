@@ -46,7 +46,7 @@ ZSH_THEME="robbyrussell"
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
- zstyle ':omz:update' frequency 1
+zstyle ':omz:update' frequency 1
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -88,38 +88,38 @@ COMPLETION_WAITING_DOTS="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    alias-finder
-    archlinux
-    brew
-    catimg
-    command-not-found
-    docker
-    docker-compose
-    encode64
-    flutter
-    fzf
-    git
-    gitignore
-    golang
-    httpie
-    kubectl
-    macos
-    microk8s
-    nmap
-    npm
-    pip
-    pipenv
-    pyenv
-    python
-    rsync
-    systemadmin
-    systemd
-    tmux
-    vi-mode
-    vscode
-    zsh-autosuggestions
-    zsh-completions
-    zsh-syntax-highlighting
+	alias-finder
+	archlinux
+	brew
+	catimg
+	command-not-found
+	docker
+	docker-compose
+	encode64
+	flutter
+	fzf
+	git
+	gitignore
+	golang
+	httpie
+	kubectl
+	macos
+	microk8s
+	nmap
+	npm
+	pip
+	pipenv
+	pyenv
+	python
+	rsync
+	systemadmin
+	systemd
+	tmux
+	vi-mode
+	vscode
+	zsh-autosuggestions
+	zsh-completions
+	zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -129,11 +129,11 @@ ZSH_ALIAS_FINDER_AUTOMATIC=true
 autoload -U compinit && compinit
 
 # User configuration
-if command -v go &> /dev/null; then
-    [ ! -d $HOME/go ] && mkdir -p $HOME/go
-    [ ! -d $HOME/go/bin ] && mkdir -p $HOME/go/bin
-    [ -d $HOME/go ] && export GOPATH="$HOME/go"
-    [ -d $HOME/go/bin ] && export GOBIN="$GOPATH/bin" && export PATH="$PATH:$GOPATH/bin"
+if command -v go &>/dev/null; then
+	[ ! -d $HOME/go ] && mkdir -p $HOME/go
+	[ ! -d $HOME/go/bin ] && mkdir -p $HOME/go/bin
+	[ -d $HOME/go ] && export GOPATH="$HOME/go"
+	[ -d $HOME/go/bin ] && export GOBIN="$GOPATH/bin" && export PATH="$PATH:$GOPATH/bin"
 fi
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -161,21 +161,21 @@ fi
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-    if command -v nvim &> /dev/null ; then
-        export EDITOR='nvim'
-    elif command -v vim &> /dev/null ; then
-        export EDITOR='vim'
-    elif command -v vi &> /dev/null ; then
-        export EDITOR='vi'
-    fi
+	if command -v nvim &>/dev/null; then
+		export EDITOR='nvim'
+	elif command -v vim &>/dev/null; then
+		export EDITOR='vim'
+	elif command -v vi &>/dev/null; then
+		export EDITOR='vi'
+	fi
 else
-    if command -v nvim &> /dev/null ; then
-        export EDITOR='nvim'
-    elif command -v vim &> /dev/null ; then
-        export EDITOR='vim'
-    elif command -v vi &> /dev/null ; then
-        export EDITOR='vi'
-    fi
+	if command -v nvim &>/dev/null; then
+		export EDITOR='nvim'
+	elif command -v vim &>/dev/null; then
+		export EDITOR='vim'
+	elif command -v vi &>/dev/null; then
+		export EDITOR='vi'
+	fi
 fi
 
 # Compilation flags
@@ -195,20 +195,20 @@ fi
 setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST # Expire duplicate entries first when trimming history.
 setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS   # Delete old recorded entry if new entry is a duplicate.
-setopt HIST_IGNORE_DUPS       # Don't record an entry that was just recorded again.
-setopt HIST_IGNORE_SPACE      # Don't record an entry starting with a space.
-setopt HIST_REDUCE_BLANKS     # Remove superfluous blanks before recording entry.
-setopt HIST_SAVE_NO_DUPS      # Don't write duplicate entries in the history file.
-setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY          # Share history between all sessions.
+setopt HIST_IGNORE_ALL_DUPS # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_IGNORE_DUPS     # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_SPACE    # Don't record an entry starting with a space.
+setopt HIST_REDUCE_BLANKS   # Remove superfluous blanks before recording entry.
+setopt HIST_SAVE_NO_DUPS    # Don't write duplicate entries in the history file.
+setopt INC_APPEND_HISTORY   # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY        # Share history between all sessions.
 
 ####################################
 ## https://github.com/pyenv/pyenv ##
 ####################################
-if command -v pyenv &> /dev/null; then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+if command -v pyenv &>/dev/null; then
+	eval "$(pyenv init -)"
+	eval "$(pyenv virtualenv-init -)"
 fi
 
 ####################################
@@ -222,28 +222,30 @@ fi
 ## https://github.com/milkbikis/powerline-shell ##
 ##################################################
 if [[ -z $ZSH_THEME ]]; then
-    function powerline_precmd {
-        PS1="$(~/powerline-shell.py $? --shell zsh 2> /dev/null)"
-    }
+	function powerline_precmd {
+		PS1="$(~/powerline-shell.py $? --shell zsh 2>/dev/null)"
+	}
 
-    function install_powerline_precmd {
-        for s in "${precmd_functions[@]}"; do
-            if [ "$s" = "powerline_precmd" ]; then
-                return
-            fi
-        done
-        precmd_functions+=(powerline_precmd)
-    }
+	function install_powerline_precmd {
+		for s in "${precmd_functions[@]}"; do
+			if [ "$s" = "powerline_precmd" ]; then
+				return
+			fi
+		done
+		precmd_functions+=(powerline_precmd)
+	}
 
-    if [ "$TERM" != "linux" ]; then
-        install_powerline_precmd
-    fi
+	if [ "$TERM" != "linux" ]; then
+		install_powerline_precmd
+	fi
 fi
 
 #####################################
 ## https://github.com/junegunn/fzf ##
 #####################################
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if command -v fzf &>/dev/null; then
+	source <(fzf --zsh)
+fi
 
 ###########################################
 ## https://github.com/trapd00r/LS_COLORS ##
@@ -274,13 +276,13 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 #########################
 ## https://starship.rs ##
 #########################
-if command -v starship &> /dev/null; then
-    eval "$(starship init zsh)"
+if command -v starship &>/dev/null; then
+	eval "$(starship init zsh)"
 fi
 
 ###################################
 ## https://github.com/github/hub ##
 ###################################
-if command -v hub &> /dev/null; then
-    eval "$(hub alias -s)"
+if command -v hub &>/dev/null; then
+	eval "$(hub alias -s)"
 fi

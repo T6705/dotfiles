@@ -18,15 +18,14 @@ export BETTER_EXCEPTIONS=1
 # improved less option
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --quit-if-one-screen --RAW-CONTROL-CHARS'
 
-
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -58,7 +57,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+xterm-color | *-256color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -86,16 +85,15 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+xterm* | rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
-*)
-    ;;
+*) ;;
 esac
 
 PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\] "
 
-if command -v go &> /dev/null; then
+if command -v go &>/dev/null; then
     [ ! -d $HOME/go ] && mkdir -p $HOME/go
     [ ! -d $HOME/go/bin ] && mkdir -p $HOME/go/bin
     [ -d $HOME/go ] && export GOPATH="$HOME/go"
@@ -106,6 +104,9 @@ fi
 [ -d $HOME/.cargo/bin ] && export PATH="$HOME/.cargo/bin:$PATH"
 [ -d $HOME/.cargo/env ] && export PATH="$HOME/.cargo/env:$PATH"
 [ -d $HOME/.gem/ruby/3.0.0/bin ] && export PATH="$PATH:$HOME/.gem/ruby/3.0.0/bin"
+[ -d $HOME/.local/share/gem/ruby/3.4.0/bin ] && export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
+[ -d $HOME/.local/share/nvim/mason/bin ] && export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+[ -d $HOME/.pub-cache/bin ] && export PATH="$PATH":"$HOME/.pub-cache/bin"
 [ -d $HOME/.pyenv ] && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $HOME/.yarn ] && export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [ -d $HOME/bin ] && export PATH="$HOME/bin:$PATH"
@@ -116,12 +117,13 @@ fi
 [ -d /usr/local/opt/heroku-node/bin ] && export PATH="/usr/local/opt/heroku-node/bin:$PATH"
 [ -d /usr/local/opt/openjdk/bin ] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
 [ -d /usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin ] && export PATH="/usr/local/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/bin:$PATH"
+[ -d /usr/local/opt/ruby@3.3/bin ] && export PATH="/usr/local/opt/ruby@3.3/bin:$PATH"
 [ -d /usr/local/sbin ] && export PATH="/usr/local/sbin:$PATH"
 
 ####################################
 ## https://github.com/pyenv/pyenv ##
 ####################################
-if command -v pyenv &> /dev/null; then
+if command -v pyenv &>/dev/null; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
@@ -147,19 +149,19 @@ fi
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-    if command -v nvim &> /dev/null ; then
+    if command -v nvim &>/dev/null; then
         export EDITOR='nvim'
-    elif command -v vim &> /dev/null ; then
+    elif command -v vim &>/dev/null; then
         export EDITOR='vim'
-    elif command -v vi &> /dev/null ; then
+    elif command -v vi &>/dev/null; then
         export EDITOR='vi'
     fi
 else
-    if command -v nvim &> /dev/null ; then
+    if command -v nvim &>/dev/null; then
         export EDITOR='nvim'
-    elif command -v vim &> /dev/null ; then
+    elif command -v vim &>/dev/null; then
         export EDITOR='vim'
-    elif command -v vi &> /dev/null ; then
+    elif command -v vi &>/dev/null; then
         export EDITOR='vi'
     fi
 fi
@@ -200,7 +202,7 @@ alias hexdump='hexdump -C'
 
 alias feh='feh -. -Z -B black'
 
-if command -v tmux &> /dev/null ; then
+if command -v tmux &>/dev/null; then
     alias ta='tmux attach -t'
     alias tad='tmux attach -d -t'
     alias ts='tmux new-session -s'
@@ -211,28 +213,28 @@ fi
 
 alias nethack-ascrun="ssh -Y nethack@ascension.run"
 
-if command -v gem &> /dev/null ; then
+if command -v gem &>/dev/null; then
     alias gemup="gem update --system && gem update && gem cleanup"
 fi
 
-if command -v bat &> /dev/null ; then
+if command -v bat &>/dev/null; then
     alias cat='bat'
 fi
 
-if command -v dog &> /dev/null ; then
+if command -v dog &>/dev/null; then
     alias dig='dog'
 fi
 
-if command -v gping &> /dev/null ; then
+if command -v gping &>/dev/null; then
     alias ping='gping'
 fi
 
-if command -v lsd &> /dev/null ; then
+if command -v lsd &>/dev/null; then
     alias ls="lsd"
     alias l="ls -lah"
     alias la="ls -lah"
     alias lt='ls --tree'
-elif command -v exa &> /dev/null ; then
+elif command -v exa &>/dev/null; then
     alias ls="exa"
     alias la="exa -lahgimuU"
 else
@@ -241,7 +243,7 @@ else
     alias l='ls -CF'
 fi
 
-if command -v shasum &> /dev/null ; then
+if command -v shasum &>/dev/null; then
     alias sha1sum="shasum -a 1"
     alias sha1sum="shasum -a 1"
     alias sha224sum="shasum -a 224"
@@ -252,47 +254,47 @@ if command -v shasum &> /dev/null ; then
     alias sha512256sum="shasum -a 512256"
 fi
 
-if command -v firejail &> /dev/null ; then
-    if command -v virtualbox &> /dev/null ; then alias virtualbox='firejail Virtualbox' ; fi
-    if command -v mpv &> /dev/null ; then alias mpv='firejail mpv' ; fi
-    if command -v vlc &> /dev/null ; then alias vlc='firejail vlc' ; fi
+if command -v firejail &>/dev/null; then
+    if command -v virtualbox &>/dev/null; then alias virtualbox='firejail Virtualbox'; fi
+    if command -v mpv &>/dev/null; then alias mpv='firejail mpv'; fi
+    if command -v vlc &>/dev/null; then alias vlc='firejail vlc'; fi
 fi
 
-if command -v python3 &> /dev/null ; then
+if command -v python3 &>/dev/null; then
     alias pywebserver-cgi="python -m http.server --cgi"
     alias pywebserver-local="python3 -m http.server --bind 127.0.0.1"
     alias pywebserver="python3 -m http.server"
-elif command -v python2 &> /dev/null ; then
+elif command -v python2 &>/dev/null; then
     alias pywebserver="python -m SimpleHTTPServer"
 fi
 
-if command -v youtube-dl &> /dev/null ; then
+if command -v youtube-dl &>/dev/null; then
     alias mp3="youtube-dl --extract-audio --audio-format mp3"
 fi
 
-if command -v xclip &> /dev/null ; then
-	alias xcopy='xclip -selection clipboard'
-	alias xpaste='xclip -selection clipboard -o'
+if command -v xclip &>/dev/null; then
+    alias xcopy='xclip -selection clipboard'
+    alias xpaste='xclip -selection clipboard -o'
 fi
 
-if command -v tr &> /dev/null ; then
+if command -v tr &>/dev/null; then
     alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 fi
 
-if command -v clamscan &> /dev/null ; then
+if command -v clamscan &>/dev/null; then
     alias checkvirus="clamscan --recursive=yes --infected ~/"
 fi
 
-if command -v freshclam &> /dev/null ; then
+if command -v freshclam &>/dev/null; then
     alias updateantivirus="sudo freshclam"
 fi
 
-if command -v rkhunter &> /dev/null ; then
+if command -v rkhunter &>/dev/null; then
     alias checkrootkits="sudo rkhunter --update; sudo rkhunter --propupd; sudo rkhunter --check"
 fi
 
-if command -v vim &> /dev/null ; then
-    if [ -f ~/minimal.vimrc ] ; then
+if command -v vim &>/dev/null; then
+    if [ -f ~/minimal.vimrc ]; then
         # fast Vim that doesn't load plugins
         alias vimn='vim -u ~/minimal.vimrc'
     fi
@@ -300,8 +302,8 @@ if command -v vim &> /dev/null ; then
     alias vimnn='vim -n -u NONE -i NONE -N'
 fi
 
-if command -v gvim &> /dev/null ; then
-    if [ -f ~/minimal.vimrc ] ; then
+if command -v gvim &>/dev/null; then
+    if [ -f ~/minimal.vimrc ]; then
         # fast gvim that doesn't load plugins
         alias gvimn='gvim -u ~/minimal.vimrc'
     fi
@@ -309,8 +311,8 @@ if command -v gvim &> /dev/null ; then
     alias gvimnn='gvim -n -u NONE -i NONE -N'
 fi
 
-if command -v nvim &> /dev/null ; then
-    if [ -f ~/minimal.vimrc ] ; then
+if command -v nvim &>/dev/null; then
+    if [ -f ~/minimal.vimrc ]; then
         # fast Neovim that doesn't load plugins
         alias nvimn='nvim -u ~/minimal.vimrc'
     fi
@@ -318,8 +320,8 @@ if command -v nvim &> /dev/null ; then
     alias nvimnn='nvim -u NONE -i NONE -N'
 fi
 
-if command -v git &> /dev/null ; then
-    if command -v vim &> /dev/null ; then
+if command -v git &>/dev/null; then
+    if command -v vim &>/dev/null; then
         #vd - Edit all uncommitted files that have changes since the last commit (be they staged or unstaged)
         alias vd="vim \$(git diff HEAD --name-only --diff-filter=ACMR)"
 
@@ -330,7 +332,7 @@ if command -v git &> /dev/null ; then
         alias vdc="vim \$(git diff HEAD^ --name-only --diff-filter=ACMR)"
     fi
 
-    if command -v nvim &> /dev/null ; then
+    if command -v nvim &>/dev/null; then
         #vd - Edit all uncommitted files that have changes since the last commit (be they staged or unstaged)
         alias nvd="nvim \$(git diff HEAD --name-only --diff-filter=ACMR)"
 
@@ -355,7 +357,7 @@ alias sshrf="ssh -NfR"
 # ------------------------------------
 # Docker alias
 # ------------------------------------
-if command -v docker &> /dev/null ; then
+if command -v docker &>/dev/null; then
     # Stop all containers
     alias dstop='docker_alias_stop_all_containers'
 
@@ -415,11 +417,11 @@ fi
 # ------------------------------------
 # flutter alias
 # ------------------------------------
-if command -v flutter &> /dev/null ; then
+if command -v flutter &>/dev/null; then
     alias fr="flutter run -d chrome --web-renderer html"
     alias frd="flutter run -d chrome --web-renderer html --web-browser-flag \"--disable-web-security\""
     alias fb="flutter build web --release"
-    if command -v dart &> /dev/null ; then
+    if command -v dart &>/dev/null; then
         alias dfa="dart fix --apply"
         alias dfn="dart fix --dry-run"
     fi
@@ -428,26 +430,26 @@ fi
 # ------------------------------------
 # golang alias
 # ------------------------------------
-if command -v go &> /dev/null ; then
+if command -v go &>/dev/null; then
     alias go-up='go get -u ./... && go mod tidy && go mod verify'
 
     alias go-clean='go clean -modcache'
 
     alias go-build="CGO_ENABLED=0 go build -v -trimpath -ldflags=\"-extldflags='-static' -w -s\" -gcflags=\"-m -m\""
 
-    if command -v goimports &> /dev/null ; then
+    if command -v goimports &>/dev/null; then
         # go install golang.org/x/tools/cmd/goimports@latest
         alias go-imports='goimports -d $(go list -f {{.Dir}} ./...) && goimports -w $(go list -f {{.Dir}} ./...)'
     fi
 
-    if command -v gofumpt &> /dev/null ; then
+    if command -v gofumpt &>/dev/null; then
         # go install mvdan.cc/gofumpt@latest
         alias go-fmt='gofumpt -d $(go list -f {{.Dir}} ./...) && gofumpt -w $(go list -f {{.Dir}} ./...)'
     fi
 
-    if command -v golangci-lint &> /dev/null ; then
-        # go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-        alias go-lint='golangci-lint -v run --enable-all -D varnamelen -D lll -D funlen --deadline=15m'
+    if command -v docker &>/dev/null; then
+        alias goci-lint='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint run'
+        alias goci-fmt='sudo docker run -t --rm -v $(pwd):/app -w /app golangci/golangci-lint:latest-alpine golangci-lint fmt'
     fi
 fi
 
@@ -464,21 +466,23 @@ fi
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 if [ -f "/google/devshell/bashrc.google" ]; then
-  source "/google/devshell/bashrc.google"
+    source "/google/devshell/bashrc.google"
 fi
 
 #####################################
 ## https://github.com/junegunn/fzf ##
 #####################################
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if command -v fzf &>/dev/null; then
+    eval "$(fzf --bash)"
+fi
 
 ###########################################
 ## https://github.com/trapd00r/LS_COLORS ##
@@ -503,12 +507,12 @@ fi
 ## functions ##
 ###############
 random_chiptune() {
-    cat /dev/urandom | \
-        hexdump -v -e '/1 "%u\n"' | \
+    cat /dev/urandom |
+        hexdump -v -e '/1 "%u\n"' |
         awk '{ split("0,3,5,6,7,10,12",a,","); \
         for (i = 0; i < 1; i+= 0.0001) \
-        printf("%08X\n", 100*sin(1382*exp((a[$1 % 8]/12)*log(2))*i)) }' | \
-        xxd -r -p | \
+        printf("%08X\n", 100*sin(1382*exp((a[$1 % 8]/12)*log(2))*i)) }' |
+        xxd -r -p |
         aplay -c 2 -f S32_LE -r 24000
 }
 
@@ -532,7 +536,7 @@ ramdisk_on() {
 }
 
 # Display csv files in the console
-csvview() { column -s, -t < "$1" | less -#2 -N -S; }
+csvview() { column -s, -t <"$1" | less -#2 -N -S; }
 
 zram() {
     cores=$(nproc --all)
@@ -541,15 +545,15 @@ zram() {
 
     sudo swapoff -av
 
-    totalmem=`free | grep -e "^Mem:" | awk '{print $2}'`
-    mem=$(( ($totalmem / $cores)* 1024 ))
+    totalmem=$(free | grep -e "^Mem:" | awk '{print $2}')
+    mem=$((($totalmem / $cores) * 1024))
 
     echo "totalmem: $totalmem"
     echo "mem: $mem"
 
     core=0
     while [ $core -lt $cores ]; do
-        echo $mem > /sys/block/zram$core/disksize
+        echo $mem >/sys/block/zram$core/disksize
         sudo mkswap /dev/zram$core
         sudo swapon -p 5 /dev/zram$core
         let core=core+1
@@ -561,22 +565,21 @@ get_swap() {
     # Erik Ljungstrom 27/05/2011
     SUM=0
     OVERALL=0
-    for DIR in `find /proc/ -maxdepth 1 -type d | egrep "^/proc/[0-9]"` ; do
-            PID=`echo $DIR | cut -d / -f 3`
-            PROGNAME=`ps -p $PID -o comm --no-headers`
-            for SWAP in `grep Swap $DIR/smaps 2>/dev/null| awk '{ print $2 }'`
-            do
-                    let SUM=$SUM+$SWAP
-            done
-            echo "PID=$PID - Swap used: $SUM - ($PROGNAME )"
-            let OVERALL=$OVERALL+$SUM
-            SUM=0
+    for DIR in $(find /proc/ -maxdepth 1 -type d | egrep "^/proc/[0-9]"); do
+        PID=$(echo $DIR | cut -d / -f 3)
+        PROGNAME=$(ps -p $PID -o comm --no-headers)
+        for SWAP in $(grep Swap $DIR/smaps 2>/dev/null | awk '{ print $2 }'); do
+            let SUM=$SUM+$SWAP
+        done
+        echo "PID=$PID - Swap used: $SUM - ($PROGNAME )"
+        let OVERALL=$OVERALL+$SUM
+        SUM=0
 
     done
     echo "Overall swap used: $OVERALL"
 }
 
-if ! command -v trim_string &> /dev/null ; then
+if ! command -v trim_string &>/dev/null; then
     trim_string() {
         # Usage: trim_string "   example   string    "
         : "${1#"${1%%[![:space:]]*}"}"
@@ -585,7 +588,7 @@ if ! command -v trim_string &> /dev/null ; then
     }
 fi
 
-if ! command -v trim_all &> /dev/null ; then
+if ! command -v trim_all &>/dev/null; then
     trim_all() {
         # Usage: trim_all "   example   string    "
         set -f
@@ -595,84 +598,82 @@ if ! command -v trim_all &> /dev/null ; then
     }
 fi
 
-if ! command -v trim_quotes &> /dev/null ; then
+if ! command -v trim_quotes &>/dev/null; then
     trim_quotes() {
         # Usage: trim_quotes "string"
-        : "${1//\'}"
-        printf '%s\n' "${_//\"}"
+        : "${1//\'/}"
+        printf '%s\n' "${_//\"/}"
     }
 fi
 
-
-if ! command -v regex &> /dev/null ; then
+if ! command -v regex &>/dev/null; then
     regex() {
         # Usage: regex "string" "regex"
         [[ $1 =~ $2 ]] && printf '%s\n' "${BASH_REMATCH[1]}"
     }
 fi
 
-if ! command -v split &> /dev/null ; then
+if ! command -v split &>/dev/null; then
     split() {
-       # Usage: split "string" "delimiter"
-       IFS=$'\n' read -d "" -ra arr <<< "${1//$2/$'\n'}"
-       printf '%s\n' "${arr[@]}"
+        # Usage: split "string" "delimiter"
+        IFS=$'\n' read -d "" -ra arr <<<"${1//$2/$'\n'}"
+        printf '%s\n' "${arr[@]}"
     }
 fi
 
-if ! command -v lower &> /dev/null ; then
+if ! command -v lower &>/dev/null; then
     lower() {
         # Usage: lower "string"
         printf '%s\n' "${1,,}"
     }
 fi
 
-if ! command -v upper &> /dev/null ; then
+if ! command -v upper &>/dev/null; then
     upper() {
         # Usage: upper "string"
         printf '%s\n' "${1^^}"
     }
 fi
 
-
-if ! command -v strip_all &> /dev/null ; then
+if ! command -v strip_all &>/dev/null; then
     strip_all() {
         # Usage: strip_all "string" "pattern"
-        printf '%s\n' "${1//$2}"
+        printf '%s\n' "${1//$2/}"
     }
 fi
 
-
-if ! command -v strip &> /dev/null ; then
+if ! command -v strip &>/dev/null; then
     strip() {
         # Usage: strip "string" "pattern"
-        printf '%s\n' "${1/$2}"
+        printf '%s\n' "${1/$2/}"
     }
 fi
 
-if ! command -v lstrip &> /dev/null ; then
+if ! command -v lstrip &>/dev/null; then
     lstrip() {
         # Usage: lstrip "string" "pattern"
         printf '%s\n' "${1##$2}"
     }
 fi
 
-if ! command -v rstrip &> /dev/null ; then
+if ! command -v rstrip &>/dev/null; then
     rstrip() {
         # Usage: rstrip "string" "pattern"
         printf '%s\n' "${1%%$2}"
     }
 fi
 
-if ! command -v reverse_array &> /dev/null ; then
+if ! command -v reverse_array &>/dev/null; then
     reverse_array() {
         # Usage: reverse_array "array"
         shopt -s extdebug
-        f()(printf '%s\n' "${BASH_ARGV[@]}"); f "$@"
+        f() (printf '%s\n' "${BASH_ARGV[@]}")
+        f "$@"
         shopt -u extdebug
     }
 fi
 
-if ! command -v random_array_element &> /dev/null ; then
+if ! command -v random_array_element &>/dev/null; then
     random_array_element() {
         # Usage: random_array_element "array"
         local arr=("$@")
@@ -680,33 +681,33 @@ if ! command -v random_array_element &> /dev/null ; then
     }
 fi
 
-if ! command -v head &> /dev/null ; then
+if ! command -v head &>/dev/null; then
     head() {
         # Usage: head "n" "file"
-        mapfile -tn "$1" line < "$2"
+        mapfile -tn "$1" line <"$2"
         printf '%s\n' "${line[@]}"
     }
 fi
 
-if ! command -v head &> /dev/null ; then
+if ! command -v head &>/dev/null; then
     tail() {
         # Usage: tail "n" "file"
-        mapfile -tn 0 line < "$2"
+        mapfile -tn 0 line <"$2"
         printf '%s\n' "${line[@]: -$1}"
     }
 fi
 
-if ! command -v hex_to_rgb &> /dev/null ; then
+if ! command -v hex_to_rgb &>/dev/null; then
     hex_to_rgb() {
         # Usage: hex_to_rgb "#FFFFFF"
         #        hex_to_rgb "000000"
-        : "${1/\#}"
-        ((r=16#${_:0:2},g=16#${_:2:2},b=16#${_:4:2}))
+        : "${1/\#/}"
+        ((r = 16#${_:0:2}, g = 16#${_:2:2}, b = 16#${_:4:2}))
         printf '%s\n' "$r $g $b"
     }
 fi
 
-if ! command -v bkr &> /dev/null ; then
+if ! command -v bkr &>/dev/null; then
     bkr() {
         # Usage: bkr ./some_script.sh # some_script.sh is now running in the background
         (nohup "$@" &>/dev/null &)
@@ -720,8 +721,9 @@ repeat_cmd() {
     done
 }
 
-if command -v bat &> /dev/null; then
+if command -v bat &>/dev/null; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+    export MANROFFOPT="-c"
 else
     man() {
         env \
@@ -736,8 +738,18 @@ else
     }
 fi
 
+if command -v yazi &>/dev/null; then
+    function y() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+        command yazi "$@" --cwd-file="$tmp"
+        IFS= read -r -d '' cwd <"$tmp"
+        [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+        rm -f -- "$tmp"
+    }
+fi
+
 screenshot() {
-    if ! command -v maim &> /dev/null; then
+    if ! command -v maim &>/dev/null; then
         notify-send "maim is not installed"
         exit
     fi
@@ -786,10 +798,13 @@ screenshot() {
         fi
     elif [[ "$1" = "-b" ]]; then
         # Browse with feh
-        cd $SCREENSHOTS_DIR ; feh $(ls -t) &
+        cd $SCREENSHOTS_DIR
+        feh $(ls -t) &
     elif [[ "$1" = "-e" ]]; then
         # Edit last screenshot with GIMP
-        cd $SCREENSHOTS_DIR ; gimp $(ls -t | head -n1) & notify-send 'Opening last screenshot with GIMP' --urgency low -i $GIMP_ICON_PATH
+        cd $SCREENSHOTS_DIR
+        gimp $(ls -t | head -n1) &
+        notify-send 'Opening last screenshot with GIMP' --urgency low -i $GIMP_ICON_PATH
     elif [[ "$1" = "-h" ]]; then
         # help
         echo " -s   Area/window selection"
@@ -805,14 +820,14 @@ screenshot() {
 
 banner() {
     if [[ -n $(uname -a | grep -i "darwin") ]]; then
-        if command -v neofetch &> /dev/null ; then
+        if command -v neofetch &>/dev/null; then
             neofetch
-        elif command -v screenfetch &> /dev/null ; then
+        elif command -v screenfetch &>/dev/null; then
             screenfetch
         fi
     else
-        if command -v figlet &> /dev/null ; then
-            if command -v lolcat &> /dev/null ; then
+        if command -v figlet &>/dev/null; then
+            if command -v lolcat &>/dev/null; then
                 figlet " $(hostname)" | lolcat -f
             else
                 figlet " $(hostname)"
@@ -824,24 +839,24 @@ banner() {
         # get free memory
         IFS=" " read USED FREE TOTAL <<<$(free -htm | grep "Mem" | awk {'print $3,$4,$2'})
         # get processes
-        PROCESS=`ps -eo user=|sort|uniq -c | awk '{ print $2 " " $1 }'`
-        PROCESS_ALL=`echo "$PROCESS"| awk {'print $2'} | awk '{ SUM += $1} END { print SUM }'`
-        PROCESS_ROOT=`echo "$PROCESS"| grep root | awk {'print $2'}`
-        PROCESS_USER=`echo "$PROCESS"| grep -v root | awk {'print $2'} | awk '{ SUM += $1} END { print SUM }'`
+        PROCESS=$(ps -eo user= | sort | uniq -c | awk '{ print $2 " " $1 }')
+        PROCESS_ALL=$(echo "$PROCESS" | awk {'print $2'} | awk '{ SUM += $1} END { print SUM }')
+        PROCESS_ROOT=$(echo "$PROCESS" | grep root | awk {'print $2'})
+        PROCESS_USER=$(echo "$PROCESS" | grep -v root | awk {'print $2'} | awk '{ SUM += $1} END { print SUM }')
 
         W="\e[0;39m"
         G="\e[1;32m"
 
         echo -e "
   system info:
-      Distro......: $W`cat /etc/*release | grep "PRETTY_NAME" | cut -d "=" -f 2- | sed 's/"//g'`
-      Kernel......: $W`uname -sr`
+      Distro......: $W$(cat /etc/*release | grep "PRETTY_NAME" | cut -d "=" -f 2- | sed 's/"//g')
+      Kernel......: $W$(uname -sr)
 
-      Uptime......: $W`uptime -p`
+      Uptime......: $W$(uptime -p)
       Load........: $G$LOAD1$W (1m), $G$LOAD5$W (5m), $G$LOAD15$W (15m)
       Processes...:$W $G$PROCESS_ROOT$W (root), $G$PROCESS_USER$W (user) | $G$PROCESS_ALL$W (total)
 
-      CPU.........: $W`cat /proc/cpuinfo | grep "model name" | cut -d ' ' -f3- | awk {'print $0'} | head -1`
+      CPU.........: $W$(cat /proc/cpuinfo | grep "model name" | cut -d ' ' -f3- | awk {'print $0'} | head -1)
       Memory......: $G$USED$W used, $G$FREE$W free, $G$TOTAL$W in total$W"
 
         mountpoints=('/' '/tmp')
@@ -854,8 +869,8 @@ banner() {
 
         for point in "${mountpoints[@]}"; do
             line=$(df -h "${point}")
-            usagePercent=$(echo "$line"|tail -n1|awk '{print $5;}'|sed 's/%//')
-            usedBarWidth=$((($usagePercent*$barWidth)/100))
+            usagePercent=$(echo "$line" | tail -n1 | awk '{print $5;}' | sed 's/%//')
+            usedBarWidth=$((($usagePercent * $barWidth) / 100))
             barContent=""
             color="\e[32m"
             if [ "${usagePercent}" -ge "${maxDiscUsage}" ]; then
@@ -866,11 +881,11 @@ banner() {
                 barContent="${barContent}|"
             done
             barContent="${barContent}${clear}${dim}"
-            for sep in $(seq 1 $(($barWidth-$usedBarWidth))); do
+            for sep in $(seq 1 $(($barWidth - $usedBarWidth))); do
                 barContent="${barContent}-"
             done
             bar="[${barContent}${clear}]"
-            echo "  ${line}" | awk  '{if ($1 != "Filesystem") printf("%-30s%+3s used out of %+5s\n", $1, $3, $2); }' | sed -e 's/^/      /'
+            echo "  ${line}" | awk '{if ($1 != "Filesystem") printf("%-30s%+3s used out of %+5s\n", $1, $3, $2); }' | sed -e 's/^/      /'
             echo -e "  ${bar}" | sed -e 's/^/    /'
         done
 
@@ -887,7 +902,7 @@ weather() {
     curl http://v2.wttr.in/$1
 }
 
-if command -v google-chrome-stable &> /dev/null ; then
+if command -v google-chrome-stable &>/dev/null; then
     proxy_chrome() {
         #ssh -CNTvD port user@host
         if [[ -n "$1" ]]; then
@@ -900,7 +915,7 @@ if command -v google-chrome-stable &> /dev/null ; then
     }
 fi
 
-if command -v chromium &> /dev/null ; then
+if command -v chromium &>/dev/null; then
     proxy_chromium() {
         #ssh -CNTvD port user@host
         if [[ -n "$1" ]]; then
@@ -913,16 +928,16 @@ if command -v chromium &> /dev/null ; then
     }
 fi
 
-if command -v cower &> /dev/null ; then
+if command -v cower &>/dev/null; then
     coweri() {
         if [[ -n "$1" ]]; then
             currentdir=$(pwd)
-            if [[ ! ( -d ~/.cache/cower ) ]]; then
+            if [[ ! (-d ~/.cache/cower) ]]; then
                 mkdir -p -v ~/.cache/cower
             fi
 
             cd ~/.cache/cower
-            if [[ ( -d ~/.cache/cower/$1 ) ]]; then
+            if [[ (-d ~/.cache/cower/$1) ]]; then
                 whattodo="r"
                 vared -p "~/.cache/cower/$1 already exists, (o)verwrite/(r)emove? : " -c whattodo
                 [[ "$whattodo" == "o" ]] && cower -df $1 && cd $1
@@ -942,92 +957,92 @@ fi
 # -----------------------------------------------------------------------------------------
 # fzf
 # -----------------------------------------------------------------------------------------
-if command -v fzf &> /dev/null ; then
+if command -v fzf &>/dev/null; then
     export FZF_DEFAULT_OPTS="--height=50% --info=inline --border --margin=1 --padding=1 --bind up:preview-up,down:preview-down"
 
-    if command -v rg &> /dev/null ; then
+    if command -v rg &>/dev/null; then
         export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-    elif command -v fd &> /dev/null; then
+    elif command -v fd &>/dev/null; then
         export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-    elif command -v ag &> /dev/null ; then
+    elif command -v ag &>/dev/null; then
         export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
     fi
 
-    if command -v brew &> /dev/null ; then
+    if command -v brew &>/dev/null; then
         bu() {
             local upd=$(brew leaves | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:update]'")
-                if [[ $upd ]]; then
-                  for prog in $(echo $upd)
-                  do brew upgrade $prog
-                  done
-                fi
+            if [[ $upd ]]; then
+                for prog in $(echo $upd); do
+                    brew upgrade $prog
+                done
+            fi
         }
 
         br() {
             local uninst=$(brew leaves | eval "fzf ${FZF_DEFAULT_OPTS} -m --header='[brew:uninstall]'")
 
             if [[ $uninst ]]; then
-              for prog in $(echo $uninst)
-              do brew uninstall $prog
-              done
+                for prog in $(echo $uninst); do
+                    brew uninstall $prog
+                done
             fi
         }
     fi
 
-    if command -v git &> /dev/null ; then
+    if command -v git &>/dev/null; then
         is_in_git_repo() {
-          git rev-parse HEAD > /dev/null 2>&1
+            git rev-parse HEAD >/dev/null 2>&1
         }
 
         fzf-down() {
-          fzf --height 70% --min-height 20 --border --bind ctrl-/:toggle-preview "$@"
+            fzf --height 70% --min-height 20 --border --bind ctrl-/:toggle-preview "$@"
         }
 
         fgd() {
-          is_in_git_repo || return
-          git -c color.status=always status --short |
-          fzf-down -m --ansi --nth 2..,.. \
-            --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
-          cut -c4- | sed 's/.* -> //'
+            is_in_git_repo || return
+            git -c color.status=always status --short |
+                fzf-down -m --ansi --nth 2..,.. \
+                    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
+                cut -c4- | sed 's/.* -> //'
         }
 
         fgb() {
-          is_in_git_repo || return
-          git branch -a --color=always | grep -v '/HEAD\s' | sort |
-          fzf-down --ansi --multi --tac --preview-window right:70% \
-            --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
-          sed 's/^..//' | cut -d' ' -f1 |
-          sed 's#^remotes/##'
+            is_in_git_repo || return
+            git branch -a --color=always | grep -v '/HEAD\s' | sort |
+                fzf-down --ansi --multi --tac --preview-window right:70% \
+                    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
+                sed 's/^..//' | cut -d' ' -f1 |
+                sed 's#^remotes/##'
         }
 
         fgt() {
-          is_in_git_repo || return
-          git tag --sort -version:refname |
-          fzf-down --multi --preview-window right:70% \
-            --preview 'git show --color=always {}'
+            is_in_git_repo || return
+            git tag --sort -version:refname |
+                fzf-down --multi --preview-window right:70% \
+                    --preview 'git show --color=always {}'
         }
 
         fglog() {
-          is_in_git_repo || return
-          git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-          fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
-            --header 'Press CTRL-S to toggle sort' \
-            --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
-          grep -o "[a-f0-9]\{7,\}"
+            is_in_git_repo || return
+            git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+                fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+                    --header 'Press CTRL-S to toggle sort' \
+                    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
+                grep -o "[a-f0-9]\{7,\}"
         }
 
         fgrv() {
-          is_in_git_repo || return
-          git remote -v | awk '{print $1 "\t" $2}' | uniq |
-          fzf-down --tac \
-            --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' |
-          cut -d$'\t' -f1
+            is_in_git_repo || return
+            git remote -v | awk '{print $1 "\t" $2}' | uniq |
+                fzf-down --tac \
+                    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' |
+                cut -d$'\t' -f1
         }
 
         _gs() {
-          is_in_git_repo || return
-          git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
-          cut -d: -f1
+            is_in_git_repo || return
+            git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
+                cut -d: -f1
         }
     fi
 
@@ -1038,8 +1053,7 @@ if command -v fzf &> /dev/null ; then
         local pid
         pid=$(ps -ef | sed 1d | fzf -m --header='[kill:process]' | awk '{print $2}')
 
-        if [ "x$pid" != "x" ]
-        then
+        if [ "x$pid" != "x" ]; then
             echo $pid | xargs kill -${1:-9}
         fi
     }
@@ -1051,8 +1065,7 @@ if command -v fzf &> /dev/null ; then
         local pid
         pid=$(lsof -Pwni tcp | sed 1d | fzf -m --header="[kill:tcp]" | awk '{print $2}')
 
-        if [ "x$pid" != "x" ]
-        then
+        if [ "x$pid" != "x" ]; then
             echo $pid | xargs kill -${1:-9}
             ks
         fi
@@ -1066,16 +1079,20 @@ if command -v fzf &> /dev/null ; then
     tm() {
         [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
         if [ $1 ]; then
-            tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1"); return
+            tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s $1 && tmux $change -t "$1")
+            return
         fi
-        session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
+        session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) && tmux $change -t "$session" || echo "No sessions found."
     }
 
     # -----------------------------------------------------------------------------------------
     # Usage: sf <keyword>
     # -----------------------------------------------------------------------------------------
     sf() {
-        if [[ "$#" -lt 1 ]]; then echo "Supply string to search for!"; return 1; fi
+        if [[ "$#" -lt 1 ]]; then
+            echo "Supply string to search for!"
+            return 1
+        fi
         printf -v search "%q" "$*"
         rg_command='rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"'
         result=$(eval $rg_command $search | fzf --ansi --multi --reverse | awk -F ':' '{print $1":"$2":"$3}')
@@ -1088,14 +1105,17 @@ if command -v fzf &> /dev/null ; then
     # Usage: ea <keyword> | edit all file contain <keyword>
     # -----------------------------------------------------------------------------------------
     ea() {
-        if [[ "$#" -lt 1 ]]; then echo "Supply string to search for!"; return 1; fi
+        if [[ "$#" -lt 1 ]]; then
+            echo "Supply string to search for!"
+            return 1
+        fi
         printf -v search "%q" "$*"
         rg_command='rg --ignore-case --no-ignore --hidden --follow --files-with-matches'
         result=$(eval $rg_command $search)
         [[ -n "$result" ]] && ${EDITOR:-vim} $(echo $result | xargs)
     }
 
-    if [ "$EDITOR" = "nvim" ] || [ "$EDITOR" = "vim" ] ; then
+    if [ "$EDITOR" = "nvim" ] || [ "$EDITOR" = "vim" ]; then
         # -----------------------------------------------------------------------------------------
         # Usage: vimf | list subdirectories recursively with preview
         # -----------------------------------------------------------------------------------------
@@ -1103,7 +1123,7 @@ if command -v fzf &> /dev/null ; then
             previous_file="$1"
             file_to_edit=$(select_file $previous_file)
 
-            if [[ -n "$file_to_edit"  ]]; then
+            if [[ -n "$file_to_edit" ]]; then
                 $EDITOR "$file_to_edit"
                 vimf "$file_to_edit"
             fi
@@ -1149,8 +1169,8 @@ brightness() {
 
     [[ $connected_displays =~ "$main" ]] &&
         [[ $connected_displays =~ "$second" ]] &&
-            [[ "$main" != "$second" ]] &&
-                xrandr --output $main --auto --primary --output $second --auto --right-of $main
+        [[ "$main" != "$second" ]] &&
+        xrandr --output $main --auto --primary --output $second --auto --right-of $main
 }
 
 mirrordisplay() {
@@ -1158,13 +1178,13 @@ mirrordisplay() {
 
     echo $connected_displays
 
-    vared -p "main display : "  -c main
+    vared -p "main display : " -c main
     vared -p "second display : " -c second
 
     [[ $connected_displays =~ "$main" ]] &&
         [[ $connected_displays =~ "$second" ]] &&
-            [[ "$main" != "$second" ]] &&
-                xrandr --output $main --auto --primary --output $second --auto --same-as $main
+        [[ "$main" != "$second" ]] &&
+        xrandr --output $main --auto --primary --output $second --auto --same-as $main
 
     #[[ $connected_displays =~ "$main" ]] && echo "1ok"
     #[[ $connected_displays =~ "$second" ]] && echo "2ok"
@@ -1234,7 +1254,7 @@ ram() {
     fi
 }
 
-if command -v ffmpeg &> /dev/null ; then
+if command -v ffmpeg &>/dev/null; then
     # -----------------------------------------------------------------------------------------
     # Usage: extract_frame <filename>
     # -----------------------------------------------------------------------------------------
@@ -1276,14 +1296,19 @@ fi
 # -----------------------------------------------------------------------------------------
 # Usage: mp3towav <filename>
 # -----------------------------------------------------------------------------------------
-mp3towav(){
-	[[ $# -eq 0 ]] && { echo "mp3wav mp3file"; exit 1; }
-	for i in "$@"
-	do
-		# create .wav file name
-		local out="${i%/*}.wav"
-		[[ -f "$i" ]] && { echo -n "Processing ${i}..."; mpg123 -w "${out}" "$i" &>/dev/null  && echo "done." || echo "failed."; }
-	done
+mp3towav() {
+    [[ $# -eq 0 ]] && {
+        echo "mp3wav mp3file"
+        exit 1
+    }
+    for i in "$@"; do
+        # create .wav file name
+        local out="${i%/*}.wav"
+        [[ -f "$i" ]] && {
+            echo -n "Processing ${i}..."
+            mpg123 -w "${out}" "$i" &>/dev/null && echo "done." || echo "failed."
+        }
+    done
 }
 
 # -----------------------------------------------------------------------------------------
@@ -1305,19 +1330,19 @@ extract() {
     echo Extracting $1 ...
     if [[ -f $1 ]]; then
         case $1 in
-            *.7z)       7z x $1       ;;
-            *.Z)        uncompress $1 ;;
-            *.bz2)      bunzip2 $1    ;;
-            *.gz)       gunzip $1     ;;
-            *.rar)      unrar x $1    ;;
-            *.tar)      tar xvf $1    ;;
-            *.tar.bz2)  tar xjvf $1   ;;
-            *.tar.gz)   tar xzvf $1   ;;
-            *.tar.xz)   tar xvf $1    ;;
-            *.tbz2)     tar xjvf $1   ;;
-            *.tgz)      tar xzvf $1   ;;
-            *.zip)      unzip $1      ;;
-            *)        echo "'$1' cannot be extracted via extract" ;;
+        *.7z) 7z x $1 ;;
+        *.Z) uncompress $1 ;;
+        *.bz2) bunzip2 $1 ;;
+        *.gz) gunzip $1 ;;
+        *.rar) unrar x $1 ;;
+        *.tar) tar xvf $1 ;;
+        *.tar.bz2) tar xjvf $1 ;;
+        *.tar.gz) tar xzvf $1 ;;
+        *.tar.xz) tar xvf $1 ;;
+        *.tbz2) tar xjvf $1 ;;
+        *.tgz) tar xzvf $1 ;;
+        *.zip) unzip $1 ;;
+        *) echo "'$1' cannot be extracted via extract" ;;
         esac
     else
         echo "'$1' is not a valid file"
@@ -1331,17 +1356,17 @@ compress() {
     if [[ -e $1 ]]; then
         if [[ $2 ]]; then
             case $2 in
-                bz2 | bzip2)    bzip2           $1                 ;;
-                gpg)            gpg -e --default-recipient-self $1 ;;
-                gz | gzip)      gzip $1                            ;;
-                tar)            tar -cvf $1.$2  $1                 ;;
-                tar.Z)          tar -Zcvf $1.$2 $1                 ;;
-                tbz2 | tar.bz2) tar -jcvf $1.$2 $1                 ;;
-                tgz | tar.gz)   tar -zcvf $1.$2 $1                 ;;
-                zip)            zip -r $1.$2    $1                 ;;
-                *)
-                    echo "Error: $2 is not a valid compression type"
-                    ;;
+            bz2 | bzip2) bzip2 $1 ;;
+            gpg) gpg -e --default-recipient-self $1 ;;
+            gz | gzip) gzip $1 ;;
+            tar) tar -cvf $1.$2 $1 ;;
+            tar.Z) tar -Zcvf $1.$2 $1 ;;
+            tbz2 | tar.bz2) tar -jcvf $1.$2 $1 ;;
+            tgz | tar.gz) tar -zcvf $1.$2 $1 ;;
+            zip) zip -r $1.$2 $1 ;;
+            *)
+                echo "Error: $2 is not a valid compression type"
+                ;;
             esac
         else
             compress $1 tar.gz
@@ -1402,22 +1427,22 @@ compress() {
 # Usage: random_password <length>
 # -----------------------------------------------------------------------------------------
 random_password() {
-    if [[  -n $1 ]]; then
+    if [[ -n $1 ]]; then
         length=$1
         echo "random base64:"
         openssl rand -base64 $length
 
         echo "random letters and digits:"
-        LC_ALL=C tr -dc '[:alnum:]' < /dev/urandom | fold -w $length | head -n 1
+        LC_ALL=C tr -dc '[:alnum:]' </dev/urandom | fold -w $length | head -n 1
 
         echo "random lowercase letters:"
-        LC_ALL=C tr -dc '[:lower:]' < /dev/urandom | fold -w $length | head -n 1
+        LC_ALL=C tr -dc '[:lower:]' </dev/urandom | fold -w $length | head -n 1
 
         echo "random uppercase letters:"
-        LC_ALL=C tr -dc '[:upper:]' < /dev/urandom | fold -w $length | head -n 1
+        LC_ALL=C tr -dc '[:upper:]' </dev/urandom | fold -w $length | head -n 1
 
         echo "random visible characters:"
-        LC_ALL=C tr -dc '[:graph:]' < /dev/urandom | fold -w $length | head -n 1
+        LC_ALL=C tr -dc '[:graph:]' </dev/urandom | fold -w $length | head -n 1
     else
         echo "random_password <length>"
     fi
@@ -1432,14 +1457,14 @@ check_key() {
 }
 
 dump_website() {
-    if command -v wget &> /dev/null ; then
+    if command -v wget &>/dev/null; then
         wget --mirror --convert-links --adjust-extension --page-requisites --no-parent $1
     fi
 }
 
 rsa() {
     if [[ $1 == "keygen" ]]; then
-        if [[ ( -n $2 && -n $3 ) ]]; then
+        if [[ (-n $2 && -n $3) ]]; then
             pri=$2
             size=$3
             pub="$pri.pub"
@@ -1448,8 +1473,8 @@ rsa() {
         else
             echo "Usage: rsa keygen <keyname> <keysize>"
         fi
-    elif [[ ( $1 == "encrypt" || $1 == "e" )]]; then
-        if [[ ( -n $2 && -n $3 && -n $4) ]]; then
+    elif [[ ($1 == "encrypt" || $1 == "e") ]]; then
+        if [[ (-n $2 && -n $3 && -n $4) ]]; then
             pub=$2
             infile=$3
             outfile=$4
@@ -1457,8 +1482,8 @@ rsa() {
         else
             echo "Usage: rsa encrypt <pubkey> <infile> <outfile>"
         fi
-    elif [[ ( $1 == "decrypt" || $1 == "d" ) ]]; then
-        if [[ ( -n $2 && -n $3 && -n $4) ]]; then
+    elif [[ ($1 == "decrypt" || $1 == "d") ]]; then
+        if [[ (-n $2 && -n $3 && -n $4) ]]; then
             pri=$2
             infile=$3
             outfile=$4
@@ -1475,14 +1500,14 @@ rsa() {
 }
 
 aes() {
-    if [[ ( $1 == "encrypt" || $1 == "e" ) ]]; then
-        if [[ ( -n $2 && -n $3 && -n $4 ) ]]; then
+    if [[ ($1 == "encrypt" || $1 == "e") ]]; then
+        if [[ (-n $2 && -n $3 && -n $4) ]]; then
             infile=$2
             outfile=$3
             keyfile=$4
             #time openssl aes-256-cbc -a -salt -in $infile -out $outfile -kfile $keyfile
             time openssl enc -aes-256-cbc -a -salt -in $infile -out $outfile -pass file:$keyfile
-        elif [[ ( -n $2 && -n $3 ) ]]; then
+        elif [[ (-n $2 && -n $3) ]]; then
             infile=$2
             outfile=$3
             #time openssl aes-256-cbc -a -salt -in $infile -out $outfile
@@ -1493,13 +1518,13 @@ aes() {
             echo "aes encrypt <infile> <outfile> <keyfile>"
         fi
     elif [[ $1 == "decrypt" || $1 == "d" ]]; then
-        if [[ ( -n $2 && -n $3 && -n $4 ) ]]; then
+        if [[ (-n $2 && -n $3 && -n $4) ]]; then
             infile=$2
             outfile=$3
             keyfile=$4
             #time openssl aes-256-cbc -d -a -in $infile -out $outfile -kfile $keyfile
             time openssl enc -aes-256-cbc -d -a -in $infile -out $outfile -pass file:$keyfile
-        elif [[ ( -n $2 && -n $3 ) ]]; then
+        elif [[ (-n $2 && -n $3) ]]; then
             infile=$2
             outfile=$3
             #time openssl aes-256-cbc -d -a -in $infile -out $outfile
@@ -1521,7 +1546,7 @@ aes() {
 # -----------------------------------------------------------------------------------------
 # Usage: viewimg <filename> | display image in terminal
 # -----------------------------------------------------------------------------------------
-if command -v w3m &> /dev/null && [[ -f /usr/lib/w3m/w3mimgdisplay ]]; then
+if command -v w3m &>/dev/null && [[ -f /usr/lib/w3m/w3mimgdisplay ]]; then
     viewimg() {
         w3m -o imgdisplay=/usr/lib/w3m/w3mimgdisplay -o ext_image_viewer=N $1
     }
@@ -1535,46 +1560,46 @@ tor-transfer() {
     torPort=9050
 
     if [ $# -eq 0 ]; then
-        echo -e "No arguments specified. Usage:\necho tor-transfer /tmp/test.md\ncat /tmp/test.md | tor-transfer test.md";
-        return 1;
+        echo -e "No arguments specified. Usage:\necho tor-transfer /tmp/test.md\ncat /tmp/test.md | tor-transfer test.md"
+        return 1
     fi
 
     torstatus=$(systemctl status tor | grep Active | cut -d":" -f2 | cut -d" " -f2)
-    if [[ -n "$torstatus" ]] && [[ "$torstatus" == "active" ]];then
-        tmpfile=$( mktemp -t transferXXX );
+    if [[ -n "$torstatus" ]] && [[ "$torstatus" == "active" ]]; then
+        tmpfile=$(mktemp -t transferXXX)
         if tty -s; then
-            basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g');
-            curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile;
+            basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g')
+            curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >>$tmpfile
         else
-            curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ;
-        fi;
+            curl --socks5-hostname ${torIp}:${torPort} --retry 3 --connect-timeout 60 --progress-bar --upload-file "-" "https://transfer.sh/$1" >>$tmpfile
+        fi
         echo ""
-        cat $tmpfile;
+        cat $tmpfile
         echo ""
-        rm -f $tmpfile;
+        rm -f $tmpfile
     else
         echo "tor is inactive"
-        return 1;
+        return 1
     fi
 }
 
 transfer() {
     if [ $# -eq 0 ]; then
-        echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md";
-        return 1;
+        echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"
+        return 1
     fi
 
-    tmpfile=$( mktemp -t transferXXX );
+    tmpfile=$(mktemp -t transferXXX)
     if tty -s; then
-        basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g');
-        curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile;
+        basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g')
+        curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >>$tmpfile
     else
-        curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ;
-    fi;
+        curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >>$tmpfile
+    fi
     echo ""
-    cat $tmpfile;
+    cat $tmpfile
     echo ""
-    rm -f $tmpfile;
+    rm -f $tmpfile
 }
 
 # -----------------------------------------------------------------------------------------
@@ -1595,14 +1620,14 @@ nethack-nao() {
 nethack-nao-game-status() {
     if [[ -z "$1" ]]; then
         url="https://alt.org/nethack/mostrecent.php"
-        if command -v firefox &> /dev/null ; then
+        if command -v firefox &>/dev/null; then
             firefox $url
         else
             echo "$url"
         fi
     else
         url="https://alt.org/nethack/player-all.php?player=$1"
-        if command -v firefox &> /dev/null ; then
+        if command -v firefox &>/dev/null; then
             firefox $url
         else
             echo "$url"
@@ -1639,50 +1664,25 @@ crawl-cao() {
 # ------------------------------------
 # Docker functions
 # ------------------------------------
-if command -v docker &> /dev/null ; then
+if command -v docker &>/dev/null; then
     docker_alias_stop_all_containers() { docker stop $(docker ps -a -q); }
     docker_alias_remove_all_containers() { docker rm $(docker ps -a -q); }
     docker_alias_remove_all_empty_images() { docker images | awk '{print $2 " " $3}' | grep '^<none>' | awk '{print $2}' | xargs -I{} docker rmi {}; }
     docker_alias_docker_file_build() { docker build -t=$1 .; }
-    docker_alias_show_all_docker_related_alias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+    docker_alias_show_all_docker_related_alias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/" | sed "s/['|\']//g" | sort; }
     docker_alias_bash_into_running_container() { docker exec -it $(docker ps -aqf "name=$1") bash; }
 
     #open-source lightweight management UI for Docker hosts or Swarm clusters
     portainer() {
         docker volume create portainer_data
         docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
-        --restart=always \
-        -v /var/run/docker.sock:/var/run/docker.sock \
-        -v portainer_data:/data \
-        portainer/portainer-ce:alpine
-    }
-
-    # A visualizer for Docker Swarm Mode using the Docker Remote API, Node.JS, and D3
-    visualizer() {
-        $image="dockersamples/visualizer"
-
-        cpu_architecture=$(lscpu | grep "Architecture:" | awk '{print $2}')
-
-        if [[ $cpu_architecture =~ "*arm*" ]]; then
-            $image="alexellis2/visualizer-arm:latest"
-        fi
-
-        docker run -rm -it -d \
-            -name visualizer
-            -p 8080:8080 \
+            --restart=always \
             -v /var/run/docker.sock:/var/run/docker.sock \
-            $image
+            -v portainer_data:/data \
+            portainer/portainer-ce:alpine
     }
 
-    #Top-like interface for container metrics (https://github.com/bcicen/ctop)
-    ctop() {
-        docker run --rm -ti \
-            --name=ctop \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            quay.io/vektorlab/ctop:latest
-    }
-
-    if ! command -v dive &> /dev/null ; then
+    if ! command -v dive &>/dev/null; then
         dive() {
             docker run --rm -it \
                 --name=dive \
@@ -1703,13 +1703,13 @@ if command -v docker &> /dev/null ; then
         }
     fi
 
-    pull_limit(){
+    pull_limit() {
         TOKEN=$(curl "https://auth.docker.io/token?service=registry.docker.io&scope=repository:ratelimitpreview/test:pull" | jq -r .token)
-        if command -v https &> /dev/null; then
+        if command -v https &>/dev/null; then
             https --head -A bearer -a $TOKEN registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
-        elif command -v curl &> /dev/null; then
+        elif command -v curl &>/dev/null; then
             curl --head -H "Authorization: Bearer $TOKEN" https://registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
-        elif command -v wget &> /dev/null; then
+        elif command -v wget &>/dev/null; then
             wget -qSo- --header="Authorization: Bearer $TOKEN" https://registry-1.docker.io/v2/ratelimitpreview/test/manifests/latest
         fi
     }
@@ -1718,7 +1718,7 @@ fi
 # --------------------------------------------------------------------------------
 # Security
 # --------------------------------------------------------------------------------
-if command -v nmap &> /dev/null; then
+if command -v nmap &>/dev/null; then
     nmap-fast() {
         nmap --open -Pn $1 -o $1
     }
@@ -1749,14 +1749,13 @@ banner
 #########################
 ## https://starship.rs ##
 #########################
-if command -v starship &> /dev/null; then
+if command -v starship &>/dev/null; then
     eval "$(starship init bash)"
 fi
 
 ###################################
 ## https://github.com/github/hub ##
 ###################################
-if command -v hub &> /dev/null; then
+if command -v hub &>/dev/null; then
     eval "$(hub alias -s)"
 fi
-
