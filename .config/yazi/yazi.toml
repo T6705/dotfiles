@@ -1,0 +1,10 @@
+[mgr]
+show_hidden    = true
+
+[preview]
+wrap            = "yes"
+tab_size        = 4
+max_width       = 2560
+max_height      = 1440
+image_delay     = 0
+image_quality   = 50
