@@ -422,6 +422,7 @@ require("lazy").setup({
         cssls = {},
         docker_compose_language_service = {},
         dockerls = {},
+        groovyls = {},
         html = {},
         marksman = {},
         rust_analyzer = {},
@@ -633,6 +634,7 @@ require("lazy").setup({
           "hadolint",
           "impl",
           "markdownlint-cli2",
+          "npm-groovy-lint",
           "php-cs-fixer",
           "phpcs",
           "prettier",
@@ -663,7 +665,7 @@ require("lazy").setup({
   {
     'nvim-treesitter/nvim-treesitter',
     event = { "BufReadPost", "BufNewFile" },
-    cmd = { "TSUpdate", "TSUpdateSync", "TSInstall", "TSLog", "TSUninstall" },
+    cmd = { "TSUpdate", "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter-context",
@@ -682,7 +684,7 @@ require("lazy").setup({
         },
       },
     },
-    build = ':TSUpdateSync',
+    build = ':TSUpdate',
     config = function()
       require 'nvim-treesitter'.setup {
         ensure_installed = {
@@ -701,6 +703,8 @@ require("lazy").setup({
           "gomod",
           "gosum",
           "gowork",
+          "groovy",
+          "groovydoc",
           "html",
           "javascript",
           "jsdoc",
@@ -811,6 +815,7 @@ require("lazy").setup({
           c = { "clang-format" },
           cpp = { "clang-format" },
           go = { "goimports", "gofumpt" },
+          groovy = { "npm_groovy_lint" },
           html = { "prettier" },
           javascript = { "prettier" },
           javascriptreact = { "prettier" },
@@ -1028,9 +1033,7 @@ require("lazy").setup({
     priority = 1000,
     lazy = false,
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+      bigfile      = { enabled = true, size = 5 * 1024 * 1024, },
       explorer     = { enabled = true },
       gitbrowse    = { enabled = true },
       image        = { enabled = true },
@@ -1039,7 +1042,14 @@ require("lazy").setup({
       lazygit      = { enabled = true },
       notifier     = { enabled = true, timeout = 3000 },
       notify       = { enabled = true },
-      picker       = { enabled = true },
+      picker       = {
+        enabled = true,
+        previewers = {
+          file = {
+            max_size = 5 * 1024 * 1024,
+          },
+        },
+      },
       quickfile    = { enabled = true },
       rename       = { enabled = true },
       scope        = { enabled = true },
