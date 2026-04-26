@@ -44,11 +44,11 @@ map("v", "y", "ygv<esc>", opts)
 map("n", "vv", "^vg_", opts)
 
 local function smart_dd()
-	if vim.api.nvim_get_current_line():match("^%s*$") then
-		return '"_dd'
-	else
-		return "dd"
-	end
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  else
+    return "dd"
+  end
 end
 
 -- It solves the issue, where you want to delete empty line, but dd will override you last yank. Code above will check if u are deleting empty line, if so - use black hole register.
@@ -79,10 +79,10 @@ map("n", "<Down>", "2<C-W>-", opts)
 -- map('v', '0', 'g0', opts)
 -- map('v', '^', 'g^', opts)
 map("n", "j", function()
-	return vim.v.count > 0 and "m'" .. vim.v.count .. "j" or "gj"
+  return vim.v.count > 0 and "m'" .. vim.v.count .. "j" or "gj"
 end, { noremap = true, expr = true })
 map("n", "k", function()
-	return vim.v.count > 0 and "m'" .. vim.v.count .. "k" or "gk"
+  return vim.v.count > 0 and "m'" .. vim.v.count .. "k" or "gk"
 end, { noremap = true, expr = true })
 map("n", "$", "g$", opts)
 map("v", "j", "gj", opts)
@@ -164,16 +164,16 @@ map("n", "<leader>/", '"fyiw :/<C-r>f<CR>', opts)
 
 -- Easy find and replace.
 map(
-	{ "v" },
-	"<leader>re",
-	'"hy:%s/<C-r>h/<C-r>h/gc<left><left><left>',
-	{ desc = "Open search and replace for currently selected text" }
+  { "v" },
+  "<leader>re",
+  '"hy:%s/<C-r>h/<C-r>h/gc<left><left><left>',
+  { desc = "Open search and replace for currently selected text" }
 )
 map(
-	{ "n" },
-	"<leader>re",
-	":%s/<C-r><C-w>/<C-r><C-w>/gc<Left><Left><Left>",
-	{ desc = "Open search and replace for word under cursor" }
+  { "n" },
+  "<leader>re",
+  ":%s/<C-r><C-w>/<C-r><C-w>/gc<Left><Left><Left>",
+  { desc = "Open search and replace for word under cursor" }
 )
 
 -- Duplicate a line and comment out the first line
@@ -221,8 +221,8 @@ map("n", "[t", "gT", opts)
 map("n", "<leader>tn", ":tabnew<CR>", opts)
 
 -- Buffer nav
--- map('n', '[b', ':bp<CR>', opts)
--- map('n', ']b', ':bn<CR>', opts)
+map('n', '<S-Tab>', ':bp<CR>', opts)
+map('n', '<Tab>', ':bn<CR>', opts)
 map("n", "<leader>q", ":bd!<CR>", opts)
 map("n", "<leader>bn", ":enew<CR>", opts)
 -- map('n', '<bs>', '<C-^>', opts)
@@ -253,6 +253,9 @@ map("n", "<leader>bn", ":enew<CR>", opts)
 -- inoremap ,o <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>" : ",o"<CR>
 -- ]]
 
+-- nvim.undotree
+map("n", "<leader>ud", require("undotree").open)
+
 -- folding
 map("n", "<leader>f", "za<CR>", opts)
 map("v", "<leader>f", "za<CR>", opts)
@@ -275,16 +278,16 @@ map("n", "<leader>5", "m`^i##### <Esc>``6l", opts)
 -- prettier
 ---------------------------------------------------------------------------------
 map(
-	"n",
-	"<leader>pt",
-	"mm:silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz",
-	opts
+  "n",
+  "<leader>pt",
+  "mm:silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz",
+  opts
 )
 map(
-	"n",
-	"<leader>pta",
-	"mm:bufdo silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz",
-	opts
+  "n",
+  "<leader>pta",
+  "mm:bufdo silent %!prettier --stdin-filepath % --trailing-comma all --single-quote<CR>`m:delmarks m<CR>zz",
+  opts
 )
 
 -- map("n", "<cr>", "ciw", opts)

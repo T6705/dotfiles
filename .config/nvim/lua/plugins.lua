@@ -73,8 +73,6 @@ require("lazy").setup({
           mason = true,
           nvim_surround = true,
           treesitter = true,
-          treesitter_context = true,
-          ufo = true,
           snacks = true,
           native_lsp = {
             enabled = true,
@@ -222,7 +220,20 @@ require("lazy").setup({
       })
     end
   },
-
+  {
+    "NeogitOrg/neogit",
+    lazy = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- Only one of these is needed.
+      "sindrets/diffview.nvim",
+      "folke/snacks.nvim",
+    },
+    cmd = "Neogit",
+    keys = {
+      { "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" }
+    }
+  },
 
   --------------------------------------------------------------------------------
   -- lsp
@@ -235,13 +246,6 @@ require("lazy").setup({
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'folke/lazydev.nvim', ft = 'lua', opts = { library = { { path = "${3rd}/luv/library", words = { "vim%.uv" } }, }, } },
-      {
-        "MysticalDevil/inlay-hints.nvim",
-        event = "LspAttach",
-        config = function()
-          require("inlay-hints").setup()
-        end
-      },
       {
         "rachartier/tiny-inline-diagnostic.nvim",
         event = "VeryLazy", -- Or `LspAttach`
@@ -664,103 +668,57 @@ require("lazy").setup({
 
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = "main",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSUpdate", "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
     dependencies = {
       {
-        "nvim-treesitter/nvim-treesitter-context",
-        event = "BufReadPost",
-        opts = {
-          enable = true,            -- Enable this plugin
-          max_lines = 3,            -- How many lines the window should span
-          min_window_height = 15,   -- Only show context if window is tall enough
-          line_numbers = true,
-          multiline_threshold = 20, -- Max lines to show for a single context
-          trim_scope = "outer",     -- Which context lines to discard if max_lines exceeded
-          mode = "cursor",          -- Line used to calculate context. Choices: 'cursor', 'topline'
-        },
-        keys = {
-          { "[c", function() require("treesitter-context").go_to_context() end, desc = "Jump to context" },
-        },
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        lazy = false,
+        config = function()
+          require("nvim-treesitter-textobjects").setup({
+            select = {
+              enable = true,
+              lookahead = true,
+              keymaps = {
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+              },
+            },
+          })
+        end,
       },
     },
     build = ':TSUpdate',
-    config = function()
-      require 'nvim-treesitter'.setup {
-        ensure_installed = {
-          "bash",
-          "c",
-          "cpp",
-          "css",
-          "diff",
-          "dockerfile",
-          "git_config",
-          "git_rebase",
-          "gitattributes",
-          "gitcommit",
-          "gitignore",
-          "go",
-          "gomod",
-          "gosum",
-          "gowork",
-          "groovy",
-          "groovydoc",
-          "html",
-          "javascript",
-          "jsdoc",
-          "json",
-          "json5",
-          "jsonc",
-          "lua",
-          "luadoc",
-          "luap",
-          "markdown",
-          "markdown_inline",
-          "ninja",
-          "norg",
-          "printf",
-          "python",
-          "query",
-          "regex",
-          "rst",
-          "scss",
-          "svelte",
-          "toml",
-          "tsx",
-          "typescript",
-          "typst",
-          "vim",
-          "vimdoc",
-          "vue",
-          "xml",
-          "yaml",
-        },
-        sync_install = false,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            -- init_selection = '<CR>',
-            -- scope_incremental = '<CR>',
-            node_incremental = "v",
-            node_decremental = "V",
-          },
-        },
-        indent = {
-          enable = true
-        },
-        matchup = {
-          enable = true
-        },
-        query_linter = {
-          enable = true,
-          use_virtual_text = true,
-          lint_events = { "BufWrite", "CursorHold" },
-        },
+    init = function()
+      local ensureInstalled = {
+        "bash", "c", "cpp", "css", "diff", "dockerfile", "go", "gomod", "gosum", "gowork",
+        "groovy", "html", "javascript", "jsdoc", "json", "json5", "jsonc", "ninja", "python",
+        "query", "regex", "rst", "scss", "svelte", "toml", "tsx", "typescript", "typst", "vue",
+        "xml", "yaml", 'lua', 'python', 'typescript',
       }
+      vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+        callback = function()
+          if vim.bo.buftype ~= "" then
+            return
+          end
+
+          -- Enable treesitter highlighting and disable regex syntax
+          pcall(vim.treesitter.start, 0)
+          -- indents
+          -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          -- folds
+          -- vim.wo.foldexpr = "v:lua.require'nvim-treesitter'.foldexpr()"
+        end,
+      })
+
+      local alreadyInstalled = require('nvim-treesitter.config').get_installed()
+      local parsersToInstall = vim.iter(ensureInstalled)
+          :filter(function(parser)
+            return not vim.tbl_contains(alreadyInstalled, parser)
+          end)
+          :totable()
+      require('nvim-treesitter').install(parsersToInstall)
     end,
   },
 
@@ -942,28 +900,28 @@ require("lazy").setup({
       }
     end
   },
-  {
-    "ghillb/cybu.nvim",
-    event = "VeryLazy",
-    branch = "main",
-    dependencies = {
-      { 'nvim-tree/nvim-web-devicons', lazy = true },
-      "nvim-lua/plenary.nvim",
-    },
-    config = function()
-      require('cybu').setup({
-        style = {
-          highlights = {
-            current_buffer = "Cursorline",
-            adjacent_buffers = "LineNr",
-            background = "Normal",
-          },
-        },
-      })
-      vim.keymap.set("n", "<S-Tab>", "<Plug>(CybuPrev)")
-      vim.keymap.set("n", "<Tab>", "<Plug>(CybuNext)")
-    end,
-  },
+  -- {
+  --   "ghillb/cybu.nvim",
+  --   event = "VeryLazy",
+  --   branch = "main",
+  --   dependencies = {
+  --     { 'nvim-tree/nvim-web-devicons', lazy = true },
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   config = function()
+  --     require('cybu').setup({
+  --       style = {
+  --         highlights = {
+  --           current_buffer = "Cursorline",
+  --           adjacent_buffers = "LineNr",
+  --           background = "Normal",
+  --         },
+  --       },
+  --     })
+  --     vim.keymap.set("n", "<S-Tab>", "<Plug>(CybuPrev)")
+  --     vim.keymap.set("n", "<Tab>", "<Plug>(CybuNext)")
+  --   end,
+  -- },
   {
     "kylechui/nvim-surround",
     version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
@@ -1077,7 +1035,7 @@ require("lazy").setup({
       { "<leader>gB",  function() Snacks.gitbrowse() end,                                      desc = "Git Browse" },
       { "<leader>gd",  function() Snacks.picker.git_diff() end,                                desc = "Git Diff (Hunks)" },
       { "<leader>gf",  function() Snacks.picker.git_log_file() end,                            desc = "Git Log File" },
-      { "<leader>gg",  function() Snacks.lazygit() end,                                        desc = "Lazygit" },
+      -- { "<leader>gg",  function() Snacks.lazygit() end,                                        desc = "Lazygit" },
       { "<leader>gl",  function() Snacks.picker.git_log() end,                                 desc = "Git Log" },
       { "<leader>gL",  function() Snacks.picker.git_log_line() end,                            desc = "Git Log Line" },
       { "<leader>gs",  function() Snacks.picker.git_status() end,                              desc = "Git Status" },
